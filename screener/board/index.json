@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T03:12:07Z",
+  "generated_at": "2026-10-29T03:23:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20261029-276",
@@ -1661,6 +1661,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261029-529",
+      "headline": "SK hynix-owned Solidigm is plotting a new $45 billion flash memory factory for the US, report claims",
+      "headline_en": null,
+      "url": "https://www.tomshardware.com/tech-industry/manufacturing/sk-hynix-owned-solidigm-is-plotting-a-new-usd45-billion-flash-memory-factory-for-the-us-report-claims-wants-go-ahead-to-export-equipment-for-china-upgrades-in-return",
+      "source_name": "Tom's Hardware",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T13:01:21Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Solidigm, a subsidiary of SK hynix, is planning a $45 billion investment in a new flash memory factory in the US.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Solidigm, a subsidiary of SK hynix, is planning a $45 billion investment in a new flash memory factory in the US.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SK hynix",
+          "ticker": null,
+          "listing_country": "KR"
+        },
+        {
+          "name": "Solidigm",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261029-374",
       "headline": "Samsung Posts Fourth Straight Quarter of Record Earnings",
       "headline_en": null,
@@ -1950,55 +2004,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-066",
-      "headline": "California BanCorp Reports Third Quarter 2026 Net Income of $14.0 million",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/california-bancorp-reports-third-quarter-2026-net-income-140-million",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T18:09:14Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "California BanCorp reported Q3 2026 net income of $14.0 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "California BanCorp reported Q3 2026 net income of $14.0 million.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "California BanCorp",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -206165,77 +206170,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-85129948d8af",
-      "idea_version": "IDEAV-63cd6e976e3b57ff",
-      "idea_version_started_at": "2026-10-27T16:21:10Z",
-      "ticker": "NVS",
-      "company": "Novartis",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A $1.9 billion writedown on a key drug asset indicates poor capital allocation and potential future earnings pressure following the Avidity acquisition.",
-      "why_now": "The writedown was reported on October 27, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-49958d316f65"
-      ],
-      "primary_source_event_id": "EVT-49958d316f65",
-      "source_headlines": [
-        "Novartis takes $1.9bn writedown on key drug after blockbuster Avidity acquisition"
-      ],
-      "source_headline": "Novartis takes $1.9bn writedown on key drug after blockbuster Avidity acquisition",
-      "source_url": "https://www.ft.com/content/f7651365-f19c-40fd-87de-fcdb8a8a7104?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-27T15:15:31Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-27T16:21:10Z",
-      "updated_at": "2026-10-27T16:21:10Z",
-      "decay_at": "2026-10-29T03:15:31Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-8d0cbe562695",
       "idea_version": "IDEAV-a7c41e84466f49b0",
       "idea_version_started_at": "2026-10-29T02:54:08Z",
@@ -207242,77 +207176,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-954f3f21e4b8",
-      "idea_version": "IDEAV-9ad7ea903ec140fd",
-      "idea_version_started_at": "2026-10-27T16:21:10Z",
-      "ticker": "SKYGOLD",
-      "company": "Sky Gold Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported a 111.9% increase in profit after tax for Q2 FY27, signaling significant operational scaling and margin expansion.",
-      "why_now": "Financial results were released on October 27, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4db805c4b43e"
-      ],
-      "primary_source_event_id": "EVT-4db805c4b43e",
-      "source_headlines": [
-        "SKY GOLD AND DIAMONDS LIMITED: Please see attached Copy of Press Release titled \"Sky Gold and Diamonds Limited announces Q2 and H1 FY27 Financial Results; Revenue at Rs. 4,403.45 Crore, PAT up 111.9%.\""
-      ],
-      "source_headline": "SKY GOLD AND DIAMONDS LIMITED: Please see attached Copy of Press Release titled \"Sky Gold and Diamonds Limited announces Q2 and H1 FY27 Financial Results; Revenue at Rs. 4,403.45 Crore, PAT up 111.9%.\"",
-      "source_url": "https://nsearchives.nseindia.com/corporate/SKYGOLD_27102026204333_PressRelease27102026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-27T15:13:47Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-27T11:08:01Z",
-      "updated_at": "2026-10-27T16:21:10Z",
-      "decay_at": "2026-10-29T03:13:47Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-406ba717f9ef",
       "idea_version": "IDEAV-25276e7ead781014",
       "idea_version_started_at": "2026-10-26T13:58:56Z",
@@ -207944,6 +207807,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-85129948d8af",
+      "idea_version": "IDEAV-63cd6e976e3b57ff",
+      "idea_version_started_at": "2026-10-27T16:21:10Z",
+      "ticker": "NVS",
+      "company": "Novartis",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A $1.9 billion writedown on a key drug asset indicates poor capital allocation and potential future earnings pressure following the Avidity acquisition.",
+      "why_now": "The writedown was reported on October 27, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-49958d316f65"
+      ],
+      "primary_source_event_id": "EVT-49958d316f65",
+      "source_headlines": [
+        "Novartis takes $1.9bn writedown on key drug after blockbuster Avidity acquisition"
+      ],
+      "source_headline": "Novartis takes $1.9bn writedown on key drug after blockbuster Avidity acquisition",
+      "source_url": "https://www.ft.com/content/f7651365-f19c-40fd-87de-fcdb8a8a7104?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-27T15:15:31Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-27T16:21:10Z",
+      "updated_at": "2026-10-27T16:21:10Z",
+      "decay_at": "2026-10-29T03:15:31Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-58d3e0cadc2a",
       "idea_version": "IDEAV-3b0ca6c61b0b4714",
       "idea_version_started_at": "2026-10-27T08:26:43Z",
@@ -208294,6 +208228,77 @@
       "surfaced_at": "2026-10-28T08:58:37Z",
       "updated_at": "2026-10-28T08:58:37Z",
       "decay_at": "2026-10-28T21:55:38Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-954f3f21e4b8",
+      "idea_version": "IDEAV-9ad7ea903ec140fd",
+      "idea_version_started_at": "2026-10-27T16:21:10Z",
+      "ticker": "SKYGOLD",
+      "company": "Sky Gold Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported a 111.9% increase in profit after tax for Q2 FY27, signaling significant operational scaling and margin expansion.",
+      "why_now": "Financial results were released on October 27, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4db805c4b43e"
+      ],
+      "primary_source_event_id": "EVT-4db805c4b43e",
+      "source_headlines": [
+        "SKY GOLD AND DIAMONDS LIMITED: Please see attached Copy of Press Release titled \"Sky Gold and Diamonds Limited announces Q2 and H1 FY27 Financial Results; Revenue at Rs. 4,403.45 Crore, PAT up 111.9%.\""
+      ],
+      "source_headline": "SKY GOLD AND DIAMONDS LIMITED: Please see attached Copy of Press Release titled \"Sky Gold and Diamonds Limited announces Q2 and H1 FY27 Financial Results; Revenue at Rs. 4,403.45 Crore, PAT up 111.9%.\"",
+      "source_url": "https://nsearchives.nseindia.com/corporate/SKYGOLD_27102026204333_PressRelease27102026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-27T15:13:47Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-27T11:08:01Z",
+      "updated_at": "2026-10-27T16:21:10Z",
+      "decay_at": "2026-10-29T03:13:47Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -211261,19 +211266,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 555,
+    "total_count": 557,
     "shown_count": 500,
-    "hidden_count": 55,
+    "hidden_count": 57,
     "side_counts": {
       "long": {
-        "total_count": 283,
+        "total_count": 284,
         "shown_count": 250,
-        "hidden_count": 33
+        "hidden_count": 34
       },
       "short": {
-        "total_count": 272,
+        "total_count": 273,
         "shown_count": 250,
-        "hidden_count": 22
+        "hidden_count": 23
       }
     },
     "retention": {
@@ -211292,6 +211297,154 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-85129948d8af",
+        "idea_version": "IDEAV-63cd6e976e3b57ff",
+        "idea_version_started_at": "2026-10-27T16:21:10Z",
+        "ticker": "NVS",
+        "company": "Novartis",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "A $1.9 billion writedown on a key drug asset indicates poor capital allocation and potential future earnings pressure following the Avidity acquisition.",
+        "why_now": "The writedown was reported on October 27, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 60,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-49958d316f65"
+        ],
+        "primary_source_event_id": "EVT-49958d316f65",
+        "source_headlines": [
+          "Novartis takes $1.9bn writedown on key drug after blockbuster Avidity acquisition"
+        ],
+        "source_headline": "Novartis takes $1.9bn writedown on key drug after blockbuster Avidity acquisition",
+        "source_url": "https://www.ft.com/content/f7651365-f19c-40fd-87de-fcdb8a8a7104?syn-25a6b1a6=1",
+        "source_name": "Financial Times",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-27T15:15:31Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-27T16:21:10Z",
+        "updated_at": "2026-10-27T16:21:10Z",
+        "decay_at": "2026-10-29T03:15:31Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-29T03:15:31Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-954f3f21e4b8",
+        "idea_version": "IDEAV-9ad7ea903ec140fd",
+        "idea_version_started_at": "2026-10-27T16:21:10Z",
+        "ticker": "SKYGOLD",
+        "company": "Sky Gold Limited",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company reported a 111.9% increase in profit after tax for Q2 FY27, signaling significant operational scaling and margin expansion.",
+        "why_now": "Financial results were released on October 27, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-4db805c4b43e"
+        ],
+        "primary_source_event_id": "EVT-4db805c4b43e",
+        "source_headlines": [
+          "SKY GOLD AND DIAMONDS LIMITED: Please see attached Copy of Press Release titled \"Sky Gold and Diamonds Limited announces Q2 and H1 FY27 Financial Results; Revenue at Rs. 4,403.45 Crore, PAT up 111.9%.\""
+        ],
+        "source_headline": "SKY GOLD AND DIAMONDS LIMITED: Please see attached Copy of Press Release titled \"Sky Gold and Diamonds Limited announces Q2 and H1 FY27 Financial Results; Revenue at Rs. 4,403.45 Crore, PAT up 111.9%.\"",
+        "source_url": "https://nsearchives.nseindia.com/corporate/SKYGOLD_27102026204333_PressRelease27102026.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-27T15:13:47Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-27T11:08:01Z",
+        "updated_at": "2026-10-27T16:21:10Z",
+        "decay_at": "2026-10-29T03:13:47Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-29T03:13:47Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-14600c52489c",
         "idea_version": "IDEAV-57292833b014c260",
@@ -239961,80 +240114,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-67e788b795cf",
-        "idea_version": "IDEAV-6525009ab95c2fa5",
-        "idea_version_started_at": "2026-10-14T08:35:25Z",
-        "ticker": "GNP",
-        "company": "GenusPlus Group",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Securing major infrastructure contract awards provides immediate revenue visibility and confirms strong demand for the company's services.",
-        "why_now": "The contract awards were filed with the exchange on 2026-10-14.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-4b47741c827d"
-        ],
-        "primary_source_event_id": "EVT-4b47741c827d",
-        "source_headlines": [
-          "GNP: Genus Secures Major Infrastructure Contract Awards [price-sensitive]"
-        ],
-        "source_headline": "GNP: Genus Secures Major Infrastructure Contract Awards [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GNP?key=2924-03148296-6A1349194",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 93,
-        "newest_source_at": "2026-10-14T04:41:14Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-14T08:35:25Z",
-        "updated_at": "2026-10-14T08:35:25Z",
-        "decay_at": "2026-10-15T16:41:14Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-17T04:59:14Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-5f8e4c75be94",
         "idea_version": "IDEAV-00dd1eb7eab5b8cb",
         "idea_version_started_at": "2026-10-14T04:53:47Z",
@@ -248461,86 +248540,12 @@
         "archived_at": "2026-10-06T10:47:40Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-c4367824b313",
-        "idea_version": "IDEAV-b9e02035854b9685",
-        "idea_version_started_at": "2026-10-03T12:06:09Z",
-        "ticker": "DPSC",
-        "company": "DPSC Limited",
-        "exchange": "BSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "DPSC Limited has entered Corporate Insolvency Resolution Process, signaling severe financial distress and potential operational disruption.",
-        "why_now": "The appointment of a Whole-time Director in a Material Subsidiary Company related to the CIRP was announced on October 3, 2026.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-bc20ae4fd694"
-        ],
-        "primary_source_event_id": "EVT-bc20ae4fd694",
-        "source_headlines": [
-          "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Appointment of a Whole-time Director in a Material Subsidiary Company"
-        ],
-        "source_headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Appointment of a Whole-time Director in a Material Subsidiary Company",
-        "source_url": "https://nsearchives.nseindia.com/corporate/DPSCLTD_03102026133257_IntimationofAppointmentofWTDinIPLaMSUnderReg30ofLODR03102026.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-03T08:03:14Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-03T12:06:09Z",
-        "updated_at": "2026-10-03T12:06:09Z",
-        "decay_at": "2026-10-04T20:03:14Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-06T10:47:40Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1986,
-    "live_count": 20,
+    "live_count": 18,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -248559,9 +248564,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 177073,
-    "news_picked_today": 727,
-    "news_dropped_today": 1937
+    "news_seen_today": 180437,
+    "news_picked_today": 782,
+    "news_dropped_today": 2074
   },
   "book_momentum": {
     "live_count": 8,
