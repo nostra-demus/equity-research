@@ -1,13 +1,13 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-10-16T04:22:13Z",
+  "archived_at": "2026-10-29T21:41:39Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-ab675b24d137",
-    "idea_version": "IDEAV-b4003ca2a21d5f59",
-    "idea_version_started_at": "2026-10-13T14:10:50Z",
-    "ticker": "BMBL",
-    "company": "Bumble",
+    "idea_id": "IDEA-77b0931ae560",
+    "idea_version": "IDEAV-9d944fb084806f51",
+    "idea_version_started_at": "2026-10-27T01:59:31Z",
+    "ticker": "SNES",
+    "company": "SenesTech, Inc.",
     "exchange": "NASDAQ",
     "ticker_verified": true,
     "listing_verified": true,
@@ -15,15 +15,15 @@
     "listing_verification_source": "yahoo_symbol_directory",
     "direction": "long",
     "pair_with": null,
-    "reason": "Bumble shares surged on news of potential takeover talks valuing the company at $1 billion.",
-    "why_now": "The report of takeover talks emerged on October 13, 2026, creating immediate market reaction.",
-    "conviction": 70,
+    "reason": "The filing of a Schedule 13D indicates an activist investor has taken a significant stake, which often precedes efforts to influence corporate strategy or governance.",
+    "why_now": "The Schedule 13D was filed on 2026-10-26, signaling immediate potential for strategic changes or a buyout attempt.",
+    "conviction": 60,
     "conviction_basis": "pre_edge_proxy",
-    "trade_score": 67,
+    "trade_score": 70,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
-      "evidence": 14,
-      "impact": 21,
+      "evidence": 25,
+      "impact": 13,
       "specificity": 15,
       "timing": 10,
       "expression": 7,
@@ -34,7 +34,6 @@
     "missing_checks": [
       "live liquidity",
       "dated catalyst",
-      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -51,26 +50,26 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-b82a79096114"
+      "EVT-ff82ad17b8da"
     ],
-    "primary_source_event_id": "EVT-b82a79096114",
+    "primary_source_event_id": "EVT-ff82ad17b8da",
     "source_headlines": [
-      "Bumble shares soar after report dating firm in $1bn takeover talks"
+      "SCHEDULE 13D - SenesTech, Inc. (0001680378) (Subject)"
     ],
-    "source_headline": "Bumble shares soar after report dating firm in $1bn takeover talks",
-    "source_url": "https://www.bbc.co.uk/news/articles/cm9qzwjgnjxlo?at_medium=RSS&at_campaign=rss",
-    "source_name": "BBC News — Business",
-    "materiality_max": 100,
-    "newest_source_at": "2026-10-13T01:36:36Z",
+    "source_headline": "SCHEDULE 13D - SenesTech, Inc. (0001680378) (Subject)",
+    "source_url": "https://www.sec.gov/Archives/edgar/data/1680378/000216182226000002/0002161822-26-000002-index.htm",
+    "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+    "materiality_max": 72,
+    "newest_source_at": "2026-10-26T18:27:45Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-10-13T14:10:50Z",
-    "updated_at": "2026-10-13T14:10:50Z",
-    "decay_at": "2026-10-14T13:36:36Z",
+    "surfaced_at": "2026-10-27T01:59:31Z",
+    "updated_at": "2026-10-27T01:59:31Z",
+    "decay_at": "2026-10-28T06:27:45Z",
     "status": "live",
     "promoted_signal_id": null
   }
