@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-29T04:08:07Z",
+  "generated_at": "2026-10-29T04:15:09Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261029-600",
+      "headline": "CNB: Court Approves Scheme [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CNB?key=2924-03155253-6A1352393",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-29T03:31:51Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Court approval of a scheme of arrangement is a final step in a merger or acquisition process.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Court approval of a scheme of arrangement is a final step in a merger or acquisition process.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Centaurus Metals",
+          "ticker": "CNB",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261029-276",
       "headline": "DMALL (02586): MAJOR TRANSACTION COMPLETION OF THE ACQUISITION OF EQUITY INTEREST IN CLOOPEN GROUP HOLDING LIMITED",
@@ -48,6 +97,56 @@
           "name": "Cloopen Group Holding Limited",
           "ticker": null,
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261029-606",
+      "headline": "PVR Inox Q2 profit rises 111% to Rs 273 crore, targets 500 new screens in 3 years",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/pvr-inox-q2-profit-rises-111-to-rs-273-crore-targets-500-new-screens-in-3-years/articleshow/135288278.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-29T03:29:22Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "PVR Inox reported a 111% profit increase to Rs 273 crore and announced a major expansion plan of 500 new screens over 3 years.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "PVR Inox reported a 111% profit increase to Rs 273 crore and announced a major expansion plan of 500 new screens over 3 years.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PVR Inox",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
@@ -1911,109 +2010,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-483",
-      "headline": "Fannie Mae net income rises to $4.2B in Q3 2026",
-      "headline_en": null,
-      "url": "https://www.housingwire.com/articles/fannie-mae-q3-2026-earnings/",
-      "source_name": "HousingWire",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T13:24:13Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Fannie Mae reported net income of $4.2B for Q3 2026.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Fannie Mae reported net income of $4.2B for Q3 2026.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Fannie Mae",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-529",
-      "headline": "SK hynix-owned Solidigm is plotting a new $45 billion flash memory factory for the US, report claims",
-      "headline_en": null,
-      "url": "https://www.tomshardware.com/tech-industry/manufacturing/sk-hynix-owned-solidigm-is-plotting-a-new-usd45-billion-flash-memory-factory-for-the-us-report-claims-wants-go-ahead-to-export-equipment-for-china-upgrades-in-return",
-      "source_name": "Tom's Hardware",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T13:01:21Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Solidigm, a subsidiary of SK hynix, is planning a $45 billion investment in a new flash memory factory in the US.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Solidigm, a subsidiary of SK hynix, is planning a $45 billion investment in a new flash memory factory in the US.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SK hynix",
-          "ticker": null,
-          "listing_country": "KR"
-        },
-        {
-          "name": "Solidigm",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -248638,9 +248634,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 209471,
-    "news_picked_today": 979,
-    "news_dropped_today": 2525
+    "news_seen_today": 212220,
+    "news_picked_today": 1005,
+    "news_dropped_today": 2595
   },
   "book_momentum": {
     "live_count": 8,
