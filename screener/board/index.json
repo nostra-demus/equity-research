@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-10-29T14:18:28Z",
+  "generated_at": "2026-10-29T14:49:22Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261029-1129",
+      "headline": "B & S INTL HLDG (01705): JOINT ANNOUNCEMENT - (1) SALE AND PURCHASE AGREEMENT IN RELATION TO 75% OF THE TOTAL ISSUED SHARE CAPITAL OF B & S INTERNATIONAL HOLDINGS LTD. AND (2) POSSIBLE UNCONDITIONAL MANDATORY CASH OFFER BY SOMERLEY CAPITAL LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF B & S INTERNATIONAL HOLDINGS LTD. (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR AND THE OFFEROR CONCERT PARTIES)",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1029/2026102901803.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-29T14:08:00Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Sale of 75% of issued share capital with potential mandatory cash offer for remaining shares; a major control transaction triggering M&A regulation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Sale of 75% of issued share capital with potential mandatory cash offer for remaining shares; a major control transaction triggering M&A regulation.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "B & S INTL HLDG",
+          "ticker": "01705",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261029-1131",
+      "headline": "CHINA LONGYUAN (00916): CONNECTED TRANSACTION - ACQUISITION OF 49% EQUITY INTEREST IN GUANGDONG GUONENG LONGYUAN",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1029/2026102901759.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-29T13:49:00Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Acquisition of 49% equity stake in Guangdong Guoneng Longyuan as a connected transaction materially affects capital structure and governance, but no deal value disclosed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Acquisition of 49% equity stake in Guangdong Guoneng Longyuan as a connected transaction materially affects capital structure and governance, but no deal value disclosed.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "China Longyuan",
+          "ticker": "00916",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261029-1076",
       "headline": "SF REIT (02191): Joint Announcement:(1)Proposed Very Substantial Disposal and Connected Party Transaction;(2)Proposed Special Distribution and Proposed 2026 Second Interim Distribution;(3)Proposed Termination, Proposed Liquidation, Proposed Delisting and Proposed Deauthorisation of SF REIT;(4)Application of Note 7 to Rule 2 of the Takeovers Code and Commencement of the Offer Period;(5)Establishment of the IBC;(6)Appointment of the Independent Financial Advisor; and(",
@@ -1039,6 +1137,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261029-1139",
+      "headline": "Josh Kushner’s Thrive to Buy ADT for $7.6 Billion",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/deals/josh-kushners-thrive-to-buy-adt-for-7-6-billion-55403c7a?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-29T14:20:00Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Josh Kushner's Thrive acquiring ADT for $7.6 billion is a named M&A deal with quantified value and major capital-structure implications.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Josh Kushner's Thrive acquiring ADT for $7.6 billion is a named M&A deal with quantified value and major capital-structure implications.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ADT Inc.",
+          "ticker": "ADT",
+          "listing_country": "US"
+        },
+        {
+          "name": "Thrive Capital",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261029-1112",
       "headline": "DoorDash to buy Instacart for $17B",
       "headline_en": null,
@@ -1832,154 +1984,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-818",
-      "headline": "Welspun Corp Q2 Results: Net profit rises, $240 million expansion plans approved",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/welspun-corp-q2-results-share-price-net-profit-rises-13-pc-to-rs499-crore-revenue-steel-products-segment-us-expansion-plan-approved-20022414.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T09:29:41Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Welspun Corp reported profit growth and announced a $240 million expansion plan.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Welspun Corp reported profit growth and announced a $240 million expansion plan.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Welspun Corp",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-814",
-      "headline": "Ambuja Cements Q2 Results: Net profit plunges 90% year-on-year, misses estimate",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/ambuja-cements-q2-results-net-profit-plunges-year-on-year-misses-estimate-share-price-reaction-20022408.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T09:16:25Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Ambuja Cements reported a 90% YoY profit plunge, missing analyst estimates.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Ambuja Cements reported a 90% YoY profit plunge, missing analyst estimates.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ambuja Cements",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-813",
-      "headline": "Ambuja Cements Q2 Results: Net profit tanks 90% YoY to Rs 114 crore; revenue rises 10%",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/ambuja-cements-q2-results-net-profit-tanks-90-yoy-to-rs-114-crore-revenue-rises-10/articleshow/135298817.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T09:13:35Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Ambuja Cements reported a 90% YoY decline in net profit to Rs 114 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Ambuja Cements reported a 90% YoY decline in net profit to Rs 114 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ambuja Cements",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -206855,78 +206859,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-33b530d06c04",
-      "idea_version": "IDEAV-0006589f869e206b",
-      "idea_version_started_at": "2026-10-28T10:33:30Z",
-      "ticker": "MARUTI",
-      "company": "Maruti Suzuki",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company missed street profit expectations despite record sales, indicating significant margin compression likely due to rising input costs or discounting pressures.",
-      "why_now": "The Q2 earnings miss was reported on October 28, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d79c34edfbab"
-      ],
-      "primary_source_event_id": "EVT-d79c34edfbab",
-      "source_headlines": [
-        "Maruti Q2 net misses street view despite record quarterly sales"
-      ],
-      "source_headline": "Maruti Q2 net misses street view despite record quarterly sales",
-      "source_url": "https://economictimes.indiatimes.com/markets/stocks/earnings/maruti-q2-net-misses-street-view-despite-record-quarterly-sales/articleshow/135249522.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-28T02:25:09Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-28T10:33:30Z",
-      "updated_at": "2026-10-28T10:33:30Z",
-      "decay_at": "2026-10-29T14:25:09Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-caee2ba9fe82",
       "idea_version": "IDEAV-9255d407cd03f51b",
       "idea_version_started_at": "2026-10-28T10:33:30Z",
@@ -208049,6 +207981,78 @@
       "surfaced_at": "2026-10-28T18:19:07Z",
       "updated_at": "2026-10-28T18:19:07Z",
       "decay_at": "2026-10-28T22:07:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-33b530d06c04",
+      "idea_version": "IDEAV-0006589f869e206b",
+      "idea_version_started_at": "2026-10-28T10:33:30Z",
+      "ticker": "MARUTI",
+      "company": "Maruti Suzuki",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company missed street profit expectations despite record sales, indicating significant margin compression likely due to rising input costs or discounting pressures.",
+      "why_now": "The Q2 earnings miss was reported on October 28, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d79c34edfbab"
+      ],
+      "primary_source_event_id": "EVT-d79c34edfbab",
+      "source_headlines": [
+        "Maruti Q2 net misses street view despite record quarterly sales"
+      ],
+      "source_headline": "Maruti Q2 net misses street view despite record quarterly sales",
+      "source_url": "https://economictimes.indiatimes.com/markets/stocks/earnings/maruti-q2-net-misses-street-view-despite-record-quarterly-sales/articleshow/135249522.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-28T02:25:09Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-28T10:33:30Z",
+      "updated_at": "2026-10-28T10:33:30Z",
+      "decay_at": "2026-10-29T14:25:09Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -210289,9 +210293,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 545,
+    "total_count": 546,
     "shown_count": 500,
-    "hidden_count": 45,
+    "hidden_count": 46,
     "side_counts": {
       "long": {
         "total_count": 277,
@@ -210299,9 +210303,9 @@
         "hidden_count": 27
       },
       "short": {
-        "total_count": 268,
+        "total_count": 269,
         "shown_count": 250,
-        "hidden_count": 18
+        "hidden_count": 19
       }
     },
     "retention": {
@@ -210320,6 +210324,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-33b530d06c04",
+        "idea_version": "IDEAV-0006589f869e206b",
+        "idea_version_started_at": "2026-10-28T10:33:30Z",
+        "ticker": "MARUTI",
+        "company": "Maruti Suzuki",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company missed street profit expectations despite record sales, indicating significant margin compression likely due to rising input costs or discounting pressures.",
+        "why_now": "The Q2 earnings miss was reported on October 28, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-d79c34edfbab"
+        ],
+        "primary_source_event_id": "EVT-d79c34edfbab",
+        "source_headlines": [
+          "Maruti Q2 net misses street view despite record quarterly sales"
+        ],
+        "source_headline": "Maruti Q2 net misses street view despite record quarterly sales",
+        "source_url": "https://economictimes.indiatimes.com/markets/stocks/earnings/maruti-q2-net-misses-street-view-despite-record-quarterly-sales/articleshow/135249522.cms",
+        "source_name": "The Economic Times",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-28T02:25:09Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-28T10:33:30Z",
+        "updated_at": "2026-10-28T10:33:30Z",
+        "decay_at": "2026-10-29T14:25:09Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-29T14:25:09Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-de7e1f5d18e7",
         "idea_version": "IDEAV-3c39f127b657e5cc",
@@ -247487,87 +247566,12 @@
         "archived_at": "2026-10-06T18:52:42Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-460d29964be5",
-        "idea_version": "IDEAV-433fd1d9c73d4fa9",
-        "idea_version_started_at": "2026-10-03T13:30:20Z",
-        "ticker": "RNO",
-        "company": "Renault",
-        "exchange": "LSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Renault's massive commitment to invest more than ten billion euros in France is highly likely to depress free cash flow and return on capital metrics due to high domestic labor costs and rigid manufacturing conditions.",
-        "why_now": "The investment plan was reported on October 3, 2026, presenting an immediate structural headwind to the company's capital allocation strategy.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-d58b2b5eb1db"
-        ],
-        "primary_source_event_id": "EVT-d58b2b5eb1db",
-        "source_headlines": [
-          "Automakers: Renault to invest more than ten billion euros in France"
-        ],
-        "source_headline": "Autobauer: Renault will in Frankreich mehr als zehn Milliarden Euro investieren",
-        "source_url": "https://www.handelsblatt.com/unternehmen/industrie/autobauer-renault-will-in-frankreich-mehr-als-zehn-milliarden-euro-investieren/100259497.html",
-        "source_name": "Handelsblatt",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-03T13:07:02Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-03T13:30:20Z",
-        "updated_at": "2026-10-03T13:30:20Z",
-        "decay_at": "2026-10-05T01:07:02Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-06T18:52:42Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1993,
-    "live_count": 17,
+    "live_count": 16,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -247586,9 +247590,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1306342,
-    "news_picked_today": 2365,
-    "news_dropped_today": 11475
+    "news_seen_today": 1450906,
+    "news_picked_today": 2381,
+    "news_dropped_today": 11675
   },
   "book_momentum": {
     "live_count": 8,
