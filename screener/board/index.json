@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-29T08:57:51Z",
+  "generated_at": "2026-10-29T09:10:45Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261029-798",
+      "headline": "CONTINENTAL H (00513): VERY SUBSTANTIAL DISPOSAL IN RELATION TO DISPOSAL OF THE ENTIRE EQUITY INTEREST IN A SUBSIDIARY AND NOTICE OF GENERAL MEETING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1029/2026102900358.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-29T08:32:00Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Announcement of a very substantial disposal of an entire subsidiary equity interest.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Announcement of a very substantial disposal of an entire subsidiary equity interest.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Continental Holdings",
+          "ticker": "00513",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261029-769",
       "headline": "VISTAR HOLDINGS (08535): PROFIT WARNING",
@@ -1938,55 +1987,6 @@
           "name": "Yum Brands",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-445",
-      "headline": "Vedanta explores Rs 80,000 crore investment in Bengal for power, aluminium projects: Anil Agarwal",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/news/company/corporate-trends/vedanta-explores-rs-80000-crore-investment-in-bengal-for-power-aluminium-projects-anil-agarwal/articleshow/135269646.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T14:33:25Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Vedanta is exploring a Rs 80,000 crore investment in West Bengal for power and aluminium projects.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Vedanta is exploring a Rs 80,000 crore investment in West Bengal for power and aluminium projects.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vedanta",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -248388,9 +248388,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 469530,
-    "news_picked_today": 1824,
-    "news_dropped_today": 7096
+    "news_seen_today": 496436,
+    "news_picked_today": 1844,
+    "news_dropped_today": 7244
   },
   "book_momentum": {
     "live_count": 8,
