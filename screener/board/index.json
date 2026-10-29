@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T14:54:28Z",
+  "generated_at": "2026-10-29T14:59:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20261029-1156",
@@ -1240,6 +1240,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261029-1178",
+      "headline": "Kushner’s Thrive Holdings to Buy ADT for $7.6 Billion in Cash",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-29/kushner-s-thrive-holdings-to-buy-adt-for-7-6-billion-in-cash",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-29T14:01:04Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Thrive Holdings to acquire ADT for $7.6 billion in cash.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Thrive Holdings to acquire ADT for $7.6 billion in cash.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ADT",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261029-1176",
+      "headline": "Allied Properties REIT cuts distribution by 90% to focus on debt repayment",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/business/article-allied-properties-reit-cuts-distribution-by-90-to-focus-on-debt/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-29T14:00:56Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Allied Properties REIT cut its distribution by 90% to focus on debt repayment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Allied Properties REIT cut its distribution by 90% to focus on debt repayment.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "dividend_cut",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "dividend_cut"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Allied Properties REIT",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261029-1165",
       "headline": "DoorDash to buy Instacart for $17bn in major grocery delivery consolidation",
       "headline_en": null,
@@ -1348,6 +1446,147 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261029-1198",
+      "headline": "ECB Holds Rates as Lagarde Announces Early Resignation",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-10-29/ecb-holds-rates-as-lagarde-announces-early-resignation-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-29T13:27:04Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "ECB President Lagarde announces early resignation amid rate decisions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "ECB President Lagarde announces early resignation amid rate decisions.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261029-1199",
+      "headline": "Poundland Starts Insolvency Process in Latest UK Retail Setback",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-29/poundland-starts-insolvency-process-in-latest-uk-retail-setback-mvtlavzt",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-29T13:23:48Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Poundland has started an insolvency process.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Poundland has started an insolvency process.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Poundland",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261029-1194",
+      "headline": "Marvell Is in Talks to Buy an $83 Billion AI Laser Maker",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/10/29/marvell-is-in-talks-to-buy-an-83-billion-ai-laser-maker/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-29T13:07:54Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Marvell is in talks to acquire an $83 billion AI laser maker.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Marvell is in talks to acquire an $83 billion AI laser maker.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Marvell Technology",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261029-1112",
       "headline": "DoorDash to buy Instacart for $17B",
       "headline_en": null,
@@ -1372,6 +1611,60 @@
         "event": 9,
         "size": 2,
         "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DoorDash",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Instacart",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261029-1195",
+      "headline": "DoorDash to buy Instacart for $17B",
+      "headline_en": null,
+      "url": "https://www.restaurantdive.com/news/doordash-to-buy-instacart-for-17b/873155/",
+      "source_name": "Restaurant Dive",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-29T13:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "DoorDash to acquire Instacart for $17 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "DoorDash to acquire Instacart for $17 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
         "materiality_label_floor": 0,
         "quantified": 6,
         "boost_weight": 1,
@@ -1707,299 +2000,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-1036",
-      "headline": "DoorDash is acquiring Instacart for around $17 billion",
-      "headline_en": null,
-      "url": "https://www.theverge.com/business/1021981/doordash-instacart-acquisition-announcement",
-      "source_name": "The Verge",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T11:56:35Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "DoorDash announced the acquisition of Instacart for approximately $17 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "DoorDash announced the acquisition of Instacart for approximately $17 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DoorDash",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Instacart",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-1017",
-      "headline": "Cognizant reports 4.8% CC growth in Q3; trims 2026 revenue guidance",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/info-tech/cognizant-reports-48-cc-growth-in-q3-trims-2026-revenue-guidance/article71640199.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T11:25:52Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Cognizant trimmed 2026 revenue guidance after reporting 4.8% constant-currency growth in Q3.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Cognizant trimmed 2026 revenue guidance after reporting 4.8% constant-currency growth in Q3.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change",
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cognizant Technology Solutions Corp",
-          "ticker": "CTSH",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-1040",
-      "headline": "DoorDash to Buy Rival Instacart in $17 Billion Deal",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-29/doordash-to-buy-instacart-in-17-billion-deal",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T11:20:13Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "DoorDash to buy rival Instacart in a $17 billion deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "DoorDash to buy rival Instacart in a $17 billion deal.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DoorDash",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Instacart",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-1126",
-      "headline": "Suzlon Energy Q2 Results: Profit plunges 69% YoY to Rs 394 crore due to one-time deferred tax",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/suzlon-energy-q2-results-profit-plunges-69-yoy-to-rs-394-crore-revenue-rises-26/articleshow/135304125.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T11:16:50Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Suzlon Energy reported a 69% year-over-year decline in Q2 profit to Rs 394 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Suzlon Energy reported a 69% year-over-year decline in Q2 profit to Rs 394 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Suzlon Energy",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-992",
-      "headline": "ECB President Lagarde resigns after months of speculation",
-      "headline_en": null,
-      "url": "https://www.khaleejtimes.com/business/ecb-president-lagarde-resigns-after-months-of-speculation",
-      "source_name": "Khaleej Times — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T10:50:31Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "ECB President Lagarde resigns, a major leadership event for the Eurozone.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "ECB President Lagarde resigns, a major leadership event for the Eurozone.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-990",
-      "headline": "ECB Live Updates: Christine Lagarde to Step Down Early, Rate Decision Ahead",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/live-blog/2026-10-29/lagarde-steps-down-ecb-rate-decision-euro-live-updates",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T10:43:45Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "ECB President Christine Lagarde to step down early, creating significant leadership uncertainty.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "ECB President Christine Lagarde to step down early, creating significant leadership uncertainty.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -206947,78 +206947,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-ff50b38b1f7b",
-      "idea_version": "IDEAV-b38608d5ef7fa213",
-      "idea_version_started_at": "2026-10-28T10:33:30Z",
-      "ticker": "9992",
-      "company": "Pop Mart",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A sharp plunge in third-quarter sales suggests a potential cooling in demand for its core 'Labubu' product line, threatening the company's high growth valuation multiple.",
-      "why_now": "The sales decline was reported on October 28, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0ae91f685228"
-      ],
-      "primary_source_event_id": "EVT-0ae91f685228",
-      "source_headlines": [
-        "Labubu-maker Pop Mart's shares extend declines as third-quarter sales plunge"
-      ],
-      "source_headline": "Labubu-maker Pop Mart's shares extend declines as third-quarter sales plunge",
-      "source_url": "https://www.cnbc.com/2026/10/28/labubu-pop-mart-third-quarter-earnings.html",
-      "source_name": "CNBC",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-28T02:57:36Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-28T10:33:30Z",
-      "updated_at": "2026-10-28T10:33:30Z",
-      "decay_at": "2026-10-29T14:57:36Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-77b0931ae560",
       "idea_version": "IDEAV-9d944fb084806f51",
       "idea_version_started_at": "2026-10-27T01:59:31Z",
@@ -208142,6 +208070,78 @@
       "surfaced_at": "2026-10-28T10:33:30Z",
       "updated_at": "2026-10-28T10:33:30Z",
       "decay_at": "2026-10-29T14:18:25Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-ff50b38b1f7b",
+      "idea_version": "IDEAV-b38608d5ef7fa213",
+      "idea_version_started_at": "2026-10-28T10:33:30Z",
+      "ticker": "9992",
+      "company": "Pop Mart",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A sharp plunge in third-quarter sales suggests a potential cooling in demand for its core 'Labubu' product line, threatening the company's high growth valuation multiple.",
+      "why_now": "The sales decline was reported on October 28, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0ae91f685228"
+      ],
+      "primary_source_event_id": "EVT-0ae91f685228",
+      "source_headlines": [
+        "Labubu-maker Pop Mart's shares extend declines as third-quarter sales plunge"
+      ],
+      "source_headline": "Labubu-maker Pop Mart's shares extend declines as third-quarter sales plunge",
+      "source_url": "https://www.cnbc.com/2026/10/28/labubu-pop-mart-third-quarter-earnings.html",
+      "source_name": "CNBC",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-28T02:57:36Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-28T10:33:30Z",
+      "updated_at": "2026-10-28T10:33:30Z",
+      "decay_at": "2026-10-29T14:57:36Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -210309,9 +210309,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 546,
+    "total_count": 547,
     "shown_count": 500,
-    "hidden_count": 46,
+    "hidden_count": 47,
     "side_counts": {
       "long": {
         "total_count": 277,
@@ -210319,9 +210319,9 @@
         "hidden_count": 27
       },
       "short": {
-        "total_count": 269,
+        "total_count": 270,
         "shown_count": 250,
-        "hidden_count": 19
+        "hidden_count": 20
       }
     },
     "retention": {
@@ -210340,6 +210340,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-ff50b38b1f7b",
+        "idea_version": "IDEAV-b38608d5ef7fa213",
+        "idea_version_started_at": "2026-10-28T10:33:30Z",
+        "ticker": "9992",
+        "company": "Pop Mart",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "A sharp plunge in third-quarter sales suggests a potential cooling in demand for its core 'Labubu' product line, threatening the company's high growth valuation multiple.",
+        "why_now": "The sales decline was reported on October 28, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-0ae91f685228"
+        ],
+        "primary_source_event_id": "EVT-0ae91f685228",
+        "source_headlines": [
+          "Labubu-maker Pop Mart's shares extend declines as third-quarter sales plunge"
+        ],
+        "source_headline": "Labubu-maker Pop Mart's shares extend declines as third-quarter sales plunge",
+        "source_url": "https://www.cnbc.com/2026/10/28/labubu-pop-mart-third-quarter-earnings.html",
+        "source_name": "CNBC",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-28T02:57:36Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-28T10:33:30Z",
+        "updated_at": "2026-10-28T10:33:30Z",
+        "decay_at": "2026-10-29T14:57:36Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-29T14:57:36Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-33b530d06c04",
         "idea_version": "IDEAV-0006589f869e206b",
@@ -247506,88 +247581,12 @@
         "archived_at": "2026-10-06T18:52:42Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-30544aec4eac",
-        "idea_version": "IDEAV-d7953d700e77fea4",
-        "idea_version_started_at": "2026-10-03T14:22:04Z",
-        "ticker": "RCOM",
-        "company": "Reliance Communications",
-        "exchange": "NSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Reliance Communications faces increased legal and reputational risk as the CBI has filed chargesheets against the company and its former executives in a ₹3,750-crore bank fraud case.",
-        "why_now": "The CBI chargesheets were filed today, October 3, 2026, creating an immediate negative catalyst.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 7,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-9af8269e024e",
-          "EVT-fb0d524379fb"
-        ],
-        "primary_source_event_id": "EVT-9af8269e024e",
-        "source_headlines": [
-          "CBI Chargesheets Reliance Communications, Ex Chief Investment Officer Of LIC In Rs 3,750-Cr Cheating Case",
-          "CBI Chargesheets RCom, 2 Reliance ADA Executives And Former LIC Official In ₹3,750-Crore Fraud Case"
-        ],
-        "source_headline": "CBI Chargesheets Reliance Communications, Ex Chief Investment Officer Of LIC In Rs 3,750-Cr Cheating Case",
-        "source_url": "https://www.outlookbusiness.com/corporate/cbi-chargesheets-reliance-communications-ex-chief-investment-officer-of-lic-in-rs-3750-cr-cheating-case",
-        "source_name": "Outlook Business",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-03T13:13:37Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-03T14:22:04Z",
-        "updated_at": "2026-10-03T14:22:04Z",
-        "decay_at": "2026-10-05T01:13:37Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-06T18:52:42Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1993,
-    "live_count": 16,
+    "live_count": 15,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -247606,9 +247605,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1471894,
-    "news_picked_today": 2409,
-    "news_dropped_today": 11695
+    "news_seen_today": 1492738,
+    "news_picked_today": 2445,
+    "news_dropped_today": 11755
   },
   "book_momentum": {
     "live_count": 8,
