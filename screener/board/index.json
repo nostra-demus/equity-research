@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T01:08:06Z",
+  "generated_at": "2026-10-29T01:13:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20261029-026",
@@ -992,6 +992,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261029-235",
+      "headline": "Vedanta exploring opportunities to invest ₹80,000 crore in West Bengal in power generation, aluminium smelter",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/vedanta-exploring-opportunities-to-invest-80000-crore-in-west-bengal-in-power-generation-aluminium-smelter/article71637236.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T15:37:35Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Vedanta is exploring a 80,000 crore rupee investment in power and aluminium projects in West Bengal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Vedanta is exploring a 80,000 crore rupee investment in power and aluminium projects in West Bengal.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vedanta",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261029-158",
       "headline": "HUL beats cost pressures with price hikes, savings as net profit rises 3.9%",
       "headline_en": null,
@@ -1369,6 +1418,104 @@
         {
           "name": "Hero MotoCorp",
           "ticker": "HEROMOTOCO",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261029-251",
+      "headline": "PetroChina Q3 Profit Jumps to $7.78 Billion",
+      "headline_en": null,
+      "url": "https://oilprice.com/Latest-Energy-News/World-News/PetroChina-Q3-Profit-Jumps-to-778-Billion.html",
+      "source_name": "OilPrice.com",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T15:30:00Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "PetroChina reported a significant Q3 profit of $7.78 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "PetroChina reported a significant Q3 profit of $7.78 billion.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PetroChina",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261029-248",
+      "headline": "TVS Motor consolidated Q2 net profit rises 47%",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/tvs-motor-consolidated-q2-net-profit-rises-47/article71636340.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T15:28:07Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "TVS Motor reported a 47% increase in consolidated Q2 net profit.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "TVS Motor reported a 47% increase in consolidated Q2 net profit.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TVS Motor",
+          "ticker": null,
           "listing_country": "IN"
         }
       ],
@@ -1785,154 +1932,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-077",
-      "headline": "GE Vernova shares slip despite a beat-and-raise. What the sellers are getting wrong",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/investingclub/2026/10/28/ge-vernova-shares-slip-despite-a-beat-and-raise-what-the-sellers-are-getting-wrong.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T17:50:44Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "GE Vernova reports earnings beat and raises guidance; post-announcement sell-off noted, but beat-and-raise is a confirmed material earnings event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "GE Vernova reports earnings beat and raises guidance; post-announcement sell-off noted, but beat-and-raise is a confirmed material earnings event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GE Vernova",
-          "ticker": "GEV",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-184",
-      "headline": "‎stc group’s nine-month operating profit rises 4.1% to SAR 11.3 billion",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1948043",
-      "source_name": "Argaam — Main News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T16:11:00Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "stc group reported a 4.1% increase in nine-month operating profit to SAR 11.3 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "stc group reported a 4.1% increase in nine-month operating profit to SAR 11.3 billion.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "stc group",
-          "ticker": "7010",
-          "listing_country": "SA"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-185",
-      "headline": "Satin Creditcare Q2 profit surges over three-fold as asset quality improves",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/satin-creditcare-q2-profit-surges-over-three-fold-as-asset-quality-improves/articleshow/135272520.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T16:08:45Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Satin Creditcare reported a three-fold surge in Q2 profit alongside improving asset quality.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Satin Creditcare reported a three-fold surge in Q2 profit alongside improving asset quality.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Satin Creditcare Network Limited",
-          "ticker": "SATIN",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -249065,9 +249064,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 70872,
-    "news_picked_today": 267,
-    "news_dropped_today": 693
+    "news_seen_today": 78994,
+    "news_picked_today": 286,
+    "news_dropped_today": 722
   },
   "book_momentum": {
     "live_count": 8,
