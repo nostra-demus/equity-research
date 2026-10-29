@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T08:33:44Z",
+  "generated_at": "2026-10-29T08:36:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20261029-600",
@@ -247,6 +247,55 @@
           "name": "Quad/Graphics, Inc.",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261029-763",
+      "headline": "Aeroflex Industries raises FY27 revenue growth guidance to over 60% after strong first half",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/earnings/aeroflex-industries-raises-fy27-revenue-growth-guidance-60-percent-h1-q2-earnings-results-boardroom-alpha-article-20022204.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-29T07:28:34Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Aeroflex Industries raised FY27 revenue growth guidance to over 60%.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Aeroflex Industries raised FY27 revenue growth guidance to over 60%.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Aeroflex Industries",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "small",
@@ -1960,55 +2009,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-571",
-      "headline": "A. O. Smith Corporation to Sell 81% Interest in China Business to CPE for Over $500 million in Total Expected Value",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/o-smith-corporation-sell-81-interest-china-business-cpe-over-500-million-total-expected",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T11:23:27Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "A. O. Smith to sell 81% of its China business for over $500 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A. O. Smith to sell 81% of its China business for over $500 million.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "A. O. Smith Corporation",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -248407,9 +248407,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 411210,
-    "news_picked_today": 1765,
-    "news_dropped_today": 6939
+    "news_seen_today": 416330,
+    "news_picked_today": 1782,
+    "news_dropped_today": 6946
   },
   "book_momentum": {
     "live_count": 8,
