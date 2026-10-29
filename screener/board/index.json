@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T05:25:24Z",
+  "generated_at": "2026-10-29T05:34:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20261029-600",
@@ -1912,6 +1912,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261029-684",
+      "headline": "Houthi Strike Hits Aramco Refinery as Israel Election Ends in Deadlock",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-10-28/horizons-middle-east-africa-10-28-2026-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T08:08:08Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "A strike on an Aramco refinery is a major supply shock to global energy markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A strike on an Aramco refinery is a major supply shock to global energy markets.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations",
+        "macro_sector"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saudi Aramco",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261029-411",
       "headline": "AIS: Quarterly Results Presentation - Sept 2026 [price-sensitive]",
       "headline_en": null,
@@ -1956,60 +2006,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-589",
-      "headline": "Adani Group eyes €3 billion acquisition of energy storage group VTTI to boost overseas footprint",
-      "headline_en": null,
-      "url": "https://www.businesstoday.in/latest/corporate/story/adani-group-eyes-eu3-billion-acquisition-of-energy-storage-group-vtti-to-boost-overseas-footprint-564419-2026-10-29?utm_source=rssfeed",
-      "source_name": "Business Today",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T03:03:09Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Adani Group plans €3 billion acquisition of VTTI to expand overseas energy-storage operations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Adani Group plans €3 billion acquisition of VTTI to expand overseas energy-storage operations.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Adani Group",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "VTTI",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -248634,9 +248630,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 244656,
-    "news_picked_today": 1274,
-    "news_dropped_today": 3334
+    "news_seen_today": 246129,
+    "news_picked_today": 1328,
+    "news_dropped_today": 3448
   },
   "book_momentum": {
     "live_count": 8,
