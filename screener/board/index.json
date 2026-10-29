@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T01:13:13Z",
+  "generated_at": "2026-10-29T01:20:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20261029-026",
@@ -642,6 +642,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261029-258",
+      "headline": "OneSpaWorld Holdings Limited Reports Third Quarter Fiscal 2026 Total Revenues of $276.5 Million and Net Income of $28.2 Million",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/onespaworld-holdings-limited-reports-third-quarter-fiscal-2026-total-revenues-2765-million",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T15:23:33Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Company reported Q3 revenue of $276.5 million and net income of $28.2 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Company reported Q3 revenue of $276.5 million and net income of $28.2 million.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OneSpaWorld Holdings",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261029-044",
       "headline": "Tata Communications to invest $450m into 10,000km of AI-ready fiber to support data center connectivity in India",
       "headline_en": null,
@@ -885,6 +934,55 @@
           "name": "Hugging Face",
           "ticker": null,
           "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261029-273",
+      "headline": "Adani Said to Weigh Deal for €3 Billion Energy Storage Firm VTTI",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-28/adani-said-to-weigh-deal-for-3-billion-energy-storage-firm-vtti",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T15:17:07Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Adani Group is reportedly considering a €3 billion acquisition of energy storage firm VTTI.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Adani Group is reportedly considering a €3 billion acquisition of energy storage firm VTTI.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adani",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "mega",
@@ -1833,105 +1931,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-017",
-      "headline": "Oracle expects to turn cash flow positive in second half of fiscal 2028 as capital spending declines",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/business/article-oracle-earnings-profit-ai-maxson/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T19:10:12Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Oracle expects to turn cash flow positive in the second half of fiscal 2028 as capital spending declines.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Oracle expects to turn cash flow positive in the second half of fiscal 2028 as capital spending declines.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Oracle",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-025",
-      "headline": "Power Grid asks cable and wire makers to scale up as transmission capex set to rise",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/energy/power/power-grid-asks-cable-and-wire-makers-to-scale-up-as-transmission-capex-set-to-rise/articleshow/135278399.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T19:03:21Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Power Grid Corporation signals rising transmission capex and requests supplier scaling, confirming increased capital investment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Power Grid Corporation signals rising transmission capex and requests supplier scaling, confirming increased capital investment.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 62,
-      "rank_factors": {
-        "materiality": 62,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 8,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Power Grid Corporation of India",
-          "ticker": "POWERGRID",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -249064,9 +249063,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 78994,
-    "news_picked_today": 286,
-    "news_dropped_today": 722
+    "news_seen_today": 83570,
+    "news_picked_today": 319,
+    "news_dropped_today": 761
   },
   "book_momentum": {
     "live_count": 8,
