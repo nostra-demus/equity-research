@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T03:00:15Z",
+  "generated_at": "2026-10-29T03:08:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20261029-276",
@@ -51,6 +51,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261029-478",
+      "headline": "Afrirent doubles investment plan for new R2.5bn Cape Town ICC tower",
+      "headline_en": null,
+      "url": "https://www.moneyweb.co.za/investing/property/afrirent-doubles-investment-plan-for-new-r2-5bn-cape-town-icc-tower/",
+      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-29T02:04:41Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Afrirent announced a R2.5bn investment for a new Cape Town ICC tower.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Afrirent announced a R2.5bn investment for a new Cape Town ICC tower.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Afrirent",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1514,6 +1563,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261029-483",
+      "headline": "Fannie Mae net income rises to $4.2B in Q3 2026",
+      "headline_en": null,
+      "url": "https://www.housingwire.com/articles/fannie-mae-q3-2026-earnings/",
+      "source_name": "HousingWire",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T13:24:13Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Fannie Mae reported net income of $4.2B for Q3 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Fannie Mae reported net income of $4.2B for Q3 2026.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Fannie Mae",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261029-374",
       "headline": "Samsung Posts Fourth Straight Quarter of Record Earnings",
       "headline_en": null,
@@ -1898,104 +1996,6 @@
           "name": "Mirae Asset",
           "ticker": null,
           "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-414",
-      "headline": "(LEAD) Mirae Asset to acquire Japanese brokerage Sanko",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20261029005151320",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T02:15:45Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Mirae Asset is acquiring a Japanese brokerage, representing a significant cross-border expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Mirae Asset is acquiring a Japanese brokerage, representing a significant cross-border expansion.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mirae Asset",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-376",
-      "headline": "Adani explores buyout of Dutch energy co VTTI",
-      "headline_en": null,
-      "url": "https://timesofindia.indiatimes.com/business/india-business/adani-explores-buyout-of-dutch-energy-co-vtti/articleshow/135285917.cms",
-      "source_name": "The Times of India (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T01:45:10Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Adani is exploring a potential buyout of Dutch energy company VTTI.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Adani is exploring a potential buyout of Dutch energy company VTTI.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Adani Enterprises",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -248559,9 +248559,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 170139,
-    "news_picked_today": 678,
-    "news_dropped_today": 1842
+    "news_seen_today": 173654,
+    "news_picked_today": 706,
+    "news_dropped_today": 1910
   },
   "book_momentum": {
     "live_count": 8,
