@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-10-29T15:27:19Z",
+  "generated_at": "2026-10-29T15:39:35Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261029-1203",
+      "headline": "SUMMI (00756): INSIDE INFORMATION (1) DELAY IN PUBLICATION OF FY26 ANNUAL RESULTS; (2) DELAY IN DESPATCH OF FY26 ANNUAL REPORT; AND (3) CONTINUED SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1029/2026102901961.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-29T14:38:00Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Delay in publishing audited annual results and annual report combined with continued trading suspension signals going-concern risk, potential insolvency, or regulatory enforcement action.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Delay in publishing audited annual results and annual report combined with continued trading suspension signals going-concern risk, potential insolvency, or regulatory enforcement action.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 7,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "accounting_restatement",
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SUMMI",
+          "ticker": "00756",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261029-1156",
       "headline": "LUXSHARE ICT (02475): ESTIMATED RESULTS FOR THE YEAR ENDING 31 DECEMBER 2026",
@@ -1946,60 +1996,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-1039",
-      "headline": "DoorDash to acquire Instacart for $17bn",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/d84d7db1-d18d-49ce-9f60-e42c07a3d67a?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T11:57:23Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "DoorDash to acquire Instacart for $17 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "DoorDash to acquire Instacart for $17 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DoorDash",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Instacart",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -247605,9 +247601,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1605844,
-    "news_picked_today": 2458,
-    "news_dropped_today": 12078
+    "news_seen_today": 1660165,
+    "news_picked_today": 2463,
+    "news_dropped_today": 12097
   },
   "book_momentum": {
     "live_count": 8,
