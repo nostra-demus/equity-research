@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T03:37:07Z",
+  "generated_at": "2026-10-29T03:48:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20261029-276",
@@ -206033,76 +206033,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-f1d1a4c60f5d",
-      "idea_version": "IDEAV-599b8300b03b9855",
-      "idea_version_started_at": "2026-10-27T18:30:15Z",
-      "ticker": "CTS",
-      "company": "CTS Corporation",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported Q3 sales of $149.6 million and increased its full-year guidance, signaling operational momentum and better-than-expected demand.",
-      "why_now": "The guidance hike was announced on 2026-10-27, providing an immediate catalyst for earnings estimate revisions.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a045f1d9fab5"
-      ],
-      "primary_source_event_id": "EVT-a045f1d9fab5",
-      "source_headlines": [
-        "CTS Corporation Reports Third Quarter 2026 Sales of $149.6 million and Raises Full-Year Guidance"
-      ],
-      "source_headline": "CTS Corporation Reports Third Quarter 2026 Sales of $149.6 million and Raises Full-Year Guidance",
-      "source_url": "https://www.nasdaq.com/articles/cts-corporation-reports-third-quarter-2026-sales-1496-million-and-raises-full-year",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-27T15:39:40Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-27T18:30:15Z",
-      "updated_at": "2026-10-27T18:30:15Z",
-      "decay_at": "2026-10-29T03:39:40Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-b185b56cf3f7",
       "idea_version": "IDEAV-b1f241a0b9637bcb",
       "idea_version_started_at": "2026-10-29T02:54:08Z",
@@ -207595,6 +207525,76 @@
       "surfaced_at": "2026-10-27T06:46:23Z",
       "updated_at": "2026-10-27T06:46:23Z",
       "decay_at": "2026-10-28T14:35:38Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-f1d1a4c60f5d",
+      "idea_version": "IDEAV-599b8300b03b9855",
+      "idea_version_started_at": "2026-10-27T18:30:15Z",
+      "ticker": "CTS",
+      "company": "CTS Corporation",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported Q3 sales of $149.6 million and increased its full-year guidance, signaling operational momentum and better-than-expected demand.",
+      "why_now": "The guidance hike was announced on 2026-10-27, providing an immediate catalyst for earnings estimate revisions.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a045f1d9fab5"
+      ],
+      "primary_source_event_id": "EVT-a045f1d9fab5",
+      "source_headlines": [
+        "CTS Corporation Reports Third Quarter 2026 Sales of $149.6 million and Raises Full-Year Guidance"
+      ],
+      "source_headline": "CTS Corporation Reports Third Quarter 2026 Sales of $149.6 million and Raises Full-Year Guidance",
+      "source_url": "https://www.nasdaq.com/articles/cts-corporation-reports-third-quarter-2026-sales-1496-million-and-raises-full-year",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-27T15:39:40Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-27T18:30:15Z",
+      "updated_at": "2026-10-27T18:30:15Z",
+      "decay_at": "2026-10-29T03:39:40Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -211271,14 +211271,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 557,
+    "total_count": 558,
     "shown_count": 500,
-    "hidden_count": 57,
+    "hidden_count": 58,
     "side_counts": {
       "long": {
-        "total_count": 284,
+        "total_count": 285,
         "shown_count": 250,
-        "hidden_count": 34
+        "hidden_count": 35
       },
       "short": {
         "total_count": 273,
@@ -211302,6 +211302,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-f1d1a4c60f5d",
+        "idea_version": "IDEAV-599b8300b03b9855",
+        "idea_version_started_at": "2026-10-27T18:30:15Z",
+        "ticker": "CTS",
+        "company": "CTS Corporation",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company reported Q3 sales of $149.6 million and increased its full-year guidance, signaling operational momentum and better-than-expected demand.",
+        "why_now": "The guidance hike was announced on 2026-10-27, providing an immediate catalyst for earnings estimate revisions.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 66,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-a045f1d9fab5"
+        ],
+        "primary_source_event_id": "EVT-a045f1d9fab5",
+        "source_headlines": [
+          "CTS Corporation Reports Third Quarter 2026 Sales of $149.6 million and Raises Full-Year Guidance"
+        ],
+        "source_headline": "CTS Corporation Reports Third Quarter 2026 Sales of $149.6 million and Raises Full-Year Guidance",
+        "source_url": "https://www.nasdaq.com/articles/cts-corporation-reports-third-quarter-2026-sales-1496-million-and-raises-full-year",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-27T15:39:40Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-27T18:30:15Z",
+        "updated_at": "2026-10-27T18:30:15Z",
+        "decay_at": "2026-10-29T03:39:40Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-29T03:39:40Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-85129948d8af",
         "idea_version": "IDEAV-63cd6e976e3b57ff",
@@ -239970,80 +240043,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-6da37c6084e5",
-        "idea_version": "IDEAV-330fc2e88fdf24a9",
-        "idea_version_started_at": "2026-10-14T08:35:25Z",
-        "ticker": "ASML",
-        "company": "ASML",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Raising guidance for the third time due to AI demand indicates that the company's order book and pricing power are stronger than market expectations.",
-        "why_now": "The guidance update was released on 2026-10-14.",
-        "conviction": 85,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 60,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-93805fb577f4"
-        ],
-        "primary_source_event_id": "EVT-93805fb577f4",
-        "source_headlines": [
-          "Chip-Machine Supplier ASML Boosts Guidance for Third Time On Surging AI Demand"
-        ],
-        "source_headline": "Chip-Machine Supplier ASML Boosts Guidance for Third Time On Surging AI Demand",
-        "source_url": "https://www.wsj.com/business/earnings/chip-machine-supplier-asml-boosts-guidance-for-third-time-on-surging-ai-demand-7ea173d9?mod=pls_whats_news_us_business_f",
-        "source_name": "The Wall Street Journal",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-14T05:21:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-14T08:35:25Z",
-        "updated_at": "2026-10-14T08:35:25Z",
-        "decay_at": "2026-10-15T17:21:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-17T06:27:56Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-ed40b4638042",
         "idea_version": "IDEAV-2d5948cbcd0b5af2",
         "idea_version_started_at": "2026-10-14T08:35:25Z",
@@ -248550,7 +248549,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1986,
-    "live_count": 18,
+    "live_count": 17,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -248569,9 +248568,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 192505,
-    "news_picked_today": 873,
-    "news_dropped_today": 2247
+    "news_seen_today": 195408,
+    "news_picked_today": 910,
+    "news_dropped_today": 2378
   },
   "book_momentum": {
     "live_count": 8,
