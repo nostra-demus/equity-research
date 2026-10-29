@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T01:30:09Z",
+  "generated_at": "2026-10-29T01:35:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20261029-276",
@@ -1930,43 +1930,49 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261029-101",
-      "headline": "DFW’s $12 Billion Transformation",
+      "inbox_id": "INB-20261029-309",
+      "headline": "ASCLETIS-B (01672): VOLUNTARY ANNOUNCEMENT - ASCLETIS' ORAL SMALL MOLECULE GLP-1, ASC30, DEMONSTRATED PLACEBO-ADJUSTED HBA1C REDUCTION OF 1.7% AT 12 WEEKS FROM ITS U.S. PHASE II STUDY IN PARTICIPANTS WITH DIABETES",
       "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-10-28/dfw-s-12-billion-transformation-video",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T17:26:02Z",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1029/2026102900055.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-28T23:30:00Z",
       "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "A $12 billion infrastructure transformation project at DFW airport represents a major capital expenditure event.",
+      "prelim_note": "Ascletis announces Phase II efficacy data showing 1.7% placebo-adjusted HbA1c reduction for oral GLP-1 ASC30 at 12 weeks, a material clinical readout in a high-value competitive therapeutic area.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 89,
-      "triage_reason": "A $12 billion infrastructure transformation project at DFW airport represents a major capital expenditure event.",
-      "region": "US",
+      "triage_reason": "Ascletis announces Phase II efficacy data showing 1.7% placebo-adjusted HbA1c reduction for oral GLP-1 ASC30 at 12 weeks, a material clinical readout in a high-value competitive therapeutic area.",
+      "region": "CN",
       "relevance": "material",
-      "materiality_pre_score": 75,
+      "materiality_pre_score": 71,
       "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
+        "materiality": 71,
+        "source_tier": 8,
         "scope": 6,
-        "event": 6,
+        "event": 0,
         "size": 0,
-        "recency": 2,
+        "recency": 4,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
         "size_bucket": "unknown"
       },
       "event_types": [
-        "capex"
+        "product"
       ],
       "issuer_linkage": "primary",
-      "companies": [],
+      "companies": [
+        {
+          "name": "Ascletis",
+          "ticker": "01672",
+          "listing_country": "HK"
+        }
+      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -249097,9 +249103,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 88062,
-    "news_picked_today": 354,
-    "news_dropped_today": 870
+    "news_seen_today": 92410,
+    "news_picked_today": 359,
+    "news_dropped_today": 961
   },
   "book_momentum": {
     "live_count": 8,
