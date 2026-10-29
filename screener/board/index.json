@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T16:23:45Z",
+  "generated_at": "2026-10-29T16:28:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20261029-1203",
@@ -1383,6 +1383,61 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261029-1240",
+      "headline": "Monte dei Paschi investors reject CEO’s plan to fend off Intesa’s €35bn takeover",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/c1f52a74-2462-4555-a119-c1febca2aecf?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-29T15:46:12Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "MPS shareholders reject CEO's defense plan against Intesa's €35bn acquisition offer, signaling potential for deal acceptance or competing bid.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "MPS shareholders reject CEO's defense plan against Intesa's €35bn acquisition offer, signaling potential for deal acceptance or competing bid.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Monte dei Paschi",
+          "ticker": "MPS",
+          "listing_country": "IT"
+        },
+        {
+          "name": "Intesa Sanpaolo",
+          "ticker": "ISP",
+          "listing_country": "IT"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261029-1226",
       "headline": "Tradeweb Markets Inc. Reports Third Quarter 2026 Financial Results and Agreement to Acquire Trumid for $1.97 billion",
       "headline_en": null,
@@ -1936,55 +1991,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-1194",
-      "headline": "Marvell Is in Talks to Buy an $83 Billion AI Laser Maker",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/10/29/marvell-is-in-talks-to-buy-an-83-billion-ai-laser-maker/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T13:07:54Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Marvell is in talks to acquire an $83 billion AI laser maker.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Marvell is in talks to acquire an $83 billion AI laser maker.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Marvell Technology",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -247163,9 +247169,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1777476,
-    "news_picked_today": 2525,
-    "news_dropped_today": 12755
+    "news_seen_today": 1788119,
+    "news_picked_today": 2532,
+    "news_dropped_today": 12772
   },
   "book_momentum": {
     "live_count": 8,
