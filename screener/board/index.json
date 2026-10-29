@@ -1,6 +1,160 @@
 {
-  "generated_at": "2026-10-29T01:21:06Z",
+  "generated_at": "2026-10-29T01:30:09Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261029-276",
+      "headline": "DMALL (02586): MAJOR TRANSACTION COMPLETION OF THE ACQUISITION OF EQUITY INTEREST IN CLOOPEN GROUP HOLDING LIMITED",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1029/2026102900017.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-28T22:26:00Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Completion of a major acquisition of equity interest in Cloopen Group Holding Limited.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Completion of a major acquisition of equity interest in Cloopen Group Holding Limited.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DMALL",
+          "ticker": "02586",
+          "listing_country": "CN"
+        },
+        {
+          "name": "Cloopen Group Holding Limited",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261029-282",
+      "headline": "Porch Group, Inc. Reports Third Quarter 2026 Results and Raises Full-Year Guidance",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/porch-group-inc-reports-third-quarter-2026-results-and-raises-full-year-guidance",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-29T00:53:34Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Reported Q3 2026 results and raised full-year guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Reported Q3 2026 results and raised full-year guidance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Porch Group, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261029-284",
+      "headline": "Gen Digital Inc. Reports Q2 FY27 Revenue of $1.369 billion and Raises FY27 Outlook",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/gen-digital-inc-reports-q2-fy27-revenue-1369-billion-and-raises-fy27-outlook",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-29T00:53:25Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Reported Q2 FY27 revenue of $1.369 billion and raised FY27 outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Reported Q2 FY27 revenue of $1.369 billion and raised FY27 outlook.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Gen Digital Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261029-026",
       "headline": "The DOE announces $5B loan to Constellation for nuclear uprates",
@@ -838,6 +992,110 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261029-294",
+      "headline": "Gautam Adani explores €3 billion acquisition of Dutch energy storage group VTTI",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/gautam-adani-explores-3-billion-acquisition-of-dutch-energy-storage-group-vtti/article71638065.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T23:29:09Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Adani Group exploring €3 billion acquisition of Dutch energy-storage company VTTI; large named deal in exploration phase.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Adani Group exploring €3 billion acquisition of Dutch energy-storage company VTTI; large named deal in exploration phase.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna",
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adani Group",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "VTTI",
+          "ticker": null,
+          "listing_country": "NL"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261029-275",
+      "headline": "BUD APAC (01876): UNAUDITED RESULTS FOR THE NINE MONTHS ENDED 30 SEPTEMBER 2026 AND THE THIRD QUARTER 2026 FINANCIAL INFORMATION",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1029/2026102900045.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-28T23:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Release of Q3 2026 financial results.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Release of Q3 2026 financial results.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BUD APAC",
+          "ticker": "01876",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261029-068",
       "headline": "F5 stock suffers worst day in more than a decade as AI spending shakes investors",
       "headline_en": null,
@@ -937,6 +1195,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261029-306",
+      "headline": "XF1: Business Update Q1 FY2027 [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.XF1?key=2924-03155119-2A1706910",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-29T00:42:00Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "A quarterly business update is a primary source for assessing company performance and outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "A quarterly business update is a primary source for assessing company performance and outlook.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "XF1",
+          "ticker": "XF1",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1661,276 +1968,6 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-107",
-      "headline": "Hope Bancorp, Inc. Reports Third Quarter 2026 Net Income of $35.6 million",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/hope-bancorp-inc-reports-third-quarter-2026-net-income-356-million",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T17:21:34Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Hope Bancorp reported Q3 2026 net income of $35.6 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Hope Bancorp reported Q3 2026 net income of $35.6 million.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hope Bancorp, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-108",
-      "headline": "Fed holds main interest rate steady despite accelerating inflation",
-      "headline_en": null,
-      "url": "https://www.cfodive.com/news/fed-holds-main-interest-rate-steady-accelerating-inflation-Warsh/873063/",
-      "source_name": "CFO Dive",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T17:21:09Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "The Federal Reserve held interest rates steady, impacting broader market expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "The Federal Reserve held interest rates steady, impacting broader market expectations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-154",
-      "headline": "Midwest Gasoline Supplies Hit Lowest On Record As Election Nears",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-28/midwest-gasoline-supplies-hit-lowest-on-record-as-election-nears",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T16:38:32Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Midwest gasoline supplies hit a record low, indicating a significant regional supply shock.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Midwest gasoline supplies hit a record low, indicating a significant regional supply shock.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-165",
-      "headline": "Israel election live: Ruling Likud party claims Arab parties 'stole' election",
-      "headline_en": null,
-      "url": "https://www.thenationalnews.com/news/mena/2026/10/28/israel-election-results-live-netanyahu/",
-      "source_name": "The National — All News",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T16:33:36Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Political instability and election disputes in Israel represent a significant geopolitical risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Political instability and election disputes in Israel represent a significant geopolitical risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-189",
-      "headline": "The Bank of Canada raised its key interest rate for the first time in three years. Ask us your questions",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/business/article-boc-interest-rate-hike-reader-questions/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T16:08:01Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "The Bank of Canada raised its key interest rate for the first time in three years, a major monetary policy shift.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "The Bank of Canada raised its key interest rate for the first time in three years, a major monetary policy shift.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-211",
-      "headline": "Sundram Fasteners reports 13% growth in PAT in Q2’27",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/news/sundram-fasteners-reports-13-growth-in-pat-in-q227/article71637014.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T15:51:38Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Sundram Fasteners reported a 13% growth in profit after tax for Q2 2027.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Sundram Fasteners reported a 13% growth in profit after tax for Q2 2027.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sundram Fasteners",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -205815,76 +205852,6 @@
   "handoffs": [],
   "ideas": [
     {
-      "idea_id": "IDEA-1bea3b52b765",
-      "idea_version": "IDEAV-58aba6bcf16bd1fd",
-      "idea_version_started_at": "2026-10-27T16:00:02Z",
-      "ticker": "KO",
-      "company": "The Coca-Cola Company",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported Q3 2026 results and raised its full-year guidance, signaling stronger-than-expected organic growth and margin expansion.",
-      "why_now": "The guidance hike was announced today, October 27, 2026, providing an immediate catalyst for earnings revisions.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-46cbdd56a910"
-      ],
-      "primary_source_event_id": "EVT-46cbdd56a910",
-      "source_headlines": [
-        "The Coca-Cola Company Reports Third Quarter 2026 Results and Raises Full Year Guidance"
-      ],
-      "source_headline": "The Coca-Cola Company Reports Third Quarter 2026 Results and Raises Full Year Guidance",
-      "source_url": "https://www.nasdaq.com/articles/coca-cola-company-reports-third-quarter-2026-results-and-raises-full-year-guidance",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-27T13:23:25Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-27T16:00:02Z",
-      "updated_at": "2026-10-27T16:00:02Z",
-      "decay_at": "2026-10-29T01:23:25Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-45c433f18ce8",
       "idea_version": "IDEAV-904d622c46bec612",
       "idea_version_started_at": "2026-10-28T07:06:06Z",
@@ -207101,78 +207068,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-2bff25881ee6",
-      "idea_version": "IDEAV-29f3b98bf22a0a2e",
-      "idea_version_started_at": "2026-10-27T16:00:02Z",
-      "ticker": "JSWINFRA",
-      "company": "JSW Infrastructure",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company reported an 11% decline in net profit to Rs 328 crore for Q2, indicating margin pressure or volume weakness in its port operations.",
-      "why_now": "The earnings results were released today, October 27, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a655e174dded"
-      ],
-      "primary_source_event_id": "EVT-a655e174dded",
-      "source_headlines": [
-        "JSW Infrastructure Q2 Results: Net profit falls 11% to Rs 328 crore"
-      ],
-      "source_headline": "JSW Infrastructure Q2 Results: Net profit falls 11% to Rs 328 crore",
-      "source_url": "https://economictimes.indiatimes.com/markets/stocks/earnings/jsw-infrastructure-q2-results-net-profit-falls-11-to-rs-328-crore/articleshow/135236084.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-27T13:26:43Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-27T16:00:02Z",
-      "updated_at": "2026-10-27T16:00:02Z",
-      "decay_at": "2026-10-29T01:26:43Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-406ba717f9ef",
       "idea_version": "IDEAV-25276e7ead781014",
       "idea_version_started_at": "2026-10-26T13:58:56Z",
@@ -207376,6 +207271,76 @@
       "surfaced_at": "2026-10-27T01:59:31Z",
       "updated_at": "2026-10-27T01:59:31Z",
       "decay_at": "2026-10-28T06:27:45Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-1bea3b52b765",
+      "idea_version": "IDEAV-58aba6bcf16bd1fd",
+      "idea_version_started_at": "2026-10-27T16:00:02Z",
+      "ticker": "KO",
+      "company": "The Coca-Cola Company",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported Q3 2026 results and raised its full-year guidance, signaling stronger-than-expected organic growth and margin expansion.",
+      "why_now": "The guidance hike was announced today, October 27, 2026, providing an immediate catalyst for earnings revisions.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-46cbdd56a910"
+      ],
+      "primary_source_event_id": "EVT-46cbdd56a910",
+      "source_headlines": [
+        "The Coca-Cola Company Reports Third Quarter 2026 Results and Raises Full Year Guidance"
+      ],
+      "source_headline": "The Coca-Cola Company Reports Third Quarter 2026 Results and Raises Full Year Guidance",
+      "source_url": "https://www.nasdaq.com/articles/coca-cola-company-reports-third-quarter-2026-results-and-raises-full-year-guidance",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-27T13:23:25Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-27T16:00:02Z",
+      "updated_at": "2026-10-27T16:00:02Z",
+      "decay_at": "2026-10-29T01:23:25Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -208222,6 +208187,78 @@
       "surfaced_at": "2026-10-28T08:58:37Z",
       "updated_at": "2026-10-28T08:58:37Z",
       "decay_at": "2026-10-28T21:55:38Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-2bff25881ee6",
+      "idea_version": "IDEAV-29f3b98bf22a0a2e",
+      "idea_version_started_at": "2026-10-27T16:00:02Z",
+      "ticker": "JSWINFRA",
+      "company": "JSW Infrastructure",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company reported an 11% decline in net profit to Rs 328 crore for Q2, indicating margin pressure or volume weakness in its port operations.",
+      "why_now": "The earnings results were released today, October 27, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a655e174dded"
+      ],
+      "primary_source_event_id": "EVT-a655e174dded",
+      "source_headlines": [
+        "JSW Infrastructure Q2 Results: Net profit falls 11% to Rs 328 crore"
+      ],
+      "source_headline": "JSW Infrastructure Q2 Results: Net profit falls 11% to Rs 328 crore",
+      "source_url": "https://economictimes.indiatimes.com/markets/stocks/earnings/jsw-infrastructure-q2-results-net-profit-falls-11-to-rs-328-crore/articleshow/135236084.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-27T13:26:43Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-27T16:00:02Z",
+      "updated_at": "2026-10-27T16:00:02Z",
+      "decay_at": "2026-10-29T01:26:43Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -211762,19 +211799,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 564,
+    "total_count": 566,
     "shown_count": 500,
-    "hidden_count": 64,
+    "hidden_count": 66,
     "side_counts": {
       "long": {
-        "total_count": 292,
+        "total_count": 293,
         "shown_count": 250,
-        "hidden_count": 42
+        "hidden_count": 43
       },
       "short": {
-        "total_count": 272,
+        "total_count": 273,
         "shown_count": 250,
-        "hidden_count": 22
+        "hidden_count": 23
       }
     },
     "retention": {
@@ -211793,6 +211830,154 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-2bff25881ee6",
+        "idea_version": "IDEAV-29f3b98bf22a0a2e",
+        "idea_version_started_at": "2026-10-27T16:00:02Z",
+        "ticker": "JSWINFRA",
+        "company": "JSW Infrastructure",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company reported an 11% decline in net profit to Rs 328 crore for Q2, indicating margin pressure or volume weakness in its port operations.",
+        "why_now": "The earnings results were released today, October 27, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-a655e174dded"
+        ],
+        "primary_source_event_id": "EVT-a655e174dded",
+        "source_headlines": [
+          "JSW Infrastructure Q2 Results: Net profit falls 11% to Rs 328 crore"
+        ],
+        "source_headline": "JSW Infrastructure Q2 Results: Net profit falls 11% to Rs 328 crore",
+        "source_url": "https://economictimes.indiatimes.com/markets/stocks/earnings/jsw-infrastructure-q2-results-net-profit-falls-11-to-rs-328-crore/articleshow/135236084.cms",
+        "source_name": "The Economic Times",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-27T13:26:43Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-27T16:00:02Z",
+        "updated_at": "2026-10-27T16:00:02Z",
+        "decay_at": "2026-10-29T01:26:43Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-29T01:26:43Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-1bea3b52b765",
+        "idea_version": "IDEAV-58aba6bcf16bd1fd",
+        "idea_version_started_at": "2026-10-27T16:00:02Z",
+        "ticker": "KO",
+        "company": "The Coca-Cola Company",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company reported Q3 2026 results and raised its full-year guidance, signaling stronger-than-expected organic growth and margin expansion.",
+        "why_now": "The guidance hike was announced today, October 27, 2026, providing an immediate catalyst for earnings revisions.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 67,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-46cbdd56a910"
+        ],
+        "primary_source_event_id": "EVT-46cbdd56a910",
+        "source_headlines": [
+          "The Coca-Cola Company Reports Third Quarter 2026 Results and Raises Full Year Guidance"
+        ],
+        "source_headline": "The Coca-Cola Company Reports Third Quarter 2026 Results and Raises Full Year Guidance",
+        "source_url": "https://www.nasdaq.com/articles/coca-cola-company-reports-third-quarter-2026-results-and-raises-full-year-guidance",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-27T13:23:25Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-27T16:00:02Z",
+        "updated_at": "2026-10-27T16:00:02Z",
+        "decay_at": "2026-10-29T01:23:25Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-29T01:23:25Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-279d8796f645",
         "idea_version": "IDEAV-387c468a148a49a9",
@@ -240314,80 +240499,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-58c976f2825a",
-        "idea_version": "IDEAV-619521d34d1b31cb",
-        "idea_version_started_at": "2026-10-14T11:20:02Z",
-        "ticker": "TATAPOWER",
-        "company": "Tata Power",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company is securing a 2.8 GW pipeline for data center power supply, which provides a long-term, high-margin revenue stream linked to India's expanding AI and digital infrastructure.",
-        "why_now": "The company filed the announcement regarding this specific pipeline on October 14, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-ea651e8db15f"
-        ],
-        "primary_source_event_id": "EVT-ea651e8db15f",
-        "source_headlines": [
-          "Tata Power Company Limited: Tata Power Company Limited has informed the Exchange regarding a press release dated October 14, 2026, titled \"Tata Power Advances 2.8 GW+ Data Centre Opportunity Pipeline Across 18 Leading Blue Chip Data Centre Players, Supporting India's AI and Digital Growth\"."
-        ],
-        "source_headline": "Tata Power Company Limited: Tata Power Company Limited has informed the Exchange regarding a press release dated October 14, 2026, titled \"Tata Power Advances 2.8 GW+ Data Centre Opportunity Pipeline Across 18 Leading Blue Chip Data Centre Players, Supporting India's AI and Digital Growth\".",
-        "source_url": "https://nsearchives.nseindia.com/corporate/KSTPCL_14102026095845_Press_Relase_14102026_signed.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-14T04:28:57Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-12T05:53:02Z",
-        "updated_at": "2026-10-14T11:20:02Z",
-        "decay_at": "2026-10-15T16:28:57Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-17T04:59:14Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-5f8e4c75be94",
         "idea_version": "IDEAV-00dd1eb7eab5b8cb",
         "idea_version_started_at": "2026-10-14T04:53:47Z",
@@ -248962,89 +249073,12 @@
         "archived_at": "2026-10-06T10:47:40Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-d04744233983",
-        "idea_version": "IDEAV-515f15235fab9160",
-        "idea_version_started_at": "2026-10-03T07:11:46Z",
-        "ticker": "TILHC",
-        "company": "TIL Healthcare",
-        "exchange": "BSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "A fatal boiler explosion at a pharmaceutical plant will likely result in operational disruptions, regulatory scrutiny, and potential liabilities.",
-        "why_now": "The incident occurred today and rescue operations are underway.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 7,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-06c883ef25bb",
-          "EVT-75f950727e96"
-        ],
-        "primary_source_event_id": "EVT-06c883ef25bb",
-        "source_headlines": [
-          "Tirupati Blast: 5 Dead, 10 Critically Injured As Powerful Boiler Explosion Rocks Pharma Unit In Sri City; Rescue Ops Underway - VIDEO",
-          "4 workers dead 2 injured in blast at TIL Healthcare’s Sri City plant"
-        ],
-        "source_headline": "Tirupati Blast: 5 Dead, 10 Critically Injured As Powerful Boiler Explosion Rocks Pharma Unit In Sri City; Rescue Ops Underway - VIDEO",
-        "source_url": "https://www.freepressjournal.in/india/tirupati-blast-5-dead-10-critically-injured-as-powerful-boiler-explosion-rocks-pharma-unit-in-sri-city-rescue-ops-underway-video",
-        "source_name": "Free Press Journal",
-        "materiality_max": 98,
-        "newest_source_at": "2026-10-03T07:05:29Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-03T07:11:46Z",
-        "updated_at": "2026-10-03T07:11:46Z",
-        "decay_at": "2026-10-04T19:05:29Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-06T10:47:40Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1982,
-    "live_count": 19,
+    "live_count": 17,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -249063,9 +249097,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 83570,
-    "news_picked_today": 319,
-    "news_dropped_today": 761
+    "news_seen_today": 88062,
+    "news_picked_today": 354,
+    "news_dropped_today": 870
   },
   "book_momentum": {
     "live_count": 8,
