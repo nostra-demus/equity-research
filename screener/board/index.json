@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T03:48:09Z",
+  "generated_at": "2026-10-29T03:51:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20261029-276",
@@ -1519,6 +1519,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261029-571",
+      "headline": "A. O. Smith Corporation to Sell 81% Interest in China Business to CPE for Over $500 million in Total Expected Value",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/o-smith-corporation-sell-81-interest-china-business-cpe-over-500-million-total-expected",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T11:23:27Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "A. O. Smith to sell 81% of its China business for over $500 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A. O. Smith to sell 81% of its China business for over $500 million.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "A. O. Smith Corporation",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261029-578",
+      "headline": "India, HD Hyundai advance plans for $4 billion shipyard in Tamil Nadu",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/transportation/shipping-/-transport/india-hd-hyundai-advance-plans-for-4-billion-shipyard-in-tamil-nadu/articleshow/135263307.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T11:20:32Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "India and HD Hyundai are advancing plans for a $4 billion shipyard project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "India and HD Hyundai are advancing plans for a $4 billion shipyard project.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HD Hyundai",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261029-411",
       "headline": "AIS: Quarterly Results Presentation - Sept 2026 [price-sensitive]",
       "headline_en": null,
@@ -1906,104 +2004,6 @@
       "companies": [
         {
           "name": "Hyundai Motor India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-374",
-      "headline": "Samsung Posts Fourth Straight Quarter of Record Earnings",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/earnings/samsung-posts-fourth-straight-quarter-of-record-earnings-1373e927?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T01:44:00Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Samsung reported a fourth consecutive quarter of record earnings, signaling strong operational performance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Samsung reported a fourth consecutive quarter of record earnings, signaling strong operational performance.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Samsung Electronics",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-044",
-      "headline": "Tata Communications to invest $450m into 10,000km of AI-ready fiber to support data center connectivity in India",
-      "headline_en": null,
-      "url": "https://www.datacenterdynamics.com/en/news/tata-communications-to-invest-450m-into-10000km-of-ai-ready-fiber-to-support-data-center-connectivity-in-india/",
-      "source_name": "DataCenterDynamics",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T18:33:09Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Tata Communications announces $450 million capex commitment into 10,000 km of AI-ready fiber infrastructure to support data-center connectivity in India.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Tata Communications announces $450 million capex commitment into 10,000 km of AI-ready fiber infrastructure to support data-center connectivity in India.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Communications",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -248568,9 +248568,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 195408,
-    "news_picked_today": 910,
-    "news_dropped_today": 2378
+    "news_seen_today": 198087,
+    "news_picked_today": 928,
+    "news_dropped_today": 2408
   },
   "book_momentum": {
     "live_count": 8,
