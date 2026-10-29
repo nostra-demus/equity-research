@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T00:53:06Z",
+  "generated_at": "2026-10-29T00:59:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20261029-026",
@@ -342,6 +342,104 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261029-166",
+      "headline": "International Paper Company Reports Third Quarter 2026 Net Sales of $6.20 billion and Loss of $1.10 billion",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/international-paper-company-reports-third-quarter-2026-net-sales-620-billion-and-loss-110",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T16:33:11Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "International Paper reported a net loss of $1.10 billion on $6.20 billion in sales for Q3 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "International Paper reported a net loss of $1.10 billion on $6.20 billion in sales for Q3 2026.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "International Paper Company",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261029-180",
+      "headline": "Virginia lender First Community to expand into Ohio with $243M deal",
+      "headline_en": null,
+      "url": "https://www.bankingdive.com/news/first-community-bank-virginia-acquire-main-street-ohio-243-million/873051/",
+      "source_name": "Banking Dive",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T16:23:28Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "First Community is expanding into Ohio through a $243M acquisition.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "First Community is expanding into Ohio through a $243M acquisition.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "First Community",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -882,6 +980,104 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261029-167",
+      "headline": "Federal National Mortgage Association Reports $4.2 Billion Net Income for Third Quarter 2026",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/federal-national-mortgage-association-reports-42-billion-net-income-third-quarter-2026",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T16:33:02Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Fannie Mae reported $4.2 billion in net income for Q3 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Fannie Mae reported $4.2 billion in net income for Q3 2026.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Federal National Mortgage Association",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261029-169",
+      "headline": "Mark Zuckerberg's Meta Platforms Reported Negative Free Cash Flow for the First Time Since 2012. Here's Why That Milestone Matters for Shareholders.",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/10/28/mark-zuckerberg-meta-platforms-negative-fcf/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T16:30:00Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Meta Platforms reported negative free cash flow for the first time since 2012, a significant shift in financial performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Meta Platforms reported negative free cash flow for the first time since 2012, a significant shift in financial performance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meta Platforms",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1736,207 +1932,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-005",
-      "headline": "Konsum: US-Behörde will Auskunft über Preisgestaltung bei Uber und Walmart",
-      "headline_en": "Consumer: US authority wants information on pricing at Uber and Walmart",
-      "url": "https://www.handelsblatt.com/unternehmen/handel-konsumgueter/konsum-us-behoerde-will-auskunft-ueber-preisgestaltung-bei-uber-und-walmart/100265709.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T19:21:25Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "US authorities are seeking information on pricing practices at Uber and Walmart, indicating potential regulatory scrutiny.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "US authorities are seeking information on pricing practices at Uber and Walmart, indicating potential regulatory scrutiny.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 4,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Uber",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Walmart",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-003",
-      "headline": "Petroperu Chair Eyes Rare Profit, Investors for Minority Stake",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-28/petroperu-chair-eyes-rare-profit-investors-for-minority-stake",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T19:19:43Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Petroperu is seeking minority investors and targeting a rare profit, signaling a potential shift in capital structure and operational focus.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "Petroperu is seeking minority investors and targeting a rare profit, signaling a potential shift in capital structure and operational focus.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "strategic_review",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Petroperu",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-020",
-      "headline": "Bandhan Bank to face a Rs 200 crore hit from insurance norm change",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/banking/finance/banking/bandhan-bank-to-face-a-rs-200-crore-hit-from-insurance-norm-change/articleshow/135278607.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T19:09:24Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Bandhan Bank faces a Rs 200 crore hit due to a change in insurance norms.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "Bandhan Bank faces a Rs 200 crore hit due to a change in insurance norms.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bandhan Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-054",
-      "headline": "‎National Building says revised utility tariffs to raise subsidiary’s energy costs by SAR 3.5M",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1948098",
-      "source_name": "Argaam — Company Disclosures (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T18:19:00Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "National Building reported a SAR 3.5M increase in annual energy costs due to revised utility tariffs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "National Building reported a SAR 3.5M increase in annual energy costs due to revised utility tariffs.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "National Building",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -206101,76 +206096,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-279d8796f645",
-      "idea_version": "IDEAV-387c468a148a49a9",
-      "idea_version_started_at": "2026-10-27T16:00:02Z",
-      "ticker": "VRT",
-      "company": "Vertiv Holdings Co",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of Utility Innovation Holdings for $1.45 billion expands the company's footprint in critical power infrastructure, which is a high-growth area for data centers.",
-      "why_now": "The acquisition was announced as completed today, October 27, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-86c023fb603f"
-      ],
-      "primary_source_event_id": "EVT-86c023fb603f",
-      "source_headlines": [
-        "Vertiv Holdings Co Completes Acquisition of Utility Innovation Holdings, Inc. for $1.45 billion"
-      ],
-      "source_headline": "Vertiv Holdings Co Completes Acquisition of Utility Innovation Holdings, Inc. for $1.45 billion",
-      "source_url": "https://www.nasdaq.com/articles/vertiv-holdings-co-completes-acquisition-utility-innovation-holdings-inc-145-billion",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-27T12:53:11Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-27T16:00:02Z",
-      "updated_at": "2026-10-27T16:00:02Z",
-      "decay_at": "2026-10-29T00:53:11Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-14600c52489c",
       "idea_version": "IDEAV-57292833b014c260",
       "idea_version_started_at": "2026-10-27T18:30:15Z",
@@ -207662,6 +207587,76 @@
       "surfaced_at": "2026-10-27T06:46:23Z",
       "updated_at": "2026-10-27T06:46:23Z",
       "decay_at": "2026-10-28T14:35:38Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-279d8796f645",
+      "idea_version": "IDEAV-387c468a148a49a9",
+      "idea_version_started_at": "2026-10-27T16:00:02Z",
+      "ticker": "VRT",
+      "company": "Vertiv Holdings Co",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The acquisition of Utility Innovation Holdings for $1.45 billion expands the company's footprint in critical power infrastructure, which is a high-growth area for data centers.",
+      "why_now": "The acquisition was announced as completed today, October 27, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-86c023fb603f"
+      ],
+      "primary_source_event_id": "EVT-86c023fb603f",
+      "source_headlines": [
+        "Vertiv Holdings Co Completes Acquisition of Utility Innovation Holdings, Inc. for $1.45 billion"
+      ],
+      "source_headline": "Vertiv Holdings Co Completes Acquisition of Utility Innovation Holdings, Inc. for $1.45 billion",
+      "source_url": "https://www.nasdaq.com/articles/vertiv-holdings-co-completes-acquisition-utility-innovation-holdings-inc-145-billion",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-27T12:53:11Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-27T16:00:02Z",
+      "updated_at": "2026-10-27T16:00:02Z",
+      "decay_at": "2026-10-29T00:53:11Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -211768,14 +211763,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 563,
+    "total_count": 564,
     "shown_count": 500,
-    "hidden_count": 63,
+    "hidden_count": 64,
     "side_counts": {
       "long": {
-        "total_count": 291,
+        "total_count": 292,
         "shown_count": 250,
-        "hidden_count": 41
+        "hidden_count": 42
       },
       "short": {
         "total_count": 272,
@@ -211799,6 +211794,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-279d8796f645",
+        "idea_version": "IDEAV-387c468a148a49a9",
+        "idea_version_started_at": "2026-10-27T16:00:02Z",
+        "ticker": "VRT",
+        "company": "Vertiv Holdings Co",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The acquisition of Utility Innovation Holdings for $1.45 billion expands the company's footprint in critical power infrastructure, which is a high-growth area for data centers.",
+        "why_now": "The acquisition was announced as completed today, October 27, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 66,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-86c023fb603f"
+        ],
+        "primary_source_event_id": "EVT-86c023fb603f",
+        "source_headlines": [
+          "Vertiv Holdings Co Completes Acquisition of Utility Innovation Holdings, Inc. for $1.45 billion"
+        ],
+        "source_headline": "Vertiv Holdings Co Completes Acquisition of Utility Innovation Holdings, Inc. for $1.45 billion",
+        "source_url": "https://www.nasdaq.com/articles/vertiv-holdings-co-completes-acquisition-utility-innovation-holdings-inc-145-billion",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-27T12:53:11Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-27T16:00:02Z",
+        "updated_at": "2026-10-27T16:00:02Z",
+        "decay_at": "2026-10-29T00:53:11Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-29T00:53:11Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-78dc8a95184a",
         "idea_version": "IDEAV-a634283db6065100",
@@ -240321,81 +240389,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-5a48fe233c01",
-        "idea_version": "IDEAV-7ea17e8b6013f4f9",
-        "idea_version_started_at": "2026-10-14T05:54:12Z",
-        "ticker": "TKA",
-        "company": "Thyssenkrupp AG",
-        "exchange": "XETRA",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The largest shareholder is actively pushing for a steel spin-off, which would unlock value by separating the capital-intensive steel business from the industrial services segment.",
-        "why_now": "The shareholder's public statement today, October 14, 2026, signals a renewed and specific window for corporate restructuring.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 17,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-ea4f8f4347fc"
-        ],
-        "primary_source_event_id": "EVT-ea4f8f4347fc",
-        "source_headlines": [
-          "Thyssenkrupp's largest shareholder sees 'window of opportunity' for steel spin-off"
-        ],
-        "source_headline": "Thyssenkrupp's largest shareholder sees 'window of opportunity' for steel spin-off",
-        "source_url": "https://www.reuters.com/business/aerospace-defense/thyssenkrupps-largest-shareholder-sees-window-opportunity-steel-spin-off-2026-10-14/",
-        "source_name": "Reuters — Latest (news sitemap)",
-        "materiality_max": 91,
-        "newest_source_at": "2026-10-14T03:04:53Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-14T05:54:12Z",
-        "updated_at": "2026-10-14T05:54:12Z",
-        "decay_at": "2026-10-15T15:04:53Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-17T03:18:40Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-5f8e4c75be94",
         "idea_version": "IDEAV-00dd1eb7eab5b8cb",
         "idea_version_started_at": "2026-10-14T04:53:47Z",
@@ -249052,7 +249045,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1982,
-    "live_count": 20,
+    "live_count": 19,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -249071,9 +249064,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 62137,
-    "news_picked_today": 192,
-    "news_dropped_today": 504
+    "news_seen_today": 66554,
+    "news_picked_today": 215,
+    "news_dropped_today": 553
   },
   "book_momentum": {
     "live_count": 8,
