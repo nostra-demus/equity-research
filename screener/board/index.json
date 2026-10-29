@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T02:18:09Z",
+  "generated_at": "2026-10-29T02:19:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20261029-276",
@@ -1252,6 +1252,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261029-410",
+      "headline": "PVR INOX net profit surged to ₹263.1 crore, revenue up 17% in blockbuster Q2",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/pvr-inox-net-profit-surged-to-2631-crore-revenue-up-17-in-blockbuster-q2/article71636714.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T14:46:54Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "PVR INOX reported a net profit of ₹263.1 crore and a 17% revenue increase in Q2.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "PVR INOX reported a net profit of ₹263.1 crore and a 17% revenue increase in Q2.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PVR INOX",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261029-374",
       "headline": "Samsung Posts Fourth Straight Quarter of Record Earnings",
       "headline_en": null,
@@ -1945,55 +1994,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-306",
-      "headline": "XF1: Business Update Q1 FY2027 [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.XF1?key=2924-03155119-2A1706910",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-29T00:42:00Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "A quarterly business update is a primary source for assessing company performance and outlook.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "A quarterly business update is a primary source for assessing company performance and outlook.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "XF1",
-          "ticker": "XF1",
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -249123,9 +249123,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 137090,
-    "news_picked_today": 514,
-    "news_dropped_today": 1430
+    "news_seen_today": 140889,
+    "news_picked_today": 519,
+    "news_dropped_today": 1449
   },
   "book_momentum": {
     "live_count": 8,
