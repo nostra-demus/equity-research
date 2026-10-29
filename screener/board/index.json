@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-29T08:44:24Z",
+  "generated_at": "2026-10-29T08:50:49Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261029-769",
+      "headline": "VISTAR HOLDINGS (08535): PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1029/2026102900320.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-29T08:30:00Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Vistar Holdings issued a profit warning, signaling a decline in expected earnings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Vistar Holdings issued a profit warning, signaling a decline in expected earnings.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "VISTAR HOLDINGS",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261029-600",
       "headline": "CNB: Court Approves Scheme [price-sensitive]",
@@ -100,6 +149,105 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261029-774",
+      "headline": "Alphabet falls 10% in premarket, putting it on course for its biggest ever post-earnings drop",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/10/29/alphabet-google-microsoft-msft-shares-today-earnings.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-29T08:37:51Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Alphabet shares fell 10% following earnings, representing a significant market-moving event for a mega-cap company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Alphabet shares fell 10% following earnings, representing a significant market-moving event for a mega-cap company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Alphabet",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261029-771",
+      "headline": "NN, Inc. Reports Q3 2026 Net Sales of $131.1 million and Raises Full-Year Outlook",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/nn-inc-reports-q3-2026-net-sales-1311-million-and-raises-full-year-outlook",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-29T08:08:30Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "NN, Inc. reported Q3 net sales of $131.1 million and raised its full-year outlook, directly impacting analyst expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "NN, Inc. reported Q3 net sales of $131.1 million and raised its full-year outlook, directly impacting analyst expectations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NN, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -250,6 +398,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261029-781",
+      "headline": "Shell Q3 Profit Surges, Despite Weak Volume; Launches $5 Bln Buyback",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/shell-q3-profit-surges-despite-weak-volume-launches-5-bln-buyback",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-29T07:37:02Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Shell reported surging Q3 profit and launched a $5 billion buyback, a major capital action for a mega-cap company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Shell reported surging Q3 profit and launched a $5 billion buyback, a major capital action for a mega-cap company.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shell",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1803,212 +2001,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-475",
-      "headline": "Peltz’s Trian Offers to Take Wendy’s Private in All-Cash Deal",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-10-28/trian-offers-to-take-wendy-s-private-in-all-cash-deal-video",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T13:57:21Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Trian/Peltz makes all-cash offer to take Wendy's private, directly altering capital structure, dividend policy, and shareholder-exit value.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Trian/Peltz makes all-cash offer to take Wendy's private, directly altering capital structure, dividend policy, and shareholder-exit value.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Wendy's",
-          "ticker": "WEN",
-          "listing_country": "US"
-        },
-        {
-          "name": "Trian Fund Management",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-544",
-      "headline": "Wendy’s receives $1.4-billion take-private offer from Trian",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/business/article-trian-fund-management-offers-to-buy-wendys-for-14-billion/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T12:50:50Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Wendy's received a $1.4-billion take-private offer from Trian, representing a significant M&A event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Wendy's received a $1.4-billion take-private offer from Trian, representing a significant M&A event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Wendy's",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-542",
-      "headline": "EQT-Range Deal Will Create $50B Gas 'Champion'",
-      "headline_en": null,
-      "url": "https://www.rigzone.com/news/eqtrange_deal_will_create_50b_gas_champion-28-oct-2026-184951-article/?rss=true",
-      "source_name": "Rigzone",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T12:34:12Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "A major $50 billion merger between EQT and Range Resources would create a dominant player in the natural gas sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A major $50 billion merger between EQT and Range Resources would create a dominant player in the natural gas sector.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "EQT Corporation",
-          "ticker": "EQT",
-          "listing_country": "US"
-        },
-        {
-          "name": "Range Resources",
-          "ticker": "RRC",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-566",
-      "headline": "Autobauer: Gewinnwarnung trotz 21 Prozent mehr Gewinn – Mercedes fürchtet schlechtes viertes Quartal",
-      "headline_en": "Automaker: Profit warning despite 21 percent more profit – Mercedes fears bad fourth quarter",
-      "url": "https://www.handelsblatt.com/unternehmen/industrie/autobauer-mercedes-fuerchtet-schlechtes-viertes-quartal-trotz-gewinnplus/100263205.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T12:08:08Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Mercedes-Benz issued a profit warning for Q4 despite reporting a 21% profit increase in the current period.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Mercedes-Benz issued a profit warning for Q4 despite reporting a 21% profit increase in the current period.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mercedes-Benz Group",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -248407,9 +248399,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 431852,
-    "news_picked_today": 1793,
-    "news_dropped_today": 7031
+    "news_seen_today": 447794,
+    "news_picked_today": 1811,
+    "news_dropped_today": 7061
   },
   "book_momentum": {
     "live_count": 8,
