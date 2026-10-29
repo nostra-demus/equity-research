@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T20:57:48Z",
+  "generated_at": "2026-10-29T21:01:20Z",
   "inbox": [
     {
       "inbox_id": "INB-20261029-1241",
@@ -1384,6 +1384,154 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261029-1316",
+      "headline": "Intel Shares Tumble on Lower Profit, Weak Guidance",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/earnings/intel-shares-tumble-on-lower-profit-weak-guidance-a2bdcdd8?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-29T20:35:00Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Intel reported lower profit and weak guidance, causing shares to tumble.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Intel reported lower profit and weak guidance, causing shares to tumble.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Intel",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261029-1315",
+      "headline": "Gilead Sciences Lifts Sales Guidance on HIV Portfolio Strength",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/earnings/gilead-sciences-lifts-sales-guidance-on-hiv-portfolio-strength-d5bafd4e?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-29T20:26:00Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Gilead Sciences raised sales guidance due to HIV portfolio strength.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Gilead Sciences raised sales guidance due to HIV portfolio strength.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Gilead Sciences",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261029-1320",
+      "headline": "Lilly raised sales guidance for third time this year as Zepbound sales soar. Its stock closed at a record high.",
+      "headline_en": null,
+      "url": "https://www.marketwatch.com/story/lilly-raises-outlook-for-third-time-this-year-as-zepbound-sales-soar-6d987407?mod=mw_rss_topstories",
+      "source_name": "MarketWatch",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-29T20:22:00Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Eli Lilly raised sales guidance for the third time this year.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Eli Lilly raised sales guidance for the third time this year.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lilly",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261029-1305",
       "headline": "Intel stock plunges 20% as chipmaker blames PC slowdown for weak guidance",
       "headline_en": null,
@@ -1827,153 +1975,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-1297",
-      "headline": "IndiGo CEO Willie Walsh says fare hikes unavoidable amid fuel cost surge as airline posts ₹1,879.1 crore Q2 loss",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/indigo-ceo-willie-walsh-says-fare-hikes-unavoidable-amid-fuel-cost-surge-as-airline-posts-rs-1-879-1-crore-q2-loss-11793296552805.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T18:36:06Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "IndiGo reported a Q2 loss of ₹1,879.1 crore and signaled potential fare hikes.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "IndiGo reported a Q2 loss of ₹1,879.1 crore and signaled potential fare hikes.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IndiGo",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-1296",
-      "headline": "‘It was just a fight that we decided to pick’: Serval raises $150 million at a $3 billion valuation to take on ServiceNow",
-      "headline_en": null,
-      "url": "https://fortune.com/2026/10/29/serval-servicenow-fight-series-c-3-billion-valuation-sequoia/",
-      "source_name": "Fortune",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T18:34:21Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Serval raised $150 million at a $3 billion valuation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Serval raised $150 million at a $3 billion valuation.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Serval",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-1272",
-      "headline": "ADT agrees to $7.6 billion buyout; more offers possible",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/latest-news/adt-agrees-to-7-6-billion-buyout-more-offers-possible",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T18:29:46Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "ADT has agreed to a $7.6 billion buyout, a major M&A event that directly impacts shareholder value.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "ADT has agreed to a $7.6 billion buyout, a major M&A event that directly impacts shareholder value.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ADT",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -247507,9 +247508,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2539158,
-    "news_picked_today": 2783,
-    "news_dropped_today": 17153
+    "news_seen_today": 2549839,
+    "news_picked_today": 2793,
+    "news_dropped_today": 17167
   },
   "book_momentum": {
     "live_count": 8,
