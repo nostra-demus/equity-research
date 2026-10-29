@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T05:05:27Z",
+  "generated_at": "2026-10-29T05:10:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20261029-600",
@@ -1863,6 +1863,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261029-683",
+      "headline": "Adyen Shares Drop After Company Abandons Midterm Profitability Target",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/earnings/adyen-shares-drop-after-company-abandons-midterm-profitability-target-dd08b46d?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T08:59:00Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Adyen abandoned its midterm profitability target, signaling a significant shift in financial outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Adyen abandoned its midterm profitability target, signaling a significant shift in financial outlook.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adyen",
+          "ticker": null,
+          "listing_country": "NL"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261029-411",
       "headline": "AIS: Quarterly Results Presentation - Sept 2026 [price-sensitive]",
       "headline_en": null,
@@ -1961,55 +2010,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-219",
-      "headline": "Bandhan Bank Q2 net jumps over 5-fold at ₹6,21.75 crore, NII grows 14.38%",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/money-and-banking/bandhan-bank-q2-net-jumps-over-5-fold-at-62175-crore-nii-grows-1438/article71636588.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T15:49:10Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Bandhan Bank reported a 5-fold increase in Q2 net profit to ₹621.75 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Bandhan Bank reported a 5-fold increase in Q2 net profit to ₹621.75 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bandhan Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -248634,9 +248634,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 236739,
-    "news_picked_today": 1221,
-    "news_dropped_today": 3195
+    "news_seen_today": 238404,
+    "news_picked_today": 1227,
+    "news_dropped_today": 3213
   },
   "book_momentum": {
     "live_count": 8,
