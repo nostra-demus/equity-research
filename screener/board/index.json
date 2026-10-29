@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-29T09:16:49Z",
+  "generated_at": "2026-10-29T09:19:48Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261029-803",
+      "headline": "GLORIOUS PPT H (00845): DECISION ON THE LISTING COMMITTEE ON CANCELLATION OF LISTING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1029/2026102900468.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-29T08:43:00Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Glorious Property Holdings received a decision from the Listing Committee regarding the cancellation of its listing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Glorious Property Holdings received a decision from the Listing Committee regarding the cancellation of its listing.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Glorious Property Holdings",
+          "ticker": "00845",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261029-798",
       "headline": "CONTINENTAL H (00513): VERY SUBSTANTIAL DISPOSAL IN RELATION TO DISPOSAL OF THE ENTIRE EQUITY INTEREST IN A SUBSIDIARY AND NOTICE OF GENERAL MEETING",
@@ -1931,65 +1980,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-371",
-      "headline": "Wendy’s Surges 14% on Trian-Led $1.4B Take-Private Offer; McDonald’s Edges Higher, Yum Brands Stays Put",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/10/28/wendys-surges-14-on-trian-led-1-4b-take-private-offer-mcdonalds-edges-higher-yum-brands-stays-put/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T15:02:29Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Wendy's received a $1.4 billion take-private offer, causing a 14% stock surge.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Wendy's received a $1.4 billion take-private offer, causing a 14% stock surge.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Wendy's",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "McDonald's",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Yum Brands",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -248388,9 +248378,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 517356,
-    "news_picked_today": 1846,
-    "news_dropped_today": 7290
+    "news_seen_today": 522550,
+    "news_picked_today": 1852,
+    "news_dropped_today": 7308
   },
   "book_momentum": {
     "live_count": 8,
