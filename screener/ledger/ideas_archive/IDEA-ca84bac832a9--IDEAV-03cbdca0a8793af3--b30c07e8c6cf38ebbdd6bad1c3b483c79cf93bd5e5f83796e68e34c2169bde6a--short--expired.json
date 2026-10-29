@@ -1,33 +1,33 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-10-05T08:26:32Z",
+  "archived_at": "2026-10-29T11:34:51Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-6cc4afd771f9",
-    "idea_version": "IDEAV-7e52d21811080491",
-    "idea_version_started_at": "2026-10-02T12:11:11Z",
-    "ticker": "IGG",
-    "company": "IG Group",
-    "exchange": "LSE",
+    "idea_id": "IDEA-ca84bac832a9",
+    "idea_version": "IDEAV-03cbdca0a8793af3",
+    "idea_version_started_at": "2026-10-26T11:54:04Z",
+    "ticker": "SUPREMEIND",
+    "company": "Supreme Industries",
+    "exchange": "NSE",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "short",
     "pair_with": null,
-    "reason": "The significant slash to revenue guidance indicates a fundamental deterioration in trading volumes and client activity, which typically leads to multiple compression in financial services firms.",
-    "why_now": "The revenue warning was issued on 2026-10-02, triggering an immediate 26% share price decline that likely reflects a structural shift in earnings power.",
-    "conviction": 70,
+    "reason": "The company reduced its full-year volume growth guidance, suggesting a cooling in demand for its plastic piping and industrial products.",
+    "why_now": "The guidance cut followed the Q2 results reported on 2026-10-26.",
+    "conviction": 65,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
       "evidence": 14,
-      "impact": 21,
+      "impact": 19,
       "specificity": 7,
       "timing": 10,
       "expression": 0,
-      "corroboration": 7,
+      "corroboration": 0,
       "learning_adjustment": 0
     },
     "trade_readiness": "watch_only",
@@ -36,6 +36,7 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
+      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -52,28 +53,26 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-105ebebd5e15",
-      "EVT-c4d0b79d09ae"
+      "EVT-1c8d88ccb8e8"
     ],
-    "primary_source_event_id": "EVT-105ebebd5e15",
+    "primary_source_event_id": "EVT-1c8d88ccb8e8",
     "source_headlines": [
-      "IG shares plunge as it slashes revenue forecast",
-      "Shares in spreadbetter IG Group plunge 26%"
+      "Supreme Industries Q2 Results: Stock falls 4% after full year volume growth guidance cut"
     ],
-    "source_headline": "IG shares plunge as it slashes revenue forecast",
-    "source_url": "https://www.cityam.com/ig-shares-plunge-as-it-slashes-revenue-forecast/",
-    "source_name": "City A.M.",
+    "source_headline": "Supreme Industries Q2 Results: Stock falls 4% after full year volume growth guidance cut",
+    "source_url": "https://www.cnbctv18.com/market/supreme-industries-q2-results-volume-growth-guidance-plastic-pipes-headwinds-segments-growth-outlook-share-price-20019345.htm",
+    "source_name": "CNBC-TV18",
     "materiality_max": 100,
-    "newest_source_at": "2026-10-02T08:25:12Z",
+    "newest_source_at": "2026-10-26T08:28:45Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-10-02T12:11:11Z",
-    "updated_at": "2026-10-02T12:11:11Z",
-    "decay_at": "2026-10-03T20:25:12Z",
+    "surfaced_at": "2026-10-26T11:54:04Z",
+    "updated_at": "2026-10-26T11:54:04Z",
+    "decay_at": "2026-10-27T20:28:45Z",
     "status": "live",
     "promoted_signal_id": null
   }
