@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T15:39:35Z",
+  "generated_at": "2026-10-29T15:46:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20261029-1203",
@@ -1236,6 +1236,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261029-1206",
+      "headline": "Doordash to buy Instacart in $17bn deal it says will expand customer options",
+      "headline_en": null,
+      "url": "https://www.bbc.co.uk/news/articles/cm79pjg2l57yo?at_medium=RSS&at_campaign=rss",
+      "source_name": "BBC News — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-29T15:05:15Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "DoorDash to acquire privately held Instacart for $17 billion; major capital deployment, strategic shift into grocery delivery, and significant execution and integration risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "DoorDash to acquire privately held Instacart for $17 billion; major capital deployment, strategic shift into grocery delivery, and significant execution and integration risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 7,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DoorDash",
+          "ticker": "DASH",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261029-1215",
+      "headline": "Volkswagen posts $6.8 billion quarterly loss as slumping China demand, Trump tariffs, and Porsche write-down weigh on earnings",
+      "headline_en": null,
+      "url": "https://fortune.com/2026/10/29/volkswagen-earnings-china-tariffs-trump-porsche/",
+      "source_name": "Fortune",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-29T14:55:42Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Volkswagen reports $6.8B quarterly net loss driven by China demand weakness, US tariff exposure, and Porsche write-down.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Volkswagen reports $6.8B quarterly net loss driven by China demand weakness, US tariff exposure, and Porsche write-down.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 76,
+      "rank_factors": {
+        "materiality": 76,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen Group",
+          "ticker": "VOW",
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261029-1139",
       "headline": "Josh Kushner’s Thrive to Buy ADT for $7.6 Billion",
       "headline_en": null,
@@ -1898,104 +1996,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-1098",
-      "headline": "Alphabet falls 11% in premarket, putting it on course for its biggest ever post-earnings drop",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/10/29/alphabet-google-microsoft-msft-shares-today-earnings.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T12:43:03Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Alphabet is experiencing an 11% premarket decline following its earnings report, representing its largest post-earnings drop.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Alphabet is experiencing an 11% premarket decline following its earnings report, representing its largest post-earnings drop.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Alphabet",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-1101",
-      "headline": "Harley’s Electric Bike Spinoff LiveWire Warns It May Not Survive",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-29/harley-s-electric-bike-spinoff-livewire-warns-it-may-not-survive",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T12:27:26Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "LiveWire has issued a going-concern warning, indicating it may not survive.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "LiveWire has issued a going-concern warning, indicating it may not survive.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "LiveWire",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -247601,9 +247601,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1660165,
-    "news_picked_today": 2463,
-    "news_dropped_today": 12097
+    "news_seen_today": 1671010,
+    "news_picked_today": 2491,
+    "news_dropped_today": 12141
   },
   "book_momentum": {
     "live_count": 8,
