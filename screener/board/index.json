@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T02:46:06Z",
+  "generated_at": "2026-10-29T02:53:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20261029-276",
@@ -1154,6 +1154,67 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261029-476",
+      "headline": "GE Vernova Falls 6% Despite Beat, Raise and $9B Trench Deal; Vertiv Holdings Soars 13%, Eaton and Quanta Services Tick Up",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/10/28/ge-vernova-falls-6-despite-beat-raise-and-9b-trench-deal-vertiv-holdings-soars-13-eaton-and-quanta-services-tick-up/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T14:03:50Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "GE Vernova reported a beat and raise alongside a $9B deal, while Vertiv and others saw significant market movement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "GE Vernova reported a beat and raise alongside a $9B deal, while Vertiv and others saw significant market movement.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change",
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GE Vernova",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Vertiv Holdings",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Eaton",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261029-475",
       "headline": "Peltz’s Trian Offers to Take Wendy’s Private in All-Cash Deal",
       "headline_en": null,
@@ -1938,61 +1999,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-294",
-      "headline": "Gautam Adani explores €3 billion acquisition of Dutch energy storage group VTTI",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/gautam-adani-explores-3-billion-acquisition-of-dutch-energy-storage-group-vtti/article71638065.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T23:29:09Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Adani Group exploring €3 billion acquisition of Dutch energy-storage company VTTI; large named deal in exploration phase.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Adani Group exploring €3 billion acquisition of Dutch energy-storage company VTTI; large named deal in exploration phase.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna",
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Adani Group",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "VTTI",
-          "ticker": null,
-          "listing_country": "NL"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -249122,9 +249128,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 156074,
-    "news_picked_today": 637,
-    "news_dropped_today": 1739
+    "news_seen_today": 159681,
+    "news_picked_today": 667,
+    "news_dropped_today": 1805
   },
   "book_momentum": {
     "live_count": 8,
