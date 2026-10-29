@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T12:48:13Z",
+  "generated_at": "2026-10-29T12:59:46Z",
   "inbox": [
     {
       "inbox_id": "INB-20261029-1050",
@@ -836,6 +836,60 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261029-1052",
+      "headline": "DoorDash to buy rival Instacart in $17bn deal",
+      "headline_en": null,
+      "url": "https://www.moneyweb.co.za/news/international/doordash-to-buy-rival-instacart-in-17bn-deal/",
+      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-29T12:04:19Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "DoorDash to acquire Instacart for $17 billion, altering competitive dynamics, regulatory risk, and capital structure in US delivery.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "DoorDash to acquire Instacart for $17 billion, altering competitive dynamics, regulatory risk, and capital structure in US delivery.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DoorDash, Inc.",
+          "ticker": "DASH",
+          "listing_country": "US"
+        },
+        {
+          "name": "Instacart",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1919,56 +1973,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-720",
-      "headline": "Hyundai Motor Net Profit Falls on Weaker Sales, Cuts Outlook",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/earnings/hyundai-motor-net-profit-falls-on-weaker-sales-cuts-outlook-402404b2?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T05:49:00Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Hyundai Motor reported a net profit decline and cut its financial outlook.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Hyundai Motor reported a net profit decline and cut its financial outlook.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hyundai Motor",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -247573,9 +247577,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1031636,
-    "news_picked_today": 2211,
-    "news_dropped_today": 10045
+    "news_seen_today": 1050390,
+    "news_picked_today": 2227,
+    "news_dropped_today": 10173
   },
   "book_momentum": {
     "live_count": 8,
