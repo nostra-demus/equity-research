@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T00:44:09Z",
+  "generated_at": "2026-10-29T00:50:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20261029-026",
@@ -190,6 +190,55 @@
       "companies": [
         {
           "name": "ACM Research",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261029-139",
+      "headline": "Chili’s Keeps Winning Over Diners as Brinker Lifts Outlook",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/earnings/brinker-lifts-forecast-as-chilis-drives-profit-a93ffd09?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T16:50:00Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Brinker International raised its financial outlook, indicating better-than-expected performance for the Chili's brand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Brinker International raised its financial outlook, indicating better-than-expected performance for the Chili's brand.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Brinker International",
           "ticker": null,
           "listing_country": "US"
         }
@@ -550,6 +599,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261029-158",
+      "headline": "HUL beats cost pressures with price hikes, savings as net profit rises 3.9%",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/hul-beats-cost-pressures-with-price-hikes-savings-as-net-profit-rises-39/article71636141.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T16:35:23Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "HUL reported a 3.9% rise in net profit by offsetting cost pressures with price hikes.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "HUL reported a 3.9% rise in net profit by offsetting cost pressures with price hikes.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HUL",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261029-042",
       "headline": "(LEAD) Fed holds key interest rate steady after last month's quarter-point hike",
       "headline_en": null,
@@ -632,6 +730,55 @@
       "companies": [
         {
           "name": "United Spirits",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261029-157",
+      "headline": "Vedanta net doubles in Q2 on better realisation",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/vedanta-net-doubles-in-q2-on-better-realisation/article71636242.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T16:35:47Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Vedanta net profit doubled in Q2 due to improved realizations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Vedanta net profit doubled in Q2 due to improved realizations.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vedanta",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -759,6 +906,49 @@
         "size": 0,
         "recency": 2,
         "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261029-154",
+      "headline": "Midwest Gasoline Supplies Hit Lowest On Record As Election Nears",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-28/midwest-gasoline-supplies-hit-lowest-on-record-as-election-nears",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T16:38:32Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Midwest gasoline supplies hit a record low, indicating a significant regional supply shock.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Midwest gasoline supplies hit a record low, indicating a significant regional supply shock.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "policy",
@@ -1734,202 +1924,6 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-114",
-      "headline": "‎NBF 9M 2026 profit rises 10% to AED 1.04B",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/financial-reports/company-report/5408/2026/72?preview=false",
-      "source_name": "Argaam — UAE Main News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T17:13:00Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "National Bank of Fujairah reported a 10% increase in 9M 2026 profit to AED 1.04 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "National Bank of Fujairah reported a 10% increase in 9M 2026 profit to AED 1.04 billion.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "National Bank of Fujairah",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-012",
-      "headline": "Weil leadership to tell partners firm should be dissolved",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/0476f216-0060-475c-962f-61d73d7d660b?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T19:17:43Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Leadership at Weil is discussing the potential dissolution of the firm, a critical existential event for the partnership.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Leadership at Weil is discussing the potential dissolution of the firm, a critical existential event for the partnership.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Weil",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-015",
-      "headline": "John Marshall Bancorp, Inc. Reports Net Income of $7.5 million for the Quarter Ended September 30, 2026",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/john-marshall-bancorp-inc-reports-net-income-75-million-quarter-ended-september-30-2026",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T19:10:25Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "John Marshall Bancorp reported net income of $7.5 million for the quarter ended September 30, 2026.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "John Marshall Bancorp reported net income of $7.5 million for the quarter ended September 30, 2026.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "John Marshall Bancorp",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-022",
-      "headline": "Weil Gotshal to Hold Firmwide Meeting as Leaders Discuss Plan to Wind Down",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/weil-gotshal-leaders-discussing-plan-to-wind-down-law-firm-09d60c10?mod=rss_markets_main",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T19:09:00Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Weil Gotshal is discussing a plan to wind down operations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Weil Gotshal is discussing a plan to wind down operations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Weil Gotshal",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -249065,9 +249059,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 53159,
-    "news_picked_today": 156,
-    "news_dropped_today": 420
+    "news_seen_today": 57696,
+    "news_picked_today": 182,
+    "news_dropped_today": 490
   },
   "book_momentum": {
     "live_count": 8,
