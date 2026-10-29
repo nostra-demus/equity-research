@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-10-29T21:28:20Z",
+  "generated_at": "2026-10-29T21:37:17Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261029-1354",
+      "headline": "25-NSE - Sports Entertainment Gaming Global Corp (0001673481) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1673481/000135445726001037/0001354457-26-001037-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-29T20:05:00Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Nasdaq delisting (25-NSE) of Sports Entertainment Gaming Global Corp is a survival-level event that forces selling by indexed and restricted holders, removes exchange listing, sharply reduces liquidity, and typically precedes bankruptcy or total equity loss.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nasdaq delisting (25-NSE) of Sports Entertainment Gaming Global Corp is a survival-level event that forces selling by indexed and restricted holders, removes exchange listing, sharply reduces liquidity, and typically precedes bankruptcy or total equity loss.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sports Entertainment Gaming Global Corp",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261029-1355",
+      "headline": "25-NSE - Dynamix Corp (0002028699) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/2028699/000135445726001036/0001354457-26-001036-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-29T20:02:59Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Nasdaq delisting (25-NSE) of Dynamix Corp is a survival-level event that forces selling by indexed and restricted holders, removes exchange listing, sharply reduces liquidity, and typically precedes bankruptcy or total equity loss.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nasdaq delisting (25-NSE) of Dynamix Corp is a survival-level event that forces selling by indexed and restricted holders, removes exchange listing, sharply reduces liquidity, and typically precedes bankruptcy or total equity loss.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dynamix Corp",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261029-1241",
       "headline": "425 - FIRST MID BANCSHARES, INC. (0000700565) (Subject)",
@@ -1874,104 +1972,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-1300",
-      "headline": "Glaukos Sets $1 Billion 2027 Sales Goal: Rapid Earnings Reaction",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/10/29/glaukos-sets-usd1-billion-2027-sales-goal-rapid-earnings-reaction/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T19:30:13Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Glaukos announced a specific $1 billion sales target for 2027, providing a clear long-term growth objective for investors.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Glaukos announced a specific $1 billion sales target for 2027, providing a clear long-term growth objective for investors.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Glaukos",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-1287",
-      "headline": "T-Mobile Profit Up 27% as Account Churn Rises: Rapid Earnings Reaction",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/10/29/t-mobile-profit-up-27-as-account-churn-rises-rapid-earnings-reaction/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T19:22:26Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "T-Mobile reported a 27% profit increase alongside rising account churn, indicating mixed operational performance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "T-Mobile reported a 27% profit increase alongside rising account churn, indicating mixed operational performance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "T-Mobile",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -247503,9 +247503,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2603651,
-    "news_picked_today": 2842,
-    "news_dropped_today": 17838
+    "news_seen_today": 2614038,
+    "news_picked_today": 2862,
+    "news_dropped_today": 18154
   },
   "book_momentum": {
     "live_count": 8,
