@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T18:31:34Z",
+  "generated_at": "2026-10-29T19:29:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20261029-1241",
@@ -1285,6 +1285,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261029-1272",
+      "headline": "ADT agrees to $7.6 billion buyout; more offers possible",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/latest-news/adt-agrees-to-7-6-billion-buyout-more-offers-possible",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-29T18:29:46Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "ADT has agreed to a $7.6 billion buyout, a major M&A event that directly impacts shareholder value.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "ADT has agreed to a $7.6 billion buyout, a major M&A event that directly impacts shareholder value.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ADT",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261029-1269",
       "headline": "GE Vernova in $9B deal to buy high-voltage manufacturer as gas turbine orders slow",
       "headline_en": null,
@@ -1936,55 +1985,6 @@
           "name": "DoorDash",
           "ticker": "DASH",
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-1215",
-      "headline": "Volkswagen posts $6.8 billion quarterly loss as slumping China demand, Trump tariffs, and Porsche write-down weigh on earnings",
-      "headline_en": null,
-      "url": "https://fortune.com/2026/10/29/volkswagen-earnings-china-tariffs-trump-porsche/",
-      "source_name": "Fortune",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T14:55:42Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Volkswagen reports $6.8B quarterly net loss driven by China demand weakness, US tariff exposure, and Porsche write-down.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Volkswagen reports $6.8B quarterly net loss driven by China demand weakness, US tariff exposure, and Porsche write-down.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 76,
-      "rank_factors": {
-        "materiality": 76,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Volkswagen Group",
-          "ticker": "VOW",
-          "listing_country": "DE"
         }
       ],
       "size_bucket": "mega",
@@ -247521,9 +247521,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2141015,
-    "news_picked_today": 2635,
-    "news_dropped_today": 14901
+    "news_seen_today": 2293079,
+    "news_picked_today": 2644,
+    "news_dropped_today": 15204
   },
   "book_momentum": {
     "live_count": 8,
