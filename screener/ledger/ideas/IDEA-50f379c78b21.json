@@ -1,0 +1,72 @@
+{
+  "idea_id": "IDEA-50f379c78b21",
+  "idea_version": "IDEAV-684e5b6f4e95a92b",
+  "idea_version_started_at": "2026-10-29T04:07:36Z",
+  "ticker": "NVDA",
+  "company": "Nvidia",
+  "exchange": "NASDAQ",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "short",
+  "pair_with": null,
+  "reason": "DOJ scrutiny of the $12.9 billion Hugging Face acquisition introduces significant regulatory risk and potential deal termination, which could weigh on the stock's premium valuation.",
+  "why_now": "The news of DOJ scrutiny broke on October 28, 2026, creating immediate regulatory overhang.",
+  "conviction": 60,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 67,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 21,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 7,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "policy_conditional",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-43027d7f1441"
+  ],
+  "primary_source_event_id": "EVT-43027d7f1441",
+  "source_headlines": [
+    "Nvidia's $12.9 billion Hugging Face deal draws DOJ scrutiny"
+  ],
+  "source_headline": "Nvidia's $12.9 billion Hugging Face deal draws DOJ scrutiny",
+  "source_url": "https://www.cnbc.com/2026/10/28/doj-questions-nvidias-12point9-billion-hugging-face-deal.html",
+  "source_name": "CNBC",
+  "materiality_max": 100,
+  "newest_source_at": "2026-10-28T21:58:51Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-10-29T04:07:36Z",
+  "updated_at": "2026-10-29T04:07:36Z",
+  "decay_at": "2026-10-30T09:58:51Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
