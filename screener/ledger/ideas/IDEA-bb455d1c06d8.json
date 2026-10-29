@@ -1,0 +1,72 @@
+{
+  "idea_id": "IDEA-bb455d1c06d8",
+  "idea_version": "IDEAV-b909c1deb8fc7a29",
+  "idea_version_started_at": "2026-10-29T04:07:36Z",
+  "ticker": "SFM",
+  "company": "Sprouts Farmers Market",
+  "exchange": "NASDAQ",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "short",
+  "pair_with": null,
+  "reason": "The company is slashing its financial outlook following a Cyclospora outbreak, which directly impairs sales growth and operational margins.",
+  "why_now": "The guidance cut was announced on October 28, 2026, and the market is currently digesting the impact of the health-related sales disruption.",
+  "conviction": 75,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 65,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 19,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 7,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-136592fd2fca"
+  ],
+  "primary_source_event_id": "EVT-136592fd2fca",
+  "source_headlines": [
+    "Sprouts Slashes Outlook After Cyclospora Outbreak Hit Sales"
+  ],
+  "source_headline": "Sprouts Slashes Outlook After Cyclospora Outbreak Hit Sales",
+  "source_url": "https://www.bloomberg.com/news/articles/2026-10-28/sprouts-slashes-outlook-after-cyclospora-outbreak-hit-sales",
+  "source_name": "Bloomberg",
+  "materiality_max": 100,
+  "newest_source_at": "2026-10-28T21:24:40Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-10-29T04:07:36Z",
+  "updated_at": "2026-10-29T04:07:36Z",
+  "decay_at": "2026-10-30T09:24:40Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
