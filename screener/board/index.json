@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T10:06:29Z",
+  "generated_at": "2026-10-29T10:15:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20261029-804",
@@ -46,6 +46,104 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261029-868",
+      "headline": "SUPERACTIVE GP (00176): Cancellation of listing",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1029/2026102900622.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-29T09:09:00Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Cancellation of listing for SUPERACTIVE GP (00176), a Hong Kong-listed company, terminates public trading rights; the underlying reason and terms are not disclosed in the headline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Cancellation of listing for SUPERACTIVE GP (00176), a Hong Kong-listed company, terminates public trading rights; the underlying reason and terms are not disclosed in the headline.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SUPERACTIVE GP",
+          "ticker": "00176",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261029-869",
+      "headline": "HUARONG ENERGY (01101): Cancellation of listing",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1029/2026102900620.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-29T09:09:00Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Cancellation of listing for HUARONG ENERGY (01101), a Hong Kong-listed company, terminates public trading rights; the underlying reason and terms are not disclosed in the headline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Cancellation of listing for HUARONG ENERGY (01101), a Hong Kong-listed company, terminates public trading rights; the underlying reason and terms are not disclosed in the headline.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HUARONG ENERGY",
+          "ticker": "01101",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1882,104 +1980,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-139",
-      "headline": "Chili’s Keeps Winning Over Diners as Brinker Lifts Outlook",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/earnings/brinker-lifts-forecast-as-chilis-drives-profit-a93ffd09?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T16:50:00Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Brinker International raised its financial outlook, indicating better-than-expected performance for the Chili's brand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Brinker International raised its financial outlook, indicating better-than-expected performance for the Chili's brand.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Brinker International",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-161",
-      "headline": "Adani Enterprises Q2 profit plunges 54% to ₹1,492 crore despite revenue growth",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/adani-enterprises-q2-profit-plunges-54-to-1492-crore-despite-revenue-growth/article71635032.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T16:34:44Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Adani Enterprises reported a 54% plunge in Q2 profit to ₹1,492 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Adani Enterprises reported a 54% plunge in Q2 profit to ₹1,492 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Adani Enterprises",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -206214,76 +206214,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-f60d317b461b",
-      "idea_version": "IDEAV-c31c71fee5520652",
-      "idea_version_started_at": "2026-10-28T02:32:22Z",
-      "ticker": "ENSG",
-      "company": "The Ensign Group, Inc.",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported strong Q3 2026 results and raised its annual earnings guidance, indicating better-than-expected demand and margin expansion in its healthcare services.",
-      "why_now": "The earnings release and guidance update were published on October 27, 2026.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3b1ca4a0b5d9"
-      ],
-      "primary_source_event_id": "EVT-3b1ca4a0b5d9",
-      "source_headlines": [
-        "The Ensign Group, Inc. Reports Third Quarter 2026 Results and Raises 2026 Annual Earnings Guidance"
-      ],
-      "source_headline": "The Ensign Group, Inc. Reports Third Quarter 2026 Results and Raises 2026 Annual Earnings Guidance",
-      "source_url": "https://www.nasdaq.com/articles/ensign-group-inc-reports-third-quarter-2026-results-and-raises-2026-annual-earnings",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-27T22:14:21Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-28T02:32:22Z",
-      "updated_at": "2026-10-28T02:32:22Z",
-      "decay_at": "2026-10-29T10:14:21Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-e50b386de176",
       "idea_version": "IDEAV-977c48b53ebf4b30",
       "idea_version_started_at": "2026-10-29T06:54:24Z",
@@ -207987,6 +207917,76 @@
       "surfaced_at": "2026-10-27T06:46:23Z",
       "updated_at": "2026-10-27T06:46:23Z",
       "decay_at": "2026-10-28T14:35:38Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-f60d317b461b",
+      "idea_version": "IDEAV-c31c71fee5520652",
+      "idea_version_started_at": "2026-10-28T02:32:22Z",
+      "ticker": "ENSG",
+      "company": "The Ensign Group, Inc.",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported strong Q3 2026 results and raised its annual earnings guidance, indicating better-than-expected demand and margin expansion in its healthcare services.",
+      "why_now": "The earnings release and guidance update were published on October 27, 2026.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3b1ca4a0b5d9"
+      ],
+      "primary_source_event_id": "EVT-3b1ca4a0b5d9",
+      "source_headlines": [
+        "The Ensign Group, Inc. Reports Third Quarter 2026 Results and Raises 2026 Annual Earnings Guidance"
+      ],
+      "source_headline": "The Ensign Group, Inc. Reports Third Quarter 2026 Results and Raises 2026 Annual Earnings Guidance",
+      "source_url": "https://www.nasdaq.com/articles/ensign-group-inc-reports-third-quarter-2026-results-and-raises-2026-annual-earnings",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-27T22:14:21Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-28T02:32:22Z",
+      "updated_at": "2026-10-28T02:32:22Z",
+      "decay_at": "2026-10-29T10:14:21Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -211081,14 +211081,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 549,
+    "total_count": 550,
     "shown_count": 500,
-    "hidden_count": 49,
+    "hidden_count": 50,
     "side_counts": {
       "long": {
-        "total_count": 280,
+        "total_count": 281,
         "shown_count": 250,
-        "hidden_count": 30
+        "hidden_count": 31
       },
       "short": {
         "total_count": 269,
@@ -211112,6 +211112,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-f60d317b461b",
+        "idea_version": "IDEAV-c31c71fee5520652",
+        "idea_version_started_at": "2026-10-28T02:32:22Z",
+        "ticker": "ENSG",
+        "company": "The Ensign Group, Inc.",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company reported strong Q3 2026 results and raised its annual earnings guidance, indicating better-than-expected demand and margin expansion in its healthcare services.",
+        "why_now": "The earnings release and guidance update were published on October 27, 2026.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 66,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-3b1ca4a0b5d9"
+        ],
+        "primary_source_event_id": "EVT-3b1ca4a0b5d9",
+        "source_headlines": [
+          "The Ensign Group, Inc. Reports Third Quarter 2026 Results and Raises 2026 Annual Earnings Guidance"
+        ],
+        "source_headline": "The Ensign Group, Inc. Reports Third Quarter 2026 Results and Raises 2026 Annual Earnings Guidance",
+        "source_url": "https://www.nasdaq.com/articles/ensign-group-inc-reports-third-quarter-2026-results-and-raises-2026-annual-earnings",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-27T22:14:21Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-28T02:32:22Z",
+        "updated_at": "2026-10-28T02:32:22Z",
+        "decay_at": "2026-10-29T10:14:21Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-29T10:14:21Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-f1d1a4c60f5d",
         "idea_version": "IDEAV-599b8300b03b9855",
@@ -239704,80 +239777,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-d39de226be65",
-        "idea_version": "IDEAV-5e87e4cd92cb8dbb",
-        "idea_version_started_at": "2026-10-14T15:32:35Z",
-        "ticker": "IDBI",
-        "company": "IDBI Bank Limited",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The cabinet approval of a strategic stake sale to Fairfax for Rs 52,878 crore acts as a major catalyst for valuation re-rating and structural transformation.",
-        "why_now": "The news of the cabinet approval surfaced today, October 14, 2026, with the company currently awaiting formal response to exchange queries.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-18e2ed8f2399"
-        ],
-        "primary_source_event_id": "EVT-18e2ed8f2399",
-        "source_headlines": [
-          "IDBI Bank Limited: The Exchange has sought clarification from IDBI Bank Limited with respect to recent news item captioned Cabinet Approves IDBI Bank Stake Sale To Fairfax For Rs 52,878 Crore; FM Calls It Strategic Restructuring. The response from the Company is awaited."
-        ],
-        "source_headline": "IDBI Bank Limited: The Exchange has sought clarification from IDBI Bank Limited with respect to recent news item captioned Cabinet Approves IDBI Bank Stake Sale To Fairfax For Rs 52,878 Crore; FM Calls It Strategic Restructuring. The response from the Company is awaited.",
-        "source_url": "https://www.nseindia.com/companies-listing/corporate-filings-announcements?symbol=IDBI&seq=106817473",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-14T12:05:46Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-14T15:32:35Z",
-        "updated_at": "2026-10-14T15:32:35Z",
-        "decay_at": "2026-10-16T00:05:46Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-17T12:25:36Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-bb082e7d696f",
         "idea_version": "IDEAV-0e313c4b31e78e08",
         "idea_version_started_at": "2026-10-14T15:32:35Z",
@@ -248359,7 +248358,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1993,
-    "live_count": 24,
+    "live_count": 23,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -248378,9 +248377,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 647065,
-    "news_picked_today": 1894,
-    "news_dropped_today": 8010
+    "news_seen_today": 665014,
+    "news_picked_today": 1929,
+    "news_dropped_today": 8119
   },
   "book_momentum": {
     "live_count": 8,
