@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-29T09:22:46Z",
+  "generated_at": "2026-10-29T09:42:46Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261029-804",
+      "headline": "Equitas Small Finance Bank Limited: Equitas Small Finance Bank Limited has informed the Exchange regarding Resignation of Mr. P N Vasudevan as Managing Director & CEO of the company w.e.f. October 29, 2026.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/EQUITASBNK_29102026150035_KMPresignationfinal.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-29T09:30:54Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Managing Director and CEO P N Vasudevan has resigned effective October 29, 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Managing Director and CEO P N Vasudevan has resigned effective October 29, 2026.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "executive_exit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Equitas Small Finance Bank Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261029-803",
       "headline": "GLORIOUS PPT H (00845): DECISION ON THE LISTING COMMITTEE ON CANCELLATION OF LISTING",
@@ -1931,55 +1980,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-232",
-      "headline": "GSK shares dive as weaker vaccine sales unnerve investors",
-      "headline_en": null,
-      "url": "https://www.theguardian.com/business/2026/oct/28/gsk-shares-dive-as-weaker-sales-and-mounting-costs-unnerve-investors",
-      "source_name": "The Guardian — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T15:34:56Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "GSK shares fell due to weaker-than-expected vaccine sales, directly impacting investor sentiment and revenue expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "GSK shares fell due to weaker-than-expected vaccine sales, directly impacting investor sentiment and revenue expectations.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GSK",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -248378,9 +248378,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 527720,
-    "news_picked_today": 1854,
-    "news_dropped_today": 7354
+    "news_seen_today": 573954,
+    "news_picked_today": 1858,
+    "news_dropped_today": 7806
   },
   "book_momentum": {
     "live_count": 8,
