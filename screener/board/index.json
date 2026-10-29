@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T03:55:28Z",
+  "generated_at": "2026-10-29T03:58:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20261029-276",
@@ -1666,6 +1666,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261029-589",
+      "headline": "Adani Group eyes €3 billion acquisition of energy storage group VTTI to boost overseas footprint",
+      "headline_en": null,
+      "url": "https://www.businesstoday.in/latest/corporate/story/adani-group-eyes-eu3-billion-acquisition-of-energy-storage-group-vtti-to-boost-overseas-footprint-564419-2026-10-29?utm_source=rssfeed",
+      "source_name": "Business Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-29T03:03:09Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Adani Group plans €3 billion acquisition of VTTI to expand overseas energy-storage operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Adani Group plans €3 billion acquisition of VTTI to expand overseas energy-storage operations.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adani Group",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "VTTI",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261029-219",
       "headline": "Bandhan Bank Q2 net jumps over 5-fold at ₹6,21.75 crore, NII grows 14.38%",
       "headline_en": null,
@@ -1960,55 +2014,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-558",
-      "headline": "Hyundai Motor India Q2 profit falls 24% despite record sales",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/hyundai-motor-india-q2-profit-falls-24-despite-record-sales/articleshow/135264974.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T12:11:52Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Hyundai Motor India reported a 24% fall in Q2 profit despite record sales, missing market expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Hyundai Motor India reported a 24% fall in Q2 profit despite record sales, missing market expectations.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hyundai Motor India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -248568,9 +248573,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 200960,
-    "news_picked_today": 937,
-    "news_dropped_today": 2423
+    "news_seen_today": 206610,
+    "news_picked_today": 950,
+    "news_dropped_today": 2458
   },
   "book_momentum": {
     "live_count": 8,
