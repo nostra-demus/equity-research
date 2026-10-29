@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T08:54:13Z",
+  "generated_at": "2026-10-29T08:57:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20261029-769",
@@ -149,6 +149,56 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261029-786",
+      "headline": "Volkswagen’s Q3 loss widens to more than 5 billion euros, raising restructuring stakes",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/international/volkswagens-q3-loss-widens-more-5-billion-euros-raising-restructuring-stakes",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-29T08:47:13Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Volkswagen reported a Q3 loss exceeding 5 billion euros, signaling significant financial distress and potential restructuring.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Volkswagen reported a Q3 loss exceeding 5 billion euros, signaling significant financial distress and potential restructuring.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1937,67 +1987,6 @@
           "name": "Vedanta",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-476",
-      "headline": "GE Vernova Falls 6% Despite Beat, Raise and $9B Trench Deal; Vertiv Holdings Soars 13%, Eaton and Quanta Services Tick Up",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/10/28/ge-vernova-falls-6-despite-beat-raise-and-9b-trench-deal-vertiv-holdings-soars-13-eaton-and-quanta-services-tick-up/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T14:03:50Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "GE Vernova reported a beat and raise alongside a $9B deal, while Vertiv and others saw significant market movement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "GE Vernova reported a beat and raise alongside a $9B deal, while Vertiv and others saw significant market movement.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change",
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GE Vernova",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Vertiv Holdings",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Eaton",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -248399,9 +248388,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 453252,
-    "news_picked_today": 1816,
-    "news_dropped_today": 7080
+    "news_seen_today": 469530,
+    "news_picked_today": 1824,
+    "news_dropped_today": 7096
   },
   "book_momentum": {
     "live_count": 8,
