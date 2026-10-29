@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T00:43:09Z",
+  "generated_at": "2026-10-29T00:44:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20261029-026",
@@ -1361,6 +1361,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261029-132",
+      "headline": "Beyti invests over EGP 7bn in Egypt, plans EGP 8.7bn spending by 2027",
+      "headline_en": null,
+      "url": "https://www.dailynewsegypt.com/2026/10/28/beyti-invests-over-egp-7bn-in-egypt-plans-egp-8-7bn-spending-by-2027/",
+      "source_name": "Daily News Egypt — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T16:58:44Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Beyti announced a total investment of over EGP 7 billion with plans for an additional EGP 8.7 billion in capital expenditure by 2027.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Beyti announced a total investment of over EGP 7 billion with plans for an additional EGP 8.7 billion in capital expenditure by 2027.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Beyti",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261029-005",
       "headline": "Konsum: US-Behörde will Auskunft über Preisgestaltung bei Uber und Walmart",
       "headline_en": "Consumer: US authority wants information on pricing at Uber and Walmart",
@@ -1882,55 +1931,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-041",
-      "headline": "Oracle Jumps After Projecting Return to Positive Cash Flow",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-28/oracle-projects-30-billion-free-cash-flow-in-fiscal-2029",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T18:34:57Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Oracle projects return to positive free cash flow; operational inflection affects capital generation, capex capacity, and dividend sustainability, but no timeframe or magnitude disclosed.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Oracle projects return to positive free cash flow; operational inflection affects capital generation, capex capacity, and dividend sustainability, but no timeframe or magnitude disclosed.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 62,
-      "rank_factors": {
-        "materiality": 62,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 8,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Oracle",
-          "ticker": "ORCL",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -249065,9 +249065,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 48598,
-    "news_picked_today": 149,
-    "news_dropped_today": 403
+    "news_seen_today": 53159,
+    "news_picked_today": 156,
+    "news_dropped_today": 420
   },
   "book_momentum": {
     "live_count": 8,
