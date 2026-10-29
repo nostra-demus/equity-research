@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T16:03:25Z",
+  "generated_at": "2026-10-29T16:13:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20261029-1203",
@@ -206443,6 +206443,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-c6f1a0d27ff6",
+      "idea_version": "IDEAV-a015e0f4e4c355d7",
+      "idea_version_started_at": "2026-10-29T16:12:50Z",
+      "ticker": "EQUITASBNK",
+      "company": "Equitas Small Finance Bank Limited",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The unexpected resignation of the Managing Director and CEO creates significant leadership uncertainty and potential strategic drift.",
+      "why_now": "The resignation was announced effective October 29, 2026, creating immediate management instability.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-eda355df71fe"
+      ],
+      "primary_source_event_id": "EVT-eda355df71fe",
+      "source_headlines": [
+        "Equitas Small Finance Bank Limited: Equitas Small Finance Bank Limited has informed the Exchange regarding Resignation of Mr. P N Vasudevan as Managing Director & CEO of the company w.e.f. October 29, 2026."
+      ],
+      "source_headline": "Equitas Small Finance Bank Limited: Equitas Small Finance Bank Limited has informed the Exchange regarding Resignation of Mr. P N Vasudevan as Managing Director & CEO of the company w.e.f. October 29, 2026.",
+      "source_url": "https://nsearchives.nseindia.com/corporate/EQUITASBNK_29102026150035_KMPresignationfinal.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-29T09:30:54Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-29T16:12:50Z",
+      "updated_at": "2026-10-29T16:12:50Z",
+      "decay_at": "2026-10-30T21:30:54Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-8d0cbe562695",
       "idea_version": "IDEAV-a7c41e84466f49b0",
       "idea_version_started_at": "2026-10-29T02:54:08Z",
@@ -207079,76 +207150,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-dba8408df9af",
-      "idea_version": "IDEAV-8fb529b4ea87788f",
-      "idea_version_started_at": "2026-10-26T17:25:34Z",
-      "ticker": "JBLU",
-      "company": "JetBlue Airways",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is facing severe liquidity concerns as creditors have begun hiring restructuring advisers, signaling a potential debt crisis.",
-      "why_now": "The news of creditor engagement with restructuring specialists broke on October 26, 2026.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8c4974cfbb04"
-      ],
-      "primary_source_event_id": "EVT-8c4974cfbb04",
-      "source_headlines": [
-        "JetBlue Airways Tumbles 16% as Creditors Hire Restructuring Advisers; United Airlines Rises 3%, Delta Edges Higher"
-      ],
-      "source_headline": "JetBlue Airways Tumbles 16% as Creditors Hire Restructuring Advisers; United Airlines Rises 3%, Delta Edges Higher",
-      "source_url": "https://247wallst.com/investing/2026/10/26/jetblue-airways-tumbles-16-as-creditors-hire-restructuring-advisers-united-airlines-rises-3-delta-edges-higher/",
-      "source_name": "24/7 Wall St.",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-26T14:52:22Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-24T11:28:14Z",
-      "updated_at": "2026-10-26T17:25:34Z",
-      "decay_at": "2026-10-28T02:52:22Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-301c9958417a",
       "idea_version": "IDEAV-1a5df032afd29548",
       "idea_version_started_at": "2026-10-27T06:46:23Z",
@@ -207706,77 +207707,6 @@
       "surfaced_at": "2026-10-23T15:10:57Z",
       "updated_at": "2026-10-27T08:26:43Z",
       "decay_at": "2026-10-28T15:58:57Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-8239e24e9708",
-      "idea_version": "IDEAV-e9b499f4916f6f14",
-      "idea_version_started_at": "2026-10-26T17:25:34Z",
-      "ticker": "SGRY",
-      "company": "Surgery Partners",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company has entered into a definitive merger agreement to be acquired at $23.50 per share.",
-      "why_now": "The merger agreement was announced on October 26, 2026.",
-      "conviction": 90,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-44ba16c0384f"
-      ],
-      "primary_source_event_id": "EVT-44ba16c0384f",
-      "source_headlines": [
-        "Surgery Partners, Inc. Enters into Merger Agreement with Spyglass Topco, LLC at $23.50 Per Share"
-      ],
-      "source_headline": "Surgery Partners, Inc. Enters into Merger Agreement with Spyglass Topco, LLC at $23.50 Per Share",
-      "source_url": "https://www.nasdaq.com/articles/surgery-partners-inc-enters-merger-agreement-spyglass-topco-llc-2350-share",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-26T15:58:52Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-26T17:25:34Z",
-      "updated_at": "2026-10-26T17:25:34Z",
-      "decay_at": "2026-10-28T03:58:52Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -209579,77 +209509,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-58c269708038",
-      "idea_version": "IDEAV-a0c3bc6c6eb77bb5",
-      "idea_version_started_at": "2026-10-26T21:48:47Z",
-      "ticker": "SIGMA",
-      "company": "SIGMA ADVANCED SYSTEMS LIMITED",
-      "exchange": "BSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company secured a major order worth INR 973 crores for 155mm artillery ammunition, which will materially boost its order book and future revenue recognition.",
-      "why_now": "The order was announced via exchange filing on October 26, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3539bdfef91a"
-      ],
-      "primary_source_event_id": "EVT-3539bdfef91a",
-      "source_headlines": [
-        "SIGMA ADVANCED SYSTEMS LIMITED: SIGMA ADVANCED SYSTEMS LIMITED has informed the Exchange regarding a press release dated October 26, 2026, titled \"Pursuant to Regulation 30 of the SEBI (Listing Obligations and Disclosure Requirement) Regulations, 2015, Press release titled Sigma Advanced Systems Secures INR 973 crores Order for Base Bleed Units of 155mm Artillery Ammunition \"."
-      ],
-      "source_headline": "SIGMA ADVANCED SYSTEMS LIMITED: SIGMA ADVANCED SYSTEMS LIMITED has informed the Exchange regarding a press release dated October 26, 2026, titled \"Pursuant to Regulation 30 of the SEBI (Listing Obligations and Disclosure Requirement) Regulations, 2015, Press release titled Sigma Advanced Systems Secures INR 973 crores Order for Base Bleed Units of 155mm Artillery Ammunition \".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/MEGASOFT_26102026193717_Disclosure_Reg_30_-_20261026-signed.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-26T14:08:22Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-26T21:48:47Z",
-      "updated_at": "2026-10-26T21:48:47Z",
-      "decay_at": "2026-10-28T02:08:22Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-67edac5436ac",
       "idea_version": "IDEAV-f16aefe4d024cf9c",
       "idea_version_started_at": "2026-10-26T21:48:47Z",
@@ -209716,294 +209575,6 @@
       "surfaced_at": "2026-10-26T21:48:47Z",
       "updated_at": "2026-10-26T21:48:47Z",
       "decay_at": "2026-10-28T07:57:04Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-fa21270b499e",
-      "idea_version": "IDEAV-d7616b75b50bf538",
-      "idea_version_started_at": "2026-10-26T21:48:47Z",
-      "ticker": "NAZARA",
-      "company": "Nazara Technologies Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported strong Q2FY27 results with revenue growth of 53% and EBITDA growth of 93%, indicating significant operational leverage.",
-      "why_now": "The earnings were released on October 26, 2026, providing a fresh catalyst for valuation re-rating.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1ff9d4a8e4b8"
-      ],
-      "primary_source_event_id": "EVT-1ff9d4a8e4b8",
-      "source_headlines": [
-        "Nazara Technologies Limited: Nazara Technologies Limited informs the Exchange regarding a press release dated October 26, 2026, titled Nazara reports record Q2FY27: revenue up 53% to INR 803 crore, EBITDA up 93% to INR 120 crore."
-      ],
-      "source_headline": "Nazara Technologies Limited: Nazara Technologies Limited informs the Exchange regarding a press release dated October 26, 2026, titled Nazara reports record Q2FY27: revenue up 53% to INR 803 crore, EBITDA up 93% to INR 120 crore.",
-      "source_url": "https://nsearchives.nseindia.com/corporate/NAZARA_26102026193838_PRIntimationF.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-26T14:09:10Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-26T21:48:47Z",
-      "updated_at": "2026-10-26T21:48:47Z",
-      "decay_at": "2026-10-28T02:09:10Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-a78031ede4db",
-      "idea_version": "IDEAV-feb8ddb5e9a5b3cd",
-      "idea_version_started_at": "2026-10-26T17:25:34Z",
-      "ticker": "HLF",
-      "company": "High Liner Foods",
-      "exchange": "TSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is being acquired by Japanese seafood firm Umios in a deal valued at over $800 million.",
-      "why_now": "The acquisition announcement was reported on October 26, 2026.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-bbf980997906"
-      ],
-      "primary_source_event_id": "EVT-bbf980997906",
-      "source_headlines": [
-        "Japanese seafood giant Umios to buy Nova Scotia’s High Liner Foods for more than $800-million"
-      ],
-      "source_headline": "Japanese seafood giant Umios to buy Nova Scotia’s High Liner Foods for more than $800-million",
-      "source_url": "https://www.theglobeandmail.com/business/article-umios-to-buy-high-liner-foods-for-more-than-800-million/",
-      "source_name": "The Globe and Mail",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-26T15:38:32Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-26T13:58:56Z",
-      "updated_at": "2026-10-26T17:25:34Z",
-      "decay_at": "2026-10-28T03:38:32Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-12bc112e4547",
-      "idea_version": "IDEAV-b21eff0807614f38",
-      "idea_version_started_at": "2026-10-26T13:58:56Z",
-      "ticker": "SONACOMS",
-      "company": "Sona BLW Precision Forgings",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported a 30% surge in net profit driven by a 129% jump in battery electric vehicle (BEV) revenue, indicating strong secular growth in its core EV segment.",
-      "why_now": "The Q2 results were released on October 26, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d7b21f21205b"
-      ],
-      "primary_source_event_id": "EVT-d7b21f21205b",
-      "source_headlines": [
-        "Sona BLW Q2 Results: Net profit surges 30% on higher revenue; BEV revenue jumps 129%"
-      ],
-      "source_headline": "Sona BLW Q2 Results: Net profit surges 30% on higher revenue; BEV revenue jumps 129%",
-      "source_url": "https://www.cnbctv18.com/market/stocks/sona-blw-precision-forgings-share-price-q2-results-net-profit-surges-30-on-higher-revenue-bev-revenue-jumps-129-20019576.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-26T11:56:32Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-26T13:58:56Z",
-      "updated_at": "2026-10-26T13:58:56Z",
-      "decay_at": "2026-10-27T23:56:32Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-f37da333a82f",
-      "idea_version": "IDEAV-5fbb982d0893e35d",
-      "idea_version_started_at": "2026-10-26T13:58:56Z",
-      "ticker": "RECLTD",
-      "company": "REC Ltd",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "REC reported a 21% decline in net profit for Q2, reflecting potential margin compression or asset quality headwinds.",
-      "why_now": "The Q2 results were released on October 26, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-245868c36a28"
-      ],
-      "primary_source_event_id": "EVT-245868c36a28",
-      "source_headlines": [
-        "REC Q2 results: Net profit falls 21% to ₹3,478 crore, declares interim dividend"
-      ],
-      "source_headline": "REC Q2 results: Net profit falls 21% to ₹3,478 crore, declares interim dividend",
-      "source_url": "https://www.cnbctv18.com/market/rec-share-price-q2-results-net-profit-revenue-declares-interim-dividend-20019558.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-26T12:04:58Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-26T13:58:56Z",
-      "updated_at": "2026-10-26T13:58:56Z",
-      "decay_at": "2026-10-28T00:04:58Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -210305,33 +209876,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 548,
+    "total_count": 541,
     "shown_count": 500,
-    "hidden_count": 48,
+    "hidden_count": 41,
     "side_counts": {
       "long": {
-        "total_count": 278,
+        "total_count": 273,
         "shown_count": 250,
-        "hidden_count": 28
+        "hidden_count": 23
       },
       "short": {
-        "total_count": 270,
+        "total_count": 268,
         "shown_count": 250,
-        "hidden_count": 20
+        "hidden_count": 18
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1430,
-      "oldest_retained_at": "2026-10-04T00:54:26Z",
+      "evicted_count": 1437,
+      "oldest_retained_at": "2026-10-04T02:22:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 944,
-          "oldest_retained_at": "2026-10-14T01:30:07Z"
+          "evicted_count": 949,
+          "oldest_retained_at": "2026-10-14T12:58:52Z"
         },
         "short": {
-          "evicted_count": 487,
-          "oldest_retained_at": "2026-10-04T00:54:26Z"
+          "evicted_count": 489,
+          "oldest_retained_at": "2026-10-04T02:22:00Z"
         }
       }
     },
@@ -213454,8 +213025,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-28T03:58:52Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-29T16:12:55Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -213530,8 +213101,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-28T03:38:32Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-29T16:12:55Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -213603,8 +213174,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-28T02:52:22Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-29T16:12:55Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -213677,8 +213248,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-28T02:09:10Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-29T16:12:55Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -213751,8 +213322,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-28T02:08:22Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-29T16:12:55Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -213826,8 +213397,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-28T00:04:58Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-29T16:12:55Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -213901,8 +213472,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-27T23:56:32Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-29T16:12:55Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -247583,8 +247154,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1993,
-    "live_count": 14,
+    "surfaced_total": 1994,
+    "live_count": 15,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -247603,9 +247174,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1713718,
+    "news_seen_today": 1745331,
     "news_picked_today": 2500,
-    "news_dropped_today": 12540
+    "news_dropped_today": 12708
   },
   "book_momentum": {
     "live_count": 8,

@@ -1,29 +1,29 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-10-16T00:20:19Z",
+  "archived_at": "2026-10-29T16:12:55Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-014dbf1d39d3",
-    "idea_version": "IDEAV-5510dd59339cf996",
-    "idea_version_started_at": "2026-10-13T09:12:26Z",
-    "ticker": "6645.T",
-    "company": "Omron Corp",
-    "exchange": "Tokyo Stock Exchange",
+    "idea_id": "IDEA-8239e24e9708",
+    "idea_version": "IDEAV-e9b499f4916f6f14",
+    "idea_version_started_at": "2026-10-26T17:25:34Z",
+    "ticker": "SGRY",
+    "company": "Surgery Partners",
+    "exchange": "NASDAQ",
     "ticker_verified": true,
     "listing_verified": true,
     "liquidity_verified": false,
     "listing_verification_source": "yahoo_symbol_directory",
     "direction": "long",
     "pair_with": null,
-    "reason": "Omron's acquisition of OnLogic expands its AI robotics portfolio, likely boosting future revenue.",
-    "why_now": "Announcement dated 2026-10-12 provides a fresh M&A catalyst.",
-    "conviction": 55,
+    "reason": "The company has entered into a definitive merger agreement to be acquired at $23.50 per share.",
+    "why_now": "The merger agreement was announced on October 26, 2026.",
+    "conviction": 90,
     "conviction_basis": "pre_edge_proxy",
-    "trade_score": 65,
+    "trade_score": 60,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
       "evidence": 14,
-      "impact": 19,
+      "impact": 20,
       "specificity": 15,
       "timing": 10,
       "expression": 7,
@@ -34,6 +34,7 @@
     "missing_checks": [
       "live liquidity",
       "dated catalyst",
+      "priced-in risk",
       "independent confirmation",
       "live price, liquidity, and consensus"
     ],
@@ -46,31 +47,31 @@
       "basis": "not_enough_outcomes",
       "evidenceIds": []
     },
-    "priced_in": "room",
+    "priced_in": "priced",
     "thesis_type": "company_specific",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-bb54a18bfe0a"
+      "EVT-44ba16c0384f"
     ],
-    "primary_source_event_id": "EVT-bb54a18bfe0a",
+    "primary_source_event_id": "EVT-44ba16c0384f",
     "source_headlines": [
-      "Japan's Omron to buy US-based OnLogic for $630m in physical AI push"
+      "Surgery Partners, Inc. Enters into Merger Agreement with Spyglass Topco, LLC at $23.50 Per Share"
     ],
-    "source_headline": "Japan's Omron to buy US-based OnLogic for $630m in physical AI push",
-    "source_url": "https://asia.nikkei.com/business/business-deals/japan-s-omron-to-buy-us-based-onlogic-for-630m-in-physical-ai-push",
-    "source_name": "Nikkei Asia",
+    "source_headline": "Surgery Partners, Inc. Enters into Merger Agreement with Spyglass Topco, LLC at $23.50 Per Share",
+    "source_url": "https://www.nasdaq.com/articles/surgery-partners-inc-enters-merger-agreement-spyglass-topco-llc-2350-share",
+    "source_name": "Nasdaq",
     "materiality_max": 100,
-    "newest_source_at": "2026-10-12T23:03:50Z",
+    "newest_source_at": "2026-10-26T15:58:52Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-10-13T09:12:26Z",
-    "updated_at": "2026-10-13T09:12:26Z",
-    "decay_at": "2026-10-14T11:03:50Z",
+    "surfaced_at": "2026-10-26T17:25:34Z",
+    "updated_at": "2026-10-26T17:25:34Z",
+    "decay_at": "2026-10-28T03:58:52Z",
     "status": "live",
     "promoted_signal_id": null
   }
