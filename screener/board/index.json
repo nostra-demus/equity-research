@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T18:01:17Z",
+  "generated_at": "2026-10-29T18:16:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20261029-1241",
@@ -1285,6 +1285,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261029-1269",
+      "headline": "GE Vernova in $9B deal to buy high-voltage manufacturer as gas turbine orders slow",
+      "headline_en": null,
+      "url": "https://www.utilitydive.com/news/ge-vernova-in-9b-deal-to-buy-high-voltage-manufacturer-as-gas-turbine-orde/873223/",
+      "source_name": "Utility Dive",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-29T17:40:22Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "$9 billion acquisition of high-voltage manufacturer by GE Vernova; strategic redeployment into growth-sector equipment amid gas-turbine order slowdown.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "$9 billion acquisition of high-voltage manufacturer by GE Vernova; strategic redeployment into growth-sector equipment amid gas-turbine order slowdown.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GE Vernova",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261029-1264",
       "headline": "Hilton Grand Vacations Inc. Reports Third Quarter 2026 Results and Reduces Full Year Adjusted EBITDA Guidance to Range of $1.165 billion to $1.180 billion",
       "headline_en": null,
@@ -1939,60 +1988,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-1139",
-      "headline": "Josh Kushner’s Thrive to Buy ADT for $7.6 Billion",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/deals/josh-kushners-thrive-to-buy-adt-for-7-6-billion-55403c7a?mod=rss_markets_main",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T14:20:00Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Josh Kushner's Thrive acquiring ADT for $7.6 billion is a named M&A deal with quantified value and major capital-structure implications.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Josh Kushner's Thrive acquiring ADT for $7.6 billion is a named M&A deal with quantified value and major capital-structure implications.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ADT Inc.",
-          "ticker": "ADT",
-          "listing_country": "US"
-        },
-        {
-          "name": "Thrive Capital",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -247384,9 +247379,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2068366,
-    "news_picked_today": 2622,
-    "news_dropped_today": 14410
+    "news_seen_today": 2109842,
+    "news_picked_today": 2627,
+    "news_dropped_today": 14573
   },
   "book_momentum": {
     "live_count": 8,
