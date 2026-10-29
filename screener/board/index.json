@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T10:47:04Z",
+  "generated_at": "2026-10-29T10:59:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20261029-876",
@@ -207206,77 +207206,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-84d3d160ac55",
-      "idea_version": "IDEAV-439af98f38aa2cf0",
-      "idea_version_started_at": "2026-10-28T08:58:37Z",
-      "ticker": "INA",
-      "company": "Inghams Group",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company received an improved takeover proposal from Warburg Pincus, which typically provides a floor for the share price and potential upside if a deal is finalized.",
-      "why_now": "The filing confirming the improved proposal was released on October 27, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-582c6c049f34"
-      ],
-      "primary_source_event_id": "EVT-582c6c049f34",
-      "source_headlines": [
-        "INA: Receipt of improved proposal from Warburg Pincus [price-sensitive]"
-      ],
-      "source_headline": "INA: Receipt of improved proposal from Warburg Pincus [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.INA?key=2924-03154291-2A1706595",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-27T22:56:35Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-26T09:24:06Z",
-      "updated_at": "2026-10-28T08:58:37Z",
-      "decay_at": "2026-10-29T10:56:35Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-414a14e26ddd",
       "idea_version": "IDEAV-73bee4aa7ba1a618",
       "idea_version_started_at": "2026-10-28T07:06:06Z",
@@ -208687,6 +208616,77 @@
       "surfaced_at": "2026-10-28T08:58:37Z",
       "updated_at": "2026-10-28T08:58:37Z",
       "decay_at": "2026-10-28T21:55:38Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-84d3d160ac55",
+      "idea_version": "IDEAV-439af98f38aa2cf0",
+      "idea_version_started_at": "2026-10-28T08:58:37Z",
+      "ticker": "INA",
+      "company": "Inghams Group",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company received an improved takeover proposal from Warburg Pincus, which typically provides a floor for the share price and potential upside if a deal is finalized.",
+      "why_now": "The filing confirming the improved proposal was released on October 27, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-582c6c049f34"
+      ],
+      "primary_source_event_id": "EVT-582c6c049f34",
+      "source_headlines": [
+        "INA: Receipt of improved proposal from Warburg Pincus [price-sensitive]"
+      ],
+      "source_headline": "INA: Receipt of improved proposal from Warburg Pincus [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.INA?key=2924-03154291-2A1706595",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-27T22:56:35Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-26T09:24:06Z",
+      "updated_at": "2026-10-28T08:58:37Z",
+      "decay_at": "2026-10-29T10:56:35Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -211073,14 +211073,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 550,
+    "total_count": 551,
     "shown_count": 500,
-    "hidden_count": 50,
+    "hidden_count": 51,
     "side_counts": {
       "long": {
-        "total_count": 281,
+        "total_count": 282,
         "shown_count": 250,
-        "hidden_count": 31
+        "hidden_count": 32
       },
       "short": {
         "total_count": 269,
@@ -211104,6 +211104,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-84d3d160ac55",
+        "idea_version": "IDEAV-439af98f38aa2cf0",
+        "idea_version_started_at": "2026-10-28T08:58:37Z",
+        "ticker": "INA",
+        "company": "Inghams Group",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company received an improved takeover proposal from Warburg Pincus, which typically provides a floor for the share price and potential upside if a deal is finalized.",
+        "why_now": "The filing confirming the improved proposal was released on October 27, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-582c6c049f34"
+        ],
+        "primary_source_event_id": "EVT-582c6c049f34",
+        "source_headlines": [
+          "INA: Receipt of improved proposal from Warburg Pincus [price-sensitive]"
+        ],
+        "source_headline": "INA: Receipt of improved proposal from Warburg Pincus [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.INA?key=2924-03154291-2A1706595",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-27T22:56:35Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-26T09:24:06Z",
+        "updated_at": "2026-10-28T08:58:37Z",
+        "decay_at": "2026-10-29T10:56:35Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-29T10:56:35Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-f60d317b461b",
         "idea_version": "IDEAV-c31c71fee5520652",
@@ -239692,83 +239766,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-8a9a155c8086",
-        "idea_version": "IDEAV-15f70bc15c440897",
-        "idea_version_started_at": "2026-10-14T16:36:34Z",
-        "ticker": "FAIRFAX",
-        "company": "Fairfax Financial",
-        "exchange": "BSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Fairfax Financial is acquiring a 60.72% stake in IDBI Bank for ₹52,878 crore, which could be a strategic growth move.",
-        "why_now": "The acquisition news was reported today, October 14, 2026, marking the culmination of a nine-year journey for IDBI Bank.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-8a58a00cf054",
-          "EVT-4583e05aa1c3"
-        ],
-        "primary_source_event_id": "EVT-8a58a00cf054",
-        "source_headlines": [
-          "Fairfax To Acquire 60.72% Stake In IDBI Bank For ₹52,878 Crore",
-          "IDBI Bank Stake Sale For ₹52,878 Crore, How Nine-Year Journey From RBI Restrictions To Fairfax Takeover Unfolded"
-        ],
-        "source_headline": "Fairfax To Acquire 60.72% Stake In IDBI Bank For ₹52,878 Crore",
-        "source_url": "https://www.freepressjournal.in/business/fairfax-to-acquire-6072-stake-in-idbi-bank-for-52878-crore",
-        "source_name": "Free Press Journal",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-14T12:44:32Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-14T16:36:34Z",
-        "updated_at": "2026-10-14T16:36:34Z",
-        "decay_at": "2026-10-16T00:44:32Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-17T13:20:28Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-bb082e7d696f",
         "idea_version": "IDEAV-0e313c4b31e78e08",
         "idea_version_started_at": "2026-10-14T15:32:35Z",
@@ -248350,7 +248347,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1993,
-    "live_count": 23,
+    "live_count": 22,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -248369,9 +248366,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 729159,
-    "news_picked_today": 1940,
-    "news_dropped_today": 8612
+    "news_seen_today": 767436,
+    "news_picked_today": 1972,
+    "news_dropped_today": 8868
   },
   "book_momentum": {
     "live_count": 8,
