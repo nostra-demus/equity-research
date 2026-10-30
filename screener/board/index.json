@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-30T11:52:18Z",
+  "generated_at": "2026-10-30T11:57:16Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261030-600",
+      "headline": "LFG INV HLDGS (03938): JOINT ANNOUNCEMENT POSSIBLE MANDATORY UNCONDITIONAL CASH OFFERS BY OCTAL CAPITAL LIMITED AND GRAND FIRE SECURITIES LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF LFG INVESTMENT HOLDINGS LIMITED (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY IT AND THE OFFEROR CONCERT PARTIES) AND THE CANCELLATION OF ALL OUTSTANDING OPTIONS (1) EXTENSION OF LONG STOP DATE; (2) FURTHER DELAY IN DESPATCH OF COMPOSITE DOCUMENT; AND",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1030/2026103002113.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-30T11:47:00Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "LFG Investment Holdings Limited announced an update on a possible mandatory unconditional cash offer and delay in documentation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "LFG Investment Holdings Limited announced an update on a possible mandatory unconditional cash offer and delay in documentation.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LFG Investment Holdings Limited",
+          "ticker": "03938",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261030-541",
       "headline": "KAISUN HOLDINGS (08203): UPDATE IN RELATION TO THE DISCLAIMER OF OPINION ON GOING CONCERN SET OUT IN THE ANNUAL REPORT FOR THE YEAR ENDED 31 DECEMBER 2025",
@@ -537,6 +586,56 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-616",
+      "headline": "Here’s how an Ethereum upgrade helped drain part of Binance’s $6 billion loss",
+      "headline_en": null,
+      "url": "https://www.coindesk.com/tech/2026/10/30/here-s-how-one-ethereum-permission-let-an-attacker-drain-usd2-5-billion-from-binance",
+      "source_name": "CoinDesk",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T11:35:16Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Binance suffered a $6 billion loss; an Ethereum network upgrade mechanic contributed to fund drainage—a critical solvency and operational incident at a major crypto exchange.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Binance suffered a $6 billion loss; an Ethereum network upgrade mechanic contributed to fund drainage—a critical solvency and operational incident at a major crypto exchange.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "cybersecurity",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Binance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1877,104 +1976,6 @@
           "name": "Coal India",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-305",
-      "headline": "How a $2.8b legal giant collapsed within weeks: Inside the fall of Weil",
-      "headline_en": null,
-      "url": "https://www.afr.com/world/north-america/how-a-2-8b-legal-giant-collapsed-within-weeks-inside-the-fall-of-weil-20261030-p619xm?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T01:54:04Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "A $2.8 billion legal firm collapsed, representing a significant insolvency event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A $2.8 billion legal firm collapsed, representing a significant insolvency event.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Weil",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-259",
-      "headline": "Reddit shares plunge 18% on earnings miss, limited access plans",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/reddit-shares-plunge-18-percentage-on-earnings-miss-limited-access-plans-without-account-social-media-platform-20022937.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T01:47:25Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Reddit shares fell 18% following an earnings miss and concerns over access plans.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Reddit shares fell 18% following an earnings miss and concerns over access plans.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Reddit",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -248406,9 +248407,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1171583,
-    "news_picked_today": 1301,
-    "news_dropped_today": 12859
+    "news_seen_today": 1179167,
+    "news_picked_today": 1327,
+    "news_dropped_today": 12905
   },
   "book_momentum": {
     "live_count": 8,
