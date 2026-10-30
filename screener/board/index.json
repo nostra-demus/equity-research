@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T10:20:06Z",
+  "generated_at": "2026-10-30T10:23:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20261030-435",
@@ -389,6 +389,105 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-460",
+      "headline": "Sanofi Q3 Net Profit, Business Profit Climb; Lifts FY26 Outlook",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/sanofi-q3-net-profit-business-profit-climb-lifts-fy26-outlook",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T06:55:54Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Sanofi reported Q3 profit growth and raised its FY26 outlook, signaling strong operational performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Sanofi reported Q3 profit growth and raised its FY26 outlook, signaling strong operational performance.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sanofi",
+          "ticker": null,
+          "listing_country": "FR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-466",
+      "headline": "Biggest crypto heist in history: How Binance’s $6 billion hack rattled markets and what it means for investors?",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/cryptocurrency/biggest-crypto-heist-in-history-how-binances-6-billion-hack-rattled-markets-and-what-it-means-for-investors/articleshow/135348042.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T06:53:24Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "A $6 billion hack on Binance is a massive security event with significant implications for crypto market stability and regulatory scrutiny.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A $6 billion hack on Binance is a massive security event with significant implications for crypto market stability and regulatory scrutiny.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Binance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1878,104 +1977,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-210",
-      "headline": "Axis Trustee gives Yes Bank three working days to restore ₹8,415 crore AT1 bonds",
-      "headline_en": null,
-      "url": "https://www.livemint.com/industry/banking/axis-trustee-gives-yes-bank-three-working-days-to-restore-8-415-crore-at1-bonds-11793286668493.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T00:30:46Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Yes Bank is facing a demand to restore ₹8,415 crore in AT1 bonds within three days, indicating significant liquidity or covenant pressure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Yes Bank is facing a demand to restore ₹8,415 crore in AT1 bonds within three days, indicating significant liquidity or covenant pressure.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Yes Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-132",
-      "headline": "Binance hack drained wallets backing customer assets, reserve data shows",
-      "headline_en": null,
-      "url": "https://www.coindesk.com/business/2026/10/30/binance-hack-drained-wallets-backing-customer-assets-reserve-data-shows",
-      "source_name": "CoinDesk",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T00:17:10Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Binance reported a hack affecting customer asset wallets, posing a significant operational and reputational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Binance reported a hack affecting customer asset wallets, posing a significant operational and reputational risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Binance",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -248404,9 +248405,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 938453,
-    "news_picked_today": 1077,
-    "news_dropped_today": 11307
+    "news_seen_today": 942664,
+    "news_picked_today": 1088,
+    "news_dropped_today": 11344
   },
   "book_momentum": {
     "live_count": 8,
