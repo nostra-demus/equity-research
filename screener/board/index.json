@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-30T06:55:59Z",
+  "generated_at": "2026-10-30T07:35:58Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261030-417",
+      "headline": "BIL VYAPAR LIMITED: Disclosure under Regulation 30 of the SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015- Intimation of meeting of Committee of Creditors.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/BINANIIND_30102026113714_SE_Intimation_COC.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-30T06:08:09Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Committee of Creditors meeting under SEBI LODR Reg 30 indicates formal insolvency proceedings (Insolvency and Bankruptcy Code), a going-concern event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Committee of Creditors meeting under SEBI LODR Reg 30 indicates formal insolvency proceedings (Insolvency and Bankruptcy Code), a going-concern event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BIL VYAPAR LIMITED",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261030-232",
       "headline": "HLO: Completion of Crown Currency Exchange Acquisition [price-sensitive]",
@@ -1929,61 +1978,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-041",
-      "headline": "Dream Finders Homes Announces Third Quarter 2026 Results and Completes $2.2 billion Beazer Acquisition",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/dream-finders-homes-announces-third-quarter-2026-results-and-completes-22-billion-beazer",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T23:42:13Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Dream Finders Homes reported Q3 2026 results and completed a $2.2 billion acquisition of Beazer.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Dream Finders Homes reported Q3 2026 results and completed a $2.2 billion acquisition of Beazer.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dream Finders Homes",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Beazer",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -248422,9 +248416,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 608308,
-    "news_picked_today": 927,
-    "news_dropped_today": 4425
+    "news_seen_today": 636740,
+    "news_picked_today": 934,
+    "news_dropped_today": 6770
   },
   "book_momentum": {
     "live_count": 8,
