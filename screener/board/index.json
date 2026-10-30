@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T12:19:22Z",
+  "generated_at": "2026-10-30T12:31:22Z",
   "inbox": [
     {
       "inbox_id": "INB-20261030-619",
@@ -56,6 +56,106 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261030-636",
+      "headline": "MTR CORPORATION (00066): US$25 Billion Debt Issuance Programme of MTR Corporation Limited and MTR Corporation (C.I.) Limited (unconditionally and irrevocably guaranteed by MTR Corporation Limited) - Notice of Listing on The Stock Exchange of Hong Kong Limited",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1030/2026103002129.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-30T11:49:00Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "US$25 billion debt issuance programme listed on HKEX; major capital-structure action from mega-cap operator expanding borrowing capacity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "US$25 billion debt issuance programme listed on HKEX; major capital-structure action from mega-cap operator expanding borrowing capacity.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "debt_credit",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MTR Corporation",
+          "ticker": "00066",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-637",
+      "headline": "CIRTEK HLDGS (01433): INSIDE INFORMATION - UPDATE ON AUDIT SCHEDULE AND CONTINUED SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1030/2026103002125.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-30T11:48:00Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Trading suspension continued pending audit completion and schedule update; signals potential going-concern or qualified-audit-opinion risks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Trading suspension continued pending audit completion and schedule update; signals potential going-concern or qualified-audit-opinion risks.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cirtek Holdings",
+          "ticker": "01433",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261030-600",
       "headline": "LFG INV HLDGS (03938): JOINT ANNOUNCEMENT POSSIBLE MANDATORY UNCONDITIONAL CASH OFFERS BY OCTAL CAPITAL LIMITED AND GRAND FIRE SECURITIES LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF LFG INVESTMENT HOLDINGS LIMITED (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY IT AND THE OFFEROR CONCERT PARTIES) AND THE CANCELLATION OF ALL OUTSTANDING OPTIONS (1) EXTENSION OF LONG STOP DATE; (2) FURTHER DELAY IN DESPATCH OF COMPOSITE DOCUMENT; AND",
       "headline_en": null,
@@ -100,6 +200,153 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-620",
+      "headline": "SC TO-T - Viatris Inc (0001792044) (Filed by)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1792044/000114036126041224/0001140361-26-041224-index.htm",
+      "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-30T11:40:24Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Viatris Inc filed Schedule TO (tender offer document); confirms M&A activity with Viatris as either bidder or target.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Viatris Inc filed Schedule TO (tender offer document); confirms M&A activity with Viatris as either bidder or target.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Viatris Inc",
+          "ticker": "VTRS",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-621",
+      "headline": "SC TO-T - Pacira BioSciences, Inc. (0001396814) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1396814/000114036126041224/0001140361-26-041224-index.htm",
+      "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-30T11:40:24Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Pacira BioSciences explicitly named as subject of a third-party tender offer; confirms active acquisition attempt.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Pacira BioSciences explicitly named as subject of a third-party tender offer; confirms active acquisition attempt.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pacira BioSciences, Inc.",
+          "ticker": "PCRX",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-649",
+      "headline": "HARBIN BANK (06138): VERY SUBSTANTIAL DISPOSAL IN RELATION TO DISPOSAL OF ASSET OF THE COMPANY",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1030/2026103002001.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-30T11:24:00Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Harbin Bank announced a very substantial disposal of assets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Harbin Bank announced a very substantial disposal of assets.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Harbin Bank",
+          "ticker": "06138",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1732,253 +1979,6 @@
       "companies": [
         {
           "name": "Intel",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-262",
-      "headline": "Binance confirms crypto heist, biggest in history, but no one’s sure what broke",
-      "headline_en": null,
-      "url": "https://www.hindustantimes.com/business/binance-confirms-crypto-heist-biggest-in-history-but-no-one-s-sure-what-broke-101793327637282.html",
-      "source_name": "Hindustan Times (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T02:33:56Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Binance confirmed a major crypto heist, representing a significant operational and security risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Binance confirmed a major crypto heist, representing a significant operational and security risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Binance",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-236",
-      "headline": "Binance Suspends Transactions as It Probes What May Be Biggest-Ever Cyber Heist",
-      "headline_en": null,
-      "url": "https://www.wsj.com/finance/currencies/binance-founder-says-exchange-may-be-victim-of-biggest-ever-crypto-heist-24a82e5f?mod=rss_markets_main",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T02:27:00Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Binance suspended transactions due to a potential massive cyber heist, posing significant operational and reputational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Binance suspended transactions due to a potential massive cyber heist, posing significant operational and reputational risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Binance",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-238",
-      "headline": "First Solar, Inc. Announces Third Quarter 2026 Financial Results, Updates Guidance, and Announces $500 Million Share Repurchase Program",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/first-solar-inc-announces-third-quarter-2026-financial-results-updates-guidance-and",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T02:21:40Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "First Solar reported Q3 results, updated guidance, and announced a $500 million share repurchase program.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "First Solar reported Q3 results, updated guidance, and announced a $500 million share repurchase program.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "First Solar",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-285",
-      "headline": "Intel Shares Plunge After PC Slump, Supply Snags Hurt Outlook",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/intel-shares-plunge-after-pc-slump-supply-snags-hurt-outlook-12256670#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T02:13:46Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Intel shares plunged following a PC market slump and supply issues impacting their outlook.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Intel shares plunged following a PC market slump and supply issues impacting their outlook.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Intel",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-290",
-      "headline": "Amazon cloud business accelerates but shares drop on profit miss",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/us-stocks/news/amazon-cloud-business-accelerates-but-shares-drop-on-profit-miss/articleshow/135338874.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T02:02:06Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Amazon reported a profit miss despite cloud business acceleration, impacting investor expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Amazon reported a profit miss despite cloud business acceleration, impacting investor expectations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Amazon",
           "ticker": null,
           "listing_country": "US"
         }
@@ -248412,9 +248412,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1248151,
-    "news_picked_today": 1349,
-    "news_dropped_today": 13195
+    "news_seen_today": 1263381,
+    "news_picked_today": 1382,
+    "news_dropped_today": 13522
   },
   "book_momentum": {
     "live_count": 8,
