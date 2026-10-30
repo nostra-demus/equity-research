@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T17:45:11Z",
+  "generated_at": "2026-10-30T17:57:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20261030-739",
@@ -1781,6 +1781,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261030-768",
+      "headline": "CD&R pursues buyout of $40bn card processor Global Payments",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/da16af06-4431-4ced-9c3e-a0753d8c45c9?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T17:10:22Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "CD&R is pursuing a buyout of Global Payments, a $40 billion processor.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CD&R is pursuing a buyout of Global Payments, a $40 billion processor.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Global Payments",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261030-762",
       "headline": "Lodha Developers H1FY27 net profit soars 63%, expects to beat full-year guidance",
       "headline_en": null,
@@ -1925,55 +1974,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-718",
-      "headline": "NatWest Shares Fall After Bank’s Interest Income Guidance Disappoints",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/earnings/natwest-earnings-boosted-by-higher-net-interest-income-20ebc371?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T14:17:00Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "NatWest shares fell following disappointing interest income guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "NatWest shares fell following disappointing interest income guidance.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NatWest Group",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -248402,9 +248402,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2092610,
-    "news_picked_today": 1761,
-    "news_dropped_today": 18399
+    "news_seen_today": 2100126,
+    "news_picked_today": 1786,
+    "news_dropped_today": 18710
   },
   "book_momentum": {
     "live_count": 8,
