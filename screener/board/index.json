@@ -1,6 +1,60 @@
 {
-  "generated_at": "2026-10-30T12:05:22Z",
+  "generated_at": "2026-10-30T12:15:27Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261030-619",
+      "headline": "DFZQ (03958): FURTHER UPDATE ON MAJOR TRANSACTION - THE PROPOSED ACQUISITION OF 100% EQUITY INTERESTS IN SHANGHAI SECURITIES BY WAY OF ISSUE OF CONSIDERATION A SHARES UNDER SPECIFIC MANDATE AND PAYMENT OF CASH",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1030/2026103002153.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-30T11:57:00Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Further update on major transaction: proposed 100% acquisition of Shanghai Securities via share issuance and cash payment — material named M&A confirmed as proceeding.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Further update on major transaction: proposed 100% acquisition of Shanghai Securities via share issuance and cash payment — material named M&A confirmed as proceeding.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DFZQ",
+          "ticker": "03958",
+          "listing_country": "HK"
+        },
+        {
+          "name": "Shanghai Securities",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261030-600",
       "headline": "LFG INV HLDGS (03938): JOINT ANNOUNCEMENT POSSIBLE MANDATORY UNCONDITIONAL CASH OFFERS BY OCTAL CAPITAL LIMITED AND GRAND FIRE SECURITIES LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF LFG INVESTMENT HOLDINGS LIMITED (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY IT AND THE OFFEROR CONCERT PARTIES) AND THE CANCELLATION OF ALL OUTSTANDING OPTIONS (1) EXTENSION OF LONG STOP DATE; (2) FURTHER DELAY IN DESPATCH OF COMPOSITE DOCUMENT; AND",
@@ -1930,55 +1984,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-299",
-      "headline": "Coal India reports 57% rise in net profit to Rs 6,547 crore in Q2",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/coal-india-reports-57-rise-in-net-profit-to-rs-6547-crore-in-q2/articleshow/135338780.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T01:58:30Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Coal India reported a 57% rise in net profit to Rs 6,547 crore in Q2.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Coal India reported a 57% rise in net profit to Rs 6,547 crore in Q2.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Coal India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -248407,9 +248412,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1209656,
-    "news_picked_today": 1331,
-    "news_dropped_today": 13045
+    "news_seen_today": 1240452,
+    "news_picked_today": 1343,
+    "news_dropped_today": 13153
   },
   "book_momentum": {
     "live_count": 8,
