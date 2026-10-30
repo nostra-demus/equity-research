@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-30T12:46:39Z",
+  "generated_at": "2026-10-30T12:51:22Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261030-655",
+      "headline": "AGTECH HOLDINGS (08279): PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1030/2026103002223.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-30T12:17:00Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Agtech Holdings issued a profit warning for the period.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Agtech Holdings issued a profit warning for the period.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AGTECH HOLDINGS",
+          "ticker": "08279",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261030-619",
       "headline": "DFZQ (03958): FURTHER UPDATE ON MAJOR TRANSACTION - THE PROPOSED ACQUISITION OF 100% EQUITY INTERESTS IN SHANGHAI SECURITIES BY WAY OF ISSUE OF CONSIDERATION A SHARES UNDER SPECIFIC MANDATE AND PAYMENT OF CASH",
@@ -1935,55 +1984,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-265",
-      "headline": "PC chip plunge wipes out a quarter of Intel’s value",
-      "headline_en": null,
-      "url": "https://www.theregister.com/systems/2026/10/30/pc-chip-plunge-wipes-out-a-quarter-of-intels-value/5306531",
-      "source_name": "The Register",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T02:42:58Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Intel experienced a significant valuation drop due to a sharp decline in PC chip demand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Intel experienced a significant valuation drop due to a sharp decline in PC chip demand.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Intel",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -248412,9 +248412,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1307322,
-    "news_picked_today": 1393,
-    "news_dropped_today": 13703
+    "news_seen_today": 1315048,
+    "news_picked_today": 1401,
+    "news_dropped_today": 13719
   },
   "book_momentum": {
     "live_count": 8,
