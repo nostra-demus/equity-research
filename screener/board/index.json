@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T08:20:07Z",
+  "generated_at": "2026-10-30T08:29:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20261030-417",
@@ -239,6 +239,55 @@
           "name": "Everg Services",
           "ticker": "06666",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-431",
+      "headline": "Equitas Small Finance Bank Shares Crash 17% To 52-Week Low, Stock Plunges Over 27% In Two Days After CEO Resignation",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/equitas-small-finance-bank-shares-crash-17-to-52-week-low-stock-plunges-over-27-in-two-days-after-ceo-resignation",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T06:45:07Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Equitas Small Finance Bank shares fell 17% following the resignation of its CEO.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Equitas Small Finance Bank shares fell 17% following the resignation of its CEO.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Equitas Small Finance Bank",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
@@ -1928,56 +1977,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-047",
-      "headline": "Intel Stock Crash: Chipmaker plunges 23% after weak results, guidance, PC slowdown warning",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/intel-share-price-crash-afterhours-q3-result-reaction-guidance-miss-israel-fab-loss-impact-peers-fall-20022901.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T23:54:05Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Intel stock plunged 23% following weak results and a guidance cut.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Intel stock plunged 23% following weak results and a guidance cut.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Intel",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -248416,9 +248415,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 736946,
-    "news_picked_today": 956,
-    "news_dropped_today": 7756
+    "news_seen_today": 760547,
+    "news_picked_today": 973,
+    "news_dropped_today": 7787
   },
   "book_momentum": {
     "live_count": 8,
