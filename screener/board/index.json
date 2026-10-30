@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-30T13:02:28Z",
+  "generated_at": "2026-10-30T13:08:03Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261030-658",
+      "headline": "Advait Energy Transitions Limited: Advait Energy Transitions Limited has informed the Exchange regarding a press release dated October 30, 2026, titled \"Powering the Transition: Advait Energy Transitions Reports 88.5% Growth in Q2 FY27 Profit; Order Book Reaches ₹1,574.8 Crore\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/ADVAITENERGY_30102026181007_SE_mediarelease_s.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-30T12:40:18Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Advait Energy Transitions reported 88.5% growth in Q2 FY27 profit and an order book of ₹1,574.8 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Advait Energy Transitions reported 88.5% growth in Q2 FY27 profit and an order book of ₹1,574.8 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Advait Energy Transitions Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261030-655",
       "headline": "AGTECH HOLDINGS (08279): PROFIT WARNING",
@@ -1926,55 +1975,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-411",
-      "headline": "IndiGo’s Q2FY27 loss narrows to ₹1,879 cr; high fuel costs weigh",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/economy/logistics/indigos-q2fy27-loss-narrows-to-1879-cr-high-fuel-costs-weigh/article71640958.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T04:03:38Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "IndiGo reported a net loss of ₹1,879 crore for Q2FY27, indicating continued financial pressure from fuel costs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "IndiGo reported a net loss of ₹1,879 crore for Q2FY27, indicating continued financial pressure from fuel costs.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IndiGo",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -248403,9 +248403,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1345616,
-    "news_picked_today": 1429,
-    "news_dropped_today": 13859
+    "news_seen_today": 1353623,
+    "news_picked_today": 1434,
+    "news_dropped_today": 13950
   },
   "book_momentum": {
     "live_count": 8,
