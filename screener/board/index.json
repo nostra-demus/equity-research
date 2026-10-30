@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T04:01:58Z",
+  "generated_at": "2026-10-30T04:06:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20261030-232",
@@ -1939,51 +1939,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261030-286",
-      "headline": "Binance freezes $2.5 billion after suspected hack; Bitcoin sinks below $79,000",
+      "inbox_id": "INB-20261030-352",
+      "headline": "Amazon AWS posts 39% revenue growth as cloud rivals also accelerate",
       "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/money-and-banking/cryptocurrency/binance-freezes-25-billion-after-suspected-hack-bitcoin-sinks-below-79000/article71643390.ece",
-      "source_name": "The Hindu BusinessLine",
+      "url": "https://www.cnbc.com/2026/10/29/aws-q3-earnings-report-2026.html",
+      "source_name": "CNBC",
       "input_nature": "news_headline",
-      "found_at": "2026-10-30T02:11:31Z",
+      "found_at": "2026-10-29T21:59:31Z",
       "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Binance has frozen $2.5 billion following a security breach, which is a significant operational and financial event for the exchange.",
+      "prelim_note": "Amazon AWS reported 39% revenue growth, a significant indicator for cloud sector performance.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Binance has frozen $2.5 billion following a security breach, which is a significant operational and financial event for the exchange.",
-      "region": "GLOBAL",
+      "triage_score": 100,
+      "triage_reason": "Amazon AWS reported 39% revenue growth, a significant indicator for cloud sector performance.",
+      "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 75,
+      "materiality_pre_score": 85,
       "rank_factors": {
-        "materiality": 75,
+        "materiality": 85,
         "source_tier": 0,
         "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
+        "event": 5,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
       },
       "event_types": [
-        "regulatory",
-        "cybersecurity"
+        "earnings_revenue_margin"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Binance",
+          "name": "Amazon",
           "ticker": null,
-          "listing_country": null
+          "listing_country": "US"
         }
       ],
-      "size_bucket": "unknown",
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -248709,9 +248708,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 327888,
-    "news_picked_today": 570,
-    "news_dropped_today": 2670
+    "news_seen_today": 332188,
+    "news_picked_today": 586,
+    "news_dropped_today": 2726
   },
   "book_momentum": {
     "live_count": 8,
