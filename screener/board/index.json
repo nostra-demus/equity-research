@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T13:11:23Z",
+  "generated_at": "2026-10-30T13:14:26Z",
   "inbox": [
     {
       "inbox_id": "INB-20261030-659",
@@ -1039,6 +1039,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261030-668",
+      "headline": "IOC Q2 Results: Net profit swings to ₹21,630 crore from loss QoQ on refining margins",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/stocks/ioc-share-price-q2-results-net-profit-swings-to-rs-21630-crore-qoq-revenue-at-rs-2-50-lakh-crore-20023488.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T12:57:23Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Indian Oil Corporation reported a Q2 net profit of ₹21,630 crore, swinging from a previous loss.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Indian Oil Corporation reported a Q2 net profit of ₹21,630 crore, swinging from a previous loss.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Indian Oil Corporation",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261030-657",
       "headline": "AbbVie Raises FY26 Adj. EPS Outlook; Boost Dividend 5.2% - Update",
       "headline_en": null,
@@ -1923,55 +1972,6 @@
           "name": "Murata Manufacturing",
           "ticker": null,
           "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-405",
-      "headline": "Deepak Nitrite Shares Rally 9%; Q2 Profit Jumps 3.3x As Phenolics Business Delivers Record Performance",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/deepak-nitrite-share-price-today-rally-9-percent-q2-earnings-profit-jumps-3-3x-as-phenolics-business-delivers-record-sensex-today-12257074#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T04:26:28Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Deepak Nitrite reported a 3.3x jump in Q2 profit, driven by record performance in its phenolics business.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Deepak Nitrite reported a 3.3x jump in Q2 profit, driven by record performance in its phenolics business.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Deepak Nitrite",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -248403,9 +248403,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1369445,
-    "news_picked_today": 1438,
-    "news_dropped_today": 13970
+    "news_seen_today": 1377332,
+    "news_picked_today": 1452,
+    "news_dropped_today": 14004
   },
   "book_momentum": {
     "live_count": 8,
