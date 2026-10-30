@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T02:10:51Z",
+  "generated_at": "2026-10-30T02:21:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20261030-177",
@@ -1286,6 +1286,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261030-231",
+      "headline": "'Horrific' Russian drone strike kills 14 at Ukraine train station: Kyiv",
+      "headline_en": null,
+      "url": "https://gulfnews.com/world/europe/horrific-russian-drone-strike-kills-14-at-ukraine-train-station-kyiv-1.500728351",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-29T23:28:07Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "A major military strike in Ukraine resulting in 14 fatalities represents a significant escalation in the ongoing conflict.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "A major military strike in Ukraine resulting in 14 fatalities represents a significant escalation in the ongoing conflict.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261030-166",
       "headline": "CNB: Scheme Becomes Effective [price-sensitive]",
       "headline_en": null,
@@ -1931,55 +1974,6 @@
           "name": "PTTEP",
           "ticker": "PTTEP",
           "listing_country": "TH"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-141",
-      "headline": "Komatsu lifts profit outlook on construction, mining demand in Americas",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/companies/komatsu-lifts-profit-outlook-on-construction-mining-demand-in-americas",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T00:42:36Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Komatsu raises profit outlook on Americas construction and mining demand; confirmed guidance upgrade by named large-cap, quantified new range not disclosed in headline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Komatsu raises profit outlook on Americas construction and mining demand; confirmed guidance upgrade by named large-cap, quantified new range not disclosed in headline.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 73,
-      "rank_factors": {
-        "materiality": 73,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Komatsu",
-          "ticker": "6301",
-          "listing_country": "JP"
         }
       ],
       "size_bucket": "large",
@@ -248708,9 +248702,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 194760,
-    "news_picked_today": 290,
-    "news_dropped_today": 1390
+    "news_seen_today": 200201,
+    "news_picked_today": 310,
+    "news_dropped_today": 1610
   },
   "book_momentum": {
     "live_count": 8,
