@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T10:04:04Z",
+  "generated_at": "2026-10-30T10:11:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20261030-435",
@@ -291,6 +291,104 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-448",
+      "headline": "Acwa targets US power market with $4bn platform",
+      "headline_en": null,
+      "url": "https://www.meed.com/acwa-targets-us-power-market-with-4bn-platform",
+      "source_name": "MEED — Comment / Commentary",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T07:58:19Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Acwa Power is launching a $4 billion platform to enter the US power market.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Acwa Power is launching a $4 billion platform to enter the US power market.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Acwa Power",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-456",
+      "headline": "BP’s third-quarter profit nearly quadruples to $8.5 billion as refining margins surge",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/10/30/bp-earnings-oil-q3.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T07:51:30Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "BP reported a third-quarter profit of $8.5 billion, nearly quadrupling due to refining margins.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "BP reported a third-quarter profit of $8.5 billion, nearly quadrupling due to refining margins.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BP",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1878,105 +1976,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-149",
-      "headline": "Intel shares drop 21% on Israel factory blast, PC weakness",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/intel-shares-drop-21-on-israel-factory-blast-pc-weakness",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T00:15:00Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Intel shares dropped 21% following a factory blast and reports of PC weakness.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Intel shares dropped 21% following a factory blast and reports of PC weakness.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Intel",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-217",
-      "headline": "Intel shares plunge 21% as weak PC demand and supply shortages hit revenue outlook",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/markets/intel-shares-plunge-21-as-weak-pc-demand-and-supply-shortages-hit-revenue-outlook/article71643361.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T23:58:45Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Intel shares fell 21% following a weak revenue outlook driven by PC demand and supply issues.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Intel shares fell 21% following a weak revenue outlook driven by PC demand and supply issues.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Intel",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -207913,76 +207912,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-3bb4c249dc6a",
-      "idea_version": "IDEAV-2099ae65e9670312",
-      "idea_version_started_at": "2026-10-29T04:07:36Z",
-      "ticker": "GOOGL",
-      "company": "Alphabet",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Alphabet's decision to keep 2026 capex unchanged while signaling a significant increase for 2027 suggests margin pressure and higher capital intensity, disappointing investors expecting immediate efficiency.",
-      "why_now": "The stock is reacting to the earnings call and guidance update released on October 28, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-36c4965090f0"
-      ],
-      "primary_source_event_id": "EVT-36c4965090f0",
-      "source_headlines": [
-        "Alphabet sinks 10% as it holds 2026 capex unchanged, expects significant increase in 2027"
-      ],
-      "source_headline": "Alphabet sinks 10% as it holds 2026 capex unchanged, expects significant increase in 2027",
-      "source_url": "https://www.cnbc.com/2026/10/28/alphabet-googl-earnings-q3-2026.html",
-      "source_name": "CNBC",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-28T22:07:17Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-29T04:07:36Z",
-      "updated_at": "2026-10-29T04:07:36Z",
-      "decay_at": "2026-10-30T10:07:17Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-3321c8fee50b",
       "idea_version": "IDEAV-3a89764434655041",
       "idea_version_started_at": "2026-10-29T17:48:18Z",
@@ -208758,6 +208687,76 @@
       "surfaced_at": "2026-10-29T06:54:24Z",
       "updated_at": "2026-10-29T06:54:24Z",
       "decay_at": "2026-10-30T09:53:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-3bb4c249dc6a",
+      "idea_version": "IDEAV-2099ae65e9670312",
+      "idea_version_started_at": "2026-10-29T04:07:36Z",
+      "ticker": "GOOGL",
+      "company": "Alphabet",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Alphabet's decision to keep 2026 capex unchanged while signaling a significant increase for 2027 suggests margin pressure and higher capital intensity, disappointing investors expecting immediate efficiency.",
+      "why_now": "The stock is reacting to the earnings call and guidance update released on October 28, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-36c4965090f0"
+      ],
+      "primary_source_event_id": "EVT-36c4965090f0",
+      "source_headlines": [
+        "Alphabet sinks 10% as it holds 2026 capex unchanged, expects significant increase in 2027"
+      ],
+      "source_headline": "Alphabet sinks 10% as it holds 2026 capex unchanged, expects significant increase in 2027",
+      "source_url": "https://www.cnbc.com/2026/10/28/alphabet-googl-earnings-q3-2026.html",
+      "source_name": "CNBC",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-28T22:07:17Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-29T04:07:36Z",
+      "updated_at": "2026-10-29T04:07:36Z",
+      "decay_at": "2026-10-30T10:07:17Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -211122,9 +211121,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 534,
+    "total_count": 535,
     "shown_count": 500,
-    "hidden_count": 34,
+    "hidden_count": 35,
     "side_counts": {
       "long": {
         "total_count": 270,
@@ -211132,9 +211131,9 @@
         "hidden_count": 20
       },
       "short": {
-        "total_count": 264,
+        "total_count": 265,
         "shown_count": 250,
-        "hidden_count": 14
+        "hidden_count": 15
       }
     },
     "retention": {
@@ -211153,6 +211152,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-3bb4c249dc6a",
+        "idea_version": "IDEAV-2099ae65e9670312",
+        "idea_version_started_at": "2026-10-29T04:07:36Z",
+        "ticker": "GOOGL",
+        "company": "Alphabet",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Alphabet's decision to keep 2026 capex unchanged while signaling a significant increase for 2027 suggests margin pressure and higher capital intensity, disappointing investors expecting immediate efficiency.",
+        "why_now": "The stock is reacting to the earnings call and guidance update released on October 28, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 67,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-36c4965090f0"
+        ],
+        "primary_source_event_id": "EVT-36c4965090f0",
+        "source_headlines": [
+          "Alphabet sinks 10% as it holds 2026 capex unchanged, expects significant increase in 2027"
+        ],
+        "source_headline": "Alphabet sinks 10% as it holds 2026 capex unchanged, expects significant increase in 2027",
+        "source_url": "https://www.cnbc.com/2026/10/28/alphabet-googl-earnings-q3-2026.html",
+        "source_name": "CNBC",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-28T22:07:17Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-29T04:07:36Z",
+        "updated_at": "2026-10-29T04:07:36Z",
+        "decay_at": "2026-10-30T10:07:17Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-30T10:07:17Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-50f379c78b21",
         "idea_version": "IDEAV-684e5b6f4e95a92b",
@@ -248308,88 +248380,12 @@
         "archived_at": "2026-10-07T10:57:38Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-5e41e1261439",
-        "idea_version": "IDEAV-4ec543586643665b",
-        "idea_version_started_at": "2026-10-04T06:44:55Z",
-        "ticker": "NESTLEIND",
-        "company": "Nestle India",
-        "exchange": "NSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The FSSAI declaring a specific dairy product 'unsafe' creates significant reputational risk and potential for mandatory product recalls, impacting short-term sales and brand equity.",
-        "why_now": "The regulatory finding was reported on 2026-10-04.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 15,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 7,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-467cd98c280c",
-          "EVT-4a3115de2c86"
-        ],
-        "primary_source_event_id": "EVT-467cd98c280c",
-        "source_headlines": [
-          "Nestle's low-fat dairy whitener sample found 'unsafe' in India, says regulator",
-          "Nestle India’s ‘Low-Fat Dairy Whitener’ Found ‘Unsafe, Substandard’ At Hotel Lalit: FSSAI"
-        ],
-        "source_headline": "Nestle's low-fat dairy whitener sample found 'unsafe' in India, says regulator",
-        "source_url": "https://www.cnbctv18.com/market/nestle-low-fat-dairy-whitener-sample-found-unsafe-in-india-says-regulator-20004083.htm",
-        "source_name": "CNBC-TV18",
-        "materiality_max": 87,
-        "newest_source_at": "2026-10-04T06:12:22Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-04T06:44:55Z",
-        "updated_at": "2026-10-04T06:44:55Z",
-        "decay_at": "2026-10-05T18:12:22Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-07T10:57:38Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2004,
-    "live_count": 12,
+    "live_count": 11,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -248408,9 +248404,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 929647,
-    "news_picked_today": 1013,
-    "news_dropped_today": 11131
+    "news_seen_today": 934098,
+    "news_picked_today": 1035,
+    "news_dropped_today": 11205
   },
   "book_momentum": {
     "live_count": 8,
