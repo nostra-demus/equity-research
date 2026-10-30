@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T03:01:51Z",
+  "generated_at": "2026-10-30T03:04:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20261030-232",
@@ -298,6 +298,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261030-259",
+      "headline": "Reddit shares plunge 18% on earnings miss, limited access plans",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/reddit-shares-plunge-18-percentage-on-earnings-miss-limited-access-plans-without-account-social-media-platform-20022937.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T01:47:25Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Reddit shares fell 18% following an earnings miss and concerns over access plans.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Reddit shares fell 18% following an earnings miss and concerns over access plans.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Reddit",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261030-203",
       "headline": "Bitcoin, cryptocurrency prices fall after Binance freezes assests worth $2.5 billion",
       "headline_en": null,
@@ -544,6 +593,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-258",
+      "headline": "IndiGo posts Rs 1,879-crore loss as high fuel costs, geopolitical woes hit; capacity cuts & yield management offer only partial relief, says CEO Willie Walsh",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/indigo-posts-rs-1879-crore-loss-as-high-fuel-costs-geopolitical-woes-hit-capacity-cuts-and-yield-management-offer-only-partial-relief-says-ceo-willie-walsh/articleshow/135339101.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T00:58:44Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "IndiGo reported a loss of Rs 1,879 crore due to fuel costs and geopolitical issues.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "IndiGo reported a loss of Rs 1,879 crore due to fuel costs and geopolitical issues.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IndiGo",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1873,104 +1971,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-087",
-      "headline": "CQ FD B2910 (40929): NOTICE OF LISTING ON THE STOCK EXCHANGE OF HONG KONG LIMITED - CHONGQING FENGDU INDUSTRIAL DEVELOPMENT GROUP CO., LTD. U.S.$50,000,000 5.10 PER CENT. CREDIT ENHANCED SUSTAINABLE BONDS DUE 2029",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1030/2026103000215.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-29T23:20:00Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Chongqing Fengdu Industrial Development Group issued $50 million in bonds.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Chongqing Fengdu Industrial Development Group issued $50 million in bonds.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Chongqing Fengdu Industrial Development Group",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-115",
-      "headline": "AIA AIA GROUP N2804 AIA GRP SDS3404 AIA GRP SDS3503 AIA GRP SDS5409 AIA GROUP N2710 AIA GROUP N4603 AIA GRP SDS3506 AIA GROUP N3304 AIA GROUP RSPSC AIA GROUP N2904 AIA GROUP N3004 AIA GRP T2S4009 AIA GROUP RSPSB AIA GRP SDS3309 AIA GRP SDS5110 AIA-R AIA SDS3604-R AIA SDS4609-R (01299 04457 04566 05220 05223 05560 05618 05657 05778 05858 05944 40199 40384 40721 40835 40882 81299 85121 85169): Third Quarter 2026 New Business H",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1030/2026103000001.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-29T22:01:00Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Release of Q3 2026 new business figures for a major insurer.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Release of Q3 2026 new business figures for a major insurer.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AIA GROUP",
-          "ticker": "01299",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -248696,9 +248696,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 265772,
-    "news_picked_today": 380,
-    "news_dropped_today": 2020
+    "news_seen_today": 276004,
+    "news_picked_today": 406,
+    "news_dropped_today": 2042
   },
   "book_momentum": {
     "live_count": 8,
