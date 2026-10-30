@@ -1,13 +1,13 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-10-06T04:16:17Z",
+  "archived_at": "2026-10-30T06:36:29Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-6f55bf31e25a",
-    "idea_version": "IDEAV-39e7b2d1cbe42911",
-    "idea_version_started_at": "2026-10-03T04:30:05Z",
-    "ticker": "BA",
-    "company": "Boeing",
+    "idea_id": "IDEA-58d3e0cadc2a",
+    "idea_version": "IDEAV-3b0ca6c61b0b4714",
+    "idea_version_started_at": "2026-10-27T08:26:43Z",
+    "ticker": "INFY",
+    "company": "Infosys",
     "exchange": "NYSE",
     "ticker_verified": true,
     "listing_verified": true,
@@ -15,15 +15,15 @@
     "listing_verification_source": "yahoo_symbol_directory",
     "direction": "short",
     "pair_with": null,
-    "reason": "Continued scrutiny regarding the 737 MAX safety profile increases the likelihood of further regulatory delays and potential litigation costs.",
-    "why_now": "The report published on 2026-10-03 highlights ongoing safety concerns that keep the company's operational recovery under pressure.",
-    "conviction": 65,
+    "reason": "Multiple analyst downgrades following a weaker sales outlook indicate a structural slowdown in demand for IT services, pressuring margins and valuation multiples.",
+    "why_now": "The wave of four downgrades occurred on 2026-10-27, signaling a rapid shift in market sentiment.",
+    "conviction": 70,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 60,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
       "evidence": 14,
-      "impact": 14,
+      "impact": 20,
       "specificity": 15,
       "timing": 10,
       "expression": 7,
@@ -34,6 +34,7 @@
     "missing_checks": [
       "live liquidity",
       "dated catalyst",
+      "priced-in risk",
       "independent confirmation",
       "live price, liquidity, and consensus"
     ],
@@ -46,31 +47,31 @@
       "basis": "not_enough_outcomes",
       "evidenceIds": []
     },
-    "priced_in": "room",
+    "priced_in": "priced",
     "thesis_type": "company_specific",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-87b05665db6f"
+      "EVT-8b171158c84f"
     ],
-    "primary_source_event_id": "EVT-87b05665db6f",
+    "primary_source_event_id": "EVT-8b171158c84f",
     "source_headlines": [
-      "How a Boeing 737 MAX Survived a Nosedive Traveling at the Speed of Sound"
+      "Infosys Draws Four Downgrades in a Day on Weaker Sales Outlook"
     ],
-    "source_headline": "How a Boeing 737 MAX Survived a Nosedive Traveling at the Speed of Sound",
-    "source_url": "https://www.wsj.com/business/airlines/how-a-boeing-737-max-survived-a-nosedive-traveling-at-the-speed-of-sound-e8cae3b4?mod=pls_whats_news_us_business_f",
-    "source_name": "The Wall Street Journal",
-    "materiality_max": 83,
-    "newest_source_at": "2026-10-03T04:01:00Z",
+    "source_headline": "Infosys Draws Four Downgrades in a Day on Weaker Sales Outlook",
+    "source_url": "https://www.bloomberg.com/news/articles/2026-10-27/infosys-downgrades-weaker-sales-outlook-software-exporter-ai",
+    "source_name": "Bloomberg",
+    "materiality_max": 100,
+    "newest_source_at": "2026-10-27T03:58:57Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-10-03T04:30:05Z",
-    "updated_at": "2026-10-03T04:30:05Z",
-    "decay_at": "2026-10-04T16:01:00Z",
+    "surfaced_at": "2026-10-23T15:10:57Z",
+    "updated_at": "2026-10-27T08:26:43Z",
+    "decay_at": "2026-10-28T15:58:57Z",
     "status": "live",
     "promoted_signal_id": null
   }

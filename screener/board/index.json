@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T06:36:05Z",
+  "generated_at": "2026-10-30T06:36:40Z",
   "inbox": [
     {
       "inbox_id": "INB-20261030-232",
@@ -207850,6 +207850,76 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-759cf3b531e6",
+      "idea_version": "IDEAV-2a60dd37cef7b512",
+      "idea_version_started_at": "2026-10-30T06:36:21Z",
+      "ticker": "AMZN",
+      "company": "Amazon",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company reported a significant negative free cash flow of $42.4 billion, highlighting capital intensity concerns.",
+      "why_now": "The financial data was released on 2026-10-29.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f91de9ca44f5"
+      ],
+      "primary_source_event_id": "EVT-f91de9ca44f5",
+      "source_headlines": [
+        "Amazon posts negative free cash flow of $42.4 billion, holds 2026 capex unchanged"
+      ],
+      "source_headline": "Amazon posts negative free cash flow of $42.4 billion, holds 2026 capex unchanged",
+      "source_url": "https://www.cnbc.com/2026/10/29/amazon-amzn-q3-earnings-report-2026.html",
+      "source_name": "CNBC",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-29T22:24:49Z",
+      "prior_coverage": {
+        "has_run": true,
+        "latest_run": "analyses/AMZN_2026-07-20",
+        "latest_decision": null,
+        "data_pool_present": true
+      },
+      "surfaced_at": "2026-10-30T06:36:21Z",
+      "updated_at": "2026-10-30T06:36:21Z",
+      "decay_at": "2026-10-31T10:24:49Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-198dd76261e7",
       "idea_version": "IDEAV-20005e8171e77b87",
       "idea_version_started_at": "2026-10-29T06:54:24Z",
@@ -208334,6 +208404,79 @@
       "surfaced_at": "2026-10-29T04:07:36Z",
       "updated_at": "2026-10-29T04:07:36Z",
       "decay_at": "2026-10-30T09:24:40Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-ad1cbaa247a0",
+      "idea_version": "IDEAV-d005857599f6ecb6",
+      "idea_version_started_at": "2026-10-30T06:36:21Z",
+      "ticker": "AC",
+      "company": "Air Canada",
+      "exchange": "TSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Rising fuel costs are outpacing fare increases, forcing a downward revision to the company's annual profit forecast.",
+      "why_now": "The guidance cut was announced on 2026-10-29.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8d81292ee6d8"
+      ],
+      "primary_source_event_id": "EVT-8d81292ee6d8",
+      "source_headlines": [
+        "Air Canada cuts annual profit forecast as fuel costs outpace fare hikes"
+      ],
+      "source_headline": "Air Canada cuts annual profit forecast as fuel costs outpace fare hikes",
+      "source_url": "https://www.theglobeandmail.com/business/article-air-canada-cuts-annual-profit-forecast/",
+      "source_name": "The Globe and Mail",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-29T21:13:41Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-30T06:36:21Z",
+      "updated_at": "2026-10-30T06:36:21Z",
+      "decay_at": "2026-10-31T09:13:41Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -208902,76 +209045,6 @@
       "surfaced_at": "2026-10-27T16:00:02Z",
       "updated_at": "2026-10-27T16:00:02Z",
       "decay_at": "2026-10-29T01:23:25Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-301c9958417a",
-      "idea_version": "IDEAV-1a5df032afd29548",
-      "idea_version_started_at": "2026-10-27T06:46:23Z",
-      "ticker": "META",
-      "company": "Meta Platforms",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A $95 billion equity offering represents massive dilution for existing shareholders to fund capital-intensive AI infrastructure.",
-      "why_now": "The news of the funding round broke on 2026-10-27.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-eaf7f81b9477"
-      ],
-      "primary_source_event_id": "EVT-eaf7f81b9477",
-      "source_headlines": [
-        "Meta Platform seeks to raise $95 billion through stock offering in largest ever funding round for AI expansion"
-      ],
-      "source_headline": "Meta Platform seeks to raise $95 billion through stock offering in largest ever funding round for AI expansion",
-      "source_url": "https://www.livemint.com/companies/news/meta-platform-seeks-to-raise-95-billion-through-stock-offering-in-largest-ever-funding-round-for-ai-expansion-11793066342072.html",
-      "source_name": "Mint",
-      "materiality_max": 98,
-      "newest_source_at": "2026-10-27T02:35:38Z",
-      "prior_coverage": {
-        "has_run": true,
-        "latest_run": "analyses/META_2026-08-31",
-        "latest_decision": null,
-        "data_pool_present": true
-      },
-      "surfaced_at": "2026-10-27T06:46:23Z",
-      "updated_at": "2026-10-27T06:46:23Z",
-      "decay_at": "2026-10-28T14:35:38Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -209607,77 +209680,6 @@
       "surfaced_at": "2026-10-27T16:21:10Z",
       "updated_at": "2026-10-27T16:21:10Z",
       "decay_at": "2026-10-29T03:15:31Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-58d3e0cadc2a",
-      "idea_version": "IDEAV-3b0ca6c61b0b4714",
-      "idea_version_started_at": "2026-10-27T08:26:43Z",
-      "ticker": "INFY",
-      "company": "Infosys",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Multiple analyst downgrades following a weaker sales outlook indicate a structural slowdown in demand for IT services, pressuring margins and valuation multiples.",
-      "why_now": "The wave of four downgrades occurred on 2026-10-27, signaling a rapid shift in market sentiment.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8b171158c84f"
-      ],
-      "primary_source_event_id": "EVT-8b171158c84f",
-      "source_headlines": [
-        "Infosys Draws Four Downgrades in a Day on Weaker Sales Outlook"
-      ],
-      "source_headline": "Infosys Draws Four Downgrades in a Day on Weaker Sales Outlook",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-10-27/infosys-downgrades-weaker-sales-outlook-software-exporter-ai",
-      "source_name": "Bloomberg",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-27T03:58:57Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-23T15:10:57Z",
-      "updated_at": "2026-10-27T08:26:43Z",
-      "decay_at": "2026-10-28T15:58:57Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -211115,292 +211117,6 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": true
-    },
-    {
-      "idea_id": "IDEA-b169a761145d",
-      "idea_version": "IDEAV-b88da5cc6261cc3c",
-      "idea_version_started_at": "2026-10-27T11:08:01Z",
-      "ticker": "MAHINDELIFE",
-      "company": "Mahindra Lifespace Developers",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is developing a 10.05-acre land parcel in North Bengaluru with a Gross Development Value (GDV) of INR 1250 crore, signaling a major expansion in a high-demand real estate market.",
-      "why_now": "The project announcement was filed with the exchange on October 27, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-61e8f0ded53c"
-      ],
-      "primary_source_event_id": "EVT-61e8f0ded53c",
-      "source_headlines": [
-        "Mahindra Lifespace Developers Limited: Mahindra Lifespace Developers Limited has informed the Exchange regarding a press release dated October 27, 2026, titled \"Mahindra Lifespaces to develop 10.05 acre land parcel in North Bengaluru with INR 1250 crore GDV\"."
-      ],
-      "source_headline": "Mahindra Lifespace Developers Limited: Mahindra Lifespace Developers Limited has informed the Exchange regarding a press release dated October 27, 2026, titled \"Mahindra Lifespaces to develop 10.05 acre land parcel in North Bengaluru with INR 1250 crore GDV\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/MAHLIFE1_27102026114951_IntimationofPressRelease.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-27T06:20:03Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-27T11:08:01Z",
-      "updated_at": "2026-10-27T11:08:01Z",
-      "decay_at": "2026-10-28T18:20:03Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-27a3f949d026",
-      "idea_version": "IDEAV-7dbabc17598082c5",
-      "idea_version_started_at": "2026-10-27T08:26:43Z",
-      "ticker": "WABAG",
-      "company": "VA Tech Wabag",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company secured a significant order from Reliance Industries for a mega desalination and remineralisation plant, which will directly contribute to revenue growth and order book visibility.",
-      "why_now": "The contract was officially announced via exchange filing on 2026-10-27.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a9d789c2ed29"
-      ],
-      "primary_source_event_id": "EVT-a9d789c2ed29",
-      "source_headlines": [
-        "VA Tech Wabag Limited: Bagging of Order/Contract - WABAG secures order from RIL to deliver Mega Desalination Plant and Remineralisation Plant at Jamnagar"
-      ],
-      "source_headline": "VA Tech Wabag Limited: Bagging of Order/Contract - WABAG secures order from RIL to deliver Mega Desalination Plant and Remineralisation Plant at Jamnagar",
-      "source_url": "https://nsearchives.nseindia.com/corporate/VATECH_27102026082542_SI_RIL_27102026v2.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-27T02:56:07Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-27T08:26:43Z",
-      "updated_at": "2026-10-27T08:26:43Z",
-      "decay_at": "2026-10-28T14:56:07Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-827555d74388",
-      "idea_version": "IDEAV-e4124793bcdeb224",
-      "idea_version_started_at": "2026-10-27T04:19:35Z",
-      "ticker": "9449",
-      "company": "GMO Internet Inc.",
-      "exchange": "TSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A confirmed cyberattack and the threat of customer data disclosure pose significant operational, legal, and reputational risks to the company.",
-      "why_now": "The hacker set a deadline for data disclosure at noon on October 27, 2026, creating immediate downside pressure.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1ba328973c52"
-      ],
-      "primary_source_event_id": "EVT-1ba328973c52",
-      "source_headlines": [
-        "Cyberattack-hit GMO says hacker threatens to disclose customer info at noon"
-      ],
-      "source_headline": "Cyberattack-hit GMO says hacker threatens to disclose customer info at noon",
-      "source_url": "https://mainichi.jp/english/articles/20261027/p2g/00m/0bu/020000c",
-      "source_name": "The Mainichi",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-27T02:05:11Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-27T04:19:35Z",
-      "updated_at": "2026-10-27T04:19:35Z",
-      "decay_at": "2026-10-28T14:05:11Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-f8710fa2cf67",
-      "idea_version": "IDEAV-e574f18749ad3529",
-      "idea_version_started_at": "2026-10-27T06:46:23Z",
-      "ticker": "MBG",
-      "company": "Mercedes-Benz Group AG",
-      "exchange": "XETRA",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "High severance costs and workforce reductions signal structural margin pressure and a difficult transition in the automotive manufacturing segment.",
-      "why_now": "The restructuring plan was reported on 2026-10-27.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f5451c6cbd71"
-      ],
-      "primary_source_event_id": "EVT-f5451c6cbd71",
-      "source_headlines": [
-        "Automaker: Up to €330,000 severance — Mercedes also cuts workforce in parts of production"
-      ],
-      "source_headline": "Autobauer: Bis zu 330.000 Euro Abfindung – Mercedes baut auch Personal in Teilen der Produktion ab",
-      "source_url": "https://www.handelsblatt.com/unternehmen/industrie/autobauer-mercedes-bietet-bis-zu-330.000-euro-abfindung-in-der-produktion/100263206.html",
-      "source_name": "Handelsblatt",
-      "materiality_max": 95,
-      "newest_source_at": "2026-10-27T03:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-27T06:46:23Z",
-      "updated_at": "2026-10-27T06:46:23Z",
-      "decay_at": "2026-10-28T15:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
     }
   ],
   "ideas_archive": {
@@ -211413,33 +211129,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 536,
+    "total_count": 530,
     "shown_count": 500,
-    "hidden_count": 36,
+    "hidden_count": 30,
     "side_counts": {
       "long": {
-        "total_count": 270,
+        "total_count": 268,
         "shown_count": 250,
-        "hidden_count": 20
+        "hidden_count": 18
       },
       "short": {
-        "total_count": 266,
+        "total_count": 262,
         "shown_count": 250,
-        "hidden_count": 16
+        "hidden_count": 12
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1451,
-      "oldest_retained_at": "2026-10-04T16:01:00Z",
+      "evicted_count": 1457,
+      "oldest_retained_at": "2026-10-04T18:46:12Z",
       "side_counts": {
         "long": {
-          "evicted_count": 958,
-          "oldest_retained_at": "2026-10-15T04:27:21Z"
+          "evicted_count": 960,
+          "oldest_retained_at": "2026-10-15T08:57:02Z"
         },
         "short": {
-          "evicted_count": 494,
-          "oldest_retained_at": "2026-10-04T16:01:00Z"
+          "evicted_count": 498,
+          "oldest_retained_at": "2026-10-04T18:46:12Z"
         }
       }
     },
@@ -213742,8 +213458,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-28T18:20:03Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-30T06:36:29Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -213816,8 +213532,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-28T15:58:57Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-30T06:36:29Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -213891,8 +213607,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-28T15:00:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-30T06:36:29Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -213965,8 +213681,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-28T14:56:07Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-30T06:36:29Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -214038,8 +213754,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-28T14:35:38Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-30T06:36:29Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -214113,8 +213829,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-28T14:05:11Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-30T06:36:29Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -248686,8 +248402,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2002,
-    "live_count": 14,
+    "surfaced_total": 2004,
+    "live_count": 16,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
