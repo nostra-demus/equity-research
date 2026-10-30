@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-30T13:45:30Z",
+  "generated_at": "2026-10-30T13:56:55Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261030-681",
+      "headline": "Offer to Buy – Acquisition Window (Takeover) for ISHAAN INFRASTRUCTURES AND SHELTERS LTD– Live Activities Schedule",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/downloads/UploadDocs/Notices/20261030-32/20261030-32.pdf",
+      "source_name": "BSE India — Notices (RSS)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-30T13:27:20Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "The company is undergoing a takeover acquisition process.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company is undergoing a takeover acquisition process.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ishaan Infrastructures and Shelters Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261030-659",
       "headline": "TIANNENG POWER (00819): CONNECTED TRANSACTION ACQUISITION OF 50.10% EQUITY INTEREST IN ANHUI XINNA AND CAPITAL INCREASE IN TIANNENG NEW MATERIALS AND DEEMED DISPOSAL",
@@ -1925,56 +1974,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-356",
-      "headline": "Republic Services, Inc. Updates Full-Year 2026 Guidance, Announces $5 Billion Share Repurchase Authorization",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/republic-services-inc-updates-full-year-2026-guidance-announces-5-billion-share-repurchase",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T05:28:35Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Updated FY2026 guidance and authorized $5 billion share repurchase—two material capital-structure and forward-outlook actions for a mega-cap waste company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Updated FY2026 guidance and authorized $5 billion share repurchase—two material capital-structure and forward-outlook actions for a mega-cap waste company.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Republic Services Inc.",
-          "ticker": "RSG",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -248403,9 +248402,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1415207,
-    "news_picked_today": 1481,
-    "news_dropped_today": 14695
+    "news_seen_today": 1445116,
+    "news_picked_today": 1497,
+    "news_dropped_today": 14895
   },
   "book_momentum": {
     "live_count": 8,
