@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T00:15:46Z",
+  "generated_at": "2026-10-30T00:22:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20261030-001",
@@ -241,6 +241,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261030-020",
+      "headline": "BMO Closes Sale of Transportation and Vendor Finance Businesses",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/bmo-closes-sale-of-transportation-and-vendor-finance-businesses-850893092.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-29T22:30:00Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "BMO Financial Group has completed the sale of its transportation and vendor finance businesses, a significant divestiture.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 59,
+      "triage_reason": "BMO Financial Group has completed the sale of its transportation and vendor finance businesses, a significant divestiture.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BMO Financial Group",
+          "ticker": "BMO",
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261030-010",
       "headline": "SFL adds $365m newbuild trio with $333m in charter cover",
       "headline_en": null,
@@ -429,6 +478,55 @@
           "name": "Jiahua Energy",
           "ticker": null,
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-021",
+      "headline": "Prospect Capital Corporation Announces Pricing of $300 Million Institutional Offering of 8.95% Unsecured Notes due 2031 | PSEC Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/PSEC/prospect-capital-corporation-announces-pricing-of-300-million-aeh2v0e7yut6.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-29T21:14:00Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Prospect Capital Corporation priced a $300 million institutional offering of 8.95% unsecured notes due 2031.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 51,
+      "triage_reason": "Prospect Capital Corporation priced a $300 million institutional offering of 8.95% unsecured notes due 2031.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "debt_credit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Prospect Capital Corporation",
+          "ticker": "PSEC",
+          "listing_country": "US"
         }
       ],
       "size_bucket": "mid",
@@ -248043,7 +248141,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4226,
+    "inbox_unconsumed": 4228,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -248052,9 +248150,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 25212,
-    "news_picked_today": 19,
-    "news_dropped_today": 149
+    "news_seen_today": 43785,
+    "news_picked_today": 21,
+    "news_dropped_today": 195
   },
   "book_momentum": {
     "live_count": 8,
