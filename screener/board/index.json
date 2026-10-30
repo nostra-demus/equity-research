@@ -1,6 +1,203 @@
 {
-  "generated_at": "2026-10-30T15:25:52Z",
+  "generated_at": "2026-10-30T15:57:55Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261030-739",
+      "headline": "Blue Coast Hotels Limited: Blue Coast Hotels Limited hereby inform regarding the defaults on payment of interest / repayment of principal amount on unlisted debt securities.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/BLUECOAST_30102026204916_Default_Redemption_Preference_share_30_10_2026Signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-30T15:19:57Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Debt default on interest and principal of unlisted securities is a financial distress event signaling solvency crisis and potential restructuring or insolvency.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Debt default on interest and principal of unlisted securities is a financial distress event signaling solvency crisis and potential restructuring or insolvency.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Blue Coast Hotels Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-741",
+      "headline": "FAMEGLOW (03774): JOINT ANNOUNCEMENT (1) ACQUISITION OF CONTROLLING INTEREST IN FAMEGLOW HOLDINGS LTD BY SHENG ZHAN INTERNATIONAL LTD (2) UNCONDITIONAL MANDATORY CASH OFFER BY OCTAL CAPITAL LTD AND GET NICE SECURITIES LTD FOR AND ON BEHALF OF SHENG ZHAN INTERNATIONAL LTD TO ACQUIRE ALL THE ISSUED SHARES OF FAMEGLOW HOLDINGS LTD (OTHER THAN THOSE ALREADY OWNED BY THE OFFEROR, MR. MAN AND PARTIES ACTING IN CONCERT WITH ANY OF THEM) (3) ESTABLISHMENT OF THE IBC (4) APPOINTMENT OF THE IFA (5) RESUMP",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1030/2026103002773.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-30T14:53:00Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Sheng Zhan International announces unconditional mandatory cash offer to acquire all Fameglow Holdings shares; control-changing transaction under HK takeover rules.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Sheng Zhan International announces unconditional mandatory cash offer to acquire all Fameglow Holdings shares; control-changing transaction under HK takeover rules.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 7,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Fameglow Holdings",
+          "ticker": "03774",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-742",
+      "headline": "HONBRIDGE (08137): MAJOR AND CONNECTED TRANSACTION IN RELATION TO ACQUISITION OF 51% EQUITY INTEREST IN THE TARGET COMPANY AND NOTICE OF EXTRAORDINARY GENERAL MEETING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1030/2026103002731.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-30T14:51:00Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Honbridge announces acquisition of 51% controlling equity interest as major and connected transaction; EGM required for shareholder approval.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Honbridge announces acquisition of 51% controlling equity interest as major and connected transaction; EGM required for shareholder approval.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Honbridge",
+          "ticker": "08137",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-743",
+      "headline": "DTXS SILK ROAD (00620): BUSINESS UPDATE TERMINATION OF ACQUISITION OF 50.1% EQUITY INTEREST IN TUOPU DIGITAL TECHNOLOGY",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1030/2026103002727.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-30T14:49:00Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "DTXS Silk Road terminates announced acquisition of 50.1% equity interest in Tuopu Digital Technology; removes control-stake transaction and signals strategy shift.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "DTXS Silk Road terminates announced acquisition of 50.1% equity interest in Tuopu Digital Technology; removes control-stake transaction and signals strategy shift.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 68,
+      "rank_factors": {
+        "materiality": 68,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 2,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna",
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DTXS Silk Road",
+          "ticker": "00620",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261030-723",
       "headline": "Tata Motors Limited: Tata Motors Limited has informed the Exchange about Acquisition",
@@ -46,6 +243,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-744",
+      "headline": "FICUS TECH (08107): UPDATES ON DISCLAIMER OF OPINION ON GOING CONCERN AS SET OUT IN THE ANNUAL REPORT FOR THE YEAR ENDED 31 DECEMBER 2025",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1030/2026103002709.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-30T14:36:00Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Auditor's disclaimer of opinion on going concern in FY2025 annual report signals material survival risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Auditor's disclaimer of opinion on going concern in FY2025 annual report signals material survival risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FICUS TECH",
+          "ticker": "08107",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1486,6 +1732,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261030-747",
+      "headline": "Intel heads for worst day on Wall Street in more than 50 years on weak guidance",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/10/30/amazon-intel-earnings-big-tech-ai-spending-concerns.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T15:43:48Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Intel issued weak guidance leading to a historic single-day stock decline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Intel issued weak guidance leading to a historic single-day stock decline.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Intel",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261030-738",
       "headline": "Jio cuts net debt 79% to ₹8,822 crore: What it means for its next growth phase",
       "headline_en": null,
@@ -1675,307 +1970,6 @@
           "name": "Jio Platforms",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-684",
-      "headline": "UAE Central Bank imposes AED200 million penalty on foreign bank branch",
-      "headline_en": null,
-      "url": "https://www.emirates247.com/business/cbuae-imposes-financial-penalty-of-aed200000000-on-a-branch-of-a-foreign-bank-licensed-in-the-uae/7290",
-      "source_name": "Emirates 24|7 — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T13:38:00Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "UAE Central Bank imposed a fine of AED 200 million on a foreign bank branch for regulatory non-compliance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "UAE Central Bank imposed a fine of AED 200 million on a foreign bank branch for regulatory non-compliance.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Foreign Bank Branch",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-668",
-      "headline": "IOC Q2 Results: Net profit swings to ₹21,630 crore from loss QoQ on refining margins",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/stocks/ioc-share-price-q2-results-net-profit-swings-to-rs-21630-crore-qoq-revenue-at-rs-2-50-lakh-crore-20023488.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T12:57:23Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Indian Oil Corporation reported a Q2 net profit of ₹21,630 crore, swinging from a previous loss.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Indian Oil Corporation reported a Q2 net profit of ₹21,630 crore, swinging from a previous loss.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Indian Oil Corporation",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-657",
-      "headline": "AbbVie Raises FY26 Adj. EPS Outlook; Boost Dividend 5.2% - Update",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/abbvie-raises-fy26-adj-eps-outlook-boost-dividend-52-update",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T12:05:01Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "AbbVie raises FY26 adjusted EPS guidance and increases dividend by 5.2%, both quantified official disclosures affecting forward cash flow and capital allocation policy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "AbbVie raises FY26 adjusted EPS guidance and increases dividend by 5.2%, both quantified official disclosures affecting forward cash flow and capital allocation policy.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AbbVie",
-          "ticker": "ABBV",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-616",
-      "headline": "Here’s how an Ethereum upgrade helped drain part of Binance’s $6 billion loss",
-      "headline_en": null,
-      "url": "https://www.coindesk.com/tech/2026/10/30/here-s-how-one-ethereum-permission-let-an-attacker-drain-usd2-5-billion-from-binance",
-      "source_name": "CoinDesk",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T11:35:16Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Binance suffered a $6 billion loss; an Ethereum network upgrade mechanic contributed to fund drainage—a critical solvency and operational incident at a major crypto exchange.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Binance suffered a $6 billion loss; an Ethereum network upgrade mechanic contributed to fund drainage—a critical solvency and operational incident at a major crypto exchange.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "cybersecurity",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Binance",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-561",
-      "headline": "Harley-Davidson spinoff issues 'going concern,' faces Chapter 11 or 7 Bankruptcy",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/retail/harley-davidson-spinoff-livewire-issues-going-concern-faces-chapter-11-or-7-bankruptcy",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T11:07:00Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "A Harley-Davidson spinoff issued a going concern warning and faces potential bankruptcy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A Harley-Davidson spinoff issued a going concern warning and faces potential bankruptcy.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Harley-Davidson",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-578",
-      "headline": "Evonik rejects BASF’s sweetened €11bn takeover bid",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/dfebee73-142f-46d5-95a6-0e895c0ae551?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T10:51:57Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Evonik has rejected a specific €11 billion takeover bid from BASF.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Evonik has rejected a specific €11 billion takeover bid from BASF.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Evonik",
-          "ticker": null,
-          "listing_country": "DE"
-        },
-        {
-          "name": "BASF",
-          "ticker": null,
-          "listing_country": "DE"
         }
       ],
       "size_bucket": "large",
@@ -248407,9 +248401,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1681246,
-    "news_picked_today": 1633,
-    "news_dropped_today": 16463
+    "news_seen_today": 1799579,
+    "news_picked_today": 1650,
+    "news_dropped_today": 16782
   },
   "book_momentum": {
     "live_count": 8,
