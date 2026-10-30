@@ -1,19 +1,19 @@
 {
-  "idea_id": "IDEA-613a9ec31465",
-  "idea_version": "IDEAV-c2277b85808dd4d7",
-  "idea_version_started_at": "2026-10-26T23:02:14Z",
-  "ticker": "WHR",
-  "company": "Whirlpool Corporation",
-  "exchange": "NYSE",
+  "idea_id": "IDEA-759cf3b531e6",
+  "idea_version": "IDEAV-2a60dd37cef7b512",
+  "idea_version_started_at": "2026-10-30T06:36:21Z",
+  "ticker": "AMZN",
+  "company": "Amazon",
+  "exchange": "NASDAQ",
   "ticker_verified": true,
   "listing_verified": true,
   "liquidity_verified": false,
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "short",
   "pair_with": null,
-  "reason": "The company reported a quarterly loss and lowered its full-year earnings guidance, signaling persistent demand weakness and margin compression.",
-  "why_now": "The earnings release and guidance cut occurred on 2026-10-26, providing an immediate catalyst for downward revisions.",
-  "conviction": 80,
+  "reason": "The company reported a significant negative free cash flow of $42.4 billion, highlighting capital intensity concerns.",
+  "why_now": "The financial data was released on 2026-10-29.",
+  "conviction": 60,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 67,
   "trade_score_basis": "event_driven_v3",
@@ -47,26 +47,26 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-a4e91aa9922f"
+    "EVT-f91de9ca44f5"
   ],
-  "primary_source_event_id": "EVT-a4e91aa9922f",
+  "primary_source_event_id": "EVT-f91de9ca44f5",
   "source_headlines": [
-    "Whirlpool Q3 Swings To Loss; Cuts FY Earnings Outlook"
+    "Amazon posts negative free cash flow of $42.4 billion, holds 2026 capex unchanged"
   ],
-  "source_headline": "Whirlpool Q3 Swings To Loss; Cuts FY Earnings Outlook",
-  "source_url": "https://www.nasdaq.com/articles/whirlpool-q3-swings-loss-cuts-fy-earnings-outlook",
-  "source_name": "Nasdaq",
+  "source_headline": "Amazon posts negative free cash flow of $42.4 billion, holds 2026 capex unchanged",
+  "source_url": "https://www.cnbc.com/2026/10/29/amazon-amzn-q3-earnings-report-2026.html",
+  "source_name": "CNBC",
   "materiality_max": 100,
-  "newest_source_at": "2026-10-26T21:46:04Z",
+  "newest_source_at": "2026-10-29T22:24:49Z",
   "prior_coverage": {
-    "has_run": false,
-    "latest_run": null,
+    "has_run": true,
+    "latest_run": "analyses/AMZN_2026-07-20",
     "latest_decision": null,
-    "data_pool_present": false
+    "data_pool_present": true
   },
-  "surfaced_at": "2026-10-26T23:02:14Z",
-  "updated_at": "2026-10-26T23:02:14Z",
-  "decay_at": "2026-10-28T09:46:04Z",
+  "surfaced_at": "2026-10-30T06:36:21Z",
+  "updated_at": "2026-10-30T06:36:21Z",
+  "decay_at": "2026-10-31T10:24:49Z",
   "status": "live",
   "promoted_signal_id": null
 }

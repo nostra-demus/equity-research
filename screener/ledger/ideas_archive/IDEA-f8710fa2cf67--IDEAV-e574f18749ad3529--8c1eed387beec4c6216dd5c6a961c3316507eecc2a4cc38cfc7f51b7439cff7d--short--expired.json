@@ -1,23 +1,23 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-10-06T10:47:40Z",
+  "archived_at": "2026-10-30T06:36:29Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-7029a359f9aa",
-    "idea_version": "IDEAV-3cf211a2ff07c869",
-    "idea_version_started_at": "2026-10-03T07:11:46Z",
-    "ticker": "VOW",
-    "company": "Volkswagen",
-    "exchange": "XTRA",
+    "idea_id": "IDEA-f8710fa2cf67",
+    "idea_version": "IDEAV-e574f18749ad3529",
+    "idea_version_started_at": "2026-10-27T06:46:23Z",
+    "ticker": "MBG",
+    "company": "Mercedes-Benz Group AG",
+    "exchange": "XETRA",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "short",
     "pair_with": null,
-    "reason": "Volkswagen knew about a screw problem in millions of cars since late 2024, indicating potential recall costs and regulatory penalties.",
-    "why_now": "The information about VW's prior knowledge of the issue has just been reported.",
-    "conviction": 65,
+    "reason": "High severance costs and workforce reductions signal structural margin pressure and a difficult transition in the automotive manufacturing segment.",
+    "why_now": "The restructuring plan was reported on 2026-10-27.",
+    "conviction": 60,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "event_driven_v3",
@@ -36,7 +36,6 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
-      "price and market expectations",
       "independent confirmation",
       "live price, liquidity, and consensus"
     ],
@@ -49,31 +48,31 @@
       "basis": "not_enough_outcomes",
       "evidenceIds": []
     },
-    "priced_in": "unknown",
+    "priced_in": "room",
     "thesis_type": "company_specific",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-27d47f72a152"
+      "EVT-f5451c6cbd71"
     ],
-    "primary_source_event_id": "EVT-27d47f72a152",
+    "primary_source_event_id": "EVT-f5451c6cbd71",
     "source_headlines": [
-      "Volkswagen: Recall of millions of cars: VW knew about the screw problem since autumn 2024"
+      "Automaker: Up to €330,000 severance — Mercedes also cuts workforce in parts of production"
     ],
-    "source_headline": "Volkswagen: Rückruf von Millionen Autos: VW kannte das Schrauben-Problem seit Herbst 2024",
-    "source_url": "https://www.handelsblatt.com/unternehmen/industrie/volkswagen-millionenrueckruf-bei-vw-problem-war-seit-herbst-2024-bekannt/100258311.html",
+    "source_headline": "Autobauer: Bis zu 330.000 Euro Abfindung – Mercedes baut auch Personal in Teilen der Produktion ab",
+    "source_url": "https://www.handelsblatt.com/unternehmen/industrie/autobauer-mercedes-bietet-bis-zu-330.000-euro-abfindung-in-der-produktion/100263206.html",
     "source_name": "Handelsblatt",
-    "materiality_max": 87,
-    "newest_source_at": "2026-10-03T06:32:36Z",
+    "materiality_max": 95,
+    "newest_source_at": "2026-10-27T03:00:00Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-10-03T07:11:46Z",
-    "updated_at": "2026-10-03T07:11:46Z",
-    "decay_at": "2026-10-04T18:32:36Z",
+    "surfaced_at": "2026-10-27T06:46:23Z",
+    "updated_at": "2026-10-27T06:46:23Z",
+    "decay_at": "2026-10-28T15:00:00Z",
     "status": "live",
     "promoted_signal_id": null
   }

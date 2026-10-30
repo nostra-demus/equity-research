@@ -1,25 +1,25 @@
 {
-  "idea_id": "IDEA-f8710fa2cf67",
-  "idea_version": "IDEAV-e574f18749ad3529",
-  "idea_version_started_at": "2026-10-27T06:46:23Z",
-  "ticker": "MBG",
-  "company": "Mercedes-Benz Group AG",
-  "exchange": "XETRA",
+  "idea_id": "IDEA-ad1cbaa247a0",
+  "idea_version": "IDEAV-d005857599f6ecb6",
+  "idea_version_started_at": "2026-10-30T06:36:21Z",
+  "ticker": "AC",
+  "company": "Air Canada",
+  "exchange": "TSE",
   "ticker_verified": false,
   "listing_verified": false,
   "liquidity_verified": false,
   "listing_verification_source": null,
   "direction": "short",
   "pair_with": null,
-  "reason": "High severance costs and workforce reductions signal structural margin pressure and a difficult transition in the automotive manufacturing segment.",
-  "why_now": "The restructuring plan was reported on 2026-10-27.",
-  "conviction": 60,
+  "reason": "Rising fuel costs are outpacing fare increases, forcing a downward revision to the company's annual profit forecast.",
+  "why_now": "The guidance cut was announced on 2026-10-29.",
+  "conviction": 70,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 14,
-    "impact": 18,
+    "impact": 19,
     "specificity": 7,
     "timing": 10,
     "expression": 0,
@@ -32,6 +32,7 @@
     "verified listing",
     "live liquidity",
     "dated catalyst",
+    "priced-in risk",
     "independent confirmation",
     "live price, liquidity, and consensus"
   ],
@@ -44,31 +45,31 @@
     "basis": "not_enough_outcomes",
     "evidenceIds": []
   },
-  "priced_in": "room",
+  "priced_in": "priced",
   "thesis_type": "company_specific",
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-f5451c6cbd71"
+    "EVT-8d81292ee6d8"
   ],
-  "primary_source_event_id": "EVT-f5451c6cbd71",
+  "primary_source_event_id": "EVT-8d81292ee6d8",
   "source_headlines": [
-    "Automaker: Up to €330,000 severance — Mercedes also cuts workforce in parts of production"
+    "Air Canada cuts annual profit forecast as fuel costs outpace fare hikes"
   ],
-  "source_headline": "Autobauer: Bis zu 330.000 Euro Abfindung – Mercedes baut auch Personal in Teilen der Produktion ab",
-  "source_url": "https://www.handelsblatt.com/unternehmen/industrie/autobauer-mercedes-bietet-bis-zu-330.000-euro-abfindung-in-der-produktion/100263206.html",
-  "source_name": "Handelsblatt",
-  "materiality_max": 95,
-  "newest_source_at": "2026-10-27T03:00:00Z",
+  "source_headline": "Air Canada cuts annual profit forecast as fuel costs outpace fare hikes",
+  "source_url": "https://www.theglobeandmail.com/business/article-air-canada-cuts-annual-profit-forecast/",
+  "source_name": "The Globe and Mail",
+  "materiality_max": 100,
+  "newest_source_at": "2026-10-29T21:13:41Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-10-27T06:46:23Z",
-  "updated_at": "2026-10-27T06:46:23Z",
-  "decay_at": "2026-10-28T15:00:00Z",
+  "surfaced_at": "2026-10-30T06:36:21Z",
+  "updated_at": "2026-10-30T06:36:21Z",
+  "decay_at": "2026-10-31T09:13:41Z",
   "status": "live",
   "promoted_signal_id": null
 }
