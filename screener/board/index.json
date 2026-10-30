@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T14:02:30Z",
+  "generated_at": "2026-10-30T14:05:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20261030-681",
@@ -1240,6 +1240,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261030-684",
+      "headline": "UAE Central Bank imposes AED200 million penalty on foreign bank branch",
+      "headline_en": null,
+      "url": "https://www.emirates247.com/business/cbuae-imposes-financial-penalty-of-aed200000000-on-a-branch-of-a-foreign-bank-licensed-in-the-uae/7290",
+      "source_name": "Emirates 24|7 — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T13:38:00Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "UAE Central Bank imposed a fine of AED 200 million on a foreign bank branch for regulatory non-compliance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "UAE Central Bank imposed a fine of AED 200 million on a foreign bank branch for regulatory non-compliance.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Foreign Bank Branch",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261030-668",
       "headline": "IOC Q2 Results: Net profit swings to ₹21,630 crore from loss QoQ on refining margins",
       "headline_en": null,
@@ -1930,55 +1979,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-431",
-      "headline": "Equitas Small Finance Bank Shares Crash 17% To 52-Week Low, Stock Plunges Over 27% In Two Days After CEO Resignation",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/equitas-small-finance-bank-shares-crash-17-to-52-week-low-stock-plunges-over-27-in-two-days-after-ceo-resignation",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T06:45:07Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Equitas Small Finance Bank shares fell 17% following the resignation of its CEO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Equitas Small Finance Bank shares fell 17% following the resignation of its CEO.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Equitas Small Finance Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -248407,9 +248407,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1452974,
-    "news_picked_today": 1526,
-    "news_dropped_today": 14938
+    "news_seen_today": 1460760,
+    "news_picked_today": 1536,
+    "news_dropped_today": 14952
   },
   "book_momentum": {
     "live_count": 8,
