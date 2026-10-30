@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T13:56:55Z",
+  "generated_at": "2026-10-30T14:02:30Z",
   "inbox": [
     {
       "inbox_id": "INB-20261030-681",
@@ -46,6 +46,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-683",
+      "headline": "FIRST PACIFIC (00142): PT INDOFOOD SUKSES MAKMUR TBK'S UNAUDITED CONSOLIDATED FINANCIAL RESULTS FOR THE NINE MONTHS ENDED 30 SEPTEMBER 2026",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1030/2026103002519.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-30T13:25:00Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "PT Indofood Sukses Makmur (50.1%-owned subsidiary of First Pacific) published unaudited consolidated financial results for 9 months ended 30 September 2026, moving revenue, profit, and margin expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "PT Indofood Sukses Makmur (50.1%-owned subsidiary of First Pacific) published unaudited consolidated financial results for 9 months ended 30 September 2026, moving revenue, profit, and margin expectations.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "First Pacific Company Limited",
+          "ticker": "00142",
+          "listing_country": "HK"
+        },
+        {
+          "name": "PT Indofood Sukses Makmur Tbk",
+          "ticker": null,
+          "listing_country": "ID"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1920,55 +1974,6 @@
       "companies": [
         {
           "name": "Equitas Small Finance Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-492",
-      "headline": "Brigade Enterprises Reports Robust Q2 FY27; PBT Grows 47% To ₹288 Crore, Real Estate Sales At ₹1,827 Crore",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/brigade-enterprises-reports-robust-q2-fy27-pbt-grows-47-to-288-crore-real-estate-sales-at-1827-crore",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T06:26:48Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Brigade Enterprises reported a 47% increase in PBT to ₹288 crore and sales of ₹1,827 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Brigade Enterprises reported a 47% increase in PBT to ₹288 crore and sales of ₹1,827 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Brigade Enterprises",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -248402,9 +248407,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1445116,
-    "news_picked_today": 1497,
-    "news_dropped_today": 14895
+    "news_seen_today": 1452974,
+    "news_picked_today": 1526,
+    "news_dropped_today": 14938
   },
   "book_momentum": {
     "live_count": 8,
