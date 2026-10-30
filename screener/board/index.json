@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T00:11:46Z",
+  "generated_at": "2026-10-30T00:14:46Z",
   "inbox": [
     {
       "inbox_id": "INB-20261030-001",
@@ -285,6 +285,153 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-014",
+      "headline": "Public Storage Prices Public Offering of $500 Million of Senior Notes at an Effective Interest Rate of 5.200%",
+      "headline_en": null,
+      "url": "http://www.businesswire.com/news/home/20261029724942/en/Public-Storage-Prices-Public-Offering-of-500-Million-of-Senior-Notes-at-an%C2%A0Effective-Interest-Rate-of-5.200/?feedref=JjAwJuNHiystnCoBq_hl-Ymqj4g6qAlg7edDzhXcztJcgiwDl5F89IquLVWUqfRVgLxDkSKfgoruKb9yWl5as-PbWreMWuYBefATrZ0EPTUKvKXA1G4lfyVQLpVttJwGBSvR87oUDgbHejiywQBpbg==",
+      "source_name": "Business Wire — Funding News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-29T21:57:00Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Public Storage priced a $500 million senior note offering at 5.200%.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 53,
+      "triage_reason": "Public Storage priced a $500 million senior note offering at 5.200%.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Public Storage",
+          "ticker": "PSA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-015",
+      "headline": "Prospect Capital Corporation Announces Pricing of $300 Million Institutional Offering of 8.95% Unsecured Notes due 2031",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/10/29/3391921/0/en/prospect-capital-corporation-announces-pricing-of-300-million-institutional-offering-of-8-95-unsecured-notes-due-2031.html",
+      "source_name": "GlobeNewswire — News about Public Companies",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-29T21:14:00Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Prospect Capital Corporation priced a $300 million institutional offering of 8.95% unsecured notes.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 52,
+      "triage_reason": "Prospect Capital Corporation priced a $300 million institutional offering of 8.95% unsecured notes.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "debt_credit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Prospect Capital Corporation",
+          "ticker": "PSEC",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-013",
+      "headline": "Jiahua Energy lines up $165m gas carrier at Jiangnan",
+      "headline_en": null,
+      "url": "https://splash247.com/jiahua-energy-lines-up-165m-gas-carrier-at-jiangnan/",
+      "source_name": "Splash247",
+      "input_nature": "shipping_rate_move",
+      "found_at": "2026-10-29T11:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Jiahua Energy is investing $165 million in a new gas carrier, representing a significant capital expenditure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 51,
+      "triage_reason": "Jiahua Energy is investing $165 million in a new gas carrier, representing a significant capital expenditure.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -33,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "official_data",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jiahua Energy",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -247718,7 +247865,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4219,
+    "inbox_unconsumed": 4222,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -247727,9 +247874,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 12726,
-    "news_picked_today": 12,
-    "news_dropped_today": 108
+    "news_seen_today": 18981,
+    "news_picked_today": 15,
+    "news_dropped_today": 129
   },
   "book_momentum": {
     "live_count": 8,
