@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T20:34:21Z",
+  "generated_at": "2026-10-30T20:42:20Z",
   "inbox": [
     {
       "inbox_id": "INB-20261030-739",
@@ -1781,118 +1781,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261030-799",
-      "headline": "Suzlon Energy cuts operating margin guidance to 15%",
+      "inbox_id": "INB-20261030-803",
+      "headline": "Japan's Murata to invest $6.3bn in capacitor production for AI over 5 years",
       "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/renewables/suzlon-energy-cuts-operating-margin-guidance-to-15/articleshow/135375153.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T18:52:10Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Suzlon Energy cut its operating margin guidance to 15%.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Suzlon Energy cut its operating margin guidance to 15%.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Suzlon Energy",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-780",
-      "headline": "Binance suspends withdrawals and freezes funds after $6.3bn hack",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/spotlight/cryptocurrencies/binance-suspends-withdrawals-and-freezes-funds-after-6.3bn-hack",
+      "url": "https://asia.nikkei.com/spotlight/supply-chain/japan-s-murata-to-invest-6.3bn-in-capacitor-production-for-ai-over-5-years",
       "source_name": "Nikkei Asia",
       "input_nature": "news_headline",
-      "found_at": "2026-10-30T18:03:54Z",
+      "found_at": "2026-10-30T19:58:59Z",
       "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Major exchange hack involving $6.3bn in funds.",
+      "prelim_note": "Murata Manufacturing commits $6.3 billion over five years to capacitor production capacity for AI—a major capital-expansion announcement affecting future revenue and capex structure.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Major exchange hack involving $6.3bn in funds.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Binance",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-785",
-      "headline": "Kioxia net profit to surge 15-fold to $8.7bn this quarter",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/tech/semiconductors/kioxia-net-profit-to-surge-15-fold-to-8.7bn-this-quarter",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T18:03:54Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Projected 15-fold surge in net profit to $8.7bn.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Projected 15-fold surge in net profit to $8.7bn.",
+      "triage_reason": "Murata Manufacturing commits $6.3 billion over five years to capacitor production capacity for AI—a major capital-expansion announcement affecting future revenue and capex structure.",
       "region": "JP",
       "relevance": "material",
       "materiality_pre_score": 80,
@@ -1900,25 +1802,25 @@
         "materiality": 80,
         "source_tier": 0,
         "scope": 6,
-        "event": 5,
+        "event": 6,
         "size": 2,
         "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
+        "materiality_label_floor": 0,
+        "quantified": 6,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
+        "event_id": "capex",
         "size_bucket": "large"
       },
       "event_types": [
-        "earnings_revenue_margin"
+        "capex"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Kioxia",
-          "ticker": null,
+          "name": "Murata Manufacturing",
+          "ticker": "6981.T",
           "listing_country": "JP"
         }
       ],
@@ -1928,37 +1830,37 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261030-787",
-      "headline": "Alignment Healthcare lowers 2026 outlook as it navigates cost headwinds",
+      "inbox_id": "INB-20261030-800",
+      "headline": "Reddit stock plunges 30% after weak outlook, heads for worst day ever",
       "headline_en": null,
-      "url": "https://www.fiercehealthcare.com/payers/alignment-healthcare-lowers-2026-outlook-it-navigates-cost-headwinds",
-      "source_name": "Fierce Healthcare",
+      "url": "https://www.cnbc.com/2026/10/30/reddit-stock-q3-earnings.html",
+      "source_name": "CNBC",
       "input_nature": "news_headline",
-      "found_at": "2026-10-30T18:03:48Z",
+      "found_at": "2026-10-30T19:43:42Z",
       "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Alignment Healthcare lowered its 2026 financial outlook citing cost headwinds.",
+      "prelim_note": "Reddit issued weak forward guidance, triggering a 30% stock fall; a clear profit warning that moves analyst expectations and investor positioning.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Alignment Healthcare lowered its 2026 financial outlook citing cost headwinds.",
+      "triage_reason": "Reddit issued weak forward guidance, triggering a 30% stock fall; a clear profit warning that moves analyst expectations and investor positioning.",
       "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 75,
+      "materiality_pre_score": 85,
       "rank_factors": {
-        "materiality": 75,
+        "materiality": 85,
         "source_tier": 0,
         "scope": 6,
         "event": 7,
-        "size": 1,
+        "size": 2,
         "recency": 5,
-        "materiality_label_floor": 10,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
         "event_id": "guidance_change",
-        "size_bucket": "mid"
+        "size_bucket": "large"
       },
       "event_types": [
         "guidance_change"
@@ -1966,12 +1868,110 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Alignment Healthcare",
-          "ticker": "ALHC",
+          "name": "Reddit",
+          "ticker": "RDDT",
           "listing_country": "US"
         }
       ],
-      "size_bucket": "mid",
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-804",
+      "headline": "US-Börsen: „Absolut brutale Woche“ für Tech-Investoren – Nasdaq rutscht ab, Intel verliert über 30 Prozent",
+      "headline_en": "US Stock Markets: \"Absolutely brutal week\" for tech investors – Nasdaq slides, Intel loses over 30 percent",
+      "url": "https://www.handelsblatt.com/finanzen/maerkte/marktberichte/dow-jones-sp-500-nasdaq-nasdaq-100-auf-talfahrt-intel-aktie-verliert-30-prozent/100266181.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T19:43:13Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Intel shares fell over 30% following a significant earnings miss and guidance cut.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Intel shares fell over 30% following a significant earnings miss and guidance cut.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Intel",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-818",
+      "headline": "NextEra Signed 16.5 Gigawatts of Federal Power Hubs. Here's How It's Funding These Projects.",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/10/30/nextera-signed-165-gigawatts-of-federal-power-hubs/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T19:05:00Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "NextEra Energy announced a major capacity expansion involving 16.5 gigawatts of power projects.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "NextEra Energy announced a major capacity expansion involving 16.5 gigawatts of power projects.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NextEra Energy",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -248400,9 +248400,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2353436,
-    "news_picked_today": 2192,
-    "news_dropped_today": 20752
+    "news_seen_today": 2359330,
+    "news_picked_today": 2224,
+    "news_dropped_today": 20864
   },
   "book_momentum": {
     "live_count": 8,
