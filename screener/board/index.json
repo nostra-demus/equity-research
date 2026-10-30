@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-30T00:35:45Z",
+  "generated_at": "2026-10-30T00:41:52Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261030-060",
+      "headline": "PUBLIC FIN HOLD (00626): JOINT ANNOUNCEMENT (1) CONDITIONAL PROPOSAL FOR THE PRIVATISATION OF PUBLIC FINANCIAL HOLDINGS LIMITED BY PUBLIC BANK BERHAD BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 99 OF THE COMPANIES ACT 1981 OF BERMUDA (AS AMENDED FROM TIME TO TIME); AND (2) PROPOSED WITHDRAWAL OF LISTING OF SHARES OF PUBLIC FINANCIAL HOLDINGS LIMITED - DESPATCH OF THE SCHEME DOCUMENT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1030/2026103000281.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-29T23:40:00Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Public Bank Berhad has initiated a conditional privatization proposal for Public Financial Holdings Limited, involving a scheme of arrangement and subsequent delisting.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Public Bank Berhad has initiated a conditional privatization proposal for Public Financial Holdings Limited, involving a scheme of arrangement and subsequent delisting.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Public Financial Holdings Limited",
+          "ticker": "00626",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261030-038",
       "headline": "EVERG SERVICES (06666): JOINT ANNOUNCEMENT - (1) SHARE PURCHASE AGREEMENT BETWEEN THE OFFEROR AND THE SELLERS IN RELATION TO APPROXIMATELY 51.016% OF THE TOTAL ISSUED SHARES OF THE COMPANY (2) POSSIBLE UNCONDITIONAL MANDATORY CASH OFFER BY GOLDMAN SACHS FOR AND ON BEHALF OF THE OFFEROR FOR ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED OR AGREED TO BE ACQUIRED BY THE OFFEROR AND THE OFFEROR CONCERT PARTIES) (3) RESUMPTION OF TRADING",
@@ -640,6 +689,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261030-064",
+      "headline": "EPN: Quarterly Activities/Appendix 4C Cash Flow Report [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EPN?key=2924-03156060-2A1707295",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-30T00:18:05Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Quarterly cash flow report provides essential liquidity and operational data.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 79,
+      "triage_reason": "Quarterly cash flow report provides essential liquidity and operational data.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Epn",
+          "ticker": "EPN",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-069",
+      "headline": "PAR: September 2026 Quarterly Activities Report & Appendix 4C [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PAR?key=2924-03156053-3A705476",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-30T00:12:10Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Quarterly activities and cash flow report provides essential operational data.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 79,
+      "triage_reason": "Quarterly activities and cash flow report provides essential operational data.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Par",
+          "ticker": "PAR",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261030-053",
       "headline": "Tokyo Inflation Exceeds BOJ’s 2% Target Before Rate Decision",
       "headline_en": null,
@@ -677,6 +824,104 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-063",
+      "headline": "RG1: September 2026 Quarterly Update",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RG1?key=2924-03156061-2A1707292",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-30T00:19:20Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Quarterly update providing operational and financial performance data.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 74,
+      "triage_reason": "Quarterly update providing operational and financial performance data.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Rg1",
+          "ticker": "RG1",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-068",
+      "headline": "MGT: First Quarter Activities and Cash Flow Reports",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MGT?key=2924-03156055-6A1352791",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-30T00:13:25Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Quarterly activities and cash flow report provides operational performance data.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 74,
+      "triage_reason": "Quarterly activities and cash flow report provides operational performance data.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mgt",
+          "ticker": "MGT",
+          "listing_country": null
+        }
+      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -732,6 +977,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261030-058",
+      "headline": "SCHEDULE 13D/A - Gossamer Bio, Inc. (0001728117) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1728117/000110465926120319/0001104659-26-120319-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-29T23:47:58Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "A Schedule 13D amendment for Gossamer Bio indicates an existing 5%+ holder has updated their position or intent, but the headline does not disclose the filer, stake change, or nature of the amendment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 73,
+      "triage_reason": "A Schedule 13D amendment for Gossamer Bio indicates an existing 5%+ holder has updated their position or intent, but the headline does not disclose the filer, stake change, or nature of the amendment.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 48,
+      "rank_factors": {
+        "materiality": 48,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Gossamer Bio, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-057",
+      "headline": "SCHEDULE 13D - Zevia PBC (0001854139) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1854139/000216265626000001/0002162656-26-000001-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-29T23:53:14Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "A Schedule 13D filing indicates a new 5%+ beneficial-ownership position has formed, but the headline does not name the investor, disclose the stake level, or indicate investment intent, making impact assessment impossible.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 72,
+      "triage_reason": "A Schedule 13D filing indicates a new 5%+ beneficial-ownership position has formed, but the headline does not name the investor, disclose the stake level, or indicate investment intent, making impact assessment impossible.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 47,
+      "rank_factors": {
+        "materiality": 47,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Zevia PBC",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261030-036",
       "headline": "INSILICO (03696): VOLUNTARY ANNOUNCEMENT ON-MARKET SHARE REPURCHASE",
       "headline_en": null,
@@ -776,6 +1119,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-066",
+      "headline": "RMD: Deferral of Conversions Announcement [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RMD?key=2924-03156057-2A1707286",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-30T00:14:55Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Deferral of conversion announcement impacts capital structure expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 69,
+      "triage_reason": "Deferral of conversion announcement impacts capital structure expectations.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Rmd",
+          "ticker": "RMD",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1027,6 +1419,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261030-061",
+      "headline": "KOV: Chair's Address to Shareholders [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.KOV?key=2924-03156063-2A1707296",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-30T00:19:40Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Routine chair address to shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 63,
+      "triage_reason": "Routine chair address to shareholders.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "management",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kov",
+          "ticker": "KOV",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261030-005",
       "headline": "Zim Confirms Loss of Containership Attacked in Black Sea off Bulgaria",
       "headline_en": null,
@@ -1071,6 +1512,49 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-059",
+      "headline": "SCHEDULE 13D/A - D. E. SHAW & CO, L.P. (0001009268) (Filed by)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1009268/000110465926120319/0001104659-26-120319-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-29T23:47:58Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "D.E. Shaw & Co. has amended a Schedule 13D position, signaling an active stake update, but the subject company is not named in the headline and the amendment detail is missing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 62,
+      "triage_reason": "D.E. Shaw & Co. has amended a Schedule 13D position, signaling an active stake update, but the subject company is not named in the headline and the amendment detail is missing.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": -2,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "unknown",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "secondary",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1364,6 +1848,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261030-062",
+      "headline": "AEI: Ceasing to be a substantial holder",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AEI?key=2924-03156062-2A1707297",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-30T00:19:30Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Standard disclosure of ceasing to be a substantial holder.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 55,
+      "triage_reason": "Standard disclosure of ceasing to be a substantial holder.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 30,
+      "rank_factors": {
+        "materiality": 30,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Aei",
+          "ticker": "AEI",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261030-025",
       "headline": "FingerMotion Signs Term Sheet for Business Combination with BlueFlare Group Holdings to Form a North American Power-First Digital Infrastructure Company | FNGR Stock News",
       "headline_en": null,
@@ -1408,550 +1941,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-014",
-      "headline": "Public Storage Prices Public Offering of $500 Million of Senior Notes at an Effective Interest Rate of 5.200%",
-      "headline_en": null,
-      "url": "http://www.businesswire.com/news/home/20261029724942/en/Public-Storage-Prices-Public-Offering-of-500-Million-of-Senior-Notes-at-an%C2%A0Effective-Interest-Rate-of-5.200/?feedref=JjAwJuNHiystnCoBq_hl-Ymqj4g6qAlg7edDzhXcztJcgiwDl5F89IquLVWUqfRVgLxDkSKfgoruKb9yWl5as-PbWreMWuYBefATrZ0EPTUKvKXA1G4lfyVQLpVttJwGBSvR87oUDgbHejiywQBpbg==",
-      "source_name": "Business Wire — Funding News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-29T21:57:00Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Public Storage priced a $500 million senior note offering at 5.200%.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 53,
-      "triage_reason": "Public Storage priced a $500 million senior note offering at 5.200%.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Public Storage",
-          "ticker": "PSA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-015",
-      "headline": "Prospect Capital Corporation Announces Pricing of $300 Million Institutional Offering of 8.95% Unsecured Notes due 2031",
-      "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/10/29/3391921/0/en/prospect-capital-corporation-announces-pricing-of-300-million-institutional-offering-of-8-95-unsecured-notes-due-2031.html",
-      "source_name": "GlobeNewswire — News about Public Companies",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-29T21:14:00Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Prospect Capital Corporation priced a $300 million institutional offering of 8.95% unsecured notes.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 52,
-      "triage_reason": "Prospect Capital Corporation priced a $300 million institutional offering of 8.95% unsecured notes.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "debt_credit",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Prospect Capital Corporation",
-          "ticker": "PSEC",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-013",
-      "headline": "Jiahua Energy lines up $165m gas carrier at Jiangnan",
-      "headline_en": null,
-      "url": "https://splash247.com/jiahua-energy-lines-up-165m-gas-carrier-at-jiangnan/",
-      "source_name": "Splash247",
-      "input_nature": "shipping_rate_move",
-      "found_at": "2026-10-29T11:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Jiahua Energy is investing $165 million in a new gas carrier, representing a significant capital expenditure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 51,
-      "triage_reason": "Jiahua Energy is investing $165 million in a new gas carrier, representing a significant capital expenditure.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": -33,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "official_data",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Jiahua Energy",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-012",
-      "headline": "KALDVIK AS (KLDVK): Update on refinancing process and extension of waiver period",
-      "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/10/29/3391961/0/en/kaldvik-as-kldvk-update-on-refinancing-process-and-extension-of-waiver-period.html",
-      "source_name": "GlobeNewswire — News about Public Companies",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-29T22:35:00Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Kaldvik is in the process of refinancing and extending a waiver, indicating potential liquidity pressure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 50,
-      "triage_reason": "Kaldvik is in the process of refinancing and extending a waiver, indicating potential liquidity pressure.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "debt_credit",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kaldvik AS",
-          "ticker": "KLDVK",
-          "listing_country": "NO"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-024",
-      "headline": "TFI International communique ses résultats du troisième trimestre de 2026",
-      "headline_en": "TFI International reports its Q3 2026 results.",
-      "url": "https://www.globenewswire.com/news-release/2026/10/29/3391892/0/fr/tfi-international-communique-ses-r%C3%A9sultats-du-troisi%C3%A8me-trimestre-de-2026.html",
-      "source_name": "GlobeNewswire — Earnings Releases & Operating Results",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-29T20:36:00Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "TFI International reported Q3 2026 results; quarterly earnings can contain revenue, earnings, and guidance changes that move analyst expectations and stock price.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 50,
-      "triage_reason": "TFI International reported Q3 2026 results; quarterly earnings can contain revenue, earnings, and guidance changes that move analyst expectations and stock price.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TFI International",
-          "ticker": "TFII",
-          "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-027",
-      "headline": "Air Canada annonce ses résultats financiers pour le troisième trimestre de 2026",
-      "headline_en": "Air Canada announces its financial results for the third quarter of 2026",
-      "url": "https://www.globenewswire.com/news-release/2026/10/29/3391886/0/fr/air-canada-annonce-ses-r%C3%A9sultats-financiers-pour-le-troisi%C3%A8me-trimestre-de-2026.html",
-      "source_name": "GlobeNewswire — Earnings Releases & Operating Results",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-29T20:30:00Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Air Canada released Q3 2026 financial results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 50,
-      "triage_reason": "Air Canada released Q3 2026 financial results.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Air Canada",
-          "ticker": null,
-          "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-008",
-      "headline": "Monetary policy decisions",
-      "headline_en": null,
-      "url": "https://www.ecb.europa.eu//press/pr/date/2026/html/ecb.mp261029~9a493adf17.en.html",
-      "source_name": "European Central Bank — Press Releases, Speeches & Interviews",
-      "input_nature": "macro_data_release",
-      "found_at": "2026-10-29T13:15:00Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "European Central Bank announces monetary policy decisions affecting eurozone interest rates, inflation expectations, and global equity valuations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 49,
-      "triage_reason": "European Central Bank announces monetary policy decisions affecting eurozone interest rates, inflation expectations, and global equity valuations.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": -33,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "official_data",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-009",
-      "headline": "Wallenius Wilhelmsen locks in $1bn contract haul",
-      "headline_en": null,
-      "url": "https://splash247.com/wallenius-wilhelmsen-locks-in-1bn-contract-haul/",
-      "source_name": "Splash247",
-      "input_nature": "shipping_rate_move",
-      "found_at": "2026-10-29T12:34:00Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Wallenius Wilhelmsen locks in $1 billion contract, directly affecting revenue expectations for a major automotive logistics company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 49,
-      "triage_reason": "Wallenius Wilhelmsen locks in $1 billion contract, directly affecting revenue expectations for a major automotive logistics company.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": -33,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "official_data",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Wallenius Wilhelmsen",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-002",
-      "headline": "QatarEnergy Continues LNG Buying Spree to Hedge Future Hormuz Disruptions",
-      "headline_en": null,
-      "url": "https://gcaptain.com/qatarenergy-continues-lng-buying-spree-to-hedge-future-hormuz-disruptions/",
-      "source_name": "gCaptain",
-      "input_nature": "shipping_rate_move",
-      "found_at": "2026-10-29T18:25:53Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "QatarEnergy is increasing LNG procurement to mitigate supply chain risks in the Strait of Hormuz.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 48,
-      "triage_reason": "QatarEnergy is increasing LNG procurement to mitigate supply chain risks in the Strait of Hormuz.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": -33,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "official_data",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "commercial",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "QatarEnergy",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-032",
-      "headline": "EIG i Acwa informują o utworzeniu Plenum Power, strategicznego partnerstwa w celu inwestycji w amerykańską infrastrukturę energetyczną",
-      "headline_en": "EIG and Acwa announce the creation of Plenum Power, a strategic partnership for investment in US energy infrastructure",
-      "url": "http://www.businesswire.com/news/home/20261028933334/pl/?feedref=JjAwJuNHiystnCoBq_hl-fqXyBvmekC3Xq1G1wQ7hjMFbZM1ntlKeK-8bUzJqFSVSfe41V1BKA-b6v2ZVrSSNs-dUYKiDvY7XniNSqv88QcY1Ge_vf9QIMZ4alzIf_0HlyE0C4hZhHVlTvKnn0d0vQ==",
-      "source_name": "Business Wire — Product/Service News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-29T20:21:00Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "EIG and Acwa announced a strategic partnership, Plenum Power, to invest in US energy infrastructure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 48,
-      "triage_reason": "EIG and Acwa announced a strategic partnership, Plenum Power, to invest in US energy infrastructure.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 6,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "EIG",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Acwa",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-030",
-      "headline": "EIG e Acwa annunciano Plenum Power, una partnership strategica per investire nelle infrastrutture energetiche degli USA",
-      "headline_en": "EIG and Acwa announce Plenum Power, a strategic partnership to invest in US energy infrastructure",
-      "url": "http://www.businesswire.com/news/home/20261028315646/it/?feedref=JjAwJuNHiystnCoBq_hl-fqXyBvmekC3Xq1G1wQ7hjMFbZM1ntlKeK-8bUzJqFSVSfe41V1BKA-b6v2ZVrSSNs-dUYKiDvY7XniNSqv88QcY1Ge_vf9QIMZ4alzIf_0HlyE0C4hZhHVlTvKnn0d0vQ==",
-      "source_name": "Business Wire — Product/Service News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-29T20:21:00Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "EIG and Acwa announced a strategic partnership, Plenum Power, to invest in US energy infrastructure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 48,
-      "triage_reason": "EIG and Acwa announced a strategic partnership, Plenum Power, to invest in US energy infrastructure.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 6,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "EIG",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Acwa",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -249105,9 +249094,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 63195,
-    "news_picked_today": 56,
-    "news_dropped_today": 304
+    "news_seen_today": 75895,
+    "news_picked_today": 69,
+    "news_dropped_today": 387
   },
   "book_momentum": {
     "live_count": 8,
