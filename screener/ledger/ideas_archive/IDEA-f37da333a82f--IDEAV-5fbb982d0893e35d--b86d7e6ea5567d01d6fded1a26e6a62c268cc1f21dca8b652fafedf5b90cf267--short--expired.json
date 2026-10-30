@@ -1,23 +1,23 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-10-05T20:12:25Z",
+  "archived_at": "2026-10-29T16:12:55Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-e67734d8e0e7",
-    "idea_version": "IDEAV-013c2fcab391bc2a",
-    "idea_version_started_at": "2026-10-03T00:30:09Z",
-    "ticker": "VOLCARB",
-    "company": "Volvo Car AB",
-    "exchange": "TSE",
+    "idea_id": "IDEA-f37da333a82f",
+    "idea_version": "IDEAV-5fbb982d0893e35d",
+    "idea_version_started_at": "2026-10-26T13:58:56Z",
+    "ticker": "RECLTD",
+    "company": "REC Ltd",
+    "exchange": "NSE",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "short",
     "pair_with": null,
-    "reason": "Volvo Car has withdrawn its financial guidance due to worsening conditions and accelerating demand deterioration in the Chinese automotive market.",
-    "why_now": "The guidance withdrawal was announced on October 2, 2026, presenting an immediate negative catalyst for the stock.",
-    "conviction": 70,
+    "reason": "REC reported a 21% decline in net profit for Q2, reflecting potential margin compression or asset quality headwinds.",
+    "why_now": "The Q2 results were released on October 26, 2026.",
+    "conviction": 60,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "event_driven_v3",
@@ -49,30 +49,30 @@
       "evidenceIds": []
     },
     "priced_in": "room",
-    "thesis_type": "macro_conditional",
+    "thesis_type": "company_specific",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-28ee22cd8bb6"
+      "EVT-245868c36a28"
     ],
-    "primary_source_event_id": "EVT-28ee22cd8bb6",
+    "primary_source_event_id": "EVT-245868c36a28",
     "source_headlines": [
-      "Volvo Car Pulls Guidance as Chinese Auto Market Worsens"
+      "REC Q2 results: Net profit falls 21% to ₹3,478 crore, declares interim dividend"
     ],
-    "source_headline": "Volvo Car Pulls Guidance as Chinese Auto Market Worsens",
-    "source_url": "https://www.wsj.com/business/earnings/volvo-car-pulls-guidance-as-chinese-auto-market-worsen-e72ca14f?mod=pls_whats_news_us_business_f",
-    "source_name": "The Wall Street Journal",
+    "source_headline": "REC Q2 results: Net profit falls 21% to ₹3,478 crore, declares interim dividend",
+    "source_url": "https://www.cnbctv18.com/market/rec-share-price-q2-results-net-profit-revenue-declares-interim-dividend-20019558.htm",
+    "source_name": "CNBC-TV18",
     "materiality_max": 100,
-    "newest_source_at": "2026-10-02T14:22:00Z",
+    "newest_source_at": "2026-10-26T12:04:58Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-10-03T00:30:09Z",
-    "updated_at": "2026-10-03T00:30:09Z",
-    "decay_at": "2026-10-04T02:22:00Z",
+    "surfaced_at": "2026-10-26T13:58:56Z",
+    "updated_at": "2026-10-26T13:58:56Z",
+    "decay_at": "2026-10-28T00:04:58Z",
     "status": "live",
     "promoted_signal_id": null
   }

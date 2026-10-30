@@ -1,29 +1,29 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-10-05T20:12:25Z",
+  "archived_at": "2026-10-29T21:41:39Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-0157f621dab9",
-    "idea_version": "IDEAV-76e7c56cd73c4042",
-    "idea_version_started_at": "2026-10-03T06:51:27Z",
-    "ticker": "VLVLY",
-    "company": "Volvo Car",
-    "exchange": "NASDAQ",
+    "idea_id": "IDEA-deec11ae506b",
+    "idea_version": "IDEAV-4ea5f2ca34567a00",
+    "idea_version_started_at": "2026-10-26T22:42:48Z",
+    "ticker": "SKO",
+    "company": "Serko",
+    "exchange": "ASX",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "short",
     "pair_with": null,
-    "reason": "The withdrawal of financial guidance due to deteriorating conditions in the Chinese auto market signals significant near-term margin compression and volume risk.",
-    "why_now": "The guidance withdrawal was announced on 2026-10-02, creating an immediate catalyst for re-rating.",
-    "conviction": 75,
+    "reason": "The company issued a negative guidance update, indicating a deterioration in financial performance expectations for the current period.",
+    "why_now": "The price-sensitive guidance update was filed on October 26, 2026.",
+    "conviction": 65,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
-      "evidence": 14,
-      "impact": 20,
+      "evidence": 25,
+      "impact": 19,
       "specificity": 7,
       "timing": 10,
       "expression": 0,
@@ -36,7 +36,7 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
-      "independent confirmation",
+      "priced-in risk",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -48,31 +48,31 @@
       "basis": "not_enough_outcomes",
       "evidenceIds": []
     },
-    "priced_in": "room",
+    "priced_in": "priced",
     "thesis_type": "company_specific",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-28ee22cd8bb6"
+      "EVT-e0955ffc2325"
     ],
-    "primary_source_event_id": "EVT-28ee22cd8bb6",
+    "primary_source_event_id": "EVT-e0955ffc2325",
     "source_headlines": [
-      "Volvo Car Pulls Guidance as Chinese Auto Market Worsens"
+      "SKO: Serko Guidance Update [price-sensitive]"
     ],
-    "source_headline": "Volvo Car Pulls Guidance as Chinese Auto Market Worsens",
-    "source_url": "https://www.wsj.com/business/earnings/volvo-car-pulls-guidance-as-chinese-auto-market-worsen-e72ca14f?mod=pls_whats_news_us_business_f",
-    "source_name": "The Wall Street Journal",
+    "source_headline": "SKO: Serko Guidance Update [price-sensitive]",
+    "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SKO?key=2924-03153295-3A704993",
+    "source_name": "ASX (Australia Exchange Filing)",
     "materiality_max": 100,
-    "newest_source_at": "2026-10-02T14:22:00Z",
+    "newest_source_at": "2026-10-26T20:31:10Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-10-02T21:12:37Z",
-    "updated_at": "2026-10-03T06:51:27Z",
-    "decay_at": "2026-10-04T02:22:00Z",
+    "surfaced_at": "2026-10-26T22:42:48Z",
+    "updated_at": "2026-10-26T22:42:48Z",
+    "decay_at": "2026-10-28T08:31:10Z",
     "status": "live",
     "promoted_signal_id": null
   }
