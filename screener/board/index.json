@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T16:28:51Z",
+  "generated_at": "2026-10-30T16:49:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20261030-739",
@@ -1781,6 +1781,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261030-762",
+      "headline": "Lodha Developers H1FY27 net profit soars 63%, expects to beat full-year guidance",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/lodha-developers-h1fy27-net-profit-soars-63-expects-to-beat-full-year-guidance/articleshow/135369310.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T16:13:16Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Lodha Developers reported a 63% increase in H1FY27 net profit and indicated it expects to exceed full-year guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Lodha Developers reported a 63% increase in H1FY27 net profit and indicated it expects to exceed full-year guidance.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lodha Developers",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261030-747",
       "headline": "Intel heads for worst day on Wall Street in more than 50 years on weak guidance",
       "headline_en": null,
@@ -1924,55 +1974,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-719",
-      "headline": "Historic T-Mobile merger worth billions put on ice",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/retail/historic-t-mobile-deutsche-telekom-merger-put-on-ice",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T14:07:00Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "A multi-billion dollar merger involving T-Mobile has been halted.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A multi-billion dollar merger involving T-Mobile has been halted.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "T-Mobile",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -248401,9 +248402,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1861715,
-    "news_picked_today": 1694,
-    "news_dropped_today": 17290
+    "news_seen_today": 1922645,
+    "news_picked_today": 1721,
+    "news_dropped_today": 17599
   },
   "book_momentum": {
     "live_count": 8,
