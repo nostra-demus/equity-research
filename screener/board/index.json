@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T04:11:02Z",
+  "generated_at": "2026-10-30T05:47:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20261030-232",
@@ -208409,77 +208409,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-d7d58dc6acc2",
-      "idea_version": "IDEAV-f2199dcb3b9c7330",
-      "idea_version_started_at": "2026-10-29T06:54:24Z",
-      "ticker": "IP",
-      "company": "International Paper Company",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company reported a substantial $1.10 billion loss in Q3 2026, highlighting severe margin pressure and operational challenges.",
-      "why_now": "The earnings results were released on 2026-10-28.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-35551fa80c1b"
-      ],
-      "primary_source_event_id": "EVT-35551fa80c1b",
-      "source_headlines": [
-        "International Paper Company Reports Third Quarter 2026 Net Sales of $6.20 billion and Loss of $1.10 billion"
-      ],
-      "source_headline": "International Paper Company Reports Third Quarter 2026 Net Sales of $6.20 billion and Loss of $1.10 billion",
-      "source_url": "https://www.nasdaq.com/articles/international-paper-company-reports-third-quarter-2026-net-sales-620-billion-and-loss-110",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-28T16:33:11Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-29T06:54:24Z",
-      "updated_at": "2026-10-29T06:54:24Z",
-      "decay_at": "2026-10-30T04:33:11Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-492a0f6c8413",
       "idea_version": "IDEAV-6eeccb7bd95c0956",
       "idea_version_started_at": "2026-10-30T01:26:14Z",
@@ -209392,6 +209321,77 @@
       "surfaced_at": "2026-10-27T16:00:02Z",
       "updated_at": "2026-10-27T16:00:02Z",
       "decay_at": "2026-10-29T00:53:11Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-d7d58dc6acc2",
+      "idea_version": "IDEAV-f2199dcb3b9c7330",
+      "idea_version_started_at": "2026-10-29T06:54:24Z",
+      "ticker": "IP",
+      "company": "International Paper Company",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company reported a substantial $1.10 billion loss in Q3 2026, highlighting severe margin pressure and operational challenges.",
+      "why_now": "The earnings results were released on 2026-10-28.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-35551fa80c1b"
+      ],
+      "primary_source_event_id": "EVT-35551fa80c1b",
+      "source_headlines": [
+        "International Paper Company Reports Third Quarter 2026 Net Sales of $6.20 billion and Loss of $1.10 billion"
+      ],
+      "source_headline": "International Paper Company Reports Third Quarter 2026 Net Sales of $6.20 billion and Loss of $1.10 billion",
+      "source_url": "https://www.nasdaq.com/articles/international-paper-company-reports-third-quarter-2026-net-sales-620-billion-and-loss-110",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-28T16:33:11Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-29T06:54:24Z",
+      "updated_at": "2026-10-29T06:54:24Z",
+      "decay_at": "2026-10-30T04:33:11Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -211412,9 +211412,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 534,
+    "total_count": 535,
     "shown_count": 500,
-    "hidden_count": 34,
+    "hidden_count": 35,
     "side_counts": {
       "long": {
         "total_count": 270,
@@ -211422,9 +211422,9 @@
         "hidden_count": 20
       },
       "short": {
-        "total_count": 264,
+        "total_count": 265,
         "shown_count": 250,
-        "hidden_count": 14
+        "hidden_count": 15
       }
     },
     "retention": {
@@ -211443,6 +211443,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-d7d58dc6acc2",
+        "idea_version": "IDEAV-f2199dcb3b9c7330",
+        "idea_version_started_at": "2026-10-29T06:54:24Z",
+        "ticker": "IP",
+        "company": "International Paper Company",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company reported a substantial $1.10 billion loss in Q3 2026, highlighting severe margin pressure and operational challenges.",
+        "why_now": "The earnings results were released on 2026-10-28.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 60,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-35551fa80c1b"
+        ],
+        "primary_source_event_id": "EVT-35551fa80c1b",
+        "source_headlines": [
+          "International Paper Company Reports Third Quarter 2026 Net Sales of $6.20 billion and Loss of $1.10 billion"
+        ],
+        "source_headline": "International Paper Company Reports Third Quarter 2026 Net Sales of $6.20 billion and Loss of $1.10 billion",
+        "source_url": "https://www.nasdaq.com/articles/international-paper-company-reports-third-quarter-2026-net-sales-620-billion-and-loss-110",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-28T16:33:11Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-29T06:54:24Z",
+        "updated_at": "2026-10-29T06:54:24Z",
+        "decay_at": "2026-10-30T04:33:11Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-30T04:33:11Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-8d0cbe562695",
         "idea_version": "IDEAV-a7c41e84466f49b0",
@@ -248609,87 +248683,12 @@
         "archived_at": "2026-10-07T04:00:49Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-d4c93052871a",
-        "idea_version": "IDEAV-4fe763babc0975d2",
-        "idea_version_started_at": "2026-10-03T18:26:24Z",
-        "ticker": "ISP",
-        "company": "Intesa Sanpaolo",
-        "exchange": "BIT",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Intesa is signaling potential overpayment or strategic fatigue by raising its offer price for Monte dei Paschi di Siena while simultaneously threatening to walk away from the deal.",
-        "why_now": "The updated offer and warning were issued on 2026-10-03.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-babffb863ac4"
-        ],
-        "primary_source_event_id": "EVT-babffb863ac4",
-        "source_headlines": [
-          "Italy's Intesa raises MPS takeover offer price and warns it could drop bid"
-        ],
-        "source_headline": "Italy's Intesa raises MPS takeover offer price and warns it could drop bid",
-        "source_url": "https://www.reuters.com/business/finance/italys-intesa-raises-mps-takeover-offer-price-warns-it-could-drop-bid-2026-10-03/",
-        "source_name": "Reuters — Latest (news sitemap)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-03T18:11:43Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-03T18:26:24Z",
-        "updated_at": "2026-10-03T18:26:24Z",
-        "decay_at": "2026-10-05T06:11:43Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-06T18:52:42Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2002,
-    "live_count": 16,
+    "live_count": 15,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -248708,9 +248707,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 340572,
-    "news_picked_today": 609,
-    "news_dropped_today": 2775
+    "news_seen_today": 497612,
+    "news_picked_today": 628,
+    "news_dropped_today": 2780
   },
   "book_momentum": {
     "live_count": 8,
