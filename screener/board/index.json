@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T05:55:29Z",
+  "generated_at": "2026-10-30T06:02:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20261030-232",
@@ -193,6 +193,56 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-356",
+      "headline": "Republic Services, Inc. Updates Full-Year 2026 Guidance, Announces $5 Billion Share Repurchase Authorization",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/republic-services-inc-updates-full-year-2026-guidance-announces-5-billion-share-repurchase",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T05:28:35Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Updated FY2026 guidance and authorized $5 billion share repurchase—two material capital-structure and forward-outlook actions for a mega-cap waste company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Updated FY2026 guidance and authorized $5 billion share repurchase—two material capital-structure and forward-outlook actions for a mega-cap waste company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Republic Services Inc.",
+          "ticker": "RSG",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1915,55 +1965,6 @@
         "size": 2,
         "recency": 3,
         "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Amazon",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-352",
-      "headline": "Amazon AWS posts 39% revenue growth as cloud rivals also accelerate",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/10/29/aws-q3-earnings-report-2026.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T21:59:31Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Amazon AWS reported 39% revenue growth, a significant indicator for cloud sector performance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Amazon AWS reported 39% revenue growth, a significant indicator for cloud sector performance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -248707,9 +248708,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 503354,
-    "news_picked_today": 687,
-    "news_dropped_today": 2865
+    "news_seen_today": 514478,
+    "news_picked_today": 691,
+    "news_dropped_today": 2933
   },
   "book_momentum": {
     "live_count": 8,
