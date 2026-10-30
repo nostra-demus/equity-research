@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T01:49:56Z",
+  "generated_at": "2026-10-30T01:54:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261030-177",
@@ -1290,6 +1290,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261030-208",
+      "headline": "Provident Financial Services, Inc. Reports Net Income of $69.2 million for the Three Months Ended September 30, 2026",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/provident-financial-services-inc-reports-net-income-692-million-three-months-ended",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T00:33:13Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Provident Financial Services reported net income of $69.2 million for the quarter.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Provident Financial Services reported net income of $69.2 million for the quarter.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Provident Financial Services",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261030-087",
       "headline": "CQ FD B2910 (40929): NOTICE OF LISTING ON THE STOCK EXCHANGE OF HONG KONG LIMITED - CHONGQING FENGDU INDUSTRIAL DEVELOPMENT GROUP CO., LTD. U.S.$50,000,000 5.10 PER CENT. CREDIT ENHANCED SUSTAINABLE BONDS DUE 2029",
       "headline_en": null,
@@ -1740,6 +1789,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261030-209",
+      "headline": "FedEx Freight delivers a much-needed quarterly beat. Where we stand on shares now",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/investingclub/2026/10/29/fedex-freight-delivers-a-much-needed-quarterly-beat-where-we-stand-on-shares-now.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T00:29:50Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "FedEx Freight reported a quarterly earnings beat, which is a material indicator of operational performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "FedEx Freight reported a quarterly earnings beat, which is a material indicator of operational performance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FedEx",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261030-152",
       "headline": "‎Borouge eyes share swap, ADX listing",
       "headline_en": null,
@@ -1888,99 +1986,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-055",
-      "headline": "Netanyahu’s party claims election ‘stolen’ as results show him losing majority",
-      "headline_en": null,
-      "url": "https://www.scmp.com/news/world/middle-east/article/3372644/netanyahus-party-claims-election-stolen-results-show-him-losing-majority",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T23:32:33Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Political instability in Israel following election results creates significant geopolitical risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Political instability in Israel following election results creates significant geopolitical risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-160",
-      "headline": "Amazon shares fall 7% in extended trade after Q3 results show sharp deterioration in free cash flow",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/amazon-q3-results-miss-estimates-revenue-eps-cash-flow-negative-capex-guidance-share-price-fall-20022907.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T00:48:31Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Q3 results disclose sharp free-cash-flow deterioration, materially compressing capital-return capacity and equity value; 7% extended-trade fall confirms market materiality.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Q3 results disclose sharp free-cash-flow deterioration, materially compressing capital-return capacity and equity value; 7% extended-trade fall confirms market materiality.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Amazon.com Inc",
-          "ticker": "AMZN",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -248706,9 +248711,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 166595,
-    "news_picked_today": 252,
-    "news_dropped_today": 1164
+    "news_seen_today": 172300,
+    "news_picked_today": 258,
+    "news_dropped_today": 1206
   },
   "book_momentum": {
     "live_count": 8,
