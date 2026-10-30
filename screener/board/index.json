@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T21:00:22Z",
+  "generated_at": "2026-10-30T21:08:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20261030-739",
@@ -1781,6 +1781,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261030-821",
+      "headline": "Exxon Plans $100B in Capex Through 2030, CEO Tells CNBC",
+      "headline_en": null,
+      "url": "https://www.rigzone.com/news/wire/exxon_plans_100b_in_capex_through_2030_ceo_tells_cnbc-30-oct-2026-184981-article/?rss=true",
+      "source_name": "Rigzone",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T20:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Exxon announces $100 billion capex commitment through 2030, signaling capital allocation strategy and energy-transition positioning.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Exxon announces $100 billion capex commitment through 2030, signaling capital allocation strategy and energy-transition positioning.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Exxon Mobil Corporation",
+          "ticker": "XOM",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261030-803",
       "headline": "Japan's Murata to invest $6.3bn in capacitor production for AI over 5 years",
       "headline_en": null,
@@ -1918,55 +1967,6 @@
       "companies": [
         {
           "name": "Intel",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-818",
-      "headline": "NextEra Signed 16.5 Gigawatts of Federal Power Hubs. Here's How It's Funding These Projects.",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/10/30/nextera-signed-165-gigawatts-of-federal-power-hubs/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T19:05:00Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "NextEra Energy announced a major capacity expansion involving 16.5 gigawatts of power projects.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "NextEra Energy announced a major capacity expansion involving 16.5 gigawatts of power projects.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NextEra Energy",
           "ticker": null,
           "listing_country": "US"
         }
@@ -248400,9 +248400,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2383876,
-    "news_picked_today": 2276,
-    "news_dropped_today": 20980
+    "news_seen_today": 2390351,
+    "news_picked_today": 2279,
+    "news_dropped_today": 21169
   },
   "book_momentum": {
     "live_count": 8,
