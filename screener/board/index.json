@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T18:08:03Z",
+  "generated_at": "2026-10-30T18:12:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20261030-739",
@@ -1781,6 +1781,109 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261030-773",
+      "headline": "CCI okays AB Renewables' proposal to acquire Solenergi Power for Rs 17,200-cr",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/business/cci-okays-ab-renewables-proposal-to-acquire-solenergi-power-for-rs-17200-cr-20023805.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T17:45:38Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "CCI approved AB Renewables' acquisition of Solenergi Power for Rs 17,200 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CCI approved AB Renewables' acquisition of Solenergi Power for Rs 17,200 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AB Renewables",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Solenergi Power",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-772",
+      "headline": "Reliance Retail Q2 results: Net profit falls 24% to ₹2,611 crore; revenue rises 6%",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/reliance-retail-q2-results-net-profit-falls-24-to-2-611-crore-revenue-rises-6-11793374702917.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T17:37:33Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Reliance Retail reported a 24% decline in net profit to ₹2,611 crore for Q2.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Reliance Retail reported a 24% decline in net profit to ₹2,611 crore for Q2.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Reliance Retail",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261030-768",
       "headline": "CD&R pursues buyout of $40bn card processor Global Payments",
       "headline_en": null,
@@ -1875,105 +1978,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-747",
-      "headline": "Intel heads for worst day on Wall Street in more than 50 years on weak guidance",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/10/30/amazon-intel-earnings-big-tech-ai-spending-concerns.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T15:43:48Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Intel issued weak guidance leading to a historic single-day stock decline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Intel issued weak guidance leading to a historic single-day stock decline.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Intel",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-738",
-      "headline": "Jio cuts net debt 79% to ₹8,822 crore: What it means for its next growth phase",
-      "headline_en": null,
-      "url": "https://www.businesstoday.in/latest/corporate/story/jio-cuts-net-debt-79-to-rs8822-crore-what-it-means-for-its-next-growth-phase-564857-2026-10-30?utm_source=rssfeed",
-      "source_name": "Business Today",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T14:35:53Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Reliance Jio reduced net debt 79% to ₹8,822 crore, a material deleveraging affecting solvency, financial flexibility, and capital-allocation optionality.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Reliance Jio reduced net debt 79% to ₹8,822 crore, a material deleveraging affecting solvency, financial flexibility, and capital-allocation optionality.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "debt_credit",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Reliance Jio (Reliance Industries)",
-          "ticker": "RIL",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -248402,9 +248406,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2114366,
-    "news_picked_today": 1795,
-    "news_dropped_today": 18821
+    "news_seen_today": 2136590,
+    "news_picked_today": 1807,
+    "news_dropped_today": 18881
   },
   "book_momentum": {
     "live_count": 8,
