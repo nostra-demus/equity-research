@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T20:02:26Z",
+  "generated_at": "2026-10-30T20:07:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20261030-739",
@@ -1781,6 +1781,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261030-799",
+      "headline": "Suzlon Energy cuts operating margin guidance to 15%",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/renewables/suzlon-energy-cuts-operating-margin-guidance-to-15/articleshow/135375153.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T18:52:10Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Suzlon Energy cut its operating margin guidance to 15%.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Suzlon Energy cut its operating margin guidance to 15%.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Suzlon Energy",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261030-780",
       "headline": "Binance suspends withdrawals and freezes funds after $6.3bn hack",
       "headline_en": null,
@@ -1923,60 +1972,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-773",
-      "headline": "CCI okays AB Renewables' proposal to acquire Solenergi Power for Rs 17,200-cr",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/business/cci-okays-ab-renewables-proposal-to-acquire-solenergi-power-for-rs-17200-cr-20023805.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T17:45:38Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "CCI approved AB Renewables' acquisition of Solenergi Power for Rs 17,200 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "CCI approved AB Renewables' acquisition of Solenergi Power for Rs 17,200 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AB Renewables",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Solenergi Power",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -248405,9 +248400,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2304268,
-    "news_picked_today": 2142,
-    "news_dropped_today": 20274
+    "news_seen_today": 2317040,
+    "news_picked_today": 2154,
+    "news_dropped_today": 20334
   },
   "book_momentum": {
     "live_count": 8,
