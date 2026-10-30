@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-30T01:33:24Z",
+  "generated_at": "2026-10-30T01:40:53Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261030-177",
+      "headline": "RWC: Scheme Booklet registered by ASIC [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RWC?key=2924-03156120-3A705491",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-30T01:22:55Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "ASIC registration of scheme booklet confirms a merger/acquisition transaction is formally approved and proceeding to shareholder vote.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "ASIC registration of scheme booklet confirms a merger/acquisition transaction is formally approved and proceeding to shareholder vote.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "RWC",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261030-060",
       "headline": "PUBLIC FIN HOLD (00626): JOINT ANNOUNCEMENT (1) CONDITIONAL PROPOSAL FOR THE PRIVATISATION OF PUBLIC FINANCIAL HOLDINGS LIMITED BY PUBLIC BANK BERHAD BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 99 OF THE COMPANIES ACT 1981 OF BERMUDA (AS AMENDED FROM TIME TO TIME); AND (2) PROPOSED WITHDRAWAL OF LISTING OF SHARES OF PUBLIC FINANCIAL HOLDINGS LIMITED - DESPATCH OF THE SCHEME DOCUMENT",
@@ -689,6 +738,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261030-180",
+      "headline": "Alphabet Sheds $500 Billion in a Single Day Despite Cloud Growth of 103%",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/alphabet-sheds-500-billion-single-day-despite-cloud-growth-103",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T00:48:01Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Alphabet experienced a significant market cap decline of $500 billion despite cloud growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Alphabet experienced a significant market cap decline of $500 billion despite cloud growth.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Alphabet",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-166",
+      "headline": "CNB: Scheme Becomes Effective [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CNB?key=2924-03156110-6A1352810",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-30T01:07:45Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "A scheme of arrangement becoming effective indicates a completed or near-completed M&A transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "A scheme of arrangement becoming effective indicates a completed or near-completed M&A transaction.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CNB",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261030-083",
       "headline": "HSBC HOLDINGS (00005): NOTICE OF REDEMPTION",
       "headline_en": null,
@@ -833,6 +980,55 @@
           "name": "PUBLIC FIN HOLD",
           "ticker": "00626",
           "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-161",
+      "headline": "ECB’s Lagarde steps down, saying she can’t remain neutral on world events",
+      "headline_en": null,
+      "url": "https://www.japantimes.co.jp/business/2026/10/30/economy/ecb-lagarde-resignation/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T01:21:00Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "The President of the ECB is resigning, which is a major leadership change for a central bank.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "The President of the ECB is resigning, which is a major leadership change for a central bank.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "European Central Bank",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -1781,202 +1977,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-138",
-      "headline": "Japan's KDDI to build another data center in London",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/technology/artificial-intelligence/japan-s-kddi-to-build-another-data-center-in-london",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T00:42:36Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "KDDI is expanding its data center footprint with a new facility in London, a significant capital expenditure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "KDDI is expanding its data center footprint with a new facility in London, a significant capital expenditure.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "KDDI",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-134",
-      "headline": "Malaysia's IHH Healthcare to double hospital beds near Singapore",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/health-care/malaysia-s-ihh-healthcare-to-double-hospital-beds-near-singapore",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T00:42:36Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "IHH Healthcare plans to double hospital bed capacity near Singapore, representing a significant capital investment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "IHH Healthcare plans to double hospital bed capacity near Singapore, representing a significant capital investment.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IHH Healthcare",
-          "ticker": null,
-          "listing_country": "MY"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-096",
-      "headline": "PNB assures customers of genuine claim settlements after ₹11.24-crore fraud allegations",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/money-and-banking/pnb-assures-customers-of-genuine-claim-settlements-after-1124-crore-fraud-allegations/article71643263.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T00:37:12Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Punjab National Bank is addressing fraud allegations involving ₹11.24-crore, which poses reputational and operational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Punjab National Bank is addressing fraud allegations involving ₹11.24-crore, which poses reputational and operational risk.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Punjab National Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-102",
-      "headline": "HEMAY PHARMA-B (00054): GLOBAL OFFERING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1030/2026103000029.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-29T22:24:00Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "HEMAY PHARMA-B announces a global offering, a capital-raising action by named company from official exchange filing.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "HEMAY PHARMA-B announces a global offering, a capital-raising action by named company from official exchange filing.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 62,
-      "rank_factors": {
-        "materiality": 62,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 8,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HEMAY PHARMA-B",
-          "ticker": "00054",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -209043,77 +209043,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-a054c961905a",
-      "idea_version": "IDEAV-b8baa0b053322b6f",
-      "idea_version_started_at": "2026-10-29T02:54:08Z",
-      "ticker": "ECLERX",
-      "company": "eClerx Services Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported Q2 FY27 revenue of INR 1,212.6 crore, representing a 17.1% YoY growth, indicating successful execution in its service segments.",
-      "why_now": "The financial results were released on October 28, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c503f4df4e72"
-      ],
-      "primary_source_event_id": "EVT-c503f4df4e72",
-      "source_headlines": [
-        "eClerx Services Limited: eClerx Services Limited has informed the Exchange regarding a press release dated October 28, 2026, titled \"eClerx s Q2 FY27 revenue at INR 1,212.6 crore, up by 17.1% YoY\"."
-      ],
-      "source_headline": "eClerx Services Limited: eClerx Services Limited has informed the Exchange regarding a press release dated October 28, 2026, titled \"eClerx s Q2 FY27 revenue at INR 1,212.6 crore, up by 17.1% YoY\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/ECLERX_28102026190847_BSENSEPR28102026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-28T13:39:55Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-29T02:54:08Z",
-      "updated_at": "2026-10-29T02:54:08Z",
-      "decay_at": "2026-10-30T01:39:55Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-1bea3b52b765",
       "idea_version": "IDEAV-58aba6bcf16bd1fd",
       "idea_version_started_at": "2026-10-27T16:00:02Z",
@@ -209813,6 +209742,77 @@
       "surfaced_at": "2026-10-23T15:10:57Z",
       "updated_at": "2026-10-27T08:26:43Z",
       "decay_at": "2026-10-28T15:58:57Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-a054c961905a",
+      "idea_version": "IDEAV-b8baa0b053322b6f",
+      "idea_version_started_at": "2026-10-29T02:54:08Z",
+      "ticker": "ECLERX",
+      "company": "eClerx Services Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported Q2 FY27 revenue of INR 1,212.6 crore, representing a 17.1% YoY growth, indicating successful execution in its service segments.",
+      "why_now": "The financial results were released on October 28, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c503f4df4e72"
+      ],
+      "primary_source_event_id": "EVT-c503f4df4e72",
+      "source_headlines": [
+        "eClerx Services Limited: eClerx Services Limited has informed the Exchange regarding a press release dated October 28, 2026, titled \"eClerx s Q2 FY27 revenue at INR 1,212.6 crore, up by 17.1% YoY\"."
+      ],
+      "source_headline": "eClerx Services Limited: eClerx Services Limited has informed the Exchange regarding a press release dated October 28, 2026, titled \"eClerx s Q2 FY27 revenue at INR 1,212.6 crore, up by 17.1% YoY\".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/ECLERX_28102026190847_BSENSEPR28102026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-28T13:39:55Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-29T02:54:08Z",
+      "updated_at": "2026-10-29T02:54:08Z",
+      "decay_at": "2026-10-30T01:39:55Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -211406,14 +211406,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 532,
+    "total_count": 533,
     "shown_count": 500,
-    "hidden_count": 32,
+    "hidden_count": 33,
     "side_counts": {
       "long": {
-        "total_count": 268,
+        "total_count": 269,
         "shown_count": 250,
-        "hidden_count": 18
+        "hidden_count": 19
       },
       "short": {
         "total_count": 264,
@@ -211437,6 +211437,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-a054c961905a",
+        "idea_version": "IDEAV-b8baa0b053322b6f",
+        "idea_version_started_at": "2026-10-29T02:54:08Z",
+        "ticker": "ECLERX",
+        "company": "eClerx Services Limited",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company reported Q2 FY27 revenue of INR 1,212.6 crore, representing a 17.1% YoY growth, indicating successful execution in its service segments.",
+        "why_now": "The financial results were released on October 28, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-c503f4df4e72"
+        ],
+        "primary_source_event_id": "EVT-c503f4df4e72",
+        "source_headlines": [
+          "eClerx Services Limited: eClerx Services Limited has informed the Exchange regarding a press release dated October 28, 2026, titled \"eClerx s Q2 FY27 revenue at INR 1,212.6 crore, up by 17.1% YoY\"."
+        ],
+        "source_headline": "eClerx Services Limited: eClerx Services Limited has informed the Exchange regarding a press release dated October 28, 2026, titled \"eClerx s Q2 FY27 revenue at INR 1,212.6 crore, up by 17.1% YoY\".",
+        "source_url": "https://nsearchives.nseindia.com/corporate/ECLERX_28102026190847_BSENSEPR28102026.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-28T13:39:55Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-29T02:54:08Z",
+        "updated_at": "2026-10-29T02:54:08Z",
+        "decay_at": "2026-10-30T01:39:55Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-30T01:39:55Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-b185b56cf3f7",
         "idea_version": "IDEAV-b1f241a0b9637bcb",
@@ -239961,80 +240035,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-fb9178fa2cb9",
-        "idea_version": "IDEAV-89c97d7642873e7f",
-        "idea_version_started_at": "2026-10-15T09:06:51Z",
-        "ticker": "AXISCADES",
-        "company": "AXISCADES Technologies",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The acquisition of Silicon Valley-based ITSJ provides the company with an immediate U.S. footprint and entry into the AI hardware supply chain, enhancing its service capabilities.",
-        "why_now": "The acquisition was announced via exchange filing on October 15, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-ba2231144155"
-        ],
-        "primary_source_event_id": "EVT-ba2231144155",
-        "source_headlines": [
-          "AXISCADES Technologies Limited: AXISCADES Technologies Limited has informed the Exchange regarding a press release dated October 15, 2026, titled \"AXISCADES XIDA to acquire Silicon Valley-based ITSJ business a ready-made US base inside the AI hardware supply chain\"."
-        ],
-        "source_headline": "AXISCADES Technologies Limited: AXISCADES Technologies Limited has informed the Exchange regarding a press release dated October 15, 2026, titled \"AXISCADES XIDA to acquire Silicon Valley-based ITSJ business a ready-made US base inside the AI hardware supply chain\".",
-        "source_url": "https://nsearchives.nseindia.com/corporate/AXISCADES_15102026091042_PressRelease_15102026.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-15T03:42:40Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-15T09:06:51Z",
-        "updated_at": "2026-10-15T09:06:51Z",
-        "decay_at": "2026-10-16T15:42:40Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-18T04:01:25Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-4e4abdc55d24",
         "idea_version": "IDEAV-d6091653d5bc0ad2",
         "idea_version_started_at": "2026-10-16T00:51:39Z",
@@ -248685,7 +248685,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2002,
-    "live_count": 18,
+    "live_count": 17,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -248704,9 +248704,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 137398,
-    "news_picked_today": 205,
-    "news_dropped_today": 995
+    "news_seen_today": 155065,
+    "news_picked_today": 229,
+    "news_dropped_today": 1067
   },
   "book_momentum": {
     "live_count": 8,
