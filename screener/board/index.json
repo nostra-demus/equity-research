@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T00:14:46Z",
+  "generated_at": "2026-10-30T00:15:46Z",
   "inbox": [
     {
       "inbox_id": "INB-20261030-001",
@@ -578,6 +578,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261030-018",
+      "headline": "ECB President Lagarde to step down on 7 February 2027",
+      "headline_en": null,
+      "url": "https://www.ecb.europa.eu//press/pr/date/2026/html/ecb.pr261029~abbb6dc64b.en.html",
+      "source_name": "European Central Bank — Press Releases, Speeches & Interviews",
+      "input_nature": "macro_data_release",
+      "found_at": "2026-10-29T10:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "ECB President Christine Lagarde announced her departure date for February 2027.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 49,
+      "triage_reason": "ECB President Christine Lagarde announced her departure date for February 2027.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": -33,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "official_data",
+        "event_id": "management",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261030-002",
       "headline": "QatarEnergy Continues LNG Buying Spree to Hedge Future Hormuz Disruptions",
       "headline_en": null,
@@ -721,6 +764,141 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-019",
+      "headline": "MOL secures FSRU charter with Deutsche ReGas",
+      "headline_en": null,
+      "url": "https://splash247.com/mol-secures-fsru-charter-with-deutsche-regas/",
+      "source_name": "Splash247",
+      "input_nature": "shipping_rate_move",
+      "found_at": "2026-10-29T10:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "MOL secured an FSRU charter with Deutsche ReGas, a significant commercial contract.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 46,
+      "triage_reason": "MOL secured an FSRU charter with Deutsche ReGas, a significant commercial contract.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": -33,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "official_data",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MOL",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-016",
+      "headline": "Convalidate in UE due domande di autorizzazione per terapie ipolipemizzanti a tripla combinazione con una sola compressa",
+      "headline_en": "Two applications for triple-combination lipid-lowering therapies validated in the EU",
+      "url": "http://www.businesswire.com/news/home/20261029912447/it/?feedref=JjAwJuNHiystnCoBq_hl-fqXyBvmekC3Xq1G1wQ7hjMFbZM1ntlKeK-8bUzJqFSVSfe41V1BKA-b6v2ZVrSSNs-dUYKiDvY7XniNSqv88QcY1Ge_vf9QIMZ4alzIf_0HlyE0C4hZhHVlTvKnn0d0vQ==",
+      "source_name": "Business Wire — Product/Service News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-29T21:19:00Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Two applications for triple-combination lipid-lowering therapies were validated in the EU.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 44,
+      "triage_reason": "Two applications for triple-combination lipid-lowering therapies were validated in the EU.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "company",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-017",
+      "headline": "Samenvatting: Twee aanvragen voor een drievoudige lipidenverlagende combinatietherapie in één pil goedgekeurd in de Europese Unie",
+      "headline_en": "Summary: Two applications for triple-combination lipid-lowering therapies in one pill validated in the European Union",
+      "url": "http://www.businesswire.com/news/home/20261029957738/nl/?feedref=JjAwJuNHiystnCoBq_hl-fqXyBvmekC3Xq1G1wQ7hjMFbZM1ntlKeK-8bUzJqFSVSfe41V1BKA-b6v2ZVrSSNs-dUYKiDvY7XniNSqv88QcY1Ge_vf9QIMZ4alzIf_0HlyE0C4hZhHVlTvKnn0d0vQ==",
+      "source_name": "Business Wire — Product/Service News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-29T21:15:00Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Two applications for triple-combination lipid-lowering therapies were validated in the EU.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 44,
+      "triage_reason": "Two applications for triple-combination lipid-lowering therapies were validated in the EU.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "company",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -247865,7 +248043,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4222,
+    "inbox_unconsumed": 4226,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -247874,9 +248052,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 18981,
-    "news_picked_today": 15,
-    "news_dropped_today": 129
+    "news_seen_today": 25212,
+    "news_picked_today": 19,
+    "news_dropped_today": 149
   },
   "book_momentum": {
     "live_count": 8,
