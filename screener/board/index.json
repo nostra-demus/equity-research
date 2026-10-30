@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T11:32:22Z",
+  "generated_at": "2026-10-30T11:37:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20261030-541",
@@ -144,6 +144,56 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-591",
+      "headline": "SF REIT (02191): Proposed Special Distribution in relation to the Proposed Very Substantial Disposal of all issued share of SF Logistics Holdings Limited and Connected Party Transaction",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1030/2026103001728.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-30T10:37:00Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "SF REIT proposes to dispose of all SF Logistics Holdings shares and distribute proceeds via special distribution; a major capital restructuring.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SF REIT proposes to dispose of all SF Logistics Holdings shares and distribute proceeds via special distribution; a major capital restructuring.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 74,
+      "rank_factors": {
+        "materiality": 74,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions",
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SF REIT",
+          "ticker": "2191",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1925,55 +1975,6 @@
           "name": "Reddit",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-310",
-      "headline": "World's largest crypto exchange Binance freezes $2.54bn after suspected hack",
-      "headline_en": null,
-      "url": "https://timesofindia.indiatimes.com/business/international-business/worlds-largest-crypto-exchange-binance-freezes-2-54-billion-after-suspected-hack/articleshow/135338439.cms",
-      "source_name": "The Times of India (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T01:43:15Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Binance has frozen $2.54 billion in assets following a suspected hack.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Binance has frozen $2.54 billion in assets following a suspected hack.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Binance",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -248405,9 +248406,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1126384,
-    "news_picked_today": 1239,
-    "news_dropped_today": 12537
+    "news_seen_today": 1134003,
+    "news_picked_today": 1250,
+    "news_dropped_today": 12598
   },
   "book_momentum": {
     "live_count": 8,
