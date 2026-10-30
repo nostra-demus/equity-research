@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T10:23:03Z",
+  "generated_at": "2026-10-30T10:30:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20261030-435",
@@ -493,6 +493,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261030-478",
+      "headline": "Binance pledges to cover $6.3bn hack losses after massive crypto theft",
+      "headline_en": null,
+      "url": "https://www.thenationalnews.com/future/technology/2026/10/30/binance-pledges-to-cover-63bn-hack-losses-after-massive-crypto-theft/",
+      "source_name": "The National — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T06:48:06Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Binance faces a massive $6.3bn crypto theft, representing a major operational and financial risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Binance faces a massive $6.3bn crypto theft, representing a major operational and financial risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Binance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261030-431",
       "headline": "Equitas Small Finance Bank Shares Crash 17% To 52-Week Low, Stock Plunges Over 27% In Two Days After CEO Resignation",
       "headline_en": null,
@@ -532,6 +581,55 @@
       "companies": [
         {
           "name": "Equitas Small Finance Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-492",
+      "headline": "Brigade Enterprises Reports Robust Q2 FY27; PBT Grows 47% To ₹288 Crore, Real Estate Sales At ₹1,827 Crore",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/brigade-enterprises-reports-robust-q2-fy27-pbt-grows-47-to-288-crore-real-estate-sales-at-1827-crore",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T06:26:48Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Brigade Enterprises reported a 47% increase in PBT to ₹288 crore and sales of ₹1,827 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Brigade Enterprises reported a 47% increase in PBT to ₹288 crore and sales of ₹1,827 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Brigade Enterprises",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -1879,104 +1977,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-146",
-      "headline": "Samsung posts tech's biggest ever profit with blockbuster third quarter",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/tech/semiconductors/samsung-posts-tech-s-biggest-ever-profit-with-blockbuster-third-quarter",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T00:42:36Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Samsung reported record-breaking quarterly profits, signaling strong performance in the tech sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Samsung reported record-breaking quarterly profits, signaling strong performance in the tech sector.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Samsung Electronics",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-136",
-      "headline": "Intel shares sink more than 20% as PC slowdown stretches into 2027",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/tech/semiconductors/intel-shares-sink-more-than-20-as-pc-slowdown-stretches-into-2027",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T00:42:36Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Intel shares fell over 20% following a guidance-related outlook regarding a prolonged PC market slowdown.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Intel shares fell over 20% following a guidance-related outlook regarding a prolonged PC market slowdown.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Intel",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -248405,9 +248405,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 942664,
-    "news_picked_today": 1088,
-    "news_dropped_today": 11344
+    "news_seen_today": 949291,
+    "news_picked_today": 1125,
+    "news_dropped_today": 11451
   },
   "book_momentum": {
     "live_count": 8,
