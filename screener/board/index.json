@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T03:47:57Z",
+  "generated_at": "2026-10-30T03:50:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20261030-232",
@@ -641,6 +641,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261030-310",
+      "headline": "World's largest crypto exchange Binance freezes $2.54bn after suspected hack",
+      "headline_en": null,
+      "url": "https://timesofindia.indiatimes.com/business/international-business/worlds-largest-crypto-exchange-binance-freezes-2-54-billion-after-suspected-hack/articleshow/135338439.cms",
+      "source_name": "The Times of India (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T01:43:15Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Binance has frozen $2.54 billion in assets following a suspected hack.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Binance has frozen $2.54 billion in assets following a suspected hack.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Binance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-308",
+      "headline": "Google Erases A Record $500 Billion As AI Eats Into Sales",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/google-erases-a-record-500-billion-as-ai-eats-into-sales-12256611#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T01:34:30Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Google reported a significant $500 billion market value loss linked to AI-related sales pressure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Google reported a significant $500 billion market value loss linked to AI-related sales pressure.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Google",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261030-203",
       "headline": "Bitcoin, cryptocurrency prices fall after Binance freezes assests worth $2.5 billion",
       "headline_en": null,
@@ -837,6 +935,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-314",
+      "headline": "Adani Ports makes $3.3 billion play for Evos Terminals",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/transportation/shipping-/-transport/adani-ports-makes-3-3-billion-play-for-evos-terminals/articleshow/135337817.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T01:09:50Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Adani Ports has announced a $3.3 billion bid to acquire Evos Terminals.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Adani Ports has announced a $3.3 billion bid to acquire Evos Terminals.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adani Ports",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1824,147 +1971,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-153",
-      "headline": "Intel plunges on a major guidance miss. What went wrong — and how to proceed",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/investingclub/2026/10/29/intel-plunges-on-a-major-guidance-miss-what-went-wrong-how-to-proceed.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T01:06:07Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Intel announced a major guidance miss, directly altering profit and revenue forecasts and analyst models for a mega-cap semiconductor company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Intel announced a major guidance miss, directly altering profit and revenue forecasts and analyst models for a mega-cap semiconductor company.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Intel Corporation",
-          "ticker": "INTC",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-180",
-      "headline": "Alphabet Sheds $500 Billion in a Single Day Despite Cloud Growth of 103%",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/alphabet-sheds-500-billion-single-day-despite-cloud-growth-103",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T00:48:01Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Alphabet experienced a significant market cap decline of $500 billion despite cloud growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Alphabet experienced a significant market cap decline of $500 billion despite cloud growth.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Alphabet",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-231",
-      "headline": "'Horrific' Russian drone strike kills 14 at Ukraine train station: Kyiv",
-      "headline_en": null,
-      "url": "https://gulfnews.com/world/europe/horrific-russian-drone-strike-kills-14-at-ukraine-train-station-kyiv-1.500728351",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T23:28:07Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "A major military strike in Ukraine resulting in 14 fatalities represents a significant escalation in the ongoing conflict.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "A major military strike in Ukraine resulting in 14 fatalities represents a significant escalation in the ongoing conflict.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -248690,9 +248696,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 318928,
-    "news_picked_today": 521,
-    "news_dropped_today": 2527
+    "news_seen_today": 323420,
+    "news_picked_today": 532,
+    "news_dropped_today": 2540
   },
   "book_momentum": {
     "live_count": 8,
