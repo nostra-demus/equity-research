@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T11:25:12Z",
+  "generated_at": "2026-10-30T11:32:22Z",
   "inbox": [
     {
       "inbox_id": "INB-20261030-541",
@@ -46,6 +46,104 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-543",
+      "headline": "CHINA RES LAND CR LAND N2902 CR LAND N2910 CR LAND N2811 CR LAND N3011-R (01109 05786 05819 40005 85095): CONNECTED TRANSACTION SUCCESSFUL AUCTION ACQUISITION OF 100% EQUITY INTERESTS OF THE TARGET COMPANY",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1030/2026103001872.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-30T11:04:00Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "China Res Land acquired 100% equity interest in a target company via auction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "China Res Land acquired 100% equity interest in a target company via auction.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "China Res Land",
+          "ticker": "01109",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-545",
+      "headline": "HOPSON DEV HOLD (00754): (1) FURTHER DELAY IN PUBLICATION OF THE 2026 INTERIM RESULTS AND DESPATCH OF THE 2026 INTERIM REPORT; (2) FURTHER DELAY IN COMPLETION OF THE IC REVIEW; AND (3) CONTINUED SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1030/2026103001830.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-30T10:55:00Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Hopson Development reported further delays in financial reporting and continued trading suspension, indicating significant governance/accounting risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Hopson Development reported further delays in financial reporting and continued trading suspension, indicating significant governance/accounting risk.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "accounting_restatement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hopson Development",
+          "ticker": "00754",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -394,6 +492,208 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261030-561",
+      "headline": "Harley-Davidson spinoff issues 'going concern,' faces Chapter 11 or 7 Bankruptcy",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/retail/harley-davidson-spinoff-livewire-issues-going-concern-faces-chapter-11-or-7-bankruptcy",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T11:07:00Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "A Harley-Davidson spinoff issued a going concern warning and faces potential bankruptcy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A Harley-Davidson spinoff issued a going concern warning and faces potential bankruptcy.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Harley-Davidson",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-578",
+      "headline": "Evonik rejects BASF’s sweetened €11bn takeover bid",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/dfebee73-142f-46d5-95a6-0e895c0ae551?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T10:51:57Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Evonik has rejected a specific €11 billion takeover bid from BASF.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Evonik has rejected a specific €11 billion takeover bid from BASF.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Evonik",
+          "ticker": null,
+          "listing_country": "DE"
+        },
+        {
+          "name": "BASF",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-580",
+      "headline": "National Express owner Mobico set for £308m Spanish takeover",
+      "headline_en": null,
+      "url": "https://www.independent.co.uk/news/business/spanish-shares-birmingham-west-midlands-press-association-b3076286.html",
+      "source_name": "The Independent — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T10:42:57Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Mobico is set to acquire a Spanish business for £308 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Mobico is set to acquire a Spanish business for £308 million.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mobico",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-584",
+      "headline": "GAIL Q2 Results: Profit zooms 139% YoY to Rs 4,720 crore, revenue rises 33%; board approves GAIL Gas IPO",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/ipos/fpos/gail-q2-results-profit-zooms-139-yoy-to-rs-4720-crore-revenue-rises-33-board-approves-gail-gas-ipo/articleshow/135356210.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T10:21:14Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "GAIL reported a 139% profit increase to Rs 4,720 crore and announced an IPO for its gas subsidiary.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "GAIL reported a 139% profit increase to Rs 4,720 crore and announced an IPO for its gas subsidiary.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GAIL",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261030-509",
       "headline": "Stryker’s Guidance Cut Rattles Investors: What It Really Says About 2027",
       "headline_en": null,
@@ -438,55 +738,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-536",
-      "headline": "National Express owner Mobico falls into Spanish hands after agreeing £308m takeover",
-      "headline_en": null,
-      "url": "https://www.thisismoney.co.uk/money/markets/article-16251627/National-Express-owner-Mobico-falls-Spanish-hands-agreeing-308m-takeover.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
-      "source_name": "This is Money (Daily Mail) — Markets",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T09:12:01Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Mobico agreed to a £308m takeover.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Mobico agreed to a £308m takeover.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mobico",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1726,251 +1977,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-308",
-      "headline": "Google Erases A Record $500 Billion As AI Eats Into Sales",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/google-erases-a-record-500-billion-as-ai-eats-into-sales-12256611#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T01:34:30Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Google reported a significant $500 billion market value loss linked to AI-related sales pressure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Google reported a significant $500 billion market value loss linked to AI-related sales pressure.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Google",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-315",
-      "headline": "Indian AI Firm Seeks $3 Billion Financing for Nvidia Chips Order",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-30/indian-ai-firm-seeks-3-billion-financing-for-nvidia-chips-order",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T01:34:10Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "An unnamed Indian AI firm is seeking $3 billion in financing specifically for Nvidia chip procurement, indicating significant capital expenditure and demand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "An unnamed Indian AI firm is seeking $3 billion in financing specifically for Nvidia chip procurement, indicating significant capital expenditure and demand.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-319",
-      "headline": "(LEAD) Hyundai Mobis Q3 net fall 35.7 pct on lower FX gains",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20261030003900320",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T01:29:00Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Hyundai Mobis reported a 35.7 percent fall in Q3 net profit, a significant quantified earnings miss.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Hyundai Mobis reported a 35.7 percent fall in Q3 net profit, a significant quantified earnings miss.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hyundai Mobis",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-203",
-      "headline": "Bitcoin, cryptocurrency prices fall after Binance freezes assests worth $2.5 billion",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/cryptocurrency/bitcoin-cryptocurrency-prices-fall-after-binance-reports-security-issue-leads-to-freezing-of-2-5-billion-in-assets-20022915.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T01:25:27Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Binance has frozen $2.5 billion in assets, representing a major enforcement and liquidity event in the crypto sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Binance has frozen $2.5 billion in assets, representing a major enforcement and liquidity event in the crypto sector.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Binance",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-183",
-      "headline": "Crypto worth billions frozen after suspected Binance hack",
-      "headline_en": null,
-      "url": "https://www.bbc.co.uk/news/articles/cwg7xp8kx4v5o?at_medium=RSS&at_campaign=rss",
-      "source_name": "BBC News — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T01:20:57Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "A suspected hack resulting in billions of dollars in frozen crypto assets represents a major operational and security risk for Binance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A suspected hack resulting in billions of dollars in frozen crypto assets represents a major operational and security risk for Binance.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Binance",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -248399,9 +248405,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1112182,
-    "news_picked_today": 1195,
-    "news_dropped_today": 12461
+    "news_seen_today": 1126384,
+    "news_picked_today": 1239,
+    "news_dropped_today": 12537
   },
   "book_momentum": {
     "live_count": 8,
