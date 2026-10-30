@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T14:13:40Z",
+  "generated_at": "2026-10-30T14:25:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20261030-681",
@@ -100,6 +100,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-698",
+      "headline": "GUOTAI JUNAN I (01788): JOINT ANNOUNCEMENT FULFILMENT OF THE PRE-CONDITION IN RELATION TO (1) PRE-CONDITIONAL PROPOSAL FOR THE PRIVATISATION OF GUOTAI JUNAN INTERNATIONAL HOLDINGS LIMITED BY THE OFFEROR BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 673 OF THE COMPANIES ORDINANCE AND (2) PROPOSED WITHDRAWAL OF LISTING OF THE SHARES OF GUOTAI JUNAN INTERNATIONAL HOLDINGS LIMITED",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1030/2026103002451.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-30T13:11:00Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Guotai Junan International announced the fulfillment of pre-conditions for its privatization and proposed withdrawal from the stock exchange.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Guotai Junan International announced the fulfillment of pre-conditions for its privatization and proposed withdrawal from the stock exchange.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Guotai Junan International",
+          "ticker": "01788",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1900,55 +1949,6 @@
       "launched_signal_id": null,
       "triage_score": 100,
       "triage_reason": "A $6 billion hack on Binance is a massive security event with significant implications for crypto market stability and regulatory scrutiny.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Binance",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-478",
-      "headline": "Binance pledges to cover $6.3bn hack losses after massive crypto theft",
-      "headline_en": null,
-      "url": "https://www.thenationalnews.com/future/technology/2026/10/30/binance-pledges-to-cover-63bn-hack-losses-after-massive-crypto-theft/",
-      "source_name": "The National — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T06:48:06Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Binance faces a massive $6.3bn crypto theft, representing a major operational and financial risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Binance faces a massive $6.3bn crypto theft, representing a major operational and financial risk.",
       "region": "GLOBAL",
       "relevance": "material",
       "materiality_pre_score": 80,
@@ -248407,9 +248407,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1483830,
-    "news_picked_today": 1541,
-    "news_dropped_today": 15115
+    "news_seen_today": 1499018,
+    "news_picked_today": 1555,
+    "news_dropped_today": 15341
   },
   "book_momentum": {
     "live_count": 8,
