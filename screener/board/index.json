@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-30T13:08:03Z",
+  "generated_at": "2026-10-30T13:11:23Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261030-659",
+      "headline": "TIANNENG POWER (00819): CONNECTED TRANSACTION ACQUISITION OF 50.10% EQUITY INTEREST IN ANHUI XINNA AND CAPITAL INCREASE IN TIANNENG NEW MATERIALS AND DEEMED DISPOSAL",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1030/2026103002347.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-30T13:01:00Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Tianneng Power is acquiring a 50.1% stake in Anhui Xinna to expand its materials business.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tianneng Power is acquiring a 50.1% stake in Anhui Xinna to expand its materials business.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tianneng Power",
+          "ticker": "00819",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261030-658",
       "headline": "Advait Energy Transitions Limited: Advait Energy Transitions Limited has informed the Exchange regarding a press release dated October 30, 2026, titled \"Powering the Transition: Advait Energy Transitions Reports 88.5% Growth in Q2 FY27 Profit; Order Book Reaches ₹1,574.8 Crore\".",
@@ -1926,55 +1975,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-383",
-      "headline": "Binance Halts Withdrawals After $6.3 Billion Hack, The Biggest In Crypto History",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/tech/binance-halts-withdrawals-after-63-billion-hack-the-biggest-in-crypto-history",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T04:22:49Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Binance has halted withdrawals following a $6.3 billion hack, representing a massive operational and financial crisis.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Binance has halted withdrawals following a $6.3 billion hack, representing a massive operational and financial crisis.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Binance",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -248403,9 +248403,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1353623,
-    "news_picked_today": 1434,
-    "news_dropped_today": 13950
+    "news_seen_today": 1369445,
+    "news_picked_today": 1438,
+    "news_dropped_today": 13970
   },
   "book_momentum": {
     "live_count": 8,
