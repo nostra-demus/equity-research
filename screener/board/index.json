@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T01:40:53Z",
+  "generated_at": "2026-10-30T01:49:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20261030-177",
@@ -149,6 +149,158 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261030-203",
+      "headline": "Bitcoin, cryptocurrency prices fall after Binance freezes assests worth $2.5 billion",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/cryptocurrency/bitcoin-cryptocurrency-prices-fall-after-binance-reports-security-issue-leads-to-freezing-of-2-5-billion-in-assets-20022915.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T01:25:27Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Binance has frozen $2.5 billion in assets, representing a major enforcement and liquidity event in the crypto sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Binance has frozen $2.5 billion in assets, representing a major enforcement and liquidity event in the crypto sector.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Binance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-183",
+      "headline": "Crypto worth billions frozen after suspected Binance hack",
+      "headline_en": null,
+      "url": "https://www.bbc.co.uk/news/articles/cwg7xp8kx4v5o?at_medium=RSS&at_campaign=rss",
+      "source_name": "BBC News — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T01:20:57Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "A suspected hack resulting in billions of dollars in frozen crypto assets represents a major operational and security risk for Binance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A suspected hack resulting in billions of dollars in frozen crypto assets represents a major operational and security risk for Binance.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Binance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-194",
+      "headline": "Nvidia to make $1 billion investment in Naver next week",
+      "headline_en": null,
+      "url": "https://www.koreaherald.com/article/10920192",
+      "source_name": "The Korea Herald — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T01:16:42Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Nvidia is planning a $1 billion investment in Naver, representing a major capital commitment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia is planning a $1 billion investment in Naver, representing a major capital commitment.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Naver",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261030-156",
       "headline": "Intel stock plunges 20% as chipmaker warns of tough year ahead",
       "headline_en": null,
@@ -193,6 +345,56 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-190",
+      "headline": "Bitcoin, cryptocurrency prices fall after Binance reports security issue leads to freezing of $2.5 billion in assets",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/cryptocurrency/bitcoin-cryptocurrency-prices-fall-after-binance-reports-security-issue-leads-to-freezing-of-2-5-billion-in-assets-20022915.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T01:00:08Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Binance reported a security issue involving the freezing of $2.5 billion in assets, indicating a major operational and security risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Binance reported a security issue involving the freezing of $2.5 billion in assets, indicating a major operational and security risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Binance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1779,204 +1981,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-050",
-      "headline": "Coles shares dive after supermarket giant warns on sales, profit",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/retail/coles-boss-vows-to-up-game-after-first-quarter-sales-lag-woolworths-20261030-p619x6?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T00:02:26Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Coles shares dived after the company issued a warning on sales and profit.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Coles shares dived after the company issued a warning on sales and profit.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Coles",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-094",
-      "headline": "Crypto firms freeze more than $2.5bn in funds as Binance investigates potential hack",
-      "headline_en": null,
-      "url": "https://www.theguardian.com/business/2026/oct/29/binance-crypto-exchange-hack",
-      "source_name": "The Guardian — World news",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T00:02:11Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Binance is investigating a potential hack involving $2.5bn in frozen funds, indicating significant operational and security risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Binance is investigating a potential hack involving $2.5bn in frozen funds, indicating significant operational and security risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Binance",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-093",
-      "headline": "CTG HKM (01821): LISTING BY WAY OF INTRODUCTION OF THE ENTIRE ISSUED SHARE CAPITAL OF THE COMPANY ON THE MAIN BOARD OF THE STOCK EXCHANGE",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1030/2026103000173.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-29T23:08:00Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "CTG HKM is listing its entire issued share capital on the Main Board of the HKEX.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "CTG HKM is listing its entire issued share capital on the Main Board of the HKEX.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CTG HKM",
-          "ticker": "01821",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-151",
-      "headline": "Acwa signs $478m Hassyan IWP deal in Dubai",
-      "headline_en": null,
-      "url": "https://www.meed.com/acwa-signs-478m-hassyan-water-deal",
-      "source_name": "MEED — UAE",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T00:42:58Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "ACWA Power signs $478 million independent water producer contract in Dubai, adding contracted revenue and capacity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "ACWA Power signs $478 million independent water producer contract in Dubai, adding contracted revenue and capacity.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ACWA Power",
-          "ticker": null,
-          "listing_country": "SA"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -208972,77 +208976,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-8d0cbe562695",
-      "idea_version": "IDEAV-a7c41e84466f49b0",
-      "idea_version_started_at": "2026-10-29T02:54:08Z",
-      "ticker": "FORTIS",
-      "company": "Fortis Healthcare Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of Suguna Hospital for INR 277 crore expands the company's footprint in Bengaluru with immediate scale-up potential to 150 beds.",
-      "why_now": "The acquisition was officially announced via exchange filing on October 28, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6c91d9a236aa"
-      ],
-      "primary_source_event_id": "EVT-6c91d9a236aa",
-      "source_headlines": [
-        "Fortis Healthcare Limited: Fortis Healthcare Limited has informed the Exchange regarding a press release dated October 28, 2026, titled \"Fortis acquires 110-bedded Suguna Hospital, Rajajinagar, Bengaluru for approx. INR 277 Crs; facility provides further potential to scale up to 150 beds\"."
-      ],
-      "source_headline": "Fortis Healthcare Limited: Fortis Healthcare Limited has informed the Exchange regarding a press release dated October 28, 2026, titled \"Fortis acquires 110-bedded Suguna Hospital, Rajajinagar, Bengaluru for approx. INR 277 Crs; facility provides further potential to scale up to 150 beds\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/FORTIS_28102026191214_Intimation.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-28T13:42:57Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-29T02:54:08Z",
-      "updated_at": "2026-10-29T02:54:08Z",
-      "decay_at": "2026-10-30T01:42:57Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-1bea3b52b765",
       "idea_version": "IDEAV-58aba6bcf16bd1fd",
       "idea_version_started_at": "2026-10-27T16:00:02Z",
@@ -209742,6 +209675,77 @@
       "surfaced_at": "2026-10-23T15:10:57Z",
       "updated_at": "2026-10-27T08:26:43Z",
       "decay_at": "2026-10-28T15:58:57Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-8d0cbe562695",
+      "idea_version": "IDEAV-a7c41e84466f49b0",
+      "idea_version_started_at": "2026-10-29T02:54:08Z",
+      "ticker": "FORTIS",
+      "company": "Fortis Healthcare Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The acquisition of Suguna Hospital for INR 277 crore expands the company's footprint in Bengaluru with immediate scale-up potential to 150 beds.",
+      "why_now": "The acquisition was officially announced via exchange filing on October 28, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6c91d9a236aa"
+      ],
+      "primary_source_event_id": "EVT-6c91d9a236aa",
+      "source_headlines": [
+        "Fortis Healthcare Limited: Fortis Healthcare Limited has informed the Exchange regarding a press release dated October 28, 2026, titled \"Fortis acquires 110-bedded Suguna Hospital, Rajajinagar, Bengaluru for approx. INR 277 Crs; facility provides further potential to scale up to 150 beds\"."
+      ],
+      "source_headline": "Fortis Healthcare Limited: Fortis Healthcare Limited has informed the Exchange regarding a press release dated October 28, 2026, titled \"Fortis acquires 110-bedded Suguna Hospital, Rajajinagar, Bengaluru for approx. INR 277 Crs; facility provides further potential to scale up to 150 beds\".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/FORTIS_28102026191214_Intimation.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-28T13:42:57Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-29T02:54:08Z",
+      "updated_at": "2026-10-29T02:54:08Z",
+      "decay_at": "2026-10-30T01:42:57Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -211406,14 +211410,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 533,
+    "total_count": 534,
     "shown_count": 500,
-    "hidden_count": 33,
+    "hidden_count": 34,
     "side_counts": {
       "long": {
-        "total_count": 269,
+        "total_count": 270,
         "shown_count": 250,
-        "hidden_count": 19
+        "hidden_count": 20
       },
       "short": {
         "total_count": 264,
@@ -211437,6 +211441,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-8d0cbe562695",
+        "idea_version": "IDEAV-a7c41e84466f49b0",
+        "idea_version_started_at": "2026-10-29T02:54:08Z",
+        "ticker": "FORTIS",
+        "company": "Fortis Healthcare Limited",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The acquisition of Suguna Hospital for INR 277 crore expands the company's footprint in Bengaluru with immediate scale-up potential to 150 beds.",
+        "why_now": "The acquisition was officially announced via exchange filing on October 28, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-6c91d9a236aa"
+        ],
+        "primary_source_event_id": "EVT-6c91d9a236aa",
+        "source_headlines": [
+          "Fortis Healthcare Limited: Fortis Healthcare Limited has informed the Exchange regarding a press release dated October 28, 2026, titled \"Fortis acquires 110-bedded Suguna Hospital, Rajajinagar, Bengaluru for approx. INR 277 Crs; facility provides further potential to scale up to 150 beds\"."
+        ],
+        "source_headline": "Fortis Healthcare Limited: Fortis Healthcare Limited has informed the Exchange regarding a press release dated October 28, 2026, titled \"Fortis acquires 110-bedded Suguna Hospital, Rajajinagar, Bengaluru for approx. INR 277 Crs; facility provides further potential to scale up to 150 beds\".",
+        "source_url": "https://nsearchives.nseindia.com/corporate/FORTIS_28102026191214_Intimation.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-28T13:42:57Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-29T02:54:08Z",
+        "updated_at": "2026-10-29T02:54:08Z",
+        "decay_at": "2026-10-30T01:42:57Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-30T01:42:57Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-a054c961905a",
         "idea_version": "IDEAV-b8baa0b053322b6f",
@@ -239959,82 +240037,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-04629525e118",
-        "idea_version": "IDEAV-8c0a2d53e053ace9",
-        "idea_version_started_at": "2026-10-15T09:47:15Z",
-        "ticker": "MRPL",
-        "company": "Mangalore Refinery and Petrochemicals Limited",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company reported a 194% surge in net profit to ₹1,881 crore for Q2 and declared an interim dividend of ₹3, indicating strong operational performance and cash flow generation.",
-        "why_now": "Results were released and filed on October 15, 2026.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 7,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-90ebe622abf8",
-          "EVT-c16400a730ce"
-        ],
-        "primary_source_event_id": "EVT-90ebe622abf8",
-        "source_headlines": [
-          "Q2 Results: MRPL registers PAT at ₹1,881; up 194%",
-          "MRPL Q2 Net Profit Surges 194% To ₹1,881 Crore, Declares ₹3 Interim Dividend"
-        ],
-        "source_headline": "Q2 Results: MRPL registers PAT at ₹1,881; up 194%",
-        "source_url": "https://www.thehindubusinessline.com/companies/mrpl-q2s-registers-pat-at-1881-up-by-194/article71584951.ece",
-        "source_name": "The Hindu BusinessLine",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-15T05:01:20Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-15T09:47:15Z",
-        "updated_at": "2026-10-15T09:47:15Z",
-        "decay_at": "2026-10-16T17:01:20Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-18T06:31:25Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-4e4abdc55d24",
         "idea_version": "IDEAV-d6091653d5bc0ad2",
         "idea_version_started_at": "2026-10-16T00:51:39Z",
@@ -248685,7 +248687,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2002,
-    "live_count": 17,
+    "live_count": 16,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -248704,9 +248706,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 155065,
-    "news_picked_today": 229,
-    "news_dropped_today": 1067
+    "news_seen_today": 166595,
+    "news_picked_today": 252,
+    "news_dropped_today": 1164
   },
   "book_momentum": {
     "live_count": 8,
