@@ -1,27 +1,27 @@
 {
-  "idea_id": "IDEA-85129948d8af",
-  "idea_version": "IDEAV-63cd6e976e3b57ff",
-  "idea_version_started_at": "2026-10-27T16:21:10Z",
-  "ticker": "NVS",
-  "company": "Novartis",
-  "exchange": "NYSE",
+  "idea_id": "IDEA-887dbee70f05",
+  "idea_version": "IDEAV-0a1f1415a2315221",
+  "idea_version_started_at": "2026-10-30T22:42:14Z",
+  "ticker": "INTC",
+  "company": "Intel",
+  "exchange": "NASDAQ",
   "ticker_verified": true,
   "listing_verified": true,
   "liquidity_verified": false,
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "short",
   "pair_with": null,
-  "reason": "A $1.9 billion writedown on a key drug asset indicates poor capital allocation and potential future earnings pressure following the Avidity acquisition.",
-  "why_now": "The writedown was reported on October 27, 2026.",
-  "conviction": 65,
+  "reason": "The company issued weak guidance citing a significant PC market slowdown, signaling deteriorating margins and revenue growth in its core segment.",
+  "why_now": "The guidance update was released on 2026-10-29, triggering an immediate 21% price drop.",
+  "conviction": 85,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 60,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 14,
-    "impact": 19,
+    "impact": 23,
     "specificity": 15,
-    "timing": 10,
+    "timing": 6,
     "expression": 7,
     "corroboration": 0,
     "learning_adjustment": 0
@@ -48,26 +48,26 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-49958d316f65"
+    "EVT-8b522a76addf"
   ],
-  "primary_source_event_id": "EVT-49958d316f65",
+  "primary_source_event_id": "EVT-8b522a76addf",
   "source_headlines": [
-    "Novartis takes $1.9bn writedown on key drug after blockbuster Avidity acquisition"
+    "Intel stock plunges 21% as chipmaker blames PC slowdown for weak guidance"
   ],
-  "source_headline": "Novartis takes $1.9bn writedown on key drug after blockbuster Avidity acquisition",
-  "source_url": "https://www.ft.com/content/f7651365-f19c-40fd-87de-fcdb8a8a7104?syn-25a6b1a6=1",
-  "source_name": "Financial Times",
+  "source_headline": "Intel stock plunges 21% as chipmaker blames PC slowdown for weak guidance",
+  "source_url": "https://www.cnbc.com/2026/10/29/intel-intc-q3-earnings-report-2026-.html",
+  "source_name": "CNBC",
   "materiality_max": 100,
-  "newest_source_at": "2026-10-27T15:15:31Z",
+  "newest_source_at": "2026-10-29T22:37:54Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-10-27T16:21:10Z",
-  "updated_at": "2026-10-27T16:21:10Z",
-  "decay_at": "2026-10-29T03:15:31Z",
+  "surfaced_at": "2026-10-30T22:42:14Z",
+  "updated_at": "2026-10-30T22:42:14Z",
+  "decay_at": "2026-10-31T10:37:54Z",
   "status": "live",
   "promoted_signal_id": null
 }

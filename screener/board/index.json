@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T22:41:43Z",
+  "generated_at": "2026-10-30T22:42:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20261030-834",
@@ -208048,6 +208048,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-887dbee70f05",
+      "idea_version": "IDEAV-0a1f1415a2315221",
+      "idea_version_started_at": "2026-10-30T22:42:14Z",
+      "ticker": "INTC",
+      "company": "Intel",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued weak guidance citing a significant PC market slowdown, signaling deteriorating margins and revenue growth in its core segment.",
+      "why_now": "The guidance update was released on 2026-10-29, triggering an immediate 21% price drop.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 23,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8b522a76addf"
+      ],
+      "primary_source_event_id": "EVT-8b522a76addf",
+      "source_headlines": [
+        "Intel stock plunges 21% as chipmaker blames PC slowdown for weak guidance"
+      ],
+      "source_headline": "Intel stock plunges 21% as chipmaker blames PC slowdown for weak guidance",
+      "source_url": "https://www.cnbc.com/2026/10/29/intel-intc-q3-earnings-report-2026-.html",
+      "source_name": "CNBC",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-29T22:37:54Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-30T22:42:14Z",
+      "updated_at": "2026-10-30T22:42:14Z",
+      "decay_at": "2026-10-31T10:37:54Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-ad1cbaa247a0",
       "idea_version": "IDEAV-d005857599f6ecb6",
       "idea_version_started_at": "2026-10-30T06:36:21Z",
@@ -208758,76 +208829,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-1bea3b52b765",
-      "idea_version": "IDEAV-58aba6bcf16bd1fd",
-      "idea_version_started_at": "2026-10-27T16:00:02Z",
-      "ticker": "KO",
-      "company": "The Coca-Cola Company",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported Q3 2026 results and raised its full-year guidance, signaling stronger-than-expected organic growth and margin expansion.",
-      "why_now": "The guidance hike was announced today, October 27, 2026, providing an immediate catalyst for earnings revisions.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-46cbdd56a910"
-      ],
-      "primary_source_event_id": "EVT-46cbdd56a910",
-      "source_headlines": [
-        "The Coca-Cola Company Reports Third Quarter 2026 Results and Raises Full Year Guidance"
-      ],
-      "source_headline": "The Coca-Cola Company Reports Third Quarter 2026 Results and Raises Full Year Guidance",
-      "source_url": "https://www.nasdaq.com/articles/coca-cola-company-reports-third-quarter-2026-results-and-raises-full-year-guidance",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-27T13:23:25Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-27T16:00:02Z",
-      "updated_at": "2026-10-27T16:00:02Z",
-      "decay_at": "2026-10-29T01:23:25Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-34b1c0c0d084",
       "idea_version": "IDEAV-b7e689d91490f08f",
       "idea_version_started_at": "2026-10-29T06:54:24Z",
@@ -208962,216 +208963,6 @@
       "surfaced_at": "2026-10-28T07:06:06Z",
       "updated_at": "2026-10-28T07:06:06Z",
       "decay_at": "2026-10-29T12:43:04Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-f60d317b461b",
-      "idea_version": "IDEAV-c31c71fee5520652",
-      "idea_version_started_at": "2026-10-28T02:32:22Z",
-      "ticker": "ENSG",
-      "company": "The Ensign Group, Inc.",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported strong Q3 2026 results and raised its annual earnings guidance, indicating better-than-expected demand and margin expansion in its healthcare services.",
-      "why_now": "The earnings release and guidance update were published on October 27, 2026.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3b1ca4a0b5d9"
-      ],
-      "primary_source_event_id": "EVT-3b1ca4a0b5d9",
-      "source_headlines": [
-        "The Ensign Group, Inc. Reports Third Quarter 2026 Results and Raises 2026 Annual Earnings Guidance"
-      ],
-      "source_headline": "The Ensign Group, Inc. Reports Third Quarter 2026 Results and Raises 2026 Annual Earnings Guidance",
-      "source_url": "https://www.nasdaq.com/articles/ensign-group-inc-reports-third-quarter-2026-results-and-raises-2026-annual-earnings",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-27T22:14:21Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-28T02:32:22Z",
-      "updated_at": "2026-10-28T02:32:22Z",
-      "decay_at": "2026-10-29T10:14:21Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-f1d1a4c60f5d",
-      "idea_version": "IDEAV-599b8300b03b9855",
-      "idea_version_started_at": "2026-10-27T18:30:15Z",
-      "ticker": "CTS",
-      "company": "CTS Corporation",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported Q3 sales of $149.6 million and increased its full-year guidance, signaling operational momentum and better-than-expected demand.",
-      "why_now": "The guidance hike was announced on 2026-10-27, providing an immediate catalyst for earnings estimate revisions.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a045f1d9fab5"
-      ],
-      "primary_source_event_id": "EVT-a045f1d9fab5",
-      "source_headlines": [
-        "CTS Corporation Reports Third Quarter 2026 Sales of $149.6 million and Raises Full-Year Guidance"
-      ],
-      "source_headline": "CTS Corporation Reports Third Quarter 2026 Sales of $149.6 million and Raises Full-Year Guidance",
-      "source_url": "https://www.nasdaq.com/articles/cts-corporation-reports-third-quarter-2026-sales-1496-million-and-raises-full-year",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-27T15:39:40Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-27T18:30:15Z",
-      "updated_at": "2026-10-27T18:30:15Z",
-      "decay_at": "2026-10-29T03:39:40Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-279d8796f645",
-      "idea_version": "IDEAV-387c468a148a49a9",
-      "idea_version_started_at": "2026-10-27T16:00:02Z",
-      "ticker": "VRT",
-      "company": "Vertiv Holdings Co",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of Utility Innovation Holdings for $1.45 billion expands the company's footprint in critical power infrastructure, which is a high-growth area for data centers.",
-      "why_now": "The acquisition was announced as completed today, October 27, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-86c023fb603f"
-      ],
-      "primary_source_event_id": "EVT-86c023fb603f",
-      "source_headlines": [
-        "Vertiv Holdings Co Completes Acquisition of Utility Innovation Holdings, Inc. for $1.45 billion"
-      ],
-      "source_headline": "Vertiv Holdings Co Completes Acquisition of Utility Innovation Holdings, Inc. for $1.45 billion",
-      "source_url": "https://www.nasdaq.com/articles/vertiv-holdings-co-completes-acquisition-utility-innovation-holdings-inc-145-billion",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-27T12:53:11Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-27T16:00:02Z",
-      "updated_at": "2026-10-27T16:00:02Z",
-      "decay_at": "2026-10-29T00:53:11Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -209455,148 +209246,6 @@
       "surfaced_at": "2026-10-29T02:54:08Z",
       "updated_at": "2026-10-29T02:54:08Z",
       "decay_at": "2026-10-29T23:00:54Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-14600c52489c",
-      "idea_version": "IDEAV-57292833b014c260",
-      "idea_version_started_at": "2026-10-27T18:30:15Z",
-      "ticker": "ENLV",
-      "company": "Enlivex Therapeutics Ltd.",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The receipt of a Nasdaq delisting notice combined with a 1-for-16 reverse stock split indicates severe liquidity distress and potential ongoing dilution for shareholders.",
-      "why_now": "The delisting notice and reverse split were announced on 2026-10-27, marking a critical inflection point for the company's capital structure.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c0f80a3216c9"
-      ],
-      "primary_source_event_id": "EVT-c0f80a3216c9",
-      "source_headlines": [
-        "Enlivex Therapeutics Ltd. Receives Nasdaq Delisting Notice and Announces 1-for-16 Reverse Split"
-      ],
-      "source_headline": "Enlivex Therapeutics Ltd. Receives Nasdaq Delisting Notice and Announces 1-for-16 Reverse Split",
-      "source_url": "https://www.nasdaq.com/articles/enlivex-therapeutics-ltd-receives-nasdaq-delisting-notice-and-announces-1-16-reverse-split",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-27T15:10:59Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-27T18:30:15Z",
-      "updated_at": "2026-10-27T18:30:15Z",
-      "decay_at": "2026-10-29T03:10:59Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-85129948d8af",
-      "idea_version": "IDEAV-63cd6e976e3b57ff",
-      "idea_version_started_at": "2026-10-27T16:21:10Z",
-      "ticker": "NVS",
-      "company": "Novartis",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A $1.9 billion writedown on a key drug asset indicates poor capital allocation and potential future earnings pressure following the Avidity acquisition.",
-      "why_now": "The writedown was reported on October 27, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-49958d316f65"
-      ],
-      "primary_source_event_id": "EVT-49958d316f65",
-      "source_headlines": [
-        "Novartis takes $1.9bn writedown on key drug after blockbuster Avidity acquisition"
-      ],
-      "source_headline": "Novartis takes $1.9bn writedown on key drug after blockbuster Avidity acquisition",
-      "source_url": "https://www.ft.com/content/f7651365-f19c-40fd-87de-fcdb8a8a7104?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-27T15:15:31Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-27T16:21:10Z",
-      "updated_at": "2026-10-27T16:21:10Z",
-      "decay_at": "2026-10-29T03:15:31Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -209952,77 +209601,6 @@
       "surfaced_at": "2026-10-28T18:19:07Z",
       "updated_at": "2026-10-28T18:19:07Z",
       "decay_at": "2026-10-29T21:08:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-3eef32686df1",
-      "idea_version": "IDEAV-9b1fad0a60c4996a",
-      "idea_version_started_at": "2026-10-28T18:19:07Z",
-      "ticker": "01173",
-      "company": "Veeko International Holdings Limited",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company issued a positive profit alert, indicating a significant improvement in financial performance compared to the prior period.",
-      "why_now": "The announcement was filed on October 27, 2026, providing immediate visibility into improved earnings.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e3809955fb2d"
-      ],
-      "primary_source_event_id": "EVT-e3809955fb2d",
-      "source_headlines": [
-        "VEEKO INT'L (01173): INSIDE INFORMATION - POSITIVE PROFIT ALERT"
-      ],
-      "source_headline": "VEEKO INT'L (01173): INSIDE INFORMATION - POSITIVE PROFIT ALERT",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1027/2026102700760.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-27T10:07:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-28T18:19:07Z",
-      "updated_at": "2026-10-28T18:19:07Z",
-      "decay_at": "2026-10-28T22:07:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -210462,77 +210040,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-5ac020e252f1",
-      "idea_version": "IDEAV-f6edb2d1124ee651",
-      "idea_version_started_at": "2026-10-28T08:58:37Z",
-      "ticker": "DHARSUGAR",
-      "company": "Dharani Sugars & Chemicals Limited",
-      "exchange": "BSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company formally disclosed a default on its bank loans and cash credit facilities, indicating severe liquidity distress.",
-      "why_now": "The exchange filing confirming the default was published on October 27, 2026.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-54ed401b1d7b"
-      ],
-      "primary_source_event_id": "EVT-54ed401b1d7b",
-      "source_headlines": [
-        "Dharani Sugars & Chemicals Limited: Dharani Sugars & Chemicals Limited has informed the Exchange regarding 'Discl.default Loans including revolving like cash credit from banks Default'."
-      ],
-      "source_headline": "Dharani Sugars & Chemicals Limited: Dharani Sugars & Chemicals Limited has informed the Exchange regarding 'Discl.default Loans including revolving like cash credit from banks Default'.",
-      "source_url": "https://nsearchives.nseindia.com/corporate/dharanisugarsltd_27102026152522_DharsugardefaultNotice30092026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-27T09:55:38Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-28T08:58:37Z",
-      "updated_at": "2026-10-28T08:58:37Z",
-      "decay_at": "2026-10-28T21:55:38Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-84d3d160ac55",
       "idea_version": "IDEAV-439af98f38aa2cf0",
       "idea_version_started_at": "2026-10-28T08:58:37Z",
@@ -210820,291 +210327,6 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": true
-    },
-    {
-      "idea_id": "IDEA-954f3f21e4b8",
-      "idea_version": "IDEAV-9ad7ea903ec140fd",
-      "idea_version_started_at": "2026-10-27T16:21:10Z",
-      "ticker": "SKYGOLD",
-      "company": "Sky Gold Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported a 111.9% increase in profit after tax for Q2 FY27, signaling significant operational scaling and margin expansion.",
-      "why_now": "Financial results were released on October 27, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4db805c4b43e"
-      ],
-      "primary_source_event_id": "EVT-4db805c4b43e",
-      "source_headlines": [
-        "SKY GOLD AND DIAMONDS LIMITED: Please see attached Copy of Press Release titled \"Sky Gold and Diamonds Limited announces Q2 and H1 FY27 Financial Results; Revenue at Rs. 4,403.45 Crore, PAT up 111.9%.\""
-      ],
-      "source_headline": "SKY GOLD AND DIAMONDS LIMITED: Please see attached Copy of Press Release titled \"Sky Gold and Diamonds Limited announces Q2 and H1 FY27 Financial Results; Revenue at Rs. 4,403.45 Crore, PAT up 111.9%.\"",
-      "source_url": "https://nsearchives.nseindia.com/corporate/SKYGOLD_27102026204333_PressRelease27102026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-27T15:13:47Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-27T11:08:01Z",
-      "updated_at": "2026-10-27T16:21:10Z",
-      "decay_at": "2026-10-29T03:13:47Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-2bff25881ee6",
-      "idea_version": "IDEAV-29f3b98bf22a0a2e",
-      "idea_version_started_at": "2026-10-27T16:00:02Z",
-      "ticker": "JSWINFRA",
-      "company": "JSW Infrastructure",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company reported an 11% decline in net profit to Rs 328 crore for Q2, indicating margin pressure or volume weakness in its port operations.",
-      "why_now": "The earnings results were released today, October 27, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a655e174dded"
-      ],
-      "primary_source_event_id": "EVT-a655e174dded",
-      "source_headlines": [
-        "JSW Infrastructure Q2 Results: Net profit falls 11% to Rs 328 crore"
-      ],
-      "source_headline": "JSW Infrastructure Q2 Results: Net profit falls 11% to Rs 328 crore",
-      "source_url": "https://economictimes.indiatimes.com/markets/stocks/earnings/jsw-infrastructure-q2-results-net-profit-falls-11-to-rs-328-crore/articleshow/135236084.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-27T13:26:43Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-27T16:00:02Z",
-      "updated_at": "2026-10-27T16:00:02Z",
-      "decay_at": "2026-10-29T01:26:43Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-78dc8a95184a",
-      "idea_version": "IDEAV-a634283db6065100",
-      "idea_version_started_at": "2026-10-27T14:32:27Z",
-      "ticker": "532543",
-      "company": "GP Petroleums Limited",
-      "exchange": "BSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported a 179% YoY increase in PAT to ₹15.3 crore and a 124% jump in revenue to ₹340.8 crore for Q2 FY27, indicating strong operational momentum.",
-      "why_now": "The financial results were officially filed on October 27, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-21c1247363eb"
-      ],
-      "primary_source_event_id": "EVT-21c1247363eb",
-      "source_headlines": [
-        "GP Petroleums Limited: GP Petroleums Limited has informed the Exchange regarding a press release dated October 27, 2026, titled \"GP Petroleums Q2 FY27 PAT rises 179% YoY to ₹15.3 crore, Revenue from Operations for Q2 jumps 124% YoY to ₹340.8 crore\"."
-      ],
-      "source_headline": "GP Petroleums Limited: GP Petroleums Limited has informed the Exchange regarding a press release dated October 27, 2026, titled \"GP Petroleums Q2 FY27 PAT rises 179% YoY to ₹15.3 crore, Revenue from Operations for Q2 jumps 124% YoY to ₹340.8 crore\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/GULFPETRO_27102026165544_PressReleaseQ22026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-27T11:26:35Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-27T14:32:27Z",
-      "updated_at": "2026-10-27T14:32:27Z",
-      "decay_at": "2026-10-28T23:26:35Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-894c196d214b",
-      "idea_version": "IDEAV-5fcb2feed73eb56b",
-      "idea_version_started_at": "2026-10-27T11:08:01Z",
-      "ticker": "MOREPENLAB",
-      "company": "Morepen Laboratories",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported record Q2 revenue of Rs. 755 Cr and a 273% surge in EBITDA, driven by strong momentum in its CDMO business.",
-      "why_now": "The financial results were released via exchange filing on October 27, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4d2c9e2080c2"
-      ],
-      "primary_source_event_id": "EVT-4d2c9e2080c2",
-      "source_headlines": [
-        "Morepen Laboratories Limited: Morepen Laboratories Limited has informed the Exchange regarding a press release dated October 27, 2026, titled \"Morepen hits record Q2 revenue of Rs. 755 Cr; EBITDA surges 273% to Rs. 132 Cr; CDMO momentum drives Morepen into a new earnings scale; H1 EBITDA reaches Rs. 220 Cr\"."
-      ],
-      "source_headline": "Morepen Laboratories Limited: Morepen Laboratories Limited has informed the Exchange regarding a press release dated October 27, 2026, titled \"Morepen hits record Q2 revenue of Rs. 755 Cr; EBITDA surges 273% to Rs. 132 Cr; CDMO momentum drives Morepen into a new earnings scale; H1 EBITDA reaches Rs. 220 Cr\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/MOREPENLAB_27102026134742_SEIntimationPR271026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-27T08:17:49Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-27T11:08:01Z",
-      "updated_at": "2026-10-27T11:08:01Z",
-      "decay_at": "2026-10-28T20:17:49Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
     }
   ],
   "ideas_archive": {
@@ -211117,33 +210339,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 536,
+    "total_count": 524,
     "shown_count": 500,
-    "hidden_count": 36,
+    "hidden_count": 24,
     "side_counts": {
       "long": {
-        "total_count": 270,
+        "total_count": 262,
         "shown_count": 250,
-        "hidden_count": 20
+        "hidden_count": 12
       },
       "short": {
-        "total_count": 266,
+        "total_count": 262,
         "shown_count": 250,
-        "hidden_count": 16
+        "hidden_count": 12
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1457,
-      "oldest_retained_at": "2026-10-04T18:46:12Z",
+      "evicted_count": 1469,
+      "oldest_retained_at": "2026-10-04T22:09:22Z",
       "side_counts": {
         "long": {
-          "evicted_count": 960,
-          "oldest_retained_at": "2026-10-15T08:57:02Z"
+          "evicted_count": 968,
+          "oldest_retained_at": "2026-10-16T00:44:32Z"
         },
         "short": {
-          "evicted_count": 498,
-          "oldest_retained_at": "2026-10-04T18:46:12Z"
+          "evicted_count": 502,
+          "oldest_retained_at": "2026-10-04T22:09:22Z"
         }
       }
     },
@@ -212999,8 +212221,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-29T10:14:21Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-30T22:42:19Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -213072,8 +212294,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-29T03:39:40Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-30T22:42:19Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -213146,8 +212368,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-29T03:15:31Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-30T22:42:19Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -213220,8 +212442,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-29T03:13:47Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-30T22:42:19Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -213294,8 +212516,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-29T03:10:59Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-30T22:42:19Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -213369,8 +212591,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-29T01:26:43Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-30T22:42:19Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -213442,8 +212664,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-29T01:23:25Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-30T22:42:19Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -213515,8 +212737,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-29T00:53:11Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-30T22:42:19Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -213589,8 +212811,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-28T23:26:35Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-30T22:42:19Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -213663,8 +212885,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-28T22:07:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-30T22:42:19Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -213737,8 +212959,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-28T21:55:38Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-30T22:42:19Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -213811,8 +213033,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-28T20:17:49Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-30T22:42:19Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -248378,8 +247600,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2004,
-    "live_count": 10,
+    "surfaced_total": 2005,
+    "live_count": 11,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
