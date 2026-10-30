@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T18:12:03Z",
+  "generated_at": "2026-10-30T18:22:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20261030-739",
@@ -1884,6 +1884,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261030-775",
+      "headline": "NCLT Admits Insolvency Petition Against Mumbai Company Over ₹1,376 Crore Default",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/mumbai/nclt-admits-insolvency-petition-against-mumbai-company-over-1376-crore-default",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T17:34:29Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "NCLT insolvency-petition admission for ₹1,376 crore default against unnamed Mumbai-listed company—a survival event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "NCLT insolvency-petition admission for ₹1,376 crore default against unnamed Mumbai-listed company—a survival event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 7,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Unnamed Mumbai company",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261030-768",
       "headline": "CD&R pursues buyout of $40bn card processor Global Payments",
       "headline_en": null,
@@ -1925,56 +1974,6 @@
           "name": "Global Payments",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-762",
-      "headline": "Lodha Developers H1FY27 net profit soars 63%, expects to beat full-year guidance",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/lodha-developers-h1fy27-net-profit-soars-63-expects-to-beat-full-year-guidance/articleshow/135369310.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T16:13:16Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Lodha Developers reported a 63% increase in H1FY27 net profit and indicated it expects to exceed full-year guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Lodha Developers reported a 63% increase in H1FY27 net profit and indicated it expects to exceed full-year guidance.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lodha Developers",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -248406,9 +248405,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2136590,
-    "news_picked_today": 1807,
-    "news_dropped_today": 18881
+    "news_seen_today": 2143958,
+    "news_picked_today": 1816,
+    "news_dropped_today": 19136
   },
   "book_momentum": {
     "live_count": 8,
