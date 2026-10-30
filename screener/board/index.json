@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T12:59:22Z",
+  "generated_at": "2026-10-30T13:02:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20261030-655",
@@ -936,6 +936,56 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-657",
+      "headline": "AbbVie Raises FY26 Adj. EPS Outlook; Boost Dividend 5.2% - Update",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/abbvie-raises-fy26-adj-eps-outlook-boost-dividend-52-update",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T12:05:01Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "AbbVie raises FY26 adjusted EPS guidance and increases dividend by 5.2%, both quantified official disclosures affecting forward cash flow and capital allocation policy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "AbbVie raises FY26 adjusted EPS guidance and increases dividend by 5.2%, both quantified official disclosures affecting forward cash flow and capital allocation policy.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AbbVie",
+          "ticker": "ABBV",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1925,65 +1975,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-386",
-      "headline": "GC Biopharma, Hanmi Pharm strike $475m Fabry disease drug deal with BioMarin",
-      "headline_en": null,
-      "url": "https://www.koreaherald.com/article/10920509",
-      "source_name": "The Korea Herald — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T03:49:01Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "GC Biopharma and Hanmi Pharm have entered into a $475 million drug deal with BioMarin.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "GC Biopharma and Hanmi Pharm have entered into a $475 million drug deal with BioMarin.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GC Biopharma",
-          "ticker": null,
-          "listing_country": "KR"
-        },
-        {
-          "name": "Hanmi Pharm",
-          "ticker": null,
-          "listing_country": "KR"
-        },
-        {
-          "name": "BioMarin",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -248412,9 +248403,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1330428,
-    "news_picked_today": 1418,
-    "news_dropped_today": 13750
+    "news_seen_today": 1345616,
+    "news_picked_today": 1429,
+    "news_dropped_today": 13859
   },
   "book_momentum": {
     "live_count": 8,
