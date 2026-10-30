@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-30T14:54:38Z",
+  "generated_at": "2026-10-30T15:16:38Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261030-723",
+      "headline": "Tata Motors Limited: Tata Motors Limited has informed the Exchange about Acquisition",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/TMLCOMMERCIAL_30102026201734_NSEBSELETTERFINALIVECOFINAL.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-30T14:47:43Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Tata Motors Limited announced an acquisition.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tata Motors Limited announced an acquisition.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Motors Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261030-708",
       "headline": "XXF (02473): SUPPLEMENTAL ANNOUNCEMENT REGARDING DISCLOSEABLE TRANSACTION IN RELATION TO THE PROPOSED ACQUISITION OF 100% OF THE ISSUED SHARE CAPITAL IN THE TARGET COMPANY INVOLVING ISSUE OF CONSIDERATION SHARES UNDER SPECIFIC MANDATE",
@@ -1437,6 +1486,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261030-738",
+      "headline": "Jio cuts net debt 79% to ₹8,822 crore: What it means for its next growth phase",
+      "headline_en": null,
+      "url": "https://www.businesstoday.in/latest/corporate/story/jio-cuts-net-debt-79-to-rs8822-crore-what-it-means-for-its-next-growth-phase-564857-2026-10-30?utm_source=rssfeed",
+      "source_name": "Business Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T14:35:53Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Reliance Jio reduced net debt 79% to ₹8,822 crore, a material deleveraging affecting solvency, financial flexibility, and capital-allocation optionality.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Reliance Jio reduced net debt 79% to ₹8,822 crore, a material deleveraging affecting solvency, financial flexibility, and capital-allocation optionality.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "debt_credit",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Reliance Jio (Reliance Industries)",
+          "ticker": "RIL",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261030-718",
       "headline": "NatWest Shares Fall After Bank’s Interest Income Guidance Disappoints",
       "headline_en": null,
@@ -1877,105 +1976,6 @@
           "name": "BASF",
           "ticker": null,
           "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-580",
-      "headline": "National Express owner Mobico set for £308m Spanish takeover",
-      "headline_en": null,
-      "url": "https://www.independent.co.uk/news/business/spanish-shares-birmingham-west-midlands-press-association-b3076286.html",
-      "source_name": "The Independent — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T10:42:57Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Mobico is set to acquire a Spanish business for £308 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Mobico is set to acquire a Spanish business for £308 million.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mobico",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-584",
-      "headline": "GAIL Q2 Results: Profit zooms 139% YoY to Rs 4,720 crore, revenue rises 33%; board approves GAIL Gas IPO",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/ipos/fpos/gail-q2-results-profit-zooms-139-yoy-to-rs-4720-crore-revenue-rises-33-board-approves-gail-gas-ipo/articleshow/135356210.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T10:21:14Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "GAIL reported a 139% profit increase to Rs 4,720 crore and announced an IPO for its gas subsidiary.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "GAIL reported a 139% profit increase to Rs 4,720 crore and announced an IPO for its gas subsidiary.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GAIL",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -248407,9 +248407,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1576350,
-    "news_picked_today": 1605,
-    "news_dropped_today": 15843
+    "news_seen_today": 1644000,
+    "news_picked_today": 1629,
+    "news_dropped_today": 16347
   },
   "book_momentum": {
     "live_count": 8,
