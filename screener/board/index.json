@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T06:10:28Z",
+  "generated_at": "2026-10-30T06:18:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20261030-232",
@@ -208270,76 +208270,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-e50b386de176",
-      "idea_version": "IDEAV-977c48b53ebf4b30",
-      "idea_version_started_at": "2026-10-29T06:54:24Z",
-      "ticker": "EADSY",
-      "company": "Airbus",
-      "exchange": "OTC Markets",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Airbus is experiencing declining profits driven by a slowdown in aircraft deliveries, suggesting persistent supply chain or production bottlenecks.",
-      "why_now": "The profit drop was reported on 2026-10-28.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-481a58f07c9a"
-      ],
-      "primary_source_event_id": "EVT-481a58f07c9a",
-      "source_headlines": [
-        "Airbus profits drop as plane deliveries slow"
-      ],
-      "source_headline": "Airbus profits drop as plane deliveries slow",
-      "source_url": "https://www.ft.com/content/9aaeaa0c-3846-4eef-9356-6261f6543075?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-28T18:17:14Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-29T06:54:24Z",
-      "updated_at": "2026-10-29T06:54:24Z",
-      "decay_at": "2026-10-30T06:17:14Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-bb455d1c06d8",
       "idea_version": "IDEAV-b909c1deb8fc7a29",
       "idea_version_started_at": "2026-10-29T04:07:36Z",
@@ -209322,6 +209252,76 @@
       "surfaced_at": "2026-10-27T16:00:02Z",
       "updated_at": "2026-10-27T16:00:02Z",
       "decay_at": "2026-10-29T00:53:11Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-e50b386de176",
+      "idea_version": "IDEAV-977c48b53ebf4b30",
+      "idea_version_started_at": "2026-10-29T06:54:24Z",
+      "ticker": "EADSY",
+      "company": "Airbus",
+      "exchange": "OTC Markets",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Airbus is experiencing declining profits driven by a slowdown in aircraft deliveries, suggesting persistent supply chain or production bottlenecks.",
+      "why_now": "The profit drop was reported on 2026-10-28.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-481a58f07c9a"
+      ],
+      "primary_source_event_id": "EVT-481a58f07c9a",
+      "source_headlines": [
+        "Airbus profits drop as plane deliveries slow"
+      ],
+      "source_headline": "Airbus profits drop as plane deliveries slow",
+      "source_url": "https://www.ft.com/content/9aaeaa0c-3846-4eef-9356-6261f6543075?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-28T18:17:14Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-29T06:54:24Z",
+      "updated_at": "2026-10-29T06:54:24Z",
+      "decay_at": "2026-10-30T06:17:14Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -211413,9 +211413,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 535,
+    "total_count": 536,
     "shown_count": 500,
-    "hidden_count": 35,
+    "hidden_count": 36,
     "side_counts": {
       "long": {
         "total_count": 270,
@@ -211423,9 +211423,9 @@
         "hidden_count": 20
       },
       "short": {
-        "total_count": 265,
+        "total_count": 266,
         "shown_count": 250,
-        "hidden_count": 15
+        "hidden_count": 16
       }
     },
     "retention": {
@@ -211444,6 +211444,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-e50b386de176",
+        "idea_version": "IDEAV-977c48b53ebf4b30",
+        "idea_version_started_at": "2026-10-29T06:54:24Z",
+        "ticker": "EADSY",
+        "company": "Airbus",
+        "exchange": "OTC Markets",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Airbus is experiencing declining profits driven by a slowdown in aircraft deliveries, suggesting persistent supply chain or production bottlenecks.",
+        "why_now": "The profit drop was reported on 2026-10-28.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 65,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-481a58f07c9a"
+        ],
+        "primary_source_event_id": "EVT-481a58f07c9a",
+        "source_headlines": [
+          "Airbus profits drop as plane deliveries slow"
+        ],
+        "source_headline": "Airbus profits drop as plane deliveries slow",
+        "source_url": "https://www.ft.com/content/9aaeaa0c-3846-4eef-9356-6261f6543075?syn-25a6b1a6=1",
+        "source_name": "Financial Times",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-28T18:17:14Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-29T06:54:24Z",
+        "updated_at": "2026-10-29T06:54:24Z",
+        "decay_at": "2026-10-30T06:17:14Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-30T06:17:14Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-d7d58dc6acc2",
         "idea_version": "IDEAV-f2199dcb3b9c7330",
@@ -248609,87 +248682,12 @@
         "archived_at": "2026-10-07T04:00:49Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-421a8dabbea5",
-        "idea_version": "IDEAV-9495e30394763833",
-        "idea_version_started_at": "2026-10-04T07:44:58Z",
-        "ticker": "ROO",
-        "company": "Deliveroo",
-        "exchange": "LSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The UK Labour government's proposed changes to the self-employment test threaten to reclassify gig workers as employees, significantly increasing Deliveroo's operating costs and payroll liabilities.",
-        "why_now": "The policy shift is actively being pushed by the current Labour administration, making the regulatory threat live.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 14,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "policy_conditional",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-71ff78c73ec9"
-        ],
-        "primary_source_event_id": "EVT-71ff78c73ec9",
-        "source_headlines": [
-          "Are Deliveroo riders really self-employed? Labour wants to change the test"
-        ],
-        "source_headline": "Are Deliveroo riders really self-employed? Labour wants to change the test",
-        "source_url": "https://www.ft.com/content/dc69b53e-80f1-46ff-826c-f4b2f5d75873?syn-25a6b1a6=1",
-        "source_name": "Financial Times",
-        "materiality_max": 85,
-        "newest_source_at": "2026-10-04T04:00:06Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-04T07:44:58Z",
-        "updated_at": "2026-10-04T07:44:58Z",
-        "decay_at": "2026-10-05T16:00:06Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-07T04:00:49Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2002,
-    "live_count": 15,
+    "live_count": 14,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -248708,9 +248706,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 520184,
-    "news_picked_today": 711,
-    "news_dropped_today": 2985
+    "news_seen_today": 542696,
+    "news_picked_today": 715,
+    "news_dropped_today": 3005
   },
   "book_momentum": {
     "live_count": 8,
