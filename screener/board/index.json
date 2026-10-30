@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T06:21:56Z",
+  "generated_at": "2026-10-30T06:35:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20261030-232",
@@ -243,6 +243,310 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-390",
+      "headline": "GoDaddy Inc. Reports Third Quarter 2026 Revenue of $1.3 billion and Net Income of $261.8 million",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/godaddy-inc-reports-third-quarter-2026-revenue-13-billion-and-net-income-2618-million",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T05:08:43Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "GoDaddy reported Q3 2026 revenue of $1.3 billion and net income of $261.8 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "GoDaddy reported Q3 2026 revenue of $1.3 billion and net income of $261.8 million.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GoDaddy Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-392",
+      "headline": "Murata Invests $6.4 Billion to Double Output and Meet AI Demand",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-30/murata-boosts-mlcc-output-investment-to-keep-pace-with-ai-demand",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T05:07:16Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Murata is investing $6.4 billion to double production capacity to meet AI demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Murata is investing $6.4 billion to double production capacity to meet AI demand.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Murata Manufacturing",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-405",
+      "headline": "Deepak Nitrite Shares Rally 9%; Q2 Profit Jumps 3.3x As Phenolics Business Delivers Record Performance",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/deepak-nitrite-share-price-today-rally-9-percent-q2-earnings-profit-jumps-3-3x-as-phenolics-business-delivers-record-sensex-today-12257074#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T04:26:28Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Deepak Nitrite reported a 3.3x jump in Q2 profit, driven by record performance in its phenolics business.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Deepak Nitrite reported a 3.3x jump in Q2 profit, driven by record performance in its phenolics business.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Deepak Nitrite",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-383",
+      "headline": "Binance Halts Withdrawals After $6.3 Billion Hack, The Biggest In Crypto History",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/tech/binance-halts-withdrawals-after-63-billion-hack-the-biggest-in-crypto-history",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T04:22:49Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Binance has halted withdrawals following a $6.3 billion hack, representing a massive operational and financial crisis.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Binance has halted withdrawals following a $6.3 billion hack, representing a massive operational and financial crisis.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Binance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-411",
+      "headline": "IndiGo’s Q2FY27 loss narrows to ₹1,879 cr; high fuel costs weigh",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/economy/logistics/indigos-q2fy27-loss-narrows-to-1879-cr-high-fuel-costs-weigh/article71640958.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T04:03:38Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "IndiGo reported a net loss of ₹1,879 crore for Q2FY27, indicating continued financial pressure from fuel costs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "IndiGo reported a net loss of ₹1,879 crore for Q2FY27, indicating continued financial pressure from fuel costs.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IndiGo",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-386",
+      "headline": "GC Biopharma, Hanmi Pharm strike $475m Fabry disease drug deal with BioMarin",
+      "headline_en": null,
+      "url": "https://www.koreaherald.com/article/10920509",
+      "source_name": "The Korea Herald — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T03:49:01Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "GC Biopharma and Hanmi Pharm have entered into a $475 million drug deal with BioMarin.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "GC Biopharma and Hanmi Pharm have entered into a $475 million drug deal with BioMarin.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GC Biopharma",
+          "ticker": null,
+          "listing_country": "KR"
+        },
+        {
+          "name": "Hanmi Pharm",
+          "ticker": null,
+          "listing_country": "KR"
+        },
+        {
+          "name": "BioMarin",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1680,310 +1984,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-221",
-      "headline": "Amazon slides on light Q4 sales estimates, high cash burn",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/amazon-slides-on-light-q4-sales-estimates-high-cash-burn",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T23:36:00Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Amazon shares declined due to light Q4 sales guidance and high cash burn.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Amazon shares declined due to light Q4 sales guidance and high cash burn.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Amazon",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-054",
-      "headline": "ADT Inc. to be Acquired by Thrive Holdings in $15.3 Billion Transaction",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/adt-inc-be-acquired-thrive-holdings-153-billion-transaction",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T23:32:35Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "ADT Inc. to be acquired in a $15.3 billion transaction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "ADT Inc. to be acquired in a $15.3 billion transaction.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ADT Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-326",
-      "headline": "Why Josh Kushner’s Firm Just Spent $7.6 Billion on a 150-Year-Old Company",
-      "headline_en": null,
-      "url": "https://www.wsj.com/finance/investing/why-josh-kushners-firm-just-spent-7-6-billion-on-a-150-year-old-company-8bfdd9f8?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T23:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Thrive Capital acquisition valued at $7.6 billion is a named large M&A, but target company identity not disclosed in headline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Thrive Capital acquisition valued at $7.6 billion is a named large M&A, but target company identity not disclosed in headline.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Thrive Capital",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-331",
-      "headline": "Cyclone Arnab hits India’s data-center coast, where Google, Adani and Airtel plan to invest $15 billion in a hyperscale data center",
-      "headline_en": null,
-      "url": "https://fortune.com/2026/10/29/cyclone-arnab-india-data-centers-google-adani-airtel/",
-      "source_name": "Fortune",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T22:52:53Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Google, Adani, and Airtel are planning a $15 billion investment in a hyperscale data center in India.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Google, Adani, and Airtel are planning a $15 billion investment in a hyperscale data center in India.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Google",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Adani",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Airtel",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-333",
-      "headline": "Amazon shares slide on lower Christmas sales forecast",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/8affd8dd-b783-48c8-86e2-ac4a647fa0f3?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T22:44:22Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Amazon shares are falling due to a lower-than-expected Christmas sales forecast.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Amazon shares are falling due to a lower-than-expected Christmas sales forecast.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Amazon",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-349",
-      "headline": "Amazon Stock Drops on Wall Street Miss, Despite Biggest Cloud Growth in Years",
-      "headline_en": null,
-      "url": "https://www.wsj.com/tech/amazon-amzn-q3-earnings-report-2026-stock-a0b92f17?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T22:13:00Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Amazon stock dropped following a miss on Wall Street expectations despite cloud growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Amazon stock dropped following a miss on Wall Street expectations despite cloud growth.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Amazon",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -248706,9 +248706,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 548306,
-    "news_picked_today": 721,
-    "news_dropped_today": 3023
+    "news_seen_today": 574716,
+    "news_picked_today": 903,
+    "news_dropped_today": 3609
   },
   "book_momentum": {
     "live_count": 8,
