@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T16:06:55Z",
+  "generated_at": "2026-10-30T16:10:57Z",
   "inbox": [
     {
       "inbox_id": "INB-20261030-739",
@@ -1929,50 +1929,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261030-720",
-      "headline": "Jio Platforms Q2 Results: Profit rises 14% YoY to Rs 8,389 crore; revenue up 11%",
+      "inbox_id": "INB-20261030-748",
+      "headline": "Historic T-Mobile merger worth $300 billion put on ice",
       "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/jio-platforms-q2-results-profit-rises-14-yoy-to-rs-8389-crore-revenue-up-11/articleshow/135364558.cms",
-      "source_name": "The Economic Times",
+      "url": "https://www.thestreet.com/retail/historic-t-mobile-deutsche-telekom-merger-put-on-ice",
+      "source_name": "TheStreet",
       "input_nature": "news_headline",
-      "found_at": "2026-10-30T13:43:48Z",
+      "found_at": "2026-10-30T14:07:00Z",
       "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Jio Platforms reported a 14% YoY profit increase to Rs 8,389 crore and 11% revenue growth.",
+      "prelim_note": "The $300 billion T-Mobile merger has been halted, representing a major strategic reversal.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Jio Platforms reported a 14% YoY profit increase to Rs 8,389 crore and 11% revenue growth.",
-      "region": "IN",
+      "triage_reason": "The $300 billion T-Mobile merger has been halted, representing a major strategic reversal.",
+      "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 75,
+      "materiality_pre_score": 85,
       "rank_factors": {
-        "materiality": 75,
+        "materiality": 85,
         "source_tier": 0,
-        "scope": 6,
-        "event": 5,
+        "scope": 5,
+        "event": 9,
         "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
+        "recency": 4,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "multi_name",
         "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
+        "event_id": "mna",
+        "size_bucket": "mega"
       },
       "event_types": [
-        "earnings_revenue_margin"
+        "mna"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Jio Platforms",
+          "name": "T-Mobile",
           "ticker": null,
-          "listing_country": "IN"
+          "listing_country": "US"
         }
       ],
-      "size_bucket": "large",
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -248401,9 +248401,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1823318,
-    "news_picked_today": 1670,
-    "news_dropped_today": 16834
+    "news_seen_today": 1838984,
+    "news_picked_today": 1671,
+    "news_dropped_today": 16929
   },
   "book_momentum": {
     "live_count": 8,
