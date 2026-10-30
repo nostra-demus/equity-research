@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T03:12:49Z",
+  "generated_at": "2026-10-30T03:18:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20261030-232",
@@ -198,6 +198,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261030-265",
+      "headline": "PC chip plunge wipes out a quarter of Intel’s value",
+      "headline_en": null,
+      "url": "https://www.theregister.com/systems/2026/10/30/pc-chip-plunge-wipes-out-a-quarter-of-intels-value/5306531",
+      "source_name": "The Register",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T02:42:58Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Intel experienced a significant valuation drop due to a sharp decline in PC chip demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Intel experienced a significant valuation drop due to a sharp decline in PC chip demand.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Intel",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-262",
+      "headline": "Binance confirms crypto heist, biggest in history, but no one’s sure what broke",
+      "headline_en": null,
+      "url": "https://www.hindustantimes.com/business/binance-confirms-crypto-heist-biggest-in-history-but-no-one-s-sure-what-broke-101793327637282.html",
+      "source_name": "Hindustan Times (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T02:33:56Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Binance confirmed a major crypto heist, representing a significant operational and security risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Binance confirmed a major crypto heist, representing a significant operational and security risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Binance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261030-236",
       "headline": "Binance Suspends Transactions as It Probes What May Be Biggest-Ever Cyber Heist",
       "headline_en": null,
@@ -293,6 +391,104 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-285",
+      "headline": "Intel Shares Plunge After PC Slump, Supply Snags Hurt Outlook",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/intel-shares-plunge-after-pc-slump-supply-snags-hurt-outlook-12256670#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T02:13:46Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Intel shares plunged following a PC market slump and supply issues impacting their outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Intel shares plunged following a PC market slump and supply issues impacting their outlook.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Intel",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-290",
+      "headline": "Amazon cloud business accelerates but shares drop on profit miss",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/us-stocks/news/amazon-cloud-business-accelerates-but-shares-drop-on-profit-miss/articleshow/135338874.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T02:02:06Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Amazon reported a profit miss despite cloud business acceleration, impacting investor expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Amazon reported a profit miss despite cloud business acceleration, impacting investor expectations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amazon",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1194,6 +1390,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261030-286",
+      "headline": "Binance freezes $2.5 billion after suspected hack; Bitcoin sinks below $79,000",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/money-and-banking/cryptocurrency/binance-freezes-25-billion-after-suspected-hack-bitcoin-sinks-below-79000/article71643390.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T02:11:31Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Binance has frozen $2.5 billion following a security breach, which is a significant operational and financial event for the exchange.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Binance has frozen $2.5 billion following a security breach, which is a significant operational and financial event for the exchange.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Binance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261030-214",
       "headline": "Binance says $2.54bn in crypto funds frozen amid ‘potential security issue’",
       "headline_en": null,
@@ -1719,258 +1965,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-052",
-      "headline": "PAG Agrees to Buy China Evergrande Unit for $514 Million",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-29/pag-agrees-to-buy-china-evergrande-unit-for-514-million",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T23:53:01Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "PAG agreed to acquire a China Evergrande unit for $514 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "PAG agreed to acquire a China Evergrande unit for $514 million.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PAG",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "China Evergrande",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-078",
-      "headline": "PUBLIC FIN HOLD (00626): PINK FORM OF PROXY FOR THE COURT MEETING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1030/2026103000271.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-29T23:34:00Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Court-meeting proxy for PUBLIC FIN HOLD signals a material capital event under scheme of arrangement (M&A, restructuring, or distress workout), but headline does not disclose the subject, event direction, or terms; actual filing must be read to assess impact.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Court-meeting proxy for PUBLIC FIN HOLD signals a material capital event under scheme of arrangement (M&A, restructuring, or distress workout), but headline does not disclose the subject, event direction, or terms; actual filing must be read to assess impact.",
-      "region": "CN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PUBLIC FIN HOLD",
-          "ticker": "00626",
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-161",
-      "headline": "ECB’s Lagarde steps down, saying she can’t remain neutral on world events",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/business/2026/10/30/economy/ecb-lagarde-resignation/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T01:21:00Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "The President of the ECB is resigning, which is a major leadership change for a central bank.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "The President of the ECB is resigning, which is a major leadership change for a central bank.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "European Central Bank",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-158",
-      "headline": "D.R. Horton, Inc. Reports Fourth Quarter and Fiscal 2026 Results, Increases Quarterly Dividend to $0.50 Per Share and Provides Fiscal 2027 Guidance",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/dr-horton-inc-reports-fourth-quarter-and-fiscal-2026-results-increases-quarterly-dividend",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T00:33:13Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Fourth-quarter and FY2026 results with dividend increase to $0.50/share and FY2027 guidance are material corporate events; guidance direction and earnings surprise not disclosed.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Fourth-quarter and FY2026 results with dividend increase to $0.50/share and FY2027 guidance are material corporate events; guidance direction and earnings surprise not disclosed.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "D.R. Horton Inc",
-          "ticker": "DHI",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-208",
-      "headline": "Provident Financial Services, Inc. Reports Net Income of $69.2 million for the Three Months Ended September 30, 2026",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/provident-financial-services-inc-reports-net-income-692-million-three-months-ended",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T00:33:13Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Provident Financial Services reported net income of $69.2 million for the quarter.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Provident Financial Services reported net income of $69.2 million for the quarter.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Provident Financial Services",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -248696,9 +248690,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 276004,
-    "news_picked_today": 406,
-    "news_dropped_today": 2042
+    "news_seen_today": 290944,
+    "news_picked_today": 459,
+    "news_dropped_today": 2205
   },
   "book_momentum": {
     "live_count": 8,
