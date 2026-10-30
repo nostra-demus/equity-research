@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T01:54:47Z",
+  "generated_at": "2026-10-30T01:55:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261030-177",
@@ -498,6 +498,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261030-210",
+      "headline": "Axis Trustee gives Yes Bank three working days to restore ₹8,415 crore AT1 bonds",
+      "headline_en": null,
+      "url": "https://www.livemint.com/industry/banking/axis-trustee-gives-yes-bank-three-working-days-to-restore-8-415-crore-at1-bonds-11793286668493.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T00:30:46Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Yes Bank is facing a demand to restore ₹8,415 crore in AT1 bonds within three days, indicating significant liquidity or covenant pressure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Yes Bank is facing a demand to restore ₹8,415 crore in AT1 bonds within three days, indicating significant liquidity or covenant pressure.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Yes Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261030-132",
       "headline": "Binance hack drained wallets backing customer assets, reserve data shows",
       "headline_en": null,
@@ -794,6 +843,56 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261030-214",
+      "headline": "Binance says $2.54bn in crypto funds frozen amid ‘potential security issue’",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/economy/2026/10/30/binance-says-2-54bn-in-crypto-funds-frozen-amid-potential-security-issue?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-10-30T00:29:24Z",
+      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
+      "prelim_note": "Binance reported $2.54 billion in crypto funds frozen due to a potential security issue, posing a significant operational and reputational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Binance reported $2.54 billion in crypto funds frozen due to a potential security issue, posing a significant operational and reputational risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Binance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1882,110 +1981,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-140",
-      "headline": "Thailand's PTT and Siam Cement to combine polyolefin plastics units",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/materials/thailand-s-ptt-and-siam-cement-to-combine-polyolefin-plastics-units",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T00:42:36Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "PTT and Siam Cement to combine polyolefin plastics divisions; confirmed M&A affecting two named large-caps, but deal value and timing not disclosed.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "PTT and Siam Cement to combine polyolefin plastics divisions; confirmed M&A affecting two named large-caps, but deal value and timing not disclosed.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 62,
-      "rank_factors": {
-        "materiality": 62,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 8,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PTT",
-          "ticker": null,
-          "listing_country": "TH"
-        },
-        {
-          "name": "Siam Cement",
-          "ticker": null,
-          "listing_country": "TH"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261030-048",
-      "headline": "Musk Warns “Everyday Is Zeroday” As Rumors Swirl On News Of A Massive, $5.7 Billion Binance Hack",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/10/29/musk-warns-everyday-is-zeroday-as-rumors-swirl-on-news-of-a-massive-5-7-billion-binance-hack/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T23:52:11Z",
-      "sweep_file": "screener/inbox/2026-10-30_sweep.json",
-      "prelim_note": "Reports of a massive $5.7 billion hack at Binance represent a major operational and security risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Reports of a massive $5.7 billion hack at Binance represent a major operational and security risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Binance",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -248711,9 +248706,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 172300,
-    "news_picked_today": 258,
-    "news_dropped_today": 1206
+    "news_seen_today": 177957,
+    "news_picked_today": 263,
+    "news_dropped_today": 1225
   },
   "book_momentum": {
     "live_count": 8,
