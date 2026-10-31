@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-31T18:07:41Z",
+  "generated_at": "2026-10-31T18:14:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20261031-546",
@@ -544,6 +544,56 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261031-590",
+      "headline": "SEBI bars EKI Energy Services MD Manish Dabkara for 12 months over financial misrepresentation",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/markets/sebi-bars-eki-energy-services-md-manish-dabkara-for-12-months-over-financial-misrepresentation/article71650614.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-31T17:01:28Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "SEBI has barred the MD of EKI Energy Services for 12 months due to financial misrepresentation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SEBI has barred the MD of EKI Energy Services for 12 months due to financial misrepresentation.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EKI Energy Services",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1920,55 +1970,6 @@
       "companies": [
         {
           "name": "ZEE",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261031-370",
-      "headline": "Lodha Developers profit rises 28% YoY to Rs 1,013 crore in Sept quarter",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/lodha-developers-profit-rises-28-yoy-to-rs-1013-crore-in-sept-quarter/articleshow/135387254.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-31T04:02:38Z",
-      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
-      "prelim_note": "Lodha Developers reported a 28% YoY profit increase to 1,013 crore for the September quarter.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Lodha Developers reported a 28% YoY profit increase to 1,013 crore for the September quarter.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lodha Developers",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -249881,9 +249882,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1583045,
-    "news_picked_today": 1574,
-    "news_dropped_today": 6370
+    "news_seen_today": 1588975,
+    "news_picked_today": 1607,
+    "news_dropped_today": 6457
   },
   "book_momentum": {
     "live_count": 8,
