@@ -1,0 +1,73 @@
+{
+  "idea_id": "IDEA-b89ae4f13609",
+  "idea_version": "IDEAV-44bebd6d38bd8f5b",
+  "idea_version_started_at": "2026-10-31T06:36:55Z",
+  "ticker": "BLUECOAST",
+  "company": "Blue Coast Hotels Limited",
+  "exchange": "BSE",
+  "ticker_verified": false,
+  "listing_verified": false,
+  "liquidity_verified": false,
+  "listing_verification_source": null,
+  "direction": "short",
+  "pair_with": null,
+  "reason": "The company has formally disclosed defaults on interest and principal payments for its unlisted debt securities, indicating severe liquidity distress.",
+  "why_now": "The default notification was filed on October 30, 2026, confirming immediate balance sheet insolvency.",
+  "conviction": 80,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 45,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 25,
+    "impact": 23,
+    "specificity": 7,
+    "timing": 10,
+    "expression": 0,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "watch_only",
+  "missing_checks": [
+    "verified listed ticker",
+    "verified listing",
+    "live liquidity",
+    "dated catalyst",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "balance_sheet_survival",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-4b2bd673dd92"
+  ],
+  "primary_source_event_id": "EVT-4b2bd673dd92",
+  "source_headlines": [
+    "Blue Coast Hotels Limited: Blue Coast Hotels Limited hereby inform regarding the defaults on payment of interest / repayment of principal amount on unlisted debt securities."
+  ],
+  "source_headline": "Blue Coast Hotels Limited: Blue Coast Hotels Limited hereby inform regarding the defaults on payment of interest / repayment of principal amount on unlisted debt securities.",
+  "source_url": "https://nsearchives.nseindia.com/corporate/BLUECOAST_30102026204916_Default_Redemption_Preference_share_30_10_2026Signed.pdf",
+  "source_name": "BSE / NSE Exchange Filing",
+  "materiality_max": 100,
+  "newest_source_at": "2026-10-30T15:19:57Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-10-31T06:36:55Z",
+  "updated_at": "2026-10-31T06:36:55Z",
+  "decay_at": "2026-11-01T03:19:57Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
