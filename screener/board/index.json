@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-31T00:59:00Z",
+  "generated_at": "2026-10-31T01:03:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20261031-050",
@@ -843,6 +843,55 @@
         {
           "name": "BP",
           "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261031-185",
+      "headline": "BP profit surges to 18-year high as oil refining margins soar",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/bp-profit-surges-to-18-year-high-as-oil-refining-margins-soar-20023200.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T09:10:06Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "BP reported an 18-year high in profit driven by soaring oil refining margins.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "BP reported an 18-year high in profit driven by soaring oil refining margins.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BP",
+          "ticker": "BP",
           "listing_country": "GB"
         }
       ],
@@ -1735,6 +1784,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261031-186",
+      "headline": "Live updates: Binance uncovers more breach points in $6.3B hack",
+      "headline_en": null,
+      "url": "https://cointelegraph.com/news/live-updates-binance-63b-hack-linked-to-north-koreas-tradertraitor?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source_name": "Cointelegraph",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T09:08:25Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "Binance reports further details on a massive $6.3 billion security breach.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Binance reports further details on a massive $6.3 billion security breach.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Binance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261031-070",
       "headline": "Dixon Tech Q2: Net Profit Falls 49%, But Beats Estimates; Revenue Jumps 47%",
       "headline_en": null,
@@ -1784,6 +1882,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261031-194",
+      "headline": "Genmab’s Stellar Cancer-Drug Data Fuels Stock’s $10 Billion Week",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-30/genmab-s-stellar-cancer-drug-data-fuels-stock-s-10-billion-week",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T09:01:52Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "Positive cancer-drug data added $10 billion to Genmab's market value in a single week.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Positive cancer-drug data added $10 billion to Genmab's market value in a single week.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 82,
+      "rank_factors": {
+        "materiality": 82,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Genmab",
+          "ticker": "GMAB",
+          "listing_country": "DK"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261031-178",
       "headline": "OpenAI reportedly cuts fundraising and valuation targets amid AI jitters",
       "headline_en": null,
@@ -1828,153 +1975,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261031-084",
-      "headline": "Gulf Oil to invest ₹55 crore in expansion as plants run near full capacity",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/earnings/gulf-oil-lubricants-capacity-expansion-march-results-boardroom-alpha-article-20023153.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T10:42:16Z",
-      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
-      "prelim_note": "Gulf Oil is investing ₹55 crore in capacity expansion to meet high demand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Gulf Oil is investing ₹55 crore in capacity expansion to meet high demand.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Gulf Oil",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261031-170",
-      "headline": "SC appoints former judge to mediate $2.81 billion Reliance-Centre KG-D6 gas dispute",
-      "headline_en": null,
-      "url": "https://www.livemint.com/industry/energy/sc-former-judge-mediate-2-81-billion-dispute-reliance-centre-kg-d6-gas-dispute-11793344908638.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T09:29:35Z",
-      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
-      "prelim_note": "Supreme Court appoints mediator for a $2.81 billion gas dispute involving Reliance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Supreme Court appoints mediator for a $2.81 billion gas dispute involving Reliance.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Reliance Industries",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261031-003",
-      "headline": "Delhivery Reports ₹3,066 Crore Q2FY27 Revenue, EBITDA Triples To ₹205 Crore; PAT At ₹41 Crore",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/delhivery-reports-3066-crore-q2fy27-revenue-ebitda-triples-to-205-crore-pat-at-41-crore",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T11:24:17Z",
-      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
-      "prelim_note": "Delhivery Q2FY27 revenue ₹3,066cr, EBITDA ₹205cr (tripled YoY), PAT ₹41cr; confirmed quarterly earnings with strong margin expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Delhivery Q2FY27 revenue ₹3,066cr, EBITDA ₹205cr (tripled YoY), PAT ₹41cr; confirmed quarterly earnings with strong margin expansion.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 76,
-      "rank_factors": {
-        "materiality": 76,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Delhivery",
-          "ticker": "DELHIVERY",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -249308,9 +249308,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 50464,
-    "news_picked_today": 198,
-    "news_dropped_today": 570
+    "news_seen_today": 54698,
+    "news_picked_today": 214,
+    "news_dropped_today": 602
   },
   "book_momentum": {
     "live_count": 8,
