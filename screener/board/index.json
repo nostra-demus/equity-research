@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-10-31T05:50:05Z",
+  "generated_at": "2026-10-31T06:05:11Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261031-438",
+      "headline": "Corona Remedies Reports Robust Q2 FY27, Revenue Up 22.2% To ₹441.2 Crore; Chronic Business Drives Growth",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/corona-remedies-reports-robust-q2-fy27-revenue-up-222-to-4412-crore-chronic-business-drives-growth",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-31T05:17:37Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "Company reported strong Q2 FY27 results with revenue up 22.2% to ₹441.2 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company reported strong Q2 FY27 results with revenue up 22.2% to ₹441.2 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Corona Remedies",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261031-439",
+      "headline": "Jio Platforms Reports 13.7% PAT Surge To ₹8,387 Crore In Q2 FY27, Crosses 300 Million 5G Users",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/jio-platforms-reports-137-pat-surge-to-8387-crore-in-q2-fy27-crosses-300-million-5g-users",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-31T05:10:42Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "Jio Platforms reported a 13.7% PAT surge to ₹8,387 crore in Q2 FY27.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Jio Platforms reported a 13.7% PAT surge to ₹8,387 crore in Q2 FY27.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jio Platforms",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261031-386",
       "headline": "Aarti Industries Reports Strong Q2 FY27 Results, PAT Rises 60% To ₹169 Crore On Higher Volumes And Export Demand",
@@ -1894,104 +1992,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261031-352",
-      "headline": "Lenders Seek to Sell Debt of Rovensa as Firm Burns Through Cash",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-29/lenders-seek-to-sell-debt-of-rovensa-as-firm-burns-through-cash",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T17:15:36Z",
-      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
-      "prelim_note": "Lenders are seeking to sell debt of Rovensa as the firm burns through cash, indicating severe liquidity distress.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Lenders are seeking to sell debt of Rovensa as the firm burns through cash, indicating severe liquidity distress.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Rovensa",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261031-355",
-      "headline": "Canada to invest up to $1.6B in Toronto-based AI company Cohere",
-      "headline_en": null,
-      "url": "https://www.cbc.ca/news/business/canada-cohere-ai-investment-9.7401367?cmp=rss",
-      "source_name": "CBC — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T17:12:24Z",
-      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
-      "prelim_note": "The Canadian government is investing up to $1.6 billion in Cohere, a significant capital injection for the AI company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The Canadian government is investing up to $1.6 billion in Cohere, a significant capital injection for the AI company.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cohere",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -249320,9 +249320,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 756552,
-    "news_picked_today": 825,
-    "news_dropped_today": 1911
+    "news_seen_today": 789402,
+    "news_picked_today": 852,
+    "news_dropped_today": 2028
   },
   "book_momentum": {
     "live_count": 8,
