@@ -1,6 +1,105 @@
 {
-  "generated_at": "2026-10-31T07:06:19Z",
+  "generated_at": "2026-10-31T08:28:22Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261031-457",
+      "headline": "AGS Transact Technologies Limited: AGS Transact Technologies Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/AGSTRA_31102026133545_Intimation_to_BSE_and_NSE-_18th_CoC_Meeting_-_Voting_Results.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-31T08:06:47Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "The company has entered the Corporate Insolvency Resolution Process, indicating severe financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company has entered the Corporate Insolvency Resolution Process, indicating severe financial distress.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AGS Transact Technologies Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261031-458",
+      "headline": "Shyam Metalics and Energy Limited: Shyam Metalics And Energy Limited has informed the Exchange about 3. The proposal to acquire a 51% controlling equity stake in Alom Solar Private Limited, On acquisition, Alom Solar Private Limited becomes the Subsidiary of Shyam Metalics and Energy Limited and 4. the Proposal for the initial Capital Expenditure (Capex) budget of approximately ₹360 Crores further Based on the recommendation of the Nomination and Remuneration Committee and subject to appro",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/SHYAMMETL_31102026131611_outcomeofBM.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-31T07:46:25Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "The company announced the acquisition of a 51% stake in Alom Solar Private Limited and a new capex budget of approximately ₹360 Crores.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company announced the acquisition of a 51% stake in Alom Solar Private Limited and a new capex budget of approximately ₹360 Crores.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shyam Metalics and Energy Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261031-448",
       "headline": "Capillary Technologies India Limited: Capillary Technologies India Limited has informed the Exchange about Fraud/Default/Arrest",
@@ -46,6 +145,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261031-461",
+      "headline": "Shyam Metalics Q2 results: Company records 88% YoY jump in net profit; margins improve",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/shyam-metalics-q2-results-company-records-88-percent-yoy-jump-in-net-profit-margins-improve-20023990.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-31T08:15:15Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "The company reported an 88% year-on-year jump in net profit for Q2.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company reported an 88% year-on-year jump in net profit for Q2.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shyam Metalics and Energy Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1840,153 +1988,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261031-248",
-      "headline": "Kalpataru Ltd Reports ₹71 Crore Net Loss In Q2 FY27, Pre-Sales Dip 5%; H1 Collections Rise 9% To ₹2,554 Crore",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/kalpataru-ltd-reports-71-crore-net-loss-in-q2-fy27-pre-sales-dip-5-h1-collections-rise-9-to-2554-crore",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T05:27:34Z",
-      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
-      "prelim_note": "Kalpataru Ltd reported a net loss of ₹71 crore for Q2 FY27.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Kalpataru Ltd reported a net loss of ₹71 crore for Q2 FY27.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kalpataru Ltd",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261031-262",
-      "headline": "Murata Invests $6.4 Billion to Double MLCC Output for AI",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-30/murata-boosts-mlcc-output-investment-to-keep-pace-with-ai-demand",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T05:07:16Z",
-      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
-      "prelim_note": "Murata is investing $6.4 billion to double MLCC output for AI, a major capacity expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Murata is investing $6.4 billion to double MLCC output for AI, a major capacity expansion.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 82,
-      "rank_factors": {
-        "materiality": 82,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 3,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Murata Manufacturing",
-          "ticker": "6981",
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261031-281",
-      "headline": "LS Cable to invest $262m in rare earth magnet plant",
-      "headline_en": null,
-      "url": "https://www.koreaherald.com/article/10920566",
-      "source_name": "The Korea Herald — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T04:49:28Z",
-      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
-      "prelim_note": "LS Cable is investing $262 million to build a new rare earth magnet plant.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "LS Cable is investing $262 million to build a new rare earth magnet plant.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "LS Cable & System",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -249313,9 +249314,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 887463,
-    "news_picked_today": 1251,
-    "news_dropped_today": 2997
+    "news_seen_today": 994775,
+    "news_picked_today": 1257,
+    "news_dropped_today": 3015
   },
   "book_momentum": {
     "live_count": 8,
