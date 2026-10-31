@@ -1,0 +1,71 @@
+{
+  "idea_id": "IDEA-97e320120234",
+  "idea_version": "IDEAV-b3d094a3e0883445",
+  "idea_version_started_at": "2026-10-31T01:55:11Z",
+  "ticker": "PCRX",
+  "company": "Pacira BioSciences, Inc.",
+  "exchange": "NASDAQ",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "long",
+  "pair_with": null,
+  "reason": "The filing of a third-party tender offer (SC TO-T) indicates an active acquisition attempt, which typically provides a floor for the stock price and potential upside if a premium is negotiated.",
+  "why_now": "The SEC filing was made on October 30, 2026, initiating the tender process.",
+  "conviction": 65,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 77,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 25,
+    "impact": 20,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 7,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-9d434a1cbd9b"
+  ],
+  "primary_source_event_id": "EVT-9d434a1cbd9b",
+  "source_headlines": [
+    "SC TO-T - Pacira BioSciences, Inc. (0001396814) (Subject)"
+  ],
+  "source_headline": "SC TO-T - Pacira BioSciences, Inc. (0001396814) (Subject)",
+  "source_url": "https://www.sec.gov/Archives/edgar/data/1396814/000114036126041224/0001140361-26-041224-index.htm",
+  "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
+  "materiality_max": 100,
+  "newest_source_at": "2026-10-30T11:40:24Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-10-31T01:55:11Z",
+  "updated_at": "2026-10-31T01:55:11Z",
+  "decay_at": "2026-10-31T23:40:24Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
