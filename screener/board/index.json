@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-31T02:29:10Z",
+  "generated_at": "2026-10-31T02:31:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20261031-273",
@@ -1104,6 +1104,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261031-293",
+      "headline": "Amazon projects fourth quarter sales below estimates",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/news/world/amazon-projects-fourth-quarter-sales-below-estimates/article71643584.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T04:31:01Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "Amazon has issued a guidance cut, projecting fourth-quarter sales below analyst estimates.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Amazon has issued a guidance cut, projecting fourth-quarter sales below analyst estimates.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amazon",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261031-274",
       "headline": "79-year-old dining chain closes about 1,250 locations, 45 remain",
       "headline_en": null,
@@ -1916,55 +1965,6 @@
       "companies": [
         {
           "name": "Zee Entertainment",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261031-054",
-      "headline": "Vinati Organics Q2 FY27 Consolidated Net Profit Falls To ₹78.36 Crore, Revenue Rises 23.6%",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/vinati-organics-q2-fy27-consolidated-net-profit-falls-to-7836-crore-revenue-rises-236",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T11:01:35Z",
-      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
-      "prelim_note": "Vinati Organics reported a net profit fall to ₹78.36 crore despite a 23.6% revenue increase.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Vinati Organics reported a net profit fall to ₹78.36 crore despite a 23.6% revenue increase.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vinati Organics",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -249298,9 +249298,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 282085,
-    "news_picked_today": 423,
-    "news_dropped_today": 1041
+    "news_seen_today": 285824,
+    "news_picked_today": 429,
+    "news_dropped_today": 1059
   },
   "book_momentum": {
     "live_count": 8,
