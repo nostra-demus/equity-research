@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-31T10:42:24Z",
+  "generated_at": "2026-10-31T11:03:24Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261031-497",
+      "headline": "GTPL Hathway Limited: GTPL Hathway Limited has informed the Exchange about update on acquisition of balance 74% equity shares of DL GTPL Cabnet Private Limited",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/GTPLHL_31102026161614_DL_GTPL_Extension.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-31T10:46:45Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "GTPL Hathway is acquiring the remaining 74% stake in its subsidiary DL GTPL Cabnet.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "GTPL Hathway is acquiring the remaining 74% stake in its subsidiary DL GTPL Cabnet.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GTPL Hathway Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261031-485",
       "headline": "Tata Motors Limited: Tata Motors Limited has informed the Exchange about Resignation of Statutory Auditor",
@@ -1926,57 +1975,6 @@
           "name": "AstraZeneca",
           "ticker": null,
           "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261031-165",
-      "headline": "Deadly Intel Fab 28 explosion causes two-week shutdown, to cost $600 million and severely disrupt server chip manufacturing for six months — 10nm Xeon shipments stall during largest shortage in memory",
-      "headline_en": null,
-      "url": "https://www.tomshardware.com/pc-components/cpus/deadly-intel-fab-28-explosion-causes-two-week-shutdown-to-cost-usd600-million-and-severely-disrupt-server-chip-manufacturing-for-six-months-10nm-xeon-shipments-stall-during-largest-shortage-in-memory",
-      "source_name": "Tom's Hardware",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T09:30:00Z",
-      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
-      "prelim_note": "Intel Fab 28 explosion causes $600 million direct cost and six-month server-chip supply disruption, with 10nm Xeon shipments stalled.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Intel Fab 28 explosion causes $600 million direct cost and six-month server-chip supply disruption, with 10nm Xeon shipments stalled.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 7,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations",
-        "capex",
-        "macro_sector"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Intel Corporation",
-          "ticker": "INTC",
-          "listing_country": "US"
         }
       ],
       "size_bucket": "mega",
@@ -249305,9 +249303,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1163025,
-    "news_picked_today": 1371,
-    "news_dropped_today": 3957
+    "news_seen_today": 1183521,
+    "news_picked_today": 1378,
+    "news_dropped_today": 4142
   },
   "book_momentum": {
     "live_count": 8,
