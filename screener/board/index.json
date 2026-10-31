@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-31T12:45:28Z",
+  "generated_at": "2026-10-31T12:49:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20261031-498",
@@ -388,6 +388,55 @@
           "name": "Capillary Technologies India Limited",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261031-521",
+      "headline": "Buyout firm TDR Capital strikes €400m deal to buy Lovehoney",
+      "headline_en": null,
+      "url": "https://news.sky.com/story/buyout-firm-tdr-capital-strikes-400m-deal-to-buy-lovehoney-13606074",
+      "source_name": "Sky News — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-31T12:20:00Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "TDR Capital agreed to acquire Lovehoney for €400m, a named deal value for a private sexual wellness retailer.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "TDR Capital agreed to acquire Lovehoney for €400m, a named deal value for a private sexual wellness retailer.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lovehoney",
+          "ticker": null,
+          "listing_country": "GB"
         }
       ],
       "size_bucket": "unknown",
@@ -1916,55 +1965,6 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261031-050",
-      "headline": "Oil-to-chemicals business powers Reliance Industries' record quarterly net profit, up 34% to ₹29,550 crore",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/energy/oil-gas/oil-to-chemicals-business-powers-reliance-industries-record-quarterly-net-profit-up-34-to-29550-crore/articleshow/135375705.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-31T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
-      "prelim_note": "Reliance Industries reported a 34% increase in quarterly net profit to ₹29,550 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Reliance Industries reported a 34% increase in quarterly net profit to ₹29,550 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Reliance Industries",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -249146,9 +249146,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1266589,
-    "news_picked_today": 1425,
-    "news_dropped_today": 4599
+    "news_seen_today": 1268981,
+    "news_picked_today": 1426,
+    "news_dropped_today": 4622
   },
   "book_momentum": {
     "live_count": 8,
