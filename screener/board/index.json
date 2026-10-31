@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-31T11:11:24Z",
+  "generated_at": "2026-10-31T11:33:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20261031-498",
@@ -391,6 +391,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261031-513",
+      "headline": "Reddit stock plunges 28% as Google AI cuts US traffic",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/technology/reddit-stock-plunges-28-as-google-ai-cuts-us-traffic",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-31T11:07:00Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "Reddit stock fell 28% following reports of a significant decline in US traffic attributed to Google AI.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Reddit stock fell 28% following reports of a significant decline in US traffic attributed to Google AI.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Reddit",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1925,56 +1974,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261031-049",
-      "headline": "YES Bank faces 3-day deadline to restore ₹8,415 crore AT1 bonds after Supreme Court ruling",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/business/finance/yes-bank-faces-3-day-deadline-to-restore-rs8415-crore-at1-bonds-after-supreme-court-ruling-20023456.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T10:59:55Z",
-      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
-      "prelim_note": "YES Bank faces a 3-day deadline to restore Rs 8,415 crore in AT1 bonds following a Supreme Court ruling.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "YES Bank faces a 3-day deadline to restore Rs 8,415 crore in AT1 bonds following a Supreme Court ruling.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "default_distress",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "YES Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -249300,9 +249299,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1188669,
-    "news_picked_today": 1391,
-    "news_dropped_today": 4201
+    "news_seen_today": 1208813,
+    "news_picked_today": 1395,
+    "news_dropped_today": 4317
   },
   "book_momentum": {
     "live_count": 8,
