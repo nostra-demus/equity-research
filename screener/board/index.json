@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-31T03:06:11Z",
+  "generated_at": "2026-10-31T03:08:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20261031-295",
@@ -1305,6 +1305,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261031-314",
+      "headline": "As Poundland edges towards collapse as sale process fails, what next for the embattled retailer?",
+      "headline_en": null,
+      "url": "https://www.thisismoney.co.uk/money/markets/article-16249245/As-Poundland-edges-collapse-embattled-retailer.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
+      "source_name": "This is Money (Daily Mail) — Markets",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-29T17:53:58Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "Poundland is facing a potential collapse following a failed sale process, indicating severe financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Poundland is facing a potential collapse following a failed sale process, indicating severe financial distress.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 0,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Poundland",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261031-274",
       "headline": "79-year-old dining chain closes about 1,250 locations, 45 remain",
       "headline_en": null,
@@ -1928,55 +1977,6 @@
           "name": "Roblox Corporation",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261031-287",
-      "headline": "(LEAD) Hyundai E&C Q3 net profit down 31.6 pct to 46.4 bln won",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20261030007351320",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T04:46:39Z",
-      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
-      "prelim_note": "Hyundai E&C reported a 31.6% decline in Q3 net profit to 46.4 billion won.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Hyundai E&C reported a 31.6% decline in Q3 net profit to 46.4 billion won.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hyundai E&C",
-          "ticker": null,
-          "listing_country": "KR"
         }
       ],
       "size_bucket": "large",
@@ -249308,9 +249308,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 373040,
-    "news_picked_today": 504,
-    "news_dropped_today": 1224
+    "news_seen_today": 380046,
+    "news_picked_today": 512,
+    "news_dropped_today": 1240
   },
   "book_momentum": {
     "live_count": 8,
