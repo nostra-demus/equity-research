@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-31T09:08:23Z",
+  "generated_at": "2026-10-31T09:10:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20261031-464",
@@ -291,6 +291,55 @@
           "name": "Shyam Metalics and Energy Limited",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261031-478",
+      "headline": "OpenAI slashes funding target by US$10 billion amid tech rout: FT",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/openai-slashes-funding-target-us10-billion-amid-tech-rout-ft",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-31T07:46:58Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "OpenAI reportedly reduced its funding target by US$10 billion, indicating a major shift in capital expectations and valuation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "OpenAI reportedly reduced its funding target by US$10 billion, indicating a major shift in capital expectations and valuation.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -1938,55 +1987,6 @@
           "name": "BASF",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261031-206",
-      "headline": "Tesco to sell European units for £1.5bn in retreat from overseas empire-building",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/3effe28d-9055-40c2-8899-e6e78bcab7c3?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T08:38:33Z",
-      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
-      "prelim_note": "Tesco is divesting European units for £1.5bn, a significant capital action and strategic shift.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Tesco is divesting European units for £1.5bn, a significant capital action and strategic shift.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tesco",
-          "ticker": null,
-          "listing_country": "GB"
         }
       ],
       "size_bucket": "large",
@@ -249313,9 +249313,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1046792,
-    "news_picked_today": 1296,
-    "news_dropped_today": 3312
+    "news_seen_today": 1048644,
+    "news_picked_today": 1299,
+    "news_dropped_today": 3333
   },
   "book_momentum": {
     "live_count": 8,
