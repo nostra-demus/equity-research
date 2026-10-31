@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-31T10:37:24Z",
+  "generated_at": "2026-10-31T10:42:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20261031-485",
@@ -209890,77 +209890,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-887dbee70f05",
-      "idea_version": "IDEAV-0a1f1415a2315221",
-      "idea_version_started_at": "2026-10-30T22:42:14Z",
-      "ticker": "INTC",
-      "company": "Intel",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued weak guidance citing a significant PC market slowdown, signaling deteriorating margins and revenue growth in its core segment.",
-      "why_now": "The guidance update was released on 2026-10-29, triggering an immediate 21% price drop.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 23,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8b522a76addf"
-      ],
-      "primary_source_event_id": "EVT-8b522a76addf",
-      "source_headlines": [
-        "Intel stock plunges 21% as chipmaker blames PC slowdown for weak guidance"
-      ],
-      "source_headline": "Intel stock plunges 21% as chipmaker blames PC slowdown for weak guidance",
-      "source_url": "https://www.cnbc.com/2026/10/29/intel-intc-q3-earnings-report-2026-.html",
-      "source_name": "CNBC",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-29T22:37:54Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-30T22:42:14Z",
-      "updated_at": "2026-10-30T22:42:14Z",
-      "decay_at": "2026-10-31T10:37:54Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-520be705f9e6",
       "idea_version": "IDEAV-06ef681917289f94",
       "idea_version_started_at": "2026-10-31T07:00:21Z",
@@ -210945,6 +210874,77 @@
       "surfaced_at": "2026-10-29T04:07:36Z",
       "updated_at": "2026-10-29T04:07:36Z",
       "decay_at": "2026-10-30T09:24:40Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-887dbee70f05",
+      "idea_version": "IDEAV-0a1f1415a2315221",
+      "idea_version_started_at": "2026-10-30T22:42:14Z",
+      "ticker": "INTC",
+      "company": "Intel",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued weak guidance citing a significant PC market slowdown, signaling deteriorating margins and revenue growth in its core segment.",
+      "why_now": "The guidance update was released on 2026-10-29, triggering an immediate 21% price drop.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 23,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8b522a76addf"
+      ],
+      "primary_source_event_id": "EVT-8b522a76addf",
+      "source_headlines": [
+        "Intel stock plunges 21% as chipmaker blames PC slowdown for weak guidance"
+      ],
+      "source_headline": "Intel stock plunges 21% as chipmaker blames PC slowdown for weak guidance",
+      "source_url": "https://www.cnbc.com/2026/10/29/intel-intc-q3-earnings-report-2026-.html",
+      "source_name": "CNBC",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-29T22:37:54Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-30T22:42:14Z",
+      "updated_at": "2026-10-30T22:42:14Z",
+      "decay_at": "2026-10-31T10:37:54Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -212030,9 +212030,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 524,
+    "total_count": 525,
     "shown_count": 500,
-    "hidden_count": 24,
+    "hidden_count": 25,
     "side_counts": {
       "long": {
         "total_count": 265,
@@ -212040,9 +212040,9 @@
         "hidden_count": 15
       },
       "short": {
-        "total_count": 259,
+        "total_count": 260,
         "shown_count": 250,
-        "hidden_count": 9
+        "hidden_count": 10
       }
     },
     "retention": {
@@ -212061,6 +212061,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-887dbee70f05",
+        "idea_version": "IDEAV-0a1f1415a2315221",
+        "idea_version_started_at": "2026-10-30T22:42:14Z",
+        "ticker": "INTC",
+        "company": "Intel",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company issued weak guidance citing a significant PC market slowdown, signaling deteriorating margins and revenue growth in its core segment.",
+        "why_now": "The guidance update was released on 2026-10-29, triggering an immediate 21% price drop.",
+        "conviction": 85,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 60,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 23,
+          "specificity": 15,
+          "timing": 6,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-8b522a76addf"
+        ],
+        "primary_source_event_id": "EVT-8b522a76addf",
+        "source_headlines": [
+          "Intel stock plunges 21% as chipmaker blames PC slowdown for weak guidance"
+        ],
+        "source_headline": "Intel stock plunges 21% as chipmaker blames PC slowdown for weak guidance",
+        "source_url": "https://www.cnbc.com/2026/10/29/intel-intc-q3-earnings-report-2026-.html",
+        "source_name": "CNBC",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-29T22:37:54Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-30T22:42:14Z",
+        "updated_at": "2026-10-30T22:42:14Z",
+        "decay_at": "2026-10-31T10:37:54Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-31T10:37:54Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-759cf3b531e6",
         "idea_version": "IDEAV-2a60dd37cef7b512",
@@ -249207,87 +249281,12 @@
         "archived_at": "2026-10-07T16:37:55Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-88b7e00c8b3a",
-        "idea_version": "IDEAV-2f0876c3573d7252",
-        "idea_version_started_at": "2026-10-04T11:29:54Z",
-        "ticker": "BT.A",
-        "company": "BT Group",
-        "exchange": "LSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "BT Group is considering an improved offer for TalkTalk after an initial rejection, which risks overpaying and increasing leverage in a capital-intensive sector.",
-        "why_now": "The report of a renewed, improved offer surfaced on 2026-10-04, signaling active M&A negotiations.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-8a055edf29cd"
-        ],
-        "primary_source_event_id": "EVT-8a055edf29cd",
-        "source_headlines": [
-          "BT weighs improved TalkTalk offer after initial approach rejected"
-        ],
-        "source_headline": "BT weighs improved TalkTalk offer after initial approach rejected",
-        "source_url": "https://www.ft.com/content/d2d5a5a5-758f-472f-a2c7-1684955b0087",
-        "source_name": "Financial Times",
-        "materiality_max": 96,
-        "newest_source_at": "2026-10-04T11:03:09Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-04T11:29:54Z",
-        "updated_at": "2026-10-04T11:29:54Z",
-        "decay_at": "2026-10-05T23:03:09Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-07T16:37:55Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2011,
-    "live_count": 7,
+    "live_count": 6,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -249306,9 +249305,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1158933,
-    "news_picked_today": 1367,
-    "news_dropped_today": 3913
+    "news_seen_today": 1163025,
+    "news_picked_today": 1371,
+    "news_dropped_today": 3957
   },
   "book_momentum": {
     "live_count": 8,
