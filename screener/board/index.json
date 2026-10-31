@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-31T00:35:33Z",
+  "generated_at": "2026-10-31T00:39:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20261031-050",
@@ -447,6 +447,56 @@
       "companies": [
         {
           "name": "Bank of Baroda",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261031-123",
+      "headline": "Noel Tata seeks board scrutiny of SP Group's Rs 25,000 crore exit plan, Tata Sons restructuring",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/news/company/corporate-trends/noel-tata-seeks-board-scrutiny-of-sp-groups-rs-25000-crore-exit-plan-tata-sons-restructuring/articleshow/135376707.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-31T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "Noel Tata is seeking board scrutiny of a Rs 25,000 crore exit plan and restructuring at Tata Sons.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Noel Tata is seeking board scrutiny of a Rs 25,000 crore exit plan and restructuring at Tata Sons.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "strategic_review",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "strategic_review",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Sons",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -1339,6 +1389,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261031-128",
+      "headline": "South Korea clamps down on Tesla drivers for unlocking restricted full self-driving feature, $15,000 fines and prison possible sentences",
+      "headline_en": null,
+      "url": "https://www.tomshardware.com/tech-industry/cyber-security/south-korea-clamps-down-on-tesla-drivers-for-unlocking-restricted-fsd-usd15-000-fines-and-prison-possible-sentences-suspects-imported-hardware-from-europe-and-china-then-traded-tips-on-concealing-activation-logs",
+      "source_name": "Tom's Hardware",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T10:20:00Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "South Korean authorities are imposing fines and potential prison sentences for unauthorized use of Tesla's FSD features.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "South Korean authorities are imposing fines and potential prison sentences for unauthorized use of Tesla's FSD features.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 20,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tesla",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261031-102",
       "headline": "Exxon Increases Stake in Mozambique Gas Project Via Eni Swap",
       "headline_en": null,
@@ -1875,106 +1974,6 @@
       "companies": [
         {
           "name": "Asian Paints",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261031-113",
-      "headline": "Universal Music Shares Climb After Streaming Revenue Beats Expectations",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/earnings/universal-music-shares-climb-after-streaming-revenue-beats-expectations-ddcc0b59?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T10:19:00Z",
-      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
-      "prelim_note": "Universal Music's streaming revenue beat analyst expectations, confirmed by stock price rise; streaming is the core growth driver for the music industry.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "Universal Music's streaming revenue beat analyst expectations, confirmed by stock price rise; streaming is the core growth driver for the music industry.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 62,
-      "rank_factors": {
-        "materiality": 62,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 8,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Universal Music Group",
-          "ticker": "UMG",
-          "listing_country": "NL"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261031-001",
-      "headline": "India orders Sun Pharma to halt eye-care drug production at plant after quality lapses: Report",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/business/india-orders-sun-pharma-halt-eye-care-drug-production-plant-20023502.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T11:24:30Z",
-      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
-      "prelim_note": "India regulator orders Sun Pharma to halt eye-care drug production at plant after quality lapses; confirmed operational disruption to revenue.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "India regulator orders Sun Pharma to halt eye-care drug production at plant after quality lapses; confirmed operational disruption to revenue.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory",
-        "operations",
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sun Pharma",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -249313,9 +249312,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 28541,
-    "news_picked_today": 125,
-    "news_dropped_today": 307
+    "news_seen_today": 33058,
+    "news_picked_today": 136,
+    "news_dropped_today": 368
   },
   "book_momentum": {
     "live_count": 8,
