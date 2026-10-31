@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-31T02:34:10Z",
+  "generated_at": "2026-10-31T02:42:10Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261031-295",
+      "headline": "OpenAI cuts funding target by $10 billion, says report",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/business/openai-cuts-funding-target-by-usd-10-billion-chatgpt-20023854.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-31T02:30:54Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "OpenAI reportedly cutting its funding target by $10 billion indicates a significant shift in capital expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "OpenAI reportedly cutting its funding target by $10 billion indicates a significant shift in capital expectations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261031-273",
       "headline": "Johnson & Johnson Just Took $7 Billion in Charges and Still Raised Its Outlook. Here's What That Tells Investors.",
@@ -1921,55 +1970,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261031-026",
-      "headline": "Zee Entertainment Q2: Net profit drops 40.3% to ₹55.6 crore; EBITDA falls 46%",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/earnings/zee-entertainment-q2-net-profit-drops-ebitda-falls-revenue-up-20023472.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T11:12:28Z",
-      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
-      "prelim_note": "Zee Entertainment reported a 40.3% drop in net profit to ₹55.6 crore and a 46% decline in EBITDA.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Zee Entertainment reported a 40.3% drop in net profit to ₹55.6 crore and a 46% decline in EBITDA.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Zee Entertainment",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -249298,9 +249298,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 296945,
-    "news_picked_today": 440,
-    "news_dropped_today": 1072
+    "news_seen_today": 319103,
+    "news_picked_today": 452,
+    "news_dropped_today": 1108
   },
   "book_momentum": {
     "live_count": 8,
