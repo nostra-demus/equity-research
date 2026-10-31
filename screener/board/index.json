@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-31T00:53:55Z",
+  "generated_at": "2026-10-31T00:56:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20261031-050",
@@ -509,6 +509,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261031-173",
+      "headline": "EKA’s $2 billion bus book, ₹2,000 crore capex fuel push into trucks, six-seaters",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/ekas-2-billion-bus-book-2000-crore-capex-fuel-push-into-trucks-six-seaters/article71642267.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T09:16:06Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "EKA Mobility announced a $2 billion order book and a ₹2,000 crore capex plan for expansion into trucks and six-seaters.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "EKA Mobility announced a $2 billion order book and a ₹2,000 crore capex plan for expansion into trucks and six-seaters.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EKA Mobility",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261031-018",
       "headline": "Newell Brands Swings to Loss Despite Higher Sales",
       "headline_en": null,
@@ -749,6 +798,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261031-174",
+      "headline": "+++ Geschäftszahlen +++: Hohe Ölpreise bringen BP Milliardengewinn – Konzern will Deepwater-Horizon-Schulden damit zahlen",
+      "headline_en": "+++ Business Figures +++: High oil prices bring BP billion-dollar profit – Group wants to pay Deepwater Horizon debts with it",
+      "url": "https://www.handelsblatt.com/unternehmen/industrie/quartalszahlen-hohe-oelpreise-bringen-bp-milliardengewinn/24098412.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T09:16:32Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "BP reported billion-dollar profits driven by high oil prices and plans to use the proceeds to pay down Deepwater Horizon-related debt.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "BP reported billion-dollar profits driven by high oil prices and plans to use the proceeds to pay down Deepwater Horizon-related debt.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BP",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1877,104 +1975,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261031-032",
-      "headline": "BP profits quadruple in a year to reach 18-year high as high energy prices deliver record windfall",
-      "headline_en": null,
-      "url": "https://www.thisismoney.co.uk/money/markets/article-16251689/BP-profits-quadruple-year-high-energy-prices-deliver-record-windfall.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
-      "source_name": "This is Money (Daily Mail) — Markets",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T11:09:41Z",
-      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
-      "prelim_note": "BP reported a quadrupling of profits to an 18-year high.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "BP reported a quadrupling of profits to an 18-year high.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BP",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261031-128",
-      "headline": "South Korea clamps down on Tesla drivers for unlocking restricted full self-driving feature, $15,000 fines and prison possible sentences",
-      "headline_en": null,
-      "url": "https://www.tomshardware.com/tech-industry/cyber-security/south-korea-clamps-down-on-tesla-drivers-for-unlocking-restricted-fsd-usd15-000-fines-and-prison-possible-sentences-suspects-imported-hardware-from-europe-and-china-then-traded-tips-on-concealing-activation-logs",
-      "source_name": "Tom's Hardware",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T10:20:00Z",
-      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
-      "prelim_note": "South Korean authorities are imposing fines and potential prison sentences for unauthorized use of Tesla's FSD features.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "South Korean authorities are imposing fines and potential prison sentences for unauthorized use of Tesla's FSD features.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 20,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tesla",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -249308,9 +249308,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 41924,
-    "news_picked_today": 185,
-    "news_dropped_today": 535
+    "news_seen_today": 46206,
+    "news_picked_today": 194,
+    "news_dropped_today": 550
   },
   "book_momentum": {
     "live_count": 8,
