@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-31T22:00:43Z",
+  "generated_at": "2026-10-31T22:10:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20261031-711",
@@ -540,6 +540,56 @@
           "name": "Capillary Technologies India Limited",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261031-712",
+      "headline": "FBI Blames North Korea for $6 Billion Binance Crypto Hack",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-31/fbi-blames-north-korea-for-6-billion-binance-crypto-hack",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-31T21:59:09Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "The FBI has attributed a $6 billion crypto hack to North Korea, highlighting significant cybersecurity and regulatory risks for Binance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The FBI has attributed a $6 billion crypto hack to North Korea, highlighting significant cybersecurity and regulatory risks for Binance.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "cybersecurity",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Binance",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -1933,55 +1983,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261031-447",
-      "headline": "Bitcoin slides below $77,000 as record $6.3B Binance hack rattles crypto",
-      "headline_en": null,
-      "url": "https://www.hindustantimes.com/business/bitcoin-slides-below-77-000-as-record-6-3b-binance-hack-rattles-crypto-101793411431046.html",
-      "source_name": "Hindustan Times (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-31T05:46:23Z",
-      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
-      "prelim_note": "A $6.3 billion hack on Binance represents a massive security failure and systemic risk to crypto markets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A $6.3 billion hack on Binance represents a massive security failure and systemic risk to crypto markets.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Binance",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -249896,9 +249897,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1620198,
-    "news_picked_today": 1922,
-    "news_dropped_today": 7625
+    "news_seen_today": 1620203,
+    "news_picked_today": 1923,
+    "news_dropped_today": 7629
   },
   "book_momentum": {
     "live_count": 8,
