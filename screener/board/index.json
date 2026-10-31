@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-31T02:08:08Z",
+  "generated_at": "2026-10-31T02:11:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20261031-230",
@@ -858,6 +858,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261031-243",
+      "headline": "FirstFT: The high-stakes AI mega-project behind Nscale’s $35bn IPO",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/1e319b52-f31f-4dde-90b7-e01e2f199817?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T05:30:34Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "Nscale is planning a $35 billion IPO, representing a major capital market event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nscale is planning a $35 billion IPO, representing a major capital market event.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nscale",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261031-018",
       "headline": "Newell Brands Swings to Loss Despite Higher Sales",
       "headline_en": null,
@@ -1397,6 +1446,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261031-246",
+      "headline": "Roblox Corporation Reports Q3 2026 Revenue of $1.6 billion and Bookings of $1.7 billion",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/roblox-corporation-reports-q3-2026-revenue-16-billion-and-bookings-17-billion",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T05:28:26Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "Roblox reported Q3 2026 revenue of $1.6 billion and bookings of $1.7 billion, providing quantified financial results.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Roblox reported Q3 2026 revenue of $1.6 billion and bookings of $1.7 billion, providing quantified financial results.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Roblox Corporation",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261031-123",
       "headline": "Noel Tata seeks board scrutiny of SP Group's Rs 25,000 crore exit plan, Tata Sons restructuring",
       "headline_en": null,
@@ -1865,104 +1963,6 @@
         "size": 0,
         "recency": 1,
         "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Binance",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261031-008",
-      "headline": "Binance flags 'potential security issue,' says approximately $6.3 billion impacted",
-      "headline_en": null,
-      "url": "https://www.npr.org/2026/10/30/nx-s1-6023109/binance-security-issue",
-      "source_name": "NPR — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T11:21:56Z",
-      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
-      "prelim_note": "Binance reports a security issue impacting approximately $6.3 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Binance reports a security issue impacting approximately $6.3 billion.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Binance",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261031-017",
-      "headline": "Security experts are already wondering if North Korea is behind the $6.3 billion Binance heist",
-      "headline_en": null,
-      "url": "https://fortune.com/2026/10/30/f500d-binance-heist-security-concerns-hack-markets-year-end/",
-      "source_name": "Fortune",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T11:17:15Z",
-      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
-      "prelim_note": "A $6.3 billion heist involving a major crypto exchange represents a massive security and financial risk event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "A $6.3 billion heist involving a major crypto exchange represents a massive security and financial risk event.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -249311,9 +249311,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 224738,
-    "news_picked_today": 356,
-    "news_dropped_today": 916
+    "news_seen_today": 236438,
+    "news_picked_today": 362,
+    "news_dropped_today": 934
   },
   "book_momentum": {
     "live_count": 8,
