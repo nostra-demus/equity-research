@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-31T00:57:03Z",
+  "generated_at": "2026-10-31T00:59:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20261031-050",
@@ -1784,6 +1784,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261031-178",
+      "headline": "OpenAI reportedly cuts fundraising and valuation targets amid AI jitters",
+      "headline_en": null,
+      "url": "https://www.coindesk.com/business/2026/10/30/openai-reportedly-cuts-fundraising-target-amid-ai-jitters",
+      "source_name": "CoinDesk",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-31T00:48:56Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "OpenAI is reportedly cutting its fundraising and valuation targets, signaling potential cooling in AI investor sentiment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "OpenAI is reportedly cutting its fundraising and valuation targets, signaling potential cooling in AI investor sentiment.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261031-084",
       "headline": "Gulf Oil to invest ₹55 crore in expansion as plants run near full capacity",
       "headline_en": null,
@@ -1926,55 +1975,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261031-010",
-      "headline": "Kenvue Profit, Revenue Rise as Turnaround Efforts Continue",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/earnings/kenvue-profit-revenue-rise-as-turnaround-efforts-continue-b33ee357?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T11:19:00Z",
-      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
-      "prelim_note": "Kenvue reported growth in both profit and revenue, indicating successful execution of turnaround efforts.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Kenvue reported growth in both profit and revenue, indicating successful execution of turnaround efforts.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kenvue",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -249308,9 +249308,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 46206,
-    "news_picked_today": 194,
-    "news_dropped_today": 550
+    "news_seen_today": 50464,
+    "news_picked_today": 198,
+    "news_dropped_today": 570
   },
   "book_momentum": {
     "live_count": 8,
