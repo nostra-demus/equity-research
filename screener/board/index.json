@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-10-31T08:41:04Z",
+  "generated_at": "2026-10-31T08:44:55Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261031-464",
+      "headline": "Final Order in the matter of EKI Energy Services Ltd.",
+      "headline_en": null,
+      "url": "https://www.sebi.gov.in/enforcement/orders/oct-2026/final-order-in-the-matter-of-eki-energy-services-ltd-_105524.html",
+      "source_name": "Securities and Exchange Board of India (SEBI)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-31T08:38:42Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "SEBI issued a final order regarding EKI Energy Services Ltd, indicating potential regulatory enforcement action.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SEBI issued a final order regarding EKI Energy Services Ltd, indicating potential regulatory enforcement action.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EKI Energy Services Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261031-457",
       "headline": "AGS Transact Technologies Limited: AGS Transact Technologies Limited has informed the Exchange about Corporate Insolvency Resolution Process",
@@ -1934,55 +1984,6 @@
       "companies": [
         {
           "name": "Binance",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261031-243",
-      "headline": "FirstFT: The high-stakes AI mega-project behind Nscale’s $35bn IPO",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/1e319b52-f31f-4dde-90b7-e01e2f199817?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T05:30:34Z",
-      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
-      "prelim_note": "Nscale is planning a $35 billion IPO, representing a major capital market event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nscale is planning a $35 billion IPO, representing a major capital market event.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nscale",
           "ticker": null,
           "listing_country": null
         }
@@ -249314,9 +249315,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1009907,
-    "news_picked_today": 1267,
-    "news_dropped_today": 3101
+    "news_seen_today": 1015204,
+    "news_picked_today": 1271,
+    "news_dropped_today": 3121
   },
   "book_momentum": {
     "live_count": 8,
