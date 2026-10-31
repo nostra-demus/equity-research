@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-31T15:41:30Z",
+  "generated_at": "2026-10-31T16:37:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20261031-546",
@@ -489,6 +489,60 @@
       "companies": [
         {
           "name": "Capillary Technologies India Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261031-551",
+      "headline": "Marathon Nextgen Realty to buy Adani Group's 60 pc stake in Mumbai project for Rs 335 crore",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/services/property-/-cstruction/marathon-nextgen-realty-to-buy-adani-groups-60-pc-stake-in-mumbai-project-for-rs-335-crore/articleshow/135405049.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-31T15:38:47Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "Marathon Nextgen Realty will acquire a 60% stake in a Mumbai project from Adani Group for Rs 335 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Marathon Nextgen Realty will acquire a 60% stake in a Mumbai project from Adani Group for Rs 335 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Marathon Nextgen Realty",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Adani Group",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -1924,56 +1978,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261031-356",
-      "headline": "US Approves $2.1 Billion Sale Of 500 Patriot PAC-3 MSE Interceptors To Ukraine, With Europe & Canada Funding The Major Defence Deal",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/world/us-approves-21-billion-sale-of-500-patriot-pac-3-mse-interceptors-to-ukraine-with-europe-canada-funding-the-major-defence-deal",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-31T02:50:52Z",
-      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
-      "prelim_note": "The US approved a $2.1 billion defense sale to Ukraine, impacting major defense contractors.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The US approved a $2.1 billion defense sale to Ukraine, impacting major defense contractors.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna",
-        "commercial"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [
-        {
-          "name": "Lockheed Martin",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -249736,9 +249740,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1442534,
-    "news_picked_today": 1519,
-    "news_dropped_today": 5897
+    "news_seen_today": 1494092,
+    "news_picked_today": 1526,
+    "news_dropped_today": 5986
   },
   "book_momentum": {
     "live_count": 8,
