@@ -1,29 +1,29 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-10-07T04:00:49Z",
+  "archived_at": "2026-10-31T22:00:32Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-905257f7a80a",
-    "idea_version": "IDEAV-623b015be0f215ae",
-    "idea_version_started_at": "2026-10-04T04:59:59Z",
-    "ticker": "SFTBY",
-    "company": "SoftBank Group",
-    "exchange": "OTC Markets",
+    "idea_id": "IDEA-50f379c78b21",
+    "idea_version": "IDEAV-684e5b6f4e95a92b",
+    "idea_version_started_at": "2026-10-29T04:07:36Z",
+    "ticker": "NVDA",
+    "company": "Nvidia",
+    "exchange": "NASDAQ",
     "ticker_verified": true,
     "listing_verified": true,
     "liquidity_verified": false,
     "listing_verification_source": "yahoo_symbol_directory",
     "direction": "short",
     "pair_with": null,
-    "reason": "The company's aggressive AI investment strategy is increasingly constrained by its balance sheet capacity, raising risks of equity dilution or asset fire sales.",
-    "why_now": "The report highlights a structural mismatch between current AI capital requirements and available liquidity as of October 2026.",
+    "reason": "DOJ scrutiny of the $12.9 billion Hugging Face acquisition introduces significant regulatory risk and potential deal termination, which could weigh on the stock's premium valuation.",
+    "why_now": "The news of DOJ scrutiny broke on October 28, 2026, creating immediate regulatory overhang.",
     "conviction": 60,
     "conviction_basis": "pre_edge_proxy",
-    "trade_score": 61,
+    "trade_score": 67,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
       "evidence": 14,
-      "impact": 15,
+      "impact": 21,
       "specificity": 15,
       "timing": 10,
       "expression": 7,
@@ -47,30 +47,30 @@
       "evidenceIds": []
     },
     "priced_in": "room",
-    "thesis_type": "company_specific",
+    "thesis_type": "policy_conditional",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-9e040b741a2b"
+      "EVT-43027d7f1441"
     ],
-    "primary_source_event_id": "EVT-9e040b741a2b",
+    "primary_source_event_id": "EVT-43027d7f1441",
     "source_headlines": [
-      "Masayoshi Son’s AI ambitions outgrow SoftBank’s balance sheet"
+      "Nvidia's $12.9 billion Hugging Face deal draws DOJ scrutiny"
     ],
-    "source_headline": "Masayoshi Son’s AI ambitions outgrow SoftBank’s balance sheet",
-    "source_url": "https://www.ft.com/content/9b3a355e-5975-445f-9004-b95513e3856a?syn-25a6b1a6=1",
-    "source_name": "Financial Times",
-    "materiality_max": 87,
-    "newest_source_at": "2026-10-04T04:00:07Z",
+    "source_headline": "Nvidia's $12.9 billion Hugging Face deal draws DOJ scrutiny",
+    "source_url": "https://www.cnbc.com/2026/10/28/doj-questions-nvidias-12point9-billion-hugging-face-deal.html",
+    "source_name": "CNBC",
+    "materiality_max": 100,
+    "newest_source_at": "2026-10-28T21:58:51Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-10-04T04:59:59Z",
-    "updated_at": "2026-10-04T04:59:59Z",
-    "decay_at": "2026-10-05T16:00:07Z",
+    "surfaced_at": "2026-10-29T04:07:36Z",
+    "updated_at": "2026-10-29T04:07:36Z",
+    "decay_at": "2026-10-30T09:58:51Z",
     "status": "live",
     "promoted_signal_id": null
   }
