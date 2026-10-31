@@ -1,21 +1,70 @@
 {
-  "generated_at": "2026-10-31T06:44:54Z",
+  "generated_at": "2026-10-31T06:48:15Z",
   "inbox": [
     {
-      "inbox_id": "INB-20261031-443",
-      "headline": "Nazara Tech invests ₹734.35 crore into UK arm for acquisition of Bluetile & Bestplay",
+      "inbox_id": "INB-20261031-448",
+      "headline": "Capillary Technologies India Limited: Capillary Technologies India Limited has informed the Exchange about Fraud/Default/Arrest",
       "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/nazara-tech-share-price-invests-rs-734-35-crore-into-uk-arm-for-acquisition-of-bluetile-bestplay-20023939.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-31T06:04:44Z",
+      "url": "https://nsearchives.nseindia.com/corporate/CAPILLARY12_31102026115318_Intimation_forensic_audit_report_and_summary.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-31T06:25:11Z",
       "sweep_file": "screener/inbox/2026-10-31_sweep.json",
-      "prelim_note": "Nazara Technologies is investing ₹734.35 crore to acquire Bluetile and Bestplay.",
+      "prelim_note": "The company has disclosed a fraud, default, or arrest event, which is a material risk to operations and management credibility.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Nazara Technologies is investing ₹734.35 crore to acquire Bluetile and Bestplay.",
+      "triage_reason": "The company has disclosed a fraud, default, or arrest event, which is a material risk to operations and management credibility.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Capillary Technologies India Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261031-451",
+      "headline": "Nazara Tech invests ₹734 crore into UK arm for acquisition of Bluetile & Bestplay",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/nazara-tech-share-price-invests-rs-734-crore-into-uk-arm-for-acquisition-of-bluetile-bestplay-20023939.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-31T06:11:32Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "Nazara Technologies is investing ₹734 crore for the acquisition of two entities, representing a significant capital allocation and expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nazara Technologies is investing ₹734 crore for the acquisition of two entities, representing a significant capital allocation and expansion.",
       "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 75,
@@ -24,7 +73,7 @@
         "source_tier": 0,
         "scope": 5,
         "event": 9,
-        "size": -1,
+        "size": 1,
         "recency": 5,
         "materiality_label_floor": 10,
         "quantified": 6,
@@ -32,11 +81,10 @@
         "scope_id": "multi_name",
         "source_tier_id": "news",
         "event_id": "mna",
-        "size_bucket": "small"
+        "size_bucket": "mid"
       },
       "event_types": [
-        "mna",
-        "capex"
+        "mna"
       ],
       "issuer_linkage": "primary",
       "companies": [
@@ -46,7 +94,56 @@
           "listing_country": "IN"
         }
       ],
-      "size_bucket": "small",
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261031-452",
+      "headline": "Lodha Posts Strong Q2 FY27 Results, Profit After Tax Rises 28% To ₹1,013 Crore; H1 PAT Climbs 63% On Robust Revenue Growth",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/lodha-posts-strong-q2-fy27-results-profit-after-tax-rises-28-to-1013-crore-h1-pat-climbs-63-on-robust-revenue-growth",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-31T05:53:30Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "Lodha reported a 28% increase in PAT to ₹1,013 crore, indicating strong financial performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Lodha reported a 28% increase in PAT to ₹1,013 crore, indicating strong financial performance.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lodha",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1890,109 +1987,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261031-301",
-      "headline": "DoorDash buys Instacart just as AI rewrites the menu",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/13c96ad2-6aee-4c28-9f3c-d2ad9ca1c3d0?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T18:33:48Z",
-      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
-      "prelim_note": "DoorDash is reported to be acquiring Instacart, a major M&A event in the delivery sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "DoorDash is reported to be acquiring Instacart, a major M&A event in the delivery sector.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DoorDash",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Instacart",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261031-308",
-      "headline": "Once-powerful tourism body hurtling towards a solvency crash landing",
-      "headline_en": null,
-      "url": "https://www.afr.com/rear-window/once-powerful-tourism-body-hurtling-towards-a-solvency-crash-landing-20261030-p619o6?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T18:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
-      "prelim_note": "A major tourism body is facing a potential solvency crisis.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A major tourism body is facing a potential solvency crisis.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tourism Australia",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -249174,9 +249168,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 854050,
-    "news_picked_today": 945,
-    "news_dropped_today": 2271
+    "news_seen_today": 864329,
+    "news_picked_today": 953,
+    "news_dropped_today": 2383
   },
   "book_momentum": {
     "live_count": 8,
