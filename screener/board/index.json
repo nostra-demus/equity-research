@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-31T22:35:46Z",
+  "generated_at": "2026-10-31T22:40:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20261031-711",
@@ -540,6 +540,56 @@
           "name": "Capillary Technologies India Limited",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261031-714",
+      "headline": "FBI says N. Korea responsible for over US$6 bln crypto theft from Binance",
+      "headline_en": null,
+      "url": "https://en.yna.co.kr/view/AEN20261101000300315",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-31T22:32:58Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "The FBI has officially attributed over US$6 billion in cryptocurrency thefts to North Korean actors, specifically targeting Binance, which poses significant regulatory and operational risk for the exchange.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The FBI has officially attributed over US$6 billion in cryptocurrency thefts to North Korean actors, specifically targeting Binance, which poses significant regulatory and operational risk for the exchange.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "cybersecurity",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Binance",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -1934,55 +1984,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261031-452",
-      "headline": "Lodha Posts Strong Q2 FY27 Results, Profit After Tax Rises 28% To ₹1,013 Crore; H1 PAT Climbs 63% On Robust Revenue Growth",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/lodha-posts-strong-q2-fy27-results-profit-after-tax-rises-28-to-1013-crore-h1-pat-climbs-63-on-robust-revenue-growth",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-31T05:53:30Z",
-      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
-      "prelim_note": "Lodha reported a 28% increase in PAT to ₹1,013 crore, indicating strong financial performance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Lodha reported a 28% increase in PAT to ₹1,013 crore, indicating strong financial performance.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lodha",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -249896,8 +249897,8 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1620227,
-    "news_picked_today": 1927,
+    "news_seen_today": 1620230,
+    "news_picked_today": 1930,
     "news_dropped_today": 7649
   },
   "book_momentum": {
