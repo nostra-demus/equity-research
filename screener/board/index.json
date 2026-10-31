@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-31T03:08:10Z",
+  "generated_at": "2026-10-31T03:28:21Z",
   "inbox": [
     {
       "inbox_id": "INB-20261031-295",
@@ -1354,6 +1354,153 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261031-329",
+      "headline": "Alphabet’s AI risks deepen as filing reveals $98 billion in hidden commitments",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/alphabets-ai-risks-deepen-as-filing-reveals-98-5-billion-in-hidden-commitments/articleshow/135325480.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-29T17:37:58Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "Alphabet faces potential accounting scrutiny regarding $98 billion in previously undisclosed commitments.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Alphabet faces potential accounting scrutiny regarding $98 billion in previously undisclosed commitments.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "accounting_restatement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Alphabet",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261031-352",
+      "headline": "Lenders Seek to Sell Debt of Rovensa as Firm Burns Through Cash",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-29/lenders-seek-to-sell-debt-of-rovensa-as-firm-burns-through-cash",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-29T17:15:36Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "Lenders are seeking to sell debt of Rovensa as the firm burns through cash, indicating severe liquidity distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Lenders are seeking to sell debt of Rovensa as the firm burns through cash, indicating severe liquidity distress.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Rovensa",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261031-355",
+      "headline": "Canada to invest up to $1.6B in Toronto-based AI company Cohere",
+      "headline_en": null,
+      "url": "https://www.cbc.ca/news/business/canada-cohere-ai-investment-9.7401367?cmp=rss",
+      "source_name": "CBC — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-29T17:12:24Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "The Canadian government is investing up to $1.6 billion in Cohere, a significant capital injection for the AI company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The Canadian government is investing up to $1.6 billion in Cohere, a significant capital injection for the AI company.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cohere",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261031-274",
       "headline": "79-year-old dining chain closes about 1,250 locations, 45 remain",
       "headline_en": null,
@@ -1830,153 +1977,6 @@
           "name": "Varun Beverages",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261031-205",
-      "headline": "Autobauer: Gewinn von Audi bricht drastisch ein – 87 Prozent weniger als im Vorjahreszeitraum",
-      "headline_en": "Automaker: Audi profit collapses drastically – 87 percent less than in the same period last year",
-      "url": "https://www.handelsblatt.com/unternehmen/industrie/autohersteller-audi-schreibt-verluste-im-dritten-quartal/100265268.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T08:51:13Z",
-      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
-      "prelim_note": "Audi reported an 87% drop in profit compared to the previous year.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Audi reported an 87% drop in profit compared to the previous year.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Audi",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261031-216",
-      "headline": "Varun Beverages quarterly profit rises 14% to ₹828 crore on volume growth; packaging costs weigh on margins",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/varun-beverages-quarterly-profit-rises-14-to-828-crore-on-volume-growth-packaging-costs-weigh-on-margins/article71644217.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T08:30:32Z",
-      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
-      "prelim_note": "Varun Beverages reported a 14% rise in quarterly profit to ₹828 crore, though packaging costs remain a margin headwind.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Varun Beverages reported a 14% rise in quarterly profit to ₹828 crore, though packaging costs remain a margin headwind.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Varun Beverages",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261031-246",
-      "headline": "Roblox Corporation Reports Q3 2026 Revenue of $1.6 billion and Bookings of $1.7 billion",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/roblox-corporation-reports-q3-2026-revenue-16-billion-and-bookings-17-billion",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T05:28:26Z",
-      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
-      "prelim_note": "Roblox reported Q3 2026 revenue of $1.6 billion and bookings of $1.7 billion, providing quantified financial results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Roblox reported Q3 2026 revenue of $1.6 billion and bookings of $1.7 billion, providing quantified financial results.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Roblox Corporation",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -249308,9 +249308,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 380046,
-    "news_picked_today": 512,
-    "news_dropped_today": 1240
+    "news_seen_today": 418778,
+    "news_picked_today": 574,
+    "news_dropped_today": 1370
   },
   "book_momentum": {
     "live_count": 8,
