@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-10-31T09:25:25Z",
+  "generated_at": "2026-10-31T10:11:24Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261031-485",
+      "headline": "Tata Motors Limited: Tata Motors Limited has informed the Exchange about Resignation of Statutory Auditor",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/TMCV_ROSA_102750_KMP_Doc.zip",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-31T09:29:46Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "Tata Motors Limited announced the resignation of its statutory auditor, which is a significant corporate governance event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tata Motors Limited announced the resignation of its statutory auditor, which is a significant corporate governance event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Motors Limited",
+          "ticker": "500570",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261031-483",
+      "headline": "Marathon Nextgen Realty Limited: Acquisition of full economic interest in Monte South Project, Byculla by acquiring additional 60% stake in Swayam Realtors and Traders LLP ( SRTL ), a Joint Venture",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/MARATHON_31102026144640_OUTCOME.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-31T09:16:50Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "Marathon Nextgen Realty Limited is acquiring an additional 60% stake in a joint venture to gain full economic interest in the Monte South Project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Marathon Nextgen Realty Limited is acquiring an additional 60% stake in a joint venture to gain full economic interest in the Monte South Project.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Marathon Nextgen Realty Limited",
+          "ticker": "503101",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261031-464",
       "headline": "Final Order in the matter of EKI Energy Services Ltd.",
@@ -195,6 +293,56 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261031-495",
+      "headline": "Shyam Metalics Q2 Results: Profit Up 43% to Rs 493 Crore, Revenue Rises 9% YoY; Capex Plan Approved",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/shyam-metalics-q2-results-profit-up-43-to-rs-493-crore-revenue-rises-9-yoy-capex-plan-approved-12262866#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-31T08:36:10Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "Shyam Metalics reported a 43% profit increase to Rs 493 crore and approved a new capex plan.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Shyam Metalics reported a 43% profit increase to Rs 493 crore and approved a new capex plan.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shyam Metalics",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1832,164 +1980,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261031-173",
-      "headline": "EKA’s $2 billion bus book, ₹2,000 crore capex fuel push into trucks, six-seaters",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/ekas-2-billion-bus-book-2000-crore-capex-fuel-push-into-trucks-six-seaters/article71642267.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T09:16:06Z",
-      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
-      "prelim_note": "EKA Mobility announced a $2 billion order book and a ₹2,000 crore capex plan for expansion into trucks and six-seaters.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "EKA Mobility announced a $2 billion order book and a ₹2,000 crore capex plan for expansion into trucks and six-seaters.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "EKA Mobility",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261031-197",
-      "headline": "Symbotic Inc. Enters Enterprise Master Automation Agreement with Walmart Inc. Representing Initial Commitment of Approximately $6,000,000,000",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/symbotic-inc-enters-enterprise-master-automation-agreement-walmart-inc-representing",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T08:58:50Z",
-      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
-      "prelim_note": "Symbotic entered a $6 billion automation agreement with Walmart, representing a massive revenue-generating contract.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Symbotic entered a $6 billion automation agreement with Walmart, representing a massive revenue-generating contract.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Symbotic Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Walmart Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261031-204",
-      "headline": "Übernahmepoker: Evonik lehnt erhöhte Offerte von BASF ab",
-      "headline_en": "Takeover poker: Evonik rejects increased offer from BASF",
-      "url": "https://www.handelsblatt.com/unternehmen/industrie/uebernahmepoker-evonik-lehnt-erhoehte-offerte-von-basf-ab/100266102.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T08:53:16Z",
-      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
-      "prelim_note": "Evonik rejected an increased takeover offer from BASF.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Evonik rejected an increased takeover offer from BASF.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Evonik",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "BASF",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -249317,9 +249307,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1069956,
-    "news_picked_today": 1329,
-    "news_dropped_today": 3471
+    "news_seen_today": 1128362,
+    "news_picked_today": 1356,
+    "news_dropped_today": 3780
   },
   "book_momentum": {
     "live_count": 8,
