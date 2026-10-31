@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-887dbee70f05",
-  "idea_version": "IDEAV-0a1f1415a2315221",
-  "idea_version_started_at": "2026-10-30T22:42:14Z",
+  "idea_version": "IDEAV-65cc662b01843e5d",
+  "idea_version_started_at": "2026-10-31T11:39:53Z",
   "ticker": "INTC",
   "company": "Intel",
   "exchange": "NASDAQ",
@@ -11,15 +11,15 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "short",
   "pair_with": null,
-  "reason": "The company issued weak guidance citing a significant PC market slowdown, signaling deteriorating margins and revenue growth in its core segment.",
-  "why_now": "The guidance update was released on 2026-10-29, triggering an immediate 21% price drop.",
-  "conviction": 85,
+  "reason": "The company signaled a lack of free cash flow generation for the upcoming fiscal year, indicating severe pressure on capital allocation and balance sheet flexibility.",
+  "why_now": "The guidance warning was issued on 2026-10-30, creating immediate negative sentiment regarding the company's turnaround trajectory.",
+  "conviction": 80,
   "conviction_basis": "pre_edge_proxy",
-  "trade_score": 60,
+  "trade_score": 63,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 14,
-    "impact": 23,
+    "impact": 21,
     "specificity": 15,
     "timing": 6,
     "expression": 7,
@@ -30,7 +30,6 @@
   "missing_checks": [
     "live liquidity",
     "dated catalyst",
-    "priced-in risk",
     "independent confirmation",
     "live price, liquidity, and consensus"
   ],
@@ -43,22 +42,22 @@
     "basis": "not_enough_outcomes",
     "evidenceIds": []
   },
-  "priced_in": "priced",
+  "priced_in": "room",
   "thesis_type": "company_specific",
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-8b522a76addf"
+    "EVT-49eaf90eaf9c"
   ],
-  "primary_source_event_id": "EVT-8b522a76addf",
+  "primary_source_event_id": "EVT-49eaf90eaf9c",
   "source_headlines": [
-    "Intel stock plunges 21% as chipmaker blames PC slowdown for weak guidance"
+    "Intel Just Warned It Probably Won’t Generate Free Cash Flow Next Year"
   ],
-  "source_headline": "Intel stock plunges 21% as chipmaker blames PC slowdown for weak guidance",
-  "source_url": "https://www.cnbc.com/2026/10/29/intel-intc-q3-earnings-report-2026-.html",
-  "source_name": "CNBC",
+  "source_headline": "Intel Just Warned It Probably Won’t Generate Free Cash Flow Next Year",
+  "source_url": "https://247wallst.com/investing/2026/10/30/intel-just-warned-it-probably-wont-generate-free-cash-flow-next-year/",
+  "source_name": "24/7 Wall St.",
   "materiality_max": 100,
-  "newest_source_at": "2026-10-29T22:37:54Z",
+  "newest_source_at": "2026-10-30T11:18:10Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
@@ -66,8 +65,8 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-10-30T22:42:14Z",
-  "updated_at": "2026-10-30T22:42:14Z",
-  "decay_at": "2026-10-31T10:37:54Z",
+  "updated_at": "2026-10-31T11:39:53Z",
+  "decay_at": "2026-10-31T23:18:10Z",
   "status": "live",
   "promoted_signal_id": null
 }
