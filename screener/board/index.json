@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-31T01:30:10Z",
+  "generated_at": "2026-10-31T01:35:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20261031-211",
@@ -1249,6 +1249,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261031-216",
+      "headline": "Varun Beverages quarterly profit rises 14% to ₹828 crore on volume growth; packaging costs weigh on margins",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/varun-beverages-quarterly-profit-rises-14-to-828-crore-on-volume-growth-packaging-costs-weigh-on-margins/article71644217.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T08:30:32Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "Varun Beverages reported a 14% rise in quarterly profit to ₹828 crore, though packaging costs remain a margin headwind.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Varun Beverages reported a 14% rise in quarterly profit to ₹828 crore, though packaging costs remain a margin headwind.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Varun Beverages",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261031-123",
       "headline": "Noel Tata seeks board scrutiny of SP Group's Rs 25,000 crore exit plan, Tata Sons restructuring",
       "headline_en": null,
@@ -1594,6 +1643,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261031-229",
+      "headline": "Welspun Living Reports Massive Q2 Profit Surge To ₹169 Crore, Revenue Up 16.9% On Strong Home Textile Exports",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/welspun-living-reports-massive-q2-profit-surge-to-169-crore-revenue-up-169-on-strong-home-textile-exports",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T08:27:36Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "Welspun Living reported a significant profit surge to ₹169 crore and 16.9% revenue growth, indicating strong operational performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Welspun Living reported a significant profit surge to ₹169 crore and 16.9% revenue growth, indicating strong operational performance.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Welspun Living",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261031-005",
       "headline": "Biggest-ever crypto hack impacts $6.3 billion as Binance works to contain fallout",
       "headline_en": null,
@@ -1888,104 +1986,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261031-152",
-      "headline": "FirstFT: Binance falls victim to record crypto heist",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/1e319b52-f31f-4dde-90b7-e01e2f199817?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T09:43:29Z",
-      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
-      "prelim_note": "Binance suffered a record-breaking crypto heist, posing a major operational and reputational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Binance suffered a record-breaking crypto heist, posing a major operational and reputational risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Binance",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261031-153",
-      "headline": "‘Elite North Korean hackers’ blamed for $6.3bn Binance heist – business live",
-      "headline_en": null,
-      "url": "https://www.theguardian.com/business/live/2026/oct/30/uk-house-price-growth-crypto-industry-6bn-binance-hack-eurozone-france-gdp-latest-news-updates",
-      "source_name": "The Guardian — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T09:42:23Z",
-      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
-      "prelim_note": "A $6.3 billion crypto heist attributed to North Korean hackers represents a massive security breach and financial loss.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "A $6.3 billion crypto heist attributed to North Korean hackers represents a massive security breach and financial loss.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Binance",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -249316,9 +249316,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 137119,
-    "news_picked_today": 262,
-    "news_dropped_today": 746
+    "news_seen_today": 145290,
+    "news_picked_today": 280,
+    "news_dropped_today": 776
   },
   "book_momentum": {
     "live_count": 8,
