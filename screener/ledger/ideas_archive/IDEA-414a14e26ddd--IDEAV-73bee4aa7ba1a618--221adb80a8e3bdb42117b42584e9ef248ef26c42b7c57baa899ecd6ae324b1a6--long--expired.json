@@ -1,29 +1,29 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-10-06T10:47:40Z",
+  "archived_at": "2026-10-31T00:35:23Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-f29ccaae38d5",
-    "idea_version": "IDEAV-dbdfab38ef84ef13",
-    "idea_version_started_at": "2026-10-03T07:11:46Z",
-    "ticker": "CIPLA",
-    "company": "Cipla",
-    "exchange": "NSE",
+    "idea_id": "IDEA-414a14e26ddd",
+    "idea_version": "IDEAV-73bee4aa7ba1a618",
+    "idea_version_started_at": "2026-10-28T07:06:06Z",
+    "ticker": "BMPS",
+    "company": "Banca Monte dei Paschi di Siena",
+    "exchange": "BIT",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
-    "direction": "short",
+    "direction": "long",
     "pair_with": null,
-    "reason": "The Maharashtra FDA has cancelled the drug sale license of a Cipla facility, which will directly impact its revenue and operations.",
-    "why_now": "The decision by the FDA was announced today.",
-    "conviction": 70,
+    "reason": "ECB regulatory clearance for a acquisition by Intesa Sanpaolo paves the way for a definitive takeover bid and M&A control premium.",
+    "why_now": "ECB approval granted on October 27, 2026.",
+    "conviction": 65,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
       "evidence": 14,
-      "impact": 19,
+      "impact": 18,
       "specificity": 7,
       "timing": 10,
       "expression": 0,
@@ -36,7 +36,6 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
-      "price and market expectations",
       "independent confirmation",
       "live price, liquidity, and consensus"
     ],
@@ -49,31 +48,31 @@
       "basis": "not_enough_outcomes",
       "evidenceIds": []
     },
-    "priced_in": "unknown",
+    "priced_in": "room",
     "thesis_type": "company_specific",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-da4ac97cc421"
+      "EVT-ccffd4c37f63"
     ],
-    "primary_source_event_id": "EVT-da4ac97cc421",
+    "primary_source_event_id": "EVT-ccffd4c37f63",
     "source_headlines": [
-      "Maharashtra FDA Cancels Drug Sale Licence Of Pune Cipla Facility; Disappointing Decision, Says Firm"
+      "Banks: ECB gives Intesa Sanpaolo green light for MPS takeover"
     ],
-    "source_headline": "Maharashtra FDA Cancels Drug Sale Licence Of Pune Cipla Facility; Disappointing Decision, Says Firm",
-    "source_url": "https://www.outlookbusiness.com/corporate/maharashtra-fda-cancels-drug-sale-licence-of-pune-cipla-facility-disappointing-decision-says-firm",
-    "source_name": "Outlook Business",
-    "materiality_max": 94,
-    "newest_source_at": "2026-10-03T06:46:12Z",
+    "source_headline": "Banken: EZB gibt Intesa Sanpaolo grünes Licht für MPS-Übernahme",
+    "source_url": "https://www.handelsblatt.com/finanzen/banken-versicherungen/banken-ezb-gibt-intesa-sanpaolo-gruenes-licht-fuer-mps-uebernahme/100265409.html",
+    "source_name": "Handelsblatt",
+    "materiality_max": 100,
+    "newest_source_at": "2026-10-27T23:59:40Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-10-03T07:11:46Z",
-    "updated_at": "2026-10-03T07:11:46Z",
-    "decay_at": "2026-10-04T18:46:12Z",
+    "surfaced_at": "2026-10-28T07:06:06Z",
+    "updated_at": "2026-10-28T07:06:06Z",
+    "decay_at": "2026-10-29T11:59:40Z",
     "status": "live",
     "promoted_signal_id": null
   }
