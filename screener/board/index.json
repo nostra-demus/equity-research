@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-31T17:49:42Z",
+  "generated_at": "2026-10-31T18:07:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20261031-546",
@@ -494,6 +494,56 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261031-560",
+      "headline": "Binance says 90% of $6.3 billion hack losses are now covered, plans to resume withdrawals Sunday",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/10/31/binance-hack-asset-coverage-withdrawals.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-31T18:02:32Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "Binance reports 90% recovery of $6.3 billion in hacked funds and plans to resume operations, mitigating a major solvency/operational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Binance reports 90% recovery of $6.3 billion in hacked funds and plans to resume operations, mitigating a major solvency/operational risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations",
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Binance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1924,60 +1974,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261031-391",
-      "headline": "Adani Energy Solutions Gets CCI Nod To Acquire IntelliSmart Infrastructure In Rs 3,050-Crore Deal",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/business/adani-energy-solutions-gets-cci-nod-to-acquire-intellismart-infrastructure-in-rs-3-050-crore-deal-12262063#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-31T03:57:46Z",
-      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
-      "prelim_note": "Adani Energy Solutions received regulatory approval to acquire IntelliSmart Infrastructure for ₹3,050 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Adani Energy Solutions received regulatory approval to acquire IntelliSmart Infrastructure for ₹3,050 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Adani Energy Solutions",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "IntelliSmart Infrastructure",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -249885,9 +249881,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1563968,
-    "news_picked_today": 1546,
-    "news_dropped_today": 6086
+    "news_seen_today": 1583045,
+    "news_picked_today": 1574,
+    "news_dropped_today": 6370
   },
   "book_momentum": {
     "live_count": 8,
