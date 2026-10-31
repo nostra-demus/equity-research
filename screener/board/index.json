@@ -1,6 +1,109 @@
 {
-  "generated_at": "2026-10-31T14:13:30Z",
+  "generated_at": "2026-10-31T14:56:28Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261031-546",
+      "headline": "Neogen Chemicals Limited: Neogen Chemicals Limited has informed the Exchange about expanding the existing Organo-Lithium chemicals manufacturing facility from 300 MT/PA of active to 600 MT/PA of active at Patancheru, Telangana.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/NEOGEN_31102026200351_BMOutcome_31102026_Final.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-31T14:34:52Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "The company is doubling its Organo-Lithium manufacturing capacity from 300 MT/PA to 600 MT/PA.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company is doubling its Organo-Lithium manufacturing capacity from 300 MT/PA to 600 MT/PA.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Neogen Chemicals Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261031-529",
+      "headline": "Marathon Nextgen Realty Limited: Marathon Nextgen Realty Limited has informed the Exchange regarding a press release dated October 31, 2026, titled \"Acquisition of Adani Group's 60% Stake in Monte South\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/MARATHON_31102026194845_PRESSRELEASE.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-31T14:18:55Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "Marathon Nextgen Realty is acquiring a 60% stake in Monte South from Adani Group.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Marathon Nextgen Realty is acquiring a 60% stake in Monte South from Adani Group.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Marathon Nextgen Realty Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Adani Group",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261031-498",
       "headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Notices for non-compliance with Regulation 34 of SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015",
@@ -1871,106 +1974,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261031-273",
-      "headline": "Johnson & Johnson Just Took $7 Billion in Charges and Still Raised Its Outlook. Here's What That Tells Investors.",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/10/30/johnson-johnson-just-took-7-billion-in-charges-and/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-31T02:15:00Z",
-      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
-      "prelim_note": "Johnson & Johnson took $7 billion in charges but raised its outlook, indicating strong underlying operational performance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Johnson & Johnson took $7 billion in charges but raised its outlook, indicating strong underlying operational performance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Johnson & Johnson",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261031-230",
-      "headline": "US-Iran war: Alaska Air Group to cut around 200 jobs; CEO expects annual loss of $700 million amid rising fuel costs",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/usiran-war-alaska-air-group-to-cut-around-200-jobs-ceo-expects-annual-loss-of-700-million-amid-rising-fuel-costs-11793409701124.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-31T01:32:59Z",
-      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
-      "prelim_note": "Alaska Air Group announced 200 job cuts and a projected annual loss of $700 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Alaska Air Group announced 200 job cuts and a projected annual loss of $700 million.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Alaska Air Group",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -249438,7 +249441,7 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1358145,
+    "news_seen_today": 1405364,
     "news_picked_today": 1462,
     "news_dropped_today": 4922
   },
