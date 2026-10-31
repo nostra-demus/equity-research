@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-31T20:36:48Z",
+  "generated_at": "2026-10-31T20:45:24Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261031-711",
+      "headline": "JSW Steel Limited: JSW Steel Limited has informed the Exchange about the Effectiveness of the Scheme of Amalgamation of Piombino Steel Limited with JSW Steel Limited and their respective shareholders",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/Supriya_01112026020456_SE_Intimation_PSL_Scheme.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-31T20:35:35Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "JSW Steel Limited has completed the amalgamation of Piombino Steel Limited into the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "JSW Steel Limited has completed the amalgamation of Piombino Steel Limited into the company.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "JSW Steel Limited",
+          "ticker": "500228",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261031-546",
       "headline": "Neogen Chemicals Limited: Neogen Chemicals Limited has informed the Exchange about expanding the existing Organo-Lithium chemicals manufacturing facility from 300 MT/PA of active to 600 MT/PA of active at Patancheru, Telangana.",
@@ -1930,55 +1979,6 @@
           "name": "Binance",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261031-438",
-      "headline": "Corona Remedies Reports Robust Q2 FY27, Revenue Up 22.2% To ₹441.2 Crore; Chronic Business Drives Growth",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/corona-remedies-reports-robust-q2-fy27-revenue-up-222-to-4412-crore-chronic-business-drives-growth",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-31T05:17:37Z",
-      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
-      "prelim_note": "Company reported strong Q2 FY27 results with revenue up 22.2% to ₹441.2 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Company reported strong Q2 FY27 results with revenue up 22.2% to ₹441.2 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Corona Remedies",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "unknown",
@@ -249963,9 +249963,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1620082,
-    "news_picked_today": 1911,
-    "news_dropped_today": 7520
+    "news_seen_today": 1620102,
+    "news_picked_today": 1913,
+    "news_dropped_today": 7538
   },
   "book_momentum": {
     "live_count": 8,
