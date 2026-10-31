@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-10-31T02:16:09Z",
+  "generated_at": "2026-10-31T02:29:10Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261031-273",
+      "headline": "Johnson & Johnson Just Took $7 Billion in Charges and Still Raised Its Outlook. Here's What That Tells Investors.",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/10/30/johnson-johnson-just-took-7-billion-in-charges-and/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-31T02:15:00Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "Johnson & Johnson took $7 billion in charges but raised its outlook, indicating strong underlying operational performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Johnson & Johnson took $7 billion in charges but raised its outlook, indicating strong underlying operational performance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Johnson & Johnson",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261031-230",
       "headline": "US-Iran war: Alaska Air Group to cut around 200 jobs; CEO expects annual loss of $700 million amid rising fuel costs",
@@ -1005,6 +1055,98 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261031-281",
+      "headline": "LS Cable to invest $262m in rare earth magnet plant",
+      "headline_en": null,
+      "url": "https://www.koreaherald.com/article/10920566",
+      "source_name": "The Korea Herald — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T04:49:28Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "LS Cable is investing $262 million to build a new rare earth magnet plant.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "LS Cable is investing $262 million to build a new rare earth magnet plant.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LS Cable & System",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261031-274",
+      "headline": "79-year-old dining chain closes about 1,250 locations, 45 remain",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/restaurants/shoneys-dining-chain-shut-about-1250-locations-45-remain",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-31T01:19:58Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "A dining chain closing 1,250 locations out of its total footprint represents a massive operational contraction and potential insolvency risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "A dining chain closing 1,250 locations out of its total footprint represents a massive operational contraction and potential insolvency risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261031-018",
       "headline": "Newell Brands Swings to Loss Despite Higher Sales",
       "headline_en": null,
@@ -1593,6 +1735,98 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261031-287",
+      "headline": "(LEAD) Hyundai E&C Q3 net profit down 31.6 pct to 46.4 bln won",
+      "headline_en": null,
+      "url": "https://en.yna.co.kr/view/AEN20261030007351320",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T04:46:39Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "Hyundai E&C reported a 31.6% decline in Q3 net profit to 46.4 billion won.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Hyundai E&C reported a 31.6% decline in Q3 net profit to 46.4 billion won.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hyundai E&C",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261031-265",
+      "headline": "Ukraine’s Zelenskyy praises US over $2.1bn Patriot missile deal but warns it could take years",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/world/2026/oct/31/ukraines-zelenskyy-praises-us-over-21bn-patriot-missile-deal-but-warns-it-could-take-years",
+      "source_name": "The Guardian — World news",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-31T02:18:17Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "Ukraine secured a $2.1 billion Patriot missile defense deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Ukraine secured a $2.1 billion Patriot missile defense deal.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261031-123",
       "headline": "Noel Tata seeks board scrutiny of SP Group's Rs 25,000 crore exit plan, Tata Sons restructuring",
       "headline_en": null,
@@ -1731,252 +1965,6 @@
       "companies": [
         {
           "name": "Vinati Organics",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261031-048",
-      "headline": "Aditya Birla Capital Q2 profit rises 38% to Rs 1,288-cr",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/aditya-birla-capital-q2-profit-rises-38-to-rs-1288-cr/articleshow/135357711.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T11:00:02Z",
-      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
-      "prelim_note": "Aditya Birla Capital reported a 38% profit increase to Rs 1,288 crore for Q2.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Aditya Birla Capital reported a 38% profit increase to Rs 1,288 crore for Q2.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Aditya Birla Capital",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261031-082",
-      "headline": "Binance freezes assets after record $6.3-billion heist",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/world/video-binance-freezes-assets-after-record-63-billion-heist/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T10:42:47Z",
-      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
-      "prelim_note": "Binance is dealing with a $6.3 billion asset freeze following a record heist, posing significant operational and regulatory risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Binance is dealing with a $6.3 billion asset freeze following a record heist, posing significant operational and regulatory risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Binance",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261031-107",
-      "headline": "Welspun Living Q2 profit soars nearly 13-fold to ₹170 crore, EBITDA more than doubles",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/earnings/welspun-living-q2-profit-soars-nearly-13-fold-to-rs-170-crore-ebitda-more-than-doubles-20023409.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T10:27:45Z",
-      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
-      "prelim_note": "Welspun Living reported a 13-fold increase in Q2 profit to ₹170 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Welspun Living reported a 13-fold increase in Q2 profit to ₹170 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Welspun Living",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261031-108",
-      "headline": "Dhanuka Agritech Reports 16.24% Jump In Q2 FY27 Consolidated Net Profit, Revenue Also Increases",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/dhanuka-agritech-reports-1624-jump-in-q2-fy27-consolidated-net-profit-revenue-also-increases",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T10:26:56Z",
-      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
-      "prelim_note": "Dhanuka Agritech reported a 16.24% increase in Q2 FY27 consolidated net profit.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Dhanuka Agritech reported a 16.24% increase in Q2 FY27 consolidated net profit.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dhanuka Agritech",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261031-229",
-      "headline": "Welspun Living Reports Massive Q2 Profit Surge To ₹169 Crore, Revenue Up 16.9% On Strong Home Textile Exports",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/welspun-living-reports-massive-q2-profit-surge-to-169-crore-revenue-up-169-on-strong-home-textile-exports",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T08:27:36Z",
-      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
-      "prelim_note": "Welspun Living reported a significant profit surge to ₹169 crore and 16.9% revenue growth, indicating strong operational performance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Welspun Living reported a significant profit surge to ₹169 crore and 16.9% revenue growth, indicating strong operational performance.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Welspun Living",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -209962,76 +209950,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-3321c8fee50b",
-      "idea_version": "IDEAV-3a89764434655041",
-      "idea_version_started_at": "2026-10-29T17:48:18Z",
-      "ticker": "ADT",
-      "company": "ADT Inc.",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "ADT is being acquired by Josh Kushner’s Thrive for $7.6 billion, which represents a clear valuation event for shareholders.",
-      "why_now": "The acquisition news was reported on October 29, 2026, providing a fresh catalyst for the stock.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4ae3e6d5a57c"
-      ],
-      "primary_source_event_id": "EVT-4ae3e6d5a57c",
-      "source_headlines": [
-        "Josh Kushner’s Thrive to Buy ADT for $7.6 Billion"
-      ],
-      "source_headline": "Josh Kushner’s Thrive to Buy ADT for $7.6 Billion",
-      "source_url": "https://www.wsj.com/business/deals/josh-kushners-thrive-to-buy-adt-for-7-6-billion-55403c7a?mod=rss_markets_main",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-29T14:20:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-29T17:48:18Z",
-      "updated_at": "2026-10-29T17:48:18Z",
-      "decay_at": "2026-10-31T02:20:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-02984b43cedf",
       "idea_version": "IDEAV-cf5baf852e9e803e",
       "idea_version_started_at": "2026-10-30T01:26:14Z",
@@ -210522,6 +210440,76 @@
       "surfaced_at": "2026-10-29T04:07:36Z",
       "updated_at": "2026-10-29T04:07:36Z",
       "decay_at": "2026-10-30T09:58:51Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-3321c8fee50b",
+      "idea_version": "IDEAV-3a89764434655041",
+      "idea_version_started_at": "2026-10-29T17:48:18Z",
+      "ticker": "ADT",
+      "company": "ADT Inc.",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "ADT is being acquired by Josh Kushner’s Thrive for $7.6 billion, which represents a clear valuation event for shareholders.",
+      "why_now": "The acquisition news was reported on October 29, 2026, providing a fresh catalyst for the stock.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4ae3e6d5a57c"
+      ],
+      "primary_source_event_id": "EVT-4ae3e6d5a57c",
+      "source_headlines": [
+        "Josh Kushner’s Thrive to Buy ADT for $7.6 Billion"
+      ],
+      "source_headline": "Josh Kushner’s Thrive to Buy ADT for $7.6 Billion",
+      "source_url": "https://www.wsj.com/business/deals/josh-kushners-thrive-to-buy-adt-for-7-6-billion-55403c7a?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-29T14:20:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-29T17:48:18Z",
+      "updated_at": "2026-10-29T17:48:18Z",
+      "decay_at": "2026-10-31T02:20:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -212034,14 +212022,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 524,
+    "total_count": 525,
     "shown_count": 500,
-    "hidden_count": 24,
+    "hidden_count": 25,
     "side_counts": {
       "long": {
-        "total_count": 265,
+        "total_count": 266,
         "shown_count": 250,
-        "hidden_count": 15
+        "hidden_count": 16
       },
       "short": {
         "total_count": 259,
@@ -212065,6 +212053,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-3321c8fee50b",
+        "idea_version": "IDEAV-3a89764434655041",
+        "idea_version_started_at": "2026-10-29T17:48:18Z",
+        "ticker": "ADT",
+        "company": "ADT Inc.",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "ADT is being acquired by Josh Kushner’s Thrive for $7.6 billion, which represents a clear valuation event for shareholders.",
+        "why_now": "The acquisition news was reported on October 29, 2026, providing a fresh catalyst for the stock.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 66,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-4ae3e6d5a57c"
+        ],
+        "primary_source_event_id": "EVT-4ae3e6d5a57c",
+        "source_headlines": [
+          "Josh Kushner’s Thrive to Buy ADT for $7.6 Billion"
+        ],
+        "source_headline": "Josh Kushner’s Thrive to Buy ADT for $7.6 Billion",
+        "source_url": "https://www.wsj.com/business/deals/josh-kushners-thrive-to-buy-adt-for-7-6-billion-55403c7a?mod=rss_markets_main",
+        "source_name": "The Wall Street Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-29T14:20:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-29T17:48:18Z",
+        "updated_at": "2026-10-29T17:48:18Z",
+        "decay_at": "2026-10-31T02:20:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-31T02:20:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-4402530dd0df",
         "idea_version": "IDEAV-aef2069d193d114a",
@@ -240720,80 +240781,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-e9dd060b2328",
-        "idea_version": "IDEAV-dade782e1a5b8c28",
-        "idea_version_started_at": "2026-10-16T00:20:15Z",
-        "ticker": "MANKIND",
-        "company": "Mankind Pharma Limited",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Acquiring a majority stake in Armed Cell Therapeutics allows the company to enter the high-growth CAR-T therapy market, diversifying its revenue stream beyond traditional pharmaceuticals.",
-        "why_now": "The acquisition was announced via press release on October 15, 2026.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-4b6a78f4c248"
-        ],
-        "primary_source_event_id": "EVT-4b6a78f4c248",
-        "source_headlines": [
-          "Mankind Pharma Limited: Mankind Pharma Limited has informed the Exchange regarding a press release dated October 15, 2026, titled \"Press Release titled Mankind Pharma to Acquire Majority Stake in Armed Cell Therapeutics, Marking Strategic Entry into Next-Generation CAR-T Therapies \"."
-        ],
-        "source_headline": "Mankind Pharma Limited: Mankind Pharma Limited has informed the Exchange regarding a press release dated October 15, 2026, titled \"Press Release titled Mankind Pharma to Acquire Majority Stake in Armed Cell Therapeutics, Marking Strategic Entry into Next-Generation CAR-T Therapies \".",
-        "source_url": "https://nsearchives.nseindia.com/corporate/MANKIND1_15102026193306_Outcomefinalsd.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-15T14:03:16Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-16T00:20:15Z",
-        "updated_at": "2026-10-16T00:20:15Z",
-        "decay_at": "2026-10-17T02:03:16Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-18T14:36:32Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-d30e04c100e8",
         "idea_version": "IDEAV-a1b57c13034af575",
         "idea_version_started_at": "2026-10-15T15:44:28Z",
@@ -249292,7 +249279,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2006,
-    "live_count": 7,
+    "live_count": 6,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -249311,9 +249298,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 251702,
-    "news_picked_today": 392,
-    "news_dropped_today": 1000
+    "news_seen_today": 282085,
+    "news_picked_today": 423,
+    "news_dropped_today": 1041
   },
   "book_momentum": {
     "live_count": 8,
