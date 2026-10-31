@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-31T15:27:46Z",
+  "generated_at": "2026-10-31T15:41:30Z",
   "inbox": [
     {
       "inbox_id": "INB-20261031-546",
@@ -494,6 +494,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261031-548",
+      "headline": "Quality Power Q2 results: Revenue rises 34%, PAT jumps 80% to ₹63 crore",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/earnings/quality-power-q2-results-revenue-rises-34-pat-jumps-80-to-rs63-crore-20024149.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-31T15:26:31Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "Quality Power reported strong Q2 results with revenue up 34% and PAT up 80% to ₹63 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Quality Power reported strong Q2 results with revenue up 34% and PAT up 80% to ₹63 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Quality Power",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1925,55 +1974,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261031-295",
-      "headline": "OpenAI cuts funding target by $10 billion, says report",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/business/openai-cuts-funding-target-by-usd-10-billion-chatgpt-20023854.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-31T02:30:54Z",
-      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
-      "prelim_note": "OpenAI reportedly cutting its funding target by $10 billion indicates a significant shift in capital expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "OpenAI reportedly cutting its funding target by $10 billion indicates a significant shift in capital expectations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "OpenAI",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -249736,9 +249736,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1432885,
-    "news_picked_today": 1513,
-    "news_dropped_today": 5831
+    "news_seen_today": 1442534,
+    "news_picked_today": 1519,
+    "news_dropped_today": 5897
   },
   "book_momentum": {
     "live_count": 8,
