@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-31T18:50:41Z",
+  "generated_at": "2026-10-31T18:52:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20261031-546",
@@ -1446,6 +1446,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261031-710",
+      "headline": "Muthoot Finance Q2: Net profit rises 27% to ₹2,978 crore, NII up 34%; beats estimates",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/earnings/muthoot-finance-q2-results-net-profit-rises-27-to-rs2978-crore-nii-up-34-beats-estimates-20024053.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-31T10:24:12Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "Muthoot Finance reported a 27% rise in net profit to ₹2,978 crore, beating analyst estimates.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Muthoot Finance reported a 27% rise in net profit to ₹2,978 crore, beating analyst estimates.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Muthoot Finance",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261031-510",
       "headline": "NTPC Q2 Results: Profit Jumps 41% To Rs 7,351 Crore, Declares Dividend",
       "headline_en": null,
@@ -1933,55 +1982,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261031-439",
-      "headline": "Jio Platforms Reports 13.7% PAT Surge To ₹8,387 Crore In Q2 FY27, Crosses 300 Million 5G Users",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/jio-platforms-reports-137-pat-surge-to-8387-crore-in-q2-fy27-crosses-300-million-5g-users",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-31T05:10:42Z",
-      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
-      "prelim_note": "Jio Platforms reported a 13.7% PAT surge to ₹8,387 crore in Q2 FY27.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Jio Platforms reported a 13.7% PAT surge to ₹8,387 crore in Q2 FY27.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Jio Platforms",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -249889,9 +249889,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1608371,
-    "news_picked_today": 1767,
-    "news_dropped_today": 7017
+    "news_seen_today": 1609199,
+    "news_picked_today": 1772,
+    "news_dropped_today": 7036
   },
   "book_momentum": {
     "live_count": 8,
