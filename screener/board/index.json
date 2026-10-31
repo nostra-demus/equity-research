@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-31T02:02:10Z",
+  "generated_at": "2026-10-31T02:04:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20261031-230",
@@ -804,6 +804,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261031-240",
+      "headline": "Binance halts withdrawals after $6.3bn hack",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/c7f5e395-c3a9-430e-b757-5014527b4d49?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T05:31:34Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "Binance halted withdrawals following a $6.3 billion hack, a major operational and solvency risk event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Binance halted withdrawals following a $6.3 billion hack, a major operational and solvency risk event.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Binance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1742,6 +1791,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261031-231",
+      "headline": "2PointZero Group delivers $9.18 billion revenue, $2.59 billion net profit in 9M 2026 as global expansion accelerates",
+      "headline_en": null,
+      "url": "https://economymiddleeast.com/news/2pointzero-group-delivers-9-18-billion-revenue-2-59-billion-net-profit-in-9m-2026-as-global-expansion-accelerates/?utm_source=rss&utm_medium=rss&utm_campaign=2pointzero-group-delivers-9-18-billion-revenue-2-59-billion-net-profit-in-9m-2026-as-global-expansion-accelerates",
+      "source_name": "Economy Middle East",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T05:43:26Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "2PointZero Group reported $9.18 billion in revenue and $2.59 billion in net profit for 9M 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "2PointZero Group reported $9.18 billion in revenue and $2.59 billion in net profit for 9M 2026.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "2PointZero Group",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261031-005",
       "headline": "Biggest-ever crypto hack impacts $6.3 billion as Binance works to contain fallout",
       "headline_en": null,
@@ -1884,109 +1982,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261031-024",
-      "headline": "Sudarshan Pharma Q2 Profit Surges 86% To Rs 7.78 Crore; Revenue Jumps 28% As Margins Improve",
-      "headline_en": null,
-      "url": "https://www.outlookbusiness.com/spotlight/news-wire/sudarshan-pharma-q2-profit-surges-86-to-rs-778-crore-revenue-jumps-28-as-margins-improve",
-      "source_name": "Outlook Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T11:13:58Z",
-      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
-      "prelim_note": "Sudarshan Pharma reported an 86% surge in profit to Rs 7.78 crore and 28% revenue growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Sudarshan Pharma reported an 86% surge in profit to Rs 7.78 crore and 28% revenue growth.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sudarshan Pharma",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261031-077",
-      "headline": "Sebi issues final order against Axis Capital, imposes regulatory censure; Axis Bank shares fall over 1%",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/sebi-issues-final-order-against-axis-capital-imposes-regulatory-censure-axis-bank-shares-fall-over-1/articleshow/135357153.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-30T10:45:07Z",
-      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
-      "prelim_note": "SEBI issued a final order against Axis Capital, imposing regulatory censure, which has negatively impacted Axis Bank shares.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "SEBI issued a final order against Axis Capital, imposing regulatory censure, which has negatively impacted Axis Bank shares.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Axis Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Axis Capital",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -249316,9 +249311,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 212953,
-    "news_picked_today": 338,
-    "news_dropped_today": 886
+    "news_seen_today": 220814,
+    "news_picked_today": 349,
+    "news_dropped_today": 899
   },
   "book_momentum": {
     "live_count": 8,
