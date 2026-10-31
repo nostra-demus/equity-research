@@ -1,29 +1,29 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-10-17T21:55:48Z",
+  "archived_at": "2026-10-31T06:19:49Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-783576b8ffbf",
-    "idea_version": "IDEAV-c1c7501356878329",
-    "idea_version_started_at": "2026-10-15T01:06:33Z",
-    "ticker": "SHA",
-    "company": "SHAPE Australia",
-    "exchange": "ASX",
+    "idea_id": "IDEA-ff50b38b1f7b",
+    "idea_version": "IDEAV-b38608d5ef7fa213",
+    "idea_version_started_at": "2026-10-28T10:33:30Z",
+    "ticker": "9992",
+    "company": "Pop Mart",
+    "exchange": "HKEX",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
-    "direction": "long",
+    "direction": "short",
     "pair_with": null,
-    "reason": "Securing an $800 million data center contract provides a massive, multi-year revenue tailwind that significantly expands the company's order book.",
-    "why_now": "The contract award was filed as price-sensitive information on October 14, 2026.",
-    "conviction": 70,
+    "reason": "A sharp plunge in third-quarter sales suggests a potential cooling in demand for its core 'Labubu' product line, threatening the company's high growth valuation multiple.",
+    "why_now": "The sales decline was reported on October 28, 2026.",
+    "conviction": 65,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
-      "evidence": 25,
-      "impact": 21,
+      "evidence": 14,
+      "impact": 20,
       "specificity": 7,
       "timing": 10,
       "expression": 0,
@@ -36,6 +36,7 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
+      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -52,26 +53,26 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-06106f295297"
+      "EVT-0ae91f685228"
     ],
-    "primary_source_event_id": "EVT-06106f295297",
+    "primary_source_event_id": "EVT-0ae91f685228",
     "source_headlines": [
-      "SHA: SHAPE awarded $800 million Data Centre Contract [price-sensitive]"
+      "Labubu-maker Pop Mart's shares extend declines as third-quarter sales plunge"
     ],
-    "source_headline": "SHA: SHAPE awarded $800 million Data Centre Contract [price-sensitive]",
-    "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SHA?key=2924-03148584-2A1704138",
-    "source_name": "ASX (Australia Exchange Filing)",
+    "source_headline": "Labubu-maker Pop Mart's shares extend declines as third-quarter sales plunge",
+    "source_url": "https://www.cnbc.com/2026/10/28/labubu-pop-mart-third-quarter-earnings.html",
+    "source_name": "CNBC",
     "materiality_max": 100,
-    "newest_source_at": "2026-10-14T21:28:42Z",
+    "newest_source_at": "2026-10-28T02:57:36Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-10-15T01:06:33Z",
-    "updated_at": "2026-10-15T01:06:33Z",
-    "decay_at": "2026-10-16T09:28:42Z",
+    "surfaced_at": "2026-10-28T10:33:30Z",
+    "updated_at": "2026-10-28T10:33:30Z",
+    "decay_at": "2026-10-29T14:57:36Z",
     "status": "live",
     "promoted_signal_id": null
   }
