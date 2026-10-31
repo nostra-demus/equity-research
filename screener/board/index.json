@@ -1,6 +1,209 @@
 {
-  "generated_at": "2026-10-31T00:01:46Z",
+  "generated_at": "2026-10-31T00:07:55Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261031-003",
+      "headline": "Delhivery Reports ₹3,066 Crore Q2FY27 Revenue, EBITDA Triples To ₹205 Crore; PAT At ₹41 Crore",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/delhivery-reports-3066-crore-q2fy27-revenue-ebitda-triples-to-205-crore-pat-at-41-crore",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T11:24:17Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "Delhivery Q2FY27 revenue ₹3,066cr, EBITDA ₹205cr (tripled YoY), PAT ₹41cr; confirmed quarterly earnings with strong margin expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Delhivery Q2FY27 revenue ₹3,066cr, EBITDA ₹205cr (tripled YoY), PAT ₹41cr; confirmed quarterly earnings with strong margin expansion.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 76,
+      "rank_factors": {
+        "materiality": 76,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Delhivery",
+          "ticker": "DELHIVERY",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261031-001",
+      "headline": "India orders Sun Pharma to halt eye-care drug production at plant after quality lapses: Report",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/business/india-orders-sun-pharma-halt-eye-care-drug-production-plant-20023502.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T11:24:30Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "India regulator orders Sun Pharma to halt eye-care drug production at plant after quality lapses; confirmed operational disruption to revenue.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "India regulator orders Sun Pharma to halt eye-care drug production at plant after quality lapses; confirmed operational disruption to revenue.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory",
+        "operations",
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sun Pharma",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261031-004",
+      "headline": "Intel stock drops 25% after $500bn wiped off value of Google’s parent company Alphabet",
+      "headline_en": null,
+      "url": "https://www.independent.co.uk/news/business/intel-shares-stock-price-crash-pc-ai-google-b3076283.html",
+      "source_name": "The Independent — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T11:24:00Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "Intel stock drops 25% alongside Alphabet's $500bn market-cap loss; causal link to Alphabet unstated; suggests sector or supply-chain stress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 78,
+      "triage_reason": "Intel stock drops 25% alongside Alphabet's $500bn market-cap loss; causal link to Alphabet unstated; suggests sector or supply-chain stress.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 68,
+      "rank_factors": {
+        "materiality": 68,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 2,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Intel",
+          "ticker": "INTC",
+          "listing_country": "US"
+        },
+        {
+          "name": "Alphabet",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261031-002",
+      "headline": "Omron Healthcare opens first India factory, targets 3 million BP monitors by 2028",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/business/omron-healthcare-opens-first-india-factory-targets-3-million-bp-monitors-by-2028-20023501.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-30T11:23:59Z",
+      "sweep_file": "screener/inbox/2026-10-31_sweep.json",
+      "prelim_note": "Omron Healthcare opens first India factory with 3M unit target by 2028; capex spend not quantified, regional expansion only.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 57,
+      "triage_reason": "Omron Healthcare opens first India factory with 3M unit target by 2028; capex spend not quantified, regional expansion only.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 42,
+      "rank_factors": {
+        "materiality": 42,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Omron Healthcare",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261030-834",
       "headline": "425 - PATRICK INDUSTRIES INC (0000076605) (Subject)",
@@ -247610,7 +247813,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4247,
+    "inbox_unconsumed": 4251,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -247619,9 +247822,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 0,
-    "news_picked_today": 0,
-    "news_dropped_today": 0
+    "news_seen_today": 9726,
+    "news_picked_today": 4,
+    "news_dropped_today": 20
   },
   "book_momentum": {
     "live_count": 8,
