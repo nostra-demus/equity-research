@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-01T10:35:18Z",
+  "generated_at": "2026-11-01T10:50:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20261101-246",
@@ -46,6 +46,104 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261101-257",
+      "headline": "Binance resumes withdrawals for some cryptocurrencies after heist",
+      "headline_en": null,
+      "url": "https://www.cbsnews.com/news/binance-crypto-heist-withdrawals/",
+      "source_name": "CBS MoneyWatch",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T10:35:55Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "Binance is managing the aftermath of a $6.3 billion hack, impacting liquidity and operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Binance is managing the aftermath of a $6.3 billion hack, impacting liquidity and operations.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Binance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261101-262",
+      "headline": "Binance opens crypto withdrawals in phases starting with bitcoin following $6.3 billion hack",
+      "headline_en": null,
+      "url": "https://www.coindesk.com/markets/2026/11/01/binance-opens-crypto-withdrawals-in-phases-starting-with-bitcoin-following-usd6-3-billion-hack",
+      "source_name": "CoinDesk",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T10:35:42Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "Binance confirms a $6.3 billion hack and is phasing the resumption of withdrawals.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Binance confirms a $6.3 billion hack and is phasing the resumption of withdrawals.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Binance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1867,104 +1965,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261101-082",
-      "headline": "Ramkrishna Forgings Q2 profit at ₹70 crore",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/ramkrishna-forgings-q2-profit-at-70-crore/article71652074.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-01T04:14:09Z",
-      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "Ramkrishna Forgings reported a Q2 profit of ₹70 crore, providing a clear performance metric for investors.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Ramkrishna Forgings reported a Q2 profit of ₹70 crore, providing a clear performance metric for investors.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ramkrishna Forgings",
-          "ticker": "RKFORGE",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261101-063",
-      "headline": "Kioxia warns flash memory prices stalling after outlook miss",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/business/2026/11/01/companies/kioxia-chip-prices-stall/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-01T02:36:00Z",
-      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "Kioxia warned that flash memory prices are stalling after missing its outlook.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Kioxia warned that flash memory prices are stalling after missing its outlook.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kioxia",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -254360,9 +254360,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5725,
-    "news_picked_today": 339,
-    "news_dropped_today": 1165
+    "news_seen_today": 5757,
+    "news_picked_today": 349,
+    "news_dropped_today": 1187
   },
   "book_momentum": {
     "live_count": 8,
