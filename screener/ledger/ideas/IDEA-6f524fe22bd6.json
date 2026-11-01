@@ -1,0 +1,76 @@
+{
+  "idea_id": "IDEA-6f524fe22bd6",
+  "idea_version": "IDEAV-28499433455765bc",
+  "idea_version_started_at": "2026-11-01T07:00:15Z",
+  "ticker": "BINANCE",
+  "company": "Binance",
+  "exchange": null,
+  "ticker_verified": false,
+  "listing_verified": false,
+  "liquidity_verified": false,
+  "listing_verification_source": null,
+  "direction": "short",
+  "pair_with": null,
+  "reason": "The crypto exchange experienced a significant hack attempt and is resuming withdrawals, indicating operational and security risks.",
+  "why_now": "The hack attempt and subsequent resumption of withdrawals were reported on November 1, 2026, making this a live event.",
+  "conviction": 50,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 45,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 19,
+    "specificity": 7,
+    "timing": 10,
+    "expression": 0,
+    "corroboration": 7,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "watch_only",
+  "missing_checks": [
+    "verified listed ticker",
+    "verified listing",
+    "live liquidity",
+    "dated catalyst",
+    "price and market expectations",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "unknown",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-b9e8c55f1b1d",
+    "EVT-f35e4a90ce61"
+  ],
+  "primary_source_event_id": "EVT-b9e8c55f1b1d",
+  "source_headlines": [
+    "Binance to resume withdrawals after $6 billion hack attempt",
+    "Hacker attack: Crypto exchange Binance resumes withdrawals after billion-dollar robbery"
+  ],
+  "source_headline": "Binance to resume withdrawals after $6 billion hack attempt",
+  "source_url": "https://www.hindustantimes.com/business/binance-to-resume-withdrawals-after-6-billion-hack-attempt-101793511023681.html",
+  "source_name": "Hindustan Times (Business)",
+  "materiality_max": 100,
+  "newest_source_at": "2026-11-01T06:33:08Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-11-01T07:00:15Z",
+  "updated_at": "2026-11-01T07:00:15Z",
+  "decay_at": "2026-11-02T18:33:08Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
