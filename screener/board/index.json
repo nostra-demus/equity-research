@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-01T04:39:00Z",
+  "generated_at": "2026-11-01T05:08:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20261101-087",
@@ -735,6 +735,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261101-093",
+      "headline": "AUSTRAC never thought money laundering fine would send Star broke",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/games-and-wagering/austrac-never-thought-money-laundering-fine-would-send-star-broke-20261101-p61a31?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T05:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "AUSTRAC acknowledges that the scale of money laundering fines imposed on Star Entertainment Group could threaten its solvency.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "AUSTRAC acknowledges that the scale of money laundering fines imposed on Star Entertainment Group could threaten its solvency.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Star Entertainment Group",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261101-089",
       "headline": "Medtronic Just Retired 55 Million Shares Without Spending Cash. Is the Stock a Buy?",
       "headline_en": null,
@@ -981,6 +1030,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261101-092",
+      "headline": "Trump says US probing report Nvidia CEO Jensen Huang was targeted in China spy plot",
+      "headline_en": null,
+      "url": "https://gulfnews.com/technology/trump-says-us-probing-report-nvidia-ceo-jensen-huang-was-targeted-in-china-spy-plot-1.500731371",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T04:43:46Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "Reports of a US probe into a potential spy plot targeting Nvidia's CEO introduce significant geopolitical and operational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Reports of a US probe into a potential spy plot targeting Nvidia's CEO introduce significant geopolitical and operational risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1634,6 +1732,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261101-095",
+      "headline": "Mahindra & Mahindra Limited: Mahindra & Mahindra Limited has informed the Exchange regarding Monthly Business Updates for the month of October 2026",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/ferozebaria_01112026101454_SEIntimationNovember2026PR.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-01T04:45:10Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "Mahindra & Mahindra has released monthly business updates for October 2026, providing operational data for investors.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 71,
+      "triage_reason": "Mahindra & Mahindra has released monthly business updates for October 2026, providing operational data for investors.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mahindra & Mahindra",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261101-081",
       "headline": "New GST reforms start today: Relief for online businesses, no need to open offices in every state; check all the changes",
       "headline_en": null,
@@ -1726,20 +1873,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261101-064",
-      "headline": "SML Mahindra Limited: SML Mahindra Limited has informed the Exchange regarding Monthly Business Updates for the month of October 2026",
+      "inbox_id": "INB-20261101-094",
+      "headline": "JINDAL STEEL LIMITED: JINDAL STEEL LIMITED has informed the Exchange about change in Management",
       "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/SMLISUZU_01112026090842_SML_-SE_Sales_Oct_2026.pdf",
+      "url": "https://nsearchives.nseindia.com/corporate/JINDALSTEL_01112026102137_stx_01112026_signed.pdf",
       "source_name": "BSE / NSE Exchange Filing",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-11-01T03:39:51Z",
+      "found_at": "2026-11-01T04:51:48Z",
       "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "SML Mahindra Limited has informed the Exchange regarding monthly business updates for October 2026.",
+      "prelim_note": "Jindal Steel Limited has announced a change in management, which is a material corporate governance event.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "SML Mahindra Limited has informed the Exchange regarding monthly business updates for October 2026.",
+      "triage_score": 70,
+      "triage_reason": "Jindal Steel Limited has announced a change in management, which is a material corporate governance event.",
       "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 45,
@@ -1747,29 +1894,29 @@
         "materiality": 45,
         "source_tier": 8,
         "scope": 6,
-        "event": 5,
-        "size": 0,
+        "event": 4,
+        "size": 2,
         "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
+        "event_id": "management",
+        "size_bucket": "large"
       },
       "event_types": [
-        "earnings_revenue_margin"
+        "management"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "SML Mahindra Limited",
+          "name": "Jindal Steel",
           "ticker": null,
           "listing_country": "IN"
         }
       ],
-      "size_bucket": "unknown",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1819,148 +1966,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261101-079",
-      "headline": "Opec+ agrees in principle to keep oil output targets steady in December, sources say",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/energy-commodities/opec-agrees-principle-keep-oil-output-targets-steady-december-sources-say",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-01T04:25:00Z",
-      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "OPEC+ decision to maintain output targets directly impacts global oil supply and pricing expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "OPEC+ decision to maintain output targets directly impacts global oil supply and pricing expectations.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261101-008",
-      "headline": "Metall- und Elektroindustrie: Warnstreiks der IG Metall kurz nach Mitternacht gestartet",
-      "headline_en": "Metal and electrical industry: IG Metall warning strikes started shortly after midnight",
-      "url": "https://www.handelsblatt.com/politik/deutschland/metall-und-elektroindustrie-warnstreiks-der-ig-metall-kurz-nach-mitternacht-gestartet/100266374.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-01T00:41:16Z",
-      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "IG Metall has initiated warning strikes in the metal and electrical industry, threatening production output for major German industrial firms.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "IG Metall has initiated warning strikes in the metal and electrical industry, threatening production output for major German industrial firms.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -26,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "sector",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "restructuring_layoffs",
-        "operations"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261101-073",
-      "headline": "[APK 2026] Siemens, Naver CEOs push industrial AI beyond pilot projects",
-      "headline_en": null,
-      "url": "https://www.koreaherald.com/article/10921699",
-      "source_name": "The Korea Herald — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-01T04:16:37Z",
-      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "Siemens and Naver CEOs are pushing industrial AI beyond pilot projects, indicating potential new commercial applications.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "Siemens and Naver CEOs are pushing industrial AI beyond pilot projects, indicating potential new commercial applications.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Siemens",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Naver",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -252852,9 +252857,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1138,
-    "news_picked_today": 93,
-    "news_dropped_today": 368
+    "news_seen_today": 1796,
+    "news_picked_today": 98,
+    "news_dropped_today": 392
   },
   "book_momentum": {
     "live_count": 8,
