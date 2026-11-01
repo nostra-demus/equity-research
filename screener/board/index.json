@@ -1,26 +1,75 @@
 {
-  "generated_at": "2026-11-01T08:10:59Z",
+  "generated_at": "2026-11-01T08:21:54Z",
   "inbox": [
     {
-      "inbox_id": "INB-20261101-175",
-      "headline": "Who is Xavier Niel? French billionaire to acquire 16.2% stake in Vodafone in a ₹54,103 cr deal | All you need to know",
+      "inbox_id": "INB-20261101-207",
+      "headline": "Middle East latest: Qatar LNG carrier Al Mayeda hit by unidentified objects while transiting the Gulf",
       "headline_en": null,
-      "url": "https://www.livemint.com/companies/people/who-is-xavier-niel-french-billionaire-to-acquire-16-2-stake-in-vodafone-in-a-rs-54-103-cr-deal-all-you-need-to-know-11793518585824.html",
-      "source_name": "Mint",
+      "url": "https://www.thenationalnews.com/news/mena/2026/11/01/live-iran-war-qatar-lng-al-mayeda/",
+      "source_name": "The National — All News",
       "input_nature": "news_headline",
-      "found_at": "2026-11-01T07:44:17Z",
+      "found_at": "2026-11-01T08:13:21Z",
       "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "Xavier Niel is acquiring a 16.2% stake in Vodafone for ₹54,103 crore.",
+      "prelim_note": "An LNG carrier was hit by unidentified objects in the Gulf, representing a significant security and supply chain risk for energy transport in the region.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Xavier Niel is acquiring a 16.2% stake in Vodafone for ₹54,103 crore.",
-      "region": "IN",
+      "triage_reason": "An LNG carrier was hit by unidentified objects in the Gulf, representing a significant security and supply chain risk for energy transport in the region.",
+      "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 85,
       "rank_factors": {
         "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "QatarEnergy",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261101-205",
+      "headline": "CCI clears French billionaire's proposal to acquire 16% stake in Vodafone Group: Report",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/business/cci-clears-french-billionaires-proposal-to-acquire-stake-in-vodafone-group-20024272.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T08:13:04Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "The Competition Commission of India has cleared a proposal for a 16% stake acquisition in Vodafone Group.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The Competition Commission of India has cleared a proposal for a 16% stake acquisition in Vodafone Group.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
         "source_tier": 0,
         "scope": 5,
         "event": 9,
@@ -35,14 +84,15 @@
         "size_bucket": "large"
       },
       "event_types": [
-        "mna"
+        "mna",
+        "regulatory"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Vodafone",
+          "name": "Vodafone Group",
           "ticker": null,
-          "listing_country": "IN"
+          "listing_country": "GB"
         }
       ],
       "size_bucket": "large",
@@ -1920,55 +1970,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261101-093",
-      "headline": "AUSTRAC never thought money laundering fine would send Star broke",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/games-and-wagering/austrac-never-thought-money-laundering-fine-would-send-star-broke-20261101-p61a31?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-01T05:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "AUSTRAC acknowledges that the scale of money laundering fines imposed on Star Entertainment Group could threaten its solvency.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "AUSTRAC acknowledges that the scale of money laundering fines imposed on Star Entertainment Group could threaten its solvency.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Star Entertainment Group",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -253793,9 +253794,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4953,
-    "news_picked_today": 250,
-    "news_dropped_today": 792
+    "news_seen_today": 5017,
+    "news_picked_today": 254,
+    "news_dropped_today": 822
   },
   "book_momentum": {
     "live_count": 8,
