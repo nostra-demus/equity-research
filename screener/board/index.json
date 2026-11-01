@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-01T02:41:00Z",
+  "generated_at": "2026-11-01T02:45:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20261101-015",
@@ -683,6 +683,56 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261101-047",
+      "headline": "GMO’s CEO Kumagai to hold news conference Monday on cyberattack",
+      "headline_en": null,
+      "url": "https://www.japantimes.co.jp/news/2026/11/01/japan/gmo-ceo-kumagai-cyberattack-presser/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T01:34:00Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "The CEO is holding a press conference specifically to address a cyberattack, indicating a significant operational or data breach event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "The CEO is holding a press conference specifically to address a cyberattack, indicating a significant operational or data breach event.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "cybersecurity",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GMO Internet Group",
+          "ticker": "9449",
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1812,49 +1862,6 @@
         "size": 0,
         "recency": 5,
         "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261101-001",
-      "headline": "Iran war live: Araghchi says talks under way on 2-day plan to reopen Hormuz",
-      "headline_en": null,
-      "url": "https://www.aljazeera.com/news/liveblog/2026/11/1/iran-war-live-araghchi-says-talks-under-way-on-2-day-plan-to-reopen-hormuz?traffic_source=rss",
-      "source_name": "Al Jazeera — All news",
-      "input_nature": "geopolitical_event",
-      "found_at": "2026-11-01T00:00:51Z",
-      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "Potential reopening of the Strait of Hormuz would alleviate significant geopolitical risk and supply chain pressure on global energy markets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "Potential reopening of the Strait of Hormuz would alleviate significant geopolitical risk and supply chain pressure on global energy markets.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "macro",
@@ -252327,9 +252334,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 242,
-    "news_picked_today": 46,
-    "news_dropped_today": 196
+    "news_seen_today": 253,
+    "news_picked_today": 47,
+    "news_dropped_today": 206
   },
   "book_momentum": {
     "live_count": 8,
