@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-01T08:00:17Z",
+  "generated_at": "2026-11-01T08:10:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20261101-175",
@@ -1385,6 +1385,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261101-203",
+      "headline": "Waaree Renewable Technologies Limited: Waaree Renewable Technologies Limited has informed the Exchange about Bagging/Receiving of orders/contracts",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/WAAREERTL_01112026133010_Intimation-s.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-01T08:00:23Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "Waaree Renewable Technologies announced the receipt of new orders/contracts, which is a positive commercial development.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Waaree Renewable Technologies announced the receipt of new orders/contracts, which is a positive commercial development.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Waaree Renewable Technologies Limited",
+          "ticker": "534618",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261101-202",
       "headline": "FBI blames North Korea for record $6.3B Binance hack",
       "headline_en": null,
@@ -1917,55 +1966,6 @@
           "name": "Star Entertainment Group",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261101-103",
-      "headline": "Sona Comstar expects annual investments to rise from Rs 500-600 cr as business grows: MD",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/auto/auto-components/sona-comstar-expects-annual-investments-to-rise-from-rs-500-600-cr-as-business-grows-md/articleshow/135418034.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-01T04:50:18Z",
-      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "Sona Comstar expects to increase annual investments beyond the current Rs 500-600 cr range, signaling growth-oriented capital expenditure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Sona Comstar expects to increase annual investments beyond the current Rs 500-600 cr range, signaling growth-oriented capital expenditure.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sona Comstar",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
