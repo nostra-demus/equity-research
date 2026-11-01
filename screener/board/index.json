@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-01T21:00:23Z",
+  "generated_at": "2026-11-01T21:00:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20261101-379",
@@ -212871,6 +212871,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-d8103c9d4b63",
+      "idea_version": "IDEAV-a83004f833421b97",
+      "idea_version_started_at": "2026-11-01T21:00:40Z",
+      "ticker": "KMD",
+      "company": "KMD Brands",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company confirmed receipt of a non-binding indicative takeover proposal, which typically provides a floor for the share price and potential upside if a formal bid is finalized.",
+      "why_now": "The price-sensitive filing was released on 2026-11-01.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-78d54a878a14"
+      ],
+      "primary_source_event_id": "EVT-78d54a878a14",
+      "source_headlines": [
+        "KMD: KMD update on non-binding indicative proposal received [price-sensitive]"
+      ],
+      "source_headline": "KMD: KMD update on non-binding indicative proposal received [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.KMD?key=2924-03156698-2A1707649",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-01T20:35:30Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-01T21:00:40Z",
+      "updated_at": "2026-11-01T21:00:40Z",
+      "decay_at": "2026-11-03T08:35:30Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-41f28a3d0d25",
       "idea_version": "IDEAV-b4a7a147bcb1a00e",
       "idea_version_started_at": "2026-11-01T19:55:49Z",
@@ -216907,76 +216978,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-02984b43cedf",
-      "idea_version": "IDEAV-cf5baf852e9e803e",
-      "idea_version_started_at": "2026-10-30T01:26:14Z",
-      "ticker": "APG",
-      "company": "APi Group Corporation",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported record Q3 2026 net revenues of $2.6 billion and raised its full-year outlook, signaling strong operational momentum.",
-      "why_now": "The earnings release and guidance hike were published on October 29, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-736509f3628b"
-      ],
-      "primary_source_event_id": "EVT-736509f3628b",
-      "source_headlines": [
-        "APi Group Corporation Reports Record Third Quarter 2026 Net Revenues of $2.6 billion and Raises Full-Year Outlook"
-      ],
-      "source_headline": "APi Group Corporation Reports Record Third Quarter 2026 Net Revenues of $2.6 billion and Raises Full-Year Outlook",
-      "source_url": "https://www.nasdaq.com/articles/api-group-corporation-reports-record-third-quarter-2026-net-revenues-26-billion-and-raises",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-29T20:52:06Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-30T01:26:14Z",
-      "updated_at": "2026-10-30T01:26:14Z",
-      "decay_at": "2026-10-31T08:52:06Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-887dbee70f05",
       "idea_version": "IDEAV-65cc662b01843e5d",
       "idea_version_started_at": "2026-10-31T11:39:53Z",
@@ -218061,14 +218062,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 520,
+    "total_count": 519,
     "shown_count": 500,
-    "hidden_count": 20,
+    "hidden_count": 19,
     "side_counts": {
       "long": {
-        "total_count": 262,
+        "total_count": 261,
         "shown_count": 250,
-        "hidden_count": 12
+        "hidden_count": 11
       },
       "short": {
         "total_count": 258,
@@ -218078,12 +218079,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1499,
+      "evicted_count": 1500,
       "oldest_retained_at": "2026-10-05T19:46:36Z",
       "side_counts": {
         "long": {
-          "evicted_count": 986,
-          "oldest_retained_at": "2026-10-17T03:08:13Z"
+          "evicted_count": 987,
+          "oldest_retained_at": "2026-10-17T03:18:59Z"
         },
         "short": {
           "evicted_count": 514,
@@ -219572,8 +219573,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-31T08:52:06Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-01T21:00:45Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -255312,8 +255313,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2087,
-    "live_count": 67,
+    "surfaced_total": 2088,
+    "live_count": 68,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
