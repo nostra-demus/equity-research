@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-01T07:51:07Z",
+  "generated_at": "2026-11-01T07:55:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20261101-175",
@@ -1385,6 +1385,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261101-202",
+      "headline": "FBI blames North Korea for record $6.3B Binance hack",
+      "headline_en": null,
+      "url": "https://cointelegraph.com/news/fbi-blames-north-korea-for-record-63b-binance-hack?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source_name": "Cointelegraph",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T07:44:38Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "The FBI attributed a $6.3 billion hack to North Korea, highlighting significant cybersecurity risks and potential regulatory scrutiny for crypto platforms.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "The FBI attributed a $6.3 billion hack to North Korea, highlighting significant cybersecurity risks and potential regulatory scrutiny for crypto platforms.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Binance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261101-049",
       "headline": "Binance says 90% of losses from $6.3bn hack covered as FBI says North Korea behind attack",
       "headline_en": null,
@@ -1920,55 +1969,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261101-101",
-      "headline": "NIO October Vehicle Deliveries Down 15.2%",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/nio-october-vehicle-deliveries-down-152",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-01T04:47:55Z",
-      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "NIO reported a 15.2% decline in October vehicle deliveries, a key performance metric for the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "NIO reported a 15.2% decline in October vehicle deliveries, a key performance metric for the company.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NIO",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -253793,9 +253793,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4906,
-    "news_picked_today": 239,
-    "news_dropped_today": 756
+    "news_seen_today": 4924,
+    "news_picked_today": 243,
+    "news_dropped_today": 770
   },
   "book_momentum": {
     "live_count": 8,
