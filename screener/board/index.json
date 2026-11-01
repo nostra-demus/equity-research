@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-01T02:15:53Z",
+  "generated_at": "2026-11-01T02:21:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20261101-015",
@@ -335,6 +335,55 @@
           "name": "Reliance Industries",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261101-039",
+      "headline": "Li Auto October deliveries fall to 29,025, lowest since February",
+      "headline_en": null,
+      "url": "https://cnevpost.com/2026/11/01/li-auto-oct-2026-deliveries/",
+      "source_name": "CnEVPost",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T02:14:14Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "Li Auto reported October deliveries of 29,025 vehicles, marking the lowest monthly delivery figure since February.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Li Auto reported October deliveries of 29,025 vehicles, marking the lowest monthly delivery figure since February.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Li Auto",
+          "ticker": null,
+          "listing_country": "CN"
         }
       ],
       "size_bucket": "large",
@@ -251946,7 +251995,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4324,
+    "inbox_unconsumed": 4325,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -251955,9 +252004,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 206,
-    "news_picked_today": 38,
-    "news_dropped_today": 168
+    "news_seen_today": 212,
+    "news_picked_today": 39,
+    "news_dropped_today": 173
   },
   "book_momentum": {
     "live_count": 8,
