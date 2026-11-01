@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-01T18:41:44Z",
+  "generated_at": "2026-11-01T18:45:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20261101-306",
@@ -350,6 +350,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261101-367",
+      "headline": "Binance loses $3.6 billion after $6.3 billion crypto hack: What the massive outflows mean for customers and investors",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/world/binance-loses-3-6-billion-after-6-3-billion-crypto-hack-what-the-massive-outflows-mean-for-customers-and-investors-11793557266721.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T18:39:20Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "A massive $3.6 billion outflow following a $6.3 billion hack represents a severe operational and liquidity risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A massive $3.6 billion outflow following a $6.3 billion hack represents a severe operational and liquidity risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Binance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1931,55 +1980,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261101-067",
-      "headline": "Suraj Estate Developers Q2 results: Profit down 30%",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/suraj-estate-developers-q2-results-profit-down-30/article71652058.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-01T03:47:43Z",
-      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "Suraj Estate Developers reported a 30% decline in Q2 net profit.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Suraj Estate Developers reported a 30% decline in Q2 net profit.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Suraj Estate Developers Ltd",
-          "ticker": "SURAJEST",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -254897,9 +254897,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 15743,
-    "news_picked_today": 710,
-    "news_dropped_today": 3396
+    "news_seen_today": 15763,
+    "news_picked_today": 717,
+    "news_dropped_today": 3409
   },
   "book_momentum": {
     "live_count": 8,
