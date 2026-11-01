@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-01T00:50:41Z",
+  "generated_at": "2026-11-01T00:55:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20261101-007",
@@ -197,6 +197,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261101-014",
+      "headline": "Tesla's Cybercab Reaches Dallas in November, and Nevada Just Cleared 5,000 Robotaxis in Las Vegas. Here's the Number That Makes the Bulls Right.",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/10/31/teslas-cybercab-reaches-dallas-in-november-and-nev/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T00:45:00Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "Tesla is expanding its autonomous vehicle testing and deployment footprint with 5,000 robotaxis cleared in Nevada and upcoming testing in Dallas.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Tesla is expanding its autonomous vehicle testing and deployment footprint with 5,000 robotaxis cleared in Nevada and upcoming testing in Dallas.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tesla",
+          "ticker": "TSLA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -250546,7 +250595,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4300,
+    "inbox_unconsumed": 4301,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -250555,9 +250604,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 78,
-    "news_picked_today": 13,
-    "news_dropped_today": 65
+    "news_seen_today": 81,
+    "news_picked_today": 14,
+    "news_dropped_today": 67
   },
   "book_momentum": {
     "live_count": 8,
