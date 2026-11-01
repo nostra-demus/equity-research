@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-01T16:20:53Z",
+  "generated_at": "2026-11-01T16:25:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20261101-306",
@@ -298,6 +298,104 @@
           "name": "Li Auto",
           "ticker": "02015",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261101-332",
+      "headline": "‎SPIMACO’s Q3 loss driven by lower sales, higher provisions: CFO",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1949199",
+      "source_name": "Argaam — Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T19:20:00Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "SPIMACO reported a Q3 net loss due to lower sales and increased provisions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SPIMACO reported a Q3 net loss due to lower sales and increased provisions.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SPIMACO",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261101-334",
+      "headline": "Binance resumes withdrawals following $6.3 billion breach",
+      "headline_en": null,
+      "url": "https://techcrunch.com/2026/11/01/binance-resumes-withdrawals-following-6-3-billion-breach/",
+      "source_name": "TechCrunch",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T16:20:10Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "Binance experienced a $6.3 billion security breach, representing a massive operational and financial risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Binance experienced a $6.3 billion security breach, representing a massive operational and financial risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Binance",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -1865,110 +1963,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261101-231",
-      "headline": "SHANGHAI XNG (03666): COMPLETION OF VERY SUBSTANTIAL DISPOSAL OF 100% EQUITY INTEREST IN THE TARGET COMPANY AND NON-COMPLIANCE WITH CHAPTER 14 OF THE LISTING RULES",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1101/2026110100013.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-01T10:04:00Z",
-      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "The company completed a very substantial disposal but disclosed non-compliance with listing rules, indicating potential regulatory risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "The company completed a very substantial disposal but disclosed non-compliance with listing rules, indicating potential regulatory risk.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "regulatory",
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SHANGHAI XNG",
-          "ticker": "03666",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261101-096",
-      "headline": "R R Kabel Limited: RRKABEL: R R Kabel Limited has informed the Exchange regarding completion of the acquisition of the Business Undertaking from U M Cables Limited.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/RRKL1995_01112026103522_Intimation_Reg_30_Completion_of_Acquisition.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-01T05:06:16Z",
-      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "R R Kabel Limited has completed the acquisition of the business undertaking from U M Cables Limited.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "R R Kabel Limited has completed the acquisition of the business undertaking from U M Cables Limited.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "R R Kabel Limited",
-          "ticker": "RRKABEL",
-          "listing_country": "IN"
-        },
-        {
-          "name": "U M Cables Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -254740,9 +254734,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7216,
-    "news_picked_today": 624,
-    "news_dropped_today": 2247
+    "news_seen_today": 7249,
+    "news_picked_today": 627,
+    "news_dropped_today": 2277
   },
   "book_momentum": {
     "live_count": 8,
