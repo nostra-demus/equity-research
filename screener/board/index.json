@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-01T12:00:55Z",
+  "generated_at": "2026-11-01T12:05:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20261101-271",
@@ -100,37 +100,37 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261101-277",
-      "headline": "Binance resumes customer withdrawals after record $6.3bn hack",
+      "inbox_id": "INB-20261101-280",
+      "headline": "Binance Resumes Withdrawals After Suffering Biggest-Ever Crypto Hack",
       "headline_en": null,
-      "url": "https://www.theguardian.com/business/2026/nov/01/binance-losses-covered-hack-fbi-north-korea-cryptocurrency",
-      "source_name": "The Guardian — Business",
+      "url": "https://www.wsj.com/finance/currencies/binance-resumes-withdrawals-after-suffering-biggest-ever-crypto-hack-11d1900f?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
       "input_nature": "news_headline",
-      "found_at": "2026-11-01T11:54:23Z",
+      "found_at": "2026-11-01T11:58:00Z",
       "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "A record $6.3 billion hack represents a massive operational and reputational risk for the exchange.",
+      "prelim_note": "Binance experienced its largest-ever crypto hack, posing a significant operational and reputational risk.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "A record $6.3 billion hack represents a massive operational and reputational risk for the exchange.",
+      "triage_reason": "Binance experienced its largest-ever crypto hack, posing a significant operational and reputational risk.",
       "region": "GLOBAL",
       "relevance": "material",
-      "materiality_pre_score": 85,
+      "materiality_pre_score": 80,
       "rank_factors": {
-        "materiality": 85,
+        "materiality": 80,
         "source_tier": 0,
         "scope": 6,
         "event": 4,
-        "size": 0,
+        "size": 2,
         "recency": 5,
-        "materiality_label_floor": 0,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
         "event_id": "cybersecurity",
-        "size_bucket": "unknown"
+        "size_bucket": "large"
       },
       "event_types": [
         "cybersecurity"
@@ -143,7 +143,7 @@
           "listing_country": null
         }
       ],
-      "size_bucket": "unknown",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1923,51 +1923,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261101-223",
-      "headline": "DPC DASH (01405): RESIGNATION OF CHIEF FINANCIAL OFFICER AND JOINT COMPANY SECRETARY; AND APPOINTMENT OF CHIEF FINANCIAL OFFICER",
+      "inbox_id": "INB-20261101-279",
+      "headline": "Exxon Just Raised Its Dividend By 3.9%. Its Free Cash Flow Has Surged 90% This Year. Here’s What That Gap Means",
       "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1101/2026110100001.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-01T10:01:00Z",
+      "url": "https://www.fool.com/investing/2026/11/01/exxon-just-raised-its-dividend-by-3-9-its-free-cash-flow-has-surged-90-this-year-here-s-what-that-gap-means/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T12:00:02Z",
       "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "DPC Dash announced the resignation of its CFO and the appointment of a successor.",
+      "prelim_note": "Exxon Mobil increased its dividend by 3.9% and reported a 90% surge in free cash flow, signaling strong capital returns.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "DPC Dash announced the resignation of its CFO and the appointment of a successor.",
-      "region": "CN",
+      "triage_score": 94,
+      "triage_reason": "Exxon Mobil increased its dividend by 3.9% and reported a 90% surge in free cash flow, signaling strong capital returns.",
+      "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 50,
+      "materiality_pre_score": 75,
       "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
+        "materiality": 75,
+        "source_tier": 0,
         "scope": 6,
-        "event": 5,
-        "size": -1,
+        "event": 0,
+        "size": 2,
         "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
+        "materiality_label_floor": 0,
+        "quantified": 6,
         "boost_weight": 1,
         "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "executive_exit",
-        "size_bucket": "small"
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
       },
       "event_types": [
-        "executive_exit",
-        "management"
+        "capital_actions"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "DPC Dash",
-          "ticker": "01405",
-          "listing_country": "CN"
+          "name": "Exxon Mobil",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
-      "size_bucket": "small",
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -254651,9 +254650,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5959,
-    "news_picked_today": 397,
-    "news_dropped_today": 1341
+    "news_seen_today": 5979,
+    "news_picked_today": 402,
+    "news_dropped_today": 1356
   },
   "book_momentum": {
     "live_count": 8,
