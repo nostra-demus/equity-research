@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-01T16:45:51Z",
+  "generated_at": "2026-11-01T16:50:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20261101-306",
@@ -350,6 +350,49 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261101-337",
+      "headline": "Another whiskey distillery files Chapter 11 bankruptcy after declining sales",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/retail/2bar-spirits-bourbon-company-files-chapter-11-bankruptcy",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T16:47:00Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "A distillery has filed for Chapter 11 bankruptcy due to declining sales.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A distillery has filed for Chapter 11 bankruptcy due to declining sales.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1913,55 +1956,6 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261101-213",
-      "headline": "Binance says resuming withdrawals after major hack",
-      "headline_en": null,
-      "url": "https://www.france24.com/en/business/20261101-binance-says-resuming-withdrawals-after-major-hack",
-      "source_name": "France 24",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-01T07:01:49Z",
-      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "Binance confirmed a major hack and the subsequent suspension of withdrawals, indicating significant operational and security risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Binance confirmed a major hack and the subsequent suspension of withdrawals, indicating significant operational and security risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Binance",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -254734,9 +254728,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7300,
-    "news_picked_today": 634,
-    "news_dropped_today": 2321
+    "news_seen_today": 7311,
+    "news_picked_today": 638,
+    "news_dropped_today": 2328
   },
   "book_momentum": {
     "live_count": 8,
