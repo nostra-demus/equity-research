@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-01T21:16:19Z",
+  "generated_at": "2026-11-01T21:20:20Z",
   "inbox": [
     {
       "inbox_id": "INB-20261101-379",
@@ -399,6 +399,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261101-384",
+      "headline": "ASX to hold; Kathmandu owner in talks to sell to US fashion giant",
+      "headline_en": null,
+      "url": "https://www.afr.com/markets/equity-markets/asx-to-hold-westpac-s-results-ahead-20261102-p61adt?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T21:17:38Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "KMD Brands is in talks to be acquired by a US fashion giant, representing a significant potential M&A event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "KMD Brands is in talks to be acquired by a US fashion giant, representing a significant potential M&A event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "KMD Brands",
+          "ticker": "KMD",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1932,56 +1981,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261101-198",
-      "headline": "Etihad GO Telecom Co. (GO) announces the award of a project to Total Technical Triangle Company - 3T, valued at SAR 185.9 million, for the supply and installation of infrastructure for a data center dedicated to artificial intelligence (AI) and advanced computing using NVIDIA processors.",
-      "headline_en": null,
-      "url": "http://english.mubasher.info/news/4693875/Etihad-GO-Telecom-Co-GO-announces-the-award-of-a-project-to-Total-Technical-Triangle-Company-3T-valued-at-SAR-185-9-million-for-the-supply-and-installation-of-infrastructure-for-a-data-center-d",
-      "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-01T06:21:44Z",
-      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "Etihad GO Telecom awarded a SAR 185.9 million contract for AI data center infrastructure, representing a significant capital investment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Etihad GO Telecom awarded a SAR 185.9 million contract for AI data center infrastructure, representing a significant capital investment.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "commercial",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Etihad GO Telecom Co.",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -255333,9 +255332,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 16102,
-    "news_picked_today": 790,
-    "news_dropped_today": 3675
+    "news_seen_today": 16118,
+    "news_picked_today": 795,
+    "news_dropped_today": 3686
   },
   "book_momentum": {
     "live_count": 8,
