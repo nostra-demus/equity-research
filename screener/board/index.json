@@ -1,6 +1,106 @@
 {
-  "generated_at": "2026-11-01T00:22:04Z",
+  "generated_at": "2026-11-01T00:30:08Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261101-006",
+      "headline": "FBI says N. Korea responsible for over $6b crypto theft from Binance",
+      "headline_en": null,
+      "url": "https://www.koreaherald.com/article/10921526",
+      "source_name": "The Korea Herald — All News",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T00:20:06Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "The FBI has attributed $6 billion in crypto theft to North Korea, impacting Binance and the broader crypto regulatory environment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "The FBI has attributed $6 billion in crypto theft to North Korea, impacting Binance and the broader crypto regulatory environment.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "cybersecurity",
+        "regulatory"
+      ],
+      "issuer_linkage": "secondary",
+      "companies": [
+        {
+          "name": "Binance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261101-005",
+      "headline": "Reliance Industries expands fuel exports to Africa, Europe as West Asia conflict disrupts supplies",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/energy/oil-gas/reliance-industries-expands-fuel-exports-to-africa-europe-as-west-asia-conflict-disrupts-supplies/articleshow/135409711.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "Reliance Industries is expanding fuel exports to capture market share due to supply disruptions in West Asia.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Reliance Industries is expanding fuel exports to capture market share due to supply disruptions in West Asia.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Reliance Industries",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261101-002",
       "headline": "Vande Bharat Sleeper to cut Varanasi-Delhi travel time to 8-9 hours: Yogi Adityanath",
@@ -45,6 +145,49 @@
           "listing_country": null
         }
       ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261101-004",
+      "headline": "Indian professionals vital to US economy; visa restrictions could hurt communities: Indiaspora",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/news/indian-professionals-vital-to-us-economy-visa-restrictions-could-hurt-communities-indiaspora/article71651571.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T00:18:01Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "This is an advocacy group's commentary on potential visa policy impacts.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 51,
+      "triage_reason": "This is an advocacy group's commentary on potential visa policy impacts.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -250088,7 +250231,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4290,
+    "inbox_unconsumed": 4293,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -250097,9 +250240,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 25,
-    "news_picked_today": 3,
-    "news_dropped_today": 22
+    "news_seen_today": 43,
+    "news_picked_today": 6,
+    "news_dropped_today": 37
   },
   "book_momentum": {
     "live_count": 8,
