@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-01T03:30:18Z",
+  "generated_at": "2026-11-01T03:41:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20261101-055",
@@ -994,6 +994,50 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261101-062",
+      "headline": "Israel issues more than 9,500 demolition, stop-work notices in West Bank, report says",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/israel-issues-more-9500-demolition-stop-work-notices-west-bank-report",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T03:36:11Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "The issuance of 9,500 demolition and stop-work notices indicates a significant escalation in regional regulatory and geopolitical risk in the West Bank.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "The issuance of 9,500 demolition and stop-work notices indicates a significant escalation in regional regulatory and geopolitical risk in the West Bank.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261101-035",
       "headline": "POSCO union to vote on tentative wage deal this week",
       "headline_en": null,
@@ -1862,49 +1906,6 @@
       "triage_score": 51,
       "triage_reason": "Polish political instability is a localized governance issue with limited immediate impact on global capital markets.",
       "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261101-004",
-      "headline": "Indian professionals vital to US economy; visa restrictions could hurt communities: Indiaspora",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/news/indian-professionals-vital-to-us-economy-visa-restrictions-could-hurt-communities-indiaspora/article71651571.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-01T00:18:01Z",
-      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "This is an advocacy group's commentary on potential visa policy impacts.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 51,
-      "triage_reason": "This is an advocacy group's commentary on potential visa policy impacts.",
-      "region": "US",
       "relevance": "relevant_non_material",
       "materiality_pre_score": 40,
       "rank_factors": {
@@ -252456,9 +252457,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 329,
-    "news_picked_today": 62,
-    "news_dropped_today": 267
+    "news_seen_today": 336,
+    "news_picked_today": 63,
+    "news_dropped_today": 273
   },
   "book_momentum": {
     "live_count": 8,
