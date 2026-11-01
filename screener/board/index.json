@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-11-01T07:27:05Z",
+  "generated_at": "2026-11-01T07:30:27Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261101-174",
+      "headline": "Binance resumes withdrawals after $6.34 billion crypto hack",
+      "headline_en": null,
+      "url": "https://gulfnews.com/business/markets/binance-resumes-withdrawals-after-634-billion-crypto-hack-1.500731461",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T07:08:05Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "Binance resumes withdrawals after a $6.34 billion crypto hack, indicating operational recovery and avoiding a potential bank run.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Binance resumes withdrawals after a $6.34 billion crypto hack, indicating operational recovery and avoiding a potential bank run.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations",
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Binance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261101-152",
       "headline": "Binance to resume withdrawals after $6 billion hack attempt",
@@ -1930,55 +1980,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261101-033",
-      "headline": "BYD Fang Cheng Bao reaches 600,000 cumulative sales, plans faster deliveries in November",
-      "headline_en": null,
-      "url": "https://cnevpost.com/2026/11/01/byd-fang-cheng-bao-600000-cumulative-sales/",
-      "source_name": "CnEVPost",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-01T02:01:03Z",
-      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "BYD reported cumulative sales milestones and updated delivery guidance for its sub-brand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "BYD reported cumulative sales milestones and updated delivery guidance for its sub-brand.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BYD",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -253590,9 +253591,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4812,
-    "news_picked_today": 204,
-    "news_dropped_today": 697
+    "news_seen_today": 4821,
+    "news_picked_today": 206,
+    "news_dropped_today": 704
   },
   "book_momentum": {
     "live_count": 8,
