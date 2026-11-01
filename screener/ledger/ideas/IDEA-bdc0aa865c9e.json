@@ -1,0 +1,80 @@
+{
+  "idea_id": "IDEA-bdc0aa865c9e",
+  "idea_version": "IDEAV-ae44fa93bd4b9abe",
+  "idea_version_started_at": "2026-11-01T03:42:18Z",
+  "ticker": "BNB",
+  "company": "BNB Chain",
+  "exchange": "NASDAQ",
+  "ticker_verified": false,
+  "listing_verified": false,
+  "liquidity_verified": false,
+  "listing_verification_source": null,
+  "direction": "short",
+  "pair_with": null,
+  "reason": "BNB Chain, associated with Binance, is implicated in a massive crypto theft, raising concerns about its security and regulatory scrutiny.",
+  "why_now": "The FBI has confirmed North Korea's role in the $6.3 billion hack, with multiple reports surfacing on November 1, 2026, highlighting the immediate impact.",
+  "conviction": 55,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 45,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 21,
+    "specificity": 7,
+    "timing": 10,
+    "expression": 0,
+    "corroboration": 10,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "watch_only",
+  "missing_checks": [
+    "verified listed ticker",
+    "verified listing",
+    "live liquidity",
+    "dated catalyst",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-56c22c740c64",
+    "EVT-c5dac5986d75",
+    "EVT-afa67dcef397",
+    "EVT-f9d0d798ec65",
+    "EVT-d823914063f0"
+  ],
+  "primary_source_event_id": "EVT-c5dac5986d75",
+  "source_headlines": [
+    "FBI confirms North Korea's role in $6 billion Binance hack, asks DeFi community to block BTC, ETH, SOL addresses",
+    "North Korean hackers behind $6.3 billion Binance crypto theft, says FBI",
+    "Binance says 90% of losses from $6.3bn hack covered as FBI says North Korea behind attack",
+    "Binance crypto theft: Here's how North Korean hackers perfected the heist, stole $6.3 billion in 20 minutes | Details"
+  ],
+  "source_headline": "FBI confirms North Korea's role in $6 billion Binance hack, asks DeFi community to block BTC, ETH, SOL addresses",
+  "source_url": "https://www.coindesk.com/policy/2026/10/31/fbi-confirms-north-korea-s-role-in-usd6-billion-binance-hack-asks-defi-community-to-block-btc-eth-sol-addresses",
+  "source_name": "CoinDesk",
+  "materiality_max": 100,
+  "newest_source_at": "2026-11-01T02:49:30Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-11-01T03:42:18Z",
+  "updated_at": "2026-11-01T03:42:18Z",
+  "decay_at": "2026-11-02T14:49:30Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
