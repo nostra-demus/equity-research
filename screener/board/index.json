@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-01T02:15:13Z",
+  "generated_at": "2026-11-01T02:15:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20261101-015",
@@ -211749,6 +211749,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-0f3b55677926",
+      "idea_version": "IDEAV-9f19e3bcb244102a",
+      "idea_version_started_at": "2026-11-01T02:15:36Z",
+      "ticker": "LI",
+      "company": "Li Auto",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Li Auto's October delivery figures dropped to 29,025, marking the lowest volume since February and indicating a significant loss of momentum compared to peers.",
+      "why_now": "The delivery data was released on November 1, 2026, highlighting a sharp deceleration in sales.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-963b9af963e8"
+      ],
+      "primary_source_event_id": "EVT-963b9af963e8",
+      "source_headlines": [
+        "Li Auto's October deliveries fall to 29,025, lowest since February"
+      ],
+      "source_headline": "Li Auto's October deliveries fall to 29,025, lowest since February",
+      "source_url": "https://cnevpost.com/2026/11/01/li-auto-oct-2026-deliveries/",
+      "source_name": "CnEVPost",
+      "materiality_max": 93,
+      "newest_source_at": "2026-11-01T02:14:14Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-01T02:15:36Z",
+      "updated_at": "2026-11-01T02:15:36Z",
+      "decay_at": "2026-11-02T14:14:14Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-9113719b01b8",
       "idea_version": "IDEAV-0ad804ddbf4d475d",
       "idea_version_started_at": "2026-11-01T01:56:04Z",
@@ -211955,6 +212025,77 @@
       "surfaced_at": "2026-10-31T12:45:12Z",
       "updated_at": "2026-10-31T12:45:12Z",
       "decay_at": "2026-11-01T14:15:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-85c3dfebf743",
+      "idea_version": "IDEAV-124b71ffc2478ed2",
+      "idea_version_started_at": "2026-11-01T02:15:36Z",
+      "ticker": "BYDDY",
+      "company": "BYD",
+      "exchange": "OTC Markets",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "BYD continues to demonstrate dominant scale with 600,000 cumulative sales for its Fang Cheng Bao brand and plans for accelerated delivery capacity in November.",
+      "why_now": "The announcement of accelerated delivery plans for November 2026 provides a clear near-term catalyst for revenue recognition.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 15,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b8d952f950c3"
+      ],
+      "primary_source_event_id": "EVT-b8d952f950c3",
+      "source_headlines": [
+        "BYD Fang Cheng Bao reaches 600,000 cumulative sales, plans faster deliveries in November"
+      ],
+      "source_headline": "BYD Fang Cheng Bao reaches 600,000 cumulative sales, plans faster deliveries in November",
+      "source_url": "https://cnevpost.com/2026/11/01/byd-fang-cheng-bao-600000-cumulative-sales/",
+      "source_name": "CnEVPost",
+      "materiality_max": 88,
+      "newest_source_at": "2026-11-01T02:01:03Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-01T02:15:36Z",
+      "updated_at": "2026-11-01T02:15:36Z",
+      "decay_at": "2026-11-02T14:01:03Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -251794,8 +251935,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2035,
-    "live_count": 27,
+    "surfaced_total": 2037,
+    "live_count": 29,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
