@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-01T09:45:21Z",
+  "generated_at": "2026-11-01T09:50:21Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261101-222",
+      "headline": "Binance says phase one of withdrawals opens after $6.3B hack",
+      "headline_en": null,
+      "url": "https://cointelegraph.com/news/binance-says-phase-one-of-withdrawals-opens-after-63b-hack?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source_name": "Cointelegraph",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T09:38:18Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "Binance is managing the aftermath of a massive $6.3 billion hack, representing a severe operational and financial risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Binance is managing the aftermath of a massive $6.3 billion hack, representing a severe operational and financial risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Binance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261101-215",
       "headline": "Binance resumes withdrawals following $6.3 billion hack, says 90% of stolen user assets are covered",
@@ -1915,55 +1964,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261101-105",
-      "headline": "Inside the make-or-break AI mega-project behind Nscale’s $50b IPO",
-      "headline_en": null,
-      "url": "https://www.afr.com/technology/inside-the-make-or-break-ai-mega-project-behind-nscale-s-50b-ipo-20261101-p61abv?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-01T05:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "Nscale is planning a $50 billion IPO for its AI infrastructure project.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Nscale is planning a $50 billion IPO for its AI infrastructure project.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nscale",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -253860,9 +253860,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5535,
-    "news_picked_today": 297,
-    "news_dropped_today": 1017
+    "news_seen_today": 5560,
+    "news_picked_today": 300,
+    "news_dropped_today": 1039
   },
   "book_momentum": {
     "live_count": 8,
