@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-6f524fe22bd6",
-  "idea_version": "IDEAV-28499433455765bc",
-  "idea_version_started_at": "2026-11-01T07:00:15Z",
+  "idea_version": "IDEAV-39c251864e9ddb4e",
+  "idea_version_started_at": "2026-11-01T11:55:44Z",
   "ticker": "BINANCE",
   "company": "Binance",
   "exchange": null,
@@ -11,19 +11,19 @@
   "listing_verification_source": null,
   "direction": "short",
   "pair_with": null,
-  "reason": "The crypto exchange experienced a significant hack attempt and is resuming withdrawals, indicating operational and security risks.",
-  "why_now": "The hack attempt and subsequent resumption of withdrawals were reported on November 1, 2026, making this a live event.",
-  "conviction": 50,
+  "reason": "Binance is beginning customer withdrawals in phases following a $6.3 billion heist, indicating significant operational and financial distress.",
+  "why_now": "The phased withdrawal plan was announced on November 1, 2026, following a major security breach.",
+  "conviction": 70,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 14,
-    "impact": 19,
+    "impact": 21,
     "specificity": 7,
     "timing": 10,
     "expression": 0,
-    "corroboration": 7,
+    "corroboration": 0,
     "learning_adjustment": 0
   },
   "trade_readiness": "watch_only",
@@ -33,6 +33,7 @@
     "live liquidity",
     "dated catalyst",
     "price and market expectations",
+    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -49,19 +50,17 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-b9e8c55f1b1d",
-    "EVT-f35e4a90ce61"
+    "EVT-f8c78b08669d"
   ],
-  "primary_source_event_id": "EVT-b9e8c55f1b1d",
+  "primary_source_event_id": "EVT-f8c78b08669d",
   "source_headlines": [
-    "Binance to resume withdrawals after $6 billion hack attempt",
-    "Hacker attack: Crypto exchange Binance resumes withdrawals after billion-dollar robbery"
+    "Binance To Begin Customer Withdrawals In Phases After $6.3B Heist: What Phase 1 Includes"
   ],
-  "source_headline": "Binance to resume withdrawals after $6 billion hack attempt",
-  "source_url": "https://www.hindustantimes.com/business/binance-to-resume-withdrawals-after-6-billion-hack-attempt-101793511023681.html",
-  "source_name": "Hindustan Times (Business)",
+  "source_headline": "Binance To Begin Customer Withdrawals In Phases After $6.3B Heist: What Phase 1 Includes",
+  "source_url": "https://www.ndtvprofit.com/business/binance-to-begin-customer-withdrawals-in-phases-after-over-usd-6-billion-heist-what-phase-1-includes-12267176#publisher=newsstand",
+  "source_name": "NDTV Profit",
   "materiality_max": 100,
-  "newest_source_at": "2026-11-01T06:33:08Z",
+  "newest_source_at": "2026-11-01T11:21:01Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
@@ -69,8 +68,8 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-11-01T07:00:15Z",
-  "updated_at": "2026-11-01T07:00:15Z",
-  "decay_at": "2026-11-02T18:33:08Z",
+  "updated_at": "2026-11-01T11:55:44Z",
+  "decay_at": "2026-11-02T23:21:01Z",
   "status": "live",
   "promoted_signal_id": null
 }
