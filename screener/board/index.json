@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-01T00:16:40Z",
+  "generated_at": "2026-11-01T00:22:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20261101-002",
@@ -45,6 +45,49 @@
           "listing_country": null
         }
       ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261101-003",
+      "headline": "Delhi to Agra in 59 minutes: PM Modi approves north corridor of bullet train project",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/economy/logistics/delhi-to-agra-in-59-minutes-pm-modi-approves-north-corridor-of-bullet-train-project/article71651891.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T00:13:48Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "The Indian government has approved a major infrastructure project for a high-speed rail corridor between Delhi and Agra.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "The Indian government has approved a major infrastructure project for a high-speed rail corridor between Delhi and Agra.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -250045,7 +250088,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4289,
+    "inbox_unconsumed": 4290,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -250054,9 +250097,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 20,
-    "news_picked_today": 2,
-    "news_dropped_today": 18
+    "news_seen_today": 25,
+    "news_picked_today": 3,
+    "news_dropped_today": 22
   },
   "book_momentum": {
     "live_count": 8,
