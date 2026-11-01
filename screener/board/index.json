@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-01T15:07:47Z",
+  "generated_at": "2026-11-01T15:16:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20261101-306",
@@ -1784,6 +1784,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261101-315",
+      "headline": "Coalition launches precision military strike targeting Houthi war resources in Yemen",
+      "headline_en": null,
+      "url": "https://saudigazette.com.sa/article/665908/saudi-arabia/coalition-launches-precision-military-strike-targeting-houthi-war-resources-in-yemen",
+      "source_name": "Saudi Gazette — Saudi Arabia / general",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T14:12:40Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "Military strikes in Yemen represent a direct escalation of regional conflict, impacting geopolitical risk and potentially energy transit.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Military strikes in Yemen represent a direct escalation of regional conflict, impacting geopolitical risk and potentially energy transit.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261101-241",
       "headline": "NIO-SW (09866): VOLUNTARY ANNOUNCEMENT - OCTOBER 2026 DELIVERY UPDATE",
       "headline_en": null,
@@ -1923,55 +1966,6 @@
           "name": "Geely Auto",
           "ticker": "00175",
           "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261101-267",
-      "headline": "IDBI-Fairfax mega deal takes PE-VC investments to $8 billion in October",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/economy/idbi-fairfax-mega-deal-takes-pe-vc-investments-to-8-billion-in-october/article71652461.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-01T11:02:10Z",
-      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "The IDBI-Fairfax deal contributed to a significant $8 billion in PE-VC investments in India for October.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "The IDBI-Fairfax deal contributed to a significant $8 billion in PE-VC investments in India for October.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [
-        {
-          "name": "IDBI Bank",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -254449,9 +254443,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6843,
-    "news_picked_today": 569,
-    "news_dropped_today": 1929
+    "news_seen_today": 6881,
+    "news_picked_today": 578,
+    "news_dropped_today": 1958
   },
   "book_momentum": {
     "live_count": 8,
