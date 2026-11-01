@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-01T08:22:08Z",
+  "generated_at": "2026-11-01T08:38:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20261101-207",
@@ -1828,6 +1828,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261101-208",
+      "headline": "Why Wendy’s is losing the burger wars—and is now a takeover target for Nelson Peltz",
+      "headline_en": null,
+      "url": "https://fortune.com/2026/11/01/wendys-nelson-peltz-trian-take-private-lost-burger-wars/",
+      "source_name": "Fortune",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T08:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "Nelson Peltz's Trian Partners is identified as a potential activist investor seeking a takeover of Wendy's.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Nelson Peltz's Trian Partners is identified as a potential activist investor seeking a takeover of Wendy's.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "ownership_activist",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "ownership_activist",
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Wendy's",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261101-126",
       "headline": "Mahindra clocks record SUV sales of 73,338 units in October on festive demand",
       "headline_en": null,
@@ -1921,55 +1971,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261101-099",
-      "headline": "Binance to resume withdrawals after recovering 95% of $6.3 billion crypto theft",
-      "headline_en": null,
-      "url": "https://timesofindia.indiatimes.com/business/international-business/binance-to-resume-withdrawals-after-recovering-95-of-6-3-billion-crypto-theft/articleshow/135418376.cms",
-      "source_name": "The Times of India (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-01T05:11:27Z",
-      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "Binance is resuming withdrawals after recovering 95% of $6.3 billion in stolen assets, mitigating a major operational and liquidity risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Binance is resuming withdrawals after recovering 95% of $6.3 billion in stolen assets, mitigating a major operational and liquidity risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Binance",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -253794,9 +253795,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5017,
-    "news_picked_today": 254,
-    "news_dropped_today": 822
+    "news_seen_today": 5086,
+    "news_picked_today": 260,
+    "news_dropped_today": 864
   },
   "book_momentum": {
     "live_count": 8,
