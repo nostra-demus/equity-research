@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-01T21:25:38Z",
+  "generated_at": "2026-11-01T21:31:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20261101-379",
@@ -399,6 +399,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261101-385",
+      "headline": "Binance sees spike in withdrawals after $6.3-billion heist",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/business/article-binance-heist-withdrawals-north-korea/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T21:18:10Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "Binance is facing a liquidity event following a $6.3-billion heist, which poses a significant risk to the platform's solvency and market stability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Binance is facing a liquidity event following a $6.3-billion heist, which poses a significant risk to the platform's solvency and market stability.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Binance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1928,56 +1977,6 @@
           "name": "QatarEnergy",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261101-205",
-      "headline": "CCI clears French billionaire's proposal to acquire 16% stake in Vodafone Group: Report",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/business/cci-clears-french-billionaires-proposal-to-acquire-stake-in-vodafone-group-20024272.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-01T08:13:04Z",
-      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "The Competition Commission of India has cleared a proposal for a 16% stake acquisition in Vodafone Group.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The Competition Commission of India has cleared a proposal for a 16% stake acquisition in Vodafone Group.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vodafone Group",
-          "ticker": null,
-          "listing_country": "GB"
         }
       ],
       "size_bucket": "large",
@@ -255187,9 +255186,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 16135,
-    "news_picked_today": 804,
-    "news_dropped_today": 3694
+    "news_seen_today": 16138,
+    "news_picked_today": 805,
+    "news_dropped_today": 3696
   },
   "book_momentum": {
     "live_count": 8,
