@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-01T11:45:25Z",
+  "generated_at": "2026-11-01T11:55:28Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261101-271",
+      "headline": "CHERY AUTO (09973): UNAUDITED SALES VOLUME FOR OCTOBER 2026",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1101/2026110100081.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-01T11:50:00Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "Chery Auto reported monthly sales volume, a key operational metric for automotive manufacturers.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Chery Auto reported monthly sales volume, a key operational metric for automotive manufacturers.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CHERY AUTO",
+          "ticker": "09973",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261101-246",
       "headline": "LI AUTO-W (02015): VOLUNTARY ANNOUNCEMENT OCTOBER 2026 DELIVERY UPDATE",
@@ -46,6 +95,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261101-274",
+      "headline": "Binance To Begin Customer Withdrawals In Phases After $6.3B Heist: What Phase 1 Includes",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/business/binance-to-begin-customer-withdrawals-in-phases-after-over-usd-6-billion-heist-what-phase-1-includes-12267176#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T11:21:01Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "Binance is managing customer withdrawals following a $6.3 billion heist, indicating a severe liquidity and security crisis.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Binance is managing customer withdrawals following a $6.3 billion heist, indicating a severe liquidity and security crisis.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Binance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1871,109 +1969,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261101-155",
-      "headline": "‎PIF, Aramco complete HUMAIN buyout",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1948981",
-      "source_name": "Argaam — Main News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-01T09:33:00Z",
-      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "PIF and Aramco have completed the acquisition of HUMAIN, representing a significant strategic investment for the world's largest oil company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "PIF and Aramco have completed the acquisition of HUMAIN, representing a significant strategic investment for the world's largest oil company.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Saudi Aramco",
-          "ticker": "ARAMCO",
-          "listing_country": "SA"
-        },
-        {
-          "name": "Public Investment Fund",
-          "ticker": null,
-          "listing_country": "SA"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261101-038",
-      "headline": "Li Auto's October deliveries fall to 29,025, lowest since February",
-      "headline_en": null,
-      "url": "https://cnevpost.com/2026/11/01/li-auto-oct-2026-deliveries/",
-      "source_name": "CnEVPost",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-01T02:14:14Z",
-      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "Li Auto's October deliveries fell to 29,025, which is the lowest since February.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Li Auto's October deliveries fell to 29,025, which is the lowest since February.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Li Auto",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -254512,9 +254507,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5902,
-    "news_picked_today": 384,
-    "news_dropped_today": 1297
+    "news_seen_today": 5945,
+    "news_picked_today": 394,
+    "news_dropped_today": 1330
   },
   "book_momentum": {
     "live_count": 8,
