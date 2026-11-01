@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-01T11:10:47Z",
+  "generated_at": "2026-11-01T11:15:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20261101-246",
@@ -46,6 +46,60 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261101-268",
+      "headline": "Affle To Acquire Perion In $420 Mln All-Cash Deal",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/affle-acquire-perion-420-mln-all-cash-deal",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T10:49:30Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "Affle is acquiring Perion for $420 million in an all-cash deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Affle is acquiring Perion for $420 million in an all-cash deal.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Affle",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Perion",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1921,56 +1975,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261101-253",
-      "headline": "Binance resumes bitcoin, ether withdrawals after covering bulk of stolen $6.3 billion",
-      "headline_en": null,
-      "url": "https://www.khaleejtimes.com/business/binance-resumes-bitcoin-ether-withdrawals-after-covering-bulk-of-stolen-63-billion",
-      "source_name": "Khaleej Times — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-01T10:33:31Z",
-      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "Binance has resumed withdrawals after addressing a significant $6.3 billion security incident.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Binance has resumed withdrawals after addressing a significant $6.3 billion security incident.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations",
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Binance",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -254366,9 +254370,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5818,
-    "news_picked_today": 363,
-    "news_dropped_today": 1234
+    "news_seen_today": 5828,
+    "news_picked_today": 366,
+    "news_dropped_today": 1241
   },
   "book_momentum": {
     "live_count": 8,
