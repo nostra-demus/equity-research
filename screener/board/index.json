@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-01T22:08:57Z",
+  "generated_at": "2026-11-01T22:15:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20261101-386",
@@ -454,6 +454,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261101-416",
+      "headline": "Binance sees spike in withdrawals as exchange returns online after US$6.3 billion heist",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/banking-finance/binance-sees-spike-withdrawals-exchange-returns-online-after-us6-3-billion-heist",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T22:11:38Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "Binance is facing a US$6.3 billion heist and a spike in customer withdrawals, indicating severe liquidity and operational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Binance is facing a US$6.3 billion heist and a spike in customer withdrawals, indicating severe liquidity and operational risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress",
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Binance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261101-385",
       "headline": "Binance sees spike in withdrawals after $6.3-billion heist",
       "headline_en": null,
@@ -593,56 +643,6 @@
           "name": "AstraZeneca",
           "ticker": null,
           "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261101-374",
-      "headline": "Binance sees spike in withdrawals as exchange returns online after US$6.3 billion hack",
-      "headline_en": null,
-      "url": "https://www.scmp.com/business/cryptocurrency/article/3372910/binance-sees-spike-withdrawals-exchange-returns-online-after-us63-billion-hack",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-01T19:53:28Z",
-      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "Binance experienced a US$6.3 billion hack and is facing a spike in user withdrawals, indicating significant operational and liquidity risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Binance experienced a US$6.3 billion hack and is facing a spike in user withdrawals, indicating significant operational and liquidity risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations",
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Binance",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -255187,9 +255187,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 16832,
-    "news_picked_today": 843,
-    "news_dropped_today": 3825
+    "news_seen_today": 16845,
+    "news_picked_today": 845,
+    "news_dropped_today": 3836
   },
   "book_momentum": {
     "live_count": 8,
