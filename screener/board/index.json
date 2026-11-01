@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-01T01:56:18Z",
+  "generated_at": "2026-11-01T02:05:40Z",
   "inbox": [
     {
       "inbox_id": "INB-20261101-015",
@@ -294,6 +294,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261101-033",
+      "headline": "BYD Fang Cheng Bao reaches 600,000 cumulative sales, plans faster deliveries in November",
+      "headline_en": null,
+      "url": "https://cnevpost.com/2026/11/01/byd-fang-cheng-bao-600000-cumulative-sales/",
+      "source_name": "CnEVPost",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T02:01:03Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "BYD reported cumulative sales milestones and updated delivery guidance for its sub-brand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "BYD reported cumulative sales milestones and updated delivery guidance for its sub-brand.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BYD",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261101-028",
       "headline": "Xiaomi Auto delivers over 50,000 vehicles in October as Sky Nomad drives return to year-on-year growth",
       "headline_en": null,
@@ -541,6 +590,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261101-035",
+      "headline": "POSCO union to vote on tentative wage deal this week",
+      "headline_en": null,
+      "url": "https://en.yna.co.kr/view/AEN20261101001100320",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T01:52:03Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "POSCO union is voting on a wage deal, which could impact labor costs and operational stability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 72,
+      "triage_reason": "POSCO union is voting on a wage deal, which could impact labor costs and operational stability.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "POSCO",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261101-008",
       "headline": "Metall- und Elektroindustrie: Warnstreiks der IG Metall kurz nach Mitternacht gestartet",
       "headline_en": "Metal and electrical industry: IG Metall warning strikes started shortly after midnight",
@@ -770,6 +868,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261101-034",
+      "headline": "SK hynix hosts first Partners Day in Japan to strengthen chip supply chain",
+      "headline_en": null,
+      "url": "https://www.koreaherald.com/article/10921611",
+      "source_name": "The Korea Herald — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T02:03:28Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "SK Hynix is expanding its supply chain footprint in Japan to strengthen its semiconductor operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 58,
+      "triage_reason": "SK Hynix is expanding its supply chain footprint in Japan to strengthen its semiconductor operations.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SK Hynix",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261101-019",
       "headline": "70 km/l mileage, ₹78,912 price! This Hero bike has a surprise for Indian buyers",
       "headline_en": null,
@@ -819,6 +966,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261101-037",
+      "headline": "U.S. Census May Remove Race Questions. Seeks Comments By November 2",
+      "headline_en": null,
+      "url": "https://www.forbes.com/sites/brucelee/2026/10/31/us-census-may-remove-race-questions-seeks-comments-by-november-2/",
+      "source_name": "Forbes",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T00:49:50Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "The US Census Bureau is seeking public comment on potentially removing race questions from the census, which could impact demographic data collection.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 55,
+      "triage_reason": "The US Census Bureau is seeking public comment on potentially removing race questions from the census, which could impact demographic data collection.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261101-012",
       "headline": "Hackers Stole a Record $9.2 Billion of Crypto This Year. Is Your Crypto Insured Anywhere?",
       "headline_en": null,
@@ -862,6 +1052,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261101-030",
+      "headline": "Li Auto Inc. October 2026 Delivery Update",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/11/01/3392758/0/en/li-auto-inc-october-2026-delivery-update.html",
+      "source_name": "GlobeNewswire — News about Public Companies",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-01T02:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "Li Auto reported monthly delivery data, a key operational metric for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 52,
+      "triage_reason": "Li Auto reported monthly delivery data, a key operational metric for the company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Li Auto Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261101-017",
       "headline": "Centcom says 144 vessels redirected under 'ironclad' Iran blockade",
       "headline_en": null,
@@ -900,6 +1139,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261101-031",
+      "headline": "Li Auto Inc. October 2026 Delivery Update | LI Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/LI/li-auto-inc-october-2026-delivery-ly1jnlne2iur.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-01T02:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "Li Auto reported monthly delivery data, a key operational metric for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 52,
+      "triage_reason": "Li Auto reported monthly delivery data, a key operational metric for the company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Li Auto Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1034,6 +1322,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261101-036",
+      "headline": "N. Korea tests cluster bomb mountable on tactical ballistic missiles",
+      "headline_en": null,
+      "url": "https://www.koreaherald.com/article/10921603",
+      "source_name": "The Korea Herald — All News",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T01:55:25Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "North Korea testing new tactical ballistic missile capabilities is a significant geopolitical escalation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "North Korea testing new tactical ballistic missile capabilities is a significant geopolitical escalation.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261101-027",
       "headline": "+++ Iran-Krieg +++: Iran beharrt auf Bedingungen – und droht mit neuen Waffen",
       "headline_en": "+++ Iran War +++: Iran insists on conditions – and threatens with new weapons",
@@ -1077,21 +1408,21 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261101-021",
-      "headline": "(LEAD) N. Korea tests cluster bomb mountable on tactical ballistic missiles",
+      "inbox_id": "INB-20261101-032",
+      "headline": "Taiwan says China harassing shipping with east coast patrol",
       "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20261101000451315",
-      "source_name": "Yonhap News Agency — All News (English)",
+      "url": "https://www.japantimes.co.jp/news/2026/11/01/asia-pacific/taiwan-china-harassing-shipping/",
+      "source_name": "The Japan Times",
       "input_nature": "news_headline",
-      "found_at": "2026-11-01T01:32:45Z",
+      "found_at": "2026-11-01T01:31:00Z",
       "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "North Korea tested a cluster bomb mountable on tactical ballistic missiles, indicating an escalation of military capabilities.",
+      "prelim_note": "Increased military harassment of shipping in the Taiwan Strait represents a significant geopolitical escalation.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 47,
-      "triage_reason": "North Korea tested a cluster bomb mountable on tactical ballistic missiles, indicating an escalation of military capabilities.",
-      "region": "KR",
+      "triage_reason": "Increased military harassment of shipping in the Taiwan Strait represents a significant geopolitical escalation.",
+      "region": "CN",
       "relevance": "material",
       "materiality_pre_score": 75,
       "rank_factors": {
@@ -1231,6 +1562,49 @@
         "size": 0,
         "recency": 5,
         "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261101-021",
+      "headline": "(LEAD) N. Korea tests cluster bomb mountable on tactical ballistic missiles",
+      "headline_en": null,
+      "url": "https://en.yna.co.kr/view/AEN20261101000451315",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T01:32:45Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "North Korea tested a cluster bomb mountable on tactical ballistic missiles, indicating an escalation of military capabilities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "North Korea tested a cluster bomb mountable on tactical ballistic missiles, indicating an escalation of military capabilities.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "macro",
@@ -251382,7 +251756,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4315,
+    "inbox_unconsumed": 4323,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -251391,9 +251765,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 156,
-    "news_picked_today": 29,
-    "news_dropped_today": 127
+    "news_seen_today": 182,
+    "news_picked_today": 37,
+    "news_dropped_today": 145
   },
   "book_momentum": {
     "live_count": 8,
