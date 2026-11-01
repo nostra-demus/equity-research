@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-11-01T21:58:07Z",
+  "generated_at": "2026-11-01T22:08:57Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261101-386",
+      "headline": "PNC: 3 Year Major Bank Agreement and $14.4m Portfolio Acquisition [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PNC?key=2924-03156810-6A1353167",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-01T21:26:55Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "PNC announced a $14.4m portfolio acquisition and a new 3-year bank agreement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "PNC announced a $14.4m portfolio acquisition and a new 3-year bank agreement.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PNC",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261101-379",
       "headline": "KMD: KMD update on non-binding indicative proposal received [price-sensitive]",
@@ -497,6 +547,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261101-414",
+      "headline": "AstraZeneca launches overhaul to cut costs by $1.5 billion a year",
+      "headline_en": null,
+      "url": "https://www.qatar-tribune.com/article/262056/business/astrazeneca-launches-overhaul-to-cut-costs-by-15-billion-a-year",
+      "source_name": "Qatar Tribune — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T21:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "AstraZeneca announced a cost-cutting overhaul targeting $1.5 billion in annual savings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "AstraZeneca announced a cost-cutting overhaul targeting $1.5 billion in annual savings.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AstraZeneca",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1882,104 +1981,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261101-216",
-      "headline": "Lodha Developers to invest ₹1,200 cr to build prime office complex on Gurugram Golf Course Road",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/news/real-estate/lodha-developers-to-invest-1200-cr-to-build-prime-office-complex-on-gurugram-golf-course-road/article71652286.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-01T09:02:14Z",
-      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "Lodha Developers announced a ₹1,200 crore investment for a new office complex.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Lodha Developers announced a ₹1,200 crore investment for a new office complex.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lodha Developers",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261101-207",
-      "headline": "Middle East latest: Qatar LNG carrier Al Mayeda hit by unidentified objects while transiting the Gulf",
-      "headline_en": null,
-      "url": "https://www.thenationalnews.com/news/mena/2026/11/01/live-iran-war-qatar-lng-al-mayeda/",
-      "source_name": "The National — All News",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-01T08:13:21Z",
-      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "An LNG carrier was hit by unidentified objects in the Gulf, representing a significant security and supply chain risk for energy transport in the region.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "An LNG carrier was hit by unidentified objects in the Gulf, representing a significant security and supply chain risk for energy transport in the region.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "QatarEnergy",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -255186,9 +255187,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 16246,
-    "news_picked_today": 813,
-    "news_dropped_today": 3749
+    "news_seen_today": 16832,
+    "news_picked_today": 843,
+    "news_dropped_today": 3825
   },
   "book_momentum": {
     "live_count": 8,
