@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-01T16:10:40Z",
+  "generated_at": "2026-11-01T16:15:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20261101-306",
@@ -350,6 +350,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261101-331",
+      "headline": "KIPCO completes repayment of $500 million EMTN bond",
+      "headline_en": null,
+      "url": "https://kuwaittimes.com/article/52787/business/kipco-completes-repayment-of-500-million-emtn-bond/",
+      "source_name": "Kuwait Times — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T16:08:00Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "KIPCO successfully repaid a $500 million EMTN bond, reducing debt obligations and improving liquidity profile.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "KIPCO successfully repaid a $500 million EMTN bond, reducing debt obligations and improving liquidity profile.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "KIPCO",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1920,49 +1969,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261101-315",
-      "headline": "Coalition launches precision military strike targeting Houthi war resources in Yemen",
-      "headline_en": null,
-      "url": "https://saudigazette.com.sa/article/665908/saudi-arabia/coalition-launches-precision-military-strike-targeting-houthi-war-resources-in-yemen",
-      "source_name": "Saudi Gazette — Saudi Arabia / general",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-01T14:12:40Z",
-      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "Military strikes in Yemen represent a direct escalation of regional conflict, impacting geopolitical risk and potentially energy transit.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Military strikes in Yemen represent a direct escalation of regional conflict, impacting geopolitical risk and potentially energy transit.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -215025,150 +215031,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-73490b61dc40",
-      "idea_version": "IDEAV-ddd6f35a575da056",
-      "idea_version_started_at": "2026-10-31T13:05:01Z",
-      "ticker": "GAIL",
-      "company": "GAIL (India) Ltd",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Q2 profit more than doubled year-over-year to 4,650 crore, indicating significant margin expansion despite broader market disruptions.",
-      "why_now": "The earnings results were released on October 31, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5a525560f9c5"
-      ],
-      "primary_source_event_id": "EVT-5a525560f9c5",
-      "source_headlines": [
-        "GAIL Q2 profit surges over two fold YoY to 4,650 cr despite global disruptions"
-      ],
-      "source_headline": "GAIL Q2 profit surges over two fold YoY to 4,650 cr despite global disruptions",
-      "source_url": "https://economictimes.indiatimes.com/markets/stocks/earnings/gail-q2-profit-surges-over-two-fold-yoy-to-4650-cr-despite-global-disruptions/articleshow/135387433.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-31T04:10:48Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-31T13:05:01Z",
-      "updated_at": "2026-10-31T13:05:01Z",
-      "decay_at": "2026-11-01T16:10:48Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-e4ce1e3fbb7c",
-      "idea_version": "IDEAV-c7d1bd1ba6a33fdf",
-      "idea_version_started_at": "2026-10-31T13:05:01Z",
-      "ticker": "IOC",
-      "company": "Indian Oil Corporation",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Net profit tripled year-over-year to 21,630 crore in Q2, reflecting a massive improvement in operational efficiency and refining margins.",
-      "why_now": "The earnings results were released on October 31, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-bd3558c80b70"
-      ],
-      "primary_source_event_id": "EVT-bd3558c80b70",
-      "source_headlines": [
-        "Indian Oil net profit triples YoY to 21,630 cr in Q2"
-      ],
-      "source_headline": "Indian Oil net profit triples YoY to 21,630 cr in Q2",
-      "source_url": "https://economictimes.indiatimes.com/markets/stocks/earnings/indian-oil-net-profit-triples-yoy-to-21630-cr-in-q2/articleshow/135387471.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-31T04:11:43Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-31T13:05:01Z",
-      "updated_at": "2026-10-31T13:05:01Z",
-      "decay_at": "2026-11-01T16:11:43Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-41c5501266bc",
       "idea_version": "IDEAV-03b730a97de42b8a",
       "idea_version_started_at": "2026-11-01T10:30:47Z",
@@ -217025,6 +216887,150 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-73490b61dc40",
+      "idea_version": "IDEAV-ddd6f35a575da056",
+      "idea_version_started_at": "2026-10-31T13:05:01Z",
+      "ticker": "GAIL",
+      "company": "GAIL (India) Ltd",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Q2 profit more than doubled year-over-year to 4,650 crore, indicating significant margin expansion despite broader market disruptions.",
+      "why_now": "The earnings results were released on October 31, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5a525560f9c5"
+      ],
+      "primary_source_event_id": "EVT-5a525560f9c5",
+      "source_headlines": [
+        "GAIL Q2 profit surges over two fold YoY to 4,650 cr despite global disruptions"
+      ],
+      "source_headline": "GAIL Q2 profit surges over two fold YoY to 4,650 cr despite global disruptions",
+      "source_url": "https://economictimes.indiatimes.com/markets/stocks/earnings/gail-q2-profit-surges-over-two-fold-yoy-to-4650-cr-despite-global-disruptions/articleshow/135387433.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-31T04:10:48Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-31T13:05:01Z",
+      "updated_at": "2026-10-31T13:05:01Z",
+      "decay_at": "2026-11-01T16:10:48Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-e4ce1e3fbb7c",
+      "idea_version": "IDEAV-c7d1bd1ba6a33fdf",
+      "idea_version_started_at": "2026-10-31T13:05:01Z",
+      "ticker": "IOC",
+      "company": "Indian Oil Corporation",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Net profit tripled year-over-year to 21,630 crore in Q2, reflecting a massive improvement in operational efficiency and refining margins.",
+      "why_now": "The earnings results were released on October 31, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-bd3558c80b70"
+      ],
+      "primary_source_event_id": "EVT-bd3558c80b70",
+      "source_headlines": [
+        "Indian Oil net profit triples YoY to 21,630 cr in Q2"
+      ],
+      "source_headline": "Indian Oil net profit triples YoY to 21,630 cr in Q2",
+      "source_url": "https://economictimes.indiatimes.com/markets/stocks/earnings/indian-oil-net-profit-triples-yoy-to-21630-cr-in-q2/articleshow/135387471.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-31T04:11:43Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-31T13:05:01Z",
+      "updated_at": "2026-10-31T13:05:01Z",
+      "decay_at": "2026-11-01T16:11:43Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-913c9c5d1968",
       "idea_version": "IDEAV-4de6d142058496ff",
       "idea_version_started_at": "2026-10-31T06:36:55Z",
@@ -217395,14 +217401,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 512,
+    "total_count": 514,
     "shown_count": 500,
-    "hidden_count": 12,
+    "hidden_count": 14,
     "side_counts": {
       "long": {
-        "total_count": 257,
+        "total_count": 259,
         "shown_count": 250,
-        "hidden_count": 7
+        "hidden_count": 9
       },
       "short": {
         "total_count": 255,
@@ -217426,6 +217432,156 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-e4ce1e3fbb7c",
+        "idea_version": "IDEAV-c7d1bd1ba6a33fdf",
+        "idea_version_started_at": "2026-10-31T13:05:01Z",
+        "ticker": "IOC",
+        "company": "Indian Oil Corporation",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Net profit tripled year-over-year to 21,630 crore in Q2, reflecting a massive improvement in operational efficiency and refining margins.",
+        "why_now": "The earnings results were released on October 31, 2026.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-bd3558c80b70"
+        ],
+        "primary_source_event_id": "EVT-bd3558c80b70",
+        "source_headlines": [
+          "Indian Oil net profit triples YoY to 21,630 cr in Q2"
+        ],
+        "source_headline": "Indian Oil net profit triples YoY to 21,630 cr in Q2",
+        "source_url": "https://economictimes.indiatimes.com/markets/stocks/earnings/indian-oil-net-profit-triples-yoy-to-21630-cr-in-q2/articleshow/135387471.cms",
+        "source_name": "The Economic Times",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-31T04:11:43Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-31T13:05:01Z",
+        "updated_at": "2026-10-31T13:05:01Z",
+        "decay_at": "2026-11-01T16:11:43Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-01T16:11:43Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-73490b61dc40",
+        "idea_version": "IDEAV-ddd6f35a575da056",
+        "idea_version_started_at": "2026-10-31T13:05:01Z",
+        "ticker": "GAIL",
+        "company": "GAIL (India) Ltd",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Q2 profit more than doubled year-over-year to 4,650 crore, indicating significant margin expansion despite broader market disruptions.",
+        "why_now": "The earnings results were released on October 31, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-5a525560f9c5"
+        ],
+        "primary_source_event_id": "EVT-5a525560f9c5",
+        "source_headlines": [
+          "GAIL Q2 profit surges over two fold YoY to 4,650 cr despite global disruptions"
+        ],
+        "source_headline": "GAIL Q2 profit surges over two fold YoY to 4,650 cr despite global disruptions",
+        "source_url": "https://economictimes.indiatimes.com/markets/stocks/earnings/gail-q2-profit-surges-over-two-fold-yoy-to-4650-cr-despite-global-disruptions/articleshow/135387433.cms",
+        "source_name": "The Economic Times",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-31T04:10:48Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-31T13:05:01Z",
+        "updated_at": "2026-10-31T13:05:01Z",
+        "decay_at": "2026-11-01T16:10:48Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-01T16:10:48Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-5f98ab3738c2",
         "idea_version": "IDEAV-453e9ed30fba4679",
@@ -246222,155 +246378,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-2d024290169e",
-        "idea_version": "IDEAV-1ef7d6adb4b22171",
-        "idea_version_started_at": "2026-10-16T06:33:20Z",
-        "ticker": "PLS",
-        "company": "Pilbara Minerals",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The green-lighting of a major expansion project signals management's confidence in long-term lithium demand and production capacity growth.",
-        "why_now": "The expansion was officially approved as of October 16, 2026.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 18,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-3fb7f0c26e7c"
-        ],
-        "primary_source_event_id": "EVT-3fb7f0c26e7c",
-        "source_headlines": [
-          "Australian lithium miner PLS green-lights expansion"
-        ],
-        "source_headline": "Australian lithium miner PLS green-lights expansion",
-        "source_url": "https://asia.nikkei.com/business/markets/commodities/australian-lithium-miner-pls-green-lights-expansion",
-        "source_name": "Nikkei Asia",
-        "materiality_max": 88,
-        "newest_source_at": "2026-10-16T03:24:29Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-16T06:33:20Z",
-        "updated_at": "2026-10-16T06:33:20Z",
-        "decay_at": "2026-10-17T15:24:29Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-19T03:38:18Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-94072c479133",
-        "idea_version": "IDEAV-7729523afe49d45d",
-        "idea_version_started_at": "2026-10-16T04:42:08Z",
-        "ticker": "VASCONEQ",
-        "company": "Vascon Engineers",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company secured a construction contract worth Rs. 198 crore from State Bank of India, providing a clear revenue tailwind.",
-        "why_now": "The contract award was officially filed on 2026-10-16.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 18,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-25605058a82b"
-        ],
-        "primary_source_event_id": "EVT-25605058a82b",
-        "source_headlines": [
-          "Vascon Engineers Limited: VASCON ENGINEERS LIMITED RECEIVES LETTER OF ACCEPTANCE FROM STATE BANK OF INDIA FOR CONSTRUCTION OF SBILD, RESIDENTIAL FLATS AND OTHER COMMERCIAL OUTFITS AT HINJEWADI, PUNE, MAHARASHTRA AMOUNTING TO RS. 198 CRORE"
-        ],
-        "source_headline": "Vascon Engineers Limited: VASCON ENGINEERS LIMITED RECEIVES LETTER OF ACCEPTANCE FROM STATE BANK OF INDIA FOR CONSTRUCTION OF SBILD, RESIDENTIAL FLATS AND OTHER COMMERCIAL OUTFITS AT HINJEWADI, PUNE, MAHARASHTRA AMOUNTING TO RS. 198 CRORE",
-        "source_url": "https://nsearchives.nseindia.com/corporate/VASCONEQ_16102026081542_16102026LetterofIntent_V1_Sd.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 88,
-        "newest_source_at": "2026-10-16T02:46:03Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-16T04:42:08Z",
-        "updated_at": "2026-10-16T04:42:08Z",
-        "decay_at": "2026-10-17T14:46:03Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-19T02:51:07Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-4c694dbd5e98",
         "idea_version": "IDEAV-1a5a6ab2f4672341",
         "idea_version_started_at": "2026-10-16T04:22:07Z",
@@ -254641,7 +254648,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2078,
-    "live_count": 66,
+    "live_count": 64,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -254660,9 +254667,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7191,
-    "news_picked_today": 621,
-    "news_dropped_today": 2225
+    "news_seen_today": 7206,
+    "news_picked_today": 623,
+    "news_dropped_today": 2238
   },
   "book_momentum": {
     "live_count": 8,
