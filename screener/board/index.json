@@ -1,6 +1,98 @@
 {
-  "generated_at": "2026-11-01T00:55:42Z",
+  "generated_at": "2026-11-01T01:15:11Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261101-015",
+      "headline": "FBI confirms North Korea's role in $6 billion Binance hack, asks DeFi community to block BTC, ETH, SOL addresses",
+      "headline_en": null,
+      "url": "https://www.coindesk.com/policy/2026/10/31/fbi-confirms-north-korea-s-role-in-usd6-billion-binance-hack-asks-defi-community-to-block-btc-eth-sol-addresses",
+      "source_name": "CoinDesk",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T01:10:05Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "The FBI confirmed North Korea's role in a $6 billion hack, creating significant regulatory and security risk for the crypto sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The FBI confirmed North Korea's role in a $6 billion hack, creating significant regulatory and security risk for the crypto sector.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Binance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261101-016",
+      "headline": "Fuel cost surge wipes 15pc off Olympics contractor profit",
+      "headline_en": null,
+      "url": "https://www.afr.com/property/commercial/fuel-cost-surge-wipes-15pc-off-olympics-contractor-profit-20261101-p61a73?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T01:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "An Olympics contractor reported a 15% profit reduction due to rising fuel costs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "An Olympics contractor reported a 15% profit reduction due to rising fuel costs.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261101-007",
       "headline": "FBI blames North Korea for US$6 billion Binance crypto hack",
@@ -424,6 +516,49 @@
         "cybersecurity"
       ],
       "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261101-017",
+      "headline": "Centcom says 144 vessels redirected under 'ironclad' Iran blockade",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/centcom-says-144-vessels-redirected-under-ironclad-iran-blockade",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T00:58:42Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "The redirection of 144 vessels due to an Iran blockade represents a major supply chain and geopolitical shock.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 52,
+      "triage_reason": "The redirection of 144 vessels due to an Iran blockade represents a major supply chain and geopolitical shock.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -212117,78 +212252,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-913c9c5d1968",
-      "idea_version": "IDEAV-4de6d142058496ff",
-      "idea_version_started_at": "2026-10-31T06:36:55Z",
-      "ticker": "01788",
-      "company": "Guotai Junan International",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company has fulfilled the pre-condition for its privatization scheme, signaling the final stages of the delisting process.",
-      "why_now": "The announcement dated October 30, 2026, confirms the removal of the primary hurdle for the privatization offer.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ea4f9ec7ec8e"
-      ],
-      "primary_source_event_id": "EVT-ea4f9ec7ec8e",
-      "source_headlines": [
-        "GUOTAI JUNAN I (01788): JOINT ANNOUNCEMENT FULFILMENT OF THE PRE-CONDITION IN RELATION TO (1) PRE-CONDITIONAL PROPOSAL FOR THE PRIVATISATION OF GUOTAI JUNAN INTERNATIONAL HOLDINGS LIMITED BY THE OFFEROR BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 673 OF THE COMPANIES ORDINANCE AND (2) PROPOSED WITHDRAWAL OF LISTING OF THE SHARES OF GUOTAI JUNAN INTERNATIONAL HOLDINGS LIMITED"
-      ],
-      "source_headline": "GUOTAI JUNAN I (01788): JOINT ANNOUNCEMENT FULFILMENT OF THE PRE-CONDITION IN RELATION TO (1) PRE-CONDITIONAL PROPOSAL FOR THE PRIVATISATION OF GUOTAI JUNAN INTERNATIONAL HOLDINGS LIMITED BY THE OFFEROR BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 673 OF THE COMPANIES ORDINANCE AND (2) PROPOSED WITHDRAWAL OF LISTING OF THE SHARES OF GUOTAI JUNAN INTERNATIONAL HOLDINGS LIMITED",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1030/2026103002451.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-30T13:11:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-31T06:36:55Z",
-      "updated_at": "2026-10-31T06:36:55Z",
-      "decay_at": "2026-11-01T01:11:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-9cffaa456373",
       "idea_version": "IDEAV-9d14ebb671c16383",
       "idea_version_started_at": "2026-10-31T06:36:55Z",
@@ -212824,6 +212887,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-913c9c5d1968",
+      "idea_version": "IDEAV-4de6d142058496ff",
+      "idea_version_started_at": "2026-10-31T06:36:55Z",
+      "ticker": "01788",
+      "company": "Guotai Junan International",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company has fulfilled the pre-condition for its privatization scheme, signaling the final stages of the delisting process.",
+      "why_now": "The announcement dated October 30, 2026, confirms the removal of the primary hurdle for the privatization offer.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ea4f9ec7ec8e"
+      ],
+      "primary_source_event_id": "EVT-ea4f9ec7ec8e",
+      "source_headlines": [
+        "GUOTAI JUNAN I (01788): JOINT ANNOUNCEMENT FULFILMENT OF THE PRE-CONDITION IN RELATION TO (1) PRE-CONDITIONAL PROPOSAL FOR THE PRIVATISATION OF GUOTAI JUNAN INTERNATIONAL HOLDINGS LIMITED BY THE OFFEROR BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 673 OF THE COMPANIES ORDINANCE AND (2) PROPOSED WITHDRAWAL OF LISTING OF THE SHARES OF GUOTAI JUNAN INTERNATIONAL HOLDINGS LIMITED"
+      ],
+      "source_headline": "GUOTAI JUNAN I (01788): JOINT ANNOUNCEMENT FULFILMENT OF THE PRE-CONDITION IN RELATION TO (1) PRE-CONDITIONAL PROPOSAL FOR THE PRIVATISATION OF GUOTAI JUNAN INTERNATIONAL HOLDINGS LIMITED BY THE OFFEROR BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 673 OF THE COMPANIES ORDINANCE AND (2) PROPOSED WITHDRAWAL OF LISTING OF THE SHARES OF GUOTAI JUNAN INTERNATIONAL HOLDINGS LIMITED",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1030/2026103002451.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-30T13:11:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-31T06:36:55Z",
+      "updated_at": "2026-10-31T06:36:55Z",
+      "decay_at": "2026-11-01T01:11:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-ad1cbaa247a0",
       "idea_version": "IDEAV-d005857599f6ecb6",
       "idea_version_started_at": "2026-10-30T06:36:21Z",
@@ -213405,14 +213540,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 514,
+    "total_count": 515,
     "shown_count": 500,
-    "hidden_count": 14,
+    "hidden_count": 15,
     "side_counts": {
       "long": {
-        "total_count": 260,
+        "total_count": 261,
         "shown_count": 250,
-        "hidden_count": 10
+        "hidden_count": 11
       },
       "short": {
         "total_count": 254,
@@ -213436,6 +213571,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-913c9c5d1968",
+        "idea_version": "IDEAV-4de6d142058496ff",
+        "idea_version_started_at": "2026-10-31T06:36:55Z",
+        "ticker": "01788",
+        "company": "Guotai Junan International",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company has fulfilled the pre-condition for its privatization scheme, signaling the final stages of the delisting process.",
+        "why_now": "The announcement dated October 30, 2026, confirms the removal of the primary hurdle for the privatization offer.",
+        "conviction": 85,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-ea4f9ec7ec8e"
+        ],
+        "primary_source_event_id": "EVT-ea4f9ec7ec8e",
+        "source_headlines": [
+          "GUOTAI JUNAN I (01788): JOINT ANNOUNCEMENT FULFILMENT OF THE PRE-CONDITION IN RELATION TO (1) PRE-CONDITIONAL PROPOSAL FOR THE PRIVATISATION OF GUOTAI JUNAN INTERNATIONAL HOLDINGS LIMITED BY THE OFFEROR BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 673 OF THE COMPANIES ORDINANCE AND (2) PROPOSED WITHDRAWAL OF LISTING OF THE SHARES OF GUOTAI JUNAN INTERNATIONAL HOLDINGS LIMITED"
+        ],
+        "source_headline": "GUOTAI JUNAN I (01788): JOINT ANNOUNCEMENT FULFILMENT OF THE PRE-CONDITION IN RELATION TO (1) PRE-CONDITIONAL PROPOSAL FOR THE PRIVATISATION OF GUOTAI JUNAN INTERNATIONAL HOLDINGS LIMITED BY THE OFFEROR BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 673 OF THE COMPANIES ORDINANCE AND (2) PROPOSED WITHDRAWAL OF LISTING OF THE SHARES OF GUOTAI JUNAN INTERNATIONAL HOLDINGS LIMITED",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1030/2026103002451.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-30T13:11:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-31T06:36:55Z",
+        "updated_at": "2026-10-31T06:36:55Z",
+        "decay_at": "2026-11-01T01:11:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-01T01:11:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-a8438919fd9a",
         "idea_version": "IDEAV-85b653167bbaf739",
@@ -242306,81 +242516,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-68a27a8cac04",
-        "idea_version": "IDEAV-0f7a3665ad048d42",
-        "idea_version_started_at": "2026-10-15T18:42:48Z",
-        "ticker": "SOLARINDS",
-        "company": "Solar Industries India Ltd",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The acquisition of Sivasakthi Industrial Explosives for ₹115.02 crore allows Solar Industries to consolidate its market share in the industrial explosives sector and expand its manufacturing footprint.",
-        "why_now": "The deal was officially announced on 2026-10-15, providing an immediate catalyst for market re-rating based on inorganic growth.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-f59a4b89b1ad"
-        ],
-        "primary_source_event_id": "EVT-f59a4b89b1ad",
-        "source_headlines": [
-          "Solar Industries to acquire Sivasakthi Industrial Explosives for ₹115.02 crore"
-        ],
-        "source_headline": "Solar Industries to acquire Sivasakthi Industrial Explosives for ₹115.02 crore",
-        "source_url": "https://www.cnbctv18.com/business/companies/solar-industries-to-acquire-sivasakthi-industrial-explosives-for-rs-115-02-crore-20013022.htm",
-        "source_name": "CNBC-TV18",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-15T17:39:39Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-15T18:42:48Z",
-        "updated_at": "2026-10-15T18:42:48Z",
-        "decay_at": "2026-10-17T05:39:39Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-18T17:51:41Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-d30e04c100e8",
         "idea_version": "IDEAV-a1b57c13034af575",
         "idea_version_started_at": "2026-10-15T15:44:28Z",
@@ -250656,7 +250791,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2034,
-    "live_count": 27,
+    "live_count": 26,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -250666,7 +250801,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4301,
+    "inbox_unconsumed": 4304,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -250675,9 +250810,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 81,
-    "news_picked_today": 14,
-    "news_dropped_today": 67
+    "news_seen_today": 103,
+    "news_picked_today": 17,
+    "news_dropped_today": 86
   },
   "book_momentum": {
     "live_count": 8,
