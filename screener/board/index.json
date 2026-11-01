@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-01T01:55:43Z",
+  "generated_at": "2026-11-01T01:56:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261101-015",
@@ -211326,6 +211326,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-9113719b01b8",
+      "idea_version": "IDEAV-0ad804ddbf4d475d",
+      "idea_version_started_at": "2026-11-01T01:56:04Z",
+      "ticker": "XIACY",
+      "company": "Xiaomi Corporation",
+      "exchange": "OTC Markets",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Xiaomi's automotive division achieved a significant milestone by delivering over 50,000 vehicles in October, signaling successful scaling and market penetration for its EV business.",
+      "why_now": "The delivery data was released on November 1, 2026, confirming strong monthly momentum.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 61,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 15,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-fce3d6c763a4"
+      ],
+      "primary_source_event_id": "EVT-fce3d6c763a4",
+      "source_headlines": [
+        "Xiaomi Auto delivers over 50,000 vehicles in October as Sky Nomad drives return to year-on-year growth"
+      ],
+      "source_headline": "Xiaomi Auto delivers over 50,000 vehicles in October as Sky Nomad drives return to year-on-year growth",
+      "source_url": "https://cnevpost.com/2026/11/01/xiaomi-auto-delivers-over-50000-oct-2026/",
+      "source_name": "CnEVPost",
+      "materiality_max": 88,
+      "newest_source_at": "2026-11-01T01:45:34Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-01T01:56:04Z",
+      "updated_at": "2026-11-01T01:56:04Z",
+      "decay_at": "2026-11-02T13:45:34Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-f14c523b1f9e",
       "idea_version": "IDEAV-65c6bdfd530b8917",
       "idea_version_started_at": "2026-10-31T22:35:25Z",
@@ -251301,8 +251371,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2034,
-    "live_count": 26,
+    "surfaced_total": 2035,
+    "live_count": 27,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
