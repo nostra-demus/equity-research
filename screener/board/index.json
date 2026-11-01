@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-01T03:15:10Z",
+  "generated_at": "2026-11-01T03:20:08Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261101-055",
+      "headline": "FBI blames North Korea for record $6.3bn crypto heist from Binance",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/2026/11/1/fbi-blames-north-korea-for-record-6-3bn-crypto-heist?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-11-01T02:28:38Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "The FBI attributed a $6.3 billion crypto heist to North Korea, impacting Binance's security and regulatory risk profile.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The FBI attributed a $6.3 billion crypto heist to North Korea, impacting Binance's security and regulatory risk profile.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Binance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261101-015",
       "headline": "FBI confirms North Korea's role in $6 billion Binance hack, asks DeFi community to block BTC, ETH, SOL addresses",
@@ -88,56 +137,6 @@
       ],
       "issuer_linkage": "primary",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261101-007",
-      "headline": "FBI blames North Korea for US$6 billion Binance crypto hack",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/international/fbi-blames-north-korea-us6-billion-binance-crypto-hack",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-01T00:33:44Z",
-      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "The FBI has attributed a US$6 billion crypto hack to North Korea, impacting Binance and highlighting significant cybersecurity and regulatory risks.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The FBI has attributed a US$6 billion crypto hack to North Korea, impacting Binance and highlighting significant cybersecurity and regulatory risks.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "cybersecurity",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Binance",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -936,6 +935,60 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261101-056",
+      "headline": "Micron's Chinese Rival CXMT Just Grew Its Sales More Than Sevenfold. I'd Buy Micron Stock Now.",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/10/31/micron-s-chinese-rival-cxmt-just-grew-its-sales-more-than-sevenfold-i-d-buy-micron-stock-now/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T03:13:01Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "Competitor CXMT's sales growth highlights competitive pressure in the memory chip sector for Micron.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "Competitor CXMT's sales growth highlights competitive pressure in the memory chip sector for Micron.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "secondary",
+      "companies": [
+        {
+          "name": "Micron Technology",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "CXMT",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1869,55 +1922,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261101-054",
-      "headline": "XPENG Announces Vehicle Delivery Results for October 2026",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/xpeng-announces-vehicle-delivery-results-for-october-2026-302925668.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-11-01T03:10:00Z",
-      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "XPENG reported monthly vehicle delivery results, a key operational metric for automotive manufacturers.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "XPENG reported monthly vehicle delivery results, a key operational metric for automotive manufacturers.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "XPENG",
-          "ticker": "XPEV",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -213747,77 +213751,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-b89ae4f13609",
-      "idea_version": "IDEAV-44bebd6d38bd8f5b",
-      "idea_version_started_at": "2026-10-31T06:36:55Z",
-      "ticker": "BLUECOAST",
-      "company": "Blue Coast Hotels Limited",
-      "exchange": "BSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company has formally disclosed defaults on interest and principal payments for its unlisted debt securities, indicating severe liquidity distress.",
-      "why_now": "The default notification was filed on October 30, 2026, confirming immediate balance sheet insolvency.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 23,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4b2bd673dd92"
-      ],
-      "primary_source_event_id": "EVT-4b2bd673dd92",
-      "source_headlines": [
-        "Blue Coast Hotels Limited: Blue Coast Hotels Limited hereby inform regarding the defaults on payment of interest / repayment of principal amount on unlisted debt securities."
-      ],
-      "source_headline": "Blue Coast Hotels Limited: Blue Coast Hotels Limited hereby inform regarding the defaults on payment of interest / repayment of principal amount on unlisted debt securities.",
-      "source_url": "https://nsearchives.nseindia.com/corporate/BLUECOAST_30102026204916_Default_Redemption_Preference_share_30_10_2026Signed.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-30T15:19:57Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-31T06:36:55Z",
-      "updated_at": "2026-10-31T06:36:55Z",
-      "decay_at": "2026-11-01T03:19:57Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-520be705f9e6",
       "idea_version": "IDEAV-5bfab581ce59e67e",
       "idea_version_started_at": "2026-11-01T00:35:53Z",
@@ -214526,6 +214459,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-b89ae4f13609",
+      "idea_version": "IDEAV-44bebd6d38bd8f5b",
+      "idea_version_started_at": "2026-10-31T06:36:55Z",
+      "ticker": "BLUECOAST",
+      "company": "Blue Coast Hotels Limited",
+      "exchange": "BSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company has formally disclosed defaults on interest and principal payments for its unlisted debt securities, indicating severe liquidity distress.",
+      "why_now": "The default notification was filed on October 30, 2026, confirming immediate balance sheet insolvency.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 23,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4b2bd673dd92"
+      ],
+      "primary_source_event_id": "EVT-4b2bd673dd92",
+      "source_headlines": [
+        "Blue Coast Hotels Limited: Blue Coast Hotels Limited hereby inform regarding the defaults on payment of interest / repayment of principal amount on unlisted debt securities."
+      ],
+      "source_headline": "Blue Coast Hotels Limited: Blue Coast Hotels Limited hereby inform regarding the defaults on payment of interest / repayment of principal amount on unlisted debt securities.",
+      "source_url": "https://nsearchives.nseindia.com/corporate/BLUECOAST_30102026204916_Default_Redemption_Preference_share_30_10_2026Signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-30T15:19:57Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-31T06:36:55Z",
+      "updated_at": "2026-10-31T06:36:55Z",
+      "decay_at": "2026-11-01T03:19:57Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-ad1cbaa247a0",
       "idea_version": "IDEAV-d005857599f6ecb6",
       "idea_version_started_at": "2026-10-30T06:36:21Z",
@@ -215107,9 +215111,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 516,
+    "total_count": 517,
     "shown_count": 500,
-    "hidden_count": 16,
+    "hidden_count": 17,
     "side_counts": {
       "long": {
         "total_count": 262,
@@ -215117,9 +215121,9 @@
         "hidden_count": 12
       },
       "short": {
-        "total_count": 254,
+        "total_count": 255,
         "shown_count": 250,
-        "hidden_count": 4
+        "hidden_count": 5
       }
     },
     "retention": {
@@ -215138,6 +215142,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-b89ae4f13609",
+        "idea_version": "IDEAV-44bebd6d38bd8f5b",
+        "idea_version_started_at": "2026-10-31T06:36:55Z",
+        "ticker": "BLUECOAST",
+        "company": "Blue Coast Hotels Limited",
+        "exchange": "BSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company has formally disclosed defaults on interest and principal payments for its unlisted debt securities, indicating severe liquidity distress.",
+        "why_now": "The default notification was filed on October 30, 2026, confirming immediate balance sheet insolvency.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 23,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-4b2bd673dd92"
+        ],
+        "primary_source_event_id": "EVT-4b2bd673dd92",
+        "source_headlines": [
+          "Blue Coast Hotels Limited: Blue Coast Hotels Limited hereby inform regarding the defaults on payment of interest / repayment of principal amount on unlisted debt securities."
+        ],
+        "source_headline": "Blue Coast Hotels Limited: Blue Coast Hotels Limited hereby inform regarding the defaults on payment of interest / repayment of principal amount on unlisted debt securities.",
+        "source_url": "https://nsearchives.nseindia.com/corporate/BLUECOAST_30102026204916_Default_Redemption_Preference_share_30_10_2026Signed.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-30T15:19:57Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-31T06:36:55Z",
+        "updated_at": "2026-10-31T06:36:55Z",
+        "decay_at": "2026-11-01T03:19:57Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-01T03:19:57Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-9cffaa456373",
         "idea_version": "IDEAV-9d14ebb671c16383",
@@ -252276,90 +252354,12 @@
         "archived_at": "2026-10-07T16:37:55Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-796a3c8cf02a",
-        "idea_version": "IDEAV-ee5a39b8be994614",
-        "idea_version_started_at": "2026-10-04T11:54:46Z",
-        "ticker": "KUSUM",
-        "company": "Kusum Group",
-        "exchange": null,
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Kusum Group's pharmaceutical plant in Ukraine has been attacked and destroyed by Russian drones, impacting its operations and potentially its revenue.",
-        "why_now": "Reports of the attack and destruction emerged on October 4, 2026.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 10,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-41151ba2493c",
-          "EVT-c0a67d52599b",
-          "EVT-d470dc288a57"
-        ],
-        "primary_source_event_id": "EVT-c0a67d52599b",
-        "source_headlines": [
-          "Russian Drone Strike Destroys Indian-Owned Pharma Unit In Ukraine, One Dead",
-          "India's Kusum Group pharma plant in Ukraine comes under attack, says report: What to know",
-          "Indian-run pharma plant in Ukraine hit by Russian drones, 1 killed, several injured"
-        ],
-        "source_headline": "Russian Drone Strike Destroys Indian-Owned Pharma Unit In Ukraine, One Dead",
-        "source_url": "https://www.ndtvprofit.com/world/russian-drone-strike-destroys-indian-owned-pharma-unit-in-ukraine-one-dead-12136681#publisher=newsstand",
-        "source_name": "NDTV Profit",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-04T11:10:56Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-04T11:54:46Z",
-        "updated_at": "2026-10-04T11:54:46Z",
-        "decay_at": "2026-10-05T23:10:56Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-07T16:37:55Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2040,
-    "live_count": 31,
+    "live_count": 30,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -252378,9 +252378,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 295,
-    "news_picked_today": 54,
-    "news_dropped_today": 241
+    "news_seen_today": 310,
+    "news_picked_today": 56,
+    "news_dropped_today": 254
   },
   "book_momentum": {
     "live_count": 8,
