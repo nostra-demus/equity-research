@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-01T06:10:33Z",
+  "generated_at": "2026-11-01T06:15:36Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261101-132",
+      "headline": "Rainbow Children's Medicare Q2 results: Profit rises to ₹84 cr",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/rainbow-childrens-medicare-q2-results-profit-rises-to-84-cr/article71652182.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T06:09:46Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "Rainbow Children's Medicare reported a quarterly profit of ₹84 crore, indicating a clear financial performance update.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Rainbow Children's Medicare reported a quarterly profit of ₹84 crore, indicating a clear financial performance update.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Rainbow Children's Medicare",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261101-131",
       "headline": "ITC Q2 Results Preview: Profit seen falling nearly 30% YoY as cigarette tax hikes bite",
@@ -1923,56 +1972,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261101-011",
-      "headline": "North Korean hackers behind $6.3 billion Binance crypto theft, says FBI",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/news/world/north-korean-hackers-behind-63-billion-binance-crypto-theft-says-fbi/article71651779.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-01T00:34:08Z",
-      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "The FBI has linked North Korean hackers to a $6.3 billion theft from Binance, highlighting significant cybersecurity and regulatory risks for the exchange.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "The FBI has linked North Korean hackers to a $6.3 billion theft from Binance, highlighting significant cybersecurity and regulatory risks for the exchange.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "cybersecurity",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Binance",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -253078,9 +253077,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4532,
-    "news_picked_today": 141,
-    "news_dropped_today": 558
+    "news_seen_today": 4537,
+    "news_picked_today": 143,
+    "news_dropped_today": 561
   },
   "book_momentum": {
     "live_count": 8,
