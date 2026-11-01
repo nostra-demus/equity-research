@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-01T08:43:47Z",
+  "generated_at": "2026-11-01T08:49:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20261101-207",
@@ -673,6 +673,55 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261101-213",
+      "headline": "Binance says resuming withdrawals after major hack",
+      "headline_en": null,
+      "url": "https://www.france24.com/en/business/20261101-binance-says-resuming-withdrawals-after-major-hack",
+      "source_name": "France 24",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T07:01:49Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "Binance confirmed a major hack and the subsequent suspension of withdrawals, indicating significant operational and security risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Binance confirmed a major hack and the subsequent suspension of withdrawals, indicating significant operational and security risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Binance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -1922,55 +1971,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261101-126",
-      "headline": "Mahindra clocks record SUV sales of 73,338 units in October on festive demand",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/auto/mahindra-mahindra-achieves-record-breaking-suv-sales-of-73338-units-in-october-2026/articleshow/135418566.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-01T05:44:37Z",
-      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "Mahindra reported record monthly SUV sales of 73,338 units, indicating strong demand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Mahindra reported record monthly SUV sales of 73,338 units, indicating strong demand.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mahindra",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -253795,9 +253795,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5195,
-    "news_picked_today": 263,
-    "news_dropped_today": 885
+    "news_seen_today": 5235,
+    "news_picked_today": 266,
+    "news_dropped_today": 892
   },
   "book_momentum": {
     "live_count": 8,
