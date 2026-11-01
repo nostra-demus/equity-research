@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-01T10:06:21Z",
+  "generated_at": "2026-11-01T10:11:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20261101-228",
@@ -975,6 +975,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261101-231",
+      "headline": "SHANGHAI XNG (03666): COMPLETION OF VERY SUBSTANTIAL DISPOSAL OF 100% EQUITY INTEREST IN THE TARGET COMPANY AND NON-COMPLIANCE WITH CHAPTER 14 OF THE LISTING RULES",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1101/2026110100013.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-01T10:04:00Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "The company completed a very substantial disposal but disclosed non-compliance with listing rules, indicating potential regulatory risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "The company completed a very substantial disposal but disclosed non-compliance with listing rules, indicating potential regulatory risk.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "regulatory",
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SHANGHAI XNG",
+          "ticker": "03666",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261101-096",
       "headline": "R R Kabel Limited: RRKABEL: R R Kabel Limited has informed the Exchange regarding completion of the acquisition of the Business Undertaking from U M Cables Limited.",
       "headline_en": null,
@@ -1724,6 +1774,61 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261101-238",
+      "headline": "Dubai's DEWA steps up global expansion push with Shanghai Electric deal",
+      "headline_en": null,
+      "url": "https://www.thenationalnews.com/business/energy/2026/11/01/dubais-dewa-steps-up-global-expansion-push-with-shanghai-electric-deal/",
+      "source_name": "The National — All News",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T10:02:56Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "DEWA is expanding its global footprint through a strategic partnership with Shanghai Electric.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "DEWA is expanding its global footprint through a strategic partnership with Shanghai Electric.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dubai Electricity and Water Authority",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Shanghai Electric",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261101-100",
       "headline": "Quant hedge fund to spin out of Tudor in record $9bn launch",
       "headline_en": null,
@@ -1868,104 +1973,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261101-203",
-      "headline": "Waaree Renewable Technologies Limited: Waaree Renewable Technologies Limited has informed the Exchange about Bagging/Receiving of orders/contracts",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/WAAREERTL_01112026133010_Intimation-s.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-01T08:00:23Z",
-      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "Waaree Renewable Technologies announced the receipt of new orders/contracts, which is a positive commercial development.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Waaree Renewable Technologies announced the receipt of new orders/contracts, which is a positive commercial development.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Waaree Renewable Technologies Limited",
-          "ticker": "534618",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261101-202",
-      "headline": "FBI blames North Korea for record $6.3B Binance hack",
-      "headline_en": null,
-      "url": "https://cointelegraph.com/news/fbi-blames-north-korea-for-record-63b-binance-hack?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source_name": "Cointelegraph",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-01T07:44:38Z",
-      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "The FBI attributed a $6.3 billion hack to North Korea, highlighting significant cybersecurity risks and potential regulatory scrutiny for crypto platforms.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "The FBI attributed a $6.3 billion hack to North Korea, highlighting significant cybersecurity risks and potential regulatory scrutiny for crypto platforms.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Binance",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
