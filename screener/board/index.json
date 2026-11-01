@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-01T18:17:42Z",
+  "generated_at": "2026-11-01T18:36:26Z",
   "inbox": [
     {
       "inbox_id": "INB-20261101-306",
@@ -350,6 +350,104 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261101-348",
+      "headline": "ED Registers ECIR Against Essel Group Chairman Subhash Chandra In ₹1,322-Crore LIC Housing Finance Loan Fraud Case",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/mumbai/ed-registers-ecir-against-essel-group-chairman-subhash-chandra-in-1322-crore-lic-housing-finance-loan-fraud-case",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T18:16:25Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "Essel Group Chairman Subhash Chandra is facing an ECIR registration regarding a 13.22 billion INR loan fraud case.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Essel Group Chairman Subhash Chandra is facing an ECIR registration regarding a 13.22 billion INR loan fraud case.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Essel Group",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261101-363",
+      "headline": "Binance users pull $3.6bn as crypto exchange restarts services after heist",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/1d4dd7b2-9dee-433b-ac2a-e8022af1dd07?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T18:15:33Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "Binance users withdrew $3.6bn following a service restart after a heist, indicating significant liquidity and trust risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Binance users withdrew $3.6bn following a service restart after a heist, indicating significant liquidity and trust risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Binance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1881,98 +1979,6 @@
           "listing_country": null
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261101-015",
-      "headline": "FBI confirms North Korea's role in $6 billion Binance hack, asks DeFi community to block BTC, ETH, SOL addresses",
-      "headline_en": null,
-      "url": "https://www.coindesk.com/policy/2026/10/31/fbi-confirms-north-korea-s-role-in-usd6-billion-binance-hack-asks-defi-community-to-block-btc-eth-sol-addresses",
-      "source_name": "CoinDesk",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-01T01:10:05Z",
-      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "The FBI confirmed North Korea's role in a $6 billion hack, creating significant regulatory and security risk for the crypto sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The FBI confirmed North Korea's role in a $6 billion hack, creating significant regulatory and security risk for the crypto sector.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Binance",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261101-016",
-      "headline": "Fuel cost surge wipes 15pc off Olympics contractor profit",
-      "headline_en": null,
-      "url": "https://www.afr.com/property/commercial/fuel-cost-surge-wipes-15pc-off-olympics-contractor-profit-20261101-p61a73?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-01T01:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "An Olympics contractor reported a 15% profit reduction due to rising fuel costs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "An Olympics contractor reported a 15% profit reduction due to rising fuel costs.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -254891,9 +254897,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 14872,
-    "news_picked_today": 689,
-    "news_dropped_today": 3315
+    "news_seen_today": 15731,
+    "news_picked_today": 708,
+    "news_dropped_today": 3392
   },
   "book_momentum": {
     "live_count": 8,
