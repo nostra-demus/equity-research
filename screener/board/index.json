@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-01T01:22:11Z",
+  "generated_at": "2026-11-01T01:40:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20261101-015",
@@ -784,6 +784,49 @@
       },
       "event_types": [
         "operations"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261101-021",
+      "headline": "(LEAD) N. Korea tests cluster bomb mountable on tactical ballistic missiles",
+      "headline_en": null,
+      "url": "https://en.yna.co.kr/view/AEN20261101000451315",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T01:32:45Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "North Korea tested a cluster bomb mountable on tactical ballistic missiles, indicating an escalation of military capabilities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "North Korea tested a cluster bomb mountable on tactical ballistic missiles, indicating an escalation of military capabilities.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
       ],
       "issuer_linkage": "macro",
       "companies": [],
@@ -250942,7 +250985,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4307,
+    "inbox_unconsumed": 4308,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -250951,9 +250994,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 112,
-    "news_picked_today": 20,
-    "news_dropped_today": 92
+    "news_seen_today": 131,
+    "news_picked_today": 21,
+    "news_dropped_today": 110
   },
   "book_momentum": {
     "live_count": 8,
