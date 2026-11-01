@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-01T19:45:47Z",
+  "generated_at": "2026-11-01T19:55:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20261101-306",
@@ -298,6 +298,56 @@
           "name": "Li Auto",
           "ticker": "02015",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261101-374",
+      "headline": "Binance sees spike in withdrawals as exchange returns online after US$6.3 billion hack",
+      "headline_en": null,
+      "url": "https://www.scmp.com/business/cryptocurrency/article/3372910/binance-sees-spike-withdrawals-exchange-returns-online-after-us63-billion-hack",
+      "source_name": "South China Morning Post",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T19:53:28Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "Binance experienced a US$6.3 billion hack and is facing a spike in user withdrawals, indicating significant operational and liquidity risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Binance experienced a US$6.3 billion hack and is facing a spike in user withdrawals, indicating significant operational and liquidity risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations",
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Binance",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -1932,55 +1982,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261101-131",
-      "headline": "ITC Q2 Results Preview: Profit seen falling nearly 30% YoY as cigarette tax hikes bite",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/itc-q2-results-preview-profit-seen-falling-nearly-30-yoy-as-cigarette-tax-hikes-bite/articleshow/135419165.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-01T05:57:43Z",
-      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "ITC is expected to report a 30% YoY profit decline due to cigarette tax hikes.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "ITC is expected to report a 30% YoY profit decline due to cigarette tax hikes.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ITC",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -214903,77 +214904,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-d341433a1235",
-      "idea_version": "IDEAV-85362517597a8cfb",
-      "idea_version_started_at": "2026-10-31T22:20:23Z",
-      "ticker": "SHYAMMETL",
-      "company": "Shyam Metalics and Energy",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of a 51% stake in Alom Solar Private Limited signals a strategic entry into the renewable energy space, complemented by a ₹360 Crore capex budget.",
-      "why_now": "The board approval and filing were released on 2026-10-31.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-74695cd83bbd"
-      ],
-      "primary_source_event_id": "EVT-74695cd83bbd",
-      "source_headlines": [
-        "Shyam Metalics and Energy Limited: Shyam Metalics And Energy Limited has informed the Exchange about 3. The proposal to acquire a 51% controlling equity stake in Alom Solar Private Limited, On acquisition, Alom Solar Private Limited becomes the Subsidiary of Shyam Metalics and Energy Limited and 4. the Proposal for the initial Capital Expenditure (Capex) budget of approximately ₹360 Crores further Based on the recommendation of the Nomination and Remuneration Committee and subject to appro"
-      ],
-      "source_headline": "Shyam Metalics and Energy Limited: Shyam Metalics And Energy Limited has informed the Exchange about 3. The proposal to acquire a 51% controlling equity stake in Alom Solar Private Limited, On acquisition, Alom Solar Private Limited becomes the Subsidiary of Shyam Metalics and Energy Limited and 4. the Proposal for the initial Capital Expenditure (Capex) budget of approximately ₹360 Crores further Based on the recommendation of the Nomination and Remuneration Committee and subject to appro",
-      "source_url": "https://nsearchives.nseindia.com/corporate/SHYAMMETL_31102026131611_outcomeofBM.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-31T07:46:25Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-31T14:59:59Z",
-      "updated_at": "2026-10-31T22:20:23Z",
-      "decay_at": "2026-11-01T19:46:25Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-02b85489d156",
       "idea_version": "IDEAV-77be87318b9eea9d",
       "idea_version_started_at": "2026-10-31T22:00:18Z",
@@ -217261,6 +217191,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-d341433a1235",
+      "idea_version": "IDEAV-85362517597a8cfb",
+      "idea_version_started_at": "2026-10-31T22:20:23Z",
+      "ticker": "SHYAMMETL",
+      "company": "Shyam Metalics and Energy",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The acquisition of a 51% stake in Alom Solar Private Limited signals a strategic entry into the renewable energy space, complemented by a ₹360 Crore capex budget.",
+      "why_now": "The board approval and filing were released on 2026-10-31.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-74695cd83bbd"
+      ],
+      "primary_source_event_id": "EVT-74695cd83bbd",
+      "source_headlines": [
+        "Shyam Metalics and Energy Limited: Shyam Metalics And Energy Limited has informed the Exchange about 3. The proposal to acquire a 51% controlling equity stake in Alom Solar Private Limited, On acquisition, Alom Solar Private Limited becomes the Subsidiary of Shyam Metalics and Energy Limited and 4. the Proposal for the initial Capital Expenditure (Capex) budget of approximately ₹360 Crores further Based on the recommendation of the Nomination and Remuneration Committee and subject to appro"
+      ],
+      "source_headline": "Shyam Metalics and Energy Limited: Shyam Metalics And Energy Limited has informed the Exchange about 3. The proposal to acquire a 51% controlling equity stake in Alom Solar Private Limited, On acquisition, Alom Solar Private Limited becomes the Subsidiary of Shyam Metalics and Energy Limited and 4. the Proposal for the initial Capital Expenditure (Capex) budget of approximately ₹360 Crores further Based on the recommendation of the Nomination and Remuneration Committee and subject to appro",
+      "source_url": "https://nsearchives.nseindia.com/corporate/SHYAMMETL_31102026131611_outcomeofBM.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-31T07:46:25Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-31T14:59:59Z",
+      "updated_at": "2026-10-31T22:20:23Z",
+      "decay_at": "2026-11-01T19:46:25Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-a8438919fd9a",
       "idea_version": "IDEAV-85b653167bbaf739",
       "idea_version_started_at": "2026-10-31T22:00:18Z",
@@ -217918,14 +217919,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 517,
+    "total_count": 518,
     "shown_count": 500,
-    "hidden_count": 17,
+    "hidden_count": 18,
     "side_counts": {
       "long": {
-        "total_count": 261,
+        "total_count": 262,
         "shown_count": 250,
-        "hidden_count": 11
+        "hidden_count": 12
       },
       "short": {
         "total_count": 256,
@@ -217949,6 +217950,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-d341433a1235",
+        "idea_version": "IDEAV-85362517597a8cfb",
+        "idea_version_started_at": "2026-10-31T22:20:23Z",
+        "ticker": "SHYAMMETL",
+        "company": "Shyam Metalics and Energy",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The acquisition of a 51% stake in Alom Solar Private Limited signals a strategic entry into the renewable energy space, complemented by a ₹360 Crore capex budget.",
+        "why_now": "The board approval and filing were released on 2026-10-31.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-74695cd83bbd"
+        ],
+        "primary_source_event_id": "EVT-74695cd83bbd",
+        "source_headlines": [
+          "Shyam Metalics and Energy Limited: Shyam Metalics And Energy Limited has informed the Exchange about 3. The proposal to acquire a 51% controlling equity stake in Alom Solar Private Limited, On acquisition, Alom Solar Private Limited becomes the Subsidiary of Shyam Metalics and Energy Limited and 4. the Proposal for the initial Capital Expenditure (Capex) budget of approximately ₹360 Crores further Based on the recommendation of the Nomination and Remuneration Committee and subject to appro"
+        ],
+        "source_headline": "Shyam Metalics and Energy Limited: Shyam Metalics And Energy Limited has informed the Exchange about 3. The proposal to acquire a 51% controlling equity stake in Alom Solar Private Limited, On acquisition, Alom Solar Private Limited becomes the Subsidiary of Shyam Metalics and Energy Limited and 4. the Proposal for the initial Capital Expenditure (Capex) budget of approximately ₹360 Crores further Based on the recommendation of the Nomination and Remuneration Committee and subject to appro",
+        "source_url": "https://nsearchives.nseindia.com/corporate/SHYAMMETL_31102026131611_outcomeofBM.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-31T07:46:25Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-31T14:59:59Z",
+        "updated_at": "2026-10-31T22:20:23Z",
+        "decay_at": "2026-11-01T19:46:25Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-01T19:46:25Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-6dc35076d550",
         "idea_version": "IDEAV-a220301c97f06c51",
@@ -246824,79 +246899,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-3a9bfe6e8e78",
-        "idea_version": "IDEAV-2dc049693ce3d311",
-        "idea_version_started_at": "2026-10-16T09:10:19Z",
-        "ticker": "IP",
-        "company": "International Paper",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company is actively exploring a sale of its EMEA packaging unit alongside a planned spin-off, which provides a catalyst for unlocking value and improving the balance sheet.",
-        "why_now": "The confirmation of unsolicited bids today, October 16, 2026, creates a competitive process that could lead to a higher valuation for the unit than the standalone spin-off.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 65,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-f535640a1ed9"
-        ],
-        "primary_source_event_id": "EVT-f535640a1ed9",
-        "source_headlines": [
-          "International Paper Confirms Unsolicited Bids For EMEA Packaging Unit Alongside Planned Spin-off"
-        ],
-        "source_headline": "International Paper Confirms Unsolicited Bids For EMEA Packaging Unit Alongside Planned Spin-off",
-        "source_url": "https://www.nasdaq.com/articles/international-paper-confirms-unsolicited-bids-emea-packaging-unit-alongside-planned-spin",
-        "source_name": "Nasdaq",
-        "materiality_max": 95,
-        "newest_source_at": "2026-10-16T05:28:20Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-16T09:10:19Z",
-        "updated_at": "2026-10-16T09:10:19Z",
-        "decay_at": "2026-10-17T17:28:20Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-19T05:56:50Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-7470585394f5",
         "idea_version": "IDEAV-b50d9f2ebcd1abb7",
         "idea_version_started_at": "2026-10-16T06:33:20Z",
@@ -255167,7 +255169,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2085,
-    "live_count": 68,
+    "live_count": 67,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -255186,9 +255188,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 15920,
-    "news_picked_today": 747,
-    "news_dropped_today": 3536
+    "news_seen_today": 15936,
+    "news_picked_today": 748,
+    "news_dropped_today": 3551
   },
   "book_momentum": {
     "live_count": 8,
