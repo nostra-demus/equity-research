@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-01T18:55:46Z",
+  "generated_at": "2026-11-01T19:16:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261101-306",
@@ -350,6 +350,105 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261101-369",
+      "headline": "Investors pull billions in funds from Binance after record $6.3bn hack",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/business/2026/nov/01/investors-take-out-36bn-from-binance-after-record-hack-that-stole-billions",
+      "source_name": "The Guardian — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T18:53:25Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "Binance faces a massive $6.3bn security breach and subsequent significant capital outflows.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Binance faces a massive $6.3bn security breach and subsequent significant capital outflows.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Binance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261101-373",
+      "headline": "Innovatiview to invest Rs 1,000 crore in exam centres",
+      "headline_en": null,
+      "url": "https://timesofindia.indiatimes.com/business/india-business/innovatiview-to-invest-rs-1000-crore-in-exam-centres/articleshow/135436056.cms",
+      "source_name": "The Times of India (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T18:52:27Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "Innovatiview is committing a significant capital expenditure of Rs 1,000 crore to expand its exam center infrastructure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Innovatiview is committing a significant capital expenditure of Rs 1,000 crore to expand its exam center infrastructure.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Innovatiview",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1879,104 +1978,6 @@
           "name": "ITC",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261101-123",
-      "headline": "Manila billionaire Henry Sy Jr. pitches $11-billion 10,000MW 'powerbank' to cut electricity rates: Will EPIRA let him do it?",
-      "headline_en": null,
-      "url": "https://gulfnews.com/business/energy/manila-billionaire-henry-sy-jr-pitches-11-billion-10000mw-powerbank-to-cut-electricity-rates-will-govt-let-him-do-it-1.500731359",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-01T04:34:40Z",
-      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "A billionaire has proposed an $11-billion, 10,000MW power project, representing a major capital investment announcement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A billionaire has proposed an $11-billion, 10,000MW power project, representing a major capital investment announcement.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Henry Sy Jr.",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261101-087",
-      "headline": "Nio October deliveries fall 15.23%, ending 31-month streak of year-on-year growth",
-      "headline_en": null,
-      "url": "https://cnevpost.com/2026/11/01/nio-deliveries-oct-2026/",
-      "source_name": "CnEVPost",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-01T04:26:34Z",
-      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "Nio's 15.23% drop in October deliveries ends a long growth streak, signaling a significant slowdown in demand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nio's 15.23% drop in October deliveries ends a long growth streak, signaling a significant slowdown in demand.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 82,
-      "rank_factors": {
-        "materiality": 82,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nio",
-          "ticker": "NIO",
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -254969,9 +254970,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 15775,
-    "news_picked_today": 717,
-    "news_dropped_today": 3421
+    "news_seen_today": 15832,
+    "news_picked_today": 731,
+    "news_dropped_today": 3464
   },
   "book_momentum": {
     "live_count": 8,
