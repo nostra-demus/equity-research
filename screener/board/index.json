@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-01T10:31:22Z",
+  "generated_at": "2026-11-01T10:35:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261101-246",
@@ -1729,6 +1729,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261101-253",
+      "headline": "Binance resumes bitcoin, ether withdrawals after covering bulk of stolen $6.3 billion",
+      "headline_en": null,
+      "url": "https://www.khaleejtimes.com/business/binance-resumes-bitcoin-ether-withdrawals-after-covering-bulk-of-stolen-63-billion",
+      "source_name": "Khaleej Times — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T10:33:31Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "Binance has resumed withdrawals after addressing a significant $6.3 billion security incident.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Binance has resumed withdrawals after addressing a significant $6.3 billion security incident.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations",
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Binance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261101-219",
       "headline": "Bank of England expected to raise interest rates for first time since 2023",
       "headline_en": null,
@@ -1767,56 +1817,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261101-173",
-      "headline": "Binance to resume withdrawals after covering bulk of stolen $6.3 billion",
-      "headline_en": null,
-      "url": "https://www.khaleejtimes.com/business/binance-to-resume-withdrawals-after-covering-bulk-of-stolen-63-billion",
-      "source_name": "Khaleej Times — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-01T07:07:20Z",
-      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "Binance is resuming customer withdrawals after covering the bulk of a stolen $6.3 billion sum.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Binance is resuming customer withdrawals after covering the bulk of a stolen $6.3 billion sum.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations",
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Binance",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -254360,9 +254360,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5681,
-    "news_picked_today": 331,
-    "news_dropped_today": 1129
+    "news_seen_today": 5725,
+    "news_picked_today": 339,
+    "news_dropped_today": 1165
   },
   "book_momentum": {
     "live_count": 8,
