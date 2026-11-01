@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-01T19:55:34Z",
+  "generated_at": "2026-11-01T19:56:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261101-306",
@@ -211885,6 +211885,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-99e1ec3ba3aa",
+      "idea_version": "IDEAV-d8e726a62514b89f",
+      "idea_version_started_at": "2026-11-01T19:55:49Z",
+      "ticker": "2170.SR",
+      "company": "Alujain Corporation",
+      "exchange": "Saudi Stock Exchange",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Alujain Corporation reported a 9M-26 net profit increase of over 1,000%, signaling a massive inflection in operational profitability.",
+      "why_now": "The earnings report was released on 2026-11-01.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3fe8ce2cdab3"
+      ],
+      "primary_source_event_id": "EVT-3fe8ce2cdab3",
+      "source_headlines": [
+        "Alujain Corporation witnesses over 1,000% leap in 9M-26 net profit"
+      ],
+      "source_headline": "Alujain Corporation witnesses over 1,000% leap in 9M-26 net profit",
+      "source_url": "http://english.mubasher.info/news/4694302/Alujain-Corporation-witnesses-over-1-000-leap-in-9M-26-net-profit",
+      "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-01T17:45:53Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-01T19:55:49Z",
+      "updated_at": "2026-11-01T19:55:49Z",
+      "decay_at": "2026-11-03T05:45:53Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-e4eb269da001",
       "idea_version": "IDEAV-5d906db714eb9ee0",
       "idea_version_started_at": "2026-11-01T11:55:44Z",
@@ -212795,6 +212865,78 @@
       "surfaced_at": "2026-11-01T02:40:39Z",
       "updated_at": "2026-11-01T02:40:39Z",
       "decay_at": "2026-11-02T14:29:03Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-41f28a3d0d25",
+      "idea_version": "IDEAV-b4a7a147bcb1a00e",
+      "idea_version_started_at": "2026-11-01T19:55:49Z",
+      "ticker": "2070.SR",
+      "company": "SPIMACO",
+      "exchange": "Tadawul",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "SPIMACO reported a Q3 loss driven by declining sales and increased financial provisions, indicating structural margin pressure.",
+      "why_now": "The earnings update was provided on 2026-11-01.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1e53b69965fd"
+      ],
+      "primary_source_event_id": "EVT-1e53b69965fd",
+      "source_headlines": [
+        "‎SPIMACO’s Q3 loss driven by lower sales, higher provisions: CFO"
+      ],
+      "source_headline": "‎SPIMACO’s Q3 loss driven by lower sales, higher provisions: CFO",
+      "source_url": "https://www.argaam.com/en/article/articledetail/id/1949199",
+      "source_name": "Argaam — Main News (English)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-01T19:20:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-01T19:55:49Z",
+      "updated_at": "2026-11-01T19:55:49Z",
+      "decay_at": "2026-11-03T07:20:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -255168,8 +255310,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2085,
-    "live_count": 67,
+    "surfaced_total": 2087,
+    "live_count": 69,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
