@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-01T15:30:28Z",
+  "generated_at": "2026-11-01T15:37:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20261101-306",
@@ -298,6 +298,55 @@
           "name": "Li Auto",
           "ticker": "02015",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261101-319",
+      "headline": "Honda invests ₹2,420 crore to raise capacity, targets premium motorcycle and EV growth",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/honda-invests-2420-crore-to-raise-capacity-targets-premium-motorcycle-and-ev-growth/article71652761.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T15:25:30Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "Honda is investing ₹2,420 crore to expand motorcycle and EV production capacity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Honda is investing ₹2,420 crore to expand motorcycle and EV production capacity.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Honda",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -1920,55 +1969,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261101-225",
-      "headline": "GEELY AUTO GEELY AUTO-R (00175 80175): UNAUDITED SALES VOLUME IN OCTOBER 2026",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1101/2026110100003.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-01T10:02:00Z",
-      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "Geely Auto reported monthly sales volume data, a key performance indicator for automotive manufacturers.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Geely Auto reported monthly sales volume data, a key performance indicator for automotive manufacturers.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Geely Auto",
-          "ticker": "00175",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -254594,9 +254594,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6974,
-    "news_picked_today": 582,
-    "news_dropped_today": 2047
+    "news_seen_today": 7088,
+    "news_picked_today": 598,
+    "news_dropped_today": 2145
   },
   "book_momentum": {
     "live_count": 8,
