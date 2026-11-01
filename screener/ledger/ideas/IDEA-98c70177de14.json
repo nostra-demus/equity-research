@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-98c70177de14",
-  "idea_version": "IDEAV-03b7bd2db83e1c4b",
-  "idea_version_started_at": "2026-11-01T11:37:09Z",
+  "idea_version": "IDEAV-b3c3ccaf38beb957",
+  "idea_version_started_at": "2026-11-01T14:21:01Z",
   "ticker": "PERI",
   "company": "Perion Network Ltd.",
   "exchange": "NASDAQ",
@@ -11,26 +11,25 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "long",
   "pair_with": null,
-  "reason": "Affle is acquiring Perion in a $420 million all-cash transaction, providing a definitive exit valuation for shareholders.",
-  "why_now": "The deal was announced on November 1, 2024, creating an immediate arbitrage or liquidity event for the stock.",
-  "conviction": 85,
+  "reason": "Perion Network has agreed to be acquired by Affle 3i in an all-cash merger valued at $420 million, setting a direct cash floor for equity holders.",
+  "why_now": "Definitive merger agreement announced on November 1, 2026.",
+  "conviction": 80,
   "conviction_basis": "pre_edge_proxy",
-  "trade_score": 67,
+  "trade_score": 88,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
-    "evidence": 14,
+    "evidence": 25,
     "impact": 21,
     "specificity": 15,
     "timing": 10,
     "expression": 7,
-    "corroboration": 0,
+    "corroboration": 10,
     "learning_adjustment": 0
   },
   "trade_readiness": "needs_data",
   "missing_checks": [
     "live liquidity",
     "dated catalyst",
-    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -47,17 +46,23 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-b2dc4d495419"
+    "EVT-573e384b4bf7",
+    "EVT-c52f79f48b0c",
+    "EVT-312642024475",
+    "EVT-b3f0d899487f"
   ],
-  "primary_source_event_id": "EVT-b2dc4d495419",
+  "primary_source_event_id": "EVT-573e384b4bf7",
   "source_headlines": [
-    "Affle To Acquire Perion In $420 Mln All-Cash Deal"
+    "Affle 3i Limited: Affle 3i Limited has informed the Exchange regarding a press release dated November 01, 2026, titled \"Affle to acquire Perion, to scale its CPCU business across Developed markets\".",
+    "Affle 3i Limited: Affle 3i Limited has informed the Exchange that Affle 3iL Ltd. ( Affle ), wholly owned step down subsidiary of the Company has entered into a definitive merger agreement to acquire Perion Network Ltd., Israel.",
+    "Affle 3i to acquire Israel's Perion Network for $420 million in all-cash deal",
+    "Affle To Acquire Perion Network In $420 Mln All-Cash Deal"
   ],
-  "source_headline": "Affle To Acquire Perion In $420 Mln All-Cash Deal",
-  "source_url": "https://www.nasdaq.com/articles/affle-acquire-perion-420-mln-all-cash-deal",
-  "source_name": "Nasdaq",
+  "source_headline": "Affle 3i Limited: Affle 3i Limited has informed the Exchange regarding a press release dated November 01, 2026, titled \"Affle to acquire Perion, to scale its CPCU business across Developed markets\".",
+  "source_url": "https://nsearchives.nseindia.com/corporate/AFFLE_01112026175154_Press_Release2.pdf",
+  "source_name": "BSE / NSE Exchange Filing",
   "materiality_max": 100,
-  "newest_source_at": "2026-11-01T10:49:30Z",
+  "newest_source_at": "2026-11-01T13:53:16Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
@@ -65,8 +70,8 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-11-01T11:37:09Z",
-  "updated_at": "2026-11-01T11:37:09Z",
-  "decay_at": "2026-11-02T22:49:30Z",
+  "updated_at": "2026-11-01T14:21:01Z",
+  "decay_at": "2026-11-03T01:53:16Z",
   "status": "live",
   "promoted_signal_id": null
 }

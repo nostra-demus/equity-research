@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-01T14:20:42Z",
+  "generated_at": "2026-11-01T14:21:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261101-282",
@@ -211808,6 +211808,81 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-98c70177de14",
+      "idea_version": "IDEAV-b3c3ccaf38beb957",
+      "idea_version_started_at": "2026-11-01T14:21:01Z",
+      "ticker": "PERI",
+      "company": "Perion Network Ltd.",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Perion Network has agreed to be acquired by Affle 3i in an all-cash merger valued at $420 million, setting a direct cash floor for equity holders.",
+      "why_now": "Definitive merger agreement announced on November 1, 2026.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 88,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 10,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-573e384b4bf7",
+        "EVT-c52f79f48b0c",
+        "EVT-312642024475",
+        "EVT-b3f0d899487f"
+      ],
+      "primary_source_event_id": "EVT-573e384b4bf7",
+      "source_headlines": [
+        "Affle 3i Limited: Affle 3i Limited has informed the Exchange regarding a press release dated November 01, 2026, titled \"Affle to acquire Perion, to scale its CPCU business across Developed markets\".",
+        "Affle 3i Limited: Affle 3i Limited has informed the Exchange that Affle 3iL Ltd. ( Affle ), wholly owned step down subsidiary of the Company has entered into a definitive merger agreement to acquire Perion Network Ltd., Israel.",
+        "Affle 3i to acquire Israel's Perion Network for $420 million in all-cash deal",
+        "Affle To Acquire Perion Network In $420 Mln All-Cash Deal"
+      ],
+      "source_headline": "Affle 3i Limited: Affle 3i Limited has informed the Exchange regarding a press release dated November 01, 2026, titled \"Affle to acquire Perion, to scale its CPCU business across Developed markets\".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/AFFLE_01112026175154_Press_Release2.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-01T13:53:16Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-01T11:37:09Z",
+      "updated_at": "2026-11-01T14:21:01Z",
+      "decay_at": "2026-11-03T01:53:16Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-8e38ef15bf4e",
       "idea_version": "IDEAV-18e7c58d42e5cc08",
       "idea_version_started_at": "2026-10-31T13:05:01Z",
@@ -211943,76 +212018,6 @@
       },
       "surfaced_at": "2026-11-01T11:55:44Z",
       "updated_at": "2026-11-01T11:55:44Z",
-      "decay_at": "2026-11-02T22:49:30Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-98c70177de14",
-      "idea_version": "IDEAV-03b7bd2db83e1c4b",
-      "idea_version_started_at": "2026-11-01T11:37:09Z",
-      "ticker": "PERI",
-      "company": "Perion Network Ltd.",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Affle is acquiring Perion in a $420 million all-cash transaction, providing a definitive exit valuation for shareholders.",
-      "why_now": "The deal was announced on November 1, 2024, creating an immediate arbitrage or liquidity event for the stock.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b2dc4d495419"
-      ],
-      "primary_source_event_id": "EVT-b2dc4d495419",
-      "source_headlines": [
-        "Affle To Acquire Perion In $420 Mln All-Cash Deal"
-      ],
-      "source_headline": "Affle To Acquire Perion In $420 Mln All-Cash Deal",
-      "source_url": "https://www.nasdaq.com/articles/affle-acquire-perion-420-mln-all-cash-deal",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-01T10:49:30Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-01T11:37:09Z",
-      "updated_at": "2026-11-01T11:37:09Z",
       "decay_at": "2026-11-02T22:49:30Z",
       "status": "live",
       "promoted_signal_id": null,
@@ -216532,76 +216537,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-3321c8fee50b",
-      "idea_version": "IDEAV-3a89764434655041",
-      "idea_version_started_at": "2026-10-29T17:48:18Z",
-      "ticker": "ADT",
-      "company": "ADT Inc.",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "ADT is being acquired by Josh Kushner’s Thrive for $7.6 billion, which represents a clear valuation event for shareholders.",
-      "why_now": "The acquisition news was reported on October 29, 2026, providing a fresh catalyst for the stock.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4ae3e6d5a57c"
-      ],
-      "primary_source_event_id": "EVT-4ae3e6d5a57c",
-      "source_headlines": [
-        "Josh Kushner’s Thrive to Buy ADT for $7.6 Billion"
-      ],
-      "source_headline": "Josh Kushner’s Thrive to Buy ADT for $7.6 Billion",
-      "source_url": "https://www.wsj.com/business/deals/josh-kushners-thrive-to-buy-adt-for-7-6-billion-55403c7a?mod=rss_markets_main",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-29T14:20:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-29T17:48:18Z",
-      "updated_at": "2026-10-29T17:48:18Z",
-      "decay_at": "2026-10-31T02:20:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-02984b43cedf",
       "idea_version": "IDEAV-cf5baf852e9e803e",
       "idea_version_started_at": "2026-10-30T01:26:14Z",
@@ -217254,14 +217189,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 513,
+    "total_count": 512,
     "shown_count": 500,
-    "hidden_count": 13,
+    "hidden_count": 12,
     "side_counts": {
       "long": {
-        "total_count": 258,
+        "total_count": 257,
         "shown_count": 250,
-        "hidden_count": 8
+        "hidden_count": 7
       },
       "short": {
         "total_count": 255,
@@ -217271,12 +217206,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1498,
+      "evicted_count": 1499,
       "oldest_retained_at": "2026-10-05T19:46:36Z",
       "side_counts": {
         "long": {
-          "evicted_count": 985,
-          "oldest_retained_at": "2026-10-17T02:03:16Z"
+          "evicted_count": 986,
+          "oldest_retained_at": "2026-10-17T03:08:13Z"
         },
         "short": {
           "evicted_count": 514,
@@ -218241,8 +218176,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-31T02:20:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-01T14:21:05Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
