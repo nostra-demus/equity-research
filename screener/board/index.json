@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-01T02:45:43Z",
+  "generated_at": "2026-11-01T02:50:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20261101-015",
@@ -1622,6 +1622,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261101-048",
+      "headline": "Cognizant zet meer dan 25.000 professionals in voor de implementatie van OpenAI-oplossingen nu ondernemingen geavanceerde AI in productie nemen",
+      "headline_en": "Cognizant deploys more than 25,000 professionals for the implementation of OpenAI solutions as enterprises take advanced AI into production",
+      "url": "https://www.prnewswire.com/news-releases/cognizant-zet-meer-dan-25-000-professionals-in-voor-de-implementatie-van-openai-oplossingen-nu-ondernemingen-geavanceerde-ai-in-productie-nemen-302925664.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-01T02:45:00Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "Cognizant is deploying over 25,000 professionals to implement OpenAI solutions for enterprise clients.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Cognizant is deploying over 25,000 professionals to implement OpenAI solutions for enterprise clients.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cognizant",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261101-046",
       "headline": "FM outlines S. Korea's position on DMZ mine blast at G20, calls for inter-Korean talks",
       "headline_en": null,
@@ -1809,49 +1858,6 @@
       "triage_score": 47,
       "triage_reason": "Geopolitical tensions between the US and Iran represent a significant risk to global energy markets and regional stability.",
       "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261101-003",
-      "headline": "Delhi to Agra in 59 minutes: PM Modi approves north corridor of bullet train project",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/economy/logistics/delhi-to-agra-in-59-minutes-pm-modi-approves-north-corridor-of-bullet-train-project/article71651891.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-01T00:13:48Z",
-      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "The Indian government has approved a major infrastructure project for a high-speed rail corridor between Delhi and Agra.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "The Indian government has approved a major infrastructure project for a high-speed rail corridor between Delhi and Agra.",
-      "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 75,
       "rank_factors": {
@@ -252334,9 +252340,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 253,
-    "news_picked_today": 47,
-    "news_dropped_today": 206
+    "news_seen_today": 268,
+    "news_picked_today": 48,
+    "news_dropped_today": 220
   },
   "book_momentum": {
     "live_count": 8,
