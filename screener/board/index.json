@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-01T03:25:15Z",
+  "generated_at": "2026-11-01T03:30:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261101-055",
@@ -1043,6 +1043,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261101-061",
+      "headline": "Leapmotor delivers record 106,127 vehicles in October, topping 100,000 for fourth straight month",
+      "headline_en": null,
+      "url": "https://cnevpost.com/2026/11/01/leapmotor-deliveries-oct-2026/",
+      "source_name": "CnEVPost",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T03:27:53Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "Leapmotor reports record October deliveries of 106,127 vehicles, its fourth consecutive month above 100,000, a volume metric that directly shapes revenue and production-capacity expectations for the EV maker.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 69,
+      "triage_reason": "Leapmotor reports record October deliveries of 106,127 vehicles, its fourth consecutive month above 100,000, a volume metric that directly shapes revenue and production-capacity expectations for the EV maker.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 58,
+      "rank_factors": {
+        "materiality": 58,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Leapmotor",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261101-008",
       "headline": "Metall- und Elektroindustrie: Warnstreiks der IG Metall kurz nach Mitternacht gestartet",
       "headline_en": "Metal and electrical industry: IG Metall warning strikes started shortly after midnight",
@@ -1877,49 +1926,6 @@
         "regulatory"
       ],
       "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261101-060",
-      "headline": "Noida, Gurugram, Ghaziabad: Will Delhi's Pollution Restrictions Impact Commuters From These Cities Too?",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/india/noida-gurugram-ghaziabad-will-delhis-pollution-restrictions-impact-commuters-from-these-cities-too-12265629#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-01T02:07:34Z",
-      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "Pollution restrictions in the Delhi NCR region create operational friction for commuters and local businesses.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 50,
-      "triage_reason": "Pollution restrictions in the Delhi NCR region create operational friction for commuters and local businesses.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -252450,9 +252456,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 327,
-    "news_picked_today": 61,
-    "news_dropped_today": 266
+    "news_seen_today": 329,
+    "news_picked_today": 62,
+    "news_dropped_today": 267
   },
   "book_momentum": {
     "live_count": 8,
