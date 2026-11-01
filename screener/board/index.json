@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-01T02:50:09Z",
+  "generated_at": "2026-11-01T03:00:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20261101-015",
@@ -288,6 +288,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261101-049",
+      "headline": "Binance says 90% of losses from $6.3bn hack covered as FBI says North Korea behind attack",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/business/2026/nov/01/binance-losses-covered-hack-fbi-north-korea-cryptocurrency",
+      "source_name": "The Guardian — World news",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T02:41:34Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "Binance confirmed a $6.3 billion hack attributed to North Korean actors, raising significant operational and security risk concerns.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Binance confirmed a $6.3 billion hack attributed to North Korean actors, raising significant operational and security risk concerns.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Binance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1168,6 +1217,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261101-050",
+      "headline": "Binance crypto theft: Here's how North Korean hackers perfected the heist, stole $6.3 billion in 20 minutes | Details",
+      "headline_en": null,
+      "url": "https://www.livemint.com/market/cryptocurrency/binance-crypto-theft-heres-how-north-korean-hackers-perfected-the-heist-stole-6-3-billion-in-20-minutes-details-11793500918241.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T02:49:30Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "This is a recap of the previously reported $6.3 billion Binance hack, providing context rather than new material information.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 60,
+      "triage_reason": "This is a recap of the previously reported $6.3 billion Binance hack, providing context rather than new material information.",
+      "region": "GLOBAL",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Binance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261101-043",
       "headline": "SK Telecom seeks returns from workplace AI push",
       "headline_en": null,
@@ -1782,92 +1880,6 @@
         "size": 0,
         "recency": 5,
         "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261101-032",
-      "headline": "Taiwan says China harassing shipping with east coast patrol",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/news/2026/11/01/asia-pacific/taiwan-china-harassing-shipping/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-01T01:31:00Z",
-      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "Increased military harassment of shipping in the Taiwan Strait represents a significant geopolitical escalation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "Increased military harassment of shipping in the Taiwan Strait represents a significant geopolitical escalation.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261101-020",
-      "headline": "Has the US-Iran standoff reached a turning point? Tehran sees major shift in Washington’s tone",
-      "headline_en": null,
-      "url": "https://gulfnews.com/world/americas/has-the-us-iran-standoff-reached-a-turning-point-tehran-sees-major-shift-in-washington-s-tone-1.500731252",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-01T01:01:00Z",
-      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "Geopolitical tensions between the US and Iran represent a significant risk to global energy markets and regional stability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "Geopolitical tensions between the US and Iran represent a significant risk to global energy markets and regional stability.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "macro",
@@ -213710,78 +213722,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-9cffaa456373",
-      "idea_version": "IDEAV-9d14ebb671c16383",
-      "idea_version_started_at": "2026-10-31T06:36:55Z",
-      "ticker": "03774",
-      "company": "Fameglow Holdings",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "A controlling interest acquisition has triggered an unconditional mandatory cash offer for all remaining shares, providing a floor for the stock price.",
-      "why_now": "The mandatory offer announcement was released on October 30, 2026, following the change in control.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-72831a888b1f"
-      ],
-      "primary_source_event_id": "EVT-72831a888b1f",
-      "source_headlines": [
-        "FAMEGLOW (03774): JOINT ANNOUNCEMENT (1) ACQUISITION OF CONTROLLING INTEREST IN FAMEGLOW HOLDINGS LTD BY SHENG ZHAN INTERNATIONAL LTD (2) UNCONDITIONAL MANDATORY CASH OFFER BY OCTAL CAPITAL LTD AND GET NICE SECURITIES LTD FOR AND ON BEHALF OF SHENG ZHAN INTERNATIONAL LTD TO ACQUIRE ALL THE ISSUED SHARES OF FAMEGLOW HOLDINGS LTD (OTHER THAN THOSE ALREADY OWNED BY THE OFFEROR, MR. MAN AND PARTIES ACTING IN CONCERT WITH ANY OF THEM) (3) ESTABLISHMENT OF THE IBC (4) APPOINTMENT OF THE IFA (5) RESUMP"
-      ],
-      "source_headline": "FAMEGLOW (03774): JOINT ANNOUNCEMENT (1) ACQUISITION OF CONTROLLING INTEREST IN FAMEGLOW HOLDINGS LTD BY SHENG ZHAN INTERNATIONAL LTD (2) UNCONDITIONAL MANDATORY CASH OFFER BY OCTAL CAPITAL LTD AND GET NICE SECURITIES LTD FOR AND ON BEHALF OF SHENG ZHAN INTERNATIONAL LTD TO ACQUIRE ALL THE ISSUED SHARES OF FAMEGLOW HOLDINGS LTD (OTHER THAN THOSE ALREADY OWNED BY THE OFFEROR, MR. MAN AND PARTIES ACTING IN CONCERT WITH ANY OF THEM) (3) ESTABLISHMENT OF THE IBC (4) APPOINTMENT OF THE IFA (5) RESUMP",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1030/2026103002773.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-30T14:53:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-31T06:36:55Z",
-      "updated_at": "2026-10-31T06:36:55Z",
-      "decay_at": "2026-11-01T02:53:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-b89ae4f13609",
       "idea_version": "IDEAV-44bebd6d38bd8f5b",
       "idea_version_started_at": "2026-10-31T06:36:55Z",
@@ -214489,6 +214429,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-9cffaa456373",
+      "idea_version": "IDEAV-9d14ebb671c16383",
+      "idea_version_started_at": "2026-10-31T06:36:55Z",
+      "ticker": "03774",
+      "company": "Fameglow Holdings",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "A controlling interest acquisition has triggered an unconditional mandatory cash offer for all remaining shares, providing a floor for the stock price.",
+      "why_now": "The mandatory offer announcement was released on October 30, 2026, following the change in control.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-72831a888b1f"
+      ],
+      "primary_source_event_id": "EVT-72831a888b1f",
+      "source_headlines": [
+        "FAMEGLOW (03774): JOINT ANNOUNCEMENT (1) ACQUISITION OF CONTROLLING INTEREST IN FAMEGLOW HOLDINGS LTD BY SHENG ZHAN INTERNATIONAL LTD (2) UNCONDITIONAL MANDATORY CASH OFFER BY OCTAL CAPITAL LTD AND GET NICE SECURITIES LTD FOR AND ON BEHALF OF SHENG ZHAN INTERNATIONAL LTD TO ACQUIRE ALL THE ISSUED SHARES OF FAMEGLOW HOLDINGS LTD (OTHER THAN THOSE ALREADY OWNED BY THE OFFEROR, MR. MAN AND PARTIES ACTING IN CONCERT WITH ANY OF THEM) (3) ESTABLISHMENT OF THE IBC (4) APPOINTMENT OF THE IFA (5) RESUMP"
+      ],
+      "source_headline": "FAMEGLOW (03774): JOINT ANNOUNCEMENT (1) ACQUISITION OF CONTROLLING INTEREST IN FAMEGLOW HOLDINGS LTD BY SHENG ZHAN INTERNATIONAL LTD (2) UNCONDITIONAL MANDATORY CASH OFFER BY OCTAL CAPITAL LTD AND GET NICE SECURITIES LTD FOR AND ON BEHALF OF SHENG ZHAN INTERNATIONAL LTD TO ACQUIRE ALL THE ISSUED SHARES OF FAMEGLOW HOLDINGS LTD (OTHER THAN THOSE ALREADY OWNED BY THE OFFEROR, MR. MAN AND PARTIES ACTING IN CONCERT WITH ANY OF THEM) (3) ESTABLISHMENT OF THE IBC (4) APPOINTMENT OF THE IFA (5) RESUMP",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1030/2026103002773.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-30T14:53:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-31T06:36:55Z",
+      "updated_at": "2026-10-31T06:36:55Z",
+      "decay_at": "2026-11-01T02:53:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-ad1cbaa247a0",
       "idea_version": "IDEAV-d005857599f6ecb6",
       "idea_version_started_at": "2026-10-30T06:36:21Z",
@@ -215070,14 +215082,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 515,
+    "total_count": 516,
     "shown_count": 500,
-    "hidden_count": 15,
+    "hidden_count": 16,
     "side_counts": {
       "long": {
-        "total_count": 261,
+        "total_count": 262,
         "shown_count": 250,
-        "hidden_count": 11
+        "hidden_count": 12
       },
       "short": {
         "total_count": 254,
@@ -215101,6 +215113,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-9cffaa456373",
+        "idea_version": "IDEAV-9d14ebb671c16383",
+        "idea_version_started_at": "2026-10-31T06:36:55Z",
+        "ticker": "03774",
+        "company": "Fameglow Holdings",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "A controlling interest acquisition has triggered an unconditional mandatory cash offer for all remaining shares, providing a floor for the stock price.",
+        "why_now": "The mandatory offer announcement was released on October 30, 2026, following the change in control.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-72831a888b1f"
+        ],
+        "primary_source_event_id": "EVT-72831a888b1f",
+        "source_headlines": [
+          "FAMEGLOW (03774): JOINT ANNOUNCEMENT (1) ACQUISITION OF CONTROLLING INTEREST IN FAMEGLOW HOLDINGS LTD BY SHENG ZHAN INTERNATIONAL LTD (2) UNCONDITIONAL MANDATORY CASH OFFER BY OCTAL CAPITAL LTD AND GET NICE SECURITIES LTD FOR AND ON BEHALF OF SHENG ZHAN INTERNATIONAL LTD TO ACQUIRE ALL THE ISSUED SHARES OF FAMEGLOW HOLDINGS LTD (OTHER THAN THOSE ALREADY OWNED BY THE OFFEROR, MR. MAN AND PARTIES ACTING IN CONCERT WITH ANY OF THEM) (3) ESTABLISHMENT OF THE IBC (4) APPOINTMENT OF THE IFA (5) RESUMP"
+        ],
+        "source_headline": "FAMEGLOW (03774): JOINT ANNOUNCEMENT (1) ACQUISITION OF CONTROLLING INTEREST IN FAMEGLOW HOLDINGS LTD BY SHENG ZHAN INTERNATIONAL LTD (2) UNCONDITIONAL MANDATORY CASH OFFER BY OCTAL CAPITAL LTD AND GET NICE SECURITIES LTD FOR AND ON BEHALF OF SHENG ZHAN INTERNATIONAL LTD TO ACQUIRE ALL THE ISSUED SHARES OF FAMEGLOW HOLDINGS LTD (OTHER THAN THOSE ALREADY OWNED BY THE OFFEROR, MR. MAN AND PARTIES ACTING IN CONCERT WITH ANY OF THEM) (3) ESTABLISHMENT OF THE IBC (4) APPOINTMENT OF THE IFA (5) RESUMP",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1030/2026103002773.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-30T14:53:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-31T06:36:55Z",
+        "updated_at": "2026-10-31T06:36:55Z",
+        "decay_at": "2026-11-01T02:53:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-01T02:53:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-913c9c5d1968",
         "idea_version": "IDEAV-4de6d142058496ff",
@@ -243899,80 +243986,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-3d224559abde",
-        "idea_version": "IDEAV-cda6dc96d1267834",
-        "idea_version_started_at": "2026-10-15T21:58:41Z",
-        "ticker": "DYL",
-        "company": "Deep Yellow Limited",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The update on the Tumas Project in Namibia provides clarity on operational progress and capital expenditure, which is critical for the company's future uranium production capacity.",
-        "why_now": "The price-sensitive update was filed on October 15, 2026, providing fresh data for valuation models.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "commodity_conditional",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-b7793de4bde2"
-        ],
-        "primary_source_event_id": "EVT-b7793de4bde2",
-        "source_headlines": [
-          "DYL: Update - Tumas Project, Namibia [price-sensitive]"
-        ],
-        "source_headline": "DYL: Update - Tumas Project, Namibia [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.DYL?key=2924-03149080-6A1349522",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-15T21:26:17Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-15T21:58:41Z",
-        "updated_at": "2026-10-15T21:58:41Z",
-        "decay_at": "2026-10-17T09:26:17Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-18T21:26:44Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-5dcef043aea8",
         "idea_version": "IDEAV-4564d1ae4eef05e4",
         "idea_version_started_at": "2026-10-15T21:58:41Z",
@@ -252321,7 +252334,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2040,
-    "live_count": 32,
+    "live_count": 31,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -252340,9 +252353,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 268,
-    "news_picked_today": 48,
-    "news_dropped_today": 220
+    "news_seen_today": 274,
+    "news_picked_today": 50,
+    "news_dropped_today": 224
   },
   "book_momentum": {
     "live_count": 8,
