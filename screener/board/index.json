@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-01T08:38:25Z",
+  "generated_at": "2026-11-01T08:43:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261101-207",
@@ -1828,6 +1828,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261101-210",
+      "headline": "GWM October sales fall 15.87% despite record NEV and overseas volumes",
+      "headline_en": null,
+      "url": "https://cnevpost.com/2026/11/01/gwm-oct-2026-sales/",
+      "source_name": "CnEVPost",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T08:27:30Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "Great Wall Motor reported a 15.87% decline in total sales for October.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Great Wall Motor reported a 15.87% decline in total sales for October.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Great Wall Motor",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261101-208",
       "headline": "Why Wendy’s is losing the burger wars—and is now a takeover target for Nelson Peltz",
       "headline_en": null,
@@ -1922,55 +1971,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261101-108",
-      "headline": "Huawei HIMA October deliveries halve, pushing year-to-date total into decline",
-      "headline_en": null,
-      "url": "https://cnevpost.com/2026/11/01/huawei-hima-oct-2026-deliveries/",
-      "source_name": "CnEVPost",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-01T05:34:16Z",
-      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "Huawei HIMA October deliveries halved, causing year-to-date totals to decline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Huawei HIMA October deliveries halved, causing year-to-date totals to decline.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Huawei",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -253795,9 +253795,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5086,
-    "news_picked_today": 260,
-    "news_dropped_today": 864
+    "news_seen_today": 5195,
+    "news_picked_today": 263,
+    "news_dropped_today": 885
   },
   "book_momentum": {
     "live_count": 8,
