@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-01T02:22:07Z",
+  "generated_at": "2026-11-01T02:40:23Z",
   "inbox": [
     {
       "inbox_id": "INB-20261101-015",
@@ -343,28 +343,77 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261101-039",
-      "headline": "Li Auto October deliveries fall to 29,025, lowest since February",
+      "inbox_id": "INB-20261101-040",
+      "headline": "Costa-backed Go.Farm eyes $50m-plus for Tasmanian vineyard portfolio",
       "headline_en": null,
-      "url": "https://cnevpost.com/2026/11/01/li-auto-oct-2026-deliveries/",
-      "source_name": "CnEVPost",
+      "url": "https://www.afr.com/property/commercial/costa-backed-go-farm-eyes-50m-plus-for-tasmanian-vineyard-portfolio-20261101-p618ml?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
       "input_nature": "news_headline",
-      "found_at": "2026-11-01T02:14:14Z",
+      "found_at": "2026-11-01T02:29:27Z",
       "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "Li Auto reported October deliveries of 29,025 vehicles, marking the lowest monthly delivery figure since February.",
+      "prelim_note": "Go.Farm is seeking over $50 million for a Tasmanian vineyard portfolio, indicating a significant asset sale.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Li Auto reported October deliveries of 29,025 vehicles, marking the lowest monthly delivery figure since February.",
+      "triage_score": 89,
+      "triage_reason": "Go.Farm is seeking over $50 million for a Tasmanian vineyard portfolio, indicating a significant asset sale.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Go.Farm",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261101-041",
+      "headline": "Xpeng monthly deliveries top 50,000 for first time in October",
+      "headline_en": null,
+      "url": "https://cnevpost.com/2026/11/01/xpeng-deliveries-oct-2026/",
+      "source_name": "CnEVPost",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T02:38:31Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "Xpeng reported record monthly deliveries exceeding 50,000 units for the first time.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Xpeng reported record monthly deliveries exceeding 50,000 units for the first time.",
       "region": "CN",
       "relevance": "material",
-      "materiality_pre_score": 75,
+      "materiality_pre_score": 70,
       "rank_factors": {
-        "materiality": 75,
+        "materiality": 70,
         "source_tier": 0,
         "scope": 6,
-        "event": 2,
+        "event": 5,
         "size": 2,
         "recency": 5,
         "materiality_label_floor": 0,
@@ -372,16 +421,16 @@
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "operations",
+        "event_id": "earnings_revenue_margin",
         "size_bucket": "large"
       },
       "event_types": [
-        "operations"
+        "earnings_revenue_margin"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Li Auto",
+          "name": "Xpeng",
           "ticker": null,
           "listing_country": "CN"
         }
@@ -923,6 +972,109 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261101-042",
+      "headline": "HD Hyundai Robotics partners with Palantir on AI solutions",
+      "headline_en": null,
+      "url": "https://www.koreaherald.com/article/10921633",
+      "source_name": "The Korea Herald — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T02:29:03Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "HD Hyundai Robotics is partnering with Palantir to integrate AI solutions, a strategic commercial move.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 62,
+      "triage_reason": "HD Hyundai Robotics is partnering with Palantir to integrate AI solutions, a strategic commercial move.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HD Hyundai Robotics",
+          "ticker": null,
+          "listing_country": "KR"
+        },
+        {
+          "name": "Palantir",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261101-044",
+      "headline": "Solidigm setback sends warning to Korean firms eyeing Wall Street",
+      "headline_en": null,
+      "url": "https://www.koreaherald.com/article/10921630",
+      "source_name": "The Korea Herald — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T02:27:44Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "A setback for Solidigm serves as a cautionary tale for Korean firms attempting to list on Wall Street.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 61,
+      "triage_reason": "A setback for Solidigm serves as a cautionary tale for Korean firms attempting to list on Wall Street.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [
+        {
+          "name": "Solidigm",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261101-029",
       "headline": "Guterres condemns death of UN staff member in Houthi custody",
       "headline_en": null,
@@ -961,6 +1113,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261101-043",
+      "headline": "SK Telecom seeks returns from workplace AI push",
+      "headline_en": null,
+      "url": "https://www.koreaherald.com/article/10921632",
+      "source_name": "The Korea Herald — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T02:28:01Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "SK Telecom is focusing on AI-driven workplace solutions to drive future revenue growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 58,
+      "triage_reason": "SK Telecom is focusing on AI-driven workplace solutions to drive future revenue growth.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SK Telecom",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1242,55 +1443,6 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261101-031",
-      "headline": "Li Auto Inc. October 2026 Delivery Update | LI Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/LI/li-auto-inc-october-2026-delivery-ly1jnlne2iur.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-11-01T02:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "Li Auto reported monthly delivery data, a key operational metric for the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 52,
-      "triage_reason": "Li Auto reported monthly delivery data, a key operational metric for the company.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Li Auto Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
       "inbox_id": "INB-20261101-010",
       "headline": "Polish president holds crisis talks in court standoff",
       "headline_en": null,
@@ -1411,6 +1563,49 @@
       },
       "event_types": [
         "operations"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261101-046",
+      "headline": "FM outlines S. Korea's position on DMZ mine blast at G20, calls for inter-Korean talks",
+      "headline_en": null,
+      "url": "https://en.yna.co.kr/view/AEN20261101001000315",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T02:12:55Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "Escalation involving a DMZ mine blast and diplomatic tension between North and South Korea.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Escalation involving a DMZ mine blast and diplomatic tension between North and South Korea.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
       ],
       "issuer_linkage": "macro",
       "companies": [],
@@ -1660,92 +1855,6 @@
         "size": 0,
         "recency": 5,
         "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261101-021",
-      "headline": "(LEAD) N. Korea tests cluster bomb mountable on tactical ballistic missiles",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20261101000451315",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-01T01:32:45Z",
-      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "North Korea tested a cluster bomb mountable on tactical ballistic missiles, indicating an escalation of military capabilities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "North Korea tested a cluster bomb mountable on tactical ballistic missiles, indicating an escalation of military capabilities.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261101-024",
-      "headline": "Iran warns U.S. and Israel against new attacks after Trump and Netanyahu threats",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/news/2026/11/01/world/iran-warns-us-israel/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-01T00:55:00Z",
-      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "Escalating geopolitical tensions between Iran, the U.S., and Israel pose a significant risk to global market stability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 46,
-      "triage_reason": "Escalating geopolitical tensions between Iran, the U.S., and Israel pose a significant risk to global market stability.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "macro",
@@ -251995,7 +252104,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4325,
+    "inbox_unconsumed": 4327,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -252004,9 +252113,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 212,
-    "news_picked_today": 39,
-    "news_dropped_today": 173
+    "news_seen_today": 242,
+    "news_picked_today": 46,
+    "news_dropped_today": 196
   },
   "book_momentum": {
     "live_count": 8,
