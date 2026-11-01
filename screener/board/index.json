@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-01T11:21:48Z",
+  "generated_at": "2026-11-01T11:36:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20261101-246",
@@ -46,6 +46,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261101-270",
+      "headline": "IGL sees 93% drop in profit amid supply disruptions linked to West Asia",
+      "headline_en": null,
+      "url": "https://timesofindia.indiatimes.com/business/india-business/igl-sees-93-drop-in-profit-amid-supply-disruptions-linked-to-west-asia/articleshow/135425046.cms",
+      "source_name": "The Times of India (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T11:07:32Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "Indraprastha Gas Limited reported a 93% drop in profit due to supply disruptions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Indraprastha Gas Limited reported a 93% drop in profit due to supply disruptions.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Indraprastha Gas Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1925,56 +1974,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261101-263",
-      "headline": "‎ARDCO’s share of projects hits SAR 3B, to exit 300,000 sqm land plots: CFO",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1949077",
-      "source_name": "Argaam — Main News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-01T13:37:00Z",
-      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
-      "prelim_note": "ARDCO announced a project backlog of SAR 3B and a plan to divest 300,000 sqm of land, impacting cash flow and asset allocation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "ARDCO announced a project backlog of SAR 3B and a plan to divest 300,000 sqm of land, impacting cash flow and asset allocation.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "commercial",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ARDCO",
-          "ticker": null,
-          "listing_country": "SA"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -254370,9 +254369,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5833,
-    "news_picked_today": 368,
-    "news_dropped_today": 1244
+    "news_seen_today": 5869,
+    "news_picked_today": 377,
+    "news_dropped_today": 1271
   },
   "book_momentum": {
     "live_count": 8,
