@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-01T00:36:08Z",
+  "generated_at": "2026-11-01T00:50:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20261101-007",
@@ -152,6 +152,144 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261101-011",
+      "headline": "North Korean hackers behind $6.3 billion Binance crypto theft, says FBI",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/news/world/north-korean-hackers-behind-63-billion-binance-crypto-theft-says-fbi/article71651779.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T00:34:08Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "The FBI has linked North Korean hackers to a $6.3 billion theft from Binance, highlighting significant cybersecurity and regulatory risks for the exchange.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "The FBI has linked North Korean hackers to a $6.3 billion theft from Binance, highlighting significant cybersecurity and regulatory risks for the exchange.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "cybersecurity",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Binance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261101-008",
+      "headline": "Metall- und Elektroindustrie: Warnstreiks der IG Metall kurz nach Mitternacht gestartet",
+      "headline_en": "Metal and electrical industry: IG Metall warning strikes started shortly after midnight",
+      "url": "https://www.handelsblatt.com/politik/deutschland/metall-und-elektroindustrie-warnstreiks-der-ig-metall-kurz-nach-mitternacht-gestartet/100266374.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T00:41:16Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "IG Metall has initiated warning strikes in the metal and electrical industry, threatening production output for major German industrial firms.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "IG Metall has initiated warning strikes in the metal and electrical industry, threatening production output for major German industrial firms.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -26,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "sector",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "restructuring_layoffs",
+        "operations"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261101-009",
+      "headline": "Russia Extends Ban On Most Diesel Exports Through January",
+      "headline_en": null,
+      "url": "https://gcaptain.com/russia-extends-ban-on-most-diesel-exports-through-january/",
+      "source_name": "gCaptain",
+      "input_nature": "shipping_rate_move",
+      "found_at": "2026-11-01T00:20:05Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "Russia has extended its ban on most diesel exports through January, creating a supply shock for global energy markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 63,
+      "triage_reason": "Russia has extended its ban on most diesel exports through January, creating a supply shock for global energy markets.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": -33,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "official_data",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261101-002",
       "headline": "Vande Bharat Sleeper to cut Varanasi-Delhi travel time to 8-9 hours: Yogi Adityanath",
       "headline_en": null,
@@ -201,6 +339,92 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261101-012",
+      "headline": "Hackers Stole a Record $9.2 Billion of Crypto This Year. Is Your Crypto Insured Anywhere?",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/cryptocurrency/2026/10/31/hackers-stole-a-record-9-2-billion-of-crypto-this-year-is-your-crypto-insured-anywhere/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T00:39:26Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "A record $9.2 billion in crypto thefts this year highlights systemic cybersecurity risks within the digital asset sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 53,
+      "triage_reason": "A record $9.2 billion in crypto thefts this year highlights systemic cybersecurity risks within the digital asset sector.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": -26,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "sector",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "cybersecurity"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261101-010",
+      "headline": "Polish president holds crisis talks in court standoff",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/2026/11/1/polish-president-holds-crisis-talks-in-court-standoff?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-11-01T00:30:59Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "Polish political instability is a localized governance issue with limited immediate impact on global capital markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 51,
+      "triage_reason": "Polish political instability is a localized governance issue with limited immediate impact on global capital markets.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261101-004",
       "headline": "Indian professionals vital to US economy; visa restrictions could hurt communities: Indiaspora",
       "headline_en": null,
@@ -235,6 +459,49 @@
       },
       "event_types": [
         "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261101-013",
+      "headline": "North Korea says defence research institutes tested major weapon system",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/world/asia/north-korea-says-defence-research-institutes-tested-major-weapon-system-4203026",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T00:19:41Z",
+      "sweep_file": "screener/inbox/2026-11-01_sweep.json",
+      "prelim_note": "North Korea testing a major weapon system represents a significant geopolitical escalation in the region.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 49,
+      "triage_reason": "North Korea testing a major weapon system represents a significant geopolitical escalation in the region.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
       ],
       "issuer_linkage": "macro",
       "companies": [],
@@ -211299,77 +211566,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-a8438919fd9a",
-      "idea_version": "IDEAV-85b653167bbaf739",
-      "idea_version_started_at": "2026-10-31T22:00:18Z",
-      "ticker": "ADVAIT",
-      "company": "Advait Energy Transitions Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Advait Energy Transitions Limited reported an 88.5% growth in Q2 FY27 profit and a robust order book of ₹1,574.8 Crore, indicating strong operational performance and future revenue visibility.",
-      "why_now": "The company released a press release detailing its Q2 FY27 profit growth and order book on October 30, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-61862286cba2"
-      ],
-      "primary_source_event_id": "EVT-61862286cba2",
-      "source_headlines": [
-        "Advait Energy Transitions Limited: Advait Energy Transitions Limited has informed the Exchange regarding a press release dated October 30, 2026, titled \"Powering the Transition: Advait Energy Transitions Reports 88.5% Growth in Q2 FY27 Profit; Order Book Reaches ₹1,574.8 Crore\"."
-      ],
-      "source_headline": "Advait Energy Transitions Limited: Advait Energy Transitions Limited has informed the Exchange regarding a press release dated October 30, 2026, titled \"Powering the Transition: Advait Energy Transitions Reports 88.5% Growth in Q2 FY27 Profit; Order Book Reaches ₹1,574.8 Crore\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/ADVAITENERGY_30102026181007_SE_mediarelease_s.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-30T12:40:18Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-31T22:00:18Z",
-      "updated_at": "2026-10-31T22:00:18Z",
-      "decay_at": "2026-11-01T00:40:18Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-af4308e96a78",
       "idea_version": "IDEAV-20c10ff777fa1b06",
       "idea_version_started_at": "2026-10-31T22:00:18Z",
@@ -212437,6 +212633,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-a8438919fd9a",
+      "idea_version": "IDEAV-85b653167bbaf739",
+      "idea_version_started_at": "2026-10-31T22:00:18Z",
+      "ticker": "ADVAIT",
+      "company": "Advait Energy Transitions Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Advait Energy Transitions Limited reported an 88.5% growth in Q2 FY27 profit and a robust order book of ₹1,574.8 Crore, indicating strong operational performance and future revenue visibility.",
+      "why_now": "The company released a press release detailing its Q2 FY27 profit growth and order book on October 30, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-61862286cba2"
+      ],
+      "primary_source_event_id": "EVT-61862286cba2",
+      "source_headlines": [
+        "Advait Energy Transitions Limited: Advait Energy Transitions Limited has informed the Exchange regarding a press release dated October 30, 2026, titled \"Powering the Transition: Advait Energy Transitions Reports 88.5% Growth in Q2 FY27 Profit; Order Book Reaches ₹1,574.8 Crore\"."
+      ],
+      "source_headline": "Advait Energy Transitions Limited: Advait Energy Transitions Limited has informed the Exchange regarding a press release dated October 30, 2026, titled \"Powering the Transition: Advait Energy Transitions Reports 88.5% Growth in Q2 FY27 Profit; Order Book Reaches ₹1,574.8 Crore\".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/ADVAITENERGY_30102026181007_SE_mediarelease_s.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-30T12:40:18Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-31T22:00:18Z",
+      "updated_at": "2026-10-31T22:00:18Z",
+      "decay_at": "2026-11-01T00:40:18Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-ad1cbaa247a0",
       "idea_version": "IDEAV-d005857599f6ecb6",
       "idea_version_started_at": "2026-10-30T06:36:21Z",
@@ -213018,14 +213285,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 513,
+    "total_count": 514,
     "shown_count": 500,
-    "hidden_count": 13,
+    "hidden_count": 14,
     "side_counts": {
       "long": {
-        "total_count": 259,
+        "total_count": 260,
         "shown_count": 250,
-        "hidden_count": 9
+        "hidden_count": 10
       },
       "short": {
         "total_count": 254,
@@ -213049,6 +213316,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-a8438919fd9a",
+        "idea_version": "IDEAV-85b653167bbaf739",
+        "idea_version_started_at": "2026-10-31T22:00:18Z",
+        "ticker": "ADVAIT",
+        "company": "Advait Energy Transitions Limited",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Advait Energy Transitions Limited reported an 88.5% growth in Q2 FY27 profit and a robust order book of ₹1,574.8 Crore, indicating strong operational performance and future revenue visibility.",
+        "why_now": "The company released a press release detailing its Q2 FY27 profit growth and order book on October 30, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-61862286cba2"
+        ],
+        "primary_source_event_id": "EVT-61862286cba2",
+        "source_headlines": [
+          "Advait Energy Transitions Limited: Advait Energy Transitions Limited has informed the Exchange regarding a press release dated October 30, 2026, titled \"Powering the Transition: Advait Energy Transitions Reports 88.5% Growth in Q2 FY27 Profit; Order Book Reaches ₹1,574.8 Crore\"."
+        ],
+        "source_headline": "Advait Energy Transitions Limited: Advait Energy Transitions Limited has informed the Exchange regarding a press release dated October 30, 2026, titled \"Powering the Transition: Advait Energy Transitions Reports 88.5% Growth in Q2 FY27 Profit; Order Book Reaches ₹1,574.8 Crore\".",
+        "source_url": "https://nsearchives.nseindia.com/corporate/ADVAITENERGY_30102026181007_SE_mediarelease_s.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-30T12:40:18Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-31T22:00:18Z",
+        "updated_at": "2026-10-31T22:00:18Z",
+        "decay_at": "2026-11-01T00:40:18Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-01T00:40:18Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-97e320120234",
         "idea_version": "IDEAV-b3d094a3e0883445",
@@ -241920,82 +242261,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-78e214ca473f",
-        "idea_version": "IDEAV-b6385d8ea43de6de",
-        "idea_version_started_at": "2026-10-15T18:08:38Z",
-        "ticker": "BC",
-        "company": "Brunello Cucinelli",
-        "exchange": "BIT",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company reported a Q3 sales beat and raised its 2026 outlook, signaling resilience in the luxury segment despite broader sector headwinds.",
-        "why_now": "The guidance hike was released on October 15, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-d4527cbb12e0"
-        ],
-        "primary_source_event_id": "EVT-d4527cbb12e0",
-        "source_headlines": [
-          "Brunello Cucinelli raises 2026 outlook after beating Q3 sales forecasts"
-        ],
-        "source_headline": "Brunello Cucinelli raises 2026 outlook after beating Q3 sales forecasts",
-        "source_url": "https://www.reuters.com/business/retail-consumer/brunello-cucinelli-raises-2026-outlook-after-beating-q3-sales-forecasts-2026-10-15/",
-        "source_name": "Reuters — Latest (news sitemap)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-15T16:31:56Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-15T18:08:38Z",
-        "updated_at": "2026-10-15T18:08:38Z",
-        "decay_at": "2026-10-17T04:31:56Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-18T17:51:41Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-d30e04c100e8",
         "idea_version": "IDEAV-a1b57c13034af575",
         "idea_version_started_at": "2026-10-15T15:44:28Z",
@@ -250271,7 +250536,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2033,
-    "live_count": 27,
+    "live_count": 26,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -250281,7 +250546,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4294,
+    "inbox_unconsumed": 4300,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -250290,9 +250555,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 51,
-    "news_picked_today": 7,
-    "news_dropped_today": 44
+    "news_seen_today": 78,
+    "news_picked_today": 13,
+    "news_dropped_today": 65
   },
   "book_momentum": {
     "live_count": 8,
