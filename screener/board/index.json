@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-02T16:55:43Z",
+  "generated_at": "2026-11-02T16:57:22Z",
   "inbox": [
     {
       "inbox_id": "INB-20261102-620",
@@ -1279,6 +1279,159 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261102-672",
+      "headline": "Carborundum Universal Q2 results: Net profit nosedives 83.8% to ₹12.04 crore, revenue rises 13.2%",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/earnings/carborundum-universal-q2-results-net-profit-falls-83-per-cent-to-rs-12-crore-revenue-rises-132-per-cent-20025326.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T16:50:15Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Carborundum Universal reported an 83.8% nosedive in net profit, a major negative earnings event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Carborundum Universal reported an 83.8% nosedive in net profit, a major negative earnings event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Carborundum Universal",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-670",
+      "headline": "Amara Raja Energy Q2: Profit drops 45% despite 18.5% revenue growth, board declares dividend",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/earnings/amara-raja-energy-q2-profit-drops-45pc-despite-18-5pc-revenue-growth-board-declares-dividend-20025328.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T16:43:52Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Amara Raja Energy reported a 45% profit drop despite revenue growth, which is a significant negative earnings surprise.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Amara Raja Energy reported a 45% profit drop despite revenue growth, which is a significant negative earnings surprise.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amara Raja Energy",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-661",
+      "headline": "Q2 Results LIVE Updates: NALCO profit jumps 28% to ₹1,835 crore; DOMS Industries earnings fall 36%",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/q2-results-live-updates-ril-jpl-dixon-muthoot-cdsl-itc-escorts-kubota-nalco-concor-upl-vrl-ge-vernova-jk-paper-share-price-liveblog-20024452.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T16:15:59Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "NALCO profit jumped 28% to ₹1,835 crore, while DOMS Industries earnings fell 36%.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "NALCO profit jumped 28% to ₹1,835 crore, while DOMS Industries earnings fell 36%.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NALCO",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "DOMS Industries",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261102-643",
       "headline": "Q2 Results LIVE Updates: KEC Intl profit down 82%; Wockhardt revenue rises 24% but margins shrink",
       "headline_en": null,
@@ -1849,148 +2002,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-555",
-      "headline": "Defence Ministry signs agreements worth over Rs 54k crore to buy 8 next generation corvettes for navy",
-      "headline_en": null,
-      "url": "https://www.deccanherald.com/india/defence-ministry-signs-agreements-worth-over-rs-54k-to-buy-8-next-generation-corvettes-for-navy-4204580",
-      "source_name": "Deccan Herald",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T13:43:05Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "The Indian Defence Ministry signed agreements worth Rs 54,000 crore for the procurement of 8 next-generation corvettes.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The Indian Defence Ministry signed agreements worth Rs 54,000 crore for the procurement of 8 next-generation corvettes.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-556",
-      "headline": "Morning Minute: Binance Hack Leads to Mass Outflows While FBI Opens Probe",
-      "headline_en": null,
-      "url": "https://decrypt.co/382332/morning-minute-the-binance-hack-leads-to-mass-outflows-while-fbi-opens-probe",
-      "source_name": "Decrypt — Crypto News",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T13:34:02Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Binance is facing mass outflows following a hack and an FBI investigation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Binance is facing mass outflows following a hack and an FBI investigation.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "cybersecurity",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Binance",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-510",
-      "headline": "Gopal Snacks Q2 Results: Net profit zooms nearly 2-fold on higher sales and exceptional gain",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/stocks/gopal-snacks-share-price-q2-results-net-profit-zooms-nearly-2-fold-on-higher-sales-and-exceptional-gain-20025162.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T13:29:16Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Gopal Snacks reported a nearly 2-fold increase in net profit for Q2.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Gopal Snacks reported a nearly 2-fold increase in net profit for Q2.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Gopal Snacks",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -259480,9 +259491,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3795356,
-    "news_picked_today": 1314,
-    "news_dropped_today": 7476
+    "news_seen_today": 3823918,
+    "news_picked_today": 1349,
+    "news_dropped_today": 7585
   },
   "book_momentum": {
     "live_count": 8,
