@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-02T03:58:24Z",
+  "generated_at": "2026-11-02T04:03:22Z",
   "inbox": [
     {
       "inbox_id": "INB-20261102-117",
@@ -1434,6 +1434,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261102-196",
+      "headline": "ALPHAMAB-B (09966): VOLUNTARY ANNOUNCEMENT - IND APPROVAL BY THE FDA FOR A PHASE I CLINICAL STUDY OF JSKN021",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1102/2026110200631.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-02T04:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "FDA approval for a Phase I clinical study is a positive milestone for a biotech company's pipeline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "FDA approval for a Phase I clinical study is a positive milestone for a biotech company's pipeline.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ALPHAMAB-B",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261102-101",
       "headline": "PER: FDA Clearance for Vanderbilt Health Clinical Trial in AML",
       "headline_en": null,
@@ -1917,55 +1966,6 @@
         {
           "name": "Winsome Resources",
           "ticker": "WR1",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-105",
-      "headline": "BMC: Updated 2026 Feasibility Study [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BMC?key=2924-03156737-6A1353137",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-01T21:16:50Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Black Mountain Energy updated its 2026 feasibility study.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Black Mountain Energy updated its 2026 feasibility study.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": -1,
-        "recency": 3,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Black Mountain Energy",
-          "ticker": "BME",
           "listing_country": "AU"
         }
       ],
@@ -258234,9 +258234,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1331,
-    "news_picked_today": 264,
-    "news_dropped_today": 1067
+    "news_seen_today": 1364,
+    "news_picked_today": 275,
+    "news_dropped_today": 1089
   },
   "book_momentum": {
     "live_count": 8,
