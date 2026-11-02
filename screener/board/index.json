@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-02T09:51:06Z",
+  "generated_at": "2026-11-02T09:54:07Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261102-401",
+      "headline": "Escorts Kubota Limited: Escorts Kubota Limited has informed the Exchange regarding a press release dated November 02, 2026, titled \"Standalone Q2FY27 Profit at Rs. 255.0 Crore\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/ESCORTS2_02112026144301_EKL_2026_11_02_Outcome_signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-02T09:13:37Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Escorts Kubota reported Q2FY27 standalone profit of Rs. 255.0 Crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Escorts Kubota reported Q2FY27 standalone profit of Rs. 255.0 Crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Escorts Kubota Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261102-344",
       "headline": "JX ENERGY (03395): INSIDE INFORMATION PROFIT WARNING REDUCTION IN LOSS",
@@ -1934,55 +1983,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-073",
-      "headline": "Binance hack: Crypto exchange resumes withdrawals after more than $6 billion stolen, sees outflow of $4.7 billion",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/binance-hack-crypto-exchange-resumes-withdrawals-after-more-than-6-billion-stolen-sees-outflow-of-4-7-billion-11793581525421.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T01:20:58Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Binance reports a massive security breach with $6 billion stolen and significant subsequent outflows.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Binance reports a massive security breach with $6 billion stolen and significant subsequent outflows.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Binance",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -259246,9 +259246,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 916207,
-    "news_picked_today": 666,
-    "news_dropped_today": 5028
+    "news_seen_today": 933585,
+    "news_picked_today": 671,
+    "news_dropped_today": 5047
   },
   "book_momentum": {
     "live_count": 8,
