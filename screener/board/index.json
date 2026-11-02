@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-02T17:25:25Z",
+  "generated_at": "2026-11-02T17:31:14Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261102-683",
+      "headline": "Digitide Solutions Limited: Digitide Solutions Limited has informed the Exchange regarding a press release dated November 02, 2026, titled \"Q2FY27 PAT tripled QoQ; EBITDA up 2.5% and margin expands 45bps QoQ\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/DIGITIDE_02112026223013_pressrelease_1.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-02T17:00:27Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Digitide Solutions reported Q2FY27 PAT tripled QoQ with EBITDA up 2.5% and margin expansion of 45bps.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Digitide Solutions reported Q2FY27 PAT tripled QoQ with EBITDA up 2.5% and margin expansion of 45bps.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Digitide Solutions Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261102-620",
       "headline": "25-NSE - LiveRamp Holdings, Inc. (0000733269) (Subject)",
@@ -1937,60 +1986,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-586",
-      "headline": "Marvell to buy Lumentum in all-stock deal, a massive bet on AI connectivity",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/11/02/marvell-lumentum-ai-deal.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T14:23:40Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Marvell is reportedly planning to acquire Lumentum in an all-stock deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Marvell is reportedly planning to acquire Lumentum in an all-stock deal.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Marvell Technology",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Lumentum",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -259480,9 +259475,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4095643,
-    "news_picked_today": 1361,
-    "news_dropped_today": 7765
+    "news_seen_today": 4152811,
+    "news_picked_today": 1364,
+    "news_dropped_today": 7834
   },
   "book_momentum": {
     "live_count": 8,
