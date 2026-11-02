@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-02T10:39:00Z",
+  "generated_at": "2026-11-02T10:42:08Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261102-422",
+      "headline": "TCL ELECTRONICS (01070): COMPLETION OF MAJOR AND CONNECTED TRANSACTION IN RELATION TO THE ACQUISITION OF THE TARGET COMPANY WITH TCL AIR CONDITIONER BUSINESS INVOLVING ISSUE OF CONSIDERATION SHARES UNDER SPECIFIC MANDATE",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1102/2026110203263.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-02T10:28:00Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "TCL Electronics completed the acquisition of the TCL air conditioner business involving the issue of consideration shares.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "TCL Electronics completed the acquisition of the TCL air conditioner business involving the issue of consideration shares.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TCL Electronics",
+          "ticker": "01070",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261102-412",
       "headline": "ROAD KING INFRA (01098): UPDATE ON THE OFFSHORE RESTRUCTURING, NOTICE OF SCHEME MEETINGS",
@@ -1936,55 +1985,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-123",
-      "headline": "Lockheed Martin acquires Nova Scotia-based undersea defence company for $3.45-billion",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/business/article-lockheed-martin-acquires-nova-scotia-based-undersea-defence-company/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T02:17:08Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Lockheed Martin is acquiring an undersea defense company for $3.45 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Lockheed Martin is acquiring an undersea defense company for $3.45 billion.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lockheed Martin",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -259397,9 +259397,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1154557,
-    "news_picked_today": 726,
-    "news_dropped_today": 5376
+    "news_seen_today": 1173803,
+    "news_picked_today": 736,
+    "news_dropped_today": 5414
   },
   "book_momentum": {
     "live_count": 8,
