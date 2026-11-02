@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-02T02:43:23Z",
+  "generated_at": "2026-11-02T02:48:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20261102-117",
@@ -891,6 +891,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261102-162",
+      "headline": "Special counsel raids NEC headquarters over improper stipends",
+      "headline_en": null,
+      "url": "https://en.yna.co.kr/view/AEN20261102004600315",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T02:35:52Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "NEC headquarters was raided by special counsel regarding improper stipends, indicating significant legal and regulatory risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "NEC headquarters was raided by special counsel regarding improper stipends, indicating significant legal and regulatory risk.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NEC",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261102-089",
       "headline": "FUN: Kahuna Exceptional Rutile Results [price-sensitive]",
       "headline_en": null,
@@ -1369,56 +1418,6 @@
           "name": "Downer EDI",
           "ticker": "DOW",
           "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-160",
-      "headline": "Special counsel raids NEC headquarters over improper stipends",
-      "headline_en": null,
-      "url": "https://www.koreaherald.com/article/10922644",
-      "source_name": "The Korea Herald — All News",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T02:39:50Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "A special counsel raid on NEC headquarters regarding improper stipends indicates significant legal and regulatory risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "A special counsel raid on NEC headquarters regarding improper stipends indicates significant legal and regulatory risk.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NEC",
-          "ticker": null,
-          "listing_country": "JP"
         }
       ],
       "size_bucket": "large",
