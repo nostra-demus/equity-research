@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-02T11:34:01Z",
+  "generated_at": "2026-11-02T11:39:20Z",
   "inbox": [
     {
       "inbox_id": "INB-20261102-444",
@@ -891,6 +891,61 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261102-471",
+      "headline": "Gamehaus To Acquire Approx. 56% Stake In Anamana For $19.6 Mln, To Invest Additional $7 Mln",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/gamehaus-acquire-approx-56-stake-anamana-196-mln-invest-additional-7-mln",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T11:03:54Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Gamehaus will acquire approximately 56% stake in Anamana for $19.6 million and invest an additional $7 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Gamehaus will acquire approximately 56% stake in Anamana for $19.6 million and invest an additional $7 million.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Gamehaus",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Anamana",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261102-458",
       "headline": "Korea's top court upholds W18.6b fine on Broadcom for pressuring Samsung into unfair deal",
       "headline_en": null,
@@ -1036,6 +1091,56 @@
           "name": "Petronet LNG",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-473",
+      "headline": "Kyocera H1 Profit Up 32.2%, Raises FY27 Revenue Outlook",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/kyocera-h1-profit-322-raises-fy27-revenue-outlook",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T10:51:11Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Kyocera reported a 32.2% increase in H1 profit and raised its full-year revenue outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Kyocera reported a 32.2% increase in H1 profit and raised its full-year revenue outlook.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kyocera Corporation",
+          "ticker": "6971",
+          "listing_country": "JP"
         }
       ],
       "size_bucket": "large",
@@ -1879,105 +1984,6 @@
           "name": "NTPC",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-267",
-      "headline": "Dixon Tech shares jump 10% after Q2 results, guidance; Analysts see up to 45% upside",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/dixon-tech-share-price-q2-results-profit-drops-49-pc-revenue-beats-estimates-aditya-infotech-motilal-oswal-nuvama-ubs-buy-target-price-upside-20024436.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T05:00:39Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Dixon Tech reported Q2 results and guidance that triggered a 10% share price jump.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Dixon Tech reported Q2 results and guidance that triggered a 10% share price jump.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dixon Technologies",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-284",
-      "headline": "JAL's April-Sept. net profit drops 42.2% to 39.07 billion yen",
-      "headline_en": null,
-      "url": "https://mainichi.jp/english/articles/20261102/p2g/00m/0bu/027000c",
-      "source_name": "The Mainichi",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T05:00:12Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Japan Airlines reported a 42.2% drop in net profit to 39.07 billion yen for the April-September period.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Japan Airlines reported a 42.2% drop in net profit to 39.07 billion yen for the April-September period.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Japan Airlines",
-          "ticker": null,
-          "listing_country": "JP"
         }
       ],
       "size_bucket": "large",
@@ -259392,9 +259398,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1492620,
-    "news_picked_today": 818,
-    "news_dropped_today": 5740
+    "news_seen_today": 1503330,
+    "news_picked_today": 849,
+    "news_dropped_today": 5829
   },
   "book_momentum": {
     "live_count": 8,
