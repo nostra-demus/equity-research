@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-02T02:48:22Z",
+  "generated_at": "2026-11-02T02:53:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20261102-117",
@@ -1917,50 +1917,55 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261102-126",
-      "headline": "Sheng Shiong shares slide 7.9% after modest Q3 earnings growth",
+      "inbox_id": "INB-20261102-164",
+      "headline": "SK Square plans 4.3 tln-won shareholder payout from SK hynix dividends",
       "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/sheng-shiong-shares-slide-7-9-after-modest-q3-earnings-growth",
-      "source_name": "The Business Times (Singapore)",
+      "url": "https://en.yna.co.kr/view/AEN20261102004500320",
+      "source_name": "Yonhap News Agency — All News (English)",
       "input_nature": "news_headline",
-      "found_at": "2026-11-02T02:28:32Z",
+      "found_at": "2026-11-02T02:43:13Z",
       "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Sheng Siong shares fell 7.9% following modest Q3 earnings growth.",
+      "prelim_note": "SK Square announced a 4.3 trillion won shareholder payout funded by SK hynix dividends.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 87,
-      "triage_reason": "Sheng Siong shares fell 7.9% following modest Q3 earnings growth.",
-      "region": "OTHER",
+      "triage_reason": "SK Square announced a 4.3 trillion won shareholder payout funded by SK hynix dividends.",
+      "region": "KR",
       "relevance": "material",
-      "materiality_pre_score": 60,
+      "materiality_pre_score": 75,
       "rank_factors": {
-        "materiality": 60,
+        "materiality": 75,
         "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
+        "scope": 5,
+        "event": 0,
+        "size": 2,
         "recency": 5,
-        "materiality_label_floor": 10,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "multi_name",
         "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
+        "event_id": null,
+        "size_bucket": "large"
       },
       "event_types": [
-        "earnings_revenue_margin"
+        "capital_actions"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Sheng Siong",
+          "name": "SK Square",
           "ticker": null,
-          "listing_country": "SG"
+          "listing_country": "KR"
+        },
+        {
+          "name": "SK hynix",
+          "ticker": null,
+          "listing_country": "KR"
         }
       ],
-      "size_bucket": "mid",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -257797,9 +257802,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 893,
-    "news_picked_today": 188,
-    "news_dropped_today": 705
+    "news_seen_today": 918,
+    "news_picked_today": 192,
+    "news_dropped_today": 726
   },
   "book_momentum": {
     "live_count": 8,
