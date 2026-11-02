@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-02T04:59:38Z",
+  "generated_at": "2026-11-02T05:08:35Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261102-266",
+      "headline": "DDR: Dicker Data completes acquisition of Sektor Group",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.DDR?key=2924-03157123-2A1707853",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-02T04:58:37Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Dicker Data completed the acquisition of Sektor Group, representing a material expansion of its business.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Dicker Data completed the acquisition of Sektor Group, representing a material expansion of its business.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dicker Data",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261102-252",
       "headline": "GAIL (India) Limited: GAIL (India) Limited has informed the Exchange regarding a revised press release dated October 30, 2026, titled \" GAIL reports Revenue from Operations of ₹45,924 crore and PAT of ₹4,650 crore for Q2 FY2026-27 .\".",
@@ -95,6 +144,105 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-267",
+      "headline": "Dixon Tech shares jump 10% after Q2 results, guidance; Analysts see up to 45% upside",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/dixon-tech-share-price-q2-results-profit-drops-49-pc-revenue-beats-estimates-aditya-infotech-motilal-oswal-nuvama-ubs-buy-target-price-upside-20024436.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T05:00:39Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Dixon Tech reported Q2 results and guidance that triggered a 10% share price jump.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Dixon Tech reported Q2 results and guidance that triggered a 10% share price jump.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dixon Technologies",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-284",
+      "headline": "JAL's April-Sept. net profit drops 42.2% to 39.07 billion yen",
+      "headline_en": null,
+      "url": "https://mainichi.jp/english/articles/20261102/p2g/00m/0bu/027000c",
+      "source_name": "The Mainichi",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T05:00:12Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Japan Airlines reported a 42.2% drop in net profit to 39.07 billion yen for the April-September period.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Japan Airlines reported a 42.2% drop in net profit to 39.07 billion yen for the April-September period.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Japan Airlines",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -392,55 +540,6 @@
           "name": "STT GDC",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-190",
-      "headline": "BREAKING NEWS: JAL's April-Sept. net profit drops 42.2% to 39.07 billion yen",
-      "headline_en": null,
-      "url": "https://english.kyodonews.net/articles/-/90110",
-      "source_name": "Kyodo News (Japan Wire)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T03:08:01Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "JAL reported a 42.2% drop in net profit to 39.07 billion yen for the April-Sept period.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "JAL reported a 42.2% drop in net profit to 39.07 billion yen for the April-Sept period.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Japan Airlines",
-          "ticker": null,
-          "listing_country": "JP"
         }
       ],
       "size_bucket": "large",
@@ -1293,6 +1392,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261102-271",
+      "headline": "Coal India unit South Eastern Coalfields files for IPO",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/markets/coal-india-unit-south-eastern-coalfields-files-foripo/article71655322.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T05:02:39Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "South Eastern Coalfields, a unit of Coal India, has filed for an IPO, which is a major capital action.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "South Eastern Coalfields, a unit of Coal India, has filed for an IPO, which is a major capital action.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Coal India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261102-211",
       "headline": "RONSHINECHINA (03301): QUARTERLY UPDATE ON THE PLANS AND MEASURES IN RESOLVING THE DISCLAIMER OF OPINION",
       "headline_en": null,
@@ -1828,153 +1976,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-251",
-      "headline": "Reliance Industries shares jump 6%, set for biggest single-day gain since Jan 2024 after Q2 earnings beat",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/reliance-industries-ril-share-price-may-rise-39-percent-consensus-estimates-check-targets-q2-results-20024474.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T04:38:13Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Reliance Industries shares rose 6% following a Q2 earnings beat, marking the largest single-day gain since January 2024.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Reliance Industries shares rose 6% following a Q2 earnings beat, marking the largest single-day gain since January 2024.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Reliance Industries",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-201",
-      "headline": "Reliance Industries shares flying! Massive Monday jump for RIL stock - 6% surge strong Q2 results | Book profit or wait?",
-      "headline_en": null,
-      "url": "https://www.livemint.com/market/stock-market-news/reliance-industries-shares-flying-massive-monday-jump-for-ril-stock-6-surge-strong-q2-results-book-profit-or-wait-11793591404819.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T04:05:59Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Reliance Industries shares rose 6% following strong Q2 results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Reliance Industries shares rose 6% following strong Q2 results.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Reliance Industries",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-239",
-      "headline": "Reliance Shares Hit Nine-Month High as Iran War Boosts Refining",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-02/reliance-industries-surges-most-in-nine-months-on-earnings-beat",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T03:54:51Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Reliance Industries shares hit a nine-month high driven by refining margin tailwinds from geopolitical conflict.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Reliance Industries shares hit a nine-month high driven by refining margin tailwinds from geopolitical conflict.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Reliance Industries",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -217296,78 +217297,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-2498ee6921aa",
-      "idea_version": "IDEAV-4f8529ab4c7075b6",
-      "idea_version_started_at": "2026-10-31T22:55:38Z",
-      "ticker": "EKI",
-      "company": "EKI Energy Services",
-      "exchange": "BSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The 12-month ban on the Managing Director by SEBI for financial misrepresentation creates significant governance risk and leadership uncertainty.",
-      "why_now": "The regulatory order was issued on 2026-10-31.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "governance_turnaround",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d87e3453a815"
-      ],
-      "primary_source_event_id": "EVT-d87e3453a815",
-      "source_headlines": [
-        "SEBI bars EKI Energy Services MD Manish Dabkara for 12 months over financial misrepresentation"
-      ],
-      "source_headline": "SEBI bars EKI Energy Services MD Manish Dabkara for 12 months over financial misrepresentation",
-      "source_url": "https://www.thehindubusinessline.com/markets/sebi-bars-eki-energy-services-md-manish-dabkara-for-12-months-over-financial-misrepresentation/article71650614.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-31T17:01:28Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-31T19:00:11Z",
-      "updated_at": "2026-10-31T22:55:38Z",
-      "decay_at": "2026-11-02T05:01:28Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-af4308e96a78",
       "idea_version": "IDEAV-20c10ff777fa1b06",
       "idea_version_started_at": "2026-10-31T22:00:18Z",
@@ -220155,6 +220084,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-2498ee6921aa",
+      "idea_version": "IDEAV-4f8529ab4c7075b6",
+      "idea_version_started_at": "2026-10-31T22:55:38Z",
+      "ticker": "EKI",
+      "company": "EKI Energy Services",
+      "exchange": "BSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The 12-month ban on the Managing Director by SEBI for financial misrepresentation creates significant governance risk and leadership uncertainty.",
+      "why_now": "The regulatory order was issued on 2026-10-31.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "governance_turnaround",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d87e3453a815"
+      ],
+      "primary_source_event_id": "EVT-d87e3453a815",
+      "source_headlines": [
+        "SEBI bars EKI Energy Services MD Manish Dabkara for 12 months over financial misrepresentation"
+      ],
+      "source_headline": "SEBI bars EKI Energy Services MD Manish Dabkara for 12 months over financial misrepresentation",
+      "source_url": "https://www.thehindubusinessline.com/markets/sebi-bars-eki-energy-services-md-manish-dabkara-for-12-months-over-financial-misrepresentation/article71650614.ece",
+      "source_name": "The Hindu BusinessLine",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-31T17:01:28Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-31T19:00:11Z",
+      "updated_at": "2026-10-31T22:55:38Z",
+      "decay_at": "2026-11-02T05:01:28Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-8f55cfd3a569",
       "idea_version": "IDEAV-12e1242652157832",
       "idea_version_started_at": "2026-10-31T22:55:38Z",
@@ -221388,9 +221389,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 525,
+    "total_count": 526,
     "shown_count": 500,
-    "hidden_count": 25,
+    "hidden_count": 26,
     "side_counts": {
       "long": {
         "total_count": 266,
@@ -221398,9 +221399,9 @@
         "hidden_count": 16
       },
       "short": {
-        "total_count": 259,
+        "total_count": 260,
         "shown_count": 250,
-        "hidden_count": 9
+        "hidden_count": 10
       }
     },
     "retention": {
@@ -221419,6 +221420,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-2498ee6921aa",
+        "idea_version": "IDEAV-4f8529ab4c7075b6",
+        "idea_version_started_at": "2026-10-31T22:55:38Z",
+        "ticker": "EKI",
+        "company": "EKI Energy Services",
+        "exchange": "BSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The 12-month ban on the Managing Director by SEBI for financial misrepresentation creates significant governance risk and leadership uncertainty.",
+        "why_now": "The regulatory order was issued on 2026-10-31.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "governance_turnaround",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-d87e3453a815"
+        ],
+        "primary_source_event_id": "EVT-d87e3453a815",
+        "source_headlines": [
+          "SEBI bars EKI Energy Services MD Manish Dabkara for 12 months over financial misrepresentation"
+        ],
+        "source_headline": "SEBI bars EKI Energy Services MD Manish Dabkara for 12 months over financial misrepresentation",
+        "source_url": "https://www.thehindubusinessline.com/markets/sebi-bars-eki-energy-services-md-manish-dabkara-for-12-months-over-financial-misrepresentation/article71650614.ece",
+        "source_name": "The Hindu BusinessLine",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-31T17:01:28Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-31T19:00:11Z",
+        "updated_at": "2026-10-31T22:55:38Z",
+        "decay_at": "2026-11-02T05:01:28Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-02T05:01:28Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-4ff4f52db48f",
         "idea_version": "IDEAV-968c5e200f1eb245",
@@ -258571,85 +258647,12 @@
         "archived_at": "2026-10-08T03:53:12Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-1ce33e97dd06",
-        "idea_version": "IDEAV-63dc7c4f25cc3c36",
-        "idea_version_started_at": "2026-10-05T00:00:18Z",
-        "ticker": "NKE",
-        "company": "Nike",
-        "exchange": "NYSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Severe earnings and margin deterioration coupled with structural brand weakness are driving analysts to aggressively downgrade the stock.",
-        "why_now": "The negative momentum from the disastrous earnings release on October 4, 2026, is driving immediate institutional capitulation and downward price pressure.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 65,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-2ec57090517c"
-        ],
-        "primary_source_event_id": "EVT-2ec57090517c",
-        "source_headlines": [
-          "Nike's Earnings Are a Disaster. Run -- Don't Walk -- Away From This Stock."
-        ],
-        "source_headline": "Nike's Earnings Are a Disaster. Run -- Don't Walk -- Away From This Stock.",
-        "source_url": "https://www.nasdaq.com/articles/nikes-earnings-are-disaster-run-dont-walk-away-stock",
-        "source_name": "Nasdaq",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-04T23:27:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-05T00:00:18Z",
-        "updated_at": "2026-10-05T00:00:18Z",
-        "decay_at": "2026-10-06T11:27:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-08T03:53:12Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2110,
-    "live_count": 81,
+    "live_count": 80,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -258668,9 +258671,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2111,
-    "news_picked_today": 378,
-    "news_dropped_today": 1733
+    "news_seen_today": 2210,
+    "news_picked_today": 400,
+    "news_dropped_today": 1810
   },
   "book_momentum": {
     "live_count": 8,
