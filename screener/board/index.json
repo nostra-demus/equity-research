@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-02T00:37:06Z",
+  "generated_at": "2026-11-02T00:47:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20261102-045",
@@ -678,6 +678,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261102-048",
+      "headline": "Israeli officials say results stand as Netanyahu claims election ‘stolen’",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/2026/11/2/israeli-officials-say-results-stand-as-netanyahu-claims-election-stolen?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-11-02T00:29:16Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Political instability and claims of election theft create significant uncertainty for the sovereign risk profile.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 77,
+      "triage_reason": "Political instability and claims of election theft create significant uncertainty for the sovereign risk profile.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261102-025",
       "headline": "NOX: Quarterly Activities/Appendix 4C Cash Flow Report [price-sensitive]",
       "headline_en": null,
@@ -968,6 +1011,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-051",
+      "headline": "Rithm Capital - Preferred Stock Price Target Decreased by 11.57% to $35.09",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/rithm-capital-preferred-stock-price-target-decreased-1157-3509",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T00:29:04Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "A reduction in the price target for preferred stock by 11.57% reflects a shift in analyst valuation expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 69,
+      "triage_reason": "A reduction in the price target for preferred stock by 11.57% reflects a shift in analyst valuation expectations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "credit_rating_downgrade",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "credit_rating_downgrade"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Rithm Capital",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1561,6 +1653,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261102-050",
+      "headline": "Nine die in ‘cataclysmic’ Florida business jet crash",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/2026/11/2/nine-die-in-cataclysmic-florida-business-jet?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-11-02T00:34:22Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "A fatal business jet crash involving a private aircraft is a significant operational and safety event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 58,
+      "triage_reason": "A fatal business jet crash involving a private aircraft is a significant operational and safety event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261102-020",
       "headline": "Australian home prices fall for seventh month, looming rate hike adds to pain",
       "headline_en": null,
@@ -1776,135 +1911,6 @@
           "listing_country": "IN"
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-046",
-      "headline": "N. Korea denounces S Korea-US joint military drills, vows to bolster nuclear deterrent",
-      "headline_en": null,
-      "url": "https://www.koreaherald.com/article/10922223",
-      "source_name": "The Korea Herald — All News",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T00:29:15Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "North Korea's vow to bolster its nuclear deterrent in response to joint military drills represents a geopolitical escalation in the region.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "North Korea's vow to bolster its nuclear deterrent in response to joint military drills represents a geopolitical escalation in the region.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-041",
-      "headline": "Ebola Fatality Rate Tops 50% After Hundreds of Deaths Added to Congo Toll",
-      "headline_en": null,
-      "url": "https://www.livemint.com/news/ebola-fatality-rate-tops-50-after-hundreds-of-deaths-added-to-congo-toll-11793579054406.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T00:24:13Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Significant public health crisis escalation with fatality rate exceeding 50%.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "Significant public health crisis escalation with fatality rate exceeding 50%.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-011",
-      "headline": "Lee to address National Assembly on next year's gov't budget",
-      "headline_en": null,
-      "url": "https://www.koreaherald.com/article/10922163",
-      "source_name": "The Korea Herald — All News",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T00:03:52Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "A routine address by a political leader regarding the upcoming government budget is a standard administrative event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "A routine address by a political leader regarding the upcoming government budget is a standard administrative event.",
-      "region": "KR",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -216870,78 +216876,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-31bf7321c8e2",
-      "idea_version": "IDEAV-7e0e36f922691636",
-      "idea_version_started_at": "2026-10-31T19:00:11Z",
-      "ticker": "IHCL",
-      "company": "Indian Hotels Company Ltd",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Indian Hotels Company Ltd (IHCL) is partnering with Ambuja Neotia to invest up to ₹3,000 crore in 9 new hospitality projects in Bengal, which will significantly expand its asset base and revenue potential.",
-      "why_now": "The investment plan was reported on October 31, 2026, signaling a clear growth strategy and capital deployment.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0893cadee259"
-      ],
-      "primary_source_event_id": "EVT-0893cadee259",
-      "source_headlines": [
-        "Ambuja Neotia, IHCL to invest up to ₹3,000 crore in 9 hospitality projects in Bengal"
-      ],
-      "source_headline": "Ambuja Neotia, IHCL to invest up to ₹3,000 crore in 9 hospitality projects in Bengal",
-      "source_url": "https://www.thehindubusinessline.com/news/national/ambuja-neotia-ihcl-to-invest-up-to-3000-crore-in-9-hospitality-projects-in-bengal/article71649294.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-31T12:39:15Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-31T19:00:11Z",
-      "updated_at": "2026-10-31T19:00:11Z",
-      "decay_at": "2026-11-02T00:39:15Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-41c5501266bc",
       "idea_version": "IDEAV-03b730a97de42b8a",
       "idea_version_started_at": "2026-11-01T10:30:47Z",
@@ -219660,6 +219594,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-31bf7321c8e2",
+      "idea_version": "IDEAV-7e0e36f922691636",
+      "idea_version_started_at": "2026-10-31T19:00:11Z",
+      "ticker": "IHCL",
+      "company": "Indian Hotels Company Ltd",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Indian Hotels Company Ltd (IHCL) is partnering with Ambuja Neotia to invest up to ₹3,000 crore in 9 new hospitality projects in Bengal, which will significantly expand its asset base and revenue potential.",
+      "why_now": "The investment plan was reported on October 31, 2026, signaling a clear growth strategy and capital deployment.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0893cadee259"
+      ],
+      "primary_source_event_id": "EVT-0893cadee259",
+      "source_headlines": [
+        "Ambuja Neotia, IHCL to invest up to ₹3,000 crore in 9 hospitality projects in Bengal"
+      ],
+      "source_headline": "Ambuja Neotia, IHCL to invest up to ₹3,000 crore in 9 hospitality projects in Bengal",
+      "source_url": "https://www.thehindubusinessline.com/news/national/ambuja-neotia-ihcl-to-invest-up-to-3000-crore-in-9-hospitality-projects-in-bengal/article71649294.ece",
+      "source_name": "The Hindu BusinessLine",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-31T12:39:15Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-31T19:00:11Z",
+      "updated_at": "2026-10-31T19:00:11Z",
+      "decay_at": "2026-11-02T00:39:15Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-5d7e7121c615",
       "idea_version": "IDEAV-144f2e728dcf0083",
       "idea_version_started_at": "2026-10-31T14:59:59Z",
@@ -220173,14 +220179,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 522,
+    "total_count": 523,
     "shown_count": 500,
-    "hidden_count": 22,
+    "hidden_count": 23,
     "side_counts": {
       "long": {
-        "total_count": 264,
+        "total_count": 265,
         "shown_count": 250,
-        "hidden_count": 14
+        "hidden_count": 15
       },
       "short": {
         "total_count": 258,
@@ -220204,6 +220210,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-31bf7321c8e2",
+        "idea_version": "IDEAV-7e0e36f922691636",
+        "idea_version_started_at": "2026-10-31T19:00:11Z",
+        "ticker": "IHCL",
+        "company": "Indian Hotels Company Ltd",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Indian Hotels Company Ltd (IHCL) is partnering with Ambuja Neotia to invest up to ₹3,000 crore in 9 new hospitality projects in Bengal, which will significantly expand its asset base and revenue potential.",
+        "why_now": "The investment plan was reported on October 31, 2026, signaling a clear growth strategy and capital deployment.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-0893cadee259"
+        ],
+        "primary_source_event_id": "EVT-0893cadee259",
+        "source_headlines": [
+          "Ambuja Neotia, IHCL to invest up to ₹3,000 crore in 9 hospitality projects in Bengal"
+        ],
+        "source_headline": "Ambuja Neotia, IHCL to invest up to ₹3,000 crore in 9 hospitality projects in Bengal",
+        "source_url": "https://www.thehindubusinessline.com/news/national/ambuja-neotia-ihcl-to-invest-up-to-3000-crore-in-9-hospitality-projects-in-bengal/article71649294.ece",
+        "source_name": "The Hindu BusinessLine",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-31T12:39:15Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-31T19:00:11Z",
+        "updated_at": "2026-10-31T19:00:11Z",
+        "decay_at": "2026-11-02T00:39:15Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-02T00:39:15Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-3a8aa320e39f",
         "idea_version": "IDEAV-2a5692ce96964e85",
@@ -249305,80 +249386,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-286d271adaa1",
-        "idea_version": "IDEAV-73630a20c2f4d123",
-        "idea_version_started_at": "2026-10-16T21:35:39Z",
-        "ticker": "E2E",
-        "company": "E2E Networks",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company reported 5.1x year-over-year revenue growth to INR 2,238 Mn and significant EBITDA margin expansion to 76.6% in Q2 FY27.",
-        "why_now": "The financial results were disclosed in an exchange filing on October 16, 2026.",
-        "conviction": 80,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-f59809181c97"
-        ],
-        "primary_source_event_id": "EVT-f59809181c97",
-        "source_headlines": [
-          "E2E Networks Limited: E2E Networks Limited has informed the Exchange regarding a press release dated October 16, 2026, titled \"E2E Networks Reports Q2 FY 27 Results: Revenue 5.1x YoY to ₹2,238 Mn; EBITDA Margin Expands to 76.6%; PAT ₹727 Mn \"."
-        ],
-        "source_headline": "E2E Networks Limited: E2E Networks Limited has informed the Exchange regarding a press release dated October 16, 2026, titled \"E2E Networks Reports Q2 FY 27 Results: Revenue 5.1x YoY to ₹2,238 Mn; EBITDA Margin Expands to 76.6%; PAT ₹727 Mn \".",
-        "source_url": "https://nsearchives.nseindia.com/corporate/E2E_16102026150410_SignedPressRelease16102026.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-16T09:38:54Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-16T21:35:39Z",
-        "updated_at": "2026-10-16T21:35:39Z",
-        "decay_at": "2026-10-17T21:38:54Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-19T09:41:40Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-a31a80587f1c",
         "idea_version": "IDEAV-05c6f3259c1f83eb",
         "idea_version_started_at": "2026-10-16T21:35:39Z",
@@ -257428,7 +257435,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2094,
-    "live_count": 68,
+    "live_count": 67,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -257447,9 +257454,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 191,
-    "news_picked_today": 47,
-    "news_dropped_today": 144
+    "news_seen_today": 218,
+    "news_picked_today": 52,
+    "news_dropped_today": 166
   },
   "book_momentum": {
     "live_count": 8,
