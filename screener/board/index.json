@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-02T03:35:17Z",
+  "generated_at": "2026-11-02T03:43:33Z",
   "inbox": [
     {
       "inbox_id": "INB-20261102-117",
@@ -100,6 +100,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261102-190",
+      "headline": "BREAKING NEWS: JAL's April-Sept. net profit drops 42.2% to 39.07 billion yen",
+      "headline_en": null,
+      "url": "https://english.kyodonews.net/articles/-/90110",
+      "source_name": "Kyodo News (Japan Wire)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T03:08:01Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "JAL reported a 42.2% drop in net profit to 39.07 billion yen for the April-Sept period.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "JAL reported a 42.2% drop in net profit to 39.07 billion yen for the April-Sept period.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Japan Airlines",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261102-173",
       "headline": "KKR, Singtel, Tata plan to sell data centre company; seek at least $5 billion in sale: Report",
       "headline_en": null,
@@ -154,6 +203,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-188",
+      "headline": "Binance sees outflows stabilising as exchange returns online after $6.3 billion heist",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/cryptocurrency/binance-sees-outflows-stabilising-as-exchange-returns-online-after-6-3-billion-heist/articleshow/135443825.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T02:45:13Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Binance reports a $6.3 billion heist, indicating a major security breach and potential operational/financial risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Binance reports a $6.3 billion heist, indicating a major security breach and potential operational/financial risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Binance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1872,105 +1970,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-159",
-      "headline": "LG CNS completes construction of AI data center in Indonesia's Jakarta",
-      "headline_en": null,
-      "url": "https://www.koreaherald.com/article/10922642",
-      "source_name": "The Korea Herald — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T02:37:12Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "LG CNS has completed a major infrastructure project, an AI data center in Jakarta, marking a significant operational expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "LG CNS has completed a major infrastructure project, an AI data center in Jakarta, marking a significant operational expansion.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "LG CNS",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-125",
-      "headline": "RIL share price: Goldman Sachs sees upside to ₹1,840; strong O2C performance drives Q2 earnings beat",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/reliance-industries-ril-share-price-may-rise-39-percent-consensus-estimates-check-targets-q2-results-20024474.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T02:23:14Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Goldman Sachs upgraded Reliance Industries with a target price of ₹1,840 following a Q2 earnings beat driven by O2C performance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Goldman Sachs upgraded Reliance Industries with a target price of ₹1,840 following a Q2 earnings beat driven by O2C performance.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Reliance Industries",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -258235,9 +258234,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1168,
-    "news_picked_today": 232,
-    "news_dropped_today": 936
+    "news_seen_today": 1243,
+    "news_picked_today": 244,
+    "news_dropped_today": 999
   },
   "book_momentum": {
     "live_count": 8,
