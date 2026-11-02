@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-02T20:07:35Z",
+  "generated_at": "2026-11-02T20:26:40Z",
   "inbox": [
     {
       "inbox_id": "INB-20261102-698",
@@ -1377,6 +1377,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261102-704",
+      "headline": "Children’s Place Weighs Possible Liquidation Option in Bankruptcy",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-02/children-s-place-weighs-possible-liquidation-option-in-bankruptcy",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T19:55:06Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "The Children's Place is considering liquidation as part of its bankruptcy process.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The Children's Place is considering liquidation as part of its bankruptcy process.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "The Children's Place",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261102-699",
       "headline": "Tachyum, developer of heavily-delayed universal Prodigy processor, voluntarily files for bankruptcy — future of Prodigy IP unknown as company begins bankruptcy proceedings",
       "headline_en": null,
@@ -1924,60 +1973,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-648",
-      "headline": "Marvell to buy Lumentum in $115 billion deal in AI data-center bet",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/us-stocks/news/marvell-to-buy-lumentum-in-115-billion-deal-in-ai-data-center-bet/articleshow/135466901.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T15:50:07Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Marvell Technology announced a $115 billion acquisition of Lumentum to expand in AI data centers.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Marvell Technology announced a $115 billion acquisition of Lumentum to expand in AI data centers.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Marvell Technology",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Lumentum",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -214210,76 +214205,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-f8d21dcf8212",
-      "idea_version": "IDEAV-503768a3283a5333",
-      "idea_version_started_at": "2026-11-01T09:01:03Z",
-      "ticker": "VOD",
-      "company": "Vodafone Group",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Regulatory approval for a significant 16% stake acquisition by a major investor reduces overhang and signals potential strategic influence or eventual buyout interest.",
-      "why_now": "The Competition Commission of India (CCI) approval was reported on 2026-11-01, removing a key hurdle for the transaction.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9031f1a7cee2"
-      ],
-      "primary_source_event_id": "EVT-9031f1a7cee2",
-      "source_headlines": [
-        "CCI clears French billionaire's proposal to acquire 16% stake in Vodafone Group: Report"
-      ],
-      "source_headline": "CCI clears French billionaire's proposal to acquire 16% stake in Vodafone Group: Report",
-      "source_url": "https://www.cnbctv18.com/business/cci-clears-french-billionaires-proposal-to-acquire-stake-in-vodafone-group-20024272.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-01T08:13:04Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-01T07:50:48Z",
-      "updated_at": "2026-11-01T09:01:03Z",
-      "decay_at": "2026-11-02T20:13:04Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-9f47945c8197",
       "idea_version": "IDEAV-acb158e302dd8432",
       "idea_version_started_at": "2026-11-02T02:53:32Z",
@@ -219464,6 +219389,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-f8d21dcf8212",
+      "idea_version": "IDEAV-503768a3283a5333",
+      "idea_version_started_at": "2026-11-01T09:01:03Z",
+      "ticker": "VOD",
+      "company": "Vodafone Group",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Regulatory approval for a significant 16% stake acquisition by a major investor reduces overhang and signals potential strategic influence or eventual buyout interest.",
+      "why_now": "The Competition Commission of India (CCI) approval was reported on 2026-11-01, removing a key hurdle for the transaction.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9031f1a7cee2"
+      ],
+      "primary_source_event_id": "EVT-9031f1a7cee2",
+      "source_headlines": [
+        "CCI clears French billionaire's proposal to acquire 16% stake in Vodafone Group: Report"
+      ],
+      "source_headline": "CCI clears French billionaire's proposal to acquire 16% stake in Vodafone Group: Report",
+      "source_url": "https://www.cnbctv18.com/business/cci-clears-french-billionaires-proposal-to-acquire-stake-in-vodafone-group-20024272.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-01T08:13:04Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-01T07:50:48Z",
+      "updated_at": "2026-11-01T09:01:03Z",
+      "decay_at": "2026-11-02T20:13:04Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-b6c0f11fb03b",
       "idea_version": "IDEAV-84a2d0fe2698000c",
       "idea_version_started_at": "2026-10-31T23:45:32Z",
@@ -222264,14 +222259,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 543,
+    "total_count": 544,
     "shown_count": 500,
-    "hidden_count": 43,
+    "hidden_count": 44,
     "side_counts": {
       "long": {
-        "total_count": 277,
+        "total_count": 278,
         "shown_count": 250,
-        "hidden_count": 27
+        "hidden_count": 28
       },
       "short": {
         "total_count": 266,
@@ -222295,6 +222290,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-f8d21dcf8212",
+        "idea_version": "IDEAV-503768a3283a5333",
+        "idea_version_started_at": "2026-11-01T09:01:03Z",
+        "ticker": "VOD",
+        "company": "Vodafone Group",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Regulatory approval for a significant 16% stake acquisition by a major investor reduces overhang and signals potential strategic influence or eventual buyout interest.",
+        "why_now": "The Competition Commission of India (CCI) approval was reported on 2026-11-01, removing a key hurdle for the transaction.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 65,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-9031f1a7cee2"
+        ],
+        "primary_source_event_id": "EVT-9031f1a7cee2",
+        "source_headlines": [
+          "CCI clears French billionaire's proposal to acquire 16% stake in Vodafone Group: Report"
+        ],
+        "source_headline": "CCI clears French billionaire's proposal to acquire 16% stake in Vodafone Group: Report",
+        "source_url": "https://www.cnbctv18.com/business/cci-clears-french-billionaires-proposal-to-acquire-stake-in-vodafone-group-20024272.htm",
+        "source_name": "CNBC-TV18",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-01T08:13:04Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-01T07:50:48Z",
+        "updated_at": "2026-11-01T09:01:03Z",
+        "decay_at": "2026-11-02T20:13:04Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-02T20:13:04Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-401abea524f4",
         "idea_version": "IDEAV-0e634d15df8f783a",
@@ -251615,85 +251683,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-5a71f05995f2",
-        "idea_version": "IDEAV-86380cca7cf05ac3",
-        "idea_version_started_at": "2026-10-18T12:31:33Z",
-        "ticker": "ICICIBANK",
-        "company": "ICICI Bank",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The bank reported strong Q2 earnings beating estimates, though management signaled potential net interest margin pressure in Q3.",
-        "why_now": "Earnings were released on October 17, 2026; the market is currently digesting the guidance for Q3 margin compression.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 10,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-114e7c8d81d5",
-          "EVT-7acdb0de9940",
-          "EVT-1c76b71d0827"
-        ],
-        "primary_source_event_id": "EVT-114e7c8d81d5",
-        "source_headlines": [
-          "ICICI Bank Q2 net profit rises 20% to ₹14,843 crore; NIM slips to 4.18% as bank flags further pressure in Q3",
-          "ICICI Bank Q2 net profit jumps 22% to Rs 16,333 crore",
-          "India's ICICI Bank Q2 profit rises 20.1%, beats estimates"
-        ],
-        "source_headline": "ICICI Bank Q2 net profit rises 20% to ₹14,843 crore; NIM slips to 4.18% as bank flags further pressure in Q3",
-        "source_url": "https://economictimes.indiatimes.com/industry/banking/finance/banking/icici-bank-q2-net-profit-rises-20-to-14843-crore-nim-slips-to-4-18-as-bank-flags-further-pressure-in-q3/articleshow/135013865.cms",
-        "source_name": "The Economic Times",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-17T12:06:06Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-17T11:50:37Z",
-        "updated_at": "2026-10-18T12:31:33Z",
-        "decay_at": "2026-10-19T00:06:06Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-20T12:29:54Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-279942e1dba3",
         "idea_version": "IDEAV-8872139601beaa0a",
         "idea_version_started_at": "2026-10-17T10:42:01Z",
@@ -259522,7 +259511,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2128,
-    "live_count": 75,
+    "live_count": 74,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -259541,9 +259530,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5650028,
-    "news_picked_today": 1447,
-    "news_dropped_today": 8951
+    "news_seen_today": 5863415,
+    "news_picked_today": 1455,
+    "news_dropped_today": 9063
   },
   "book_momentum": {
     "live_count": 8,
