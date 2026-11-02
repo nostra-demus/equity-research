@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-02T09:28:33Z",
+  "generated_at": "2026-11-02T09:32:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20261102-344",
@@ -43,6 +43,55 @@
           "name": "JX ENERGY",
           "ticker": "03395",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-356",
+      "headline": "FAU: Variation of Takeover Implementation Deed [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FAU?key=2924-03157247-6A1353320",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-02T08:24:28Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "FAU announced a variation to a takeover implementation deed, which is price-sensitive.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "FAU announced a variation to a takeover implementation deed, which is price-sensitive.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FAU",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -1934,55 +1983,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-078",
-      "headline": "ARF: Announcement of Goodstart Transaction",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ARF?key=2924-03157058-3A705646",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-02T01:10:36Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "ARF announced a transaction with Goodstart, representing a material corporate development.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "ARF announced a transaction with Goodstart, representing a material corporate development.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ARF",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -259246,9 +259246,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 770949,
-    "news_picked_today": 605,
-    "news_dropped_today": 4945
+    "news_seen_today": 796071,
+    "news_picked_today": 621,
+    "news_dropped_today": 4953
   },
   "book_momentum": {
     "live_count": 8,
