@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-02T06:43:12Z",
+  "generated_at": "2026-11-02T06:53:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261102-266",
@@ -214982,6 +214982,79 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-b0b475f9cb2a",
+      "idea_version": "IDEAV-0bdf6deeeba4d15b",
+      "idea_version_started_at": "2026-11-02T06:53:24Z",
+      "ticker": "9202",
+      "company": "Japan Airlines",
+      "exchange": "TSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A 42.2% drop in net profit for the April-September period indicates significant margin compression and operational headwinds.",
+      "why_now": "The earnings report was released on November 02, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-063c7de07476"
+      ],
+      "primary_source_event_id": "EVT-063c7de07476",
+      "source_headlines": [
+        "JAL's April-Sept. net profit drops 42.2% to 39.07 billion yen"
+      ],
+      "source_headline": "JAL's April-Sept. net profit drops 42.2% to 39.07 billion yen",
+      "source_url": "https://mainichi.jp/english/articles/20261102/p2g/00m/0bu/027000c",
+      "source_name": "The Mainichi",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-02T05:00:12Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-02T06:53:24Z",
+      "updated_at": "2026-11-02T06:53:24Z",
+      "decay_at": "2026-11-03T17:00:12Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-1327410c2df8",
       "idea_version": "IDEAV-b57c958c30483191",
       "idea_version_started_at": "2026-11-02T05:53:56Z",
@@ -218151,6 +218224,77 @@
       "surfaced_at": "2026-11-01T10:06:03Z",
       "updated_at": "2026-11-01T10:06:03Z",
       "decay_at": "2026-11-02T22:02:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-5df03eedd1b2",
+      "idea_version": "IDEAV-d3841ab8d7e112f9",
+      "idea_version_started_at": "2026-11-02T06:53:24Z",
+      "ticker": "JUPITERW",
+      "company": "Jupiter Wagons Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company secured new orders worth INR 324 crore, which provides immediate revenue visibility and confirms strong demand for its rail equipment.",
+      "why_now": "The order win was announced via official exchange filing on November 02, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9946af5c1844"
+      ],
+      "primary_source_event_id": "EVT-9946af5c1844",
+      "source_headlines": [
+        "Jupiter Wagons Limited: Jupiter Wagons Limited has informed the Exchange regarding a press release dated November 02, 2026, titled \"Jupiter Wagons secures orders worth over INR 324 crore from GATX India and Chetak International\"."
+      ],
+      "source_headline": "Jupiter Wagons Limited: Jupiter Wagons Limited has informed the Exchange regarding a press release dated November 02, 2026, titled \"Jupiter Wagons secures orders worth over INR 324 crore from GATX India and Chetak International\".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/CEBBCO_02112026104526_SEPRESSRELEASE021126.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 95,
+      "newest_source_at": "2026-11-02T05:15:36Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-02T06:53:24Z",
+      "updated_at": "2026-11-02T06:53:24Z",
+      "decay_at": "2026-11-03T17:15:36Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -259075,8 +259219,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2116,
-    "live_count": 88,
+    "surfaced_total": 2118,
+    "live_count": 90,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -259095,9 +259239,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 137626,
+    "news_seen_today": 167664,
     "news_picked_today": 498,
-    "news_dropped_today": 3564
+    "news_dropped_today": 3636
   },
   "book_momentum": {
     "live_count": 8,
