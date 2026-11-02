@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-02T08:05:55Z",
+  "generated_at": "2026-11-02T09:28:33Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261102-344",
+      "headline": "JX ENERGY (03395): INSIDE INFORMATION PROFIT WARNING REDUCTION IN LOSS",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1102/2026110202334.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-02T09:08:00Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "The company issued a profit warning indicating a reduction in its net loss.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company issued a profit warning indicating a reduction in its net loss.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "JX ENERGY",
+          "ticker": "03395",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261102-321",
       "headline": "Siti Networks Limited: Siti Networks Limited has informed the Exchange regarding 'Disclosure in compliance with Para 3(C1) of SEBI Circular No. SEBI/HO/CFD/CMD1/CIR/2019/140 dated November 21, 2019, of default on payment of interest/repayment of principal amount on loans from Bank(s)'.",
@@ -1933,50 +1982,6 @@
           "listing_country": null
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-232",
-      "headline": "Canada-India $5.5 billion bank takeover attracts opposition from workers, politicians",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/11/02/canada-india-bank-takeover-protest-workers.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T04:09:34Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "A $5.5 billion bank takeover is facing significant political and labor opposition, creating deal uncertainty.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "A $5.5 billion bank takeover is facing significant political and labor opposition, creating deal uncertainty.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -217803,77 +217808,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-af4308e96a78",
-      "idea_version": "IDEAV-20c10ff777fa1b06",
-      "idea_version_started_at": "2026-10-31T22:00:18Z",
-      "ticker": "JSWSTEEL",
-      "company": "JSW Steel Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The scheme of amalgamation of Piombino Steel Limited with JSW Steel Limited has become effective, which should streamline operations and potentially improve margins for JSW Steel.",
-      "why_now": "The effectiveness of the amalgamation scheme was announced via an exchange filing on October 31, 2026.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4c5ca74c0f44"
-      ],
-      "primary_source_event_id": "EVT-4c5ca74c0f44",
-      "source_headlines": [
-        "JSW Steel Limited: JSW Steel Limited has informed the Exchange about the Effectiveness of the Scheme of Amalgamation of Piombino Steel Limited with JSW Steel Limited and their respective shareholders"
-      ],
-      "source_headline": "JSW Steel Limited: JSW Steel Limited has informed the Exchange about the Effectiveness of the Scheme of Amalgamation of Piombino Steel Limited with JSW Steel Limited and their respective shareholders",
-      "source_url": "https://nsearchives.nseindia.com/corporate/Supriya_01112026020456_SE_Intimation_PSL_Scheme.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-31T20:35:35Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-31T22:00:18Z",
-      "updated_at": "2026-10-31T22:00:18Z",
-      "decay_at": "2026-11-02T08:35:35Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-41c5501266bc",
       "idea_version": "IDEAV-03b730a97de42b8a",
       "idea_version_started_at": "2026-11-01T10:30:47Z",
@@ -221522,6 +221456,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-af4308e96a78",
+      "idea_version": "IDEAV-20c10ff777fa1b06",
+      "idea_version_started_at": "2026-10-31T22:00:18Z",
+      "ticker": "JSWSTEEL",
+      "company": "JSW Steel Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The scheme of amalgamation of Piombino Steel Limited with JSW Steel Limited has become effective, which should streamline operations and potentially improve margins for JSW Steel.",
+      "why_now": "The effectiveness of the amalgamation scheme was announced via an exchange filing on October 31, 2026.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4c5ca74c0f44"
+      ],
+      "primary_source_event_id": "EVT-4c5ca74c0f44",
+      "source_headlines": [
+        "JSW Steel Limited: JSW Steel Limited has informed the Exchange about the Effectiveness of the Scheme of Amalgamation of Piombino Steel Limited with JSW Steel Limited and their respective shareholders"
+      ],
+      "source_headline": "JSW Steel Limited: JSW Steel Limited has informed the Exchange about the Effectiveness of the Scheme of Amalgamation of Piombino Steel Limited with JSW Steel Limited and their respective shareholders",
+      "source_url": "https://nsearchives.nseindia.com/corporate/Supriya_01112026020456_SE_Intimation_PSL_Scheme.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-31T20:35:35Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-31T22:00:18Z",
+      "updated_at": "2026-10-31T22:00:18Z",
+      "decay_at": "2026-11-02T08:35:35Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-31bf7321c8e2",
       "idea_version": "IDEAV-7e0e36f922691636",
       "idea_version_started_at": "2026-10-31T19:00:11Z",
@@ -221963,14 +221968,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 524,
+    "total_count": 525,
     "shown_count": 500,
-    "hidden_count": 24,
+    "hidden_count": 25,
     "side_counts": {
       "long": {
-        "total_count": 264,
+        "total_count": 265,
         "shown_count": 250,
-        "hidden_count": 14
+        "hidden_count": 15
       },
       "short": {
         "total_count": 260,
@@ -221994,6 +221999,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-af4308e96a78",
+        "idea_version": "IDEAV-20c10ff777fa1b06",
+        "idea_version_started_at": "2026-10-31T22:00:18Z",
+        "ticker": "JSWSTEEL",
+        "company": "JSW Steel Limited",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The scheme of amalgamation of Piombino Steel Limited with JSW Steel Limited has become effective, which should streamline operations and potentially improve margins for JSW Steel.",
+        "why_now": "The effectiveness of the amalgamation scheme was announced via an exchange filing on October 31, 2026.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-4c5ca74c0f44"
+        ],
+        "primary_source_event_id": "EVT-4c5ca74c0f44",
+        "source_headlines": [
+          "JSW Steel Limited: JSW Steel Limited has informed the Exchange about the Effectiveness of the Scheme of Amalgamation of Piombino Steel Limited with JSW Steel Limited and their respective shareholders"
+        ],
+        "source_headline": "JSW Steel Limited: JSW Steel Limited has informed the Exchange about the Effectiveness of the Scheme of Amalgamation of Piombino Steel Limited with JSW Steel Limited and their respective shareholders",
+        "source_url": "https://nsearchives.nseindia.com/corporate/Supriya_01112026020456_SE_Intimation_PSL_Scheme.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-31T20:35:35Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-31T22:00:18Z",
+        "updated_at": "2026-10-31T22:00:18Z",
+        "decay_at": "2026-11-02T08:35:35Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-02T08:35:35Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-2498ee6921aa",
         "idea_version": "IDEAV-4f8529ab4c7075b6",
@@ -251245,80 +251324,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-286d271adaa1",
-        "idea_version": "IDEAV-73630a20c2f4d123",
-        "idea_version_started_at": "2026-10-16T21:35:39Z",
-        "ticker": "E2E",
-        "company": "E2E Networks",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company reported 5.1x year-over-year revenue growth to INR 2,238 Mn and significant EBITDA margin expansion to 76.6% in Q2 FY27.",
-        "why_now": "The financial results were disclosed in an exchange filing on October 16, 2026.",
-        "conviction": 80,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-f59809181c97"
-        ],
-        "primary_source_event_id": "EVT-f59809181c97",
-        "source_headlines": [
-          "E2E Networks Limited: E2E Networks Limited has informed the Exchange regarding a press release dated October 16, 2026, titled \"E2E Networks Reports Q2 FY 27 Results: Revenue 5.1x YoY to ₹2,238 Mn; EBITDA Margin Expands to 76.6%; PAT ₹727 Mn \"."
-        ],
-        "source_headline": "E2E Networks Limited: E2E Networks Limited has informed the Exchange regarding a press release dated October 16, 2026, titled \"E2E Networks Reports Q2 FY 27 Results: Revenue 5.1x YoY to ₹2,238 Mn; EBITDA Margin Expands to 76.6%; PAT ₹727 Mn \".",
-        "source_url": "https://nsearchives.nseindia.com/corporate/E2E_16102026150410_SignedPressRelease16102026.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-16T09:38:54Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-16T21:35:39Z",
-        "updated_at": "2026-10-16T21:35:39Z",
-        "decay_at": "2026-10-17T21:38:54Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-19T09:41:40Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-a31a80587f1c",
         "idea_version": "IDEAV-05c6f3259c1f83eb",
         "idea_version_started_at": "2026-10-16T21:35:39Z",
@@ -259222,7 +259227,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2118,
-    "live_count": 90,
+    "live_count": 89,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -259241,9 +259246,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 397594,
-    "news_picked_today": 599,
-    "news_dropped_today": 4927
+    "news_seen_today": 770949,
+    "news_picked_today": 605,
+    "news_dropped_today": 4945
   },
   "book_momentum": {
     "live_count": 8,
