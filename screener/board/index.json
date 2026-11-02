@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-02T12:53:31Z",
+  "generated_at": "2026-11-02T12:55:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20261102-494",
@@ -837,25 +837,25 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261102-491",
-      "headline": "Marvell to Buy Lumentum for $115 Billion in All-Stock AI Deal",
+      "inbox_id": "INB-20261102-497",
+      "headline": "Marvell to buy Lumentum in $115-billion deal in AI data-centre bet",
       "headline_en": null,
-      "url": "https://www.wsj.com/business/deals/marvell-to-buy-lumentum-for-115-billion-in-all-stock-ai-deal-c9fd43a6?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
+      "url": "https://www.theglobeandmail.com/business/article-marvell-to-buy-lumentum-in-115-billion-deal-in-ai-data-centre-bet/",
+      "source_name": "The Globe and Mail",
       "input_nature": "news_headline",
-      "found_at": "2026-11-02T12:33:00Z",
+      "found_at": "2026-11-02T12:45:30Z",
       "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Marvell Technology to acquire Lumentum Holdings for $115 billion in an all-stock transaction.",
+      "prelim_note": "Marvell Technology announced a definitive agreement to acquire Lumentum for $115 billion.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Marvell Technology to acquire Lumentum Holdings for $115 billion in an all-stock transaction.",
+      "triage_reason": "Marvell Technology announced a definitive agreement to acquire Lumentum for $115 billion.",
       "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 95,
+      "materiality_pre_score": 90,
       "rank_factors": {
-        "materiality": 95,
+        "materiality": 90,
         "source_tier": 0,
         "scope": 5,
         "event": 9,
@@ -876,13 +876,67 @@
       "companies": [
         {
           "name": "Marvell Technology",
-          "ticker": "MRVL",
-          "listing_country": "US"
+          "ticker": null,
+          "listing_country": null
         },
         {
-          "name": "Lumentum Holdings",
-          "ticker": "LITE",
-          "listing_country": "US"
+          "name": "Lumentum",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-495",
+      "headline": "Marvell to acquire Lumentum in $115 billion all-stock deal, steps up challenge to Broadcom amid AI boom",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/marvell-to-acquire-lumentum-in-115-billion-deal-steps-up-challenge-to-broadcom-amid-ai-boom-11793621075835.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T12:41:01Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Marvell Technology announced a definitive agreement to acquire Lumentum for $115 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Marvell Technology announced a definitive agreement to acquire Lumentum for $115 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Marvell Technology",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Lumentum",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "mega",
@@ -1936,55 +1990,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-325",
-      "headline": "Blackstone-Led Group To Acquire 49.9% Stake In LNG Canada For $3.1 Bln",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/blackstone-led-group-acquire-499-stake-lng-canada-31-bln",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T06:56:15Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Blackstone-led group to acquire a 49.9% stake in LNG Canada for $3.1 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Blackstone-led group to acquire a 49.9% stake in LNG Canada for $3.1 billion.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Blackstone",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -259404,9 +259409,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1879757,
-    "news_picked_today": 1009,
-    "news_dropped_today": 6221
+    "news_seen_today": 1891329,
+    "news_picked_today": 1014,
+    "news_dropped_today": 6240
   },
   "book_momentum": {
     "live_count": 8,
