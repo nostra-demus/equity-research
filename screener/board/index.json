@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-02T15:21:49Z",
+  "generated_at": "2026-11-02T15:24:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20261102-575",
@@ -1382,6 +1382,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261102-619",
+      "headline": "Acadia Realty Trust Slips To Loss In Q3, Cuts FY26 Earnings Outlook",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/acadia-realty-trust-slips-loss-q3-cuts-fy26-earnings-outlook",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T14:19:33Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Acadia Realty Trust reported a Q3 loss and issued a formal cut to its FY26 earnings outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Acadia Realty Trust reported a Q3 loss and issued a formal cut to its FY26 earnings outlook.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Acadia Realty Trust",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261102-547",
       "headline": "Marvell to acquire Lumentum in $115 billion AI connectivity deal",
       "headline_en": null,
@@ -1941,60 +1991,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-495",
-      "headline": "Marvell to acquire Lumentum in $115 billion all-stock deal, steps up challenge to Broadcom amid AI boom",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/marvell-to-acquire-lumentum-in-115-billion-deal-steps-up-challenge-to-broadcom-amid-ai-boom-11793621075835.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T12:41:01Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Marvell Technology announced a definitive agreement to acquire Lumentum for $115 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Marvell Technology announced a definitive agreement to acquire Lumentum for $115 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Marvell Technology",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Lumentum",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -259412,9 +259408,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3023421,
-    "news_picked_today": 1240,
-    "news_dropped_today": 7142
+    "news_seen_today": 3063780,
+    "news_picked_today": 1245,
+    "news_dropped_today": 7161
   },
   "book_momentum": {
     "live_count": 8,
