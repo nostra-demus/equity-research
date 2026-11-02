@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-02T11:02:07Z",
+  "generated_at": "2026-11-02T11:07:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20261102-422",
@@ -587,6 +587,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-434",
+      "headline": "Petronet LNG Delivers A Profit Surprise In Q2 FY27, Earnings Jump 51% To ₹1,256 Crore Despite 35% Revenue Drop, ₹7 Interim Dividend Declared",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/petronet-lng-delivers-a-profit-surprise-in-q2-fy27-earnings-jump-51-to-1256-crore-despite-35-revenue-drop-7-interim-dividend-declared",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T10:53:53Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Petronet LNG reported a 51% jump in profit to ₹1,256 crore and declared a ₹7 interim dividend.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Petronet LNG reported a 51% jump in profit to ₹1,256 crore and declared a ₹7 interim dividend.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Petronet LNG",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1924,55 +1973,6 @@
           "name": "Bank of Baroda",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-183",
-      "headline": "Singapore’s STT GDC eyes $3.1 billion loan, adds to AI debt binge",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/singapores-stt-gdc-eyes-3-1-billion-loan-adds-to-ai-debt-binge",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T03:24:00Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "STT GDC is seeking a $3.1 billion loan to fund data center expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "STT GDC is seeking a $3.1 billion loan to fund data center expansion.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "STT GDC",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -259387,9 +259387,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1290725,
-    "news_picked_today": 771,
-    "news_dropped_today": 5547
+    "news_seen_today": 1330321,
+    "news_picked_today": 778,
+    "news_dropped_today": 5564
   },
   "book_momentum": {
     "live_count": 8,
