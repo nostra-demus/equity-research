@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-02T09:35:02Z",
+  "generated_at": "2026-11-02T09:44:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20261102-344",
@@ -291,6 +291,110 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-374",
+      "headline": "Ibstock cuts outlook as brick demand slumps and production is scaled back",
+      "headline_en": null,
+      "url": "https://ukinvestormagazine.co.uk/ibstock-cuts-outlook-as-brick-demand-slumps-and-production-is-scaled-back/",
+      "source_name": "UK Investor Magazine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T09:23:05Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Company cut outlook due to demand slump and is scaling back production.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company cut outlook due to demand slump and is scaling back production.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ibstock",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-376",
+      "headline": "Q2 Results Live Updates: UPL PAT declines 23.9%; Escorts Kubota EBITDA down 20%",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/q2-results-live-updates-ril-jpl-dixon-muthoot-cdsl-itc-escorts-kubota-nalco-concor-upl-vrl-ge-vernova-jk-paper-share-price-liveblog-20024452.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T09:18:18Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "UPL PAT declined 23.9% and Escorts Kubota EBITDA fell 20%.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "UPL PAT declined 23.9% and Escorts Kubota EBITDA fell 20%.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "UPL",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Escorts Kubota",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1884,104 +1988,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-045",
-      "headline": "Kioxia Shares Tumble After Outlook Suggests Demand Leveling Off",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-02/kioxia-shares-tumble-after-outlook-suggests-demand-leveling-off",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T00:26:06Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Kioxia shares fell following an outlook indicating that demand for its products is leveling off.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Kioxia shares fell following an outlook indicating that demand for its products is leveling off.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kioxia",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-015",
-      "headline": "Binance sees $3.64 billion in net outflows as withdrawals resume after massive hack",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/11/02/binance-outflow-hack-bitcoin.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T00:11:37Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Binance faces $3.64 billion in net outflows following a major security breach, indicating significant liquidity and trust risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Binance faces $3.64 billion in net outflows following a major security breach, indicating significant liquidity and trust risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Binance",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -259245,9 +259251,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 812763,
-    "news_picked_today": 636,
-    "news_dropped_today": 4962
+    "news_seen_today": 872652,
+    "news_picked_today": 646,
+    "news_dropped_today": 4976
   },
   "book_momentum": {
     "live_count": 8,
