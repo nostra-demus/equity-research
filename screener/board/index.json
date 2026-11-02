@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-02T11:01:00Z",
+  "generated_at": "2026-11-02T11:01:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20261102-422",
@@ -46,6 +46,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-427",
+      "headline": "Supreme Infrastructure India Limited: Supreme Infrastructure India Limited has informed the Exchange regarding a press release dated November 02, 2026, titled \"Supreme Infrastructure India Limited completes Rs. 2,200 Cr Debt Settlement, clears path for Revival.\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/SUPREMEINF_02112026155037_pressreleasedebtsettlement.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-02T10:20:46Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Supreme Infrastructure completed a Rs. 2,200 Cr debt settlement, a major step toward financial revival.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Supreme Infrastructure completed a Rs. 2,200 Cr debt settlement, a major step toward financial revival.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Supreme Infrastructure India Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -142,6 +191,56 @@
           "name": "MMP Industries Limited",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-424",
+      "headline": "CHK OIL (00632): INSIDE INFORMATION - APPLICATION FOR AN INJUNCTION ORDER TO RESTRAIN THE PRESENTATION OF WINDING UP PETITION",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1102/2026110203069.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-02T10:03:00Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "CHK Oil is seeking an injunction to prevent a winding-up petition, indicating significant financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CHK Oil is seeking an injunction to prevent a winding-up petition, indicating significant financial distress.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CHK OIL",
+          "ticker": "00632",
+          "listing_country": "CN"
         }
       ],
       "size_bucket": "small",
@@ -1877,114 +1976,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-173",
-      "headline": "KKR, Singtel, Tata plan to sell data centre company; seek at least $5 billion in sale: Report",
-      "headline_en": null,
-      "url": "https://www.businesstoday.in/latest/corporate/story/kkr-singtel-tata-plan-to-sell-data-centre-company-seek-at-least-usd-5-billion-in-sale-report-565012-2026-11-02?utm_source=rssfeed",
-      "source_name": "Business Today",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T02:48:29Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "KKR, Singtel, and Tata are planning to sell a data center company for at least $5 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "KKR, Singtel, and Tata are planning to sell a data center company for at least $5 billion.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "KKR",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Singtel",
-          "ticker": null,
-          "listing_country": "SG"
-        },
-        {
-          "name": "Tata",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-188",
-      "headline": "Binance sees outflows stabilising as exchange returns online after $6.3 billion heist",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/cryptocurrency/binance-sees-outflows-stabilising-as-exchange-returns-online-after-6-3-billion-heist/articleshow/135443825.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T02:45:13Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Binance reports a $6.3 billion heist, indicating a major security breach and potential operational/financial risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Binance reports a $6.3 billion heist, indicating a major security breach and potential operational/financial risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Binance",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -259396,9 +259387,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1280796,
-    "news_picked_today": 766,
-    "news_dropped_today": 5528
+    "news_seen_today": 1290725,
+    "news_picked_today": 771,
+    "news_dropped_today": 5547
   },
   "book_momentum": {
     "live_count": 8,
