@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-02T02:12:16Z",
+  "generated_at": "2026-11-02T02:19:00Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261102-117",
+      "headline": "NS1: Suspension from Quotation [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NS1?key=2924-03156900-6A1353192",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-01T22:21:45Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "NS1 has been suspended from quotation, indicating a significant operational or financial issue requiring immediate investigation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "NS1 has been suspended from quotation, indicating a significant operational or financial issue requiring immediate investigation.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 3,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NS1",
+          "ticker": "NS1",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261102-073",
       "headline": "Binance hack: Crypto exchange resumes withdrawals after more than $6 billion stolen, sees outflow of $4.7 billion",
@@ -744,6 +793,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261102-121",
+      "headline": "ARN: Trading Halt [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ARN?key=2924-03156893-6A1353193",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-01T22:20:10Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "A trading halt is a significant event often preceding a material announcement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "A trading halt is a significant event often preceding a material announcement.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "strategic_review",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ARN",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261102-044",
       "headline": "Bank of England poised to raise rates but may push back on bets for more",
       "headline_en": null,
@@ -975,6 +1073,55 @@
       "companies": [
         {
           "name": "Binance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-122",
+      "headline": "ILT: Drilling Delivers Multiple Superb Intercepts at Orient East [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ILT?key=2924-03156892-3A705610",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-01T22:19:10Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Successful drilling results at Orient East indicate potential resource expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Successful drilling results at Orient East indicate potential resource expansion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ILT",
           "ticker": null,
           "listing_country": null
         }
@@ -1328,6 +1475,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261102-119",
+      "headline": "NXN: ISO 13485 Certification brings StrepSure closer to market [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NXN?key=2924-03156896-2A1707733",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-01T22:20:50Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "The company received ISO 13485 certification, a regulatory milestone for its StrepSure product.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "The company received ISO 13485 certification, a regulatory milestone for its StrepSure product.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NXN",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261102-112",
       "headline": "‘Not playing in the red ocean’: SP Group aims to triple China district cooling capacity in 5 years",
       "headline_en": null,
@@ -1421,6 +1617,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-116",
+      "headline": "ADX: RENOUNCEABLE RIGHTS ISSUE TO RAISE UP TO $5.2 MILLION [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ADX?key=2924-03156894-6A1353196",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-01T22:20:15Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "ADX is raising up to $5.2 million via a renounceable rights issue, which is dilutive to existing shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "ADX is raising up to $5.2 million via a renounceable rights issue, which is dilutive to existing shareholders.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 3,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ADX Energy",
+          "ticker": "ADX",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1715,239 +1960,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-092",
-      "headline": "Metrocon chairman steps down after being charged over unlicensed worker dormitory",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/metrocon-chairman-steps-down-after-being-charged-over-unlicensed-worker-dormitory",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T01:59:47Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "The chairman of Metrocon stepped down following legal charges, creating management uncertainty.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "The chairman of Metrocon stepped down following legal charges, creating management uncertainty.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Metrocon",
-          "ticker": null,
-          "listing_country": "SG"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-110",
-      "headline": "Crypto Heist: Binance covers 95% tokens, resumes withdrawals",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/us-stocks/news/crypto-heist-binance-covers-95-tokens-resumes-withdrawals/articleshow/135441852.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T01:47:56Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Binance is covering 95% of stolen tokens following a crypto heist, mitigating potential operational and reputational damage.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Binance is covering 95% of stolen tokens following a crypto heist, mitigating potential operational and reputational damage.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Binance",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-083",
-      "headline": "Caught On Camera: Private Jet With Nine On Board Crashes Near Trump's Mar-a-Lago In Florida, All Dead",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/world/private-jet-with-nine-on-board-crashes-near-trumps-mar-a-lago-in-florida-all-dead-watch-video-12269013#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T01:27:26Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "A private jet crash near a high-profile location is a significant operational and safety event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "A private jet crash near a high-profile location is a significant operational and safety event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-070",
-      "headline": "Federal Home Loan Mortgage Corporation - Sovereign or Government Agency Debt Price Target Decreased by 52.53% to $21.31",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/federal-home-loan-mortgage-corporation-sovereign-or-government-agency-debt-price-target",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T00:38:54Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Freddie Mac's debt price target was decreased by 52.53% to $21.31.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Freddie Mac's debt price target was decreased by 52.53% to $21.31.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Federal Home Loan Mortgage Corporation",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-038",
-      "headline": "Nine Dead as Learjet Plummets Into a Florida Neighborhood",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-01/nine-dead-as-learjet-plummets-to-ground-in-florida-neighborhood",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-01T23:47:02Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Fatal aviation accident involving a Learjet in a residential area poses significant operational and liability risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Fatal aviation accident involving a Learjet in a residential area poses significant operational and liability risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -215603,79 +215615,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-b471492136b9",
-      "idea_version": "IDEAV-6726794ef1541aa4",
-      "idea_version_started_at": "2026-11-01T16:16:26Z",
-      "ticker": "503101",
-      "company": "Marathon Nextgen Realty Limited",
-      "exchange": "BSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is acquiring full economic interest in the Monte South project by purchasing the remaining 60% stake from Adani Group, consolidating control over a significant real estate asset.",
-      "why_now": "The exchange filing confirming the acquisition was released on October 31, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-168247c292b3",
-        "EVT-1b07ac72d6f6"
-      ],
-      "primary_source_event_id": "EVT-168247c292b3",
-      "source_headlines": [
-        "Marathon Nextgen Realty Limited: Acquisition of full economic interest in Monte South Project, Byculla by acquiring additional 60% stake in Swayam Realtors and Traders LLP ( SRTL ), a Joint Venture",
-        "Marathon Nextgen Realty Limited: Marathon Nextgen Realty Limited has informed the Exchange regarding a press release dated October 31, 2026, titled \"Acquisition of Adani Group's 60% Stake in Monte South\"."
-      ],
-      "source_headline": "Marathon Nextgen Realty Limited: Acquisition of full economic interest in Monte South Project, Byculla by acquiring additional 60% stake in Swayam Realtors and Traders LLP ( SRTL ), a Joint Venture",
-      "source_url": "https://nsearchives.nseindia.com/corporate/MARATHON_31102026144640_OUTCOME.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-31T14:18:55Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-01T16:16:26Z",
-      "updated_at": "2026-11-01T16:16:26Z",
-      "decay_at": "2026-11-02T02:18:55Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-0d0facf9b772",
       "idea_version": "IDEAV-e1c6f19a231aa981",
       "idea_version_started_at": "2026-11-01T15:47:15Z",
@@ -216834,79 +216773,6 @@
       "surfaced_at": "2026-10-31T17:22:38Z",
       "updated_at": "2026-10-31T22:20:23Z",
       "decay_at": "2026-11-02T02:34:52Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-2dfbe52daaf7",
-      "idea_version": "IDEAV-29814e83ef2d0f25",
-      "idea_version_started_at": "2026-10-31T22:00:18Z",
-      "ticker": "MARATHON",
-      "company": "Marathon Nextgen Realty Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Marathon Nextgen Realty Limited is acquiring full economic interest in the Monte South Project by increasing its stake in the joint venture to 100%, which should increase its revenue and asset base.",
-      "why_now": "The acquisition of an additional 60% stake was announced via exchange filings on October 31, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-168247c292b3",
-        "EVT-1b07ac72d6f6"
-      ],
-      "primary_source_event_id": "EVT-168247c292b3",
-      "source_headlines": [
-        "Marathon Nextgen Realty Limited: Acquisition of full economic interest in Monte South Project, Byculla by acquiring additional 60% stake in Swayam Realtors and Traders LLP ( SRTL ), a Joint Venture",
-        "Marathon Nextgen Realty Limited: Marathon Nextgen Realty Limited has informed the Exchange regarding a press release dated October 31, 2026, titled \"Acquisition of Adani Group's 60% Stake in Monte South\"."
-      ],
-      "source_headline": "Marathon Nextgen Realty Limited: Acquisition of full economic interest in Monte South Project, Byculla by acquiring additional 60% stake in Swayam Realtors and Traders LLP ( SRTL ), a Joint Venture",
-      "source_url": "https://nsearchives.nseindia.com/corporate/MARATHON_31102026144640_OUTCOME.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-31T14:18:55Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-31T17:22:38Z",
-      "updated_at": "2026-10-31T22:00:18Z",
-      "decay_at": "2026-11-02T02:18:55Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -219056,6 +218922,79 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-b471492136b9",
+      "idea_version": "IDEAV-6726794ef1541aa4",
+      "idea_version_started_at": "2026-11-01T16:16:26Z",
+      "ticker": "503101",
+      "company": "Marathon Nextgen Realty Limited",
+      "exchange": "BSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is acquiring full economic interest in the Monte South project by purchasing the remaining 60% stake from Adani Group, consolidating control over a significant real estate asset.",
+      "why_now": "The exchange filing confirming the acquisition was released on October 31, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-168247c292b3",
+        "EVT-1b07ac72d6f6"
+      ],
+      "primary_source_event_id": "EVT-168247c292b3",
+      "source_headlines": [
+        "Marathon Nextgen Realty Limited: Acquisition of full economic interest in Monte South Project, Byculla by acquiring additional 60% stake in Swayam Realtors and Traders LLP ( SRTL ), a Joint Venture",
+        "Marathon Nextgen Realty Limited: Marathon Nextgen Realty Limited has informed the Exchange regarding a press release dated October 31, 2026, titled \"Acquisition of Adani Group's 60% Stake in Monte South\"."
+      ],
+      "source_headline": "Marathon Nextgen Realty Limited: Acquisition of full economic interest in Monte South Project, Byculla by acquiring additional 60% stake in Swayam Realtors and Traders LLP ( SRTL ), a Joint Venture",
+      "source_url": "https://nsearchives.nseindia.com/corporate/MARATHON_31102026144640_OUTCOME.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-31T14:18:55Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-01T16:16:26Z",
+      "updated_at": "2026-11-01T16:16:26Z",
+      "decay_at": "2026-11-02T02:18:55Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-3975e3dda8ac",
       "idea_version": "IDEAV-00afcea89b356a02",
       "idea_version_started_at": "2026-11-01T07:30:46Z",
@@ -219698,6 +219637,79 @@
       "surfaced_at": "2026-10-31T22:00:18Z",
       "updated_at": "2026-10-31T22:00:18Z",
       "decay_at": "2026-11-01T22:46:45Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-2dfbe52daaf7",
+      "idea_version": "IDEAV-29814e83ef2d0f25",
+      "idea_version_started_at": "2026-10-31T22:00:18Z",
+      "ticker": "MARATHON",
+      "company": "Marathon Nextgen Realty Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Marathon Nextgen Realty Limited is acquiring full economic interest in the Monte South Project by increasing its stake in the joint venture to 100%, which should increase its revenue and asset base.",
+      "why_now": "The acquisition of an additional 60% stake was announced via exchange filings on October 31, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-168247c292b3",
+        "EVT-1b07ac72d6f6"
+      ],
+      "primary_source_event_id": "EVT-168247c292b3",
+      "source_headlines": [
+        "Marathon Nextgen Realty Limited: Acquisition of full economic interest in Monte South Project, Byculla by acquiring additional 60% stake in Swayam Realtors and Traders LLP ( SRTL ), a Joint Venture",
+        "Marathon Nextgen Realty Limited: Marathon Nextgen Realty Limited has informed the Exchange regarding a press release dated October 31, 2026, titled \"Acquisition of Adani Group's 60% Stake in Monte South\"."
+      ],
+      "source_headline": "Marathon Nextgen Realty Limited: Acquisition of full economic interest in Monte South Project, Byculla by acquiring additional 60% stake in Swayam Realtors and Traders LLP ( SRTL ), a Joint Venture",
+      "source_url": "https://nsearchives.nseindia.com/corporate/MARATHON_31102026144640_OUTCOME.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-31T14:18:55Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-31T17:22:38Z",
+      "updated_at": "2026-10-31T22:00:18Z",
+      "decay_at": "2026-11-02T02:18:55Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -220360,14 +220372,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 524,
+    "total_count": 526,
     "shown_count": 500,
-    "hidden_count": 24,
+    "hidden_count": 26,
     "side_counts": {
       "long": {
-        "total_count": 265,
+        "total_count": 267,
         "shown_count": 250,
-        "hidden_count": 15
+        "hidden_count": 17
       },
       "short": {
         "total_count": 259,
@@ -220391,6 +220403,158 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-2dfbe52daaf7",
+        "idea_version": "IDEAV-29814e83ef2d0f25",
+        "idea_version_started_at": "2026-10-31T22:00:18Z",
+        "ticker": "MARATHON",
+        "company": "Marathon Nextgen Realty Limited",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Marathon Nextgen Realty Limited is acquiring full economic interest in the Monte South Project by increasing its stake in the joint venture to 100%, which should increase its revenue and asset base.",
+        "why_now": "The acquisition of an additional 60% stake was announced via exchange filings on October 31, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-168247c292b3",
+          "EVT-1b07ac72d6f6"
+        ],
+        "primary_source_event_id": "EVT-168247c292b3",
+        "source_headlines": [
+          "Marathon Nextgen Realty Limited: Acquisition of full economic interest in Monte South Project, Byculla by acquiring additional 60% stake in Swayam Realtors and Traders LLP ( SRTL ), a Joint Venture",
+          "Marathon Nextgen Realty Limited: Marathon Nextgen Realty Limited has informed the Exchange regarding a press release dated October 31, 2026, titled \"Acquisition of Adani Group's 60% Stake in Monte South\"."
+        ],
+        "source_headline": "Marathon Nextgen Realty Limited: Acquisition of full economic interest in Monte South Project, Byculla by acquiring additional 60% stake in Swayam Realtors and Traders LLP ( SRTL ), a Joint Venture",
+        "source_url": "https://nsearchives.nseindia.com/corporate/MARATHON_31102026144640_OUTCOME.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-31T14:18:55Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-31T17:22:38Z",
+        "updated_at": "2026-10-31T22:00:18Z",
+        "decay_at": "2026-11-02T02:18:55Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-02T02:18:55Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-b471492136b9",
+        "idea_version": "IDEAV-6726794ef1541aa4",
+        "idea_version_started_at": "2026-11-01T16:16:26Z",
+        "ticker": "503101",
+        "company": "Marathon Nextgen Realty Limited",
+        "exchange": "BSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company is acquiring full economic interest in the Monte South project by purchasing the remaining 60% stake from Adani Group, consolidating control over a significant real estate asset.",
+        "why_now": "The exchange filing confirming the acquisition was released on October 31, 2026.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-168247c292b3",
+          "EVT-1b07ac72d6f6"
+        ],
+        "primary_source_event_id": "EVT-168247c292b3",
+        "source_headlines": [
+          "Marathon Nextgen Realty Limited: Acquisition of full economic interest in Monte South Project, Byculla by acquiring additional 60% stake in Swayam Realtors and Traders LLP ( SRTL ), a Joint Venture",
+          "Marathon Nextgen Realty Limited: Marathon Nextgen Realty Limited has informed the Exchange regarding a press release dated October 31, 2026, titled \"Acquisition of Adani Group's 60% Stake in Monte South\"."
+        ],
+        "source_headline": "Marathon Nextgen Realty Limited: Acquisition of full economic interest in Monte South Project, Byculla by acquiring additional 60% stake in Swayam Realtors and Traders LLP ( SRTL ), a Joint Venture",
+        "source_url": "https://nsearchives.nseindia.com/corporate/MARATHON_31102026144640_OUTCOME.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-31T14:18:55Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-01T16:16:26Z",
+        "updated_at": "2026-11-01T16:16:26Z",
+        "decay_at": "2026-11-02T02:18:55Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-02T02:18:55Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-8f55cfd3a569",
         "idea_version": "IDEAV-12e1242652157832",
@@ -249347,154 +249511,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-9267af00f480",
-        "idea_version": "IDEAV-04d59087014ac64c",
-        "idea_version_started_at": "2026-10-17T01:10:08Z",
-        "ticker": "RBLBANK",
-        "company": "RBL Bank Limited",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The RBI approval for the amalgamation of Emirates NBD's Indian branches into RBL Bank allows for immediate balance sheet expansion and customer base acquisition in the Indian market.",
-        "why_now": "The regulatory approval was officially announced on October 16, 2026, clearing the path for the integration process to begin.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 16,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-5611eead4e3b"
-        ],
-        "primary_source_event_id": "EVT-5611eead4e3b",
-        "source_headlines": [
-          "RBI approves amalgamation of Indian branches of Emirates NBD Bank P.J.S.C. with RBL Bank Limited"
-        ],
-        "source_headline": "RBI approves amalgamation of Indian branches of Emirates NBD Bank P.J.S.C. with RBL Bank Limited",
-        "source_url": "https://www.rbi.org.in/scripts/BS_PressReleaseDisplay.aspx?prid=63820",
-        "source_name": "Reserve Bank of India (RBI) — Press Releases",
-        "materiality_max": 95,
-        "newest_source_at": "2026-10-16T11:35:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-17T01:10:08Z",
-        "updated_at": "2026-10-17T01:10:08Z",
-        "decay_at": "2026-10-17T23:35:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-19T19:35:58Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-8aaa7aff291f",
-        "idea_version": "IDEAV-76893c58a5fb1605",
-        "idea_version_started_at": "2026-10-17T03:38:30Z",
-        "ticker": "541578",
-        "company": "Varroc Engineering Ltd",
-        "exchange": "BSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The joint venture with Forsee Power allows Varroc to localize and scale EV battery production, capturing a larger share of the growing Indian electric vehicle component market.",
-        "why_now": "The joint venture was officially announced via exchange filing on October 16, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 16,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-47da73cf4ed4"
-        ],
-        "primary_source_event_id": "EVT-47da73cf4ed4",
-        "source_headlines": [
-          "Varroc Engineering Limited: Varroc Engineering Limited has informed the Exchange regarding a press release dated October 16, 2026, titled \"Varroc and Forsee Power to Form Joint Venture to Scale EV Battery Solutions in India\"."
-        ],
-        "source_headline": "Varroc Engineering Limited: Varroc Engineering Limited has informed the Exchange regarding a press release dated October 16, 2026, titled \"Varroc and Forsee Power to Form Joint Venture to Scale EV Battery Solutions in India\".",
-        "source_url": "https://nsearchives.nseindia.com/corporate/VARROC_16102026163520_Forsee_Press_Release.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 94,
-        "newest_source_at": "2026-10-16T11:05:28Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-17T03:38:30Z",
-        "updated_at": "2026-10-17T03:38:30Z",
-        "decay_at": "2026-10-17T23:05:28Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-19T19:35:58Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-f35475470360",
         "idea_version": "IDEAV-1f36f077994b070b",
         "idea_version_started_at": "2026-10-16T23:31:00Z",
@@ -257619,7 +257635,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2096,
-    "live_count": 68,
+    "live_count": 66,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -257638,9 +257654,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 658,
-    "news_picked_today": 133,
-    "news_dropped_today": 525
+    "news_seen_today": 707,
+    "news_picked_today": 142,
+    "news_dropped_today": 565
   },
   "book_momentum": {
     "live_count": 8,
