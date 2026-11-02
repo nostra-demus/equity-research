@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-02T07:47:01Z",
+  "generated_at": "2026-11-02T07:52:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20261102-321",
@@ -243,6 +243,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-325",
+      "headline": "Blackstone-Led Group To Acquire 49.9% Stake In LNG Canada For $3.1 Bln",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/blackstone-led-group-acquire-499-stake-lng-canada-31-bln",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T06:56:15Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Blackstone-led group to acquire a 49.9% stake in LNG Canada for $3.1 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Blackstone-led group to acquire a 49.9% stake in LNG Canada for $3.1 billion.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Blackstone",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1884,94 +1933,46 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261102-271",
-      "headline": "Coal India unit South Eastern Coalfields files for IPO",
+      "inbox_id": "INB-20261102-328",
+      "headline": "Affle 3i shares rally over 10% on strong Q2 numbers, $420 million Perion acquisition",
       "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/markets/coal-india-unit-south-eastern-coalfields-files-foripo/article71655322.ece",
-      "source_name": "The Hindu BusinessLine",
+      "url": "https://www.cnbctv18.com/market/affle-3i-share-price-rally-strong-q2-numbers-perion-acquisition-deal-equity-value-20024765.htm",
+      "source_name": "CNBC-TV18",
       "input_nature": "news_headline",
-      "found_at": "2026-11-02T05:02:39Z",
+      "found_at": "2026-11-02T06:59:27Z",
       "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "South Eastern Coalfields, a unit of Coal India, has filed for an IPO, which is a major capital action.",
+      "prelim_note": "Affle 3i reported strong Q2 results and announced a $420 million acquisition of Perion.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 96,
-      "triage_reason": "South Eastern Coalfields, a unit of Coal India, has filed for an IPO, which is a major capital action.",
+      "triage_reason": "Affle 3i reported strong Q2 results and announced a $420 million acquisition of Perion.",
       "region": "IN",
       "relevance": "material",
-      "materiality_pre_score": 75,
+      "materiality_pre_score": 70,
       "rank_factors": {
-        "materiality": 75,
+        "materiality": 70,
         "source_tier": 0,
         "scope": 5,
         "event": 9,
-        "size": 2,
+        "size": 1,
         "recency": 5,
         "materiality_label_floor": 0,
-        "quantified": 0,
+        "quantified": 6,
         "boost_weight": 1,
         "scope_id": "multi_name",
         "source_tier_id": "news",
         "event_id": "mna",
-        "size_bucket": "large"
+        "size_bucket": "mid"
       },
       "event_types": [
+        "earnings_revenue_margin",
         "mna"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Coal India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-299",
-      "headline": "Jupiter Wagons Limited: Jupiter Wagons Limited has informed the Exchange regarding a press release dated November 02, 2026, titled \"Jupiter Wagons secures orders worth over INR 324 crore from GATX India and Chetak International\".",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/CEBBCO_02112026104526_SEPRESSRELEASE021126.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-02T05:15:36Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Jupiter Wagons secured new orders worth over INR 324 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Jupiter Wagons secured new orders worth over INR 324 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Jupiter Wagons Limited",
+          "name": "Affle 3i",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -259240,9 +259241,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 340837,
-    "news_picked_today": 555,
-    "news_dropped_today": 4011
+    "news_seen_today": 359680,
+    "news_picked_today": 561,
+    "news_dropped_today": 4053
   },
   "book_momentum": {
     "live_count": 8,
