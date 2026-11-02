@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-02T12:38:14Z",
+  "generated_at": "2026-11-02T12:41:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20261102-485",
@@ -783,6 +783,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-490",
+      "headline": "Virgin Media O2 job cuts could save £200m but fail to ease debt crisis",
+      "headline_en": null,
+      "url": "https://www.cityam.com/virgin-media-o2-job-cuts-could-save-200m-but-fail-to-ease-debt-crisis/",
+      "source_name": "City A.M.",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T12:28:25Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Virgin Media O2 is implementing job cuts to save £200m, highlighting ongoing debt sustainability concerns.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Virgin Media O2 is implementing job cuts to save £200m, highlighting ongoing debt sustainability concerns.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs",
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Virgin Media O2",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1922,55 +1972,6 @@
       "event_types": [
         "guidance_change",
         "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Alstom",
-          "ticker": null,
-          "listing_country": "FR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-396",
-      "headline": "Alstom Shares Plunge on Rail Project Profit Warning",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-02/alstom-cuts-guidance-plans-overhaul-in-second-warning-this-year",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T06:30:00Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Alstom shares plunged due to a profit warning on rail projects.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Alstom shares plunged due to a profit warning on rail projects.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
       ],
       "issuer_linkage": "primary",
       "companies": [
@@ -259401,9 +259402,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1799126,
-    "news_picked_today": 967,
-    "news_dropped_today": 6095
+    "news_seen_today": 1810516,
+    "news_picked_today": 974,
+    "news_dropped_today": 6112
   },
   "book_momentum": {
     "live_count": 8,
