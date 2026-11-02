@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-02T15:53:58Z",
+  "generated_at": "2026-11-02T16:14:46Z",
   "inbox": [
     {
       "inbox_id": "INB-20261102-620",
@@ -1279,6 +1279,271 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261102-643",
+      "headline": "Q2 Results LIVE Updates: KEC Intl profit down 82%; Wockhardt revenue rises 24% but margins shrink",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/q2-results-live-updates-ril-jpl-dixon-muthoot-cdsl-itc-escorts-kubota-nalco-concor-upl-vrl-ge-vernova-jk-paper-share-price-liveblog-20024452.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T16:05:59Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "KEC Intl reported an 82% profit decline, while Wockhardt saw revenue growth but margin compression.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "KEC Intl reported an 82% profit decline, while Wockhardt saw revenue growth but margin compression.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "KEC Intl",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Wockhardt",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-648",
+      "headline": "Marvell to buy Lumentum in $115 billion deal in AI data-center bet",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/us-stocks/news/marvell-to-buy-lumentum-in-115-billion-deal-in-ai-data-center-bet/articleshow/135466901.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T15:50:07Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Marvell Technology announced a $115 billion acquisition of Lumentum to expand in AI data centers.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Marvell Technology announced a $115 billion acquisition of Lumentum to expand in AI data centers.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Marvell Technology",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Lumentum",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-644",
+      "headline": "EVgo Soars 48% on $2-a-Share Buyout Offer From LS Power; ChargePoint Jumps 10%, Blink Charging Rallies 7%",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/11/02/evgo-soars-48-on-2-a-share-buyout-offer-from-ls-power-chargepoint-jumps-10-blink-charging-rallies-7/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T15:48:11Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "EVgo received a $2-a-share buyout offer from LS Power, triggering a 48% stock surge.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "EVgo received a $2-a-share buyout offer from LS Power, triggering a 48% stock surge.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EVgo",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "ChargePoint",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Blink Charging",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-647",
+      "headline": "Outback Steakhouse Franchisee Files Bankruptcy After Costs Swell",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-02/outback-steakhouse-franchisee-files-bankruptcy-after-costs-swell",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T15:36:50Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "An Outback Steakhouse franchisee has filed for bankruptcy due to rising costs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "An Outback Steakhouse franchisee has filed for bankruptcy due to rising costs.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Outback Steakhouse",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-642",
+      "headline": "CHS lowers full-year earnings forecast on uninsured volumes, surgery snags",
+      "headline_en": null,
+      "url": "https://www.healthcaredive.com/news/chs-lowers-full-year-earnings-forecast-uninsured-volumes-surgery-snags/873444/",
+      "source_name": "Healthcare Dive",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T15:25:23Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "CHS lowered its full-year earnings forecast due to operational and volume issues.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CHS lowered its full-year earnings forecast due to operational and volume issues.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CHS",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261102-591",
       "headline": "TBO Tek Q2 results: Profit rises 12%, revenue jumps 53% as travel demand lifts business",
       "headline_en": null,
@@ -1530,60 +1795,6 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261102-547",
-      "headline": "Marvell to acquire Lumentum in $115 billion AI connectivity deal",
-      "headline_en": null,
-      "url": "https://www.cbsnews.com/news/marvell-lumentum-acquisition-ai-connectivity/",
-      "source_name": "CBS MoneyWatch",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T14:00:18Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Marvell announced the acquisition of Lumentum in a $115 billion deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Marvell announced the acquisition of Lumentum in a $115 billion deal.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Marvell",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Lumentum",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
       "inbox_id": "INB-20261102-553",
       "headline": "Marvell Slides 3%, Lumentum Drops 6% on $115 Billion All-Stock Merger Deal; Coherent Climbs 2%",
       "headline_en": null,
@@ -1638,55 +1849,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-546",
-      "headline": "Restaurant group behind Outback Steakhouse files for Chapter 11 bankruptcy",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/restaurants/cerca-trova-restaurant-group-behind-outback-steakhouse-files-for-chapter-11-bankruptcy",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T13:53:24Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Bloomin' Brands (parent of Outback Steakhouse) filed for Chapter 11 bankruptcy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Bloomin' Brands (parent of Outback Steakhouse) filed for Chapter 11 bankruptcy.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bloomin' Brands",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1829,163 +1991,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-508",
-      "headline": "Chip Maker Marvell Agrees to Buy Lumentum in $80 Billion Deal",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/deals/marvell-to-buy-lumentum-for-80-billion-in-all-stock-ai-deal-c9fd43a6?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T13:21:00Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Major M&A announcement involving an $80 billion deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Major M&A announcement involving an $80 billion deal.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Marvell Technology",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Lumentum Holdings",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-511",
-      "headline": "ITC Q2 Results: Profit Plunges 20% As Margin Shrinks, Revenue Up Slightly",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/itc-q2-results-profits-hit-rs-4-137-crore-to-edge-past-estimates-revenue-up-sightly-12271935#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T13:19:35Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "ITC reported a 20% decline in Q2 profit alongside margin contraction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "ITC reported a 20% decline in Q2 profit alongside margin contraction.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ITC",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-502",
-      "headline": "Q2 Results LIVE Updates: ITC profit drops 20% despite beating estimates; Gopal Snacks profit jumps 79%",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/q2-results-live-updates-ril-jpl-dixon-muthoot-cdsl-itc-escorts-kubota-nalco-concor-upl-vrl-ge-vernova-jk-paper-share-price-liveblog-20024452.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T13:05:35Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "ITC reported a 20% profit drop while Gopal Snacks reported a 79% profit jump.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "ITC reported a 20% profit drop while Gopal Snacks reported a 79% profit jump.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ITC",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Gopal Snacks",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -259405,9 +259410,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3320571,
-    "news_picked_today": 1255,
-    "news_dropped_today": 7343
+    "news_seen_today": 3472246,
+    "news_picked_today": 1294,
+    "news_dropped_today": 7424
   },
   "book_momentum": {
     "live_count": 8,
