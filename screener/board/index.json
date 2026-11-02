@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-02T15:12:48Z",
+  "generated_at": "2026-11-02T15:20:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20261102-575",
@@ -141,6 +141,56 @@
           "name": "Anthropic, PBC",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-614",
+      "headline": "Tata Communications Limited: The Exchange has sought clarification from Tata Communications Limited with respect to recent news item captioned KKR, Singtel and Tata Communications put data centre company STT GDC India up for sale at over $5.5 billion. The response from the Company is attached.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/TATACOMM_02112026192932_18545.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-02T14:01:14Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Tata Communications is responding to reports of a potential $5.5 billion sale of its data center joint venture STT GDC India.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tata Communications is responding to reports of a potential $5.5 billion sale of its data center joint venture STT GDC India.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Communications Limited",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -1945,56 +1995,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-490",
-      "headline": "Virgin Media O2 job cuts could save £200m but fail to ease debt crisis",
-      "headline_en": null,
-      "url": "https://www.cityam.com/virgin-media-o2-job-cuts-could-save-200m-but-fail-to-ease-debt-crisis/",
-      "source_name": "City A.M.",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T12:28:25Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Virgin Media O2 is implementing job cuts to save £200m, highlighting ongoing debt sustainability concerns.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Virgin Media O2 is implementing job cuts to save £200m, highlighting ongoing debt sustainability concerns.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs",
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Virgin Media O2",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -259412,9 +259412,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2956077,
-    "news_picked_today": 1196,
-    "news_dropped_today": 6826
+    "news_seen_today": 3009936,
+    "news_picked_today": 1225,
+    "news_dropped_today": 7133
   },
   "book_momentum": {
     "live_count": 8,
