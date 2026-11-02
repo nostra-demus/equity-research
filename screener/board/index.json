@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-02T02:08:43Z",
+  "generated_at": "2026-11-02T02:12:01Z",
   "inbox": [
     {
       "inbox_id": "INB-20261102-073",
@@ -881,6 +881,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-115",
+      "headline": "Singapore’s STTGDC Eyes $2.4 Billion Loan, Adds to AI Debt Binge",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-02/singapore-s-sttgdc-eyes-2-4-billion-loan-adds-to-ai-debt-binge",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T01:58:14Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "ST Telemedia Global Data Centres is seeking a $2.4 billion loan to fund AI infrastructure expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "ST Telemedia Global Data Centres is seeking a $2.4 billion loan to fund AI infrastructure expansion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ST Telemedia Global Data Centres",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1899,55 +1948,6 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-088",
-      "headline": "삼진엘앤디 이명종 대표, 최대주주 지분율 24.83%로 확대",
-      "headline_en": "Samjin LND CEO Lee Myung-jong increases stake to 24.83%",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=280161",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T01:21:48Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "CEO Lee Myung-jong increased his stake in Samjin LND to 24.83%.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "CEO Lee Myung-jong increased his stake in Samjin LND to 24.83%.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "insider_transaction",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "insider_transaction"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Samjin LND",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -257638,9 +257638,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 632,
-    "news_picked_today": 130,
-    "news_dropped_today": 502
+    "news_seen_today": 658,
+    "news_picked_today": 133,
+    "news_dropped_today": 525
   },
   "book_momentum": {
     "live_count": 8,
