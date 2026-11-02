@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-02T03:06:56Z",
+  "generated_at": "2026-11-02T03:11:33Z",
   "inbox": [
     {
       "inbox_id": "INB-20261102-117",
@@ -46,6 +46,65 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-173",
+      "headline": "KKR, Singtel, Tata plan to sell data centre company; seek at least $5 billion in sale: Report",
+      "headline_en": null,
+      "url": "https://www.businesstoday.in/latest/corporate/story/kkr-singtel-tata-plan-to-sell-data-centre-company-seek-at-least-usd-5-billion-in-sale-report-565012-2026-11-02?utm_source=rssfeed",
+      "source_name": "Business Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T02:48:29Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "KKR, Singtel, and Tata are planning to sell a data center company for at least $5 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "KKR, Singtel, and Tata are planning to sell a data center company for at least $5 billion.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "KKR",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Singtel",
+          "ticker": null,
+          "listing_country": "SG"
+        },
+        {
+          "name": "Tata",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1912,55 +1971,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-119",
-      "headline": "NXN: ISO 13485 Certification brings StrepSure closer to market [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NXN?key=2924-03156896-2A1707733",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-01T22:20:50Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "The company received ISO 13485 certification, a regulatory milestone for its StrepSure product.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "The company received ISO 13485 certification, a regulatory milestone for its StrepSure product.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NXN",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -257940,9 +257950,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1008,
-    "news_picked_today": 200,
-    "news_dropped_today": 808
+    "news_seen_today": 1032,
+    "news_picked_today": 207,
+    "news_dropped_today": 825
   },
   "book_momentum": {
     "live_count": 8,
