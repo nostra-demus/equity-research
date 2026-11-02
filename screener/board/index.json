@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-02T01:12:27Z",
+  "generated_at": "2026-11-02T01:21:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20261102-061",
@@ -886,6 +886,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261102-070",
+      "headline": "Federal Home Loan Mortgage Corporation - Sovereign or Government Agency Debt Price Target Decreased by 52.53% to $21.31",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/federal-home-loan-mortgage-corporation-sovereign-or-government-agency-debt-price-target",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T00:38:54Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Freddie Mac's debt price target was decreased by 52.53% to $21.31.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Freddie Mac's debt price target was decreased by 52.53% to $21.31.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Federal Home Loan Mortgage Corporation",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261102-038",
       "headline": "Nine Dead as Learjet Plummets Into a Florida Neighborhood",
       "headline_en": null,
@@ -973,6 +1022,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-071",
+      "headline": "Medical Properties Trust Consensus Price Target Lowered by 11.38% to $4.63",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/medical-properties-trust-consensus-price-target-lowered-1138-463",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T00:37:29Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Analyst consensus price target for Medical Properties Trust was lowered by 11.38% to $4.63.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 80,
+      "triage_reason": "Analyst consensus price target for Medical Properties Trust was lowered by 11.38% to $4.63.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Medical Properties Trust",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1844,104 +1942,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-028",
-      "headline": "NOX: Reinstatement to Quotation [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NOX?key=2924-03157033-3A705639",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-01T23:53:16Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Reinstatement to quotation allows for trading of the company's securities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "Reinstatement to quotation allows for trading of the company's securities.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Noxopharm",
-          "ticker": "NOX",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-007",
-      "headline": "KANGQIAO SER (02205): (1)CONTINUING CONNECTED TRANSACTIONS: THE 2027 VALUE-ADDED SERVICES MASTER FRAMEWORK AGREEMENT AND THE 2027 SALES AGENCY SERVICES FRAMEWORK AGREEMENT AND (2)PROPOSED AMENDMENTS TO THE EXISTING MEMORANDUM AND ARTICLES OF ASSOCIATION AND PROPOSED ADOPTION OF THE NEW MEMORANDUM AND ARTICLES OF ASSOCIATION",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1102/2026110200027.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-01T23:32:00Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Kangqiao Ser announced new continuing connected transaction framework agreements for 2027.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "Kangqiao Ser announced new continuing connected transaction framework agreements for 2027.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kangqiao Ser",
-          "ticker": "02205",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -257484,9 +257484,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 317,
-    "news_picked_today": 68,
-    "news_dropped_today": 249
+    "news_seen_today": 365,
+    "news_picked_today": 74,
+    "news_dropped_today": 291
   },
   "book_momentum": {
     "live_count": 8,
