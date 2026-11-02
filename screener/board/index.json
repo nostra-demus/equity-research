@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-02T05:34:12Z",
+  "generated_at": "2026-11-02T05:43:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20261102-266",
@@ -144,6 +144,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-314",
+      "headline": "NTPC shares jump 4% after Q2 profit rises 14%, power generation grows 11%",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/ntpc-share-price-q2-results-profit-rises-power-generation-grows-dividend-declared-capex-20024640.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T05:30:52Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "NTPC reported a 14% rise in Q2 profit and 11% growth in power generation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "NTPC reported a 14% rise in Q2 profit and 11% growth in power generation.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NTPC",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1923,55 +1972,6 @@
       "companies": [
         {
           "name": "Binance",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-238",
-      "headline": "Singaporean investment fund, Ovolo circle $75m Sunshine Coast hotel",
-      "headline_en": null,
-      "url": "https://www.afr.com/street-talk/singaporean-investment-fund-ovolo-circle-75m-sunshine-coast-hotel-20261102-p61an7?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T04:15:03Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Ovolo is in talks to acquire a hotel for $75 million, representing a significant capital transaction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Ovolo is in talks to acquire a hotel for $75 million, representing a significant capital transaction.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ovolo",
           "ticker": null,
           "listing_country": null
         }
@@ -258887,9 +258887,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4394,
-    "news_picked_today": 453,
-    "news_dropped_today": 2893
+    "news_seen_today": 4476,
+    "news_picked_today": 470,
+    "news_dropped_today": 2958
   },
   "book_momentum": {
     "live_count": 8,
