@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-02T12:20:01Z",
+  "generated_at": "2026-11-02T12:24:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20261102-444",
@@ -220260,77 +220260,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-be16a3f18c55",
-      "idea_version": "IDEAV-3b56e6491f32251e",
-      "idea_version_started_at": "2026-11-01T03:42:18Z",
-      "ticker": "XOM",
-      "company": "Exxon Mobil",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Russia's extension of its diesel export ban through January will tighten global diesel supply, potentially increasing prices and benefiting major international oil producers like Exxon Mobil.",
-      "why_now": "The ban was extended through January, with the announcement made on November 1, 2026, creating a sustained impact on supply.",
-      "conviction": 40,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 23,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "commodity_conditional",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-cf8ff7e7d5a6"
-      ],
-      "primary_source_event_id": "EVT-cf8ff7e7d5a6",
-      "source_headlines": [
-        "Russia Extends Ban On Most Diesel Exports Through January"
-      ],
-      "source_headline": "Russia Extends Ban On Most Diesel Exports Through January",
-      "source_url": "https://gcaptain.com/russia-extends-ban-on-most-diesel-exports-through-january/",
-      "source_name": "gCaptain",
-      "materiality_max": 63,
-      "newest_source_at": "2026-11-01T00:20:05Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-01T03:42:18Z",
-      "updated_at": "2026-11-01T03:42:18Z",
-      "decay_at": "2026-11-02T12:20:05Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-0bef1911dcca",
       "idea_version": "IDEAV-bd28bcfe74bc4f59",
       "idea_version_started_at": "2026-11-01T09:50:42Z",
@@ -222118,6 +222047,77 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": true
+    },
+    {
+      "idea_id": "IDEA-be16a3f18c55",
+      "idea_version": "IDEAV-3b56e6491f32251e",
+      "idea_version_started_at": "2026-11-01T03:42:18Z",
+      "ticker": "XOM",
+      "company": "Exxon Mobil",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Russia's extension of its diesel export ban through January will tighten global diesel supply, potentially increasing prices and benefiting major international oil producers like Exxon Mobil.",
+      "why_now": "The ban was extended through January, with the announcement made on November 1, 2026, creating a sustained impact on supply.",
+      "conviction": 40,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 23,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "commodity_conditional",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-cf8ff7e7d5a6"
+      ],
+      "primary_source_event_id": "EVT-cf8ff7e7d5a6",
+      "source_headlines": [
+        "Russia Extends Ban On Most Diesel Exports Through January"
+      ],
+      "source_headline": "Russia Extends Ban On Most Diesel Exports Through January",
+      "source_url": "https://gcaptain.com/russia-extends-ban-on-most-diesel-exports-through-january/",
+      "source_name": "gCaptain",
+      "materiality_max": 63,
+      "newest_source_at": "2026-11-01T00:20:05Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-01T03:42:18Z",
+      "updated_at": "2026-11-01T03:42:18Z",
+      "decay_at": "2026-11-02T12:20:05Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     }
   ],
   "ideas_archive": {
@@ -222130,14 +222130,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 524,
+    "total_count": 525,
     "shown_count": 500,
-    "hidden_count": 24,
+    "hidden_count": 25,
     "side_counts": {
       "long": {
-        "total_count": 265,
+        "total_count": 266,
         "shown_count": 250,
-        "hidden_count": 15
+        "hidden_count": 16
       },
       "short": {
         "total_count": 259,
@@ -222161,6 +222161,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-be16a3f18c55",
+        "idea_version": "IDEAV-3b56e6491f32251e",
+        "idea_version_started_at": "2026-11-01T03:42:18Z",
+        "ticker": "XOM",
+        "company": "Exxon Mobil",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Russia's extension of its diesel export ban through January will tighten global diesel supply, potentially increasing prices and benefiting major international oil producers like Exxon Mobil.",
+        "why_now": "The ban was extended through January, with the announcement made on November 1, 2026, creating a sustained impact on supply.",
+        "conviction": 40,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 23,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "commodity_conditional",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-cf8ff7e7d5a6"
+        ],
+        "primary_source_event_id": "EVT-cf8ff7e7d5a6",
+        "source_headlines": [
+          "Russia Extends Ban On Most Diesel Exports Through January"
+        ],
+        "source_headline": "Russia Extends Ban On Most Diesel Exports Through January",
+        "source_url": "https://gcaptain.com/russia-extends-ban-on-most-diesel-exports-through-january/",
+        "source_name": "gCaptain",
+        "materiality_max": 63,
+        "newest_source_at": "2026-11-01T00:20:05Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-01T03:42:18Z",
+        "updated_at": "2026-11-01T03:42:18Z",
+        "decay_at": "2026-11-02T12:20:05Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-02T12:20:05Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-b6c0f11fb03b",
         "idea_version": "IDEAV-84a2d0fe2698000c",
@@ -251263,80 +251337,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-9267af00f480",
-        "idea_version": "IDEAV-04d59087014ac64c",
-        "idea_version_started_at": "2026-10-17T01:10:08Z",
-        "ticker": "RBLBANK",
-        "company": "RBL Bank Limited",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The RBI approval for the amalgamation of Emirates NBD's Indian branches into RBL Bank allows for immediate balance sheet expansion and customer base acquisition in the Indian market.",
-        "why_now": "The regulatory approval was officially announced on October 16, 2026, clearing the path for the integration process to begin.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 16,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-5611eead4e3b"
-        ],
-        "primary_source_event_id": "EVT-5611eead4e3b",
-        "source_headlines": [
-          "RBI approves amalgamation of Indian branches of Emirates NBD Bank P.J.S.C. with RBL Bank Limited"
-        ],
-        "source_headline": "RBI approves amalgamation of Indian branches of Emirates NBD Bank P.J.S.C. with RBL Bank Limited",
-        "source_url": "https://www.rbi.org.in/scripts/BS_PressReleaseDisplay.aspx?prid=63820",
-        "source_name": "Reserve Bank of India (RBI) — Press Releases",
-        "materiality_max": 95,
-        "newest_source_at": "2026-10-16T11:35:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-17T01:10:08Z",
-        "updated_at": "2026-10-17T01:10:08Z",
-        "decay_at": "2026-10-17T23:35:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-19T19:35:58Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-f35475470360",
         "idea_version": "IDEAV-1f36f077994b070b",
         "idea_version_started_at": "2026-10-16T23:31:00Z",
@@ -259388,7 +259388,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2122,
-    "live_count": 92,
+    "live_count": 91,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -259407,9 +259407,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1696887,
-    "news_picked_today": 915,
-    "news_dropped_today": 6027
+    "news_seen_today": 1708185,
+    "news_picked_today": 931,
+    "news_dropped_today": 6035
   },
   "book_momentum": {
     "live_count": 8,
