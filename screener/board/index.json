@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-02T23:18:58Z",
+  "generated_at": "2026-11-02T23:38:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20261102-698",
@@ -1426,6 +1426,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261102-783",
+      "headline": "Apple posts stronger-than-expected revenue in first earnings report for new CEO John Ternus",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/technology/2026/nov/02/apple-third-quarter-revenue-earnings",
+      "source_name": "The Guardian — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T23:07:49Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Apple reported stronger-than-expected revenue in the first report under a new CEO.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Apple reported stronger-than-expected revenue in the first report under a new CEO.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Apple Inc.",
+          "ticker": "AAPL",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261102-779",
       "headline": "Grab Boosts Sales, Earnings Forecasts on Rising Ride Demand",
       "headline_en": null,
@@ -1622,6 +1672,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-784",
+      "headline": "Apple posts record September quarter under new CEO as iPhone, Mac sales surge",
+      "headline_en": null,
+      "url": "https://www.foxbusiness.com/markets/apple-posts-record-september-quarter-under-new-ceo-iphone-mac-sales-surge",
+      "source_name": "Fox Business — Markets",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T22:13:01Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Apple reported record September quarter revenue with surging iPhone and Mac sales.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Apple reported record September quarter revenue with surging iPhone and Mac sales.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Apple Inc.",
+          "ticker": "AAPL",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1881,104 +1981,6 @@
           "name": "Alstom",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-707",
-      "headline": "Apple (AAPL) Earnings: Live Q4 2026 Results, iPhone Sales, CEO Ternus Comments",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/live-blog/2026-11-02/apple-fourth-quarter-earnings-live-updates",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T20:30:08Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Apple is reporting Q4 2026 earnings, a major event for the company and the broader market.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Apple is reporting Q4 2026 earnings, a major event for the company and the broader market.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Apple",
-          "ticker": "AAPL",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-708",
-      "headline": "Lumentum Goes From $1 Billion Spinoff to $115 Billion Takeover",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-02/lumentum-goes-from-1-billion-spinoff-to-115-billion-takeover",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T20:28:25Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Lumentum is involved in a significant $115 billion takeover event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Lumentum is involved in a significant $115 billion takeover event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lumentum",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -217255,79 +217257,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-6f524fe22bd6",
-      "idea_version": "IDEAV-39c251864e9ddb4e",
-      "idea_version_started_at": "2026-11-01T11:55:44Z",
-      "ticker": "BINANCE",
-      "company": "Binance",
-      "exchange": null,
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Binance is beginning customer withdrawals in phases following a $6.3 billion heist, indicating significant operational and financial distress.",
-      "why_now": "The phased withdrawal plan was announced on November 1, 2026, following a major security breach.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f8c78b08669d"
-      ],
-      "primary_source_event_id": "EVT-f8c78b08669d",
-      "source_headlines": [
-        "Binance To Begin Customer Withdrawals In Phases After $6.3B Heist: What Phase 1 Includes"
-      ],
-      "source_headline": "Binance To Begin Customer Withdrawals In Phases After $6.3B Heist: What Phase 1 Includes",
-      "source_url": "https://www.ndtvprofit.com/business/binance-to-begin-customer-withdrawals-in-phases-after-over-usd-6-billion-heist-what-phase-1-includes-12267176#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-01T11:21:01Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-01T07:00:15Z",
-      "updated_at": "2026-11-01T11:55:44Z",
-      "decay_at": "2026-11-02T23:21:01Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-9596551e21ba",
       "idea_version": "IDEAV-a91d6d2b6df53768",
       "idea_version_started_at": "2026-11-01T11:55:44Z",
@@ -219738,6 +219667,79 @@
       "surfaced_at": "2026-11-01T11:55:44Z",
       "updated_at": "2026-11-01T11:55:44Z",
       "decay_at": "2026-11-02T22:49:30Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-6f524fe22bd6",
+      "idea_version": "IDEAV-39c251864e9ddb4e",
+      "idea_version_started_at": "2026-11-01T11:55:44Z",
+      "ticker": "BINANCE",
+      "company": "Binance",
+      "exchange": null,
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Binance is beginning customer withdrawals in phases following a $6.3 billion heist, indicating significant operational and financial distress.",
+      "why_now": "The phased withdrawal plan was announced on November 1, 2026, following a major security breach.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f8c78b08669d"
+      ],
+      "primary_source_event_id": "EVT-f8c78b08669d",
+      "source_headlines": [
+        "Binance To Begin Customer Withdrawals In Phases After $6.3B Heist: What Phase 1 Includes"
+      ],
+      "source_headline": "Binance To Begin Customer Withdrawals In Phases After $6.3B Heist: What Phase 1 Includes",
+      "source_url": "https://www.ndtvprofit.com/business/binance-to-begin-customer-withdrawals-in-phases-after-over-usd-6-billion-heist-what-phase-1-includes-12267176#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-01T11:21:01Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-01T07:00:15Z",
+      "updated_at": "2026-11-01T11:55:44Z",
+      "decay_at": "2026-11-02T23:21:01Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -222484,9 +222486,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 556,
+    "total_count": 557,
     "shown_count": 500,
-    "hidden_count": 56,
+    "hidden_count": 57,
     "side_counts": {
       "long": {
         "total_count": 285,
@@ -222494,9 +222496,9 @@
         "hidden_count": 35
       },
       "short": {
-        "total_count": 271,
+        "total_count": 272,
         "shown_count": 250,
-        "hidden_count": 21
+        "hidden_count": 22
       }
     },
     "retention": {
@@ -222515,6 +222517,82 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-6f524fe22bd6",
+        "idea_version": "IDEAV-39c251864e9ddb4e",
+        "idea_version_started_at": "2026-11-01T11:55:44Z",
+        "ticker": "BINANCE",
+        "company": "Binance",
+        "exchange": null,
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Binance is beginning customer withdrawals in phases following a $6.3 billion heist, indicating significant operational and financial distress.",
+        "why_now": "The phased withdrawal plan was announced on November 1, 2026, following a major security breach.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-f8c78b08669d"
+        ],
+        "primary_source_event_id": "EVT-f8c78b08669d",
+        "source_headlines": [
+          "Binance To Begin Customer Withdrawals In Phases After $6.3B Heist: What Phase 1 Includes"
+        ],
+        "source_headline": "Binance To Begin Customer Withdrawals In Phases After $6.3B Heist: What Phase 1 Includes",
+        "source_url": "https://www.ndtvprofit.com/business/binance-to-begin-customer-withdrawals-in-phases-after-over-usd-6-billion-heist-what-phase-1-includes-12267176#publisher=newsstand",
+        "source_name": "NDTV Profit",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-01T11:21:01Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-01T07:00:15Z",
+        "updated_at": "2026-11-01T11:55:44Z",
+        "decay_at": "2026-11-02T23:21:01Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-02T23:21:01Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-d39de226be65",
         "idea_version": "IDEAV-4fc8ab02cf75a157",
@@ -259665,85 +259743,12 @@
         "archived_at": "2026-10-09T04:30:28Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-6a5a69a1366b",
-        "idea_version": "IDEAV-737506f706118cde",
-        "idea_version_started_at": "2026-10-06T02:27:03Z",
-        "ticker": "MCD",
-        "company": "McDonald's",
-        "exchange": "NYSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "McDonald's faces a class-action lawsuit alleging AI-powered menu price-fixing, which could result in substantial legal costs, fines, and reputational damage.",
-        "why_now": "The class-action lawsuit is a live event, indicating immediate legal and financial risk for the company.",
-        "conviction": 50,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 59,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 13,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-5baac0dc181f"
-        ],
-        "primary_source_event_id": "EVT-5baac0dc181f",
-        "source_headlines": [
-          "McDonald's hit with class action alleging AI-powered menu price-fixing"
-        ],
-        "source_headline": "McDonald's hit with class action alleging AI-powered menu price-fixing",
-        "source_url": "https://www.cnbctv18.com/business/companies/mcdonalds-hit-with-class-action-alleging-ai-powered-menu-price-fixing-20005243.htm",
-        "source_name": "CNBC-TV18",
-        "materiality_max": 89,
-        "newest_source_at": "2026-10-06T01:40:51Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-06T02:27:03Z",
-        "updated_at": "2026-10-06T02:27:03Z",
-        "decay_at": "2026-10-07T13:40:51Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-09T02:44:31Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2131,
-    "live_count": 65,
+    "live_count": 64,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -259762,9 +259767,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7692973,
-    "news_picked_today": 1685,
-    "news_dropped_today": 10249
+    "news_seen_today": 7979454,
+    "news_picked_today": 1697,
+    "news_dropped_today": 10309
   },
   "book_momentum": {
     "live_count": 8,
