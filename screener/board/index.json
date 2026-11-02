@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-02T13:35:22Z",
+  "generated_at": "2026-11-02T13:38:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20261102-500",
@@ -984,6 +984,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261102-510",
+      "headline": "Gopal Snacks Q2 Results: Net profit zooms nearly 2-fold on higher sales and exceptional gain",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/stocks/gopal-snacks-share-price-q2-results-net-profit-zooms-nearly-2-fold-on-higher-sales-and-exceptional-gain-20025162.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T13:29:16Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Gopal Snacks reported a nearly 2-fold increase in net profit for Q2.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Gopal Snacks reported a nearly 2-fold increase in net profit for Q2.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Gopal Snacks",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261102-508",
       "headline": "Chip Maker Marvell Agrees to Buy Lumentum in $80 Billion Deal",
       "headline_en": null,
@@ -1030,6 +1079,55 @@
           "name": "Lumentum Holdings",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-511",
+      "headline": "ITC Q2 Results: Profit Plunges 20% As Margin Shrinks, Revenue Up Slightly",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/itc-q2-results-profits-hit-rs-4-137-crore-to-edge-past-estimates-revenue-up-sightly-12271935#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T13:19:35Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "ITC reported a 20% decline in Q2 profit alongside margin contraction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "ITC reported a 20% decline in Q2 profit alongside margin contraction.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ITC",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -1900,105 +1998,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-378",
-      "headline": "UPL Q2 Results: Net profit falls 24% YoY to ₹421 crore, EBITDA rises 5%",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/upl-q2-results-net-profit-falls-ebitda-rises-share-price-reaction-20024944.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T09:38:35Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "UPL reported a 24% YoY decline in net profit to ₹421 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "UPL reported a 24% YoY decline in net profit to ₹421 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "UPL",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-374",
-      "headline": "Ibstock cuts outlook as brick demand slumps and production is scaled back",
-      "headline_en": null,
-      "url": "https://ukinvestormagazine.co.uk/ibstock-cuts-outlook-as-brick-demand-slumps-and-production-is-scaled-back/",
-      "source_name": "UK Investor Magazine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T09:23:05Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Company cut outlook due to demand slump and is scaling back production.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Company cut outlook due to demand slump and is scaling back production.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change",
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ibstock",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -259418,9 +259417,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2218889,
-    "news_picked_today": 1067,
-    "news_dropped_today": 6523
+    "news_seen_today": 2255276,
+    "news_picked_today": 1073,
+    "news_dropped_today": 6541
   },
   "book_momentum": {
     "live_count": 8,
