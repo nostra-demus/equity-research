@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-02T05:21:51Z",
+  "generated_at": "2026-11-02T05:29:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20261102-266",
@@ -1588,6 +1588,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261102-299",
+      "headline": "Jupiter Wagons Limited: Jupiter Wagons Limited has informed the Exchange regarding a press release dated November 02, 2026, titled \"Jupiter Wagons secures orders worth over INR 324 crore from GATX India and Chetak International\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/CEBBCO_02112026104526_SEPRESSRELEASE021126.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-02T05:15:36Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Jupiter Wagons secured new orders worth over INR 324 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Jupiter Wagons secured new orders worth over INR 324 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jupiter Wagons Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261102-211",
       "headline": "RONSHINECHINA (03301): QUARTERLY UPDATE ON THE PLANS AND MEASURES IN RESOLVING THE DISCLAIMER OF OPINION",
       "headline_en": null,
@@ -1883,99 +1932,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261102-006",
-      "headline": "HUTCHMED (00013): VOLUNTARY ANNOUNCEMENT - HUTCHMED Announces Regulatory Filings Accepted for Review for ORPATHYS plus TAGRISSO in MET-Driven EGFR-Mutated Lung Cancer in Europe and Japan",
+      "inbox_id": "INB-20261102-292",
+      "headline": "Spandana Sphoorty Financial Limited: Spandana Sphoorty Financial Limited has informed the Exchange about Intimation under Regulation 30 of SEBI (LODR) Regulations, 2015 - Cyber Fraud Incident.",
       "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1102/2026110200041.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
+      "url": "https://nsearchives.nseindia.com/corporate/SPANDANA_02112026105300_SEcyberfraud.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-11-02T00:00:00Z",
+      "found_at": "2026-11-02T05:23:59Z",
       "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Hutchmed received regulatory acceptance for review of its drug combination in Europe and Japan.",
+      "prelim_note": "The company reported a cyber fraud incident, which poses operational and financial risk.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 94,
-      "triage_reason": "Hutchmed received regulatory acceptance for review of its drug combination in Europe and Japan.",
-      "region": "CN",
+      "triage_reason": "The company reported a cyber fraud incident, which poses operational and financial risk.",
+      "region": "IN",
       "relevance": "material",
-      "materiality_pre_score": 60,
+      "materiality_pre_score": 65,
       "rank_factors": {
-        "materiality": 60,
+        "materiality": 65,
         "source_tier": 8,
         "scope": 6,
         "event": 4,
         "size": 1,
         "recency": 5,
-        "materiality_label_floor": 10,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
+        "event_id": "cybersecurity",
         "size_bucket": "mid"
       },
       "event_types": [
-        "regulatory"
+        "cybersecurity"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Hutchmed",
-          "ticker": "00013",
-          "listing_country": "CN"
+          "name": "Spandana Sphoorty Financial Limited",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-019",
-      "headline": "NOX: Noxopharm Successfully Raises $1.5 Million via Placement [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NOX?key=2924-03157032-3A705626",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-01T23:53:06Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Noxopharm raised 1.5 million AUD via a placement to fund operations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Noxopharm raised 1.5 million AUD via a placement to fund operations.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Noxopharm",
-          "ticker": "NOX",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -258814,9 +258814,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3402,
-    "news_picked_today": 401,
-    "news_dropped_today": 1953
+    "news_seen_today": 3926,
+    "news_picked_today": 407,
+    "news_dropped_today": 2471
   },
   "book_momentum": {
     "live_count": 8,
