@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-02T11:21:01Z",
+  "generated_at": "2026-11-02T11:30:11Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261102-444",
+      "headline": "PATEO (02889): UPDATE ON ACQUISITION OF 20% EQUITY INTERESTS IN THE TARGET COMPANY",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1102/2026110203493.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-02T11:16:00Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Update on a 20% equity interest acquisition.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Update on a 20% equity interest acquisition.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PATEO",
+          "ticker": "02889",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261102-422",
       "headline": "TCL ELECTRONICS (01070): COMPLETION OF MAJOR AND CONNECTED TRANSACTION IN RELATION TO THE ACQUISITION OF THE TARGET COMPANY WITH TCL AIR CONDITIONER BUSINESS INVOLVING ISSUE OF CONSIDERATION SHARES UNDER SPECIFIC MANDATE",
@@ -685,6 +734,262 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-459",
+      "headline": "Saudi Aramco acquires 49% of HUMAIN with $2.6 billion cash injection",
+      "headline_en": null,
+      "url": "http://wamda.com/2026/11/saudi-aramco-acquires-49-humain-2-6-billion-cash-injection",
+      "source_name": "Wamda",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T11:21:23Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Saudi Aramco is acquiring a 49% stake in HUMAIN for $2.6 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Saudi Aramco is acquiring a 49% stake in HUMAIN for $2.6 billion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saudi Aramco",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "HUMAIN",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-453",
+      "headline": "Escorts Kubota Q2 results: Profit drops to ₹250 crore as rising costs squeeze tractor margins",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/escorts-kubota-q2-results-profit-drops-to-250-crore-as-rising-costs-squeeze-tractor-margins/article71656162.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T11:10:03Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Company reported Q2 profit drop to ₹250 crore due to margin pressure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company reported Q2 profit drop to ₹250 crore due to margin pressure.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Escorts Kubota",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-452",
+      "headline": "Petronet LNG Q2 results: Profit rises 9.1% sequentially as revenue jumps nearly 30%",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/earnings/petronet-lng-q2-results-profit-rises-9pc-sequentially-as-revenue-jumps-nearly-30pc-20025021.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T11:09:35Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Company reported Q2 profit growth of 9.1% and revenue jump of nearly 30%.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company reported Q2 profit growth of 9.1% and revenue jump of nearly 30%.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Petronet LNG",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-458",
+      "headline": "Korea's top court upholds W18.6b fine on Broadcom for pressuring Samsung into unfair deal",
+      "headline_en": null,
+      "url": "https://www.koreaherald.com/article/10923234",
+      "source_name": "The Korea Herald — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T11:02:41Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Korea's top court upheld a W18.6b fine against Broadcom for unfair business practices.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Korea's top court upheld a W18.6b fine against Broadcom for unfair business practices.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Broadcom",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Samsung",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-457",
+      "headline": "Estee Lauder Raises Outlook, Buoyed by Perfume Demand",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-02/estee-lauder-raises-outlook-buoyed-by-perfume-demand",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T11:01:06Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Company raised outlook driven by perfume demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company raised outlook driven by perfume demand.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Estee Lauder",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1673,306 +1978,6 @@
           "name": "Japan Airlines",
           "ticker": null,
           "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-291",
-      "headline": "Binance hack could become largest crypto heist in history, with over $6bn at risk",
-      "headline_en": null,
-      "url": "https://www.arabianbusiness.com/finance/fintech/binance-hack-could-become-largest-crypto-heist-in-history-with-over-6bn-at-risk",
-      "source_name": "Arabian Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T05:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "A potential $6bn crypto hack represents a massive security and financial risk for the exchange and the broader crypto sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A potential $6bn crypto hack represents a massive security and financial risk for the exchange and the broader crypto sector.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Binance",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-287",
-      "headline": "This auto ancillary stock soars 13% after Q2 PAT jumps 35% YoY. Do you own it?",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/this-auto-ancillary-stock-soars-13-after-q2-pat-jumps-35-yoy-do-you-own-it/articleshow/135445868.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T04:56:12Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "The company reported a 35% YoY jump in Q2 profit, driving a 13% share price increase.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The company reported a 35% YoY jump in Q2 profit, driving a 13% share price increase.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ice Make Refrigeration Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-288",
-      "headline": "Zen Technologies shares rally 9% after Q2 profit rises 51% YoY, revenue nearly doubles",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/zen-technologies-shares-rally-9-after-q2-profit-rises-51-yoy-revenue-nearly-doubles/articleshow/135445767.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T04:53:44Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Zen Technologies reported a 51% YoY profit increase and nearly doubled revenue, leading to a 9% share price rally.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Zen Technologies reported a 51% YoY profit increase and nearly doubled revenue, leading to a 9% share price rally.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Zen Technologies",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-243",
-      "headline": "Q2 Results Live Updates: RIL shares rise 6%, Dixon Tech guidance implies market share gain, stock up 8%",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/q2-results-live-updates-ril-jpl-dixon-muthoot-cdsl-itc-escorts-kubota-nalco-concor-upl-vrl-ge-vernova-jk-paper-share-price-liveblog-20024452.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T04:33:04Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Reliance Industries shares rose 6% on Q2 results, and Dixon Tech provided guidance implying market share gains.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Reliance Industries shares rose 6% on Q2 results, and Dixon Tech provided guidance implying market share gains.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Reliance Industries",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Dixon Technologies",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-248",
-      "headline": "Aarti Industries shares rise 6% as Q2 profit jumps 60%, revenue surges 75%",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/aarti-industries-share-price-rise-strong-q2-results-profit-revenue-surge-20024596.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T04:32:27Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Aarti Industries reported a 60% jump in Q2 profit and a 75% surge in revenue.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Aarti Industries reported a 60% jump in Q2 profit and a 75% surge in revenue.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Aarti Industries",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-226",
-      "headline": "Jio Platforms shares climb over 3% after Q2 PAT rises 14% YoY to Rs 8,389 crore. Buy, sell or hold?",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/jio-platforms-shares-climb-over-3-after-q2-pat-rises-14-yoy-to-rs-8389-crore-buy-sell-or-hold/articleshow/135444563.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T04:01:25Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Jio Platforms reported a 14% YoY increase in Q2 profit to Rs 8,389 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Jio Platforms reported a 14% YoY increase in Q2 profit to Rs 8,389 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Jio Platforms",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -259387,9 +259392,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1420069,
-    "news_picked_today": 791,
-    "news_dropped_today": 5671
+    "news_seen_today": 1482037,
+    "news_picked_today": 813,
+    "news_dropped_today": 5697
   },
   "book_momentum": {
     "live_count": 8,
