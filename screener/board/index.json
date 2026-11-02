@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-02T13:13:20Z",
+  "generated_at": "2026-11-02T13:18:31Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261102-500",
+      "headline": "Arvind Fashions Limited: Arvind Fashions Limited has informed the Exchange regarding a press release dated November 02, 2026, titled \"Arvind Fashions Ltd. announces highest ever revenue as well as EBITDA, delivers revenue growth of 10.0%, EBITDA growth of 15.5%\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/ARVINDFASN_02112026181824_PRIntimation.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-02T12:49:05Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Arvind Fashions reported 10.0% revenue growth and 15.5% EBITDA growth, marking their highest ever figures.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Arvind Fashions reported 10.0% revenue growth and 15.5% EBITDA growth, marking their highest ever figures.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Arvind Fashions Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261102-499",
       "headline": "SC TO-T/A - Cadeler A/S (0001978867) (Subject)",
@@ -1922,55 +1971,6 @@
         "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Alstom",
-          "ticker": null,
-          "listing_country": "FR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-392",
-      "headline": "Alstom shares tumble 26% after train maker cuts profit forecast",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/95723b31-c35b-4d68-9abe-9e082e95e362?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T08:16:32Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Alstom shares fell 26% after the company issued a profit warning and cut its forecast.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Alstom shares fell 26% after the company issued a profit warning and cut its forecast.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
@@ -259410,9 +259410,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2052089,
-    "news_picked_today": 1018,
-    "news_dropped_today": 6380
+    "news_seen_today": 2086900,
+    "news_picked_today": 1022,
+    "news_dropped_today": 6424
   },
   "book_momentum": {
     "live_count": 8,
