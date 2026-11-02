@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-02T05:43:51Z",
+  "generated_at": "2026-11-02T05:48:26Z",
   "inbox": [
     {
       "inbox_id": "INB-20261102-266",
@@ -144,6 +144,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-315",
+      "headline": "Blackstone Leads $3.1 Billion Deal to Acquire LNG Canada Stake",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-02/blackstone-leads-3-1-billion-deal-to-acquire-lng-canada-stake",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T05:31:22Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Blackstone is leading a $3.1 billion acquisition of a stake in LNG Canada.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Blackstone is leading a $3.1 billion acquisition of a stake in LNG Canada.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Blackstone",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1928,55 +1977,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-264",
-      "headline": "Binance Details $3.6 Billion in Net Outflows",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-11-02/binance-details-3-6-billion-in-net-outflows-video",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T04:52:19Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Binance reported $3.6 billion in net outflows, raising concerns about liquidity and platform stability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Binance reported $3.6 billion in net outflows, raising concerns about liquidity and platform stability.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Binance",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -258887,9 +258887,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4476,
-    "news_picked_today": 470,
-    "news_dropped_today": 2958
+    "news_seen_today": 4524,
+    "news_picked_today": 481,
+    "news_dropped_today": 2995
   },
   "book_momentum": {
     "live_count": 8,
