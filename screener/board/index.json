@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-02T05:09:45Z",
+  "generated_at": "2026-11-02T05:14:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20261102-266",
@@ -1834,6 +1834,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261102-285",
+      "headline": "NY’s MTA Could Save $2.5 Billion With Faster Buses, Expense Cuts",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-02/ny-s-mta-could-save-2-5-billion-with-faster-buses-expense-cuts",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T05:01:00Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "New York's MTA could save $2.5 billion through operational efficiencies and expense cuts.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "New York's MTA could save $2.5 billion through operational efficiencies and expense cuts.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MTA",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261102-162",
       "headline": "Special counsel raids NEC headquarters over improper stipends",
       "headline_en": null,
@@ -1923,55 +1972,6 @@
         {
           "name": "Kahuna",
           "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-103",
-      "headline": "FHE: Execution of Syndicated Debt Facility Agreement",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FHE?key=2924-03156741-6A1353140",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-01T21:17:30Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Future Battery Minerals has executed a syndicated debt facility agreement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Future Battery Minerals has executed a syndicated debt facility agreement.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 3,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Future Battery Minerals",
-          "ticker": "FHE",
           "listing_country": "AU"
         }
       ],
@@ -258814,9 +258814,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2210,
-    "news_picked_today": 400,
-    "news_dropped_today": 1810
+    "news_seen_today": 2878,
+    "news_picked_today": 401,
+    "news_dropped_today": 1953
   },
   "book_momentum": {
     "live_count": 8,
