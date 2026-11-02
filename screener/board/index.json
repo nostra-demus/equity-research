@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-11-02T10:23:33Z",
+  "generated_at": "2026-11-02T10:25:08Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261102-412",
+      "headline": "ROAD KING INFRA (01098): UPDATE ON THE OFFSHORE RESTRUCTURING, NOTICE OF SCHEME MEETINGS",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1102/2026110203209.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-02T10:19:00Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "ROAD KING INFRA provided an update on its offshore restructuring and announced scheme meetings, indicating significant financial distress or changes to its capital structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "ROAD KING INFRA provided an update on its offshore restructuring and announced scheme meetings, indicating significant financial distress or changes to its capital structure.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "restructuring_layoffs",
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ROAD KING INFRA",
+          "ticker": "01098",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261102-401",
       "headline": "Escorts Kubota Limited: Escorts Kubota Limited has informed the Exchange regarding a press release dated November 02, 2026, titled \"Standalone Q2FY27 Profit at Rs. 255.0 Crore\".",
@@ -1934,55 +1984,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-143",
-      "headline": "SK hynix Q4 Operating Profit Seen Surpassing 100 Trillion Won for First Time",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=280166",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T01:35:40Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "SK hynix is projected to reach a record quarterly operating profit of 100 trillion won.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "SK hynix is projected to reach a record quarterly operating profit of 100 trillion won.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SK hynix",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -259395,9 +259396,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1078513,
-    "news_picked_today": 699,
-    "news_dropped_today": 5211
+    "news_seen_today": 1097297,
+    "news_picked_today": 714,
+    "news_dropped_today": 5268
   },
   "book_momentum": {
     "live_count": 8,
