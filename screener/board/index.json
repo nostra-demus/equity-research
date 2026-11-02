@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-02T07:13:18Z",
+  "generated_at": "2026-11-02T07:20:54Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261102-321",
+      "headline": "Siti Networks Limited: Siti Networks Limited has informed the Exchange regarding 'Disclosure in compliance with Para 3(C1) of SEBI Circular No. SEBI/HO/CFD/CMD1/CIR/2019/140 dated November 21, 2019, of default on payment of interest/repayment of principal amount on loans from Bank(s)'.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/SITINET_02112026123659_Default.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-02T07:07:10Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Siti Networks reported a default on interest and principal payments on bank loans.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Siti Networks reported a default on interest and principal payments on bank loans.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Siti Networks Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261102-266",
       "headline": "DDR: Dicker Data completes acquisition of Sektor Group",
@@ -1926,55 +1975,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-077",
-      "headline": "DTR: US Court Update",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.DTR?key=2924-03157059-2A1707802",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-02T01:15:06Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "DTR provided an update regarding ongoing US court proceedings, which may impact legal risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "DTR provided an update regarding ongoing US court proceedings, which may impact legal risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DTR",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -259238,9 +259238,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 230525,
-    "news_picked_today": 522,
-    "news_dropped_today": 3780
+    "news_seen_today": 254461,
+    "news_picked_today": 527,
+    "news_dropped_today": 3847
   },
   "book_momentum": {
     "live_count": 8,
