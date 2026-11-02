@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-02T23:10:08Z",
+  "generated_at": "2026-11-02T23:10:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20261102-698",
@@ -213863,6 +213863,79 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-2cfb749c8806",
+      "idea_version": "IDEAV-fa2639c2d1dc9855",
+      "idea_version_started_at": "2026-11-02T23:10:25Z",
+      "ticker": "MRVL",
+      "company": "Marvell Technology",
+      "exchange": "NASDAQ",
+      "direction": "pair",
+      "pair_with": "LITE",
+      "reason": "Marvell is acquiring Lumentum in an all-stock deal, creating a classic arbitrage opportunity where the acquirer typically faces selling pressure while the target trades toward the offer price.",
+      "why_now": "The acquisition was announced on November 2, 2026, and the market is currently reacting to the deal terms and the significant dilution implied by the $115 billion price tag.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 76,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 23,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "pair_trade",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d5d0dcd047f8",
+        "EVT-78cc439f9063",
+        "EVT-807bdfc38eea"
+      ],
+      "primary_source_event_id": "EVT-d5d0dcd047f8",
+      "source_headlines": [
+        "Lumentum Goes From $1 Billion Spinoff to $115 Billion Takeover",
+        "Stock Market Today, Nov. 2: Marvell Announces $115 Billion All-Stock Acquisition of Lumentum",
+        "Marvell Technology Is Acquiring Lumentum. Why Does the Market Hate the Move?"
+      ],
+      "source_headline": "Lumentum Goes From $1 Billion Spinoff to $115 Billion Takeover",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-02/lumentum-goes-from-1-billion-spinoff-to-115-billion-takeover",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-02T22:22:02Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-02T23:10:25Z",
+      "updated_at": "2026-11-02T23:10:25Z",
+      "decay_at": "2026-11-04T10:22:02Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-c186a214190f",
       "idea_version": "IDEAV-daba0b795cb2ff6d",
       "idea_version_started_at": "2026-11-01T22:52:23Z",
@@ -214143,6 +214216,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-f57f73aa30ee",
+      "idea_version": "IDEAV-2d16ea5fdf9fa39f",
+      "idea_version_started_at": "2026-11-02T23:10:25Z",
+      "ticker": "AEHR",
+      "company": "Aehr Test Systems",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Aehr reported a tripling of revenue driven by a surge in AI-related orders, indicating strong demand for their semiconductor test and burn-in equipment.",
+      "why_now": "The earnings report was released on November 2, 2026, showing immediate operational momentum.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-488542adb3a3"
+      ],
+      "primary_source_event_id": "EVT-488542adb3a3",
+      "source_headlines": [
+        "Aehr Revenue Triples as AI Orders Pile Up: Rapid Earnings Reaction"
+      ],
+      "source_headline": "Aehr Revenue Triples as AI Orders Pile Up: Rapid Earnings Reaction",
+      "source_url": "https://www.nasdaq.com/articles/aehr-revenue-triples-ai-orders-pile-rapid-earnings-reaction",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-02T22:20:19Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-02T23:10:25Z",
+      "updated_at": "2026-11-02T23:10:25Z",
+      "decay_at": "2026-11-04T10:20:19Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-9f47945c8197",
       "idea_version": "IDEAV-acb158e302dd8432",
       "idea_version_started_at": "2026-11-02T02:53:32Z",
@@ -214208,6 +214352,78 @@
       "surfaced_at": "2026-11-02T02:53:32Z",
       "updated_at": "2026-11-02T02:53:32Z",
       "decay_at": "2026-11-03T14:17:08Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-0ac45b9845e1",
+      "idea_version": "IDEAV-1f48c63285d1ff1e",
+      "idea_version_started_at": "2026-11-02T23:10:25Z",
+      "ticker": "ON",
+      "company": "Onsemi",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Onsemi is acquiring Ferric to integrate power-delivery technology, which directly supports their stated goal of increasing AI-related revenue.",
+      "why_now": "The acquisition and updated AI revenue guidance were announced on November 2, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5cfa42b99d76"
+      ],
+      "primary_source_event_id": "EVT-5cfa42b99d76",
+      "source_headlines": [
+        "Onsemi To Acquire Ferric For Up To $775 Mln, Boosts AI Revenue Target"
+      ],
+      "source_headline": "Onsemi To Acquire Ferric For Up To $775 Mln, Boosts AI Revenue Target",
+      "source_url": "https://www.nasdaq.com/articles/onsemi-acquire-ferric-775-mln-boosts-ai-revenue-target",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-02T21:38:19Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-02T23:10:25Z",
+      "updated_at": "2026-11-02T23:10:25Z",
+      "decay_at": "2026-11-04T09:38:19Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -259526,8 +259742,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2128,
-    "live_count": 62,
+    "surfaced_total": 2131,
+    "live_count": 65,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
