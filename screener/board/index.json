@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-02T22:04:56Z",
+  "generated_at": "2026-11-02T22:10:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20261102-698",
@@ -1377,6 +1377,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261102-771",
+      "headline": "FDA drug recall (Class I) — Greenwich Rx: Glutathione Injection (Glutathione-L, Ascorbic Acid, Sodium Hydroxide, Bacteriostatic Water), 200 mg/mL, 10 mL multi-dose vial, Rx only, Subcutaneous Only, Gree — Microbial Contamination of Sterile Products",
+      "headline_en": null,
+      "url": "https://api.fda.gov/drug/enforcement.json?search=recall_number.exact:%22D-0084-2027%22",
+      "source_name": "U.S. Food & Drug Administration (Press Releases)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-28T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Class I recall of injectable glutathione due to microbial contamination represents a severe safety risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Class I recall of injectable glutathione due to microbial contamination represents a severe safety risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Greenwich Rx",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261102-765",
       "headline": "Stock Market Today, Nov. 2: Marvell Announces $115 Billion All-Stock Acquisition of Lumentum",
       "headline_en": null,
@@ -1925,57 +1974,6 @@
           "name": "DOMS Industries",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-693",
-      "headline": "Redefine annual results, R3.6bn Aspen deal, and Durban port crisis",
-      "headline_en": null,
-      "url": "https://www.moneyweb.co.za/moneyweb-radio/safm-market-update/redefine-annual-results-r3-6bn-aspen-deal-and-durban-port-crisis/",
-      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T17:15:50Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Company reported annual results, a R3.6bn acquisition of Aspen, and noted operational challenges at Durban port.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Company reported annual results, a R3.6bn acquisition of Aspen, and noted operational challenges at Durban port.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "mna",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Redefine Properties",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "mid",
@@ -217324,77 +217322,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-cfd6cecaafb2",
-      "idea_version": "IDEAV-34389ea0fbfa9859",
-      "idea_version_started_at": "2026-11-01T10:30:47Z",
-      "ticker": "02015",
-      "company": "Li Auto",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Li Auto reported its October 2026 delivery update, which is a key indicator of revenue growth for the electric vehicle manufacturer.",
-      "why_now": "The delivery update for October 2026 provides current sales performance data.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5affd2a918b8"
-      ],
-      "primary_source_event_id": "EVT-5affd2a918b8",
-      "source_headlines": [
-        "LI AUTO-W (02015): VOLUNTARY ANNOUNCEMENT OCTOBER 2026 DELIVERY UPDATE"
-      ],
-      "source_headline": "LI AUTO-W (02015): VOLUNTARY ANNOUNCEMENT OCTOBER 2026 DELIVERY UPDATE",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1101/2026110100027.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-01T10:08:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-01T10:30:47Z",
-      "updated_at": "2026-11-01T10:30:47Z",
-      "decay_at": "2026-11-02T22:08:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-d39de226be65",
       "idea_version": "IDEAV-4fc8ab02cf75a157",
       "idea_version_started_at": "2026-11-01T11:37:09Z",
@@ -219955,6 +219882,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-cfd6cecaafb2",
+      "idea_version": "IDEAV-34389ea0fbfa9859",
+      "idea_version_started_at": "2026-11-01T10:30:47Z",
+      "ticker": "02015",
+      "company": "Li Auto",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Li Auto reported its October 2026 delivery update, which is a key indicator of revenue growth for the electric vehicle manufacturer.",
+      "why_now": "The delivery update for October 2026 provides current sales performance data.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5affd2a918b8"
+      ],
+      "primary_source_event_id": "EVT-5affd2a918b8",
+      "source_headlines": [
+        "LI AUTO-W (02015): VOLUNTARY ANNOUNCEMENT OCTOBER 2026 DELIVERY UPDATE"
+      ],
+      "source_headline": "LI AUTO-W (02015): VOLUNTARY ANNOUNCEMENT OCTOBER 2026 DELIVERY UPDATE",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1101/2026110100027.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-01T10:08:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-01T10:30:47Z",
+      "updated_at": "2026-11-01T10:30:47Z",
+      "decay_at": "2026-11-02T22:08:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-2c1e23597324",
       "idea_version": "IDEAV-e71c99eaaf15fe69",
       "idea_version_started_at": "2026-11-01T07:50:48Z",
@@ -222265,14 +222263,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 548,
+    "total_count": 549,
     "shown_count": 500,
-    "hidden_count": 48,
+    "hidden_count": 49,
     "side_counts": {
       "long": {
-        "total_count": 279,
+        "total_count": 280,
         "shown_count": 250,
-        "hidden_count": 29
+        "hidden_count": 30
       },
       "short": {
         "total_count": 269,
@@ -222296,6 +222294,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-cfd6cecaafb2",
+        "idea_version": "IDEAV-34389ea0fbfa9859",
+        "idea_version_started_at": "2026-11-01T10:30:47Z",
+        "ticker": "02015",
+        "company": "Li Auto",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Li Auto reported its October 2026 delivery update, which is a key indicator of revenue growth for the electric vehicle manufacturer.",
+        "why_now": "The delivery update for October 2026 provides current sales performance data.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-5affd2a918b8"
+        ],
+        "primary_source_event_id": "EVT-5affd2a918b8",
+        "source_headlines": [
+          "LI AUTO-W (02015): VOLUNTARY ANNOUNCEMENT OCTOBER 2026 DELIVERY UPDATE"
+        ],
+        "source_headline": "LI AUTO-W (02015): VOLUNTARY ANNOUNCEMENT OCTOBER 2026 DELIVERY UPDATE",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1101/2026110100027.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-01T10:08:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-01T10:30:47Z",
+        "updated_at": "2026-11-01T10:30:47Z",
+        "decay_at": "2026-11-02T22:08:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-02T22:08:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-41c5501266bc",
         "idea_version": "IDEAV-03b730a97de42b8a",
@@ -251765,81 +251837,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-87cbb3009f6f",
-        "idea_version": "IDEAV-a445a760a5970d87",
-        "idea_version_started_at": "2026-10-17T14:35:09Z",
-        "ticker": "YESBANK",
-        "company": "Yes Bank",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Net profit reached ₹1,080 crore driven by a reduction in provisions and an increase in other income, indicating improved asset quality and diversified revenue streams.",
-        "why_now": "The Q2 results were reported on October 17, 2026.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-0d461df31e9f"
-        ],
-        "primary_source_event_id": "EVT-0d461df31e9f",
-        "source_headlines": [
-          "Q2 Results LIVE Updates: Yes Bank Net profit at ₹1,080 crore; Provisions fall, other income up"
-        ],
-        "source_headline": "Q2 Results LIVE Updates: Yes Bank Net profit at ₹1,080 crore; Provisions fall, other income up",
-        "source_url": "https://www.cnbctv18.com/market/q2-results-live-updates-hdfc-icici-axis-yes-bank-central-bank-idbi-india-cements-bajaj-health-share-price-liveblog-20014006.htm",
-        "source_name": "CNBC-TV18",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-17T14:01:56Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-17T14:35:09Z",
-        "updated_at": "2026-10-17T14:35:09Z",
-        "decay_at": "2026-10-19T02:01:56Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-20T14:44:40Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-58721326aaea",
         "idea_version": "IDEAV-0ee77860f24cdf0e",
         "idea_version_started_at": "2026-10-17T14:35:09Z",
@@ -259519,7 +259516,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2128,
-    "live_count": 70,
+    "live_count": 69,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -259538,9 +259535,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6876537,
-    "news_picked_today": 1595,
-    "news_dropped_today": 9715
+    "news_seen_today": 6963895,
+    "news_picked_today": 1604,
+    "news_dropped_today": 9754
   },
   "book_momentum": {
     "live_count": 8,
