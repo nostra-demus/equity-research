@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-02T01:38:28Z",
+  "generated_at": "2026-11-02T01:40:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20261102-073",
@@ -886,6 +886,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261102-084",
+      "headline": "CDSL shares in focus after Q2 profit jumps 24%; demat base grows 17%",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/cdsl-share-price-q2-results-profit-jumps-demat-base-grows-assets-under-custody-20024458.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T01:31:22Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "CDSL reported a 24% increase in Q2 profit and a 17% growth in its demat account base.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "CDSL reported a 24% increase in Q2 profit and a 17% growth in its demat account base.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Central Depository Services (India) Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261102-074",
       "headline": "Heidi Health goes to war with rival GP software giant over AI plans",
       "headline_en": null,
@@ -1212,6 +1261,55 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-088",
+      "headline": "삼진엘앤디 이명종 대표, 최대주주 지분율 24.83%로 확대",
+      "headline_en": "Samjin LND CEO Lee Myung-jong increases stake to 24.83%",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=280161",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T01:21:48Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "CEO Lee Myung-jong increased his stake in Samjin LND to 24.83%.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "CEO Lee Myung-jong increased his stake in Samjin LND to 24.83%.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "insider_transaction",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "insider_transaction"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Samjin LND",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1844,104 +1942,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-034",
-      "headline": "Rithm Property Trust Consensus Price Target Decreased by 15.91% to $18.87",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/rithm-property-trust-consensus-price-target-decreased-1591-1887",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T00:02:50Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Consensus price target cut by 15.91% indicates weakening analyst sentiment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "Consensus price target cut by 15.91% indicates weakening analyst sentiment.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "credit_rating_downgrade",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "credit_rating_downgrade"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Rithm Property Trust",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-062",
-      "headline": "G88: Earn-In Agreement for Yuinmery Gold Project",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.G88?key=2924-03157052-3A705644",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-02T01:00:26Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "G88 entered an earn-in agreement for the Yuinmery Gold Project, indicating potential future asset development.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "G88 entered an earn-in agreement for the Yuinmery Gold Project, indicating potential future asset development.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "G88",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -257487,9 +257487,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 450,
-    "news_picked_today": 92,
-    "news_dropped_today": 358
+    "news_seen_today": 476,
+    "news_picked_today": 99,
+    "news_dropped_today": 377
   },
   "book_momentum": {
     "live_count": 8,
