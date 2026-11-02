@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-02T05:29:57Z",
+  "generated_at": "2026-11-02T05:33:23Z",
   "inbox": [
     {
       "inbox_id": "INB-20261102-266",
@@ -1834,6 +1834,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261102-305",
+      "headline": "Muthoot Finance targets 25% AUM growth in FY27, plans to expand branch network",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/earnings/muthoot-finance-q2-results-raises-full-year-aum-growth-guidance-to-25-pc-alpha-article-20024638.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T05:26:19Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Muthoot Finance targets 25% AUM growth in FY27 and plans branch network expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Muthoot Finance targets 25% AUM growth in FY27 and plans branch network expansion.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Muthoot Finance",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261102-264",
       "headline": "Binance Details $3.6 Billion in Net Outflows",
       "headline_en": null,
@@ -1927,55 +1977,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-292",
-      "headline": "Spandana Sphoorty Financial Limited: Spandana Sphoorty Financial Limited has informed the Exchange about Intimation under Regulation 30 of SEBI (LODR) Regulations, 2015 - Cyber Fraud Incident.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/SPANDANA_02112026105300_SEcyberfraud.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-02T05:23:59Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "The company reported a cyber fraud incident, which poses operational and financial risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "The company reported a cyber fraud incident, which poses operational and financial risk.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "cybersecurity",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Spandana Sphoorty Financial Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -258814,9 +258815,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4339,
-    "news_picked_today": 438,
-    "news_dropped_today": 2853
+    "news_seen_today": 4394,
+    "news_picked_today": 453,
+    "news_dropped_today": 2893
   },
   "book_momentum": {
     "live_count": 8,
