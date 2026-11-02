@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-02T18:12:16Z",
+  "generated_at": "2026-11-02T18:26:26Z",
   "inbox": [
     {
       "inbox_id": "INB-20261102-698",
@@ -1377,6 +1377,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261102-699",
+      "headline": "Tachyum, developer of heavily-delayed universal Prodigy processor, voluntarily files for bankruptcy — future of Prodigy IP unknown as company begins bankruptcy proceedings",
+      "headline_en": null,
+      "url": "https://www.tomshardware.com/pc-components/cpus/tachyum-developer-of-heavily-delayed-universal-prodigy-processor-voluntarily-files-for-bankruptcy-future-of-prodigy-ip-unknown-as-company-begins-bankruptcy-proceedings",
+      "source_name": "Tom's Hardware",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T18:07:21Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Tachyum has filed for bankruptcy, signaling a total failure of its Prodigy processor development.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tachyum has filed for bankruptcy, signaling a total failure of its Prodigy processor development.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tachyum",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-700",
+      "headline": "Redeemer Health Files for Chapter 11 Bankruptcy in Pennsylvania",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-02/redeemer-health-files-for-chapter-11-bankruptcy-in-pennsylvania",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T18:06:21Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Redeemer Health has filed for Chapter 11 bankruptcy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Redeemer Health has filed for Chapter 11 bankruptcy.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Redeemer Health",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261102-695",
       "headline": "Prasol Chemicals Q2 results: Net profit more than doubles to ₹38 crore, revenue rises 39%",
       "headline_en": null,
@@ -1880,114 +1978,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-644",
-      "headline": "EVgo Soars 48% on $2-a-Share Buyout Offer From LS Power; ChargePoint Jumps 10%, Blink Charging Rallies 7%",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/11/02/evgo-soars-48-on-2-a-share-buyout-offer-from-ls-power-chargepoint-jumps-10-blink-charging-rallies-7/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T15:48:11Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "EVgo received a $2-a-share buyout offer from LS Power, triggering a 48% stock surge.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "EVgo received a $2-a-share buyout offer from LS Power, triggering a 48% stock surge.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "EVgo",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "ChargePoint",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Blink Charging",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-647",
-      "headline": "Outback Steakhouse Franchisee Files Bankruptcy After Costs Swell",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-02/outback-steakhouse-franchisee-files-bankruptcy-after-costs-swell",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T15:36:50Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "An Outback Steakhouse franchisee has filed for bankruptcy due to rising costs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "An Outback Steakhouse franchisee has filed for bankruptcy due to rising costs.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Outback Steakhouse",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -217544,78 +217534,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-2c1e23597324",
-      "idea_version": "IDEAV-e71c99eaaf15fe69",
-      "idea_version_started_at": "2026-11-01T07:50:48Z",
-      "ticker": "GO",
-      "company": "Etihad GO Telecom Co.",
-      "exchange": "Tadawul",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company secured a SAR 185.9 million contract to build AI-focused data center infrastructure, providing a direct revenue boost and validating its position in the regional AI infrastructure build-out.",
-      "why_now": "The contract award was officially announced on November 1, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-24bae7f7c41a"
-      ],
-      "primary_source_event_id": "EVT-24bae7f7c41a",
-      "source_headlines": [
-        "Etihad GO Telecom Co. (GO) announces the award of a project to Total Technical Triangle Company - 3T, valued at SAR 185.9 million, for the supply and installation of infrastructure for a data center dedicated to artificial intelligence (AI) and advanced computing using NVIDIA processors."
-      ],
-      "source_headline": "Etihad GO Telecom Co. (GO) announces the award of a project to Total Technical Triangle Company - 3T, valued at SAR 185.9 million, for the supply and installation of infrastructure for a data center dedicated to artificial intelligence (AI) and advanced computing using NVIDIA processors.",
-      "source_url": "http://english.mubasher.info/news/4693875/Etihad-GO-Telecom-Co-GO-announces-the-award-of-a-project-to-Total-Technical-Triangle-Company-3T-valued-at-SAR-185-9-million-for-the-supply-and-installation-of-infrastructure-for-a-data-center-d",
-      "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-01T06:21:44Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-01T07:50:48Z",
-      "updated_at": "2026-11-01T07:50:48Z",
-      "decay_at": "2026-11-02T18:21:44Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-41c5501266bc",
       "idea_version": "IDEAV-03b730a97de42b8a",
       "idea_version_started_at": "2026-11-01T10:30:47Z",
@@ -218898,78 +218816,6 @@
       "surfaced_at": "2026-11-02T03:12:16Z",
       "updated_at": "2026-11-02T03:12:16Z",
       "decay_at": "2026-11-03T10:19:10Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-bb3c45a83ec3",
-      "idea_version": "IDEAV-c34ecb157fbc29fe",
-      "idea_version_started_at": "2026-11-01T07:00:15Z",
-      "ticker": "LODHA",
-      "company": "Macrotech Developers",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company plans to invest Rs 1,200 crore in a new project in Delhi-NCR, indicating significant capital expenditure and expansion.",
-      "why_now": "The investment plan was announced on November 1, 2026, making it a current development.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3fdda7c82c4a"
-      ],
-      "primary_source_event_id": "EVT-3fdda7c82c4a",
-      "source_headlines": [
-        "Lodha Developers to invest Rs 1,200 crore in first Delhi-NCR project on Gurugram's Golf Course Road"
-      ],
-      "source_headline": "Lodha Developers to invest Rs 1,200 crore in first Delhi-NCR project on Gurugram's Golf Course Road",
-      "source_url": "https://economictimes.indiatimes.com/industry/services/property-/-cstruction/lodha-developers-to-invest-rs-1200-crore-in-first-delhi-ncr-project-on-gurugrams-golf-course-road/articleshow/135419681.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 89,
-      "newest_source_at": "2026-11-01T06:25:27Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-01T07:00:15Z",
-      "updated_at": "2026-11-01T07:00:15Z",
-      "decay_at": "2026-11-02T18:25:27Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -220396,6 +220242,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-2c1e23597324",
+      "idea_version": "IDEAV-e71c99eaaf15fe69",
+      "idea_version_started_at": "2026-11-01T07:50:48Z",
+      "ticker": "GO",
+      "company": "Etihad GO Telecom Co.",
+      "exchange": "Tadawul",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company secured a SAR 185.9 million contract to build AI-focused data center infrastructure, providing a direct revenue boost and validating its position in the regional AI infrastructure build-out.",
+      "why_now": "The contract award was officially announced on November 1, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-24bae7f7c41a"
+      ],
+      "primary_source_event_id": "EVT-24bae7f7c41a",
+      "source_headlines": [
+        "Etihad GO Telecom Co. (GO) announces the award of a project to Total Technical Triangle Company - 3T, valued at SAR 185.9 million, for the supply and installation of infrastructure for a data center dedicated to artificial intelligence (AI) and advanced computing using NVIDIA processors."
+      ],
+      "source_headline": "Etihad GO Telecom Co. (GO) announces the award of a project to Total Technical Triangle Company - 3T, valued at SAR 185.9 million, for the supply and installation of infrastructure for a data center dedicated to artificial intelligence (AI) and advanced computing using NVIDIA processors.",
+      "source_url": "http://english.mubasher.info/news/4693875/Etihad-GO-Telecom-Co-GO-announces-the-award-of-a-project-to-Total-Technical-Triangle-Company-3T-valued-at-SAR-185-9-million-for-the-supply-and-installation-of-infrastructure-for-a-data-center-d",
+      "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-01T06:21:44Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-01T07:50:48Z",
+      "updated_at": "2026-11-01T07:50:48Z",
+      "decay_at": "2026-11-02T18:21:44Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-3975e3dda8ac",
       "idea_version": "IDEAV-00afcea89b356a02",
       "idea_version_started_at": "2026-11-01T07:30:46Z",
@@ -221761,6 +221679,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-bb3c45a83ec3",
+      "idea_version": "IDEAV-c34ecb157fbc29fe",
+      "idea_version_started_at": "2026-11-01T07:00:15Z",
+      "ticker": "LODHA",
+      "company": "Macrotech Developers",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company plans to invest Rs 1,200 crore in a new project in Delhi-NCR, indicating significant capital expenditure and expansion.",
+      "why_now": "The investment plan was announced on November 1, 2026, making it a current development.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3fdda7c82c4a"
+      ],
+      "primary_source_event_id": "EVT-3fdda7c82c4a",
+      "source_headlines": [
+        "Lodha Developers to invest Rs 1,200 crore in first Delhi-NCR project on Gurugram's Golf Course Road"
+      ],
+      "source_headline": "Lodha Developers to invest Rs 1,200 crore in first Delhi-NCR project on Gurugram's Golf Course Road",
+      "source_url": "https://economictimes.indiatimes.com/industry/services/property-/-cstruction/lodha-developers-to-invest-rs-1200-crore-in-first-delhi-ncr-project-on-gurugrams-golf-course-road/articleshow/135419681.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 89,
+      "newest_source_at": "2026-11-01T06:25:27Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-01T07:00:15Z",
+      "updated_at": "2026-11-01T07:00:15Z",
+      "decay_at": "2026-11-02T18:25:27Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-12bc112e4547",
       "idea_version": "IDEAV-d2d753804793ec4d",
       "idea_version_started_at": "2026-11-01T06:42:01Z",
@@ -222274,14 +222264,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 540,
+    "total_count": 542,
     "shown_count": 500,
-    "hidden_count": 40,
+    "hidden_count": 42,
     "side_counts": {
       "long": {
-        "total_count": 274,
+        "total_count": 276,
         "shown_count": 250,
-        "hidden_count": 24
+        "hidden_count": 26
       },
       "short": {
         "total_count": 266,
@@ -222305,6 +222295,156 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-bb3c45a83ec3",
+        "idea_version": "IDEAV-c34ecb157fbc29fe",
+        "idea_version_started_at": "2026-11-01T07:00:15Z",
+        "ticker": "LODHA",
+        "company": "Macrotech Developers",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company plans to invest Rs 1,200 crore in a new project in Delhi-NCR, indicating significant capital expenditure and expansion.",
+        "why_now": "The investment plan was announced on November 1, 2026, making it a current development.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 16,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-3fdda7c82c4a"
+        ],
+        "primary_source_event_id": "EVT-3fdda7c82c4a",
+        "source_headlines": [
+          "Lodha Developers to invest Rs 1,200 crore in first Delhi-NCR project on Gurugram's Golf Course Road"
+        ],
+        "source_headline": "Lodha Developers to invest Rs 1,200 crore in first Delhi-NCR project on Gurugram's Golf Course Road",
+        "source_url": "https://economictimes.indiatimes.com/industry/services/property-/-cstruction/lodha-developers-to-invest-rs-1200-crore-in-first-delhi-ncr-project-on-gurugrams-golf-course-road/articleshow/135419681.cms",
+        "source_name": "The Economic Times",
+        "materiality_max": 89,
+        "newest_source_at": "2026-11-01T06:25:27Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-01T07:00:15Z",
+        "updated_at": "2026-11-01T07:00:15Z",
+        "decay_at": "2026-11-02T18:25:27Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-02T18:25:27Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-2c1e23597324",
+        "idea_version": "IDEAV-e71c99eaaf15fe69",
+        "idea_version_started_at": "2026-11-01T07:50:48Z",
+        "ticker": "GO",
+        "company": "Etihad GO Telecom Co.",
+        "exchange": "Tadawul",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company secured a SAR 185.9 million contract to build AI-focused data center infrastructure, providing a direct revenue boost and validating its position in the regional AI infrastructure build-out.",
+        "why_now": "The contract award was officially announced on November 1, 2026.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-24bae7f7c41a"
+        ],
+        "primary_source_event_id": "EVT-24bae7f7c41a",
+        "source_headlines": [
+          "Etihad GO Telecom Co. (GO) announces the award of a project to Total Technical Triangle Company - 3T, valued at SAR 185.9 million, for the supply and installation of infrastructure for a data center dedicated to artificial intelligence (AI) and advanced computing using NVIDIA processors."
+        ],
+        "source_headline": "Etihad GO Telecom Co. (GO) announces the award of a project to Total Technical Triangle Company - 3T, valued at SAR 185.9 million, for the supply and installation of infrastructure for a data center dedicated to artificial intelligence (AI) and advanced computing using NVIDIA processors.",
+        "source_url": "http://english.mubasher.info/news/4693875/Etihad-GO-Telecom-Co-GO-announces-the-award-of-a-project-to-Total-Technical-Triangle-Company-3T-valued-at-SAR-185-9-million-for-the-supply-and-installation-of-infrastructure-for-a-data-center-d",
+        "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-01T06:21:44Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-01T07:50:48Z",
+        "updated_at": "2026-11-01T07:50:48Z",
+        "decay_at": "2026-11-02T18:21:44Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-02T18:21:44Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-e306f5918aef",
         "idea_version": "IDEAV-0a39fd32bbe1dbe6",
@@ -251635,156 +251775,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-45846ae89987",
-        "idea_version": "IDEAV-55c350c794e97036",
-        "idea_version_started_at": "2026-10-17T09:32:49Z",
-        "ticker": "HDFCBANK",
-        "company": "HDFC Bank Limited",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "HDFC Bank reported a net profit of ₹19,509 crore for Q2, with a sequential decline in Net Non-Performing Assets (NPA) indicating stable credit health.",
-        "why_now": "The financial results were released on October 17, 2026.",
-        "conviction": 80,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 7,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-97c310f221a1",
-          "EVT-91fbca1390be"
-        ],
-        "primary_source_event_id": "EVT-97c310f221a1",
-        "source_headlines": [
-          "HDFC Bank Limited: HDFC Bank Limited has submitted to the Exchange, the financial results for the period ended September 30, 2026.",
-          "Q2 Results LIVE Updates: HDFC Bank net profit at ₹19,509 crore; Net NPA falls from June"
-        ],
-        "source_headline": "HDFC Bank Limited: HDFC Bank Limited has submitted to the Exchange, the financial results for the period ended September 30, 2026.",
-        "source_url": "https://nsearchives.nseindia.com/corporate/HDFCBANK_17102026135520_OutcomeofBMResults_17oct2026.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-17T08:36:15Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-17T09:32:49Z",
-        "updated_at": "2026-10-17T09:32:49Z",
-        "decay_at": "2026-10-18T20:36:15Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-20T09:20:15Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-bab8aea7ed78",
-        "idea_version": "IDEAV-684d598ff71c1b61",
-        "idea_version_started_at": "2026-10-17T09:12:49Z",
-        "ticker": "TVSSRICHAK",
-        "company": "TVS Srichakra Limited",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company has officially announced a capacity addition, which will directly increase production volume and potential revenue generation in future quarters.",
-        "why_now": "The exchange filing was made today, October 17, 2026, and the market has yet to fully price in the long-term revenue impact of the expanded capacity.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-0f6d81533402"
-        ],
-        "primary_source_event_id": "EVT-0f6d81533402",
-        "source_headlines": [
-          "TVS Srichakra Limited: TVS Srichakra Limited has informed the Exchange about Capacity addition"
-        ],
-        "source_headline": "TVS Srichakra Limited: TVS Srichakra Limited has informed the Exchange about Capacity addition",
-        "source_url": "https://nsearchives.nseindia.com/corporate/TVSSRICHAK_17102026122250_Reg_30_Intimation_for_Capacity_enhancement.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-17T06:53:23Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-17T09:12:49Z",
-        "updated_at": "2026-10-17T09:12:49Z",
-        "decay_at": "2026-10-18T18:53:23Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-20T09:20:15Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-d0bfefd30f1f",
         "idea_version": "IDEAV-49296605a11054dd",
         "idea_version_started_at": "2026-10-17T08:35:11Z",
@@ -259534,7 +259524,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2128,
-    "live_count": 78,
+    "live_count": 76,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -259553,9 +259543,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4558541,
-    "news_picked_today": 1406,
-    "news_dropped_today": 8104
+    "news_seen_today": 4689971,
+    "news_picked_today": 1410,
+    "news_dropped_today": 8220
   },
   "book_momentum": {
     "live_count": 8,
