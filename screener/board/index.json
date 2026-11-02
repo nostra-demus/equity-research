@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-02T18:03:02Z",
+  "generated_at": "2026-11-02T18:12:16Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261102-698",
+      "headline": "S-4 POS - CBIZ, Inc. (0000944148) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/944148/000119312526443206/0001193125-26-443206-index.htm",
+      "source_name": "SEC EDGAR — Latest S-4 (M&A / Exchange-Offer Registration)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-02T17:53:32Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "CBIZ, Inc. filed an S-4 registration statement for an M&A transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CBIZ, Inc. filed an S-4 registration statement for an M&A transaction.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CBIZ, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261102-683",
       "headline": "Digitide Solutions Limited: Digitide Solutions Limited has informed the Exchange regarding a press release dated November 02, 2026, titled \"Q2FY27 PAT tripled QoQ; EBITDA up 2.5% and margin expands 45bps QoQ\".",
@@ -1328,6 +1377,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261102-695",
+      "headline": "Prasol Chemicals Q2 results: Net profit more than doubles to ₹38 crore, revenue rises 39%",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/earnings/prasol-chemicals-q2-results-net-profit-more-than-doubles-to-rs-38-crore-revenue-rises-39-per-cent-20025353.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T17:55:50Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Net profit more than doubled to ₹38 crore and revenue rose 39% in Q2.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Net profit more than doubled to ₹38 crore and revenue rose 39% in Q2.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Prasol Chemicals",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261102-687",
       "headline": "DOMS Industries Q2 Results: Flood damage, exceptional expense drag profit down to 36%",
       "headline_en": null,
@@ -1369,6 +1467,57 @@
           "name": "DOMS Industries",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-693",
+      "headline": "Redefine annual results, R3.6bn Aspen deal, and Durban port crisis",
+      "headline_en": null,
+      "url": "https://www.moneyweb.co.za/moneyweb-radio/safm-market-update/redefine-annual-results-r3-6bn-aspen-deal-and-durban-port-crisis/",
+      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T17:15:50Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Company reported annual results, a R3.6bn acquisition of Aspen, and noted operational challenges at Durban port.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company reported annual results, a R3.6bn acquisition of Aspen, and noted operational challenges at Durban port.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "mna",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Redefine Properties",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "mid",
@@ -1839,153 +1988,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-642",
-      "headline": "CHS lowers full-year earnings forecast on uninsured volumes, surgery snags",
-      "headline_en": null,
-      "url": "https://www.healthcaredive.com/news/chs-lowers-full-year-earnings-forecast-uninsured-volumes-surgery-snags/873444/",
-      "source_name": "Healthcare Dive",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T15:25:23Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "CHS lowered its full-year earnings forecast due to operational and volume issues.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "CHS lowered its full-year earnings forecast due to operational and volume issues.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CHS",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-591",
-      "headline": "TBO Tek Q2 results: Profit rises 12%, revenue jumps 53% as travel demand lifts business",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/earnings/tbo-tek-q2-results-net-profit-rises-12-revenue-jumps-nearly-53-yoy-20025199.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T14:49:55Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "TBO Tek reported a 12% profit rise and 53% revenue jump driven by travel demand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "TBO Tek reported a 12% profit rise and 53% revenue jump driven by travel demand.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TBO Tek",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-589",
-      "headline": "Thomas Cook India Q2 Results: Net profit falls 22% to ₹51.6 crore, revenue down 6%",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/thomas-cook-india-share-price-q2-results-net-profit-falls-rs-51-6-crore-revenue-20025196.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T14:44:10Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Thomas Cook India reported a 22% net profit decline to ₹51.6 crore and 6% revenue drop.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Thomas Cook India reported a 22% net profit decline to ₹51.6 crore and 6% revenue drop.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Thomas Cook India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -217614,78 +217616,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-e306f5918aef",
-      "idea_version": "IDEAV-0a39fd32bbe1dbe6",
-      "idea_version_started_at": "2026-11-01T07:00:15Z",
-      "ticker": "RAINBOWCHILD",
-      "company": "Rainbow Children's Medicare",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported a profit rise to ₹84 crore in Q2, indicating improved financial performance.",
-      "why_now": "The Q2 results were released on November 1, 2026, providing current financial data.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1a3806a46f6f"
-      ],
-      "primary_source_event_id": "EVT-1a3806a46f6f",
-      "source_headlines": [
-        "Rainbow Children's Medicare Q2 results: Profit rises to ₹84 cr"
-      ],
-      "source_headline": "Rainbow Children's Medicare Q2 results: Profit rises to ₹84 cr",
-      "source_url": "https://www.thehindubusinessline.com/companies/rainbow-childrens-medicare-q2-results-profit-rises-to-84-cr/article71652182.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-01T06:09:46Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-01T07:00:15Z",
-      "updated_at": "2026-11-01T07:00:15Z",
-      "decay_at": "2026-11-02T18:09:46Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-41c5501266bc",
       "idea_version": "IDEAV-03b730a97de42b8a",
       "idea_version_started_at": "2026-11-01T10:30:47Z",
@@ -220609,6 +220539,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-e306f5918aef",
+      "idea_version": "IDEAV-0a39fd32bbe1dbe6",
+      "idea_version_started_at": "2026-11-01T07:00:15Z",
+      "ticker": "RAINBOWCHILD",
+      "company": "Rainbow Children's Medicare",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported a profit rise to ₹84 crore in Q2, indicating improved financial performance.",
+      "why_now": "The Q2 results were released on November 1, 2026, providing current financial data.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1a3806a46f6f"
+      ],
+      "primary_source_event_id": "EVT-1a3806a46f6f",
+      "source_headlines": [
+        "Rainbow Children's Medicare Q2 results: Profit rises to ₹84 cr"
+      ],
+      "source_headline": "Rainbow Children's Medicare Q2 results: Profit rises to ₹84 cr",
+      "source_url": "https://www.thehindubusinessline.com/companies/rainbow-childrens-medicare-q2-results-profit-rises-to-84-cr/article71652182.ece",
+      "source_name": "The Hindu BusinessLine",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-01T06:09:46Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-01T07:00:15Z",
+      "updated_at": "2026-11-01T07:00:15Z",
+      "decay_at": "2026-11-02T18:09:46Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-32b27c260ad7",
       "idea_version": "IDEAV-3a4893254c2fbf6c",
       "idea_version_started_at": "2026-11-01T06:01:40Z",
@@ -222272,14 +222274,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 539,
+    "total_count": 540,
     "shown_count": 500,
-    "hidden_count": 39,
+    "hidden_count": 40,
     "side_counts": {
       "long": {
-        "total_count": 273,
+        "total_count": 274,
         "shown_count": 250,
-        "hidden_count": 23
+        "hidden_count": 24
       },
       "short": {
         "total_count": 266,
@@ -222303,6 +222305,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-e306f5918aef",
+        "idea_version": "IDEAV-0a39fd32bbe1dbe6",
+        "idea_version_started_at": "2026-11-01T07:00:15Z",
+        "ticker": "RAINBOWCHILD",
+        "company": "Rainbow Children's Medicare",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company reported a profit rise to ₹84 crore in Q2, indicating improved financial performance.",
+        "why_now": "The Q2 results were released on November 1, 2026, providing current financial data.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-1a3806a46f6f"
+        ],
+        "primary_source_event_id": "EVT-1a3806a46f6f",
+        "source_headlines": [
+          "Rainbow Children's Medicare Q2 results: Profit rises to ₹84 cr"
+        ],
+        "source_headline": "Rainbow Children's Medicare Q2 results: Profit rises to ₹84 cr",
+        "source_url": "https://www.thehindubusinessline.com/companies/rainbow-childrens-medicare-q2-results-profit-rises-to-84-cr/article71652182.ece",
+        "source_name": "The Hindu BusinessLine",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-01T06:09:46Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-01T07:00:15Z",
+        "updated_at": "2026-11-01T07:00:15Z",
+        "decay_at": "2026-11-02T18:09:46Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-02T18:09:46Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-4c66016b229f",
         "idea_version": "IDEAV-e66f0b9298ef0a34",
@@ -251782,81 +251859,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-b42877d9ccad",
-        "idea_version": "IDEAV-f7fd0b95cffe3c9f",
-        "idea_version_started_at": "2026-10-17T08:35:11Z",
-        "ticker": "DHL",
-        "company": "DHL Group",
-        "exchange": "XETRA",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company raised its FY26 EBIT outlook following strong Q3 performance, indicating better-than-expected operational efficiency and volume recovery.",
-        "why_now": "The guidance hike was announced on October 17, 2026, and is currently being digested by the market.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-58aa4439e185"
-        ],
-        "primary_source_event_id": "EVT-58aa4439e185",
-        "source_headlines": [
-          "DHL Raises FY26 EBIT Outlook After Strong Q3 Performance"
-        ],
-        "source_headline": "DHL Raises FY26 EBIT Outlook After Strong Q3 Performance",
-        "source_url": "https://www.nasdaq.com/articles/dhl-raises-fy26-ebit-outlook-after-strong-q3-performance",
-        "source_name": "Nasdaq",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-17T04:21:48Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-17T08:35:11Z",
-        "updated_at": "2026-10-17T08:35:11Z",
-        "decay_at": "2026-10-18T16:21:48Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-20T05:56:57Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-0b852ac1558d",
         "idea_version": "IDEAV-b846ee605c075730",
         "idea_version_started_at": "2026-10-18T02:00:52Z",
@@ -259532,7 +259534,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2128,
-    "live_count": 79,
+    "live_count": 78,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -259551,9 +259553,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4456284,
-    "news_picked_today": 1395,
-    "news_dropped_today": 8067
+    "news_seen_today": 4558541,
+    "news_picked_today": 1406,
+    "news_dropped_today": 8104
   },
   "book_momentum": {
     "live_count": 8,
