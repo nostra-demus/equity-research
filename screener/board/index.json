@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-11-02T15:40:52Z",
+  "generated_at": "2026-11-02T15:53:58Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261102-620",
+      "headline": "25-NSE - LiveRamp Holdings, Inc. (0000733269) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/733269/000087666126000877/0000876661-26-000877-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-02T15:09:28Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "LiveRamp Holdings, Inc. is subject to a delisting notification from the NYSE.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "LiveRamp Holdings, Inc. is subject to a delisting notification from the NYSE.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LiveRamp Holdings, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-621",
+      "headline": "25-NSE - NATIONAL RURAL UTILITIES COOPERATIVE FINANCE CORP /DC/ (0000070502) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/70502/000087666126000875/0000876661-26-000875-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-02T15:06:32Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "National Rural Utilities Cooperative Finance Corp is subject to a delisting notification from the NYSE.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "National Rural Utilities Cooperative Finance Corp is subject to a delisting notification from the NYSE.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "National Rural Utilities Cooperative Finance Corp",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261102-575",
       "headline": "XIN YUAN ENT (01748): JOINT ANNOUNCEMENT PRE-CONDITIONAL VOLUNTARY GENERAL CASH OFFER BY ICBC INTERNATIONAL CAPITAL LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR AND/OR PARTIES ACTING IN CONCERT WITH IT) COMPLETION OF ACQUISITION OF SHARES BY THE OFFEROR",
@@ -1888,109 +1986,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-509",
-      "headline": "Marvell To Acquire Lumentum In $115 Bln All-Stock Deal",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/marvell-acquire-lumentum-115-bln-all-stock-deal",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T12:58:24Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Major M&A announcement involving a $115 billion deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Major M&A announcement involving a $115 billion deal.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Marvell Technology",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Lumentum Holdings",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-501",
-      "headline": "GSFC Q2 Results: Net profit drops 38% as higher raw material costs hit fertiliser margins",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/stocks/gsfc-share-price-q2-results-net-profit-drops-38-as-higher-raw-material-costs-hit-fertiliser-margins-20025139.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T12:53:52Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "GSFC reported a 38% drop in net profit due to rising raw material costs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "GSFC reported a 38% drop in net profit due to rising raw material costs.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Gujarat State Fertilizers & Chemicals",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -217404,79 +217399,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-32b27c260ad7",
-      "idea_version": "IDEAV-3a4893254c2fbf6c",
-      "idea_version_started_at": "2026-11-01T06:01:40Z",
-      "ticker": "SURAJEST",
-      "company": "Suraj Estate Developers",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company reported a 30% decline in Q2 profit, indicating margin compression or slowing project execution.",
-      "why_now": "The Q2 results were released on November 1, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-de7745ef6f51"
-      ],
-      "primary_source_event_id": "EVT-de7745ef6f51",
-      "source_headlines": [
-        "Suraj Estate Developers Q2 results: Profit down 30%"
-      ],
-      "source_headline": "Suraj Estate Developers Q2 results: Profit down 30%",
-      "source_url": "https://www.thehindubusinessline.com/companies/suraj-estate-developers-q2-results-profit-down-30/article71652058.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-01T03:47:43Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-01T06:01:40Z",
-      "updated_at": "2026-11-01T06:01:40Z",
-      "decay_at": "2026-11-02T15:47:43Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-41c5501266bc",
       "idea_version": "IDEAV-03b730a97de42b8a",
       "idea_version_started_at": "2026-11-01T10:30:47Z",
@@ -220545,6 +220467,79 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-32b27c260ad7",
+      "idea_version": "IDEAV-3a4893254c2fbf6c",
+      "idea_version_started_at": "2026-11-01T06:01:40Z",
+      "ticker": "SURAJEST",
+      "company": "Suraj Estate Developers",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company reported a 30% decline in Q2 profit, indicating margin compression or slowing project execution.",
+      "why_now": "The Q2 results were released on November 1, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-de7745ef6f51"
+      ],
+      "primary_source_event_id": "EVT-de7745ef6f51",
+      "source_headlines": [
+        "Suraj Estate Developers Q2 results: Profit down 30%"
+      ],
+      "source_headline": "Suraj Estate Developers Q2 results: Profit down 30%",
+      "source_url": "https://www.thehindubusinessline.com/companies/suraj-estate-developers-q2-results-profit-down-30/article71652058.ece",
+      "source_name": "The Hindu BusinessLine",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-01T03:47:43Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-01T06:01:40Z",
+      "updated_at": "2026-11-01T06:01:40Z",
+      "decay_at": "2026-11-02T15:47:43Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-9ac8f2ae4804",
       "idea_version": "IDEAV-aba2c949217507f1",
       "idea_version_started_at": "2026-11-01T03:42:18Z",
@@ -222134,9 +222129,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 536,
+    "total_count": 537,
     "shown_count": 500,
-    "hidden_count": 36,
+    "hidden_count": 37,
     "side_counts": {
       "long": {
         "total_count": 272,
@@ -222144,9 +222139,9 @@
         "hidden_count": 22
       },
       "short": {
-        "total_count": 264,
+        "total_count": 265,
         "shown_count": 250,
-        "hidden_count": 14
+        "hidden_count": 15
       }
     },
     "retention": {
@@ -222165,6 +222160,82 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-32b27c260ad7",
+        "idea_version": "IDEAV-3a4893254c2fbf6c",
+        "idea_version_started_at": "2026-11-01T06:01:40Z",
+        "ticker": "SURAJEST",
+        "company": "Suraj Estate Developers",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company reported a 30% decline in Q2 profit, indicating margin compression or slowing project execution.",
+        "why_now": "The Q2 results were released on November 1, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-de7745ef6f51"
+        ],
+        "primary_source_event_id": "EVT-de7745ef6f51",
+        "source_headlines": [
+          "Suraj Estate Developers Q2 results: Profit down 30%"
+        ],
+        "source_headline": "Suraj Estate Developers Q2 results: Profit down 30%",
+        "source_url": "https://www.thehindubusinessline.com/companies/suraj-estate-developers-q2-results-profit-down-30/article71652058.ece",
+        "source_name": "The Hindu BusinessLine",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-01T03:47:43Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-01T06:01:40Z",
+        "updated_at": "2026-11-01T06:01:40Z",
+        "decay_at": "2026-11-02T15:47:43Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-02T15:47:43Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-e4ec9dd335a2",
         "idea_version": "IDEAV-ce757ee5abf7d480",
@@ -259310,86 +259381,12 @@
         "archived_at": "2026-10-08T05:28:26Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-d93816107e63",
-        "idea_version": "IDEAV-d42b0fc859b19166",
-        "idea_version_started_at": "2026-10-05T07:26:59Z",
-        "ticker": "V2RETAIL.NS",
-        "company": "V2 Retail",
-        "exchange": "NSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "V2 Retail shares plunged on a Q2 business update indicating that a shift in the festive season is weighing on growth.",
-        "why_now": "The shares plunged 20% on October 5, 2026, following the Q2 business update.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 67,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-895299b8b1db"
-        ],
-        "primary_source_event_id": "EVT-895299b8b1db",
-        "source_headlines": [
-          "Crash alert! V2 Retail shares plunge 20% on Q2 business update; festive season shift weighs on growth"
-        ],
-        "source_headline": "Crash alert! V2 Retail shares plunge 20% on Q2 business update; festive season shift weighs on growth",
-        "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/crash-alert-v2-retail-shares-plunge-20-on-q2-business-update-festive-season-shift-weighs-on-growth/articleshow/134685984.cms",
-        "source_name": "The Economic Times",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-05T04:36:08Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-05T07:26:59Z",
-        "updated_at": "2026-10-05T07:26:59Z",
-        "decay_at": "2026-10-06T16:36:08Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-08T05:28:26Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2122,
-    "live_count": 80,
+    "live_count": 79,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -259408,9 +259405,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3171999,
-    "news_picked_today": 1253,
-    "news_dropped_today": 7249
+    "news_seen_today": 3320571,
+    "news_picked_today": 1255,
+    "news_dropped_today": 7343
   },
   "book_momentum": {
     "live_count": 8,
