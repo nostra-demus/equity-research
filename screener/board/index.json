@@ -1,6 +1,577 @@
 {
-  "generated_at": "2026-11-01T23:52:12Z",
+  "generated_at": "2026-11-02T00:07:36Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261102-012",
+      "headline": "Binance sees spike in withdrawals as exchange returns online after US$6.3 billion heist",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/international/global/binance-sees-spike-withdrawals-exchange-returns-online-after-us6-3-billion-heist",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T22:11:38Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Binance is facing a liquidity crisis following a US$6.3 billion heist, which poses a severe threat to the exchange's solvency and operational stability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Binance is facing a liquidity crisis following a US$6.3 billion heist, which poses a severe threat to the exchange's solvency and operational stability.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "cybersecurity",
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Binance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-006",
+      "headline": "HUTCHMED (00013): VOLUNTARY ANNOUNCEMENT - HUTCHMED Announces Regulatory Filings Accepted for Review for ORPATHYS plus TAGRISSO in MET-Driven EGFR-Mutated Lung Cancer in Europe and Japan",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1102/2026110200041.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-02T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Hutchmed received regulatory acceptance for review of its drug combination in Europe and Japan.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Hutchmed received regulatory acceptance for review of its drug combination in Europe and Japan.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hutchmed",
+          "ticker": "00013",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-002",
+      "headline": "CHERISH SUN (01094): PROPOSED CHANGE OF AUDITOR AND NOTICE OF SPECIAL GENERAL MEETING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1102/2026110200005.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-01T22:08:00Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Cherish Sun announced a proposed change of auditor, which can signal accounting or governance concerns.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Cherish Sun announced a proposed change of auditor, which can signal accounting or governance concerns.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "management",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cherish Sun",
+          "ticker": "01094",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-001",
+      "headline": "JENSCARE-B (09877): VOLUNTARY ANNOUNCEMENT PRESENTATION OF THE 6-MONTH FOLLOW-UP RESULTS OF TRAVEL III AND THE 2-YEAR FOLLOW-UP RESULTS OF TRAVEL II OF THE LUX-VALVE PLUS CLINICAL STUDY AT TCT 2026 IN THE UNITED STATES",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1102/2026110200043.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-02T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Jenscare-B reported positive clinical trial results for its Lux-Valve Plus at TCT 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "Jenscare-B reported positive clinical trial results for its Lux-Valve Plus at TCT 2026.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jenscare-B",
+          "ticker": "09877",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-005",
+      "headline": "GE Vernova shares in focus after Q2 results beat; Motilal Oswal sees 27% upside",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/ge-vernova-td-share-price-q2-result-reaction-fy27-guidance-hvdc-order-flows-buy-sell-target-upside-returns-20024278.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T00:03:23Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "GE Vernova reported Q2 results that beat expectations, prompting analyst upgrades.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "GE Vernova reported Q2 results that beat expectations, prompting analyst upgrades.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GE Vernova",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-003",
+      "headline": "HJ SCIENCE-B (06132): VOLUNTARY ANNOUNCEMENT INTENTION TO CONDUCT ON-MARKET SHARE REPURCHASES",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1102/2026110200001.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-01T22:05:00Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "HJ Science-B announced an intention to conduct on-market share repurchases.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 67,
+      "triage_reason": "HJ Science-B announced an intention to conduct on-market share repurchases.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HJ Science-B",
+          "ticker": "06132",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-008",
+      "headline": "HSBC HOLDINGS (00005): Transaction in own shares",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1102/2026110200021.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-01T23:09:00Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "HSBC Holdings reported a transaction in its own shares, indicating ongoing buyback activity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 66,
+      "triage_reason": "HSBC Holdings reported a transaction in its own shares, indicating ongoing buyback activity.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HSBC Holdings",
+          "ticker": "00005",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-007",
+      "headline": "KANGQIAO SER (02205): (1)CONTINUING CONNECTED TRANSACTIONS: THE 2027 VALUE-ADDED SERVICES MASTER FRAMEWORK AGREEMENT AND THE 2027 SALES AGENCY SERVICES FRAMEWORK AGREEMENT AND (2)PROPOSED AMENDMENTS TO THE EXISTING MEMORANDUM AND ARTICLES OF ASSOCIATION AND PROPOSED ADOPTION OF THE NEW MEMORANDUM AND ARTICLES OF ASSOCIATION",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1102/2026110200027.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-01T23:32:00Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Kangqiao Ser announced new continuing connected transaction framework agreements for 2027.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 63,
+      "triage_reason": "Kangqiao Ser announced new continuing connected transaction framework agreements for 2027.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kangqiao Ser",
+          "ticker": "02205",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-004",
+      "headline": "Air India weighs Singapore Airlines executive for CFO as losses mount",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/people/air-india-weighs-singapore-airlines-executive-for-cfo-as-losses-mount-11793511128094.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T00:01:02Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Air India is searching for a new CFO amid mounting financial losses.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 60,
+      "triage_reason": "Air India is searching for a new CFO amid mounting financial losses.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Air India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-010",
+      "headline": "Oil slips more than 1% as talks continue on ending Iran war",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/energy-commodities/oil-slips-more-1-talks-continue-ending-iran-war",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-01T23:51:38Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Oil prices declined by more than 1% amid ongoing diplomatic discussions regarding the potential end of the Iran conflict.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 53,
+      "triage_reason": "Oil prices declined by more than 1% amid ongoing diplomatic discussions regarding the potential end of the Iran conflict.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-011",
+      "headline": "Lee to address National Assembly on next year's gov't budget",
+      "headline_en": null,
+      "url": "https://www.koreaherald.com/article/10922163",
+      "source_name": "The Korea Herald — All News",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T00:03:52Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "A routine address by a political leader regarding the upcoming government budget is a standard administrative event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "A routine address by a political leader regarding the upcoming government budget is a standard administrative event.",
+      "region": "KR",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-009",
+      "headline": "Gulf States Fear Iran Retaliation If US Strikes Again",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-11-02/gulf-states-fear-iran-retaliation-if-us-strikes-again-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T00:01:10Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Geopolitical tensions in the Gulf region regarding potential Iran retaliation pose a significant risk to regional stability and energy markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Geopolitical tensions in the Gulf region regarding potential Iran retaliation pose a significant risk to regional stability and energy markets.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261101-386",
       "headline": "PNC: 3 Year Major Bank Agreement and $14.4m Portfolio Acquisition [price-sensitive]",
@@ -214746,78 +215317,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-f1cc701b7807",
-      "idea_version": "IDEAV-56ad1bd69c547932",
-      "idea_version_started_at": "2026-10-31T22:55:38Z",
-      "ticker": "SUNPHARMA",
-      "company": "Sun Pharmaceutical Industries",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Regulatory orders to halt production at the Assam plant due to product recalls will negatively impact near-term revenue and operational efficiency.",
-      "why_now": "The regulatory action was reported on 2026-10-31.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d1ab778fe50b"
-      ],
-      "primary_source_event_id": "EVT-d1ab778fe50b",
-      "source_headlines": [
-        "Ophthalmic products recalled: Why drug regulators ordered Sun Pharma to halt eye-drop production at Assam plant?"
-      ],
-      "source_headline": "Ophthalmic products recalled: Why drug regulators ordered Sun Pharma to halt eye-drop production at Assam plant?",
-      "source_url": "https://www.livemint.com/companies/news/ophthalmic-products-recalled-why-drug-regulators-ordered-sun-pharma-to-halt-eye-drop-production-at-assam-plant-11793441384482.html",
-      "source_name": "Mint",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-31T12:04:30Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-31T15:27:23Z",
-      "updated_at": "2026-10-31T22:55:38Z",
-      "decay_at": "2026-11-02T00:04:30Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-3a8aa320e39f",
       "idea_version": "IDEAV-2a5692ce96964e85",
       "idea_version_started_at": "2026-10-31T22:35:25Z",
@@ -217109,6 +217608,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-f1cc701b7807",
+      "idea_version": "IDEAV-56ad1bd69c547932",
+      "idea_version_started_at": "2026-10-31T22:55:38Z",
+      "ticker": "SUNPHARMA",
+      "company": "Sun Pharmaceutical Industries",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Regulatory orders to halt production at the Assam plant due to product recalls will negatively impact near-term revenue and operational efficiency.",
+      "why_now": "The regulatory action was reported on 2026-10-31.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d1ab778fe50b"
+      ],
+      "primary_source_event_id": "EVT-d1ab778fe50b",
+      "source_headlines": [
+        "Ophthalmic products recalled: Why drug regulators ordered Sun Pharma to halt eye-drop production at Assam plant?"
+      ],
+      "source_headline": "Ophthalmic products recalled: Why drug regulators ordered Sun Pharma to halt eye-drop production at Assam plant?",
+      "source_url": "https://www.livemint.com/companies/news/ophthalmic-products-recalled-why-drug-regulators-ordered-sun-pharma-to-halt-eye-drop-production-at-assam-plant-11793441384482.html",
+      "source_name": "Mint",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-31T12:04:30Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-31T15:27:23Z",
+      "updated_at": "2026-10-31T22:55:38Z",
+      "decay_at": "2026-11-02T00:04:30Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-6dc35076d550",
       "idea_version": "IDEAV-a220301c97f06c51",
       "idea_version_started_at": "2026-10-31T22:35:25Z",
@@ -217979,9 +218550,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 520,
+    "total_count": 521,
     "shown_count": 500,
-    "hidden_count": 20,
+    "hidden_count": 21,
     "side_counts": {
       "long": {
         "total_count": 263,
@@ -217989,9 +218560,9 @@
         "hidden_count": 13
       },
       "short": {
-        "total_count": 257,
+        "total_count": 258,
         "shown_count": 250,
-        "hidden_count": 7
+        "hidden_count": 8
       }
     },
     "retention": {
@@ -218010,6 +218581,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-f1cc701b7807",
+        "idea_version": "IDEAV-56ad1bd69c547932",
+        "idea_version_started_at": "2026-10-31T22:55:38Z",
+        "ticker": "SUNPHARMA",
+        "company": "Sun Pharmaceutical Industries",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Regulatory orders to halt production at the Assam plant due to product recalls will negatively impact near-term revenue and operational efficiency.",
+        "why_now": "The regulatory action was reported on 2026-10-31.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-d1ab778fe50b"
+        ],
+        "primary_source_event_id": "EVT-d1ab778fe50b",
+        "source_headlines": [
+          "Ophthalmic products recalled: Why drug regulators ordered Sun Pharma to halt eye-drop production at Assam plant?"
+        ],
+        "source_headline": "Ophthalmic products recalled: Why drug regulators ordered Sun Pharma to halt eye-drop production at Assam plant?",
+        "source_url": "https://www.livemint.com/companies/news/ophthalmic-products-recalled-why-drug-regulators-ordered-sun-pharma-to-halt-eye-drop-production-at-assam-plant-11793441384482.html",
+        "source_name": "Mint",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-31T12:04:30Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-31T15:27:23Z",
+        "updated_at": "2026-10-31T22:55:38Z",
+        "decay_at": "2026-11-02T00:04:30Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-02T00:04:30Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-f14c523b1f9e",
         "idea_version": "IDEAV-65c6bdfd530b8917",
@@ -255153,87 +255799,12 @@
         "archived_at": "2026-10-08T03:53:12Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-df9684f7875d",
-        "idea_version": "IDEAV-91754f7cb8a97e1f",
-        "idea_version_started_at": "2026-10-04T22:10:04Z",
-        "ticker": "CSL",
-        "company": "CSL Limited",
-        "exchange": "ASX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The $1.6 billion cash outlay for the rare disease drug deal will significantly increase leverage and dilute near-term free cash flow, pressuring the balance sheet.",
-        "why_now": "The deal was officially announced on 2026-10-04, and the market is currently digesting the impact of the acquisition cost on the company's capital structure.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-8e2516cef453"
-        ],
-        "primary_source_event_id": "EVT-8e2516cef453",
-        "source_headlines": [
-          "CSL Agrees to Pay Up to $1.6 Billion in Rare Disease Drug Deal"
-        ],
-        "source_headline": "CSL Agrees to Pay Up to $1.6 Billion in Rare Disease Drug Deal",
-        "source_url": "https://www.bloomberg.com/news/articles/2026-10-04/csl-agrees-to-pay-up-to-1-6-billion-in-rare-disease-drug-deal",
-        "source_name": "Bloomberg",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-04T21:55:14Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-04T22:10:04Z",
-        "updated_at": "2026-10-04T22:10:04Z",
-        "decay_at": "2026-10-06T09:55:14Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-08T03:53:12Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2090,
-    "live_count": 66,
+    "live_count": 65,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -255243,7 +255814,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4327,
+    "inbox_unconsumed": 4339,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -255252,9 +255823,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 17416,
-    "news_picked_today": 930,
-    "news_dropped_today": 4026
+    "news_seen_today": 54,
+    "news_picked_today": 12,
+    "news_dropped_today": 42
   },
   "book_momentum": {
     "live_count": 8,
