@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-02T01:27:13Z",
+  "generated_at": "2026-11-02T01:37:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20261102-073",
@@ -390,6 +390,104 @@
       "companies": [
         {
           "name": "Binance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-078",
+      "headline": "ARF: Announcement of Goodstart Transaction",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ARF?key=2924-03157058-3A705646",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-02T01:10:36Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "ARF announced a transaction with Goodstart, representing a material corporate development.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "ARF announced a transaction with Goodstart, representing a material corporate development.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ARF",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-077",
+      "headline": "DTR: US Court Update",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.DTR?key=2924-03157059-2A1707802",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-02T01:15:06Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "DTR provided an update regarding ongoing US court proceedings, which may impact legal risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "DTR provided an update regarding ongoing US court proceedings, which may impact legal risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DTR",
           "ticker": null,
           "listing_country": null
         }
@@ -984,6 +1082,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261102-083",
+      "headline": "Caught On Camera: Private Jet With Nine On Board Crashes Near Trump's Mar-a-Lago In Florida, All Dead",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/world/private-jet-with-nine-on-board-crashes-near-trumps-mar-a-lago-in-florida-all-dead-watch-video-12269013#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T01:27:26Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "A private jet crash near a high-profile location is a significant operational and safety event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "A private jet crash near a high-profile location is a significant operational and safety event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261102-070",
       "headline": "Federal Home Loan Mortgage Corporation - Sovereign or Government Agency Debt Price Target Decreased by 52.53% to $21.31",
       "headline_en": null,
@@ -1260,6 +1401,55 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-076",
+      "headline": "GFL: GFLGA Notice of Maturity [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GFL?key=2924-03157064-2A1707804",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-02T01:30:56Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "GFL announced the maturity of its GFLGA debt instrument.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 76,
+      "triage_reason": "GFL announced the maturity of its GFLGA debt instrument.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GFL",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -1749,196 +1939,6 @@
           "name": "G88",
           "ticker": null,
           "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-001",
-      "headline": "JENSCARE-B (09877): VOLUNTARY ANNOUNCEMENT PRESENTATION OF THE 6-MONTH FOLLOW-UP RESULTS OF TRAVEL III AND THE 2-YEAR FOLLOW-UP RESULTS OF TRAVEL II OF THE LUX-VALVE PLUS CLINICAL STUDY AT TCT 2026 IN THE UNITED STATES",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1102/2026110200043.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-02T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Jenscare-B reported positive clinical trial results for its Lux-Valve Plus at TCT 2026.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "Jenscare-B reported positive clinical trial results for its Lux-Valve Plus at TCT 2026.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Jenscare-B",
-          "ticker": "09877",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-055",
-      "headline": "Oil slips more than 1% as talks continue on ending Iran war",
-      "headline_en": null,
-      "url": "https://www.deccanherald.com/world/rest-of-world/oil-slips-more-than-1-as-talks-continue-on-ending-iran-war-4203886",
-      "source_name": "Deccan Herald",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T00:34:21Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Oil prices fell more than 1% due to potential de-escalation in the Iran conflict, impacting global energy markets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "Oil prices fell more than 1% due to potential de-escalation in the Iran conflict, impacting global energy markets.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-005",
-      "headline": "GE Vernova shares in focus after Q2 results beat; Motilal Oswal sees 27% upside",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/ge-vernova-td-share-price-q2-result-reaction-fy27-guidance-hvdc-order-flows-buy-sell-target-upside-returns-20024278.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T00:03:23Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "GE Vernova reported Q2 results that beat expectations, prompting analyst upgrades.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "GE Vernova reported Q2 results that beat expectations, prompting analyst upgrades.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GE Vernova",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-053",
-      "headline": "FAMEGLOW (03774): EXCHANGE NOTICE - RESUMPTION OF TRADING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1102/2026110200079.htm",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-02T00:47:00Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Fameglow Holdings resumed trading on the HKEX.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "Fameglow Holdings resumed trading on the HKEX.",
-      "region": "CN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Fameglow Holdings",
-          "ticker": null,
-          "listing_country": "CN"
         }
       ],
       "size_bucket": "small",
@@ -216618,79 +216618,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-8f55cfd3a569",
-      "idea_version": "IDEAV-12e1242652157832",
-      "idea_version_started_at": "2026-10-31T22:55:38Z",
-      "ticker": "BIRLACORPN",
-      "company": "Birla Corporation",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A 58.6% decline in net profit despite revenue growth highlights severe margin compression and operational challenges.",
-      "why_now": "The Q2 results were released on 2026-10-31.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-fde758db3da8"
-      ],
-      "primary_source_event_id": "EVT-fde758db3da8",
-      "source_headlines": [
-        "Birla Corporation Q2 results: Net profit falls 58.6% to ₹37.5 crore, revenue rises 9.5% to ₹2,415.4 crore"
-      ],
-      "source_headline": "Birla Corporation Q2 results: Net profit falls 58.6% to ₹37.5 crore, revenue rises 9.5% to ₹2,415.4 crore",
-      "source_url": "https://www.cnbctv18.com/market/earnings/birla-corporation-q2-results-net-profit-falls-58-per-cent-to-rs-37-crore-revenue-rises-95-to-rs-24154-crore-20024134.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-31T13:34:32Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-31T17:22:38Z",
-      "updated_at": "2026-10-31T22:55:38Z",
-      "decay_at": "2026-11-02T01:34:32Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-4ff4f52db48f",
       "idea_version": "IDEAV-968c5e200f1eb245",
       "idea_version_started_at": "2026-10-31T22:20:23Z",
@@ -219049,6 +218976,79 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-8f55cfd3a569",
+      "idea_version": "IDEAV-12e1242652157832",
+      "idea_version_started_at": "2026-10-31T22:55:38Z",
+      "ticker": "BIRLACORPN",
+      "company": "Birla Corporation",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A 58.6% decline in net profit despite revenue growth highlights severe margin compression and operational challenges.",
+      "why_now": "The Q2 results were released on 2026-10-31.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-fde758db3da8"
+      ],
+      "primary_source_event_id": "EVT-fde758db3da8",
+      "source_headlines": [
+        "Birla Corporation Q2 results: Net profit falls 58.6% to ₹37.5 crore, revenue rises 9.5% to ₹2,415.4 crore"
+      ],
+      "source_headline": "Birla Corporation Q2 results: Net profit falls 58.6% to ₹37.5 crore, revenue rises 9.5% to ₹2,415.4 crore",
+      "source_url": "https://www.cnbctv18.com/market/earnings/birla-corporation-q2-results-net-profit-falls-58-per-cent-to-rs-37-crore-revenue-rises-95-to-rs-24154-crore-20024134.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-31T13:34:32Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-31T17:22:38Z",
+      "updated_at": "2026-10-31T22:55:38Z",
+      "decay_at": "2026-11-02T01:34:32Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-bd6d23f312b2",
       "idea_version": "IDEAV-cea4dc8e1b283394",
       "idea_version_started_at": "2026-10-31T22:55:38Z",
@@ -220209,9 +220209,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 523,
+    "total_count": 524,
     "shown_count": 500,
-    "hidden_count": 23,
+    "hidden_count": 24,
     "side_counts": {
       "long": {
         "total_count": 265,
@@ -220219,9 +220219,9 @@
         "hidden_count": 15
       },
       "short": {
-        "total_count": 258,
+        "total_count": 259,
         "shown_count": 250,
-        "hidden_count": 8
+        "hidden_count": 9
       }
     },
     "retention": {
@@ -220240,6 +220240,82 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-8f55cfd3a569",
+        "idea_version": "IDEAV-12e1242652157832",
+        "idea_version_started_at": "2026-10-31T22:55:38Z",
+        "ticker": "BIRLACORPN",
+        "company": "Birla Corporation",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "A 58.6% decline in net profit despite revenue growth highlights severe margin compression and operational challenges.",
+        "why_now": "The Q2 results were released on 2026-10-31.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-fde758db3da8"
+        ],
+        "primary_source_event_id": "EVT-fde758db3da8",
+        "source_headlines": [
+          "Birla Corporation Q2 results: Net profit falls 58.6% to ₹37.5 crore, revenue rises 9.5% to ₹2,415.4 crore"
+        ],
+        "source_headline": "Birla Corporation Q2 results: Net profit falls 58.6% to ₹37.5 crore, revenue rises 9.5% to ₹2,415.4 crore",
+        "source_url": "https://www.cnbctv18.com/market/earnings/birla-corporation-q2-results-net-profit-falls-58-per-cent-to-rs-37-crore-revenue-rises-95-to-rs-24154-crore-20024134.htm",
+        "source_name": "CNBC-TV18",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-31T13:34:32Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-31T17:22:38Z",
+        "updated_at": "2026-10-31T22:55:38Z",
+        "decay_at": "2026-11-02T01:34:32Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-02T01:34:32Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-31bf7321c8e2",
         "idea_version": "IDEAV-7e0e36f922691636",
@@ -257387,85 +257463,12 @@
         "archived_at": "2026-10-08T03:53:12Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-d2e9e6fdd3c1",
-        "idea_version": "IDEAV-aaa393c788349404",
-        "idea_version_started_at": "2026-10-04T23:21:25Z",
-        "ticker": "APA",
-        "company": "APA Corporation",
-        "exchange": "NASDAQ",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "A strike at the Forties pipeline system threatens to halt production and export volumes for North Sea assets, directly impacting revenue and operational cash flow.",
-        "why_now": "The union vote backing the strike was reported on 2026-10-04, creating immediate uncertainty regarding supply chain continuity.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 65,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-66801b327a67"
-        ],
-        "primary_source_event_id": "EVT-66801b327a67",
-        "source_headlines": [
-          "Apache workers back strike that could disrupt North Sea Forties oil pipeline, union says"
-        ],
-        "source_headline": "Apache workers back strike that could disrupt North Sea Forties oil pipeline, union says",
-        "source_url": "https://www.reuters.com/business/energy/apache-workers-back-strike-that-could-disrupt-north-sea-forties-oil-pipeline-2026-10-04/",
-        "source_name": "Reuters — Latest (news sitemap)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-04T23:03:32Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-04T23:21:25Z",
-        "updated_at": "2026-10-04T23:21:25Z",
-        "decay_at": "2026-10-06T11:03:32Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-08T03:53:12Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2094,
-    "live_count": 67,
+    "live_count": 66,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -257484,9 +257487,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 389,
-    "news_picked_today": 81,
-    "news_dropped_today": 308
+    "news_seen_today": 450,
+    "news_picked_today": 92,
+    "news_dropped_today": 358
   },
   "book_momentum": {
     "live_count": 8,
