@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-11-02T14:24:30Z",
+  "generated_at": "2026-11-02T15:06:55Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261102-575",
+      "headline": "XIN YUAN ENT (01748): JOINT ANNOUNCEMENT PRE-CONDITIONAL VOLUNTARY GENERAL CASH OFFER BY ICBC INTERNATIONAL CAPITAL LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR AND/OR PARTIES ACTING IN CONCERT WITH IT) COMPLETION OF ACQUISITION OF SHARES BY THE OFFEROR",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1102/2026110203915.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-02T14:32:00Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Xin Yuan Enterprise announced a voluntary general cash offer to acquire all issued shares.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Xin Yuan Enterprise announced a voluntary general cash offer to acquire all issued shares.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Xin Yuan Enterprise",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-578",
+      "headline": "VISTAR HOLDINGS (08535): JOINT ANNOUNCEMENT (1) COMPLETION OF THE ACQUISITION OF SALE SHARES IN VISTAR HOLDINGS LIMITED; (2) UNCONDITIONAL MANDATORY CASH OFFER BY ADVENT SECURITIES (HONG KONG) LIMITED FOR AND ON BEHALF OF MR. ZENG KAI TO ACQUIRE ALL THE ISSUED SHARES IN VISTAR HOLDINGS LIMITED (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY OFFEROR'S CONCERT GROUP); AND (3) RESUMPTION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1102/2026110203897.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-02T14:25:00Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Vistar Holdings announced completion of an acquisition and a subsequent mandatory cash offer.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Vistar Holdings announced completion of an acquisition and a subsequent mandatory cash offer.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vistar Holdings",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261102-500",
       "headline": "Arvind Fashions Limited: Arvind Fashions Limited has informed the Exchange regarding a press release dated November 02, 2026, titled \"Arvind Fashions Ltd. announces highest ever revenue as well as EBITDA, delivers revenue growth of 10.0%, EBITDA growth of 15.5%\".",
@@ -984,37 +1082,184 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261102-561",
-      "headline": "Marvell to buy data centre component maker Lumentum in $115bn AI bet",
+      "inbox_id": "INB-20261102-591",
+      "headline": "TBO Tek Q2 results: Profit rises 12%, revenue jumps 53% as travel demand lifts business",
       "headline_en": null,
-      "url": "https://www.ft.com/content/92322fad-f293-48b8-a14b-00506d78eb3b?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
+      "url": "https://www.cnbctv18.com/market/earnings/tbo-tek-q2-results-net-profit-rises-12-revenue-jumps-nearly-53-yoy-20025199.htm",
+      "source_name": "CNBC-TV18",
       "input_nature": "news_headline",
-      "found_at": "2026-11-02T14:07:40Z",
+      "found_at": "2026-11-02T14:49:55Z",
       "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Marvell Technology confirmed a $115 billion acquisition of Lumentum.",
+      "prelim_note": "TBO Tek reported a 12% profit rise and 53% revenue jump driven by travel demand.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Marvell Technology confirmed a $115 billion acquisition of Lumentum.",
+      "triage_reason": "TBO Tek reported a 12% profit rise and 53% revenue jump driven by travel demand.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TBO Tek",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-589",
+      "headline": "Thomas Cook India Q2 Results: Net profit falls 22% to ₹51.6 crore, revenue down 6%",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/thomas-cook-india-share-price-q2-results-net-profit-falls-rs-51-6-crore-revenue-20025196.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T14:44:10Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Thomas Cook India reported a 22% net profit decline to ₹51.6 crore and 6% revenue drop.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Thomas Cook India reported a 22% net profit decline to ₹51.6 crore and 6% revenue drop.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Thomas Cook India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-590",
+      "headline": "Basmati producer KRBL Q2 Results: Net profit jumps 50% on higher prices, better sales mix",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/stocks/basmati-producer-krbl-share-price-q2-results-net-profit-jumps-50-on-higher-prices-better-sales-mix-20025211.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T14:42:20Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "KRBL reported a 50% jump in net profit due to higher prices and sales mix.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "KRBL reported a 50% jump in net profit due to higher prices and sales mix.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "KRBL",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-586",
+      "headline": "Marvell to buy Lumentum in all-stock deal, a massive bet on AI connectivity",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/11/02/marvell-lumentum-ai-deal.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T14:23:40Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Marvell is reportedly planning to acquire Lumentum in an all-stock deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Marvell is reportedly planning to acquire Lumentum in an all-stock deal.",
       "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 85,
+      "materiality_pre_score": 90,
       "rank_factors": {
-        "materiality": 85,
+        "materiality": 90,
         "source_tier": 0,
         "scope": 5,
         "event": 9,
         "size": 2,
         "recency": 5,
         "materiality_label_floor": 0,
-        "quantified": 6,
+        "quantified": 0,
         "boost_weight": 1,
         "scope_id": "multi_name",
         "source_tier_id": "news",
         "event_id": "mna",
-        "size_bucket": "mega"
+        "size_bucket": "large"
       },
       "event_types": [
         "mna"
@@ -1032,7 +1277,7 @@
           "listing_country": "US"
         }
       ],
-      "size_bucket": "mega",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1743,262 +1988,6 @@
       ],
       "issuer_linkage": "primary",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-481",
-      "headline": "Marico Q2 Results: Net profit jumps 31% YoY to Rs 550 crore, revenue rises 12%",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/marico-q2-results-net-profit-jumps-31-yoy-to-rs-550-crore-revenue-rises-12/articleshow/135460226.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T11:32:38Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Marico reported a 31% YoY net profit jump to Rs 550 crore and 12% revenue growth for Q2.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Marico reported a 31% YoY net profit jump to Rs 550 crore and 12% revenue growth for Q2.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Marico",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-459",
-      "headline": "Saudi Aramco acquires 49% of HUMAIN with $2.6 billion cash injection",
-      "headline_en": null,
-      "url": "http://wamda.com/2026/11/saudi-aramco-acquires-49-humain-2-6-billion-cash-injection",
-      "source_name": "Wamda",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T11:21:23Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Saudi Aramco is acquiring a 49% stake in HUMAIN for $2.6 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Saudi Aramco is acquiring a 49% stake in HUMAIN for $2.6 billion.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Saudi Aramco",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "HUMAIN",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-453",
-      "headline": "Escorts Kubota Q2 results: Profit drops to ₹250 crore as rising costs squeeze tractor margins",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/escorts-kubota-q2-results-profit-drops-to-250-crore-as-rising-costs-squeeze-tractor-margins/article71656162.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T11:10:03Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Company reported Q2 profit drop to ₹250 crore due to margin pressure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Company reported Q2 profit drop to ₹250 crore due to margin pressure.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Escorts Kubota",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-452",
-      "headline": "Petronet LNG Q2 results: Profit rises 9.1% sequentially as revenue jumps nearly 30%",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/earnings/petronet-lng-q2-results-profit-rises-9pc-sequentially-as-revenue-jumps-nearly-30pc-20025021.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T11:09:35Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Company reported Q2 profit growth of 9.1% and revenue jump of nearly 30%.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Company reported Q2 profit growth of 9.1% and revenue jump of nearly 30%.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Petronet LNG",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-471",
-      "headline": "Gamehaus To Acquire Approx. 56% Stake In Anamana For $19.6 Mln, To Invest Additional $7 Mln",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/gamehaus-acquire-approx-56-stake-anamana-196-mln-invest-additional-7-mln",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T11:03:54Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Gamehaus will acquire approximately 56% stake in Anamana for $19.6 million and invest an additional $7 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Gamehaus will acquire approximately 56% stake in Anamana for $19.6 million and invest an additional $7 million.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Gamehaus",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Anamana",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -214513,77 +214502,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-068f2d5467b9",
-      "idea_version": "IDEAV-3d849bf74885129a",
-      "idea_version_started_at": "2026-11-01T02:40:39Z",
-      "ticker": "GOOG",
-      "company": "Alphabet Inc.",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "HD Hyundai Robotics is partnering with Palantir on AI solutions, which could benefit Palantir's AI platform adoption and revenue growth, while potentially creating a competitive dynamic with NVIDIA's AI hardware dominance.",
-      "why_now": "The partnership announcement is a fresh development in the AI solutions space.",
-      "conviction": 45,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 59,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 13,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "pair_trade",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0e5f55cb8ccc"
-      ],
-      "primary_source_event_id": "EVT-0e5f55cb8ccc",
-      "source_headlines": [
-        "HD Hyundai Robotics partners with Palantir on AI solutions"
-      ],
-      "source_headline": "HD Hyundai Robotics partners with Palantir on AI solutions",
-      "source_url": "https://www.koreaherald.com/article/10921633",
-      "source_name": "The Korea Herald — Business",
-      "materiality_max": 62,
-      "newest_source_at": "2026-11-01T02:29:03Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-01T02:40:39Z",
-      "updated_at": "2026-11-01T02:40:39Z",
-      "decay_at": "2026-11-02T14:29:03Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-547b18f6abc8",
       "idea_version": "IDEAV-c3237f3325e6b40f",
       "idea_version_started_at": "2026-11-02T12:13:29Z",
@@ -219347,78 +219265,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-e4ec9dd335a2",
-      "idea_version": "IDEAV-ce757ee5abf7d480",
-      "idea_version_started_at": "2026-11-01T02:40:39Z",
-      "ticker": "XPENG",
-      "company": "Xpeng Inc.",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Xpeng Inc. has surpassed 50,000 monthly deliveries for the first time, indicating strong sales momentum and potential for increased revenue and market share.",
-      "why_now": "The October delivery numbers were just released, providing a current catalyst.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-22f416659c2a"
-      ],
-      "primary_source_event_id": "EVT-22f416659c2a",
-      "source_headlines": [
-        "Xpeng monthly deliveries top 50,000 for first time in October"
-      ],
-      "source_headline": "Xpeng monthly deliveries top 50,000 for first time in October",
-      "source_url": "https://cnevpost.com/2026/11/01/xpeng-deliveries-oct-2026/",
-      "source_name": "CnEVPost",
-      "materiality_max": 88,
-      "newest_source_at": "2026-11-01T02:38:31Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-01T02:40:39Z",
-      "updated_at": "2026-11-01T02:40:39Z",
-      "decay_at": "2026-11-02T14:38:31Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-a506927cac84",
       "idea_version": "IDEAV-99368f6a8ceacc5a",
       "idea_version_started_at": "2026-11-01T07:00:15Z",
@@ -220476,6 +220322,77 @@
       "surfaced_at": "2026-11-01T00:55:29Z",
       "updated_at": "2026-11-01T00:55:29Z",
       "decay_at": "2026-11-02T12:45:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-068f2d5467b9",
+      "idea_version": "IDEAV-3d849bf74885129a",
+      "idea_version_started_at": "2026-11-01T02:40:39Z",
+      "ticker": "GOOG",
+      "company": "Alphabet Inc.",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "HD Hyundai Robotics is partnering with Palantir on AI solutions, which could benefit Palantir's AI platform adoption and revenue growth, while potentially creating a competitive dynamic with NVIDIA's AI hardware dominance.",
+      "why_now": "The partnership announcement is a fresh development in the AI solutions space.",
+      "conviction": 45,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 59,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 13,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "pair_trade",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0e5f55cb8ccc"
+      ],
+      "primary_source_event_id": "EVT-0e5f55cb8ccc",
+      "source_headlines": [
+        "HD Hyundai Robotics partners with Palantir on AI solutions"
+      ],
+      "source_headline": "HD Hyundai Robotics partners with Palantir on AI solutions",
+      "source_url": "https://www.koreaherald.com/article/10921633",
+      "source_name": "The Korea Herald — Business",
+      "materiality_max": 62,
+      "newest_source_at": "2026-11-01T02:29:03Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-01T02:40:39Z",
+      "updated_at": "2026-11-01T02:40:39Z",
+      "decay_at": "2026-11-02T14:29:03Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -221918,6 +221835,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-e4ec9dd335a2",
+      "idea_version": "IDEAV-ce757ee5abf7d480",
+      "idea_version_started_at": "2026-11-01T02:40:39Z",
+      "ticker": "XPENG",
+      "company": "Xpeng Inc.",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Xpeng Inc. has surpassed 50,000 monthly deliveries for the first time, indicating strong sales momentum and potential for increased revenue and market share.",
+      "why_now": "The October delivery numbers were just released, providing a current catalyst.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-22f416659c2a"
+      ],
+      "primary_source_event_id": "EVT-22f416659c2a",
+      "source_headlines": [
+        "Xpeng monthly deliveries top 50,000 for first time in October"
+      ],
+      "source_headline": "Xpeng monthly deliveries top 50,000 for first time in October",
+      "source_url": "https://cnevpost.com/2026/11/01/xpeng-deliveries-oct-2026/",
+      "source_name": "CnEVPost",
+      "materiality_max": 88,
+      "newest_source_at": "2026-11-01T02:38:31Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-01T02:40:39Z",
+      "updated_at": "2026-11-01T02:40:39Z",
+      "decay_at": "2026-11-02T14:38:31Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-827555d74388",
       "idea_version": "IDEAV-6acc1c0ebf61fa03",
       "idea_version_started_at": "2026-11-01T03:20:37Z",
@@ -222143,14 +222132,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 534,
+    "total_count": 536,
     "shown_count": 500,
-    "hidden_count": 34,
+    "hidden_count": 36,
     "side_counts": {
       "long": {
-        "total_count": 270,
+        "total_count": 272,
         "shown_count": 250,
-        "hidden_count": 20
+        "hidden_count": 22
       },
       "short": {
         "total_count": 264,
@@ -222174,6 +222163,155 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-e4ec9dd335a2",
+        "idea_version": "IDEAV-ce757ee5abf7d480",
+        "idea_version_started_at": "2026-11-01T02:40:39Z",
+        "ticker": "XPENG",
+        "company": "Xpeng Inc.",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Xpeng Inc. has surpassed 50,000 monthly deliveries for the first time, indicating strong sales momentum and potential for increased revenue and market share.",
+        "why_now": "The October delivery numbers were just released, providing a current catalyst.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-22f416659c2a"
+        ],
+        "primary_source_event_id": "EVT-22f416659c2a",
+        "source_headlines": [
+          "Xpeng monthly deliveries top 50,000 for first time in October"
+        ],
+        "source_headline": "Xpeng monthly deliveries top 50,000 for first time in October",
+        "source_url": "https://cnevpost.com/2026/11/01/xpeng-deliveries-oct-2026/",
+        "source_name": "CnEVPost",
+        "materiality_max": 88,
+        "newest_source_at": "2026-11-01T02:38:31Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-01T02:40:39Z",
+        "updated_at": "2026-11-01T02:40:39Z",
+        "decay_at": "2026-11-02T14:38:31Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-02T14:38:31Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-068f2d5467b9",
+        "idea_version": "IDEAV-3d849bf74885129a",
+        "idea_version_started_at": "2026-11-01T02:40:39Z",
+        "ticker": "GOOG",
+        "company": "Alphabet Inc.",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "HD Hyundai Robotics is partnering with Palantir on AI solutions, which could benefit Palantir's AI platform adoption and revenue growth, while potentially creating a competitive dynamic with NVIDIA's AI hardware dominance.",
+        "why_now": "The partnership announcement is a fresh development in the AI solutions space.",
+        "conviction": 45,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 59,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 13,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "pair_trade",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-0e5f55cb8ccc"
+        ],
+        "primary_source_event_id": "EVT-0e5f55cb8ccc",
+        "source_headlines": [
+          "HD Hyundai Robotics partners with Palantir on AI solutions"
+        ],
+        "source_headline": "HD Hyundai Robotics partners with Palantir on AI solutions",
+        "source_url": "https://www.koreaherald.com/article/10921633",
+        "source_name": "The Korea Herald — Business",
+        "materiality_max": 62,
+        "newest_source_at": "2026-11-01T02:29:03Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-01T02:40:39Z",
+        "updated_at": "2026-11-01T02:40:39Z",
+        "decay_at": "2026-11-02T14:29:03Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-02T14:29:03Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-0f3b55677926",
         "idea_version": "IDEAV-9f19e3bcb244102a",
@@ -251350,154 +251488,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-abd218ca6c78",
-        "idea_version": "IDEAV-369bf127ef86271f",
-        "idea_version_started_at": "2026-10-18T00:22:45Z",
-        "ticker": "RGR",
-        "company": "Sturm Ruger & Co Inc",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company is the subject of a third-party tender offer, which typically provides a floor for the share price near the offer value.",
-        "why_now": "The SC TO-T/A filing on 2026-10-16 confirms the active status of the tender offer.",
-        "conviction": 85,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 60,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 20,
-          "specificity": 15,
-          "timing": 6,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-0509e6d1723f",
-          "EVT-ed51c00f5029"
-        ],
-        "primary_source_event_id": "EVT-0509e6d1723f",
-        "source_headlines": [
-          "SC TO-T/A - Beretta Holding S.A. (0002086731) (Filed by)",
-          "SC TO-T/A - STURM RUGER & CO INC (0000095029) (Subject)"
-        ],
-        "source_headline": "SC TO-T/A - Beretta Holding S.A. (0002086731) (Filed by)",
-        "source_url": "https://www.sec.gov/Archives/edgar/data/2086731/000119380526001376/0001193805-26-001376-index.htm",
-        "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-16T20:05:38Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-17T00:40:56Z",
-        "updated_at": "2026-10-18T00:22:45Z",
-        "decay_at": "2026-10-18T08:05:38Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-19T20:12:30Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-5fe5950ec028",
-        "idea_version": "IDEAV-1ff517489e6fa495",
-        "idea_version_started_at": "2026-10-18T02:20:51Z",
-        "ticker": "VTRS",
-        "company": "Viatris",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "FDA approval of RYZUMVI for presbyopia opens a new revenue stream in the ophthalmic market, diversifying the company's product portfolio.",
-        "why_now": "The approval was announced on October 16, 2026, and provides a fresh catalyst for growth.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 65,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 18,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 6,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-e1cd84373abb"
-        ],
-        "primary_source_event_id": "EVT-e1cd84373abb",
-        "source_headlines": [
-          "Viatris Receives U.S. FDA Approval for RYZUMVI® for the Treatment of Presbyopia | VTRS Stock News"
-        ],
-        "source_headline": "Viatris Receives U.S. FDA Approval for RYZUMVI® for the Treatment of Presbyopia | VTRS Stock News",
-        "source_url": "https://www.stocktitan.net/news/VTRS/viatris-receives-u-s-fda-approval-for-ryzumvi-for-the-treatment-of-hydthso0blvn.html",
-        "source_name": "Stock Titan — Latest News",
-        "materiality_max": 57,
-        "newest_source_at": "2026-10-16T20:05:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-18T02:20:51Z",
-        "updated_at": "2026-10-18T02:20:51Z",
-        "decay_at": "2026-10-18T08:05:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-19T20:12:30Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-0b852ac1558d",
         "idea_version": "IDEAV-b846ee605c075730",
         "idea_version_started_at": "2026-10-18T02:00:52Z",
@@ -259397,7 +259387,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2122,
-    "live_count": 82,
+    "live_count": 80,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -259416,9 +259406,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2570881,
-    "news_picked_today": 1156,
-    "news_dropped_today": 6794
+    "news_seen_today": 2929193,
+    "news_picked_today": 1196,
+    "news_dropped_today": 6826
   },
   "book_momentum": {
     "live_count": 8,
