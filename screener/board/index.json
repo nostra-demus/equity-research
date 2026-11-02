@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-02T10:46:00Z",
+  "generated_at": "2026-11-02T10:48:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20261102-422",
@@ -96,6 +96,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-423",
+      "headline": "MMP Industries Limited: MMP Industries Limited has informed the Exchange regarding a press release dated November 02, 2026, titled \"MMP Industries Reports Record Quarterly and Half-Yearly Revenue; Q2FY27 Revenue Grows 35% and PAT Rises 73% YoY\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/MMP_02112026153615_MMPILPressRelease30092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-02T10:06:28Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "MMP Industries reported record Q2FY27 results with 35% revenue growth and 73% PAT growth YoY.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "MMP Industries reported record Q2FY27 results with 35% revenue growth and 73% PAT growth YoY.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MMP Industries Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1936,55 +1985,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-155",
-      "headline": "$3.64 billion pulled from world's largest crypto exchange Binance after $6.3 billion heist",
-      "headline_en": null,
-      "url": "https://timesofindia.indiatimes.com/business/international-business/3-64-billion-pulled-from-worlds-largest-crypto-exchange-binance-after-6-3-billion-heist/articleshow/135442021.cms",
-      "source_name": "The Times of India (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T02:25:48Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "A $6.3 billion heist at Binance has triggered $3.64 billion in outflows, indicating a major liquidity and security crisis.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A $6.3 billion heist at Binance has triggered $3.64 billion in outflows, indicating a major liquidity and security crisis.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Binance",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -259397,9 +259397,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1202600,
-    "news_picked_today": 738,
-    "news_dropped_today": 5436
+    "news_seen_today": 1212380,
+    "news_picked_today": 739,
+    "news_dropped_today": 5459
   },
   "book_momentum": {
     "live_count": 8,
