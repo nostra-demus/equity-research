@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-11-02T12:58:22Z",
+  "generated_at": "2026-11-02T13:13:20Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261102-499",
+      "headline": "SC TO-T/A - Cadeler A/S (0001978867) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1978867/000110465926120923/0001104659-26-120923-index.htm",
+      "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-02T12:30:52Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "A third-party tender offer amendment for Cadeler A/S indicates ongoing M&A activity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A third-party tender offer amendment for Cadeler A/S indicates ongoing M&A activity.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cadeler A/S",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-498",
+      "headline": "SC TO-T/A - Cadeler plc (0002063345) (Filed by)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/2063345/000110465926120923/0001104659-26-120923-index.htm",
+      "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-02T12:30:52Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "A third-party tender offer amendment for Cadeler plc indicates ongoing M&A activity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A third-party tender offer amendment for Cadeler plc indicates ongoing M&A activity.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cadeler plc",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261102-494",
       "headline": "Trident Limited: Trident Limited has informed the Exchange about Capacity Expansion and Modernization Project",
@@ -1873,105 +1971,6 @@
         "recency": 4,
         "materiality_label_floor": 0,
         "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Alstom",
-          "ticker": null,
-          "listing_country": "FR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-322",
-      "headline": "Alstom cuts profit and cash forecast as orders held up",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/95723b31-c35b-4d68-9abe-9e082e95e362?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T07:30:14Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Alstom cut its profit and cash flow guidance, marking its second warning this year.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Alstom cut its profit and cash flow guidance, marking its second warning this year.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change",
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Alstom",
-          "ticker": null,
-          "listing_country": "FR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-331",
-      "headline": "Troubled train giant Alstom issues new profit warning",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/95723b31-c35b-4d68-9abe-9e082e95e362?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T07:30:14Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Alstom has issued a new profit warning, indicating ongoing financial and operational difficulties.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Alstom has issued a new profit warning, indicating ongoing financial and operational difficulties.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
@@ -217899,78 +217898,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-9ac8f2ae4804",
-      "idea_version": "IDEAV-aba2c949217507f1",
-      "idea_version_started_at": "2026-11-01T03:42:18Z",
-      "ticker": "CLH",
-      "company": "Coca-Cola Hellenic Bottling Company",
-      "exchange": "LSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A surge in fuel costs has directly impacted an Olympics contractor's profits by 15%, indicating significant margin pressure for companies reliant on logistics and event services.",
-      "why_now": "The impact of fuel cost surge wiping 15% off profit was reported on November 1, 2026, showing a current and significant earnings hit.",
-      "conviction": 40,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-359a4ef9c18c"
-      ],
-      "primary_source_event_id": "EVT-359a4ef9c18c",
-      "source_headlines": [
-        "Fuel cost surge wipes 15pc off Olympics contractor profit"
-      ],
-      "source_headline": "Fuel cost surge wipes 15pc off Olympics contractor profit",
-      "source_url": "https://www.afr.com/property/commercial/fuel-cost-surge-wipes-15pc-off-olympics-contractor-profit-20261101-p61a73?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-01T01:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-01T03:42:18Z",
-      "updated_at": "2026-11-01T03:42:18Z",
-      "decay_at": "2026-11-02T13:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-41c5501266bc",
       "idea_version": "IDEAV-03b730a97de42b8a",
       "idea_version_started_at": "2026-11-01T10:30:47Z",
@@ -220760,6 +220687,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-9ac8f2ae4804",
+      "idea_version": "IDEAV-aba2c949217507f1",
+      "idea_version_started_at": "2026-11-01T03:42:18Z",
+      "ticker": "CLH",
+      "company": "Coca-Cola Hellenic Bottling Company",
+      "exchange": "LSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A surge in fuel costs has directly impacted an Olympics contractor's profits by 15%, indicating significant margin pressure for companies reliant on logistics and event services.",
+      "why_now": "The impact of fuel cost surge wiping 15% off profit was reported on November 1, 2026, showing a current and significant earnings hit.",
+      "conviction": 40,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-359a4ef9c18c"
+      ],
+      "primary_source_event_id": "EVT-359a4ef9c18c",
+      "source_headlines": [
+        "Fuel cost surge wipes 15pc off Olympics contractor profit"
+      ],
+      "source_headline": "Fuel cost surge wipes 15pc off Olympics contractor profit",
+      "source_url": "https://www.afr.com/property/commercial/fuel-cost-surge-wipes-15pc-off-olympics-contractor-profit-20261101-p61a73?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-01T01:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-01T03:42:18Z",
+      "updated_at": "2026-11-01T03:42:18Z",
+      "decay_at": "2026-11-02T13:00:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-2498ee6921aa",
       "idea_version": "IDEAV-4f8529ab4c7075b6",
       "idea_version_started_at": "2026-10-31T22:55:38Z",
@@ -222133,9 +222132,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 527,
+    "total_count": 528,
     "shown_count": 500,
-    "hidden_count": 27,
+    "hidden_count": 28,
     "side_counts": {
       "long": {
         "total_count": 267,
@@ -222143,9 +222142,9 @@
         "hidden_count": 17
       },
       "short": {
-        "total_count": 260,
+        "total_count": 261,
         "shown_count": 250,
-        "hidden_count": 10
+        "hidden_count": 11
       }
     },
     "retention": {
@@ -222164,6 +222163,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-9ac8f2ae4804",
+        "idea_version": "IDEAV-aba2c949217507f1",
+        "idea_version_started_at": "2026-11-01T03:42:18Z",
+        "ticker": "CLH",
+        "company": "Coca-Cola Hellenic Bottling Company",
+        "exchange": "LSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "A surge in fuel costs has directly impacted an Olympics contractor's profits by 15%, indicating significant margin pressure for companies reliant on logistics and event services.",
+        "why_now": "The impact of fuel cost surge wiping 15% off profit was reported on November 1, 2026, showing a current and significant earnings hit.",
+        "conviction": 40,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-359a4ef9c18c"
+        ],
+        "primary_source_event_id": "EVT-359a4ef9c18c",
+        "source_headlines": [
+          "Fuel cost surge wipes 15pc off Olympics contractor profit"
+        ],
+        "source_headline": "Fuel cost surge wipes 15pc off Olympics contractor profit",
+        "source_url": "https://www.afr.com/property/commercial/fuel-cost-surge-wipes-15pc-off-olympics-contractor-profit-20261101-p61a73?ref=rss&utm_medium=rss&utm_source=rss_feed",
+        "source_name": "Australian Financial Review",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-01T01:00:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-01T03:42:18Z",
+        "updated_at": "2026-11-01T03:42:18Z",
+        "decay_at": "2026-11-02T13:00:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-02T13:00:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-c26051237597",
         "idea_version": "IDEAV-3ffab677a3fcd941",
@@ -259312,85 +259386,12 @@
         "archived_at": "2026-10-08T03:53:12Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-2dc2970b998e",
-        "idea_version": "IDEAV-6476c05829bcac72",
-        "idea_version_started_at": "2026-10-05T02:19:59Z",
-        "ticker": "SU.TO",
-        "company": "Suncor Energy",
-        "exchange": "Toronto",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Suncor is selling its offshore Canada oil stakes to Ithaca Energy for $842 million, indicating a strategic divestment that may signal a focus on other assets or a need for capital.",
-        "why_now": "The sale agreement was announced today.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 65,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "pair_trade",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-6c7a1b677142"
-        ],
-        "primary_source_event_id": "EVT-6c7a1b677142",
-        "source_headlines": [
-          "Suncor to sell offshore Canada oil stakes to Ithaca for $842 million"
-        ],
-        "source_headline": "Suncor to sell offshore Canada oil stakes to Ithaca for $842 million",
-        "source_url": "https://www.reuters.com/business/energy/suncor-sell-canadian-offshore-assets-ithaca-108-billion-2026-10-05/",
-        "source_name": "Reuters — Latest (news sitemap)",
-        "materiality_max": 79,
-        "newest_source_at": "2026-10-05T01:52:51Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-05T02:19:59Z",
-        "updated_at": "2026-10-05T02:19:59Z",
-        "decay_at": "2026-10-06T13:52:51Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-08T03:53:12Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2122,
-    "live_count": 89,
+    "live_count": 88,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -259409,9 +259410,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1925949,
-    "news_picked_today": 1016,
-    "news_dropped_today": 6262
+    "news_seen_today": 2052089,
+    "news_picked_today": 1018,
+    "news_dropped_today": 6380
   },
   "book_momentum": {
     "live_count": 8,
