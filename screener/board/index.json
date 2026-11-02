@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-02T20:55:15Z",
+  "generated_at": "2026-11-02T20:58:57Z",
   "inbox": [
     {
       "inbox_id": "INB-20261102-698",
@@ -1377,6 +1377,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261102-707",
+      "headline": "Apple (AAPL) Earnings: Live Q4 2026 Results, iPhone Sales, CEO Ternus Comments",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/live-blog/2026-11-02/apple-fourth-quarter-earnings-live-updates",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T20:30:08Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Apple is reporting Q4 2026 earnings, a major event for the company and the broader market.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Apple is reporting Q4 2026 earnings, a major event for the company and the broader market.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Apple",
+          "ticker": "AAPL",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-708",
+      "headline": "Lumentum Goes From $1 Billion Spinoff to $115 Billion Takeover",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-02/lumentum-goes-from-1-billion-spinoff-to-115-billion-takeover",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T20:28:25Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Lumentum is involved in a significant $115 billion takeover event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Lumentum is involved in a significant $115 billion takeover event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lumentum",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261102-704",
       "headline": "Children’s Place Weighs Possible Liquidation Option in Bankruptcy",
       "headline_en": null,
@@ -1860,114 +1958,6 @@
       "companies": [
         {
           "name": "Amara Raja Energy",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-661",
-      "headline": "Q2 Results LIVE Updates: NALCO profit jumps 28% to ₹1,835 crore; DOMS Industries earnings fall 36%",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/q2-results-live-updates-ril-jpl-dixon-muthoot-cdsl-itc-escorts-kubota-nalco-concor-upl-vrl-ge-vernova-jk-paper-share-price-liveblog-20024452.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T16:15:59Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "NALCO profit jumped 28% to ₹1,835 crore, while DOMS Industries earnings fell 36%.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "NALCO profit jumped 28% to ₹1,835 crore, while DOMS Industries earnings fell 36%.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NALCO",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "DOMS Industries",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-643",
-      "headline": "Q2 Results LIVE Updates: KEC Intl profit down 82%; Wockhardt revenue rises 24% but margins shrink",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/q2-results-live-updates-ril-jpl-dixon-muthoot-cdsl-itc-escorts-kubota-nalco-concor-upl-vrl-ge-vernova-jk-paper-share-price-liveblog-20024452.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T16:05:59Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "KEC Intl reported an 82% profit decline, while Wockhardt saw revenue growth but margin compression.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "KEC Intl reported an 82% profit decline, while Wockhardt saw revenue growth but margin compression.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "KEC Intl",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Wockhardt",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -259533,9 +259523,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6122278,
-    "news_picked_today": 1463,
-    "news_dropped_today": 9295
+    "news_seen_today": 6168274,
+    "news_picked_today": 1467,
+    "news_dropped_today": 9315
   },
   "book_momentum": {
     "live_count": 8,
