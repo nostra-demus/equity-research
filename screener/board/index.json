@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-02T00:57:29Z",
+  "generated_at": "2026-11-02T01:01:55Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261102-057",
+      "headline": "Intel stock plunges 29%. Analysts urge caution on buying the dip",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/access/intel-stock-plunges-analysts-urge-caution-on-buying-the-dip-20024445.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T00:57:42Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Intel shares dropped 29% following a significant earnings miss and guidance concerns, representing a major negative event for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Intel shares dropped 29% following a significant earnings miss and guidance concerns, representing a major negative event for the company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Intel",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261102-045",
       "headline": "Kioxia Shares Tumble After Outlook Suggests Demand Leveling Off",
@@ -1549,6 +1598,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261102-058",
+      "headline": "Westpac is ground zero for banking sector’s pressure test",
+      "headline_en": null,
+      "url": "https://www.afr.com/chanticleer/westpac-is-ground-zero-for-banking-sector-s-pressure-test-20261102-p61akq?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T00:56:15Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Westpac is identified as a focal point for systemic banking sector pressure, highlighting potential operational and credit risks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 63,
+      "triage_reason": "Westpac is identified as a focal point for systemic banking sector pressure, highlighting potential operational and credit risks.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Westpac",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261102-024",
       "headline": "AXE: Archer appoints global technology leader to drive quantum",
       "headline_en": null,
@@ -1830,92 +1928,6 @@
         "operations"
       ],
       "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-020",
-      "headline": "Australian home prices fall for seventh month, looming rate hike adds to pain",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/australian-home-prices-fall-for-seventh-month-looming-rate-hike-adds-to-pain",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T00:20:00Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Australian housing market decline continues with potential for further rate hikes impacting consumer sentiment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 57,
-      "triage_reason": "Australian housing market decline continues with potential for further rate hikes impacting consumer sentiment.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-054",
-      "headline": "Hong Kong plans rules for insurers’ hot new growth market",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/hong-kong-plans-rules-for-insurers-hot-new-growth-market",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T00:52:00Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Hong Kong is planning new regulatory rules for the insurance market, which may impact growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 56,
-      "triage_reason": "Hong Kong is planning new regulatory rules for the insurance market, which may impact growth.",
-      "region": "CN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -257460,9 +257472,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 252,
-    "news_picked_today": 58,
-    "news_dropped_today": 194
+    "news_seen_today": 263,
+    "news_picked_today": 61,
+    "news_dropped_today": 202
   },
   "book_momentum": {
     "live_count": 8,
