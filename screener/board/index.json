@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-02T07:52:54Z",
+  "generated_at": "2026-11-02T08:05:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20261102-321",
@@ -248,6 +248,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261102-331",
+      "headline": "Troubled train giant Alstom issues new profit warning",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/95723b31-c35b-4d68-9abe-9e082e95e362?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T07:30:14Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Alstom has issued a new profit warning, indicating ongoing financial and operational difficulties.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Alstom has issued a new profit warning, indicating ongoing financial and operational difficulties.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Alstom",
+          "ticker": null,
+          "listing_country": "FR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261102-325",
       "headline": "Blackstone-Led Group To Acquire 49.9% Stake In LNG Canada For $3.1 Bln",
       "headline_en": null,
@@ -292,6 +341,56 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-341",
+      "headline": "Ryanair Q2 Profit Down, Despite Higher Traffic; Sees Traffic Growth In FY27; Plans €800 Mln Buyback",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/ryanair-q2-profit-down-despite-higher-traffic-sees-traffic-growth-fy27-plans-eu800-mln",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T06:30:36Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Ryanair reported lower Q2 profit despite traffic growth and announced an 800 million euro buyback.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ryanair reported lower Q2 profit despite traffic growth and announced an 800 million euro buyback.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ryanair",
+          "ticker": null,
+          "listing_country": "IE"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1879,105 +1978,6 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-320",
-      "headline": "Century Plyboards (India) Limited: Century Plyboards (India) Limited has informed the Exchange regarding 'Commencement of commercial production at newly set-up plywood manufacturing unit at Hoshiarpur, Punjab'.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/CENTURYPLY_02112026113824_Hoshiarpur_Plywood_commercial_production.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-02T06:10:15Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Century Plyboards commenced commercial production at its new plywood manufacturing unit in Hoshiarpur, Punjab.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Century Plyboards commenced commercial production at its new plywood manufacturing unit in Hoshiarpur, Punjab.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Century Plyboards",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-328",
-      "headline": "Affle 3i shares rally over 10% on strong Q2 numbers, $420 million Perion acquisition",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/affle-3i-share-price-rally-strong-q2-numbers-perion-acquisition-deal-equity-value-20024765.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T06:59:27Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Affle 3i reported strong Q2 results and announced a $420 million acquisition of Perion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Affle 3i reported strong Q2 results and announced a $420 million acquisition of Perion.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Affle 3i",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -259241,9 +259241,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 359680,
-    "news_picked_today": 561,
-    "news_dropped_today": 4053
+    "news_seen_today": 397594,
+    "news_picked_today": 599,
+    "news_dropped_today": 4927
   },
   "book_momentum": {
     "live_count": 8,
