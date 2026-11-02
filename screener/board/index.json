@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-02T06:11:33Z",
+  "generated_at": "2026-11-02T06:28:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20261102-266",
@@ -144,6 +144,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-316",
+      "headline": "Reliance Stock Jumps Over 8% After Record Q2 Results",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/reliance-stock-jumps-over-8-after-record-q2-results",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T05:39:25Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Reliance Industries reported record Q2 results, leading to an 8% increase in its stock price.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Reliance Industries reported record Q2 results, leading to an 8% increase in its stock price.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Reliance Industries",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1924,56 +1973,6 @@
           "name": "Neuren Pharmaceuticals",
           "ticker": "NEU",
           "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-305",
-      "headline": "Muthoot Finance targets 25% AUM growth in FY27, plans to expand branch network",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/earnings/muthoot-finance-q2-results-raises-full-year-aum-growth-guidance-to-25-pc-alpha-article-20024638.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T05:26:19Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Muthoot Finance targets 25% AUM growth in FY27 and plans branch network expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Muthoot Finance targets 25% AUM growth in FY27 and plans branch network expansion.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Muthoot Finance",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -259096,9 +259095,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 42391,
-    "news_picked_today": 494,
-    "news_dropped_today": 3304
+    "news_seen_today": 89432,
+    "news_picked_today": 496,
+    "news_dropped_today": 3446
   },
   "book_momentum": {
     "live_count": 8,
