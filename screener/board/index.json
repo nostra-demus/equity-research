@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-02T02:23:17Z",
+  "generated_at": "2026-11-02T02:34:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20261102-117",
@@ -92,6 +92,104 @@
           "name": "Lockheed Martin",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-132",
+      "headline": "Concor enters business rescue",
+      "headline_en": null,
+      "url": "https://www.moneyweb.co.za/news/companies-and-deals/concor-enters-business-rescue/",
+      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T02:01:09Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Concor has entered business rescue, indicating a formal insolvency/distress process.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Concor has entered business rescue, indicating a formal insolvency/distress process.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Concor",
+          "ticker": null,
+          "listing_country": "ZA"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261102-143",
+      "headline": "SK hynix Q4 Operating Profit Seen Surpassing 100 Trillion Won for First Time",
+      "headline_en": null,
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=280166",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T01:35:40Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "SK hynix is projected to reach a record quarterly operating profit of 100 trillion won.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SK hynix is projected to reach a record quarterly operating profit of 100 trillion won.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SK hynix",
+          "ticker": null,
+          "listing_country": "KR"
         }
       ],
       "size_bucket": "mega",
@@ -1475,6 +1573,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261102-125",
+      "headline": "RIL share price: Goldman Sachs sees upside to ₹1,840; strong O2C performance drives Q2 earnings beat",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/reliance-industries-ril-share-price-may-rise-39-percent-consensus-estimates-check-targets-q2-results-20024474.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T02:23:14Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Goldman Sachs upgraded Reliance Industries with a target price of ₹1,840 following a Q2 earnings beat driven by O2C performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Goldman Sachs upgraded Reliance Industries with a target price of ₹1,840 following a Q2 earnings beat driven by O2C performance.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Reliance Industries",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261102-059",
       "headline": "Kathmandu owner rallies on takeover talks; Westpac expects 10.9pc property drop; Democratic unity explodes in must-win midterm race",
       "headline_en": null,
@@ -1573,6 +1720,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261102-126",
+      "headline": "Sheng Shiong shares slide 7.9% after modest Q3 earnings growth",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/sheng-shiong-shares-slide-7-9-after-modest-q3-earnings-growth",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T02:28:32Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "Sheng Siong shares fell 7.9% following modest Q3 earnings growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Sheng Siong shares fell 7.9% following modest Q3 earnings growth.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sheng Siong",
+          "ticker": null,
+          "listing_country": "SG"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261102-124",
       "headline": "SK Square eyes record W4.3tr payout from SK hynix dividends",
       "headline_en": null,
@@ -1627,6 +1823,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261102-133",
+      "headline": "LG CNS completes construction of AI data center in Indonesia's Jakarta",
+      "headline_en": null,
+      "url": "https://en.yna.co.kr/view/AEN20261102003900320",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-02T02:14:35Z",
+      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
+      "prelim_note": "LG CNS has completed the construction of an AI data center in Jakarta, Indonesia, marking a strategic expansion of its infrastructure footprint.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "LG CNS has completed the construction of an AI data center in Jakarta, Indonesia, marking a strategic expansion of its infrastructure footprint.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LG CNS",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261102-112",
       "headline": "‘Not playing in the red ocean’: SP Group aims to triple China district cooling capacity in 5 years",
       "headline_en": null,
@@ -1676,292 +1921,47 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261102-084",
-      "headline": "CDSL shares in focus after Q2 profit jumps 24%; demat base grows 17%",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/cdsl-share-price-q2-results-profit-jumps-demat-base-grows-assets-under-custody-20024458.htm",
-      "source_name": "CNBC-TV18",
+      "inbox_id": "INB-20261102-142",
+      "headline": "LG CNS, 인도네시아에 해외 AI데이터센터 완공",
+      "headline_en": "LG CNS completes overseas AI data center in Indonesia",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=280167",
+      "source_name": "Business Korea — All Articles (CDN)",
       "input_nature": "news_headline",
-      "found_at": "2026-11-02T01:31:22Z",
+      "found_at": "2026-11-02T01:36:51Z",
       "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "CDSL reported a 24% increase in Q2 profit and a 17% growth in its demat account base.",
+      "prelim_note": "LG CNS completed its overseas AI data center in Indonesia.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 87,
-      "triage_reason": "CDSL reported a 24% increase in Q2 profit and a 17% growth in its demat account base.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Central Depository Services (India) Ltd",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-116",
-      "headline": "ADX: RENOUNCEABLE RIGHTS ISSUE TO RAISE UP TO $5.2 MILLION [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ADX?key=2924-03156894-6A1353196",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-01T22:20:15Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "ADX is raising up to $5.2 million via a renounceable rights issue, which is dilutive to existing shareholders.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "ADX is raising up to $5.2 million via a renounceable rights issue, which is dilutive to existing shareholders.",
+      "triage_reason": "LG CNS completed its overseas AI data center in Indonesia.",
       "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 65,
+      "materiality_pre_score": 55,
       "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 3,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ADX Energy",
-          "ticker": "ADX",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-096",
-      "headline": "EMP: Full Form Contract Executed for VALARIS 107 Drilling Rig [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EMP?key=2924-03156752-2A1707674",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-01T21:18:30Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "The company secured a formal contract for a drilling rig, providing revenue visibility for its operations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "The company secured a formal contract for a drilling rig, providing revenue visibility for its operations.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Empire Energy Group",
-          "ticker": "EMP",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-106",
-      "headline": "AD1: AdNeo secures strategic education services contract [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AD1?key=2924-03156732-3A705566",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-01T21:16:10Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Ad1 Holdings secured a strategic contract for education services.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Ad1 Holdings secured a strategic contract for education services.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 3,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ad1 Holdings",
-          "ticker": "AD1",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-074",
-      "headline": "Heidi Health goes to war with rival GP software giant over AI plans",
-      "headline_en": null,
-      "url": "https://www.afr.com/technology/heidi-health-goes-to-war-with-rival-gp-software-giant-over-ai-plans-20261102-p61a4x?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T01:20:52Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Heidi Health is initiating legal or competitive conflict with a major incumbent over AI software.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Heidi Health is initiating legal or competitive conflict with a major incumbent over AI software.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
+        "materiality": 55,
         "source_tier": 0,
         "scope": 6,
         "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 25,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Heidi Health",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261102-043",
-      "headline": "Japanese Stocks Fall on Tech Selloff, Kioxia’s Profit Outlook",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-02/japanese-stocks-fall-on-tech-selloff-kioxia-s-profit-outlook",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-02T00:15:20Z",
-      "sweep_file": "screener/inbox/2026-11-02_sweep.json",
-      "prelim_note": "Kioxia's profit outlook is contributing to a broader tech selloff in Japanese markets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Kioxia's profit outlook is contributing to a broader tech selloff in Japanese markets.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
         "size": 0,
         "recency": 5,
-        "materiality_label_floor": 10,
+        "materiality_label_floor": 15,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
+        "event_id": "capex",
         "size_bucket": "unknown"
       },
       "event_types": [
-        "earnings_revenue_margin"
+        "capex"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Kioxia",
+          "name": "LG CNS",
           "ticker": null,
-          "listing_country": "JP"
+          "listing_country": "KR"
         }
       ],
       "size_bucket": "unknown",
@@ -257659,9 +257659,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 737,
-    "news_picked_today": 148,
-    "news_dropped_today": 589
+    "news_seen_today": 814,
+    "news_picked_today": 167,
+    "news_dropped_today": 647
   },
   "book_momentum": {
     "live_count": 8,
