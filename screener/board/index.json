@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-03T07:18:54Z",
+  "generated_at": "2026-11-03T07:24:07Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261103-270",
+      "headline": "MOIL Limited: MOIL Limited has informed the Exchange regarding a press release titled \"MOIL achieves remarkable growth in H1 FY 27: Net Profit Surges 22.5%\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/MOIL_03112026122707_Press_Release_03112026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-03T06:57:41Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "MOIL reported a 22.5% surge in net profit for H1 FY27.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "MOIL reported a 22.5% surge in net profit for H1 FY27.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MOIL",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261103-262",
       "headline": "Arkade Developers Limited: Arkade Developers Limited has informed the Exchange regarding a press release dated November 03, 2026, titled \"Acquisition of Woollen & Textile Industries Limited\".",
@@ -296,6 +345,109 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261103-263",
+      "headline": "Walt Disney layoffs: Thousands of job cuts likely; company asks managers to target 20% savings",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/business/companies/walt-disney-layoffs-thousands-of-job-cuts-likely-company-asks-managers-to-target-20-savings-4205432",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-03T06:50:48Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "Walt Disney is planning thousands of job cuts and targeting 20% cost savings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Walt Disney is planning thousands of job cuts and targeting 20% cost savings.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Walt Disney",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261103-268",
+      "headline": "UAE’s XRG to acquire Shell’s stake in Australian project for $1.45 billion",
+      "headline_en": null,
+      "url": "https://www.khaleejtimes.com/business/uaes-xrg-to-acquire-shells-stake-in-australian-project-for-145-billion",
+      "source_name": "Khaleej Times — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-03T06:18:26Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "XRG to acquire Shell's stake in an Australian project for $1.45 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "XRG to acquire Shell's stake in an Australian project for $1.45 billion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shell",
+          "ticker": null,
+          "listing_country": "GB"
+        },
+        {
+          "name": "XRG",
+          "ticker": null,
+          "listing_country": "AE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261103-258",
       "headline": "Tamilnadu Petroproducts Q2 FY27 Earnings Outshines, Net Profit Zooms 95% To ₹62.54 Crore As Revenue Hits ₹941.63 Crore After Doubling Year-On-Year",
       "headline_en": null,
@@ -399,21 +551,21 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261103-261",
-      "headline": "XRG to Buy Shell’s Stake in Australian Project for $1.45 Billion",
+      "inbox_id": "INB-20261103-266",
+      "headline": "Icahn’s CVR to Buy Marathon Refineries For $4 Billion, WSJ Says",
       "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-03/abu-dhabi-state-oil-producer-xrg-buy-shell-stake-australian-natural-gas-project",
+      "url": "https://www.bloomberg.com/news/articles/2026-11-03/icahn-s-cvr-to-buy-marathon-refineries-for-4-billion-wsj-says",
       "source_name": "Bloomberg",
       "input_nature": "news_headline",
-      "found_at": "2026-11-03T06:06:48Z",
+      "found_at": "2026-11-03T05:18:41Z",
       "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "XRG is acquiring a stake in an Australian project for $1.45 billion.",
+      "prelim_note": "CVR Energy is set to acquire Marathon Petroleum refineries for $4 billion.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "XRG is acquiring a stake in an Australian project for $1.45 billion.",
-      "region": "GLOBAL",
+      "triage_reason": "CVR Energy is set to acquire Marathon Petroleum refineries for $4 billion.",
+      "region": "US",
       "relevance": "material",
       "materiality_pre_score": 85,
       "rank_factors": {
@@ -421,15 +573,15 @@
         "source_tier": 0,
         "scope": 5,
         "event": 9,
-        "size": 0,
-        "recency": 5,
+        "size": 2,
+        "recency": 4,
         "materiality_label_floor": 0,
         "quantified": 6,
         "boost_weight": 1,
         "scope_id": "multi_name",
         "source_tier_id": "news",
         "event_id": "mna",
-        "size_bucket": "unknown"
+        "size_bucket": "large"
       },
       "event_types": [
         "mna"
@@ -437,12 +589,17 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "XRG",
+          "name": "CVR Energy",
           "ticker": null,
-          "listing_country": null
+          "listing_country": "US"
+        },
+        {
+          "name": "Marathon Petroleum",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
-      "size_bucket": "unknown",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1830,153 +1987,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-201",
-      "headline": "Acme Solar Holdings Limited: Acme Solar Holdings Limited has informed the Exchange regarding 'ACME Solar commissions additional 66.68 MW solar capacity at its Hybrid Project in Rajasthan'.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/ACMECS_03112026083454_Intimation03112026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-03T03:06:00Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "Acme Solar commissioned an additional 66.68 MW of solar capacity at its hybrid project in Rajasthan.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Acme Solar commissioned an additional 66.68 MW of solar capacity at its hybrid project in Rajasthan.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Acme Solar Holdings Limited",
-          "ticker": "544283",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-170",
-      "headline": "SCHEDULE 13D - Dine Brands Global, Inc. (0000049754) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/49754/000121390026115110/0001213900-26-115110-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-03T01:55:34Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "Dine Brands Global is the subject of a Schedule 13D filing, suggesting potential activist involvement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Dine Brands Global is the subject of a Schedule 13D filing, suggesting potential activist involvement.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dine Brands Global, Inc.",
-          "ticker": "DIN",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-037",
-      "headline": "BTR: Becoming a substantial holder from GMD",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BTR?key=2924-03157442-6A1353392",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-03T00:23:06Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "Genesis Minerals disclosed a change in substantial holding.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Genesis Minerals disclosed a change in substantial holding.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Genesis Minerals",
-          "ticker": "GMD",
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -218714,150 +218724,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-41f28a3d0d25",
-      "idea_version": "IDEAV-b4a7a147bcb1a00e",
-      "idea_version_started_at": "2026-11-01T19:55:49Z",
-      "ticker": "2070.SR",
-      "company": "SPIMACO",
-      "exchange": "Tadawul",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "SPIMACO reported a Q3 loss driven by declining sales and increased financial provisions, indicating structural margin pressure.",
-      "why_now": "The earnings update was provided on 2026-11-01.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1e53b69965fd"
-      ],
-      "primary_source_event_id": "EVT-1e53b69965fd",
-      "source_headlines": [
-        "‎SPIMACO’s Q3 loss driven by lower sales, higher provisions: CFO"
-      ],
-      "source_headline": "‎SPIMACO’s Q3 loss driven by lower sales, higher provisions: CFO",
-      "source_url": "https://www.argaam.com/en/article/articledetail/id/1949199",
-      "source_name": "Argaam — Main News (English)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-01T19:20:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-01T19:55:49Z",
-      "updated_at": "2026-11-01T19:55:49Z",
-      "decay_at": "2026-11-03T07:20:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-2c0a537d28f4",
-      "idea_version": "IDEAV-f571b505c54b4753",
-      "idea_version_started_at": "2026-11-01T19:26:17Z",
-      "ticker": "2070",
-      "company": "SPIMACO",
-      "exchange": "TSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The CFO confirmed Q3 losses are being driven by a combination of declining sales and increased provisioning, suggesting deteriorating credit or operational quality.",
-      "why_now": "The specific driver of the loss was clarified by management on November 1, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1e53b69965fd"
-      ],
-      "primary_source_event_id": "EVT-1e53b69965fd",
-      "source_headlines": [
-        "‎SPIMACO’s Q3 loss driven by lower sales, higher provisions: CFO"
-      ],
-      "source_headline": "‎SPIMACO’s Q3 loss driven by lower sales, higher provisions: CFO",
-      "source_url": "https://www.argaam.com/en/article/articledetail/id/1949199",
-      "source_name": "Argaam — Main News (English)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-01T19:20:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-01T19:26:17Z",
-      "updated_at": "2026-11-01T19:26:17Z",
-      "decay_at": "2026-11-03T07:20:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-a204395caab2",
       "idea_version": "IDEAV-6cd21665a86d4930",
       "idea_version_started_at": "2026-11-03T02:31:59Z",
@@ -221055,6 +220921,150 @@
       "surfaced_at": "2026-11-01T02:40:39Z",
       "updated_at": "2026-11-01T02:40:39Z",
       "decay_at": "2026-11-02T14:29:03Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-41f28a3d0d25",
+      "idea_version": "IDEAV-b4a7a147bcb1a00e",
+      "idea_version_started_at": "2026-11-01T19:55:49Z",
+      "ticker": "2070.SR",
+      "company": "SPIMACO",
+      "exchange": "Tadawul",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "SPIMACO reported a Q3 loss driven by declining sales and increased financial provisions, indicating structural margin pressure.",
+      "why_now": "The earnings update was provided on 2026-11-01.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1e53b69965fd"
+      ],
+      "primary_source_event_id": "EVT-1e53b69965fd",
+      "source_headlines": [
+        "‎SPIMACO’s Q3 loss driven by lower sales, higher provisions: CFO"
+      ],
+      "source_headline": "‎SPIMACO’s Q3 loss driven by lower sales, higher provisions: CFO",
+      "source_url": "https://www.argaam.com/en/article/articledetail/id/1949199",
+      "source_name": "Argaam — Main News (English)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-01T19:20:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-01T19:55:49Z",
+      "updated_at": "2026-11-01T19:55:49Z",
+      "decay_at": "2026-11-03T07:20:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-2c0a537d28f4",
+      "idea_version": "IDEAV-f571b505c54b4753",
+      "idea_version_started_at": "2026-11-01T19:26:17Z",
+      "ticker": "2070",
+      "company": "SPIMACO",
+      "exchange": "TSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The CFO confirmed Q3 losses are being driven by a combination of declining sales and increased provisioning, suggesting deteriorating credit or operational quality.",
+      "why_now": "The specific driver of the loss was clarified by management on November 1, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1e53b69965fd"
+      ],
+      "primary_source_event_id": "EVT-1e53b69965fd",
+      "source_headlines": [
+        "‎SPIMACO’s Q3 loss driven by lower sales, higher provisions: CFO"
+      ],
+      "source_headline": "‎SPIMACO’s Q3 loss driven by lower sales, higher provisions: CFO",
+      "source_url": "https://www.argaam.com/en/article/articledetail/id/1949199",
+      "source_name": "Argaam — Main News (English)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-01T19:20:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-01T19:26:17Z",
+      "updated_at": "2026-11-01T19:26:17Z",
+      "decay_at": "2026-11-03T07:20:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -224673,9 +224683,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 565,
+    "total_count": 567,
     "shown_count": 500,
-    "hidden_count": 65,
+    "hidden_count": 67,
     "side_counts": {
       "long": {
         "total_count": 294,
@@ -224683,9 +224693,9 @@
         "hidden_count": 44
       },
       "short": {
-        "total_count": 271,
+        "total_count": 273,
         "shown_count": 250,
-        "hidden_count": 21
+        "hidden_count": 23
       }
     },
     "retention": {
@@ -224704,6 +224714,156 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-2c0a537d28f4",
+        "idea_version": "IDEAV-f571b505c54b4753",
+        "idea_version_started_at": "2026-11-01T19:26:17Z",
+        "ticker": "2070",
+        "company": "SPIMACO",
+        "exchange": "TSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The CFO confirmed Q3 losses are being driven by a combination of declining sales and increased provisioning, suggesting deteriorating credit or operational quality.",
+        "why_now": "The specific driver of the loss was clarified by management on November 1, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-1e53b69965fd"
+        ],
+        "primary_source_event_id": "EVT-1e53b69965fd",
+        "source_headlines": [
+          "‎SPIMACO’s Q3 loss driven by lower sales, higher provisions: CFO"
+        ],
+        "source_headline": "‎SPIMACO’s Q3 loss driven by lower sales, higher provisions: CFO",
+        "source_url": "https://www.argaam.com/en/article/articledetail/id/1949199",
+        "source_name": "Argaam — Main News (English)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-01T19:20:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-01T19:26:17Z",
+        "updated_at": "2026-11-01T19:26:17Z",
+        "decay_at": "2026-11-03T07:20:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-03T07:20:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-41f28a3d0d25",
+        "idea_version": "IDEAV-b4a7a147bcb1a00e",
+        "idea_version_started_at": "2026-11-01T19:55:49Z",
+        "ticker": "2070.SR",
+        "company": "SPIMACO",
+        "exchange": "Tadawul",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "SPIMACO reported a Q3 loss driven by declining sales and increased financial provisions, indicating structural margin pressure.",
+        "why_now": "The earnings update was provided on 2026-11-01.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-1e53b69965fd"
+        ],
+        "primary_source_event_id": "EVT-1e53b69965fd",
+        "source_headlines": [
+          "‎SPIMACO’s Q3 loss driven by lower sales, higher provisions: CFO"
+        ],
+        "source_headline": "‎SPIMACO’s Q3 loss driven by lower sales, higher provisions: CFO",
+        "source_url": "https://www.argaam.com/en/article/articledetail/id/1949199",
+        "source_name": "Argaam — Main News (English)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-01T19:20:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-01T19:55:49Z",
+        "updated_at": "2026-11-01T19:55:49Z",
+        "decay_at": "2026-11-03T07:20:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-03T07:20:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-99e1ec3ba3aa",
         "idea_version": "IDEAV-d8e726a62514b89f",
@@ -261796,160 +261956,12 @@
         "archived_at": "2026-10-09T04:30:28Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-545ce98f7a04",
-        "idea_version": "IDEAV-bf8c9158af1b7cff",
-        "idea_version_started_at": "2026-10-06T04:16:10Z",
-        "ticker": "NEE",
-        "company": "NextEra Energy",
-        "exchange": "NYSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The $67 billion acquisition of Dominion Energy is facing significant political headwinds in Virginia, increasing the likelihood of a deal collapse or costly regulatory concessions.",
-        "why_now": "The political backlash was reported on 2026-10-06, creating immediate uncertainty regarding the deal's completion.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 65,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-f9041ced5c97"
-        ],
-        "primary_source_event_id": "EVT-f9041ced5c97",
-        "source_headlines": [
-          "NextEra’s $67bn Dominion takeover faces political backlash in Virginia"
-        ],
-        "source_headline": "NextEra’s $67bn Dominion takeover faces political backlash in Virginia",
-        "source_url": "https://www.ft.com/content/70308419-20a2-4236-a03e-346b4626997b?syn-25a6b1a6=1",
-        "source_name": "Financial Times",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-06T04:00:17Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-06T04:16:10Z",
-        "updated_at": "2026-10-06T04:16:10Z",
-        "decay_at": "2026-10-07T16:00:17Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-09T04:30:28Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-3e068ec8e73f",
-        "idea_version": "IDEAV-01304566a587cf84",
-        "idea_version_started_at": "2026-10-06T03:52:03Z",
-        "ticker": "3695",
-        "company": "GMO Research & AI",
-        "exchange": "TSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The theft of nearly 1 million member records creates significant legal, reputational, and remediation costs that will weigh on near-term earnings.",
-        "why_now": "The breach was reported on 2026-10-06, and the market has not yet fully priced the operational impact.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-d828386a820f"
-        ],
-        "primary_source_event_id": "EVT-d828386a820f",
-        "source_headlines": [
-          "URGENT: Japan's GMO Research & AI says up to 948,500 member records stolen"
-        ],
-        "source_headline": "URGENT: Japan's GMO Research & AI says up to 948,500 member records stolen",
-        "source_url": "https://english.kyodonews.net/articles/-/87302",
-        "source_name": "Kyodo News (Japan Wire)",
-        "materiality_max": 89,
-        "newest_source_at": "2026-10-06T02:47:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-06T03:52:03Z",
-        "updated_at": "2026-10-06T03:52:03Z",
-        "decay_at": "2026-10-07T14:47:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-09T04:30:28Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2138,
-    "live_count": 59,
+    "live_count": 57,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -261968,9 +261980,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4567784,
-    "news_picked_today": 420,
-    "news_dropped_today": 3468
+    "news_seen_today": 4590197,
+    "news_picked_today": 428,
+    "news_dropped_today": 3508
   },
   "book_momentum": {
     "live_count": 8,
