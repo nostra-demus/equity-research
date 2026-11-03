@@ -1,35 +1,33 @@
 {
   "idea_id": "IDEA-0c58fc228db1",
-  "idea_version": "IDEAV-11012b457e0bae84",
-  "idea_version_started_at": "2026-11-03T15:37:42Z",
+  "idea_version": "IDEAV-4dd8b3e7dca133ae",
+  "idea_version_started_at": "2026-11-03T21:03:27Z",
   "ticker": "PFE",
   "company": "Pfizer",
   "exchange": "NYSE",
-  "ticker_verified": false,
-  "listing_verified": false,
+  "ticker_verified": true,
+  "listing_verified": true,
   "liquidity_verified": false,
-  "listing_verification_source": null,
+  "listing_verification_source": "yahoo_symbol_directory",
   "direction": "long",
   "pair_with": null,
-  "reason": "The company raised its full-year outlook driven by growth in newer product lines and appointed a new CFO, signaling improved operational visibility.",
-  "why_now": "The guidance hike and management change were announced on November 03, 2026.",
-  "conviction": 70,
+  "reason": "The company raised its full-year financial outlook driven by growth in new product lines, signaling improved revenue visibility.",
+  "why_now": "The guidance hike was announced on November 3, 2026, and is effective for the current fiscal year.",
+  "conviction": 75,
   "conviction_basis": "pre_edge_proxy",
-  "trade_score": 45,
+  "trade_score": 66,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 14,
     "impact": 20,
-    "specificity": 7,
+    "specificity": 15,
     "timing": 10,
-    "expression": 0,
+    "expression": 7,
     "corroboration": 0,
     "learning_adjustment": 0
   },
-  "trade_readiness": "watch_only",
+  "trade_readiness": "needs_data",
   "missing_checks": [
-    "verified listed ticker",
-    "verified listing",
     "live liquidity",
     "dated catalyst",
     "independent confirmation",
@@ -49,17 +47,17 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-0664b35eb53b"
+    "EVT-1368ef26531d"
   ],
-  "primary_source_event_id": "EVT-0664b35eb53b",
+  "primary_source_event_id": "EVT-1368ef26531d",
   "source_headlines": [
-    "Pfizer hikes full-year outlook as newer products grow, taps company veteran as new CFO"
+    "Pfizer hikes full-year outlook on new product growth, taps company veteran as new CFO"
   ],
-  "source_headline": "Pfizer hikes full-year outlook as newer products grow, taps company veteran as new CFO",
+  "source_headline": "Pfizer hikes full-year outlook on new product growth, taps company veteran as new CFO",
   "source_url": "https://www.cnbc.com/2026/11/03/pfizer-pfe-earnings-q3-2026.html",
   "source_name": "CNBC",
   "materiality_max": 100,
-  "newest_source_at": "2026-11-03T13:24:00Z",
+  "newest_source_at": "2026-11-03T19:25:44Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
@@ -67,8 +65,8 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-11-03T15:37:42Z",
-  "updated_at": "2026-11-03T15:37:42Z",
-  "decay_at": "2026-11-05T01:24:00Z",
+  "updated_at": "2026-11-03T21:03:27Z",
+  "decay_at": "2026-11-05T07:25:44Z",
   "status": "live",
   "promoted_signal_id": null
 }
