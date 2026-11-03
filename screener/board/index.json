@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-03T08:15:20Z",
+  "generated_at": "2026-11-03T08:22:20Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261103-324",
+      "headline": "PPC: Peet Confirms Registration of Scheme Booklet [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PPC?key=2924-03157592-6A1353457",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-03T07:50:52Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "Peet Limited confirmed the registration of a scheme booklet, a key procedural step in a proposed acquisition or privatization.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Peet Limited confirmed the registration of a scheme booklet, a key procedural step in a proposed acquisition or privatization.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Peet Limited",
+          "ticker": "PPC",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261103-270",
       "headline": "MOIL Limited: MOIL Limited has informed the Exchange regarding a press release titled \"MOIL achieves remarkable growth in H1 FY 27: Net Profit Surges 22.5%\".",
@@ -1649,6 +1698,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261103-328",
+      "headline": "Share India Securities Limited: We are pleased to inform you that pursuant to the filing of e-form INC 28 with the Registrar of Companies, the Scheme of Amalgamation of Silverleaf Capital Services Private Limited with Share India Securities Limited has become effective in accordance with its terms.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/SISL_03112026133527_Reg30EffectiveDate03112026Signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-03T08:07:46Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "Share India Securities completed the amalgamation of Silverleaf Capital Services Private Limited.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Share India Securities completed the amalgamation of Silverleaf Capital Services Private Limited.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Share India Securities Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261103-231",
       "headline": "AEV: Trading Halt [price-sensitive]",
       "headline_en": null,
@@ -1889,105 +1987,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-219",
-      "headline": "Yes Bank's AT-1 Bond Woes: JPMorgan Cuts Target Price By 38%, Warns Of Further 10-11% Earnings Hit",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/yes-banks-at-1-bond-woes-jpmorgan-cuts-target-price-by-38-warns-of-further-10-11-earnings-hit-12274139#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T02:28:42Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "JPMorgan cut Yes Bank's target price by 38% citing bond-related earnings risks of 10-11%.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "JPMorgan cut Yes Bank's target price by 38% citing bond-related earnings risks of 10-11%.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Yes Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-184",
-      "headline": "PennyMac Mortgage Investment Trust Reports Third Quarter 2026 Results and Increases Share Repurchase Authorization to $630 million",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/pennymac-mortgage-investment-trust-reports-third-quarter-2026-results-and-increases-share",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T02:28:37Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "PennyMac reported earnings and increased its share repurchase authorization by $630 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "PennyMac reported earnings and increased its share repurchase authorization by $630 million.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PennyMac Mortgage Investment Trust",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -261981,9 +261980,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5315383,
-    "news_picked_today": 505,
-    "news_dropped_today": 3887
+    "news_seen_today": 5383558,
+    "news_picked_today": 517,
+    "news_dropped_today": 4307
   },
   "book_momentum": {
     "live_count": 8,
