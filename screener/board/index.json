@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-03T03:14:33Z",
+  "generated_at": "2026-11-03T03:21:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20261103-182",
@@ -1095,6 +1095,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261103-201",
+      "headline": "Acme Solar Holdings Limited: Acme Solar Holdings Limited has informed the Exchange regarding 'ACME Solar commissions additional 66.68 MW solar capacity at its Hybrid Project in Rajasthan'.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/ACMECS_03112026083454_Intimation03112026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-03T03:06:00Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "Acme Solar commissioned an additional 66.68 MW of solar capacity at its hybrid project in Rajasthan.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Acme Solar commissioned an additional 66.68 MW of solar capacity at its hybrid project in Rajasthan.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Acme Solar Holdings Limited",
+          "ticker": "544283",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261103-170",
       "headline": "SCHEDULE 13D - Dine Brands Global, Inc. (0000049754) (Subject)",
       "headline_en": null,
@@ -1929,55 +1978,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-136",
-      "headline": "SCHEDULE 13D - Soni Deven (0002116336) (Filed by)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/2116336/000170597826000017/0001705978-26-000017-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-02T21:54:29Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "A Schedule 13D filing indicates a significant ownership stake or potential activist interest in a company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "A Schedule 13D filing indicates a significant ownership stake or potential activist interest in a company.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Soni Deven",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -261895,9 +261895,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1937598,
-    "news_picked_today": 267,
-    "news_dropped_today": 1701
+    "news_seen_today": 2023835,
+    "news_picked_today": 268,
+    "news_dropped_today": 1724
   },
   "book_momentum": {
     "live_count": 8,
