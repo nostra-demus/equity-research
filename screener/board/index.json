@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-11-03T08:22:20Z",
+  "generated_at": "2026-11-03T10:26:38Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261103-342",
+      "headline": "STARLITE HOLD (00403): PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1103/2026110301630.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-03T09:46:00Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "Starlite Holdings issued a profit warning expecting deteriorated financial results.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Starlite Holdings issued a profit warning expecting deteriorated financial results.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Starlite Holdings Limited",
+          "ticker": "403",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261103-324",
       "headline": "PPC: Peet Confirms Registration of Scheme Booklet [price-sensitive]",
@@ -1938,55 +1988,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-216",
-      "headline": "Neogen Chemicals shares gain 4% on raising standalone biz revenue guidance after Q2 results",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/neogen-chemicals-share-price-revenue-guidance-raise-capacity-expansion-plan-2026-returns-q2-results-20025518.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T03:46:34Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "Neogen Chemicals raised its standalone business revenue guidance following Q2 results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Neogen Chemicals raised its standalone business revenue guidance following Q2 results.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Neogen Chemicals",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -215853,75 +215854,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-c186a214190f",
-      "idea_version": "IDEAV-daba0b795cb2ff6d",
-      "idea_version_started_at": "2026-11-01T22:52:23Z",
-      "ticker": "PNC",
-      "company": "PNC Financial Services Group",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of a $14.4 million portfolio combined with a new three-year major bank agreement provides immediate inorganic growth and long-term revenue stability.",
-      "why_now": "The filing was released on 2026-11-01 and represents a fresh, price-sensitive expansion of the bank's asset base.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 76,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e50332e6a745"
-      ],
-      "primary_source_event_id": "EVT-e50332e6a745",
-      "source_headlines": [
-        "PNC: 3 Year Major Bank Agreement and $14.4m Portfolio Acquisition [price-sensitive]"
-      ],
-      "source_headline": "PNC: 3 Year Major Bank Agreement and $14.4m Portfolio Acquisition [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PNC?key=2924-03156810-6A1353167",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-01T21:26:55Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-01T22:52:23Z",
-      "updated_at": "2026-11-01T22:52:23Z",
-      "decay_at": "2026-11-03T09:26:55Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-263619da5fbd",
       "idea_version": "IDEAV-dc2dfc869c2bf013",
       "idea_version_started_at": "2026-11-02T10:18:41Z",
@@ -216057,76 +215989,6 @@
       "surfaced_at": "2026-11-03T05:04:36Z",
       "updated_at": "2026-11-03T05:04:36Z",
       "decay_at": "2026-11-04T13:17:37Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-3830e5036df7",
-      "idea_version": "IDEAV-cbcc935871e1229b",
-      "idea_version_started_at": "2026-11-01T22:52:23Z",
-      "ticker": "AZN",
-      "company": "AstraZeneca",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "A $1.5 billion annual cost-cutting program directly improves operating margins and free cash flow generation.",
-      "why_now": "The restructuring plan was announced on 2026-11-01 and the market has not yet fully priced the margin expansion potential.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-dc9cfe6dc372"
-      ],
-      "primary_source_event_id": "EVT-dc9cfe6dc372",
-      "source_headlines": [
-        "AstraZeneca launches overhaul to cut costs by $1.5 billion a year"
-      ],
-      "source_headline": "AstraZeneca launches overhaul to cut costs by $1.5 billion a year",
-      "source_url": "https://www.qatar-tribune.com/article/262056/business/astrazeneca-launches-overhaul-to-cut-costs-by-15-billion-a-year",
-      "source_name": "Qatar Tribune — Business",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-01T21:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-01T22:52:23Z",
-      "updated_at": "2026-11-01T22:52:23Z",
-      "decay_at": "2026-11-03T09:00:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -217713,77 +217575,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-1e8235393100",
-      "idea_version": "IDEAV-070fcf647665f57d",
-      "idea_version_started_at": "2026-11-02T05:09:22Z",
-      "ticker": "NS1",
-      "company": "NS1",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company has been suspended from quotation, indicating severe financial distress or non-compliance issues.",
-      "why_now": "The suspension from quotation is effective as of November 1, 2026, making this a live event.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a595d5aedb1c"
-      ],
-      "primary_source_event_id": "EVT-a595d5aedb1c",
-      "source_headlines": [
-        "NS1: Suspension from Quotation [price-sensitive]"
-      ],
-      "source_headline": "NS1: Suspension from Quotation [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NS1?key=2924-03156900-6A1353192",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-01T22:21:45Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-02T05:09:22Z",
-      "updated_at": "2026-11-02T05:09:22Z",
-      "decay_at": "2026-11-03T10:21:45Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-9445b543d7a1",
       "idea_version": "IDEAV-234d09b6b8e00bff",
       "idea_version_started_at": "2026-11-02T05:09:22Z",
@@ -218653,77 +218444,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-d8103c9d4b63",
-      "idea_version": "IDEAV-a83004f833421b97",
-      "idea_version_started_at": "2026-11-01T21:00:40Z",
-      "ticker": "KMD",
-      "company": "KMD Brands",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company confirmed receipt of a non-binding indicative takeover proposal, which typically provides a floor for the share price and potential upside if a formal bid is finalized.",
-      "why_now": "The price-sensitive filing was released on 2026-11-01.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-78d54a878a14"
-      ],
-      "primary_source_event_id": "EVT-78d54a878a14",
-      "source_headlines": [
-        "KMD: KMD update on non-binding indicative proposal received [price-sensitive]"
-      ],
-      "source_headline": "KMD: KMD update on non-binding indicative proposal received [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.KMD?key=2924-03156698-2A1707649",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-01T20:35:30Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-01T21:00:40Z",
-      "updated_at": "2026-11-01T21:00:40Z",
-      "decay_at": "2026-11-03T08:35:30Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-a204395caab2",
       "idea_version": "IDEAV-6cd21665a86d4930",
       "idea_version_started_at": "2026-11-03T02:31:59Z",
@@ -219367,78 +219087,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-b30a77d203d3",
-      "idea_version": "IDEAV-39d0930379bf6c2f",
-      "idea_version_started_at": "2026-11-02T02:34:40Z",
-      "ticker": "1094",
-      "company": "Cherish Sun",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A proposed change of auditor and a notice for a special general meeting often signal underlying accounting disagreements or governance risks.",
-      "why_now": "The formal notice of the auditor change and SGM was filed on November 1, 2026.",
-      "conviction": 45,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 14,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "governance_turnaround",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-060afe40a8a4"
-      ],
-      "primary_source_event_id": "EVT-060afe40a8a4",
-      "source_headlines": [
-        "CHERISH SUN (01094): PROPOSED CHANGE OF AUDITOR AND NOTICE OF SPECIAL GENERAL MEETING"
-      ],
-      "source_headline": "CHERISH SUN (01094): PROPOSED CHANGE OF AUDITOR AND NOTICE OF SPECIAL GENERAL MEETING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1102/2026110200005.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 91,
-      "newest_source_at": "2026-11-01T22:08:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-02T02:34:40Z",
-      "updated_at": "2026-11-02T02:34:40Z",
-      "decay_at": "2026-11-03T10:08:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-6a108fe22512",
       "idea_version": "IDEAV-76297bd161f3338b",
       "idea_version_started_at": "2026-11-02T04:03:43Z",
@@ -219504,77 +219152,6 @@
       "surfaced_at": "2026-11-02T04:03:43Z",
       "updated_at": "2026-11-02T04:03:43Z",
       "decay_at": "2026-11-03T16:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-84e6c3b46773",
-      "idea_version": "IDEAV-1c3d144dd0118d2b",
-      "idea_version_started_at": "2026-11-02T03:12:16Z",
-      "ticker": "ILT",
-      "company": "Iluka Resources Limited",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Iluka Resources announced multiple superb intercepts at its Orient East drilling site, indicating potential for increased mineral reserves and future production.",
-      "why_now": "The company filed an ASX announcement on November 1, 2026, detailing the drilling results, which is a fresh catalyst for re-evaluation.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1e9e0c2dc20a"
-      ],
-      "primary_source_event_id": "EVT-1e9e0c2dc20a",
-      "source_headlines": [
-        "ILT: Drilling Delivers Multiple Superb Intercepts at Orient East [price-sensitive]"
-      ],
-      "source_headline": "ILT: Drilling Delivers Multiple Superb Intercepts at Orient East [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ILT?key=2924-03156892-3A705610",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 89,
-      "newest_source_at": "2026-11-01T22:19:10Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-02T03:12:16Z",
-      "updated_at": "2026-11-02T03:12:16Z",
-      "decay_at": "2026-11-03T10:19:10Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -219795,77 +219372,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-b5ee01c0e979",
-      "idea_version": "IDEAV-e0413cda83d5cf74",
-      "idea_version_started_at": "2026-11-02T00:08:03Z",
-      "ticker": "06132",
-      "company": "HJ Science-B",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company's announced intention to conduct on-market share repurchases provides a floor for the stock price and signals management's confidence in valuation.",
-      "why_now": "The filing was released on November 1, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 13,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f16da115e242"
-      ],
-      "primary_source_event_id": "EVT-f16da115e242",
-      "source_headlines": [
-        "HJ SCIENCE-B (06132): VOLUNTARY ANNOUNCEMENT INTENTION TO CONDUCT ON-MARKET SHARE REPURCHASES"
-      ],
-      "source_headline": "HJ SCIENCE-B (06132): VOLUNTARY ANNOUNCEMENT INTENTION TO CONDUCT ON-MARKET SHARE REPURCHASES",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1102/2026110200001.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 67,
-      "newest_source_at": "2026-11-01T22:05:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-02T00:08:03Z",
-      "updated_at": "2026-11-02T00:08:03Z",
-      "decay_at": "2026-11-03T10:05:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-98c70177de14",
       "idea_version": "IDEAV-b3c3ccaf38beb957",
       "idea_version_started_at": "2026-11-01T14:21:01Z",
@@ -219935,6 +219441,75 @@
       "surfaced_at": "2026-11-01T11:37:09Z",
       "updated_at": "2026-11-01T14:21:01Z",
       "decay_at": "2026-11-03T01:53:16Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-c186a214190f",
+      "idea_version": "IDEAV-daba0b795cb2ff6d",
+      "idea_version_started_at": "2026-11-01T22:52:23Z",
+      "ticker": "PNC",
+      "company": "PNC Financial Services Group",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The acquisition of a $14.4 million portfolio combined with a new three-year major bank agreement provides immediate inorganic growth and long-term revenue stability.",
+      "why_now": "The filing was released on 2026-11-01 and represents a fresh, price-sensitive expansion of the bank's asset base.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 76,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e50332e6a745"
+      ],
+      "primary_source_event_id": "EVT-e50332e6a745",
+      "source_headlines": [
+        "PNC: 3 Year Major Bank Agreement and $14.4m Portfolio Acquisition [price-sensitive]"
+      ],
+      "source_headline": "PNC: 3 Year Major Bank Agreement and $14.4m Portfolio Acquisition [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PNC?key=2924-03156810-6A1353167",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-01T21:26:55Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-01T22:52:23Z",
+      "updated_at": "2026-11-01T22:52:23Z",
+      "decay_at": "2026-11-03T09:26:55Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -220146,6 +219721,76 @@
       "surfaced_at": "2026-11-01T06:01:40Z",
       "updated_at": "2026-11-01T06:01:40Z",
       "decay_at": "2026-11-02T16:26:34Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-3830e5036df7",
+      "idea_version": "IDEAV-cbcc935871e1229b",
+      "idea_version_started_at": "2026-11-01T22:52:23Z",
+      "ticker": "AZN",
+      "company": "AstraZeneca",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "A $1.5 billion annual cost-cutting program directly improves operating margins and free cash flow generation.",
+      "why_now": "The restructuring plan was announced on 2026-11-01 and the market has not yet fully priced the margin expansion potential.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-dc9cfe6dc372"
+      ],
+      "primary_source_event_id": "EVT-dc9cfe6dc372",
+      "source_headlines": [
+        "AstraZeneca launches overhaul to cut costs by $1.5 billion a year"
+      ],
+      "source_headline": "AstraZeneca launches overhaul to cut costs by $1.5 billion a year",
+      "source_url": "https://www.qatar-tribune.com/article/262056/business/astrazeneca-launches-overhaul-to-cut-costs-by-15-billion-a-year",
+      "source_name": "Qatar Tribune — Business",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-01T21:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-01T22:52:23Z",
+      "updated_at": "2026-11-01T22:52:23Z",
+      "decay_at": "2026-11-03T09:00:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -220921,6 +220566,148 @@
       "surfaced_at": "2026-11-01T02:40:39Z",
       "updated_at": "2026-11-01T02:40:39Z",
       "decay_at": "2026-11-02T14:29:03Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-1e8235393100",
+      "idea_version": "IDEAV-070fcf647665f57d",
+      "idea_version_started_at": "2026-11-02T05:09:22Z",
+      "ticker": "NS1",
+      "company": "NS1",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company has been suspended from quotation, indicating severe financial distress or non-compliance issues.",
+      "why_now": "The suspension from quotation is effective as of November 1, 2026, making this a live event.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a595d5aedb1c"
+      ],
+      "primary_source_event_id": "EVT-a595d5aedb1c",
+      "source_headlines": [
+        "NS1: Suspension from Quotation [price-sensitive]"
+      ],
+      "source_headline": "NS1: Suspension from Quotation [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NS1?key=2924-03156900-6A1353192",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-01T22:21:45Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-02T05:09:22Z",
+      "updated_at": "2026-11-02T05:09:22Z",
+      "decay_at": "2026-11-03T10:21:45Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-d8103c9d4b63",
+      "idea_version": "IDEAV-a83004f833421b97",
+      "idea_version_started_at": "2026-11-01T21:00:40Z",
+      "ticker": "KMD",
+      "company": "KMD Brands",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company confirmed receipt of a non-binding indicative takeover proposal, which typically provides a floor for the share price and potential upside if a formal bid is finalized.",
+      "why_now": "The price-sensitive filing was released on 2026-11-01.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-78d54a878a14"
+      ],
+      "primary_source_event_id": "EVT-78d54a878a14",
+      "source_headlines": [
+        "KMD: KMD update on non-binding indicative proposal received [price-sensitive]"
+      ],
+      "source_headline": "KMD: KMD update on non-binding indicative proposal received [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.KMD?key=2924-03156698-2A1707649",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-01T20:35:30Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-01T21:00:40Z",
+      "updated_at": "2026-11-01T21:00:40Z",
+      "decay_at": "2026-11-03T08:35:30Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -223953,6 +223740,149 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-b30a77d203d3",
+      "idea_version": "IDEAV-39d0930379bf6c2f",
+      "idea_version_started_at": "2026-11-02T02:34:40Z",
+      "ticker": "1094",
+      "company": "Cherish Sun",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A proposed change of auditor and a notice for a special general meeting often signal underlying accounting disagreements or governance risks.",
+      "why_now": "The formal notice of the auditor change and SGM was filed on November 1, 2026.",
+      "conviction": 45,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 14,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "governance_turnaround",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-060afe40a8a4"
+      ],
+      "primary_source_event_id": "EVT-060afe40a8a4",
+      "source_headlines": [
+        "CHERISH SUN (01094): PROPOSED CHANGE OF AUDITOR AND NOTICE OF SPECIAL GENERAL MEETING"
+      ],
+      "source_headline": "CHERISH SUN (01094): PROPOSED CHANGE OF AUDITOR AND NOTICE OF SPECIAL GENERAL MEETING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1102/2026110200005.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 91,
+      "newest_source_at": "2026-11-01T22:08:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-02T02:34:40Z",
+      "updated_at": "2026-11-02T02:34:40Z",
+      "decay_at": "2026-11-03T10:08:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-84e6c3b46773",
+      "idea_version": "IDEAV-1c3d144dd0118d2b",
+      "idea_version_started_at": "2026-11-02T03:12:16Z",
+      "ticker": "ILT",
+      "company": "Iluka Resources Limited",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Iluka Resources announced multiple superb intercepts at its Orient East drilling site, indicating potential for increased mineral reserves and future production.",
+      "why_now": "The company filed an ASX announcement on November 1, 2026, detailing the drilling results, which is a fresh catalyst for re-evaluation.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1e9e0c2dc20a"
+      ],
+      "primary_source_event_id": "EVT-1e9e0c2dc20a",
+      "source_headlines": [
+        "ILT: Drilling Delivers Multiple Superb Intercepts at Orient East [price-sensitive]"
+      ],
+      "source_headline": "ILT: Drilling Delivers Multiple Superb Intercepts at Orient East [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ILT?key=2924-03156892-3A705610",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 89,
+      "newest_source_at": "2026-11-01T22:19:10Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-02T03:12:16Z",
+      "updated_at": "2026-11-02T03:12:16Z",
+      "decay_at": "2026-11-03T10:19:10Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-bb3c45a83ec3",
       "idea_version": "IDEAV-c34ecb157fbc29fe",
       "idea_version_started_at": "2026-11-01T07:00:15Z",
@@ -224530,6 +224460,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-b5ee01c0e979",
+      "idea_version": "IDEAV-e0413cda83d5cf74",
+      "idea_version_started_at": "2026-11-02T00:08:03Z",
+      "ticker": "06132",
+      "company": "HJ Science-B",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company's announced intention to conduct on-market share repurchases provides a floor for the stock price and signals management's confidence in valuation.",
+      "why_now": "The filing was released on November 1, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 13,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f16da115e242"
+      ],
+      "primary_source_event_id": "EVT-f16da115e242",
+      "source_headlines": [
+        "HJ SCIENCE-B (06132): VOLUNTARY ANNOUNCEMENT INTENTION TO CONDUCT ON-MARKET SHARE REPURCHASES"
+      ],
+      "source_headline": "HJ SCIENCE-B (06132): VOLUNTARY ANNOUNCEMENT INTENTION TO CONDUCT ON-MARKET SHARE REPURCHASES",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1102/2026110200001.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 67,
+      "newest_source_at": "2026-11-01T22:05:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-02T00:08:03Z",
+      "updated_at": "2026-11-02T00:08:03Z",
+      "decay_at": "2026-11-03T10:05:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-be16a3f18c55",
       "idea_version": "IDEAV-3b56e6491f32251e",
       "idea_version_started_at": "2026-11-01T03:42:18Z",
@@ -224683,19 +224684,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 567,
+    "total_count": 574,
     "shown_count": 500,
-    "hidden_count": 67,
+    "hidden_count": 74,
     "side_counts": {
       "long": {
-        "total_count": 294,
+        "total_count": 299,
         "shown_count": 250,
-        "hidden_count": 44
+        "hidden_count": 49
       },
       "short": {
-        "total_count": 273,
+        "total_count": 275,
         "shown_count": 250,
-        "hidden_count": 23
+        "hidden_count": 25
       }
     },
     "retention": {
@@ -224714,6 +224715,522 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-1e8235393100",
+        "idea_version": "IDEAV-070fcf647665f57d",
+        "idea_version_started_at": "2026-11-02T05:09:22Z",
+        "ticker": "NS1",
+        "company": "NS1",
+        "exchange": "ASX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company has been suspended from quotation, indicating severe financial distress or non-compliance issues.",
+        "why_now": "The suspension from quotation is effective as of November 1, 2026, making this a live event.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-a595d5aedb1c"
+        ],
+        "primary_source_event_id": "EVT-a595d5aedb1c",
+        "source_headlines": [
+          "NS1: Suspension from Quotation [price-sensitive]"
+        ],
+        "source_headline": "NS1: Suspension from Quotation [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NS1?key=2924-03156900-6A1353192",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-01T22:21:45Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-02T05:09:22Z",
+        "updated_at": "2026-11-02T05:09:22Z",
+        "decay_at": "2026-11-03T10:21:45Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-03T10:21:45Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-84e6c3b46773",
+        "idea_version": "IDEAV-1c3d144dd0118d2b",
+        "idea_version_started_at": "2026-11-02T03:12:16Z",
+        "ticker": "ILT",
+        "company": "Iluka Resources Limited",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Iluka Resources announced multiple superb intercepts at its Orient East drilling site, indicating potential for increased mineral reserves and future production.",
+        "why_now": "The company filed an ASX announcement on November 1, 2026, detailing the drilling results, which is a fresh catalyst for re-evaluation.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 16,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-1e9e0c2dc20a"
+        ],
+        "primary_source_event_id": "EVT-1e9e0c2dc20a",
+        "source_headlines": [
+          "ILT: Drilling Delivers Multiple Superb Intercepts at Orient East [price-sensitive]"
+        ],
+        "source_headline": "ILT: Drilling Delivers Multiple Superb Intercepts at Orient East [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ILT?key=2924-03156892-3A705610",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 89,
+        "newest_source_at": "2026-11-01T22:19:10Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-02T03:12:16Z",
+        "updated_at": "2026-11-02T03:12:16Z",
+        "decay_at": "2026-11-03T10:19:10Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-03T10:19:10Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-b30a77d203d3",
+        "idea_version": "IDEAV-39d0930379bf6c2f",
+        "idea_version_started_at": "2026-11-02T02:34:40Z",
+        "ticker": "1094",
+        "company": "Cherish Sun",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "A proposed change of auditor and a notice for a special general meeting often signal underlying accounting disagreements or governance risks.",
+        "why_now": "The formal notice of the auditor change and SGM was filed on November 1, 2026.",
+        "conviction": 45,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 14,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "governance_turnaround",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-060afe40a8a4"
+        ],
+        "primary_source_event_id": "EVT-060afe40a8a4",
+        "source_headlines": [
+          "CHERISH SUN (01094): PROPOSED CHANGE OF AUDITOR AND NOTICE OF SPECIAL GENERAL MEETING"
+        ],
+        "source_headline": "CHERISH SUN (01094): PROPOSED CHANGE OF AUDITOR AND NOTICE OF SPECIAL GENERAL MEETING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1102/2026110200005.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 91,
+        "newest_source_at": "2026-11-01T22:08:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-02T02:34:40Z",
+        "updated_at": "2026-11-02T02:34:40Z",
+        "decay_at": "2026-11-03T10:08:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-03T10:08:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-b5ee01c0e979",
+        "idea_version": "IDEAV-e0413cda83d5cf74",
+        "idea_version_started_at": "2026-11-02T00:08:03Z",
+        "ticker": "06132",
+        "company": "HJ Science-B",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company's announced intention to conduct on-market share repurchases provides a floor for the stock price and signals management's confidence in valuation.",
+        "why_now": "The filing was released on November 1, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 13,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-f16da115e242"
+        ],
+        "primary_source_event_id": "EVT-f16da115e242",
+        "source_headlines": [
+          "HJ SCIENCE-B (06132): VOLUNTARY ANNOUNCEMENT INTENTION TO CONDUCT ON-MARKET SHARE REPURCHASES"
+        ],
+        "source_headline": "HJ SCIENCE-B (06132): VOLUNTARY ANNOUNCEMENT INTENTION TO CONDUCT ON-MARKET SHARE REPURCHASES",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1102/2026110200001.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 67,
+        "newest_source_at": "2026-11-01T22:05:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-02T00:08:03Z",
+        "updated_at": "2026-11-02T00:08:03Z",
+        "decay_at": "2026-11-03T10:05:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-03T10:05:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-c186a214190f",
+        "idea_version": "IDEAV-daba0b795cb2ff6d",
+        "idea_version_started_at": "2026-11-01T22:52:23Z",
+        "ticker": "PNC",
+        "company": "PNC Financial Services Group",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The acquisition of a $14.4 million portfolio combined with a new three-year major bank agreement provides immediate inorganic growth and long-term revenue stability.",
+        "why_now": "The filing was released on 2026-11-01 and represents a fresh, price-sensitive expansion of the bank's asset base.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 76,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-e50332e6a745"
+        ],
+        "primary_source_event_id": "EVT-e50332e6a745",
+        "source_headlines": [
+          "PNC: 3 Year Major Bank Agreement and $14.4m Portfolio Acquisition [price-sensitive]"
+        ],
+        "source_headline": "PNC: 3 Year Major Bank Agreement and $14.4m Portfolio Acquisition [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PNC?key=2924-03156810-6A1353167",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-01T21:26:55Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-01T22:52:23Z",
+        "updated_at": "2026-11-01T22:52:23Z",
+        "decay_at": "2026-11-03T09:26:55Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-03T09:26:55Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-3830e5036df7",
+        "idea_version": "IDEAV-cbcc935871e1229b",
+        "idea_version_started_at": "2026-11-01T22:52:23Z",
+        "ticker": "AZN",
+        "company": "AstraZeneca",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "A $1.5 billion annual cost-cutting program directly improves operating margins and free cash flow generation.",
+        "why_now": "The restructuring plan was announced on 2026-11-01 and the market has not yet fully priced the margin expansion potential.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 66,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-dc9cfe6dc372"
+        ],
+        "primary_source_event_id": "EVT-dc9cfe6dc372",
+        "source_headlines": [
+          "AstraZeneca launches overhaul to cut costs by $1.5 billion a year"
+        ],
+        "source_headline": "AstraZeneca launches overhaul to cut costs by $1.5 billion a year",
+        "source_url": "https://www.qatar-tribune.com/article/262056/business/astrazeneca-launches-overhaul-to-cut-costs-by-15-billion-a-year",
+        "source_name": "Qatar Tribune — Business",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-01T21:00:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-01T22:52:23Z",
+        "updated_at": "2026-11-01T22:52:23Z",
+        "decay_at": "2026-11-03T09:00:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-03T09:00:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-d8103c9d4b63",
+        "idea_version": "IDEAV-a83004f833421b97",
+        "idea_version_started_at": "2026-11-01T21:00:40Z",
+        "ticker": "KMD",
+        "company": "KMD Brands",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company confirmed receipt of a non-binding indicative takeover proposal, which typically provides a floor for the share price and potential upside if a formal bid is finalized.",
+        "why_now": "The price-sensitive filing was released on 2026-11-01.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-78d54a878a14"
+        ],
+        "primary_source_event_id": "EVT-78d54a878a14",
+        "source_headlines": [
+          "KMD: KMD update on non-binding indicative proposal received [price-sensitive]"
+        ],
+        "source_headline": "KMD: KMD update on non-binding indicative proposal received [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.KMD?key=2924-03156698-2A1707649",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-01T20:35:30Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-01T21:00:40Z",
+        "updated_at": "2026-11-01T21:00:40Z",
+        "decay_at": "2026-11-03T08:35:30Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-03T08:35:30Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-2c0a537d28f4",
         "idea_version": "IDEAV-f571b505c54b4753",
@@ -253753,378 +254270,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-c8b303231aff",
-        "idea_version": "IDEAV-9deed6c2edd9ec03",
-        "idea_version_started_at": "2026-10-18T22:31:17Z",
-        "ticker": "OCN",
-        "company": "OCN",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "OCN has completed the acquisition of the Serra Negra Project, which should contribute to its asset base and future operational capacity.",
-        "why_now": "The completion of the acquisition was announced on October 18, 2026.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-4d9fe5c7e3b3"
-        ],
-        "primary_source_event_id": "EVT-4d9fe5c7e3b3",
-        "source_headlines": [
-          "OCN: Completion of Serra Negra Project Acquisition [price-sensitive]"
-        ],
-        "source_headline": "OCN: Completion of Serra Negra Project Acquisition [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.OCN?key=2924-03149775-6A1349833",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-18T22:10:54Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-18T22:31:17Z",
-        "updated_at": "2026-10-18T22:31:17Z",
-        "decay_at": "2026-10-20T10:10:54Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-22T00:53:39Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-b01a0092d799",
-        "idea_version": "IDEAV-2f47a05eb5efc932",
-        "idea_version_started_at": "2026-10-18T22:31:17Z",
-        "ticker": "RTH",
-        "company": "RAS",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "RAS has entered a binding Scheme Implementation Deed, indicating a likely acquisition at a premium, which typically benefits shareholders of the target company.",
-        "why_now": "The binding Scheme Implementation Deed was announced on October 18, 2026, making this a live M&A event.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-e04bab46ee95"
-        ],
-        "primary_source_event_id": "EVT-e04bab46ee95",
-        "source_headlines": [
-          "RTH: RAS enters binding Scheme Implementation Deed with The PA [price-sensitive]"
-        ],
-        "source_headline": "RTH: RAS enters binding Scheme Implementation Deed with The PA [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RTH?key=2924-03149739-3A704353",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-18T21:58:49Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-18T22:31:17Z",
-        "updated_at": "2026-10-18T22:31:17Z",
-        "decay_at": "2026-10-20T09:58:49Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-22T00:53:39Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-dc0b63f20462",
-        "idea_version": "IDEAV-b21ce76817373ae4",
-        "idea_version_started_at": "2026-10-18T22:11:20Z",
-        "ticker": "RAS",
-        "company": "RAS",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "RAS is entering a binding Scheme Implementation Deed to acquire The PA, which is expected to be accretive to earnings.",
-        "why_now": "The binding Scheme Implementation Deed was announced, making the acquisition a live event.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-e04bab46ee95"
-        ],
-        "primary_source_event_id": "EVT-e04bab46ee95",
-        "source_headlines": [
-          "RTH: RAS enters binding Scheme Implementation Deed with The PA [price-sensitive]"
-        ],
-        "source_headline": "RTH: RAS enters binding Scheme Implementation Deed with The PA [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RTH?key=2924-03149739-3A704353",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-18T21:58:49Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-18T22:11:20Z",
-        "updated_at": "2026-10-18T22:11:20Z",
-        "decay_at": "2026-10-20T09:58:49Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-22T00:53:39Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-045445bc6a74",
-        "idea_version": "IDEAV-d3e0a1f9f507758a",
-        "idea_version_started_at": "2026-10-18T22:11:20Z",
-        "ticker": "MTS",
-        "company": "Metcash",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Metcash is acquiring Peries Group, which should expand its wholesale grocery and food services operations.",
-        "why_now": "Metcash exercised its right to acquire Peries Group, making the deal actionable now.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-011c10509853"
-        ],
-        "primary_source_event_id": "EVT-011c10509853",
-        "source_headlines": [
-          "MTS: Metcash exercises right to acquire Peries Group"
-        ],
-        "source_headline": "MTS: Metcash exercises right to acquire Peries Group",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MTS?key=2924-03149726-2A1704708",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-18T21:49:24Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-18T22:11:20Z",
-        "updated_at": "2026-10-18T22:11:20Z",
-        "decay_at": "2026-10-20T09:49:24Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-22T00:53:39Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-d6c3f18fcbf9",
-        "idea_version": "IDEAV-93949b5819d5f539",
-        "idea_version_started_at": "2026-10-18T21:52:05Z",
-        "ticker": "FPR",
-        "company": "FleetPartners Group Limited",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "FleetPartners entered into a definitive Scheme Implementation Deed for a acquisition deal valued at approximately $1 billion.",
-        "why_now": "The signing of the Scheme Implementation Deed was officially announced in a price-sensitive filing on October 18, 2026.",
-        "conviction": 85,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 7,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-7c18044d1c03",
-          "EVT-a2d466b9203c"
-        ],
-        "primary_source_event_id": "EVT-7c18044d1c03",
-        "source_headlines": [
-          "Pacific Equity Partners drives away with FleetPartners in $1b deal",
-          "FPR: Scheme Implementation Deed with SG Fleet [price-sensitive]"
-        ],
-        "source_headline": "Pacific Equity Partners drives away with FleetPartners in $1b deal",
-        "source_url": "https://www.afr.com/street-talk/pacific-equity-partners-drives-away-with-fleetpartners-20261019-p616l1?ref=rss&utm_medium=rss&utm_source=rss_feed",
-        "source_name": "Australian Financial Review",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-18T21:28:49Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-18T21:52:05Z",
-        "updated_at": "2026-10-18T21:52:05Z",
-        "decay_at": "2026-10-20T09:28:49Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-22T00:53:39Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-c2d6ddb1545f",
         "idea_version": "IDEAV-61d9912074e7dbf7",
         "idea_version_started_at": "2026-10-18T17:51:37Z",
@@ -261805,163 +261950,12 @@
         "archived_at": "2026-10-09T06:05:34Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-fc426f81932d",
-        "idea_version": "IDEAV-f93c4cdbae8a059e",
-        "idea_version_started_at": "2026-10-06T05:17:07Z",
-        "ticker": "6594",
-        "company": "Nidec Corporation",
-        "exchange": "TSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "A management scandal and subsequent bond market sell-off indicate significant governance risk and potential liquidity pressure for the company.",
-        "why_now": "The scandal is currently unfolding as of October 6, 2026, creating immediate downward pressure on the company's credit and equity valuation.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "governance_turnaround",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-443f4e12ead2"
-        ],
-        "primary_source_event_id": "EVT-443f4e12ead2",
-        "source_headlines": [
-          "Nidec scandal sends bonds to bottom in test for new CEO"
-        ],
-        "source_headline": "Nidec scandal sends bonds to bottom in test for new CEO",
-        "source_url": "https://www.japantimes.co.jp/business/2026/10/06/companies/nidec-accounting-scandal-bonds-plunge/",
-        "source_name": "The Japan Times",
-        "materiality_max": 95,
-        "newest_source_at": "2026-10-06T04:34:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-06T02:05:34Z",
-        "updated_at": "2026-10-06T05:17:07Z",
-        "decay_at": "2026-10-07T16:34:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-09T05:42:06Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-0a1283616e19",
-        "idea_version": "IDEAV-60ab8984e7ab1234",
-        "idea_version_started_at": "2026-10-06T04:37:12Z",
-        "ticker": "BT.L",
-        "company": "BT Group",
-        "exchange": "LSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "BT's acquisition of TalkTalk is facing significant regulatory scrutiny, which could delay or block the deal, negatively impacting BT's strategic goals and potentially TalkTalk's standalone value.",
-        "why_now": "The article highlights current regulatory hurdles for the proposed M&A transaction.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 15,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "pair_trade",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-e707c712a21f"
-        ],
-        "primary_source_event_id": "EVT-e707c712a21f",
-        "source_headlines": [
-          "BT’s swoop on TalkTalk has regulators over a barrel"
-        ],
-        "source_headline": "BT’s swoop on TalkTalk has regulators over a barrel",
-        "source_url": "https://www.ft.com/content/309a7685-e488-44f4-ad76-4247b7f8bb5b?syn-25a6b1a6=1",
-        "source_name": "Financial Times",
-        "materiality_max": 91,
-        "newest_source_at": "2026-10-06T04:00:27Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-06T04:37:12Z",
-        "updated_at": "2026-10-06T04:37:12Z",
-        "decay_at": "2026-10-07T16:00:27Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-09T04:30:28Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2138,
-    "live_count": 57,
+    "live_count": 50,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -261980,9 +261974,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5383558,
-    "news_picked_today": 517,
-    "news_dropped_today": 4307
+    "news_seen_today": 7044328,
+    "news_picked_today": 542,
+    "news_dropped_today": 4354
   },
   "book_momentum": {
     "live_count": 8,
