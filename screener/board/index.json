@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-03T22:39:30Z",
+  "generated_at": "2026-11-03T22:42:42Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261103-904",
+      "headline": "EMB: Proposed Voluntary Delisting from ASX [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EMB?key=2924-03157788-3A705761",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-03T22:30:45Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "EMB announced a proposed voluntary delisting from the ASX, which significantly impacts liquidity and shareholder access.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "EMB announced a proposed voluntary delisting from the ASX, which significantly impacts liquidity and shareholder access.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EMB",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261103-877",
       "headline": "Lupin Limited: Lupin Limited has informed the Exchange regarding a press release dated November 04, 2026, titled \"Lupin Q2 FY2027 Results \".",
@@ -1433,6 +1482,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261103-908",
+      "headline": "BMW cuts automotive outlook for second time as restructuring deepens",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/transport-logistics/bmw-cuts-automotive-outlook-second-time-restructuring-deepens",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-03T22:34:56Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "BMW cut its automotive outlook for the second time and is deepening restructuring efforts.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "BMW cut its automotive outlook for the second time and is deepening restructuring efforts.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BMW",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261103-892",
       "headline": "AMD stock jumps 8% on earnings as data center revenue nearly doubles",
       "headline_en": null,
@@ -1882,105 +1981,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-870",
-      "headline": "Clorox Now Expects Earnings Near the Low End of Its Forecast as Costs Rise. Should Dividend Investors Be Worried?",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/clorox-now-expects-earnings-near-low-end-its-forecast-costs-rise-should-dividend-investors",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T19:25:02Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "Clorox expects earnings near the low end of its forecast due to rising costs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Clorox expects earnings near the low end of its forecast due to rising costs.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Clorox",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-868",
-      "headline": "Sunoco LP Reports Third Quarter 2026 Results and Expects to Exceed Guidance Range of $3.5 billion to $3.7 billion",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/sunoco-lp-reports-third-quarter-2026-results-and-expects-exceed-guidance-range-35-billion",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T19:02:12Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "Sunoco reported Q3 results and expects to exceed its previous guidance range of $3.5 billion to $3.7 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Sunoco reported Q3 results and expects to exceed its previous guidance range of $3.5 billion to $3.7 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sunoco LP",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -262688,9 +262688,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 18946131,
-    "news_picked_today": 1712,
-    "news_dropped_today": 8488
+    "news_seen_today": 19025407,
+    "news_picked_today": 1731,
+    "news_dropped_today": 8493
   },
   "book_momentum": {
     "live_count": 8,
