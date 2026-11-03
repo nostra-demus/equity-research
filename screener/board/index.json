@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-03T17:12:31Z",
+  "generated_at": "2026-11-03T17:14:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20261103-709",
@@ -1334,6 +1334,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261103-837",
+      "headline": "Unilever to cut €1bn in costs after food spin-off",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/d86c9440-0c50-4879-ae46-81c9649934c0?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-03T17:03:51Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "Unilever announced a plan to cut €1 billion in costs following its food business spin-off.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Unilever announced a plan to cut €1 billion in costs following its food business spin-off.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Unilever",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261103-836",
+      "headline": "Vijaya Diagnostic Q2 Results: Net profit jumps 37% on higher test volumes, margin expansion",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/stocks/vijaya-diagnostic-centre-share-price-q2-results-net-profit-jumps-37-on-higher-test-volumes-margin-expansion-20026378.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-03T17:03:01Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "Vijaya Diagnostic reported a 37% increase in net profit driven by higher test volumes and margin expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Vijaya Diagnostic reported a 37% increase in net profit driven by higher test volumes and margin expansion.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vijaya Diagnostic",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261103-834",
       "headline": "Worksport Reports Preliminary Q3 Results, Reduces Operating Cash Use 89% from Second Quarter to Approximately $0.37 Million; Delivers record net sales of approximately $7.24 million",
       "headline_en": null,
@@ -1870,109 +1968,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-788",
-      "headline": "'Industry crisis': Germany's auto sector faces fresh cuts as Schaeffler axes 3,460 jobs and eyes defense",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/11/03/schaeffler-job-cuts-europe.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T14:08:51Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "Schaeffler is cutting 3,460 jobs amid a broader crisis in the German auto sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Schaeffler is cutting 3,460 jobs amid a broader crisis in the German auto sector.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Schaeffler",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-821",
-      "headline": "Cinven Set to Back Theramex Acquisition With €1.5 Billion Debt",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-03/cinven-set-to-back-theramex-acquisition-with-1-5-billion-debt",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T14:06:27Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "Cinven is set to back Theramex acquisition with €1.5 billion debt.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Cinven is set to back Theramex acquisition with €1.5 billion debt.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cinven",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Theramex",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -262108,9 +262103,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 13247836,
-    "news_picked_today": 1369,
-    "news_dropped_today": 6287
+    "news_seen_today": 13282349,
+    "news_picked_today": 1372,
+    "news_dropped_today": 6308
   },
   "book_momentum": {
     "live_count": 8,
