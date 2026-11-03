@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-03T11:20:35Z",
+  "generated_at": "2026-11-03T11:23:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20261103-456",
@@ -689,6 +689,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261103-457",
+      "headline": "Virgin Media O2 confirms thousands of UK job cuts in £800m cost-cutting drive",
+      "headline_en": null,
+      "url": "https://www.cityam.com/virgin-media-o2-confirms-thousands-of-uk-job-cuts-in-800m-cost-cutting-drive/",
+      "source_name": "City A.M.",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-03T11:03:04Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "Virgin Media O2 is cutting thousands of jobs as part of an 800 million pound cost-cutting program.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Virgin Media O2 is cutting thousands of jobs as part of an 800 million pound cost-cutting program.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Virgin Media O2",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261103-391",
       "headline": "Apple shares slide after weak margin outlook; Palantir slumps 8% after earnings",
       "headline_en": null,
@@ -891,6 +940,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261103-463",
+      "headline": "Mahanagar Gas Q2 Results: Profit Plunges 29%; Here's The One Cost That Wiped Out Revenue Gains",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/mahanagar-gas-q2-results-profit-plunges-29-heres-the-one-cost-that-wiped-out-revenue-gains-12276209#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-03T10:04:08Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "Mahanagar Gas reported a 29 percent plunge in Q2 profit.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Mahanagar Gas reported a 29 percent plunge in Q2 profit.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mahanagar Gas",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1894,110 +1992,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-179",
-      "headline": "FMC Corporation Reports Third-Quarter 2026 Results and Revised Fourth-Quarter Outlook",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/fmc-corporation-reports-third-quarter-2026-results-and-revised-fourth-quarter-outlook",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T02:08:38Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "FMC Corporation reported Q3 2026 results and issued a revised Q4 outlook.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "FMC Corporation reported Q3 2026 results and issued a revised Q4 outlook.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "FMC Corporation",
-          "ticker": "FMC",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-145",
-      "headline": "Progress Software Corporation Files Pro Forma Financials for $403.2 million Acquisition of Domo, Inc.",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/progress-software-corporation-files-pro-forma-financials-4032-million-acquisition-domo-inc",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T01:18:41Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "Progress Software filed pro forma financials for its $403.2 million acquisition of Domo, Inc.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Progress Software filed pro forma financials for its $403.2 million acquisition of Domo, Inc.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Progress Software",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Domo, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -261984,9 +261978,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7730060,
-    "news_picked_today": 720,
-    "news_dropped_today": 4920
+    "news_seen_today": 7838952,
+    "news_picked_today": 739,
+    "news_dropped_today": 4949
   },
   "book_momentum": {
     "live_count": 8,
