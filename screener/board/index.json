@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-03T07:13:55Z",
+  "generated_at": "2026-11-03T07:18:54Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261103-262",
+      "headline": "Arkade Developers Limited: Arkade Developers Limited has informed the Exchange regarding a press release dated November 03, 2026, titled \"Acquisition of Woollen & Textile Industries Limited\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/ARKADE_03112026121712_Operational_update_-_Copy.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-03T06:47:39Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "Arkade Developers Limited announced the acquisition of Woollen & Textile Industries Limited.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Arkade Developers Limited announced the acquisition of Woollen & Textile Industries Limited.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Arkade Developers Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261103-257",
       "headline": "Man Infraconstruction Limited: Man Infraconstruction Limited has informed the Exchange regarding a press release dated November 03, 2026, titled \"MICL GROUP SECURES TWO EPC WORK ORDERS WORTH ₹583 CRORE; EPC PORTFOLIO STRENGTHENS TO ₹858 CRORE \".",
@@ -1928,55 +1977,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-025",
-      "headline": "DTM: Indigo Metals Transaction Update [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.DTM?key=2924-03157372-3A705696",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-02T22:32:26Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "Company provided an update on the Indigo Metals transaction, which is explicitly marked as price-sensitive.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Company provided an update on the Indigo Metals transaction, which is explicitly marked as price-sensitive.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DTM",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -261968,9 +261968,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4545446,
-    "news_picked_today": 407,
-    "news_dropped_today": 3433
+    "news_seen_today": 4567784,
+    "news_picked_today": 420,
+    "news_dropped_today": 3468
   },
   "book_momentum": {
     "live_count": 8,
