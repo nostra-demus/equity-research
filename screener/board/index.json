@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-03T23:05:50Z",
+  "generated_at": "2026-11-03T23:11:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20261103-904",
@@ -1482,6 +1482,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261103-928",
+      "headline": "IFF Swings To Q3 Loss; Raises FY26 Guidance",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/iff-swings-q3-loss-raises-fy26-guidance",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-03T22:48:14Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "IFF reported a Q3 loss but raised its FY26 guidance, indicating a shift in outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "IFF reported a Q3 loss but raised its FY26 guidance, indicating a shift in outlook.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "International Flavors & Fragrances",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261103-908",
       "headline": "BMW cuts automotive outlook for second time as restructuring deepens",
       "headline_en": null,
@@ -1931,56 +1981,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-872",
-      "headline": "CVR Energy, Inc. Reports Third Quarter 2026 Net Income of $570 million and Announces Refinery Acquisition",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/cvr-energy-inc-reports-third-quarter-2026-net-income-570-million-and-announces-refinery",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T19:41:37Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "CVR Energy reported $570 million in net income and announced a refinery acquisition.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "CVR Energy reported $570 million in net income and announced a refinery acquisition.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CVR Energy, Inc.",
-          "ticker": "CVI",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -262688,9 +262688,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 19501930,
-    "news_picked_today": 1745,
-    "news_dropped_today": 8623
+    "news_seen_today": 19621402,
+    "news_picked_today": 1753,
+    "news_dropped_today": 8639
   },
   "book_momentum": {
     "live_count": 8,
