@@ -1,6 +1,209 @@
 {
-  "generated_at": "2026-11-03T14:04:34Z",
+  "generated_at": "2026-11-03T15:13:41Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261103-709",
+      "headline": "Kotak Mahindra Bank Limited: Update on acquisition of Deutsche Bank AG s Retail Banking, Private Banking and Wealth Management Business in India",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/KMBLOMKAR_03112026201742_UpdateDeutscheBank.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-03T14:49:29Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "Kotak Mahindra Bank provided an update on its acquisition of Deutsche Bank's retail and wealth management business in India.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Kotak Mahindra Bank provided an update on its acquisition of Deutsche Bank's retail and wealth management business in India.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kotak Mahindra Bank Limited",
+          "ticker": "KOTAKBANK",
+          "listing_country": "IN"
+        },
+        {
+          "name": "Deutsche Bank AG",
+          "ticker": "DB",
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261103-710",
+      "headline": "LOPAL TECH (02465): (1) MAJOR TRANSACTION IN RELATION TO PUT OPTION; (2) PASSIVE FORMATION OF FINANCIAL ASSISTANCE ARISING FROM THE DISPOSAL; (3) RESOLUTION ON THE EXTERNAL INVESTMENT BY A CONTROLLED SECOND-TIER SUBSIDIARY FOR THE CONSTRUCTION OF A NEW PROJECT AND THE CUMULATIVE EXTERNAL INVESTMENTS; (4) RESOLUTION ON SETTLEMENT OF CERTAIN FUNDRAISING INVESTMENT PROJECTS AND USE OF SURPLUS PROCEEDS FOR INVESTMENT IN CONSTRUCTION OF NEW PROJECT; AND (5) NOTICE OF 2026 SIXTH EX",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1103/2026110302489.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-03T14:45:00Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "Lopal Tech announced a major transaction involving a put option, disposal, and new project construction investments.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Lopal Tech announced a major transaction involving a put option, disposal, and new project construction investments.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna",
+        "capex",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jiangsu Lopal Tech",
+          "ticker": "02465",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261103-719",
+      "headline": "CN HEALTH TECH (01069): INSIDE INFORMATION (I) DELAY IN PUBLICATION OF ANNUAL RESULTS; (II) POSTPONEMENT OF BOARD MEETING; AND (III) SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1103/2026110302463.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-03T14:24:00Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "CN Health Tech has delayed the publication of its annual results, postponed a board meeting, and suspended trading, indicating potential financial issues.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CN Health Tech has delayed the publication of its annual results, postponed a board meeting, and suspended trading, indicating potential financial issues.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "accounting_restatement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CN HEALTH TECH",
+          "ticker": "01069",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261103-725",
+      "headline": "Prestige Estates Projects Limited: Prestige Estates Projects Limited has informed the Exchange about Acquisition of 100% stake in Gloind Vintage Infra Private Limited.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/PRESTIGE_03112026194631_Intimation_under_Reg_30_Acquisition.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-03T14:17:08Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "Prestige Estates Projects Limited announced the acquisition of a 100% stake in Gloind Vintage Infra Private Limited.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Prestige Estates Projects Limited announced the acquisition of a 100% stake in Gloind Vintage Infra Private Limited.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Prestige Estates Projects Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261103-686",
       "headline": "Amber Enterprises India Limited: Pursuant to Regulation 30 of SEBI (LODR) Regulations, 2015, we wish to inform the exchange that IL JIN Electronics (India) Limited, a material subsidiary of the Company (\"IL JIN\") has completed the acquisition of the balance 40% equity stake of Power-One Micro Systems Private Limited (\"Power-One\") from Mr. Ramanna Rajesh Mayasandra, Mr. Harsha Venkatesh, Dwaith Advisory Private Limited and Mrs. Doddabidere Honappa Venna, shareholders of Power-One, pursuant to Sha",
@@ -1778,212 +1981,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-510",
-      "headline": "Q2 Results Live Updates: V-Mart Retail loss widens to ₹16 crore; Linde India profit falls over 30%",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/q2-results-live-updates-sbi-itc-nse-bata-graphite-dam-dhoot-chambal-mcx-mgl-neuland-esds-nalco-kec-utkarsh-concor-share-price-liveblog-20025445.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T11:50:49Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "V-Mart Retail reported a widened loss of ₹16 crore and Linde India reported a profit decline of over 30%.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "V-Mart Retail reported a widened loss of ₹16 crore and Linde India reported a profit decline of over 30%.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "V-Mart Retail",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Linde India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-609",
-      "headline": "SBI Q2 Results: Profit Jumps 14% To ₹23,038 Cr",
-      "headline_en": null,
-      "url": "https://www.outlookbusiness.com/corporate/sbi-q2-results-profit-earnings-income-casa-nims-npas",
-      "source_name": "Outlook Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T11:36:41Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "SBI reported a 14% profit jump to ₹23,038 Cr for Q2.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "SBI reported a 14% profit jump to ₹23,038 Cr for Q2.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "State Bank of India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-659",
-      "headline": "Icahn’s CVR to Buy Marathon Refineries for $4.2 Billion",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-03/icahn-s-cvr-to-buy-marathon-refineries-for-4-2-billion",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T11:35:40Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "CVR Energy to acquire Marathon refineries for $4.2 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "CVR Energy to acquire Marathon refineries for $4.2 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CVR Energy",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Marathon Petroleum",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-607",
-      "headline": "Ferrari Lifts Full-Year Guidance as Customization Drives Gains",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-03/ferrari-lifts-full-year-guidance-as-customization-drives-gains",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T11:35:04Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "Ferrari raised its full-year guidance due to strong customization demand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Ferrari raised its full-year guidance due to strong customization demand.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ferrari",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -216202,77 +216199,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-9f47945c8197",
-      "idea_version": "IDEAV-acb158e302dd8432",
-      "idea_version_started_at": "2026-11-02T02:53:32Z",
-      "ticker": "LMT",
-      "company": "Lockheed Martin",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of a specialized undersea defense firm for $3.45 billion expands the company's capabilities in the high-growth maritime and autonomous defense sectors.",
-      "why_now": "The deal was announced on 2026-11-02, marking a strategic expansion of the company's defense portfolio.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5e37bb7f5862"
-      ],
-      "primary_source_event_id": "EVT-5e37bb7f5862",
-      "source_headlines": [
-        "Lockheed Martin acquires Nova Scotia-based undersea defence company for $3.45-billion"
-      ],
-      "source_headline": "Lockheed Martin acquires Nova Scotia-based undersea defence company for $3.45-billion",
-      "source_url": "https://www.theglobeandmail.com/business/article-lockheed-martin-acquires-nova-scotia-based-undersea-defence-company/",
-      "source_name": "The Globe and Mail",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-02T02:17:08Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-02T02:53:32Z",
-      "updated_at": "2026-11-02T02:53:32Z",
-      "decay_at": "2026-11-03T14:17:08Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-056be750d8b7",
       "idea_version": "IDEAV-d64fff47a5008f07",
       "idea_version_started_at": "2026-11-03T12:53:36Z",
@@ -218720,79 +218646,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-ae11504817ba",
-      "idea_version": "IDEAV-89565329d8e38640",
-      "idea_version_started_at": "2026-11-02T04:24:27Z",
-      "ticker": "JAL",
-      "company": "Japan Airlines",
-      "exchange": "TSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Japan Airlines reported a 42.2% drop in its net profit for the April-September period.",
-      "why_now": "The earnings report was released today, providing a current catalyst for the stock's performance.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d1b6456ad044"
-      ],
-      "primary_source_event_id": "EVT-d1b6456ad044",
-      "source_headlines": [
-        "BREAKING NEWS: JAL's April-Sept. net profit drops 42.2% to 39.07 billion yen"
-      ],
-      "source_headline": "BREAKING NEWS: JAL's April-Sept. net profit drops 42.2% to 39.07 billion yen",
-      "source_url": "https://english.kyodonews.net/articles/-/90110",
-      "source_name": "Kyodo News (Japan Wire)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-02T03:08:01Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-02T04:24:27Z",
-      "updated_at": "2026-11-02T04:24:27Z",
-      "decay_at": "2026-11-03T15:08:01Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-bdc0aa865c9e",
       "idea_version": "IDEAV-b02192a673bf6b05",
       "idea_version_started_at": "2026-11-02T04:24:27Z",
@@ -218861,78 +218714,6 @@
       "surfaced_at": "2026-11-01T03:42:18Z",
       "updated_at": "2026-11-02T04:24:27Z",
       "decay_at": "2026-11-03T15:51:29Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-4ae4c89c6f69",
-      "idea_version": "IDEAV-31724928450997ba",
-      "idea_version_started_at": "2026-11-02T04:03:43Z",
-      "ticker": "9201",
-      "company": "Japan Airlines",
-      "exchange": "TSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A 42.2% drop in net profit for the April-September period indicates significant margin compression, likely driven by rising fuel costs or competitive pricing pressures that are not yet fully reflected in the stock price.",
-      "why_now": "The earnings results were released on November 02, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d1b6456ad044"
-      ],
-      "primary_source_event_id": "EVT-d1b6456ad044",
-      "source_headlines": [
-        "BREAKING NEWS: JAL's April-Sept. net profit drops 42.2% to 39.07 billion yen"
-      ],
-      "source_headline": "BREAKING NEWS: JAL's April-Sept. net profit drops 42.2% to 39.07 billion yen",
-      "source_url": "https://english.kyodonews.net/articles/-/90110",
-      "source_name": "Kyodo News (Japan Wire)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-02T03:08:01Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-02T04:03:43Z",
-      "updated_at": "2026-11-02T04:03:43Z",
-      "decay_at": "2026-11-03T15:08:01Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -219224,78 +219005,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-923a827de8a7",
-      "idea_version": "IDEAV-8fe145a2fd7d577e",
-      "idea_version_started_at": "2026-11-02T03:12:16Z",
-      "ticker": "6701",
-      "company": "NEC Corporation",
-      "exchange": "TSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "NEC's headquarters were raided by a special counsel over improper stipends, which could lead to fines, reputational damage, and operational disruption.",
-      "why_now": "The raid occurred on November 2, 2026, making this a live and developing legal and reputational risk event.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9fe0dc02996a"
-      ],
-      "primary_source_event_id": "EVT-9fe0dc02996a",
-      "source_headlines": [
-        "Special counsel raids NEC headquarters over improper stipends"
-      ],
-      "source_headline": "Special counsel raids NEC headquarters over improper stipends",
-      "source_url": "https://en.yna.co.kr/view/AEN20261102004600315",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "materiality_max": 94,
-      "newest_source_at": "2026-11-02T02:35:52Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-02T03:12:16Z",
-      "updated_at": "2026-11-02T03:12:16Z",
-      "decay_at": "2026-11-03T14:35:52Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-520be705f9e6",
       "idea_version": "IDEAV-edc10bcd28c078cc",
       "idea_version_started_at": "2026-11-02T04:47:12Z",
@@ -219505,77 +219214,6 @@
       "surfaced_at": "2026-11-02T03:34:48Z",
       "updated_at": "2026-11-02T03:34:48Z",
       "decay_at": "2026-11-03T15:29:07Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-66aa21c1fd96",
-      "idea_version": "IDEAV-2c69ced2b13d7d7f",
-      "idea_version_started_at": "2026-11-02T03:12:16Z",
-      "ticker": "HIKAL",
-      "company": "Hikal Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Hikal Limited signed a multi-year global CDMO contract with a leading agrochemical company, which should boost its revenue and secure future cash flows.",
-      "why_now": "The company announced the new contract via a press release on November 2, 2026, providing a clear, immediate positive catalyst.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-53dbf49b2d4d"
-      ],
-      "primary_source_event_id": "EVT-53dbf49b2d4d",
-      "source_headlines": [
-        "Hikal Limited: Hikal Limited has informed the Exchange regarding a press release dated November 02, 2026, titled \"Press Release- Hikal limited signs Multi- year Global CDMO contract with leading Agrochemical Company\"."
-      ],
-      "source_headline": "Hikal Limited: Hikal Limited has informed the Exchange regarding a press release dated November 02, 2026, titled \"Press Release- Hikal limited signs Multi- year Global CDMO contract with leading Agrochemical Company\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/HIKAL_02112026080916_SEIntNov022026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 88,
-      "newest_source_at": "2026-11-02T02:39:36Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-02T03:12:16Z",
-      "updated_at": "2026-11-02T03:12:16Z",
-      "decay_at": "2026-11-03T14:39:36Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -220498,6 +220136,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-9f47945c8197",
+      "idea_version": "IDEAV-acb158e302dd8432",
+      "idea_version_started_at": "2026-11-02T02:53:32Z",
+      "ticker": "LMT",
+      "company": "Lockheed Martin",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The acquisition of a specialized undersea defense firm for $3.45 billion expands the company's capabilities in the high-growth maritime and autonomous defense sectors.",
+      "why_now": "The deal was announced on 2026-11-02, marking a strategic expansion of the company's defense portfolio.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5e37bb7f5862"
+      ],
+      "primary_source_event_id": "EVT-5e37bb7f5862",
+      "source_headlines": [
+        "Lockheed Martin acquires Nova Scotia-based undersea defence company for $3.45-billion"
+      ],
+      "source_headline": "Lockheed Martin acquires Nova Scotia-based undersea defence company for $3.45-billion",
+      "source_url": "https://www.theglobeandmail.com/business/article-lockheed-martin-acquires-nova-scotia-based-undersea-defence-company/",
+      "source_name": "The Globe and Mail",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-02T02:17:08Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-02T02:53:32Z",
+      "updated_at": "2026-11-02T02:53:32Z",
+      "decay_at": "2026-11-03T14:17:08Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-85c3dfebf743",
       "idea_version": "IDEAV-124b71ffc2478ed2",
       "idea_version_started_at": "2026-11-01T02:15:36Z",
@@ -220776,6 +220485,151 @@
       "surfaced_at": "2026-11-02T05:09:22Z",
       "updated_at": "2026-11-02T05:09:22Z",
       "decay_at": "2026-11-03T10:21:45Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-ae11504817ba",
+      "idea_version": "IDEAV-89565329d8e38640",
+      "idea_version_started_at": "2026-11-02T04:24:27Z",
+      "ticker": "JAL",
+      "company": "Japan Airlines",
+      "exchange": "TSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Japan Airlines reported a 42.2% drop in its net profit for the April-September period.",
+      "why_now": "The earnings report was released today, providing a current catalyst for the stock's performance.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d1b6456ad044"
+      ],
+      "primary_source_event_id": "EVT-d1b6456ad044",
+      "source_headlines": [
+        "BREAKING NEWS: JAL's April-Sept. net profit drops 42.2% to 39.07 billion yen"
+      ],
+      "source_headline": "BREAKING NEWS: JAL's April-Sept. net profit drops 42.2% to 39.07 billion yen",
+      "source_url": "https://english.kyodonews.net/articles/-/90110",
+      "source_name": "Kyodo News (Japan Wire)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-02T03:08:01Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-02T04:24:27Z",
+      "updated_at": "2026-11-02T04:24:27Z",
+      "decay_at": "2026-11-03T15:08:01Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-4ae4c89c6f69",
+      "idea_version": "IDEAV-31724928450997ba",
+      "idea_version_started_at": "2026-11-02T04:03:43Z",
+      "ticker": "9201",
+      "company": "Japan Airlines",
+      "exchange": "TSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A 42.2% drop in net profit for the April-September period indicates significant margin compression, likely driven by rising fuel costs or competitive pricing pressures that are not yet fully reflected in the stock price.",
+      "why_now": "The earnings results were released on November 02, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d1b6456ad044"
+      ],
+      "primary_source_event_id": "EVT-d1b6456ad044",
+      "source_headlines": [
+        "BREAKING NEWS: JAL's April-Sept. net profit drops 42.2% to 39.07 billion yen"
+      ],
+      "source_headline": "BREAKING NEWS: JAL's April-Sept. net profit drops 42.2% to 39.07 billion yen",
+      "source_url": "https://english.kyodonews.net/articles/-/90110",
+      "source_name": "Kyodo News (Japan Wire)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-02T03:08:01Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-02T04:03:43Z",
+      "updated_at": "2026-11-02T04:03:43Z",
+      "decay_at": "2026-11-03T15:08:01Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -223523,6 +223377,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-923a827de8a7",
+      "idea_version": "IDEAV-8fe145a2fd7d577e",
+      "idea_version_started_at": "2026-11-02T03:12:16Z",
+      "ticker": "6701",
+      "company": "NEC Corporation",
+      "exchange": "TSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "NEC's headquarters were raided by a special counsel over improper stipends, which could lead to fines, reputational damage, and operational disruption.",
+      "why_now": "The raid occurred on November 2, 2026, making this a live and developing legal and reputational risk event.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9fe0dc02996a"
+      ],
+      "primary_source_event_id": "EVT-9fe0dc02996a",
+      "source_headlines": [
+        "Special counsel raids NEC headquarters over improper stipends"
+      ],
+      "source_headline": "Special counsel raids NEC headquarters over improper stipends",
+      "source_url": "https://en.yna.co.kr/view/AEN20261102004600315",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "materiality_max": 94,
+      "newest_source_at": "2026-11-02T02:35:52Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-02T03:12:16Z",
+      "updated_at": "2026-11-02T03:12:16Z",
+      "decay_at": "2026-11-03T14:35:52Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-9f872abee372",
       "idea_version": "IDEAV-ad38f6dab09c5267",
       "idea_version_started_at": "2026-11-02T02:34:40Z",
@@ -223945,6 +223871,77 @@
       "surfaced_at": "2026-11-01T07:00:15Z",
       "updated_at": "2026-11-01T07:00:15Z",
       "decay_at": "2026-11-02T18:25:27Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-66aa21c1fd96",
+      "idea_version": "IDEAV-2c69ced2b13d7d7f",
+      "idea_version_started_at": "2026-11-02T03:12:16Z",
+      "ticker": "HIKAL",
+      "company": "Hikal Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Hikal Limited signed a multi-year global CDMO contract with a leading agrochemical company, which should boost its revenue and secure future cash flows.",
+      "why_now": "The company announced the new contract via a press release on November 2, 2026, providing a clear, immediate positive catalyst.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-53dbf49b2d4d"
+      ],
+      "primary_source_event_id": "EVT-53dbf49b2d4d",
+      "source_headlines": [
+        "Hikal Limited: Hikal Limited has informed the Exchange regarding a press release dated November 02, 2026, titled \"Press Release- Hikal limited signs Multi- year Global CDMO contract with leading Agrochemical Company\"."
+      ],
+      "source_headline": "Hikal Limited: Hikal Limited has informed the Exchange regarding a press release dated November 02, 2026, titled \"Press Release- Hikal limited signs Multi- year Global CDMO contract with leading Agrochemical Company\".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/HIKAL_02112026080916_SEIntNov022026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 88,
+      "newest_source_at": "2026-11-02T02:39:36Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-02T03:12:16Z",
+      "updated_at": "2026-11-02T03:12:16Z",
+      "decay_at": "2026-11-03T14:39:36Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -224752,19 +224749,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 572,
+    "total_count": 577,
     "shown_count": 500,
-    "hidden_count": 72,
+    "hidden_count": 77,
     "side_counts": {
       "long": {
-        "total_count": 301,
+        "total_count": 303,
         "shown_count": 250,
-        "hidden_count": 51
+        "hidden_count": 53
       },
       "short": {
-        "total_count": 271,
+        "total_count": 274,
         "shown_count": 250,
-        "hidden_count": 21
+        "hidden_count": 24
       }
     },
     "retention": {
@@ -224783,6 +224780,380 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-4ae4c89c6f69",
+        "idea_version": "IDEAV-31724928450997ba",
+        "idea_version_started_at": "2026-11-02T04:03:43Z",
+        "ticker": "9201",
+        "company": "Japan Airlines",
+        "exchange": "TSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "A 42.2% drop in net profit for the April-September period indicates significant margin compression, likely driven by rising fuel costs or competitive pricing pressures that are not yet fully reflected in the stock price.",
+        "why_now": "The earnings results were released on November 02, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-d1b6456ad044"
+        ],
+        "primary_source_event_id": "EVT-d1b6456ad044",
+        "source_headlines": [
+          "BREAKING NEWS: JAL's April-Sept. net profit drops 42.2% to 39.07 billion yen"
+        ],
+        "source_headline": "BREAKING NEWS: JAL's April-Sept. net profit drops 42.2% to 39.07 billion yen",
+        "source_url": "https://english.kyodonews.net/articles/-/90110",
+        "source_name": "Kyodo News (Japan Wire)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-02T03:08:01Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-02T04:03:43Z",
+        "updated_at": "2026-11-02T04:03:43Z",
+        "decay_at": "2026-11-03T15:08:01Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-03T15:08:01Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-ae11504817ba",
+        "idea_version": "IDEAV-89565329d8e38640",
+        "idea_version_started_at": "2026-11-02T04:24:27Z",
+        "ticker": "JAL",
+        "company": "Japan Airlines",
+        "exchange": "TSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Japan Airlines reported a 42.2% drop in its net profit for the April-September period.",
+        "why_now": "The earnings report was released today, providing a current catalyst for the stock's performance.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-d1b6456ad044"
+        ],
+        "primary_source_event_id": "EVT-d1b6456ad044",
+        "source_headlines": [
+          "BREAKING NEWS: JAL's April-Sept. net profit drops 42.2% to 39.07 billion yen"
+        ],
+        "source_headline": "BREAKING NEWS: JAL's April-Sept. net profit drops 42.2% to 39.07 billion yen",
+        "source_url": "https://english.kyodonews.net/articles/-/90110",
+        "source_name": "Kyodo News (Japan Wire)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-02T03:08:01Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-02T04:24:27Z",
+        "updated_at": "2026-11-02T04:24:27Z",
+        "decay_at": "2026-11-03T15:08:01Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-03T15:08:01Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-66aa21c1fd96",
+        "idea_version": "IDEAV-2c69ced2b13d7d7f",
+        "idea_version_started_at": "2026-11-02T03:12:16Z",
+        "ticker": "HIKAL",
+        "company": "Hikal Limited",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Hikal Limited signed a multi-year global CDMO contract with a leading agrochemical company, which should boost its revenue and secure future cash flows.",
+        "why_now": "The company announced the new contract via a press release on November 2, 2026, providing a clear, immediate positive catalyst.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 16,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-53dbf49b2d4d"
+        ],
+        "primary_source_event_id": "EVT-53dbf49b2d4d",
+        "source_headlines": [
+          "Hikal Limited: Hikal Limited has informed the Exchange regarding a press release dated November 02, 2026, titled \"Press Release- Hikal limited signs Multi- year Global CDMO contract with leading Agrochemical Company\"."
+        ],
+        "source_headline": "Hikal Limited: Hikal Limited has informed the Exchange regarding a press release dated November 02, 2026, titled \"Press Release- Hikal limited signs Multi- year Global CDMO contract with leading Agrochemical Company\".",
+        "source_url": "https://nsearchives.nseindia.com/corporate/HIKAL_02112026080916_SEIntNov022026.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 88,
+        "newest_source_at": "2026-11-02T02:39:36Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-02T03:12:16Z",
+        "updated_at": "2026-11-02T03:12:16Z",
+        "decay_at": "2026-11-03T14:39:36Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-03T14:39:36Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-923a827de8a7",
+        "idea_version": "IDEAV-8fe145a2fd7d577e",
+        "idea_version_started_at": "2026-11-02T03:12:16Z",
+        "ticker": "6701",
+        "company": "NEC Corporation",
+        "exchange": "TSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "NEC's headquarters were raided by a special counsel over improper stipends, which could lead to fines, reputational damage, and operational disruption.",
+        "why_now": "The raid occurred on November 2, 2026, making this a live and developing legal and reputational risk event.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-9fe0dc02996a"
+        ],
+        "primary_source_event_id": "EVT-9fe0dc02996a",
+        "source_headlines": [
+          "Special counsel raids NEC headquarters over improper stipends"
+        ],
+        "source_headline": "Special counsel raids NEC headquarters over improper stipends",
+        "source_url": "https://en.yna.co.kr/view/AEN20261102004600315",
+        "source_name": "Yonhap News Agency — All News (English)",
+        "materiality_max": 94,
+        "newest_source_at": "2026-11-02T02:35:52Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-02T03:12:16Z",
+        "updated_at": "2026-11-02T03:12:16Z",
+        "decay_at": "2026-11-03T14:35:52Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-03T14:35:52Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-9f47945c8197",
+        "idea_version": "IDEAV-acb158e302dd8432",
+        "idea_version_started_at": "2026-11-02T02:53:32Z",
+        "ticker": "LMT",
+        "company": "Lockheed Martin",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The acquisition of a specialized undersea defense firm for $3.45 billion expands the company's capabilities in the high-growth maritime and autonomous defense sectors.",
+        "why_now": "The deal was announced on 2026-11-02, marking a strategic expansion of the company's defense portfolio.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 60,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-5e37bb7f5862"
+        ],
+        "primary_source_event_id": "EVT-5e37bb7f5862",
+        "source_headlines": [
+          "Lockheed Martin acquires Nova Scotia-based undersea defence company for $3.45-billion"
+        ],
+        "source_headline": "Lockheed Martin acquires Nova Scotia-based undersea defence company for $3.45-billion",
+        "source_url": "https://www.theglobeandmail.com/business/article-lockheed-martin-acquires-nova-scotia-based-undersea-defence-company/",
+        "source_name": "The Globe and Mail",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-02T02:17:08Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-02T02:53:32Z",
+        "updated_at": "2026-11-02T02:53:32Z",
+        "decay_at": "2026-11-03T14:17:08Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-03T14:17:08Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-1b994a384f0c",
         "idea_version": "IDEAV-6c12068ca3f43e81",
@@ -254115,156 +254486,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-d39de226be65",
-        "idea_version": "IDEAV-05e64d2a3b302c3b",
-        "idea_version_started_at": "2026-10-19T03:38:08Z",
-        "ticker": "IDBI",
-        "company": "IDBI Bank",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Fairfax Financial's US$5.6 billion acquisition deal provides a clear valuation floor and strategic catalyst for the privatization of the bank.",
-        "why_now": "The deal was announced today, October 19, 2026, reviving the long-stalled privatization process.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-65c79a3e5d1a"
-        ],
-        "primary_source_event_id": "EVT-65c79a3e5d1a",
-        "source_headlines": [
-          "Canada’s Fairfax revives India’s bank privatisation drive with US$5.6 billion IDBI deal"
-        ],
-        "source_headline": "Canada’s Fairfax revives India’s bank privatisation drive with US$5.6 billion IDBI deal",
-        "source_url": "https://www.businesstimes.com.sg/international/canadas-fairfax-revives-indias-bank-privatisation-drive-us5-6-billion-idbi-deal",
-        "source_name": "The Business Times (Singapore)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-19T03:00:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-19T03:38:08Z",
-        "updated_at": "2026-10-19T03:38:08Z",
-        "decay_at": "2026-10-20T15:00:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-22T03:15:39Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-1b994a384f0c",
-        "idea_version": "IDEAV-740e6fbd42da3ade",
-        "idea_version_started_at": "2026-10-19T02:51:03Z",
-        "ticker": "000660",
-        "company": "SK Hynix",
-        "exchange": "KRX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The 2 trillion KRW government-backed guarantee program reduces supply chain financing costs and credit risk for the company.",
-        "why_now": "The program was officially launched on 2026-10-19.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 18,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "policy_conditional",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-b0feffb7ddf7"
-        ],
-        "primary_source_event_id": "EVT-b0feffb7ddf7",
-        "source_headlines": [
-          "SK Hynix, government, and banking sector launch 2 trillion KRW 'Export Supply Chain Strengthening Guarantee'"
-        ],
-        "source_headline": "SK하이닉스·정부·은행권, 2조원 규모 ‘수출공급망 강화보증’ 출범",
-        "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279063",
-        "source_name": "Business Korea — All Articles (CDN)",
-        "materiality_max": 83,
-        "newest_source_at": "2026-10-19T02:00:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-19T02:51:03Z",
-        "updated_at": "2026-10-19T02:51:03Z",
-        "decay_at": "2026-10-20T14:00:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-22T03:15:39Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-5d7e7121c615",
         "idea_version": "IDEAV-0000d88643d77570",
         "idea_version_started_at": "2026-10-19T01:46:31Z",
@@ -261797,234 +262018,12 @@
         "archived_at": "2026-10-10T00:20:12Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-30c2e14a4fb4",
-        "idea_version": "IDEAV-1ae410afa4d1f8d0",
-        "idea_version_started_at": "2026-10-07T16:37:47Z",
-        "ticker": "JOBY",
-        "company": "Joby Aviation",
-        "exchange": "NYSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company faces a significant $100 million liability from an intellectual property lawsuit verdict, which directly impacts its cash position and balance sheet.",
-        "why_now": "The verdict was reported on 2026-10-06, creating an immediate liquidity and valuation headwind.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 67,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-53f62b82f6d5"
-        ],
-        "primary_source_event_id": "EVT-53f62b82f6d5",
-        "source_headlines": [
-          "Joby Hit With Over $100 Million in Damages in IP Lawsuit Verdict"
-        ],
-        "source_headline": "Joby Hit With Over $100 Million in Damages in IP Lawsuit Verdict",
-        "source_url": "https://www.nasdaq.com/articles/joby-hit-over-100-million-damages-ip-lawsuit-verdict",
-        "source_name": "Nasdaq",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-06T22:35:01Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-07T00:42:27Z",
-        "updated_at": "2026-10-07T16:37:47Z",
-        "decay_at": "2026-10-08T10:35:01Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-09T23:49:04Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-b07e95090e8c",
-        "idea_version": "IDEAV-12eeb52aaffdf41b",
-        "idea_version_started_at": "2026-10-07T18:07:00Z",
-        "ticker": "FICO",
-        "company": "Fair Isaac Corporation",
-        "exchange": "NYSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "A 15% workforce reduction in an AI-driven restructuring suggests significant operational headwinds or a pivot to mitigate declining margins.",
-        "why_now": "The restructuring announcement occurred on October 6, 2026.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 60,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-da977be1d70e"
-        ],
-        "primary_source_event_id": "EVT-da977be1d70e",
-        "source_headlines": [
-          "FICO cuts workforce by 15% in AI-driven restructuring"
-        ],
-        "source_headline": "FICO cuts workforce by 15% in AI-driven restructuring",
-        "source_url": "https://www.reuters.com/business/world-at-work/fico-cuts-workforce-by-15-ai-driven-restructuring-2026-10-06/",
-        "source_name": "Reuters — Latest (news sitemap)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-06T21:23:15Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-07T18:07:00Z",
-        "updated_at": "2026-10-07T18:07:00Z",
-        "decay_at": "2026-10-08T09:23:15Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-09T21:36:02Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-05438fee3589",
-        "idea_version": "IDEAV-969258fc489d53f6",
-        "idea_version_started_at": "2026-10-06T13:00:06Z",
-        "ticker": "WIE",
-        "company": "Wienerberger",
-        "exchange": "VIE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Wienerberger has cut its forecast again, signaling weakening demand and profitability in the building materials sector.",
-        "why_now": "The company has revised its outlook downwards, indicating current operational challenges.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-9f5f6b8e33e5"
-        ],
-        "primary_source_event_id": "EVT-9f5f6b8e33e5",
-        "source_headlines": [
-          "Building materials group Wienerberger cuts its forecast again"
-        ],
-        "source_headline": "Baustoffkonzern Wienerberger kappt erneut die Prognose",
-        "source_url": "https://www.reuters.com/de/firma/baustoffkonzern-wienerberger-kappt-erneut-die-prognose-2026-10-06/",
-        "source_name": "Reuters — Latest, next page (news sitemap)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-06T05:53:45Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-06T13:00:06Z",
-        "updated_at": "2026-10-06T13:00:06Z",
-        "decay_at": "2026-10-07T17:53:45Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-09T06:05:34Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2148,
-    "live_count": 53,
+    "live_count": 48,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -262043,9 +262042,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 10084441,
-    "news_picked_today": 1128,
-    "news_dropped_today": 5496
+    "news_seen_today": 11201894,
+    "news_picked_today": 1155,
+    "news_dropped_today": 5517
   },
   "book_momentum": {
     "live_count": 8,
