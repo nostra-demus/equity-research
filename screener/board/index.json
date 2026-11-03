@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-11-03T18:40:31Z",
+  "generated_at": "2026-11-03T18:49:13Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261103-858",
+      "headline": "HEG Advanced Materials Limited: HEG Advanced Materials Limited has informed the Exchange regarding a press release dated November 03, 2026, relating to Q2 and H1 FY27 financial results and other matters relating to capacity expansion of Anode plant and setting up of new businesses.\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/HEGAM_04112026000428_STEX_PressRelease.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-03T18:34:40Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "HEG Advanced Materials announced Q2/H1 FY27 financial results and a capacity expansion plan for its Anode plant.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "HEG Advanced Materials announced Q2/H1 FY27 financial results and a capacity expansion plan for its Anode plant.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HEG Advanced Materials Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261103-709",
       "headline": "Kotak Mahindra Bank Limited: Update on acquisition of Deutsche Bank AG s Retail Banking, Private Banking and Wealth Management Business in India",
@@ -1924,49 +1974,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-734",
-      "headline": "Major mattress chain files Chapter 11 bankruptcy",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/retail/da-mattress-franchise-operator-files-chapter-11-bankruptcy",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T14:33:00Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "A major mattress chain filed for Chapter 11 bankruptcy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A major mattress chain filed for Chapter 11 bankruptcy.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -262102,9 +262109,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 14636278,
-    "news_picked_today": 1448,
-    "news_dropped_today": 6952
+    "news_seen_today": 14706355,
+    "news_picked_today": 1454,
+    "news_dropped_today": 7114
   },
   "book_momentum": {
     "live_count": 8,
