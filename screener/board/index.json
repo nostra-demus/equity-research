@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-03T02:12:30Z",
+  "generated_at": "2026-11-03T02:16:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20261103-171",
@@ -549,6 +549,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261103-173",
+      "headline": "Seer, Inc. Special Committee Rejects Unsolicited Acquisition Proposals of $2.55 and $2.45 Per Share",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/seer-inc-special-committee-rejects-unsolicited-acquisition-proposals-255-and-245-share",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-03T01:28:47Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "Seer, Inc. rejected unsolicited acquisition offers of $2.55 and $2.45 per share.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Seer, Inc. rejected unsolicited acquisition offers of $2.55 and $2.45 per share.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Seer, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1915,55 +1964,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-132",
-      "headline": "NewMarket Corporation Raises Quarterly Dividend to $3.25 Per Share",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/newmarket-corporation-raises-quarterly-dividend-325-share",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T00:18:34Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "NewMarket Corporation increased its quarterly dividend to $3.25 per share.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "NewMarket Corporation increased its quarterly dividend to $3.25 per share.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NewMarket Corporation",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -261745,9 +261745,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1347341,
-    "news_picked_today": 209,
-    "news_dropped_today": 1255
+    "news_seen_today": 1382169,
+    "news_picked_today": 215,
+    "news_dropped_today": 1273
   },
   "book_momentum": {
     "live_count": 8,
