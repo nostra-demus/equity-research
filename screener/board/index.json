@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-03T17:49:31Z",
+  "generated_at": "2026-11-03T18:04:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20261103-709",
@@ -1334,6 +1334,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261103-845",
+      "headline": "GNG Electronics Q2 results: Net profit rises 73% to ₹56.3 crore, revenue jumps 42% to ₹625 crore",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/earnings/gng-electronics-q2-results-net-profit-rises-73-per-cent-to-rs-563-crore-revenue-jumps-42-per-cent-to-rs-625-crore-20026388.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-03T17:32:42Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "GNG Electronics reported a 73% rise in net profit to ₹56.3 crore and 42% revenue growth to ₹625 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "GNG Electronics reported a 73% rise in net profit to ₹56.3 crore and 42% revenue growth to ₹625 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GNG Electronics",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261103-837",
       "headline": "Unilever to cut €1bn in costs after food spin-off",
       "headline_en": null,
@@ -1914,60 +1963,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-826",
-      "headline": "Foodtastic makes $982-million takeover offer for MTY Food Group",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/business/article-foodtastic-makes-takeover-offer-for-mty-food-group/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T14:20:55Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "Foodtastic has made a $982 million takeover offer for MTY Food Group.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Foodtastic has made a $982 million takeover offer for MTY Food Group.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MTY Food Group Inc.",
-          "ticker": "MTY",
-          "listing_country": "CA"
-        },
-        {
-          "name": "Foodtastic",
-          "ticker": null,
-          "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -262103,9 +262098,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 13939141,
-    "news_picked_today": 1395,
-    "news_dropped_today": 6621
+    "news_seen_today": 14112804,
+    "news_picked_today": 1409,
+    "news_dropped_today": 6679
   },
   "book_momentum": {
     "live_count": 8,
