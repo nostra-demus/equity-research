@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-03T15:54:47Z",
+  "generated_at": "2026-11-03T16:01:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20261103-709",
@@ -1334,6 +1334,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261103-785",
+      "headline": "Arbor Realty Suspends Its Dividend as Shares Plunge 73% in 2026",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/11/03/arbor-realty-suspends-its-dividend-as-shares-plunge-73-in-2026/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-03T15:47:06Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "Arbor Realty Trust suspended its dividend and shares fell 73% in 2026, indicating severe financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Arbor Realty Trust suspended its dividend and shares fell 73% in 2026, indicating severe financial distress.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "dividend_cut",
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Arbor Realty Trust",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261103-745",
       "headline": "MCX Q2 Results: Profit rockets 130% YoY to Rs 455 crore, revenue jumps 114%",
       "headline_en": null,
@@ -1673,6 +1723,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261103-788",
+      "headline": "'Industry crisis': Germany's auto sector faces fresh cuts as Schaeffler axes 3,460 jobs and eyes defense",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/11/03/schaeffler-job-cuts-europe.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-03T14:08:51Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "Schaeffler is cutting 3,460 jobs amid a broader crisis in the German auto sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Schaeffler is cutting 3,460 jobs amid a broader crisis in the German auto sector.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Schaeffler",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261103-742",
       "headline": "Yum! Brands Reports Third-Quarter 2026 Results and $1.7 billion Pizza Hut Divestiture Gain",
       "headline_en": null,
@@ -1872,105 +1971,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-643",
-      "headline": "Enpro Q3 Profit Jumps, Raises FY26 Guidance; Pre-Market Shares Up",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/enpro-q3-profit-jumps-raises-fy26-guidance-pre-market-shares",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T13:12:46Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "Enpro reported increased Q3 profit and raised its FY26 guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Enpro reported increased Q3 profit and raised its FY26 guidance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Enpro",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-654",
-      "headline": "Saudi PIF raises $3 billion through SACE-backed facilities to expand Italian trade",
-      "headline_en": null,
-      "url": "https://economymiddleeast.com/news/saudi-pif-raises-3-billion-through-sace-backed-facilities-to-expand-italian-trade/?utm_source=rss&utm_medium=rss&utm_campaign=saudi-pif-raises-3-billion-through-sace-backed-facilities-to-expand-italian-trade",
-      "source_name": "Economy Middle East",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T13:11:50Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "Saudi PIF raised $3 billion through SACE-backed facilities to expand trade.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Saudi PIF raised $3 billion through SACE-backed facilities to expand trade.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Saudi PIF",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -219205,77 +219205,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-6a108fe22512",
-      "idea_version": "IDEAV-76297bd161f3338b",
-      "idea_version_started_at": "2026-11-02T04:03:43Z",
-      "ticker": "09966",
-      "company": "Alphamab Oncology",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "FDA approval to initiate a Phase I clinical study for JSKN021 provides a critical de-risking event for the company's pipeline and opens the path to potential future licensing deals.",
-      "why_now": "The voluntary announcement regarding the FDA approval was filed on November 02, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1bb29ddedb9c"
-      ],
-      "primary_source_event_id": "EVT-1bb29ddedb9c",
-      "source_headlines": [
-        "ALPHAMAB-B (09966): VOLUNTARY ANNOUNCEMENT - IND APPROVAL BY THE FDA FOR A PHASE I CLINICAL STUDY OF JSKN021"
-      ],
-      "source_headline": "ALPHAMAB-B (09966): VOLUNTARY ANNOUNCEMENT - IND APPROVAL BY THE FDA FOR A PHASE I CLINICAL STUDY OF JSKN021",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1102/2026110200631.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 90,
-      "newest_source_at": "2026-11-02T04:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-02T04:03:43Z",
-      "updated_at": "2026-11-02T04:03:43Z",
-      "decay_at": "2026-11-03T16:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-98c70177de14",
       "idea_version": "IDEAV-b3c3ccaf38beb957",
       "idea_version_started_at": "2026-11-01T14:21:01Z",
@@ -223647,6 +223576,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-6a108fe22512",
+      "idea_version": "IDEAV-76297bd161f3338b",
+      "idea_version_started_at": "2026-11-02T04:03:43Z",
+      "ticker": "09966",
+      "company": "Alphamab Oncology",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "FDA approval to initiate a Phase I clinical study for JSKN021 provides a critical de-risking event for the company's pipeline and opens the path to potential future licensing deals.",
+      "why_now": "The voluntary announcement regarding the FDA approval was filed on November 02, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1bb29ddedb9c"
+      ],
+      "primary_source_event_id": "EVT-1bb29ddedb9c",
+      "source_headlines": [
+        "ALPHAMAB-B (09966): VOLUNTARY ANNOUNCEMENT - IND APPROVAL BY THE FDA FOR A PHASE I CLINICAL STUDY OF JSKN021"
+      ],
+      "source_headline": "ALPHAMAB-B (09966): VOLUNTARY ANNOUNCEMENT - IND APPROVAL BY THE FDA FOR A PHASE I CLINICAL STUDY OF JSKN021",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1102/2026110200631.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 90,
+      "newest_source_at": "2026-11-02T04:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-02T04:03:43Z",
+      "updated_at": "2026-11-02T04:03:43Z",
+      "decay_at": "2026-11-03T16:00:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-84e6c3b46773",
       "idea_version": "IDEAV-1c3d144dd0118d2b",
       "idea_version_started_at": "2026-11-02T03:12:16Z",
@@ -224733,14 +224733,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 576,
+    "total_count": 577,
     "shown_count": 500,
-    "hidden_count": 76,
+    "hidden_count": 77,
     "side_counts": {
       "long": {
-        "total_count": 302,
+        "total_count": 303,
         "shown_count": 250,
-        "hidden_count": 52
+        "hidden_count": 53
       },
       "short": {
         "total_count": 274,
@@ -224764,6 +224764,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-6a108fe22512",
+        "idea_version": "IDEAV-76297bd161f3338b",
+        "idea_version_started_at": "2026-11-02T04:03:43Z",
+        "ticker": "09966",
+        "company": "Alphamab Oncology",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "FDA approval to initiate a Phase I clinical study for JSKN021 provides a critical de-risking event for the company's pipeline and opens the path to potential future licensing deals.",
+        "why_now": "The voluntary announcement regarding the FDA approval was filed on November 02, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 15,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-1bb29ddedb9c"
+        ],
+        "primary_source_event_id": "EVT-1bb29ddedb9c",
+        "source_headlines": [
+          "ALPHAMAB-B (09966): VOLUNTARY ANNOUNCEMENT - IND APPROVAL BY THE FDA FOR A PHASE I CLINICAL STUDY OF JSKN021"
+        ],
+        "source_headline": "ALPHAMAB-B (09966): VOLUNTARY ANNOUNCEMENT - IND APPROVAL BY THE FDA FOR A PHASE I CLINICAL STUDY OF JSKN021",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1102/2026110200631.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 90,
+        "newest_source_at": "2026-11-02T04:00:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-02T04:03:43Z",
+        "updated_at": "2026-11-02T04:03:43Z",
+        "decay_at": "2026-11-03T16:00:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-03T16:00:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-bdc0aa865c9e",
         "idea_version": "IDEAV-b02192a673bf6b05",
@@ -254171,81 +254245,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-2806817130bb",
-        "idea_version": "IDEAV-a8eb24aed48467a0",
-        "idea_version_started_at": "2026-10-19T04:54:16Z",
-        "ticker": "064350",
-        "company": "Hyundai Rotem",
-        "exchange": "KRX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Hyundai Rotem is consolidating Hyundai Group's defense operations by acquiring Hyundai Wia's defense unit for 358.4 billion won, enhancing its scale and margin profile.",
-        "why_now": "Deal announcement published on October 19, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-d1a06bbd04e8"
-        ],
-        "primary_source_event_id": "EVT-d1a06bbd04e8",
-        "source_headlines": [
-          "Hyundai Rotem to acquire Hyundai Wia's defense unit for 358.4 bln won"
-        ],
-        "source_headline": "Hyundai Rotem to acquire Hyundai Wia's defense unit for 358.4 bln won",
-        "source_url": "https://en.yna.co.kr/view/AEN20261019005700320",
-        "source_name": "Yonhap News Agency — All News (English)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-19T04:31:58Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-19T04:54:16Z",
-        "updated_at": "2026-10-19T04:54:16Z",
-        "decay_at": "2026-10-20T16:31:58Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-22T07:03:24Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-22385d23436f",
         "idea_version": "IDEAV-cdf50e40af8e1e65",
         "idea_version_started_at": "2026-10-19T04:54:16Z",
@@ -262009,7 +262008,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2152,
-    "live_count": 49,
+    "live_count": 48,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -262028,7 +262027,7 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 11909726,
+    "news_seen_today": 12045506,
     "news_picked_today": 1249,
     "news_dropped_today": 5615
   },
