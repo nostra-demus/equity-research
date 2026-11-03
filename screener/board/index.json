@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-03T01:53:59Z",
+  "generated_at": "2026-11-03T01:57:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20261103-134",
@@ -696,6 +696,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261103-150",
+      "headline": "SCHEDULE 13D - Dine Brands Global, Inc. (0000049754) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/49754/000110465926121599/0001104659-26-121599-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-03T01:46:27Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "Dine Brands Global is the subject of a new Schedule 13D filing, indicating a significant ownership stake or potential activist interest.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Dine Brands Global is the subject of a new Schedule 13D filing, indicating a significant ownership stake or potential activist interest.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dine Brands Global, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1912,55 +1961,6 @@
           "name": "Simble",
           "ticker": "SIS",
           "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-051",
-      "headline": "KINTOR PHARMA-B (09939): VOLUNTARY ANNOUNCEMENT - COMPLETION OF LONG-TERM SAFETY CLINICAL TRIAL OF KX-826 TINCTURE 1.0% FOR THE TREATMENT OF MALE ADULT AGA IN CHINA",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1103/2026110300007.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-02T22:05:00Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "Kintor Pharma completed a long-term safety clinical trial for its KX-826 tincture, a key pipeline asset.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Kintor Pharma completed a long-term safety clinical trial for its KX-826 tincture, a key pipeline asset.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "KINTOR PHARMA-B",
-          "ticker": null,
-          "listing_country": "CN"
         }
       ],
       "size_bucket": "small",
@@ -218927,79 +218927,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-739a80f5ef72",
-      "idea_version": "IDEAV-bed2c81157faa35f",
-      "idea_version_started_at": "2026-11-01T15:30:08Z",
-      "ticker": "2222",
-      "company": "Saudi Arabian Oil Co (Aramco)",
-      "exchange": "TADAWUL",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Aramco is diversifying its technological capabilities through a $2.6 billion acquisition of a 49% stake in HUMAIN from the PIF.",
-      "why_now": "The deal was announced on November 1, 2026, as part of a broader strategic push into AI infrastructure.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d02e3c6ad274"
-      ],
-      "primary_source_event_id": "EVT-d02e3c6ad274",
-      "source_headlines": [
-        "Saudi Aramco acquires 49% stake in HUMAIN in $2.6bn AI deal with PIF"
-      ],
-      "source_headline": "Saudi Aramco acquires 49% stake in HUMAIN in $2.6bn AI deal with PIF",
-      "source_url": "https://www.arabianbusiness.com/business/technology/saudi-aramco-acquires-49-stake-in-humain-in-2-6bn-ai-deal-with-pif",
-      "source_name": "Arabian Business",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-01T13:55:32Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-01T15:30:08Z",
-      "updated_at": "2026-11-01T15:30:08Z",
-      "decay_at": "2026-11-03T01:55:32Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-5df03eedd1b2",
       "idea_version": "IDEAV-d3841ab8d7e112f9",
       "idea_version_started_at": "2026-11-02T06:53:24Z",
@@ -221341,6 +221268,79 @@
       "surfaced_at": "2026-11-01T16:16:26Z",
       "updated_at": "2026-11-01T16:16:26Z",
       "decay_at": "2026-11-02T02:18:55Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-739a80f5ef72",
+      "idea_version": "IDEAV-bed2c81157faa35f",
+      "idea_version_started_at": "2026-11-01T15:30:08Z",
+      "ticker": "2222",
+      "company": "Saudi Arabian Oil Co (Aramco)",
+      "exchange": "TADAWUL",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Aramco is diversifying its technological capabilities through a $2.6 billion acquisition of a 49% stake in HUMAIN from the PIF.",
+      "why_now": "The deal was announced on November 1, 2026, as part of a broader strategic push into AI infrastructure.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d02e3c6ad274"
+      ],
+      "primary_source_event_id": "EVT-d02e3c6ad274",
+      "source_headlines": [
+        "Saudi Aramco acquires 49% stake in HUMAIN in $2.6bn AI deal with PIF"
+      ],
+      "source_headline": "Saudi Aramco acquires 49% stake in HUMAIN in $2.6bn AI deal with PIF",
+      "source_url": "https://www.arabianbusiness.com/business/technology/saudi-aramco-acquires-49-stake-in-humain-in-2-6bn-ai-deal-with-pif",
+      "source_name": "Arabian Business",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-01T13:55:32Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-01T15:30:08Z",
+      "updated_at": "2026-11-01T15:30:08Z",
+      "decay_at": "2026-11-03T01:55:32Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -224453,14 +224453,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 561,
+    "total_count": 562,
     "shown_count": 500,
-    "hidden_count": 61,
+    "hidden_count": 62,
     "side_counts": {
       "long": {
-        "total_count": 289,
+        "total_count": 290,
         "shown_count": 250,
-        "hidden_count": 39
+        "hidden_count": 40
       },
       "short": {
         "total_count": 272,
@@ -224484,6 +224484,82 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-739a80f5ef72",
+        "idea_version": "IDEAV-bed2c81157faa35f",
+        "idea_version_started_at": "2026-11-01T15:30:08Z",
+        "ticker": "2222",
+        "company": "Saudi Arabian Oil Co (Aramco)",
+        "exchange": "TADAWUL",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Aramco is diversifying its technological capabilities through a $2.6 billion acquisition of a 49% stake in HUMAIN from the PIF.",
+        "why_now": "The deal was announced on November 1, 2026, as part of a broader strategic push into AI infrastructure.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-d02e3c6ad274"
+        ],
+        "primary_source_event_id": "EVT-d02e3c6ad274",
+        "source_headlines": [
+          "Saudi Aramco acquires 49% stake in HUMAIN in $2.6bn AI deal with PIF"
+        ],
+        "source_headline": "Saudi Aramco acquires 49% stake in HUMAIN in $2.6bn AI deal with PIF",
+        "source_url": "https://www.arabianbusiness.com/business/technology/saudi-aramco-acquires-49-stake-in-humain-in-2-6bn-ai-deal-with-pif",
+        "source_name": "Arabian Business",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-01T13:55:32Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-01T15:30:08Z",
+        "updated_at": "2026-11-01T15:30:08Z",
+        "decay_at": "2026-11-03T01:55:32Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-03T01:55:32Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-98c70177de14",
         "idea_version": "IDEAV-b3c3ccaf38beb957",
@@ -253815,80 +253891,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-839f0c1525a6",
-        "idea_version": "IDEAV-439afa84964b4e07",
-        "idea_version_started_at": "2026-10-18T09:21:18Z",
-        "ticker": "VEDL",
-        "company": "Vedanta Limited",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "A $600 million investment to double zinc production capacity in South Africa provides a clear path to increased long-term output and revenue growth.",
-        "why_now": "The capital expenditure plan was officially announced on October 18, 2026.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-d5e11fc50a99"
-        ],
-        "primary_source_event_id": "EVT-d5e11fc50a99",
-        "source_headlines": [
-          "Vedanta Limited: Vedanta Limited has informed the Exchange regarding a press release dated October 18, 2026, titled \"Vedanta Ltd Doubles Zinc Production Capacity in South Africa with US$ 600 Mn investment\"."
-        ],
-        "source_headline": "Vedanta Limited: Vedanta Limited has informed the Exchange regarding a press release dated October 18, 2026, titled \"Vedanta Ltd Doubles Zinc Production Capacity in South Africa with US$ 600 Mn investment\".",
-        "source_url": "https://nsearchives.nseindia.com/corporate/VEDL_18102026120209_SEintimationGamsbergExpansionfinalsigned.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-18T06:34:01Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-18T09:21:18Z",
-        "updated_at": "2026-10-18T09:21:18Z",
-        "decay_at": "2026-10-19T18:34:01Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-21T12:30:15Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-c9b7224cbdda",
         "idea_version": "IDEAV-9335a9181d1a0b34",
         "idea_version_started_at": "2026-10-18T04:01:13Z",
@@ -261724,7 +261726,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2131,
-    "live_count": 60,
+    "live_count": 59,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -261743,9 +261745,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1137688,
-    "news_picked_today": 182,
-    "news_dropped_today": 1018
+    "news_seen_today": 1172802,
+    "news_picked_today": 184,
+    "news_dropped_today": 1040
   },
   "book_momentum": {
     "live_count": 8,
