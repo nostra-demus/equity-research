@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-11-03T13:08:35Z",
+  "generated_at": "2026-11-03T13:38:48Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261103-628",
+      "headline": "Amber Enterprises India Limited: Pursuant to Regulation 30 of SEBI (LODR) Regulations, 2015, we wish to inform the exchange that IL JIN Electronics (India) Limited, a material subsidiary of the Company (\"IL JIN\") has completed acquisition of the balance 1.50% equity stake of Ascent Circuits Private Limited (\"Ascent Circuits\"), from Ms. Manju Thomas, shareholder of Ascent Circuits, pursuant to Share Swap Agreement executed on 18th October 2026, thereby making Ascent Circuits Wholly-Owned Subsidia",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/AMBER_03112026185712_SEIntimationUpdateonAcquisitionAscent.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-03T13:27:33Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "Subsidiary acquired remaining 1.5% stake in Ascent Circuits, making it a wholly-owned subsidiary.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Subsidiary acquired remaining 1.5% stake in Ascent Circuits, making it a wholly-owned subsidiary.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amber Enterprises India Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261103-640",
+      "headline": "GOLDPAC GROUP (03315): PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1103/2026110302349.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-03T13:04:00Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "Goldpac Group issued a profit warning for the period.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Goldpac Group issued a profit warning for the period.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GOLDPAC GROUP",
+          "ticker": "03315",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261103-553",
       "headline": "TV Vision Limited: TV Vision Limited has informed the Exchange about Corporate Insolvency Resolution Process",
@@ -984,6 +1082,264 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261103-646",
+      "headline": "Q2 Results Live Updates: NSE profit jumps 23% YoY, Bata profit jumps nearly 29%",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/q2-results-live-updates-sbi-itc-nse-bata-graphite-dam-dhoot-chambal-mcx-mgl-neuland-esds-nalco-kec-utkarsh-concor-share-price-liveblog-20025445.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-03T13:23:47Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "NSE reported a 23% YoY profit jump and Bata reported a 29% profit increase.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "NSE reported a 23% YoY profit jump and Bata reported a 29% profit increase.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "National Stock Exchange of India",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Bata India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261103-643",
+      "headline": "Enpro Q3 Profit Jumps, Raises FY26 Guidance; Pre-Market Shares Up",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/enpro-q3-profit-jumps-raises-fy26-guidance-pre-market-shares",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-03T13:12:46Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "Enpro reported increased Q3 profit and raised its FY26 guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Enpro reported increased Q3 profit and raised its FY26 guidance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Enpro",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261103-644",
+      "headline": "NextEra, Dominion Strengthen Merger Protections With $5 Bln Virginia Investment",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/nextera-dominion-strengthen-merger-protections-5-bln-virginia-investment",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-03T13:11:20Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "NextEra and Dominion announced a $5 billion investment in Virginia to strengthen merger protections.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "NextEra and Dominion announced a $5 billion investment in Virginia to strengthen merger protections.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NextEra Energy",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Dominion Energy",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261103-645",
+      "headline": "Vital Farms Slips To Loss In Q3, Cuts FY26 Outlook; Pre-Market Shares Down",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/vital-farms-slips-loss-q3-cuts-fy26-outlook-pre-market-shares-down",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-03T13:09:57Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "Vital Farms reported a Q3 loss and cut its FY26 outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Vital Farms reported a Q3 loss and cut its FY26 outlook.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vital Farms",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261103-648",
+      "headline": "Apple Lost About $140 Billion After Hours as Its New CEO Calls Memory Prices “Unprecedented”",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/11/03/apple-lost-about-140-billion-after-hours-as-its-new-ceo-calls-memory-prices-unprecedented/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-03T13:08:16Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "Apple shares dropped $140 billion in value after the new CEO cited unprecedented memory prices.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Apple shares dropped $140 billion in value after the new CEO cited unprecedented memory prices.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Apple",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261103-604",
       "headline": "HG Infra Q2 Results: Profit halves as revenue falls 24%, margin contracts to 12%",
       "headline_en": null,
@@ -1627,361 +1983,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-412",
-      "headline": "UAE’s XRG to acquire Shell’s stake in Australia’s North West Shelf Project for $1.45 billion",
-      "headline_en": null,
-      "url": "https://economymiddleeast.com/news/uaes-xrg-to-acquire-shells-stake-in-australias-north-west-shelf-project-for-1-45-billion/?utm_source=rss&utm_medium=rss&utm_campaign=uaes-xrg-to-acquire-shells-stake-in-australias-north-west-shelf-project-for-1-45-billion",
-      "source_name": "Economy Middle East",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T10:05:46Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "XRG is acquiring Shell's stake in the North West Shelf Project for $1.45 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "XRG is acquiring Shell's stake in the North West Shelf Project for $1.45 billion.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shell",
-          "ticker": null,
-          "listing_country": "GB"
-        },
-        {
-          "name": "XRG",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-463",
-      "headline": "Mahanagar Gas Q2 Results: Profit Plunges 29%; Here's The One Cost That Wiped Out Revenue Gains",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/mahanagar-gas-q2-results-profit-plunges-29-heres-the-one-cost-that-wiped-out-revenue-gains-12276209#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T10:04:08Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "Mahanagar Gas reported a 29 percent plunge in Q2 profit.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Mahanagar Gas reported a 29 percent plunge in Q2 profit.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mahanagar Gas",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-404",
-      "headline": "Sheela Foam Cushions Its Earnings With Strong Q2 FY27 Performance, Net Profit Reaches ₹46 Crore While Revenue Jumps 19% To ₹1,045 Crore",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/sheela-foam-cushions-its-earnings-with-strong-q2-fy27-performance-net-profit-reaches-46-crore-while-revenue-jumps-19-to-1045-crore",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T10:03:25Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "Sheela Foam reported a net profit of ₹46 crore and revenue of ₹1,045 crore, representing a 19% jump.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Sheela Foam reported a net profit of ₹46 crore and revenue of ₹1,045 crore, representing a 19% jump.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sheela Foam",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-411",
-      "headline": "SBI Q2 Results Live Updates: NII grows 15%; Credit growth guidance maintained at 14-15%",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/sbi-q2-results-live-updates-2026-earnings-net-profit-nii-income-npa-margins-asset-quality-loan-growth-guidance-share-price-liveblog-20025685.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T10:00:48Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "SBI reported 15% NII growth and maintained its 14-15% credit growth guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "SBI reported 15% NII growth and maintained its 14-15% credit growth guidance.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "State Bank of India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-435",
-      "headline": "Cinven to buy menopause specialist Theramex in €2.6bn deal",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/79867d48-6d4a-4e5e-ba62-105f7181f6b1?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T09:45:05Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "Cinven is acquiring Theramex for €2.6 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Cinven is acquiring Theramex for €2.6 billion.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Theramex",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-440",
-      "headline": "Aramco net profit rises to $36.25 billion in Q3 2026, board declares $21.9 billion base dividend",
-      "headline_en": null,
-      "url": "https://economymiddleeast.com/news/aramco-net-profit-rises-to-36-25-billion-in-q3-2026-board-declares-21-9-billion-base-dividend/?utm_source=rss&utm_medium=rss&utm_campaign=aramco-net-profit-rises-to-36-25-billion-in-q3-2026-board-declares-21-9-billion-base-dividend",
-      "source_name": "Economy Middle East",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T09:20:29Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "Aramco reported a net profit of $36.25 billion and declared a $21.9 billion dividend.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Aramco reported a net profit of $36.25 billion and declared a $21.9 billion dividend.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Aramco",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-431",
-      "headline": "Lonza Group To Buy Merck's CDMO Business",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/lonza-group-buy-mercks-cdmo-business",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T08:46:40Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "Lonza Group announced the acquisition of Merck's CDMO business.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Lonza Group announced the acquisition of Merck's CDMO business.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lonza Group",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Merck",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -218937,78 +218938,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-1b994a384f0c",
-      "idea_version": "IDEAV-6c12068ca3f43e81",
-      "idea_version_started_at": "2026-11-02T02:53:32Z",
-      "ticker": "000660",
-      "company": "SK hynix",
-      "exchange": "KRX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is projected to achieve a record-breaking quarterly operating profit exceeding 100 trillion won, signaling significant margin expansion driven by memory demand.",
-      "why_now": "The report was published on 2026-11-02, highlighting a major inflection point in earnings expectations for Q4.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-51a271f49b0f"
-      ],
-      "primary_source_event_id": "EVT-51a271f49b0f",
-      "source_headlines": [
-        "SK hynix Q4 Operating Profit Seen Surpassing 100 Trillion Won for First Time"
-      ],
-      "source_headline": "SK hynix Q4 Operating Profit Seen Surpassing 100 Trillion Won for First Time",
-      "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=280166",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-02T01:35:40Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-02T02:53:32Z",
-      "updated_at": "2026-11-02T02:53:32Z",
-      "decay_at": "2026-11-03T13:35:40Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-a204395caab2",
       "idea_version": "IDEAV-6cd21665a86d4930",
       "idea_version_started_at": "2026-11-03T02:31:59Z",
@@ -220846,6 +220775,78 @@
       "surfaced_at": "2026-11-02T05:09:22Z",
       "updated_at": "2026-11-02T05:09:22Z",
       "decay_at": "2026-11-03T10:21:45Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-1b994a384f0c",
+      "idea_version": "IDEAV-6c12068ca3f43e81",
+      "idea_version_started_at": "2026-11-02T02:53:32Z",
+      "ticker": "000660",
+      "company": "SK hynix",
+      "exchange": "KRX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is projected to achieve a record-breaking quarterly operating profit exceeding 100 trillion won, signaling significant margin expansion driven by memory demand.",
+      "why_now": "The report was published on 2026-11-02, highlighting a major inflection point in earnings expectations for Q4.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-51a271f49b0f"
+      ],
+      "primary_source_event_id": "EVT-51a271f49b0f",
+      "source_headlines": [
+        "SK hynix Q4 Operating Profit Seen Surpassing 100 Trillion Won for First Time"
+      ],
+      "source_headline": "SK hynix Q4 Operating Profit Seen Surpassing 100 Trillion Won for First Time",
+      "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=280166",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-02T01:35:40Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-02T02:53:32Z",
+      "updated_at": "2026-11-02T02:53:32Z",
+      "decay_at": "2026-11-03T13:35:40Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -224750,14 +224751,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 571,
+    "total_count": 572,
     "shown_count": 500,
-    "hidden_count": 71,
+    "hidden_count": 72,
     "side_counts": {
       "long": {
-        "total_count": 300,
+        "total_count": 301,
         "shown_count": 250,
-        "hidden_count": 50
+        "hidden_count": 51
       },
       "short": {
         "total_count": 271,
@@ -224781,6 +224782,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-1b994a384f0c",
+        "idea_version": "IDEAV-6c12068ca3f43e81",
+        "idea_version_started_at": "2026-11-02T02:53:32Z",
+        "ticker": "000660",
+        "company": "SK hynix",
+        "exchange": "KRX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company is projected to achieve a record-breaking quarterly operating profit exceeding 100 trillion won, signaling significant margin expansion driven by memory demand.",
+        "why_now": "The report was published on 2026-11-02, highlighting a major inflection point in earnings expectations for Q4.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-51a271f49b0f"
+        ],
+        "primary_source_event_id": "EVT-51a271f49b0f",
+        "source_headlines": [
+          "SK hynix Q4 Operating Profit Seen Surpassing 100 Trillion Won for First Time"
+        ],
+        "source_headline": "SK hynix Q4 Operating Profit Seen Surpassing 100 Trillion Won for First Time",
+        "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=280166",
+        "source_name": "Business Korea — All Articles (CDN)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-02T01:35:40Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-02T02:53:32Z",
+        "updated_at": "2026-11-02T02:53:32Z",
+        "decay_at": "2026-11-03T13:35:40Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-03T13:35:40Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-5c111fdbe761",
         "idea_version": "IDEAV-51066f6756d22787",
@@ -254188,81 +254264,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-9a8c33c37ad0",
-        "idea_version": "IDEAV-cebdf3e8a1929254",
-        "idea_version_started_at": "2026-10-19T02:12:58Z",
-        "ticker": "010120",
-        "company": "LS Electric",
-        "exchange": "KRX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company secured a 170 billion won switchgear contract in the U.S., which will directly contribute to revenue growth and margin expansion.",
-        "why_now": "The contract win was announced on 2026-10-19.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 18,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-f45ff17a511d"
-        ],
-        "primary_source_event_id": "EVT-f45ff17a511d",
-        "source_headlines": [
-          "LS Electric wins 170 bln-won U.S. switchgear deal"
-        ],
-        "source_headline": "LS Electric wins 170 bln-won U.S. switchgear deal",
-        "source_url": "https://en.yna.co.kr/view/AEN20261019002700320",
-        "source_name": "Yonhap News Agency — All News (English)",
-        "materiality_max": 82,
-        "newest_source_at": "2026-10-19T01:27:35Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-19T02:12:58Z",
-        "updated_at": "2026-10-19T02:12:58Z",
-        "decay_at": "2026-10-20T13:27:35Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-22T01:34:15Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-5d7e7121c615",
         "idea_version": "IDEAV-0000d88643d77570",
         "idea_version_started_at": "2026-10-19T01:46:31Z",
@@ -262022,7 +262023,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2148,
-    "live_count": 54,
+    "live_count": 53,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -262041,9 +262042,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 9327487,
-    "news_picked_today": 960,
-    "news_dropped_today": 5280
+    "news_seen_today": 9766198,
+    "news_picked_today": 1013,
+    "news_dropped_today": 5347
   },
   "book_momentum": {
     "live_count": 8,
