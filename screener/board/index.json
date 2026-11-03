@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-03T15:38:23Z",
+  "generated_at": "2026-11-03T15:54:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261103-709",
@@ -1334,6 +1334,154 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261103-745",
+      "headline": "MCX Q2 Results: Profit rockets 130% YoY to Rs 455 crore, revenue jumps 114%",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/mcx-q2-results-profit-rockets-130-yoy-to-rs-455-crore-revenue-jumps-114/articleshow/135504568.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-03T15:14:21Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "MCX reported a 130% YoY profit increase to Rs 455 crore and a 114% revenue jump.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "MCX reported a 130% YoY profit increase to Rs 455 crore and a 114% revenue jump.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Multi Commodity Exchange of India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261103-748",
+      "headline": "Pfizer lifts 2026 guidance as cancer, migraine sales offset Covid slide",
+      "headline_en": null,
+      "url": "https://endpoints.news/pfizer-lifts-2026-guidance-as-cancer-migraine-sales-offset-covid-slide/",
+      "source_name": "Endpoints News",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-03T15:04:17Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "Pfizer raised its 2026 guidance due to strong cancer and migraine drug sales.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Pfizer raised its 2026 guidance due to strong cancer and migraine drug sales.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pfizer",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261103-744",
+      "headline": "Columbus McKinnon Corporation Reports Q2 FY27 Results and Increases Full Year Guidance",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/columbus-mckinnon-corporation-reports-q2-fy27-results-and-increases-full-year-guidance",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-03T15:02:37Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "Columbus McKinnon reported Q2 FY27 results and increased its full-year guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Columbus McKinnon reported Q2 FY27 results and increased its full-year guidance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Columbus McKinnon Corporation",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261103-733",
       "headline": "Fiserv Takes $6.45B Charge as Margins Shrink: Rapid Earnings Reaction",
       "headline_en": null,
@@ -1470,6 +1618,56 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261103-774",
+      "headline": "Pfizer Inc. Reports Third-Quarter 2026 Results and Raises Full-Year Guidance",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/pfizer-inc-reports-third-quarter-2026-results-and-raises-full-year-guidance",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-03T14:22:32Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "Pfizer reported Q3 2026 results and raised full-year guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Pfizer reported Q3 2026 results and raised full-year guidance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pfizer Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1773,210 +1971,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-644",
-      "headline": "NextEra, Dominion Strengthen Merger Protections With $5 Bln Virginia Investment",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/nextera-dominion-strengthen-merger-protections-5-bln-virginia-investment",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T13:11:20Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "NextEra and Dominion announced a $5 billion investment in Virginia to strengthen merger protections.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "NextEra and Dominion announced a $5 billion investment in Virginia to strengthen merger protections.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NextEra Energy",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Dominion Energy",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-645",
-      "headline": "Vital Farms Slips To Loss In Q3, Cuts FY26 Outlook; Pre-Market Shares Down",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/vital-farms-slips-loss-q3-cuts-fy26-outlook-pre-market-shares-down",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T13:09:57Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "Vital Farms reported a Q3 loss and cut its FY26 outlook.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Vital Farms reported a Q3 loss and cut its FY26 outlook.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vital Farms",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-648",
-      "headline": "Apple Lost About $140 Billion After Hours as Its New CEO Calls Memory Prices “Unprecedented”",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/11/03/apple-lost-about-140-billion-after-hours-as-its-new-ceo-calls-memory-prices-unprecedented/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T13:08:16Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "Apple shares dropped $140 billion in value after the new CEO cited unprecedented memory prices.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Apple shares dropped $140 billion in value after the new CEO cited unprecedented memory prices.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Apple",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-671",
-      "headline": "Ferrari raises 2026 guidance after Q3 earnings beat",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/11/03/ferrari-race-earnings-q3-2026.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T13:01:55Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "Ferrari raised its 2026 guidance following a Q3 earnings beat.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Ferrari raised its 2026 guidance following a Q3 earnings beat.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change",
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ferrari",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -218780,79 +218774,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-0e02a5d86bb3",
-      "idea_version": "IDEAV-3b4b8d05bd288743",
-      "idea_version_started_at": "2026-11-02T04:24:27Z",
-      "ticker": "BANKBARODA",
-      "company": "Bank of Baroda",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Bank of Baroda's Q2 net profit rose 36%, leading to a jump in its share price.",
-      "why_now": "The Q2 earnings report was released today, providing a clear catalyst for the stock's upward movement.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1da103b6696c"
-      ],
-      "primary_source_event_id": "EVT-1da103b6696c",
-      "source_headlines": [
-        "Bank of Baroda shares jump 5% after Q2 net profit rises 36%. What Nomura and other brokerages saying?"
-      ],
-      "source_headline": "Bank of Baroda shares jump 5% after Q2 net profit rises 36%. What Nomura and other brokerages saying?",
-      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/bank-of-baroda-shares-in-focus-as-nse-stake-sale-aids-36-profit-growth-in-q2-what-are-nomura-other-brokerages-saying/articleshow/135443950.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-02T03:43:43Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-02T04:24:27Z",
-      "updated_at": "2026-11-02T04:24:27Z",
-      "decay_at": "2026-11-03T15:43:43Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-3d269b7eb9c2",
       "idea_version": "IDEAV-8c5b20919f745398",
       "idea_version_started_at": "2026-11-02T04:24:27Z",
@@ -218920,80 +218841,6 @@
       "surfaced_at": "2026-11-02T04:24:27Z",
       "updated_at": "2026-11-02T04:24:27Z",
       "decay_at": "2026-11-03T16:01:25Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-bdc0aa865c9e",
-      "idea_version": "IDEAV-b02192a673bf6b05",
-      "idea_version_started_at": "2026-11-02T04:24:27Z",
-      "ticker": "BNB",
-      "company": "Binance Coin",
-      "exchange": null,
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Binance is experiencing significant net outflows following a major hack and subsequent platform issues.",
-      "why_now": "The exchange has recently reopened withdrawals after a $6.3 billion hack, with reports of $3.64 billion in net outflows today.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-dd1219ed92f1",
-        "EVT-a8873b856c17"
-      ],
-      "primary_source_event_id": "EVT-dd1219ed92f1",
-      "source_headlines": [
-        "Binance sees outflows stabilising as exchange returns online after $6.3 billion heist",
-        "Binance Logs $3.64 Billion In Net Outflows After Reopening Withdrawals Following Record $6.3 Billion Hack"
-      ],
-      "source_headline": "Binance sees outflows stabilising as exchange returns online after $6.3 billion heist",
-      "source_url": "https://economictimes.indiatimes.com/markets/cryptocurrency/binance-sees-outflows-stabilising-as-exchange-returns-online-after-6-3-billion-heist/articleshow/135443825.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-02T03:51:29Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-01T03:42:18Z",
-      "updated_at": "2026-11-02T04:24:27Z",
-      "decay_at": "2026-11-03T15:51:29Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -220700,6 +220547,79 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-0e02a5d86bb3",
+      "idea_version": "IDEAV-3b4b8d05bd288743",
+      "idea_version_started_at": "2026-11-02T04:24:27Z",
+      "ticker": "BANKBARODA",
+      "company": "Bank of Baroda",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Bank of Baroda's Q2 net profit rose 36%, leading to a jump in its share price.",
+      "why_now": "The Q2 earnings report was released today, providing a clear catalyst for the stock's upward movement.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1da103b6696c"
+      ],
+      "primary_source_event_id": "EVT-1da103b6696c",
+      "source_headlines": [
+        "Bank of Baroda shares jump 5% after Q2 net profit rises 36%. What Nomura and other brokerages saying?"
+      ],
+      "source_headline": "Bank of Baroda shares jump 5% after Q2 net profit rises 36%. What Nomura and other brokerages saying?",
+      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/bank-of-baroda-shares-in-focus-as-nse-stake-sale-aids-36-profit-growth-in-q2-what-are-nomura-other-brokerages-saying/articleshow/135443950.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-02T03:43:43Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-02T04:24:27Z",
+      "updated_at": "2026-11-02T04:24:27Z",
+      "decay_at": "2026-11-03T15:43:43Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-ae11504817ba",
       "idea_version": "IDEAV-89565329d8e38640",
       "idea_version_started_at": "2026-11-02T04:24:27Z",
@@ -220767,6 +220687,80 @@
       "surfaced_at": "2026-11-02T04:24:27Z",
       "updated_at": "2026-11-02T04:24:27Z",
       "decay_at": "2026-11-03T15:08:01Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-bdc0aa865c9e",
+      "idea_version": "IDEAV-b02192a673bf6b05",
+      "idea_version_started_at": "2026-11-02T04:24:27Z",
+      "ticker": "BNB",
+      "company": "Binance Coin",
+      "exchange": null,
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Binance is experiencing significant net outflows following a major hack and subsequent platform issues.",
+      "why_now": "The exchange has recently reopened withdrawals after a $6.3 billion hack, with reports of $3.64 billion in net outflows today.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-dd1219ed92f1",
+        "EVT-a8873b856c17"
+      ],
+      "primary_source_event_id": "EVT-dd1219ed92f1",
+      "source_headlines": [
+        "Binance sees outflows stabilising as exchange returns online after $6.3 billion heist",
+        "Binance Logs $3.64 Billion In Net Outflows After Reopening Withdrawals Following Record $6.3 Billion Hack"
+      ],
+      "source_headline": "Binance sees outflows stabilising as exchange returns online after $6.3 billion heist",
+      "source_url": "https://economictimes.indiatimes.com/markets/cryptocurrency/binance-sees-outflows-stabilising-as-exchange-returns-online-after-6-3-billion-heist/articleshow/135443825.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-02T03:51:29Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-01T03:42:18Z",
+      "updated_at": "2026-11-02T04:24:27Z",
+      "decay_at": "2026-11-03T15:51:29Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -224739,19 +224733,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 574,
+    "total_count": 576,
     "shown_count": 500,
-    "hidden_count": 74,
+    "hidden_count": 76,
     "side_counts": {
       "long": {
-        "total_count": 301,
+        "total_count": 302,
         "shown_count": 250,
-        "hidden_count": 51
+        "hidden_count": 52
       },
       "short": {
-        "total_count": 273,
+        "total_count": 274,
         "shown_count": 250,
-        "hidden_count": 23
+        "hidden_count": 24
       }
     },
     "retention": {
@@ -224770,6 +224764,159 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-bdc0aa865c9e",
+        "idea_version": "IDEAV-b02192a673bf6b05",
+        "idea_version_started_at": "2026-11-02T04:24:27Z",
+        "ticker": "BNB",
+        "company": "Binance Coin",
+        "exchange": null,
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Binance is experiencing significant net outflows following a major hack and subsequent platform issues.",
+        "why_now": "The exchange has recently reopened withdrawals after a $6.3 billion hack, with reports of $3.64 billion in net outflows today.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 7,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-dd1219ed92f1",
+          "EVT-a8873b856c17"
+        ],
+        "primary_source_event_id": "EVT-dd1219ed92f1",
+        "source_headlines": [
+          "Binance sees outflows stabilising as exchange returns online after $6.3 billion heist",
+          "Binance Logs $3.64 Billion In Net Outflows After Reopening Withdrawals Following Record $6.3 Billion Hack"
+        ],
+        "source_headline": "Binance sees outflows stabilising as exchange returns online after $6.3 billion heist",
+        "source_url": "https://economictimes.indiatimes.com/markets/cryptocurrency/binance-sees-outflows-stabilising-as-exchange-returns-online-after-6-3-billion-heist/articleshow/135443825.cms",
+        "source_name": "The Economic Times",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-02T03:51:29Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-01T03:42:18Z",
+        "updated_at": "2026-11-02T04:24:27Z",
+        "decay_at": "2026-11-03T15:51:29Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-03T15:51:29Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-0e02a5d86bb3",
+        "idea_version": "IDEAV-3b4b8d05bd288743",
+        "idea_version_started_at": "2026-11-02T04:24:27Z",
+        "ticker": "BANKBARODA",
+        "company": "Bank of Baroda",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Bank of Baroda's Q2 net profit rose 36%, leading to a jump in its share price.",
+        "why_now": "The Q2 earnings report was released today, providing a clear catalyst for the stock's upward movement.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-1da103b6696c"
+        ],
+        "primary_source_event_id": "EVT-1da103b6696c",
+        "source_headlines": [
+          "Bank of Baroda shares jump 5% after Q2 net profit rises 36%. What Nomura and other brokerages saying?"
+        ],
+        "source_headline": "Bank of Baroda shares jump 5% after Q2 net profit rises 36%. What Nomura and other brokerages saying?",
+        "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/bank-of-baroda-shares-in-focus-as-nse-stake-sale-aids-36-profit-growth-in-q2-what-are-nomura-other-brokerages-saying/articleshow/135443950.cms",
+        "source_name": "The Economic Times",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-02T03:43:43Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-02T04:24:27Z",
+        "updated_at": "2026-11-02T04:24:27Z",
+        "decay_at": "2026-11-03T15:43:43Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-03T15:43:43Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-31bc9e23a829",
         "idea_version": "IDEAV-5b44ac19930db999",
@@ -254250,81 +254397,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-fb13e316b985",
-        "idea_version": "IDEAV-aabb11428b640c1c",
-        "idea_version_started_at": "2026-10-19T04:16:06Z",
-        "ticker": "7011",
-        "company": "Mitsubishi Heavy Industries",
-        "exchange": "TSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company is expanding its defense-related shipbuilding capacity to meet government demand, which will increase long-term revenue visibility in its defense segment.",
-        "why_now": "The company announced the revival of a specific shipbuilding line for defense equipment starting in FY 2027.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 18,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-db27871f667b"
-        ],
-        "primary_source_event_id": "EVT-db27871f667b",
-        "source_headlines": [
-          "Mitsubishi Heavy to revive shipbuilding line for defense equipment in FY 2027"
-        ],
-        "source_headline": "Mitsubishi Heavy to revive shipbuilding line for defense equipment in FY 2027",
-        "source_url": "https://english.kyodonews.net/articles/-/88665",
-        "source_name": "Kyodo News (Japan Wire)",
-        "materiality_max": 89,
-        "newest_source_at": "2026-10-19T03:45:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-19T03:38:08Z",
-        "updated_at": "2026-10-19T04:16:06Z",
-        "decay_at": "2026-10-20T15:45:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-22T07:03:24Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-3d70daa14c61",
         "idea_version": "IDEAV-7241efece5daf7a6",
         "idea_version_started_at": "2026-10-19T03:56:14Z",
@@ -261932,88 +262004,12 @@
         "archived_at": "2026-10-10T00:20:12Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-b56a76426b54",
-        "idea_version": "IDEAV-76c1a28902b71f17",
-        "idea_version_started_at": "2026-10-07T01:07:10Z",
-        "ticker": "SAVE",
-        "company": "Spirit Airlines",
-        "exchange": "NYSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company has filed for bankruptcy and canceled 2,500 flights, indicating a total breakdown of operations and likely equity wipeout.",
-        "why_now": "The bankruptcy filing and mass cancellations occurred on October 7, 2026.",
-        "conviction": 85,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 23,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-16bc1b27fccd"
-        ],
-        "primary_source_event_id": "EVT-16bc1b27fccd",
-        "source_headlines": [
-          "South America's Spirit Airlines canceled 2,500 flights, files for bankruptcy"
-        ],
-        "source_headline": "South America's Spirit Airlines canceled 2,500 flights, files for bankruptcy",
-        "source_url": "https://www.thestreet.com/travel/flybondi-airline-files-for-bankruptcy-protection",
-        "source_name": "TheStreet",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-07T00:00:48Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-07T01:07:10Z",
-        "updated_at": "2026-10-07T01:07:10Z",
-        "decay_at": "2026-10-08T12:00:48Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-10T00:20:12Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2152,
-    "live_count": 51,
+    "live_count": 49,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -262032,9 +262028,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 11706542,
-    "news_picked_today": 1203,
-    "news_dropped_today": 5589
+    "news_seen_today": 11909726,
+    "news_picked_today": 1249,
+    "news_dropped_today": 5615
   },
   "book_momentum": {
     "live_count": 8,
