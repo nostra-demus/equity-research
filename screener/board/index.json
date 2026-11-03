@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-03T22:42:42Z",
+  "generated_at": "2026-11-03T23:05:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20261103-904",
@@ -1729,6 +1729,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261103-922",
+      "headline": "Amgen Raises Forecasts Again as Sales Top Expectations",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-03/amgen-raises-revenue-forecast-again-as-sales-top-expectations",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-03T21:01:20Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "Amgen raised its financial forecasts following quarterly sales that exceeded analyst expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Amgen raised its financial forecasts following quarterly sales that exceeded analyst expectations.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amgen",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261103-902",
       "headline": "Organigram launches $561-million takeover offer for Aurora Cannabis",
       "headline_en": null,
@@ -1931,56 +1981,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-867",
-      "headline": "Pfizer hikes full-year outlook on new product growth, taps company veteran as new CFO",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/11/03/pfizer-pfe-earnings-q3-2026.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T19:25:44Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "Pfizer raised its full-year outlook and appointed a new CFO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Pfizer raised its full-year outlook and appointed a new CFO.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change",
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Pfizer",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -262688,9 +262688,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 19025407,
-    "news_picked_today": 1731,
-    "news_dropped_today": 8493
+    "news_seen_today": 19501930,
+    "news_picked_today": 1745,
+    "news_dropped_today": 8623
   },
   "book_momentum": {
     "live_count": 8,
