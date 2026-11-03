@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-03T04:26:03Z",
+  "generated_at": "2026-11-03T04:57:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20261103-182",
@@ -193,6 +193,104 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261103-226",
+      "headline": "KEC International cuts FY27 revenue growth guidance to 8-10% as West Asia conflict hits business",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/earnings/kec-international-cuts-fy27-revenue-guidance-q2-results-west-asia-crisis-alpha-article-20025541.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-03T04:49:32Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "KEC International cut its FY27 revenue growth guidance to 8-10% due to geopolitical conflict.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "KEC International cut its FY27 revenue growth guidance to 8-10% due to geopolitical conflict.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "KEC International",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261103-229",
+      "headline": "Apple Q4 results beat estimates as iPhone 18 Pro demand, price hikes offset rising chip costs",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/apple-q4-results-beat-estimates-as-iphone-18-pro-demand-price-hikes-offset-rising-chip-costs/articleshow/135481907.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-03T04:25:14Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "Apple reported Q4 results that beat estimates, driven by strong demand and pricing power.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Apple reported Q4 results that beat estimates, driven by strong demand and pricing power.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Apple",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1875,104 +1973,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-057",
-      "headline": "CC5: Funding Raised for Development of a New Benchtop Instrument [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CC5?key=2924-03157419-2A1707997",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-02T23:20:41Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "The company raised funding specifically for the development of a new benchtop instrument.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "The company raised funding specifically for the development of a new benchtop instrument.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CC5",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-027",
-      "headline": "WMC: Wiluna Settles Key Legal Disputes [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WMC?key=2924-03157370-6A1353369",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-02T22:31:26Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "Settlement of key legal disputes removes a material operational and financial risk, marked as price-sensitive.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Settlement of key legal disputes removes a material operational and financial risk, marked as price-sensitive.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "WMC",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -218853,78 +218853,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-e6ddf6fb9b95",
-      "idea_version": "IDEAV-12769d230a02bb77",
-      "idea_version_started_at": "2026-11-01T19:26:17Z",
-      "ticker": "7203",
-      "company": "Elm",
-      "exchange": "TSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Elm reported higher net profits for 9M-26 on substantial revenue of SAR 7.7 billion, demonstrating strong fundamental growth.",
-      "why_now": "The financial results were published on November 1, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6043fcac0114"
-      ],
-      "primary_source_event_id": "EVT-6043fcac0114",
-      "source_headlines": [
-        "Elm generates higher net profits in 9M-26 amid SAR 7.7bn revenue"
-      ],
-      "source_headline": "Elm generates higher net profits in 9M-26 amid SAR 7.7bn revenue",
-      "source_url": "http://english.mubasher.info/news/4694292/Elm-generates-higher-net-profits-in-9M-26-amid-SAR-7-7bn-revenue",
-      "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-01T16:54:36Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-01T19:26:17Z",
-      "updated_at": "2026-11-01T19:26:17Z",
-      "decay_at": "2026-11-03T04:54:36Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-487971165ebf",
       "idea_version": "IDEAV-b4c4a6f9769c63cf",
       "idea_version_started_at": "2026-11-01T18:55:24Z",
@@ -221267,6 +221195,78 @@
       "surfaced_at": "2026-11-01T02:40:39Z",
       "updated_at": "2026-11-01T02:40:39Z",
       "decay_at": "2026-11-02T14:29:03Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-e6ddf6fb9b95",
+      "idea_version": "IDEAV-12769d230a02bb77",
+      "idea_version_started_at": "2026-11-01T19:26:17Z",
+      "ticker": "7203",
+      "company": "Elm",
+      "exchange": "TSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Elm reported higher net profits for 9M-26 on substantial revenue of SAR 7.7 billion, demonstrating strong fundamental growth.",
+      "why_now": "The financial results were published on November 1, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6043fcac0114"
+      ],
+      "primary_source_event_id": "EVT-6043fcac0114",
+      "source_headlines": [
+        "Elm generates higher net profits in 9M-26 amid SAR 7.7bn revenue"
+      ],
+      "source_headline": "Elm generates higher net profits in 9M-26 amid SAR 7.7bn revenue",
+      "source_url": "http://english.mubasher.info/news/4694292/Elm-generates-higher-net-profits-in-9M-26-amid-SAR-7-7bn-revenue",
+      "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-01T16:54:36Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-01T19:26:17Z",
+      "updated_at": "2026-11-01T19:26:17Z",
+      "decay_at": "2026-11-03T04:54:36Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -224669,14 +224669,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 562,
+    "total_count": 563,
     "shown_count": 500,
-    "hidden_count": 62,
+    "hidden_count": 63,
     "side_counts": {
       "long": {
-        "total_count": 291,
+        "total_count": 292,
         "shown_count": 250,
-        "hidden_count": 41
+        "hidden_count": 42
       },
       "short": {
         "total_count": 271,
@@ -224700,6 +224700,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-e6ddf6fb9b95",
+        "idea_version": "IDEAV-12769d230a02bb77",
+        "idea_version_started_at": "2026-11-01T19:26:17Z",
+        "ticker": "7203",
+        "company": "Elm",
+        "exchange": "TSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Elm reported higher net profits for 9M-26 on substantial revenue of SAR 7.7 billion, demonstrating strong fundamental growth.",
+        "why_now": "The financial results were published on November 1, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-6043fcac0114"
+        ],
+        "primary_source_event_id": "EVT-6043fcac0114",
+        "source_headlines": [
+          "Elm generates higher net profits in 9M-26 amid SAR 7.7bn revenue"
+        ],
+        "source_headline": "Elm generates higher net profits in 9M-26 amid SAR 7.7bn revenue",
+        "source_url": "http://english.mubasher.info/news/4694292/Elm-generates-higher-net-profits-in-9M-26-amid-SAR-7-7bn-revenue",
+        "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-01T16:54:36Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-01T19:26:17Z",
+        "updated_at": "2026-11-01T19:26:17Z",
+        "decay_at": "2026-11-03T04:54:36Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-03T04:54:36Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-4df65ccb0105",
         "idea_version": "IDEAV-5d8d7eaa03654113",
@@ -253886,82 +253961,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-7892b0c68f87",
-        "idea_version": "IDEAV-bde4bf03cbfb2c03",
-        "idea_version_started_at": "2026-10-18T21:06:47Z",
-        "ticker": "FPA",
-        "company": "FleetPartners",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "FleetPartners is being acquired for $1 billion by Pacific Equity Partners, indicating a positive valuation for shareholders.",
-        "why_now": "The deal was reported on 2026-10-18, making the acquisition news timely.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-7c18044d1c03"
-        ],
-        "primary_source_event_id": "EVT-7c18044d1c03",
-        "source_headlines": [
-          "Pacific Equity Partners drives away with FleetPartners in $1b deal"
-        ],
-        "source_headline": "Pacific Equity Partners drives away with FleetPartners in $1b deal",
-        "source_url": "https://www.afr.com/street-talk/pacific-equity-partners-drives-away-with-fleetpartners-20261019-p616l1?ref=rss&utm_medium=rss&utm_source=rss_feed",
-        "source_name": "Australian Financial Review",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-18T20:59:51Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-18T21:06:47Z",
-        "updated_at": "2026-10-18T21:06:47Z",
-        "decay_at": "2026-10-20T08:59:51Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-22T00:53:39Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-c2d6ddb1545f",
         "idea_version": "IDEAV-61d9912074e7dbf7",
         "idea_version_started_at": "2026-10-18T17:51:37Z",
@@ -261946,7 +261945,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2136,
-    "live_count": 62,
+    "live_count": 61,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -261965,9 +261964,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2765878,
-    "news_picked_today": 325,
-    "news_dropped_today": 2123
+    "news_seen_today": 3092890,
+    "news_picked_today": 339,
+    "news_dropped_today": 2397
   },
   "book_momentum": {
     "live_count": 8,
