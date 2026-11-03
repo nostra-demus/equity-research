@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-03T00:51:17Z",
+  "generated_at": "2026-11-03T00:54:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20261103-002",
@@ -46,6 +46,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261103-124",
+      "headline": "Reliance surges 11.6% as strong Q2 earnings add Rs 1.83 lakh crore in market value",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/reliance-surges-11-6-as-strong-q2-earnings-add-rs-1-83-lakh-crore-in-market-value/articleshow/135477257.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-03T00:28:18Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "Reliance reported strong Q2 earnings, resulting in an 11.6% surge and adding Rs 1.83 lakh crore in market value.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Reliance reported strong Q2 earnings, resulting in an 11.6% surge and adding Rs 1.83 lakh crore in market value.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Reliance Industries",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1871,20 +1920,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261103-039",
-      "headline": "ZNC: Change in substantial holding from FRS",
+      "inbox_id": "INB-20261103-130",
+      "headline": "LM1: Change in substantial holding from FRS",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ZNC?key=2924-03157435-6A1353386",
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LM1?key=2924-03157446-6A1353394",
       "source_name": "ASX (Australia Exchange Filing)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-11-03T00:03:36Z",
+      "found_at": "2026-11-03T00:45:51Z",
       "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "Zenith Minerals reported a change in substantial holding from FRS, indicating a shift in ownership structure.",
+      "prelim_note": "FRS has disclosed a change in its substantial holding in LM1.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 74,
-      "triage_reason": "Zenith Minerals reported a change in substantial holding from FRS, indicating a shift in ownership structure.",
+      "triage_reason": "FRS has disclosed a change in its substantial holding in LM1.",
       "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 50,
@@ -1909,58 +1958,9 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Zenith Minerals",
+          "name": "LM1",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-118",
-      "headline": "SCHEDULE 13D/A - Icon Energy Corp (0001995574) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1995574/000110465926121505/0001104659-26-121505-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-02T22:52:29Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "Icon Energy Corp filed an amended 13D, indicating a change in significant shareholder position.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 73,
-      "triage_reason": "Icon Energy Corp filed an amended 13D, indicating a change in significant shareholder position.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Icon Energy Corp",
-          "ticker": null,
-          "listing_country": "AU"
         }
       ],
       "size_bucket": "small",
@@ -261732,9 +261732,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 451772,
-    "news_picked_today": 144,
-    "news_dropped_today": 600
+    "news_seen_today": 486960,
+    "news_picked_today": 153,
+    "news_dropped_today": 615
   },
   "book_momentum": {
     "live_count": 8,
