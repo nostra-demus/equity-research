@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-03T19:58:29Z",
+  "generated_at": "2026-11-03T20:01:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20261103-859",
@@ -1384,6 +1384,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261103-872",
+      "headline": "CVR Energy, Inc. Reports Third Quarter 2026 Net Income of $570 million and Announces Refinery Acquisition",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/cvr-energy-inc-reports-third-quarter-2026-net-income-570-million-and-announces-refinery",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-03T19:41:37Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "CVR Energy reported $570 million in net income and announced a refinery acquisition.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CVR Energy reported $570 million in net income and announced a refinery acquisition.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CVR Energy, Inc.",
+          "ticker": "CVI",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261103-867",
       "headline": "Pfizer hikes full-year outlook on new product growth, taps company veteran as new CFO",
       "headline_en": null,
@@ -1928,55 +1978,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-836",
-      "headline": "Vijaya Diagnostic Q2 Results: Net profit jumps 37% on higher test volumes, margin expansion",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/stocks/vijaya-diagnostic-centre-share-price-q2-results-net-profit-jumps-37-on-higher-test-volumes-margin-expansion-20026378.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T17:03:01Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "Vijaya Diagnostic reported a 37% increase in net profit driven by higher test volumes and margin expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Vijaya Diagnostic reported a 37% increase in net profit driven by higher test volumes and margin expansion.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vijaya Diagnostic",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -262397,9 +262398,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 15921303,
-    "news_picked_today": 1501,
-    "news_dropped_today": 7619
+    "news_seen_today": 15993411,
+    "news_picked_today": 1512,
+    "news_dropped_today": 7704
   },
   "book_momentum": {
     "live_count": 8,
