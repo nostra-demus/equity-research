@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-03T12:03:48Z",
+  "generated_at": "2026-11-03T12:08:36Z",
   "inbox": [
     {
       "inbox_id": "INB-20261103-494",
@@ -730,6 +730,55 @@
           "name": "Get Nice Holdings",
           "ticker": "00064",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261103-503",
+      "headline": "Karyopharm Therapeutics Inc. Files for Chapter 11 Bankruptcy on November 2, 2026",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/karyopharm-therapeutics-inc-files-chapter-11-bankruptcy-november-2-2026",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-03T11:51:49Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "Karyopharm Therapeutics filed for Chapter 11 bankruptcy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Karyopharm Therapeutics filed for Chapter 11 bankruptcy.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Karyopharm Therapeutics",
+          "ticker": "KPTI",
+          "listing_country": "US"
         }
       ],
       "size_bucket": "small",
@@ -1943,55 +1992,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-260",
-      "headline": "Anthropic Q3 results: Revenue soars 1,127% to $17 billion, operating loss stands at $567 million",
-      "headline_en": null,
-      "url": "https://timesofindia.indiatimes.com/business/international-business/anthropic-q3-results-revenue-soars-1127-to-17-billion-operating-loss-stands-at-567-million/articleshow/135481455.cms",
-      "source_name": "The Times of India (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T04:36:07Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "Anthropic reported Q3 revenue of $17 billion, up 1,127%, with an operating loss of $567 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Anthropic reported Q3 revenue of $17 billion, up 1,127%, with an operating loss of $567 million.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -261978,9 +261978,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8562353,
-    "news_picked_today": 809,
-    "news_dropped_today": 5119
+    "news_seen_today": 8619374,
+    "news_picked_today": 823,
+    "news_dropped_today": 5153
   },
   "book_momentum": {
     "live_count": 8,
