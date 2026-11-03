@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-03T05:49:45Z",
+  "generated_at": "2026-11-03T06:31:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20261103-182",
@@ -193,6 +193,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261103-245",
+      "headline": "Abu Dhabi’s XRG in $2.1b deal to buy Shell out of North West Shelf",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/energy/abu-dhabi-s-xrg-in-2-1b-deal-to-buy-shell-out-of-north-west-shelf-20261103-p61b34?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-03T06:08:42Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "XRG is acquiring Shell's stake in the North West Shelf for $2.1 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "XRG is acquiring Shell's stake in the North West Shelf for $2.1 billion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "XRG",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Shell",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1918,55 +1972,6 @@
       "companies": [
         {
           "name": "James Lawrence Dolan",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-148",
-      "headline": "SCHEDULE 13D - MSG Rangers Corp. (0002132873) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/2132873/000110465926121596/0001104659-26-121596-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-03T01:36:33Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "MSG Rangers Corp filed a Schedule 13D, indicating a significant ownership stake and potential activist intent.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "MSG Rangers Corp filed a Schedule 13D, indicating a significant ownership stake and potential activist intent.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MSG Rangers Corp",
           "ticker": null,
           "listing_country": "US"
         }
@@ -261963,9 +261968,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3698761,
-    "news_picked_today": 356,
-    "news_dropped_today": 2692
+    "news_seen_today": 4154488,
+    "news_picked_today": 376,
+    "news_dropped_today": 2960
   },
   "book_momentum": {
     "live_count": 8,
