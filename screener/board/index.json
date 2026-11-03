@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-03T06:31:56Z",
+  "generated_at": "2026-11-03T06:39:31Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261103-257",
+      "headline": "Man Infraconstruction Limited: Man Infraconstruction Limited has informed the Exchange regarding a press release dated November 03, 2026, titled \"MICL GROUP SECURES TWO EPC WORK ORDERS WORTH ₹583 CRORE; EPC PORTFOLIO STRENGTHENS TO ₹858 CRORE \".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/kunjalparekh_03112026095358_MICL.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-03T04:30:04Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "Company secured two new EPC work orders worth 583 crore, significantly expanding its portfolio.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company secured two new EPC work orders worth 583 crore, significantly expanding its portfolio.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Man Infraconstruction Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261103-182",
       "headline": "National Aluminium Company Limited: National Aluminium Company Limited has informed the Exchange regarding a press release dated November 03, 2026, titled \"NALCO Scripts History with Best-Ever Half Yearly Financial Results Since Inception. \".",
@@ -1923,55 +1972,6 @@
       "companies": [
         {
           "name": "Arkhouse Management Co. LP",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-149",
-      "headline": "SCHEDULE 13D - DOLAN JAMES LAWRENCE (0000933028) (Filed by)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/933028/000110465926121596/0001104659-26-121596-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-03T01:36:33Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "James Lawrence Dolan filed a Schedule 13D, indicating a significant ownership stake.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "James Lawrence Dolan filed a Schedule 13D, indicating a significant ownership stake.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "James Lawrence Dolan",
           "ticker": null,
           "listing_country": "US"
         }
@@ -261968,9 +261968,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4154488,
-    "news_picked_today": 376,
-    "news_dropped_today": 2960
+    "news_seen_today": 4215689,
+    "news_picked_today": 388,
+    "news_dropped_today": 3116
   },
   "book_momentum": {
     "live_count": 8,
