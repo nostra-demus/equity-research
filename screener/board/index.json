@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-03T20:12:56Z",
+  "generated_at": "2026-11-03T20:35:48Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261103-877",
+      "headline": "Lupin Limited: Lupin Limited has informed the Exchange regarding a press release dated November 04, 2026, titled \"Lupin Q2 FY2027 Results \".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/Lupin2_04112026014246_SE_Intimation_Press_Release_04112026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-03T20:14:23Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "Lupin Limited reported Q2 FY2027 financial results.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Lupin Limited reported Q2 FY2027 financial results.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lupin Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261103-859",
       "headline": "HEG Advanced Materials Limited: HEG Advanced Materials Limited has informed the Exchange regarding a press release dated November 03, 2026, relating to Q2 and H1 FY27 financial results and other matters relating to capacity expansion of Anode plant, setting up of new businesses and ESOP scheme\".",
@@ -1384,6 +1433,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261103-881",
+      "headline": "Marvell to Acquire Lumentum in Historic $115B Tech Deal",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-11-03/marvell-to-acquire-lumentum-in-historic-115b-tech-deal-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-03T20:12:07Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "Marvell announced a definitive agreement to acquire Lumentum for $115 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Marvell announced a definitive agreement to acquire Lumentum for $115 billion.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 95,
+      "rank_factors": {
+        "materiality": 95,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Marvell",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Lumentum",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261103-876",
       "headline": "CVR Energy, Inc. Files Pro Forma Financials for $4.2 billion Acquisition",
       "headline_en": null,
@@ -1872,109 +1975,6 @@
           "name": "Lloyds Metals",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-850",
-      "headline": "Subros Q2 results: Net profit rises 9.6% to ₹44.6 crore, revenue jumps 36.3% to ₹1,199 crore",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/earnings/subros-q2-results-net-profit-rises-96-per-cent-to-rs-446-crore-revenue-jumps-363-per-cent-to-rs-1199-crore-20026407.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T18:07:50Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "Subros reported Q2 net profit of ₹44.6 crore (up 9.6%) and revenue of ₹1,199 crore (up 36.3%).",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Subros reported Q2 net profit of ₹44.6 crore (up 9.6%) and revenue of ₹1,199 crore (up 36.3%).",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Subros",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-849",
-      "headline": "Organigram To Acquire Aurora Cannabis In C$561 Mln Deal",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/organigram-acquire-aurora-cannabis-c-561-mln-deal",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T17:20:55Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "Organigram is acquiring Aurora Cannabis in a deal valued at C$561 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Organigram is acquiring Aurora Cannabis in a deal valued at C$561 million.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Organigram",
-          "ticker": null,
-          "listing_country": "CA"
-        },
-        {
-          "name": "Aurora Cannabis",
-          "ticker": null,
-          "listing_country": "CA"
         }
       ],
       "size_bucket": "mid",
@@ -262398,9 +262398,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 16245702,
-    "news_picked_today": 1526,
-    "news_dropped_today": 7762
+    "news_seen_today": 16679452,
+    "news_picked_today": 1531,
+    "news_dropped_today": 7901
   },
   "book_momentum": {
     "live_count": 8,
