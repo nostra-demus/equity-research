@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-03T06:40:14Z",
+  "generated_at": "2026-11-03T06:43:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20261103-257",
@@ -247,6 +247,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261103-258",
+      "headline": "Tamilnadu Petroproducts Q2 FY27 Earnings Outshines, Net Profit Zooms 95% To ₹62.54 Crore As Revenue Hits ₹941.63 Crore After Doubling Year-On-Year",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/tamilnadu-petroproducts-q2-fy27-earnings-outshines-net-profit-zooms-95-to-6254-crore-as-revenue-hits-94163-crore-after-doubling-year-on-year",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-03T06:11:23Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "Tamilnadu Petroproducts reported a 95% increase in net profit to ₹62.54 crore and revenue of ₹941.63 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tamilnadu Petroproducts reported a 95% increase in net profit to ₹62.54 crore and revenue of ₹941.63 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tamilnadu Petroproducts",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261103-245",
       "headline": "Abu Dhabi’s XRG in $2.1b deal to buy Shell out of North West Shelf",
       "headline_en": null,
@@ -345,6 +394,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261103-260",
+      "headline": "Anthropic Q3 results: Revenue soars 1,127% to $17 billion, operating loss stands at $567 million",
+      "headline_en": null,
+      "url": "https://timesofindia.indiatimes.com/business/international-business/anthropic-q3-results-revenue-soars-1127-to-17-billion-operating-loss-stands-at-567-million/articleshow/135481455.cms",
+      "source_name": "The Times of India (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-03T04:36:07Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "Anthropic reported Q3 revenue of $17 billion, up 1,127%, with an operating loss of $567 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Anthropic reported Q3 revenue of $17 billion, up 1,127%, with an operating loss of $567 million.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1879,104 +1977,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-200",
-      "headline": "425 - tZERO Group, Inc. (0001726726) (Filed by)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1726726/000121390026114943/0001213900-26-114943-index.htm",
-      "source_name": "SEC EDGAR — Latest 425 (M&A Business-Combination Communications)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-02T21:16:29Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "SEC Form 425 indicates active business combination communications for tZERO Group.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "SEC Form 425 indicates active business combination communications for tZERO Group.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "tZERO Group, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-169",
-      "headline": "SCHEDULE 13D - Arkhouse Management Co. LP (0002021808) (Filed by)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/2021808/000121390026115110/0001213900-26-115110-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-03T01:55:34Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "Arkhouse Management has filed a Schedule 13D, indicating an activist stake or significant ownership position.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Arkhouse Management has filed a Schedule 13D, indicating an activist stake or significant ownership position.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Arkhouse Management Co. LP",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -261968,9 +261968,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4215689,
-    "news_picked_today": 388,
-    "news_dropped_today": 3116
+    "news_seen_today": 4237193,
+    "news_picked_today": 391,
+    "news_dropped_today": 3137
   },
   "book_momentum": {
     "live_count": 8,
