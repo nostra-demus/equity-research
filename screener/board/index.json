@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-03T13:46:49Z",
+  "generated_at": "2026-11-03T13:50:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20261103-628",
@@ -1489,6 +1489,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261103-685",
+      "headline": "Binance net outflows reach $5.3 billion after record hack. CEO says recovery underway",
+      "headline_en": null,
+      "url": "https://www.coindesk.com/business/2026/11/03/binance-net-outflows-reach-usd5-3b-after-record-hack-though-ceo-cites-recovery",
+      "source_name": "CoinDesk",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-03T12:57:28Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "Company faces $5.3 billion in net outflows following a record hack.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company faces $5.3 billion in net outflows following a record hack.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Binance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261103-604",
       "headline": "HG Infra Q2 Results: Profit halves as revenue falls 24%, margin contracts to 12%",
       "headline_en": null,
@@ -1935,55 +1984,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-457",
-      "headline": "Virgin Media O2 confirms thousands of UK job cuts in £800m cost-cutting drive",
-      "headline_en": null,
-      "url": "https://www.cityam.com/virgin-media-o2-confirms-thousands-of-uk-job-cuts-in-800m-cost-cutting-drive/",
-      "source_name": "City A.M.",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T11:03:04Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "Virgin Media O2 is cutting thousands of jobs as part of an 800 million pound cost-cutting program.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Virgin Media O2 is cutting thousands of jobs as part of an 800 million pound cost-cutting program.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Virgin Media O2",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -262043,9 +262043,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 9829627,
-    "news_picked_today": 1048,
-    "news_dropped_today": 5384
+    "news_seen_today": 9924700,
+    "news_picked_today": 1063,
+    "news_dropped_today": 5393
   },
   "book_momentum": {
     "live_count": 8,
