@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-03T04:05:55Z",
+  "generated_at": "2026-11-03T04:12:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20261103-182",
@@ -219069,78 +219069,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-4df65ccb0105",
-      "idea_version": "IDEAV-5d8d7eaa03654113",
-      "idea_version_started_at": "2026-11-01T16:55:27Z",
-      "ticker": "KIPCO",
-      "company": "Kuwait Projects Company",
-      "exchange": null,
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company has successfully repaid a $500 million Euro Medium Term Note (EMTN) bond, significantly reducing its debt burden and improving its credit profile.",
-      "why_now": "The repayment was confirmed on November 1, 2024, providing an immediate positive signal regarding the firm's liquidity position.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b4df0fd0644a"
-      ],
-      "primary_source_event_id": "EVT-b4df0fd0644a",
-      "source_headlines": [
-        "KIPCO completes repayment of $500 million EMTN bond"
-      ],
-      "source_headline": "KIPCO completes repayment of $500 million EMTN bond",
-      "source_url": "https://kuwaittimes.com/article/52787/business/kipco-completes-repayment-of-500-million-emtn-bond/",
-      "source_name": "Kuwait Times — Business",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-01T16:08:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-01T16:55:27Z",
-      "updated_at": "2026-11-01T16:55:27Z",
-      "decay_at": "2026-11-03T04:08:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-a204395caab2",
       "idea_version": "IDEAV-6cd21665a86d4930",
       "idea_version_started_at": "2026-11-03T02:31:59Z",
@@ -221339,6 +221267,78 @@
       "surfaced_at": "2026-11-01T02:40:39Z",
       "updated_at": "2026-11-01T02:40:39Z",
       "decay_at": "2026-11-02T14:29:03Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-4df65ccb0105",
+      "idea_version": "IDEAV-5d8d7eaa03654113",
+      "idea_version_started_at": "2026-11-01T16:55:27Z",
+      "ticker": "KIPCO",
+      "company": "Kuwait Projects Company",
+      "exchange": null,
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company has successfully repaid a $500 million Euro Medium Term Note (EMTN) bond, significantly reducing its debt burden and improving its credit profile.",
+      "why_now": "The repayment was confirmed on November 1, 2024, providing an immediate positive signal regarding the firm's liquidity position.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b4df0fd0644a"
+      ],
+      "primary_source_event_id": "EVT-b4df0fd0644a",
+      "source_headlines": [
+        "KIPCO completes repayment of $500 million EMTN bond"
+      ],
+      "source_headline": "KIPCO completes repayment of $500 million EMTN bond",
+      "source_url": "https://kuwaittimes.com/article/52787/business/kipco-completes-repayment-of-500-million-emtn-bond/",
+      "source_name": "Kuwait Times — Business",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-01T16:08:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-01T16:55:27Z",
+      "updated_at": "2026-11-01T16:55:27Z",
+      "decay_at": "2026-11-03T04:08:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -224669,14 +224669,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 561,
+    "total_count": 562,
     "shown_count": 500,
-    "hidden_count": 61,
+    "hidden_count": 62,
     "side_counts": {
       "long": {
-        "total_count": 290,
+        "total_count": 291,
         "shown_count": 250,
-        "hidden_count": 40
+        "hidden_count": 41
       },
       "short": {
         "total_count": 271,
@@ -224700,6 +224700,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-4df65ccb0105",
+        "idea_version": "IDEAV-5d8d7eaa03654113",
+        "idea_version_started_at": "2026-11-01T16:55:27Z",
+        "ticker": "KIPCO",
+        "company": "Kuwait Projects Company",
+        "exchange": null,
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company has successfully repaid a $500 million Euro Medium Term Note (EMTN) bond, significantly reducing its debt burden and improving its credit profile.",
+        "why_now": "The repayment was confirmed on November 1, 2024, providing an immediate positive signal regarding the firm's liquidity position.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-b4df0fd0644a"
+        ],
+        "primary_source_event_id": "EVT-b4df0fd0644a",
+        "source_headlines": [
+          "KIPCO completes repayment of $500 million EMTN bond"
+        ],
+        "source_headline": "KIPCO completes repayment of $500 million EMTN bond",
+        "source_url": "https://kuwaittimes.com/article/52787/business/kipco-completes-repayment-of-500-million-emtn-bond/",
+        "source_name": "Kuwait Times — Business",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-01T16:08:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-01T16:55:27Z",
+        "updated_at": "2026-11-01T16:55:27Z",
+        "decay_at": "2026-11-03T04:08:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-03T04:08:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-0d0facf9b772",
         "idea_version": "IDEAV-e1c6f19a231aa981",
@@ -253887,79 +253962,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-dba00e4ffa3f",
-        "idea_version": "IDEAV-381aa074e4bb5358",
-        "idea_version_started_at": "2026-10-18T19:53:16Z",
-        "ticker": "600690.SS",
-        "company": "Haier Smart Home",
-        "exchange": "Shanghai",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Haier India's planned investment of ₹7,000 crore in a new facility will expand its manufacturing capacity and likely boost future revenue and market share in India.",
-        "why_now": "The announcement of a new facility investment is a current catalyst for future growth.",
-        "conviction": 50,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 65,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-2bca2742af12"
-        ],
-        "primary_source_event_id": "EVT-2bca2742af12",
-        "source_headlines": [
-          "Haier India to invest ₹7,000 crore in new facility in Andhra"
-        ],
-        "source_headline": "Haier India to invest ₹7,000 crore in new facility in Andhra",
-        "source_url": "https://economictimes.indiatimes.com/industry/cons-products/electronics/haier-india-to-invest-7000-crore-in-new-facility-in-andhra/articleshow/135034585.cms",
-        "source_name": "The Economic Times",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-18T19:06:12Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-18T19:53:16Z",
-        "updated_at": "2026-10-18T19:53:16Z",
-        "decay_at": "2026-10-20T07:06:12Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-21T19:59:57Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-c2d6ddb1545f",
         "idea_version": "IDEAV-61d9912074e7dbf7",
         "idea_version_started_at": "2026-10-18T17:51:37Z",
@@ -261944,7 +261946,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2136,
-    "live_count": 63,
+    "live_count": 62,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -261963,9 +261965,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2559368,
-    "news_picked_today": 294,
-    "news_dropped_today": 1986
+    "news_seen_today": 2611105,
+    "news_picked_today": 306,
+    "news_dropped_today": 2046
   },
   "book_momentum": {
     "live_count": 8,
