@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-03T02:32:36Z",
+  "generated_at": "2026-11-03T02:36:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20261103-171",
@@ -1632,6 +1632,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261103-175",
+      "headline": "NT 10-Q - RED ROBIN GOURMET BURGERS INC (0001171759) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1171759/000162828026068898/0001628280-26-068898-index.htm",
+      "source_name": "SEC EDGAR — Latest NT 10-Q (Late Quarterly Filing Notice)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-02T21:25:26Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "Red Robin filed a notice of late quarterly filing (NT 10-Q), which is a negative signal regarding financial reporting controls or status.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Red Robin filed a notice of late quarterly filing (NT 10-Q), which is a negative signal regarding financial reporting controls or status.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 3,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "accounting_restatement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Red Robin Gourmet Burgers Inc",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261103-122",
       "headline": "BPM: Trading Halt [price-sensitive]",
       "headline_en": null,
@@ -1915,55 +1964,6 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-117",
-      "headline": "NHU: NHU Delivers Drill Targets Across all Four Krokom Prospects [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NHU?key=2924-03157346-6A1353361",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-02T22:08:21Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "NHU reports positive drill targets across four prospects, which is material for a resource exploration company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "NHU reports positive drill targets across four prospects, which is material for a resource exploration company.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NHU",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -261881,9 +261881,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1469080,
-    "news_picked_today": 221,
-    "news_dropped_today": 1387
+    "news_seen_today": 1503750,
+    "news_picked_today": 226,
+    "news_dropped_today": 1406
   },
   "book_momentum": {
     "live_count": 8,
