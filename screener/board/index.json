@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-03T22:34:27Z",
+  "generated_at": "2026-11-03T22:39:22Z",
   "inbox": [
     {
       "inbox_id": "INB-20261103-877",
@@ -1580,6 +1580,110 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261103-903",
+      "headline": "Amgen Raises Revenue Forecast Again as Sales Top Expectations",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-03/amgen-raises-revenue-forecast-again-as-sales-top-expectations",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-03T21:01:20Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "Amgen raised its revenue forecast after reporting sales that topped analyst expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Amgen raised its revenue forecast after reporting sales that topped analyst expectations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amgen",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261103-902",
+      "headline": "Organigram launches $561-million takeover offer for Aurora Cannabis",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/business/article-organigram-aurora-cannabis-takeover-curaleaf-holdings/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-03T20:42:04Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "Organigram launched a $561 million takeover offer for Aurora Cannabis.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Organigram launched a $561 million takeover offer for Aurora Cannabis.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Organigram",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Aurora Cannabis",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261103-881",
       "headline": "Marvell to Acquire Lumentum in Historic $115B Tech Deal",
       "headline_en": null,
@@ -1872,105 +1976,6 @@
       "companies": [
         {
           "name": "Sunoco LP",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-869",
-      "headline": "TransAlta Corporation Announces Colorado Acquisition for US$1 billion and Oklahoma Wind Portfolio Sale for US$305 million",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/transalta-corporation-announces-colorado-acquisition-us-1-billion-and-oklahoma-wind",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T19:02:04Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "TransAlta announced a $1 billion acquisition and a $305 million divestiture.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "TransAlta announced a $1 billion acquisition and a $305 million divestiture.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TransAlta Corporation",
-          "ticker": null,
-          "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-864",
-      "headline": "DigitalOcean Holdings, Inc. Announces $1.0 Billion At-The-Market Offering and Reports Q3 2026 Financial Results",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/digitalocean-holdings-inc-announces-10-billion-market-offering-and-reports-q3-2026",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T18:52:36Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "DigitalOcean reported Q3 results and announced a $1.0 billion at-the-market offering.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "DigitalOcean reported Q3 results and announced a $1.0 billion at-the-market offering.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DigitalOcean Holdings, Inc.",
           "ticker": null,
           "listing_country": "US"
         }
@@ -262683,9 +262688,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 18866843,
-    "news_picked_today": 1704,
-    "news_dropped_today": 8448
+    "news_seen_today": 18946131,
+    "news_picked_today": 1712,
+    "news_dropped_today": 8488
   },
   "book_momentum": {
     "live_count": 8,
