@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-03T11:03:00Z",
+  "generated_at": "2026-11-03T11:08:09Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261103-455",
+      "headline": "QHD PORT (03369): 1) MAJOR AND CONNECTED TRANSACTION - ACQUISITION OF EQUITY INTERESTS IN THE TARGET COMPANIES INVOLVING THE ISSUANCE OF THE CONSIDERATION SHARES UNDER THE SPECIAL MANDATE; 2) PROPOSED A SHARE ISSUE TO RAISE SUPPORTING FUNDS; AND 3) RESUMPTION OF TRADING IN THE A SHARES",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1103/2026110301995.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-03T10:53:00Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "QHD Port announced a major acquisition involving the issuance of consideration shares and a proposed A-share issue to raise funds.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "QHD Port announced a major acquisition involving the issuance of consideration shares and a proposed A-share issue to raise funds.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "QHD Port",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261103-446",
       "headline": "MEITUAN-W MEITUAN-WR MEITUAN N3111-R MEITUAN N3611-R (03690 83690 85505 85506): NOTICE OF LISTING - MEITUAN - CNY4.5 BILLION 2.50% SENIOR NOTES DUE 2031 AND CNY3.5 BILLION 3.10% SENIOR NOTES DUE 2036",
@@ -1946,55 +1995,6 @@
           "name": "Apple",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-124",
-      "headline": "Reliance surges 11.6% as strong Q2 earnings add Rs 1.83 lakh crore in market value",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/reliance-surges-11-6-as-strong-q2-earnings-add-rs-1-83-lakh-crore-in-market-value/articleshow/135477257.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T00:28:18Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "Reliance reported strong Q2 earnings, resulting in an 11.6% surge and adding Rs 1.83 lakh crore in market value.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Reliance reported strong Q2 earnings, resulting in an 11.6% surge and adding Rs 1.83 lakh crore in market value.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Reliance Industries",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "mega",
@@ -261984,9 +261984,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7594478,
-    "news_picked_today": 684,
-    "news_dropped_today": 4860
+    "news_seen_today": 7648483,
+    "news_picked_today": 695,
+    "news_dropped_today": 4897
   },
   "book_momentum": {
     "live_count": 8,
