@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-03T03:21:44Z",
+  "generated_at": "2026-11-03T03:43:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20261103-182",
@@ -216406,6 +216406,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-3d4a4fc75d1b",
+      "idea_version": "IDEAV-5dc8ee51d3a00705",
+      "idea_version_started_at": "2026-11-03T03:42:49Z",
+      "ticker": "ARSHIYA",
+      "company": "Arshiya Limited",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company has entered the Corporate Insolvency Resolution Process, signaling severe financial distress and likely equity wipeout.",
+      "why_now": "The filing was made on 2026-11-03, making this a live insolvency event.",
+      "conviction": 90,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-86f11fa7affa"
+      ],
+      "primary_source_event_id": "EVT-86f11fa7affa",
+      "source_headlines": [
+        "Arshiya Limited: Arshiya Limited has informed the Exchange about Corporate Insolvency Resolution Process"
+      ],
+      "source_headline": "Arshiya Limited: Arshiya Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+      "source_url": "https://nsearchives.nseindia.com/corporate/ARSHIYA_03112026062629_AL_19th_CoC_Meeting_Uploaded.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-03T00:56:47Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-03T03:42:49Z",
+      "updated_at": "2026-11-03T03:42:49Z",
+      "decay_at": "2026-11-04T12:56:47Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-7698ab4f50a3",
       "idea_version": "IDEAV-8ad4e90bb9d67f38",
       "idea_version_started_at": "2026-11-03T02:31:59Z",
@@ -219075,78 +219146,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-0d0facf9b772",
-      "idea_version": "IDEAV-e1c6f19a231aa981",
-      "idea_version_started_at": "2026-11-01T15:47:15Z",
-      "ticker": "HMCLY",
-      "company": "Honda Motor Co., Ltd.",
-      "exchange": "OTC",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is committing ₹2,420 crore to expand production capacity specifically targeting the premium motorcycle and electric vehicle segments in India, which should drive long-term revenue growth and market share gains.",
-      "why_now": "The investment announcement was made on 2026-11-01, signaling an immediate shift in capital allocation strategy.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4833e73c9fbb"
-      ],
-      "primary_source_event_id": "EVT-4833e73c9fbb",
-      "source_headlines": [
-        "Honda invests ₹2,420 crore to raise capacity, targets premium motorcycle and EV growth"
-      ],
-      "source_headline": "Honda invests ₹2,420 crore to raise capacity, targets premium motorcycle and EV growth",
-      "source_url": "https://www.thehindubusinessline.com/companies/honda-invests-2420-crore-to-raise-capacity-targets-premium-motorcycle-and-ev-growth/article71652761.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-01T15:25:30Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-01T15:47:15Z",
-      "updated_at": "2026-11-01T15:47:15Z",
-      "decay_at": "2026-11-03T03:25:30Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-a204395caab2",
       "idea_version": "IDEAV-6cd21665a86d4930",
       "idea_version_started_at": "2026-11-03T02:31:59Z",
@@ -221418,6 +221417,78 @@
       "surfaced_at": "2026-11-01T16:16:26Z",
       "updated_at": "2026-11-01T16:16:26Z",
       "decay_at": "2026-11-02T02:18:55Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-0d0facf9b772",
+      "idea_version": "IDEAV-e1c6f19a231aa981",
+      "idea_version_started_at": "2026-11-01T15:47:15Z",
+      "ticker": "HMCLY",
+      "company": "Honda Motor Co., Ltd.",
+      "exchange": "OTC",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is committing ₹2,420 crore to expand production capacity specifically targeting the premium motorcycle and electric vehicle segments in India, which should drive long-term revenue growth and market share gains.",
+      "why_now": "The investment announcement was made on 2026-11-01, signaling an immediate shift in capital allocation strategy.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4833e73c9fbb"
+      ],
+      "primary_source_event_id": "EVT-4833e73c9fbb",
+      "source_headlines": [
+        "Honda invests ₹2,420 crore to raise capacity, targets premium motorcycle and EV growth"
+      ],
+      "source_headline": "Honda invests ₹2,420 crore to raise capacity, targets premium motorcycle and EV growth",
+      "source_url": "https://www.thehindubusinessline.com/companies/honda-invests-2420-crore-to-raise-capacity-targets-premium-motorcycle-and-ev-growth/article71652761.ece",
+      "source_name": "The Hindu BusinessLine",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-01T15:25:30Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-01T15:47:15Z",
+      "updated_at": "2026-11-01T15:47:15Z",
+      "decay_at": "2026-11-03T03:25:30Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -224603,14 +224674,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 560,
+    "total_count": 561,
     "shown_count": 500,
-    "hidden_count": 60,
+    "hidden_count": 61,
     "side_counts": {
       "long": {
-        "total_count": 289,
+        "total_count": 290,
         "shown_count": 250,
-        "hidden_count": 39
+        "hidden_count": 40
       },
       "short": {
         "total_count": 271,
@@ -224634,6 +224705,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-0d0facf9b772",
+        "idea_version": "IDEAV-e1c6f19a231aa981",
+        "idea_version_started_at": "2026-11-01T15:47:15Z",
+        "ticker": "HMCLY",
+        "company": "Honda Motor Co., Ltd.",
+        "exchange": "OTC",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company is committing ₹2,420 crore to expand production capacity specifically targeting the premium motorcycle and electric vehicle segments in India, which should drive long-term revenue growth and market share gains.",
+        "why_now": "The investment announcement was made on 2026-11-01, signaling an immediate shift in capital allocation strategy.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-4833e73c9fbb"
+        ],
+        "primary_source_event_id": "EVT-4833e73c9fbb",
+        "source_headlines": [
+          "Honda invests ₹2,420 crore to raise capacity, targets premium motorcycle and EV growth"
+        ],
+        "source_headline": "Honda invests ₹2,420 crore to raise capacity, targets premium motorcycle and EV growth",
+        "source_url": "https://www.thehindubusinessline.com/companies/honda-invests-2420-crore-to-raise-capacity-targets-premium-motorcycle-and-ev-growth/article71652761.ece",
+        "source_name": "The Hindu BusinessLine",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-01T15:25:30Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-01T15:47:15Z",
+        "updated_at": "2026-11-01T15:47:15Z",
+        "decay_at": "2026-11-03T03:25:30Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-03T03:25:30Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-739a80f5ef72",
         "idea_version": "IDEAV-bed2c81157faa35f",
@@ -253819,79 +253965,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-53f1ab35f840",
-        "idea_version": "IDEAV-46e30d36dcc698d7",
-        "idea_version_started_at": "2026-10-18T19:53:16Z",
-        "ticker": "ENGI.PA",
-        "company": "Engie",
-        "exchange": "Paris",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Engie plans a substantial €3 billion investment in India by 2030, which is expected to drive future revenue and earnings growth.",
-        "why_now": "The announcement of this significant investment plan provides a clear catalyst for future growth expectations.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 65,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-3e2cbb07c147"
-        ],
-        "primary_source_event_id": "EVT-3e2cbb07c147",
-        "source_headlines": [
-          "Engie plans €3 billion investment in India by 2030"
-        ],
-        "source_headline": "Engie plans €3 billion investment in India by 2030",
-        "source_url": "https://economictimes.indiatimes.com/industry/renewables/engie-plans-3-billion-investment-in-india-by-2030/articleshow/135033696.cms",
-        "source_name": "The Economic Times",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-18T18:24:22Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-18T19:53:16Z",
-        "updated_at": "2026-10-18T19:53:16Z",
-        "decay_at": "2026-10-20T06:24:22Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-21T19:59:57Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-c2d6ddb1545f",
         "idea_version": "IDEAV-61d9912074e7dbf7",
         "idea_version_started_at": "2026-10-18T17:51:37Z",
@@ -261875,7 +261948,7 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2135,
+    "surfaced_total": 2136,
     "live_count": 63,
     "promoted_total": 0,
     "machine_confirmed": 0,
@@ -261895,7 +261968,7 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2023835,
+    "news_seen_today": 2266011,
     "news_picked_today": 268,
     "news_dropped_today": 1724
   },
