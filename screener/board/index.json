@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-03T18:23:32Z",
+  "generated_at": "2026-11-03T18:28:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20261103-709",
@@ -1334,6 +1334,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261103-857",
+      "headline": "Lloyds Metals Q2 results: Net profit jumps 88.1% to ₹1,046 crore, revenue rises 55.3% to ₹5,673 crore",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/earnings/lloyds-metals-q2-results-net-profit-jumps-881-per-cent-to-rs-1046-crore-revenue-rises-553-per-cent-to-rs-5673-crore-20026423.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-03T18:18:34Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "Lloyds Metals reported Q2 net profit growth of 88.1% to ₹1,046 crore and revenue growth of 55.3% to ₹5,673 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Lloyds Metals reported Q2 net profit growth of 88.1% to ₹1,046 crore and revenue growth of 55.3% to ₹5,673 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lloyds Metals",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261103-850",
       "headline": "Subros Q2 results: Net profit rises 9.6% to ₹44.6 crore, revenue jumps 36.3% to ₹1,199 crore",
       "headline_en": null,
@@ -1918,55 +1967,6 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-737",
-      "headline": "Marathon Petroleum Corporation Reports Third-Quarter 2026 Results and $4.2 billion Divestiture",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/marathon-petroleum-corporation-reports-third-quarter-2026-results-and-42-billion",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T14:32:04Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "Marathon Petroleum announced a $4.2 billion divestiture.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Marathon Petroleum announced a $4.2 billion divestiture.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Marathon Petroleum",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -262102,9 +262102,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 14391731,
-    "news_picked_today": 1432,
-    "news_dropped_today": 6824
+    "news_seen_today": 14426696,
+    "news_picked_today": 1440,
+    "news_dropped_today": 6864
   },
   "book_momentum": {
     "live_count": 8,
