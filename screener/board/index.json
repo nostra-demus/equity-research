@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-03T00:42:56Z",
+  "generated_at": "2026-11-03T00:51:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20261103-002",
@@ -884,6 +884,55 @@
           "name": "Phunware, Inc.",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261103-122",
+      "headline": "BPM: Trading Halt [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BPM?key=2924-03157340-6A1353360",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-02T22:06:01Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "Trading halt pending a price-sensitive announcement indicates a potential material event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Trading halt pending a price-sensitive announcement indicates a potential material event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "strategic_review",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BPM Minerals Ltd",
+          "ticker": null,
+          "listing_country": "AU"
         }
       ],
       "size_bucket": "small",
@@ -1912,55 +1961,6 @@
           "name": "Icon Energy Corp",
           "ticker": null,
           "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-116",
-      "headline": "SCHEDULE 13D/A - Hampton Financial Corp (0002129459) (Filed by)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/2129459/000110465926121505/0001104659-26-121505-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-02T22:52:29Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "Hampton Financial Corp filed an amended 13D, indicating a change in significant shareholder position.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 73,
-      "triage_reason": "Hampton Financial Corp filed an amended 13D, indicating a change in significant shareholder position.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hampton Financial Corp",
-          "ticker": null,
-          "listing_country": "CA"
         }
       ],
       "size_bucket": "small",
@@ -261732,9 +261732,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 398818,
-    "news_picked_today": 136,
-    "news_dropped_today": 488
+    "news_seen_today": 451772,
+    "news_picked_today": 144,
+    "news_dropped_today": 600
   },
   "book_momentum": {
     "live_count": 8,
