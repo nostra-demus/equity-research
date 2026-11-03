@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-03T05:04:23Z",
+  "generated_at": "2026-11-03T05:04:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20261103-182",
@@ -215979,6 +215979,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-0448efa62005",
+      "idea_version": "IDEAV-ddebb2b478cc901d",
+      "idea_version_started_at": "2026-11-03T05:04:36Z",
+      "ticker": "AAPL",
+      "company": "Apple",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Rising memory chip costs will compress gross margins as the company faces difficulty passing these input price increases to consumers in a competitive hardware market.",
+      "why_now": "The company issued a direct warning regarding these costs on November 3, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5c0dd6ec7e58"
+      ],
+      "primary_source_event_id": "EVT-5c0dd6ec7e58",
+      "source_headlines": [
+        "Apple warns ‘unprecedented’ memory chip costs will hit margins"
+      ],
+      "source_headline": "Apple warns ‘unprecedented’ memory chip costs will hit margins",
+      "source_url": "https://www.ft.com/content/f6ad8c32-cacb-48ad-ad85-a9a7edac3f16?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-03T01:17:37Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-03T05:04:36Z",
+      "updated_at": "2026-11-03T05:04:36Z",
+      "decay_at": "2026-11-04T13:17:37Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-99e1ec3ba3aa",
       "idea_version": "IDEAV-d8e726a62514b89f",
       "idea_version_started_at": "2026-11-01T19:55:49Z",
@@ -216395,6 +216465,79 @@
       "surfaced_at": "2026-11-02T02:53:32Z",
       "updated_at": "2026-11-02T02:53:32Z",
       "decay_at": "2026-11-03T14:17:08Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-966757d19680",
+      "idea_version": "IDEAV-b1245e849dc4af56",
+      "idea_version_started_at": "2026-11-03T05:04:36Z",
+      "ticker": "DOMO",
+      "company": "Domo, Inc.",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is being acquired by Progress Software for $403.2 million, providing a clear exit valuation for shareholders.",
+      "why_now": "Progress Software filed pro forma financials for the acquisition on November 3, 2026.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2ba9b27ed126"
+      ],
+      "primary_source_event_id": "EVT-2ba9b27ed126",
+      "source_headlines": [
+        "Progress Software Corporation Files Pro Forma Financials for $403.2 million Acquisition of Domo, Inc."
+      ],
+      "source_headline": "Progress Software Corporation Files Pro Forma Financials for $403.2 million Acquisition of Domo, Inc.",
+      "source_url": "https://www.nasdaq.com/articles/progress-software-corporation-files-pro-forma-financials-4032-million-acquisition-domo-inc",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-03T01:18:41Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-03T05:04:36Z",
+      "updated_at": "2026-11-03T05:04:36Z",
+      "decay_at": "2026-11-04T13:18:41Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -220070,77 +220213,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-8e38ef15bf4e",
-      "idea_version": "IDEAV-18e7c58d42e5cc08",
-      "idea_version_started_at": "2026-10-31T13:05:01Z",
-      "ticker": "RTX",
-      "company": "RTX Corporation",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The US government approval of a $2.1 billion sale of Patriot PAC-3 MSE interceptors provides a direct, high-margin revenue boost to the primary manufacturer.",
-      "why_now": "The deal was officially approved and announced on October 31, 2026.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 74,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-55e2f845a177",
-        "EVT-66c97e9f3379"
-      ],
-      "primary_source_event_id": "EVT-55e2f845a177",
-      "source_headlines": [
-        "US Approves $2.1 Billion Sale Of 500 Patriot PAC-3 MSE Interceptors To Ukraine, With Europe & Canada Funding The Major Defence Deal",
-        "US greenlights $2.1bn Patriot missile sale to Ukraine"
-      ],
-      "source_headline": "US Approves $2.1 Billion Sale Of 500 Patriot PAC-3 MSE Interceptors To Ukraine, With Europe & Canada Funding The Major Defence Deal",
-      "source_url": "https://www.freepressjournal.in/world/us-approves-21-billion-sale-of-500-patriot-pac-3-mse-interceptors-to-ukraine-with-europe-canada-funding-the-major-defence-deal",
-      "source_name": "Free Press Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-31T04:51:25Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-31T13:05:01Z",
-      "updated_at": "2026-10-31T13:05:01Z",
-      "decay_at": "2026-11-01T16:51:25Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-e4eb269da001",
       "idea_version": "IDEAV-5d906db714eb9ee0",
       "idea_version_started_at": "2026-11-01T11:55:44Z",
@@ -223294,78 +223366,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-e4ce1e3fbb7c",
-      "idea_version": "IDEAV-c7d1bd1ba6a33fdf",
-      "idea_version_started_at": "2026-10-31T13:05:01Z",
-      "ticker": "IOC",
-      "company": "Indian Oil Corporation",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Net profit tripled year-over-year to 21,630 crore in Q2, reflecting a massive improvement in operational efficiency and refining margins.",
-      "why_now": "The earnings results were released on October 31, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-bd3558c80b70"
-      ],
-      "primary_source_event_id": "EVT-bd3558c80b70",
-      "source_headlines": [
-        "Indian Oil net profit triples YoY to 21,630 cr in Q2"
-      ],
-      "source_headline": "Indian Oil net profit triples YoY to 21,630 cr in Q2",
-      "source_url": "https://economictimes.indiatimes.com/markets/stocks/earnings/indian-oil-net-profit-triples-yoy-to-21630-cr-in-q2/articleshow/135387471.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-31T04:11:43Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-31T13:05:01Z",
-      "updated_at": "2026-10-31T13:05:01Z",
-      "decay_at": "2026-11-01T16:11:43Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-41c5501266bc",
       "idea_version": "IDEAV-03b730a97de42b8a",
       "idea_version_started_at": "2026-11-01T10:30:47Z",
@@ -224669,14 +224669,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 565,
+    "total_count": 563,
     "shown_count": 500,
-    "hidden_count": 65,
+    "hidden_count": 63,
     "side_counts": {
       "long": {
-        "total_count": 294,
+        "total_count": 292,
         "shown_count": 250,
-        "hidden_count": 44
+        "hidden_count": 42
       },
       "short": {
         "total_count": 271,
@@ -224686,12 +224686,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1511,
+      "evicted_count": 1513,
       "oldest_retained_at": "2026-10-05T23:39:02Z",
       "side_counts": {
         "long": {
-          "evicted_count": 993,
-          "oldest_retained_at": "2026-10-17T14:46:03Z"
+          "evicted_count": 995,
+          "oldest_retained_at": "2026-10-17T15:24:29Z"
         },
         "short": {
           "evicted_count": 519,
@@ -229480,8 +229480,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-01T16:51:25Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-03T05:04:43Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -229555,8 +229555,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-01T16:11:43Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-03T05:04:43Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -261944,8 +261944,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2136,
-    "live_count": 59,
+    "surfaced_total": 2138,
+    "live_count": 61,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
