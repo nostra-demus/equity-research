@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-03T11:44:39Z",
+  "generated_at": "2026-11-03T11:46:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20261103-456",
@@ -828,6 +828,55 @@
           "name": "Virgin Media O2",
           "ticker": null,
           "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261103-487",
+      "headline": "Emaar Said to Study Buyout of $15 Billion Construction Arm",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-03/emaar-is-said-to-study-buyout-of-14-billion-construction-arm",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-03T10:39:51Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "Company is reportedly studying a $15 billion buyout of its construction arm.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company is reportedly studying a $15 billion buyout of its construction arm.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Emaar",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -1943,55 +1992,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-215",
-      "headline": "GlucoTrack, Inc. to Face Nasdaq Delisting After Closing Bid Price of $0.87 on October 14, 2026",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/glucotrack-inc-face-nasdaq-delisting-after-closing-bid-price-087-october-14-2026",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T03:28:34Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "GlucoTrack faces Nasdaq delisting after failing to maintain the minimum bid price requirement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "GlucoTrack faces Nasdaq delisting after failing to maintain the minimum bid price requirement.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GlucoTrack, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -261977,9 +261977,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8198363,
-    "news_picked_today": 780,
-    "news_dropped_today": 5028
+    "news_seen_today": 8281799,
+    "news_picked_today": 784,
+    "news_dropped_today": 5048
   },
   "book_momentum": {
     "live_count": 8,
