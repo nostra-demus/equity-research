@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-03T03:01:32Z",
+  "generated_at": "2026-11-03T03:04:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20261103-182",
@@ -898,6 +898,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261103-184",
+      "headline": "PennyMac Mortgage Investment Trust Reports Third Quarter 2026 Results and Increases Share Repurchase Authorization to $630 million",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/pennymac-mortgage-investment-trust-reports-third-quarter-2026-results-and-increases-share",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-03T02:28:37Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "PennyMac reported earnings and increased its share repurchase authorization by $630 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "PennyMac reported earnings and increased its share repurchase authorization by $630 million.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PennyMac Mortgage Investment Trust",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261103-001",
       "headline": "FIRST PACIFIC (00142): Disclosure filed by PLDT Inc. (\"PLDT\"), a major operating associate of First Pacific Company Limited, with the Philippine Stock Exchange, in relation to the SEC Form 17-C and Form 4-9 in connection with the resignation and replacement of the external auditor of PLDT.",
       "headline_en": null,
@@ -1736,6 +1786,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261103-185",
+      "headline": "Cousins Properties Incorporated Reports Third Quarter 2026 Results and Raises Full-Year Guidance",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/cousins-properties-incorporated-reports-third-quarter-2026-results-and-raises-full-year",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-03T02:28:37Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "Cousins Properties reported earnings and raised its full-year guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Cousins Properties reported earnings and raised its full-year guidance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cousins Properties Incorporated",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261103-113",
       "headline": "DEFC14A - Phunware, Inc. (0001665300) (Subject)",
       "headline_en": null,
@@ -1878,104 +1978,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-175",
-      "headline": "NT 10-Q - RED ROBIN GOURMET BURGERS INC (0001171759) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1171759/000162828026068898/0001628280-26-068898-index.htm",
-      "source_name": "SEC EDGAR — Latest NT 10-Q (Late Quarterly Filing Notice)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-02T21:25:26Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "Red Robin filed a notice of late quarterly filing (NT 10-Q), which is a negative signal regarding financial reporting controls or status.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Red Robin filed a notice of late quarterly filing (NT 10-Q), which is a negative signal regarding financial reporting controls or status.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 3,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "accounting_restatement",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Red Robin Gourmet Burgers Inc",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-122",
-      "headline": "BPM: Trading Halt [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BPM?key=2924-03157340-6A1353360",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-02T22:06:01Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "Trading halt pending a price-sensitive announcement indicates a potential material event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Trading halt pending a price-sensitive announcement indicates a potential material event.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "strategic_review",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BPM Minerals Ltd",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -261893,9 +261895,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1798820,
-    "news_picked_today": 244,
-    "news_dropped_today": 1556
+    "news_seen_today": 1868208,
+    "news_picked_today": 247,
+    "news_dropped_today": 1577
   },
   "book_momentum": {
     "live_count": 8,
