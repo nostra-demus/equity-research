@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-03T12:09:22Z",
+  "generated_at": "2026-11-03T12:13:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261103-494",
@@ -782,6 +782,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261103-510",
+      "headline": "Q2 Results Live Updates: V-Mart Retail loss widens to ₹16 crore; Linde India profit falls over 30%",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/q2-results-live-updates-sbi-itc-nse-bata-graphite-dam-dhoot-chambal-mcx-mgl-neuland-esds-nalco-kec-utkarsh-concor-share-price-liveblog-20025445.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-03T11:50:49Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "V-Mart Retail reported a widened loss of ₹16 crore and Linde India reported a profit decline of over 30%.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "V-Mart Retail reported a widened loss of ₹16 crore and Linde India reported a profit decline of over 30%.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "V-Mart Retail",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Linde India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1943,55 +1997,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-226",
-      "headline": "KEC International cuts FY27 revenue growth guidance to 8-10% as West Asia conflict hits business",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/earnings/kec-international-cuts-fy27-revenue-guidance-q2-results-west-asia-crisis-alpha-article-20025541.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T04:49:32Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "KEC International cut its FY27 revenue growth guidance to 8-10% due to geopolitical conflict.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "KEC International cut its FY27 revenue growth guidance to 8-10% due to geopolitical conflict.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "KEC International",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -219091,78 +219096,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-274ba5f27c56",
-      "idea_version": "IDEAV-3888b8a2707eb640",
-      "idea_version_started_at": "2026-11-02T00:28:21Z",
-      "ticker": "SHYAMMET",
-      "company": "Shyam Metalics and Energy",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported strong Q2 operating performance and higher volume growth, signaling improved margins and market share expansion.",
-      "why_now": "The report was released on 2026-11-02, with market reaction expected at the next trading session.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 14,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8bd3b6bcc5c1"
-      ],
-      "primary_source_event_id": "EVT-8bd3b6bcc5c1",
-      "source_headlines": [
-        "Shyam Metalics shares may react to higher volume growth, strong Q2 operating performance"
-      ],
-      "source_headline": "Shyam Metalics shares may react to higher volume growth, strong Q2 operating performance",
-      "source_url": "https://www.cnbctv18.com/market/shyam-metalics-share-price-ebitda-backward-integration-q2-results-capex-plans-net-debt-alom-solar-20024316.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 72,
-      "newest_source_at": "2026-11-02T00:11:14Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-02T00:28:21Z",
-      "updated_at": "2026-11-02T00:28:21Z",
-      "decay_at": "2026-11-03T12:11:14Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-98c70177de14",
       "idea_version": "IDEAV-b3c3ccaf38beb957",
       "idea_version_started_at": "2026-11-01T14:21:01Z",
@@ -224392,6 +224325,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-274ba5f27c56",
+      "idea_version": "IDEAV-3888b8a2707eb640",
+      "idea_version_started_at": "2026-11-02T00:28:21Z",
+      "ticker": "SHYAMMET",
+      "company": "Shyam Metalics and Energy",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported strong Q2 operating performance and higher volume growth, signaling improved margins and market share expansion.",
+      "why_now": "The report was released on 2026-11-02, with market reaction expected at the next trading session.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 14,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8bd3b6bcc5c1"
+      ],
+      "primary_source_event_id": "EVT-8bd3b6bcc5c1",
+      "source_headlines": [
+        "Shyam Metalics shares may react to higher volume growth, strong Q2 operating performance"
+      ],
+      "source_headline": "Shyam Metalics shares may react to higher volume growth, strong Q2 operating performance",
+      "source_url": "https://www.cnbctv18.com/market/shyam-metalics-share-price-ebitda-backward-integration-q2-results-capex-plans-net-debt-alom-solar-20024316.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 72,
+      "newest_source_at": "2026-11-02T00:11:14Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-02T00:28:21Z",
+      "updated_at": "2026-11-02T00:28:21Z",
+      "decay_at": "2026-11-03T12:11:14Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-083c9caae543",
       "idea_version": "IDEAV-98032d0888923e28",
       "idea_version_started_at": "2026-11-01T03:42:18Z",
@@ -224688,14 +224693,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 577,
+    "total_count": 578,
     "shown_count": 500,
-    "hidden_count": 77,
+    "hidden_count": 78,
     "side_counts": {
       "long": {
-        "total_count": 302,
+        "total_count": 303,
         "shown_count": 250,
-        "hidden_count": 52
+        "hidden_count": 53
       },
       "short": {
         "total_count": 275,
@@ -224719,6 +224724,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-274ba5f27c56",
+        "idea_version": "IDEAV-3888b8a2707eb640",
+        "idea_version_started_at": "2026-11-02T00:28:21Z",
+        "ticker": "SHYAMMET",
+        "company": "Shyam Metalics and Energy",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company reported strong Q2 operating performance and higher volume growth, signaling improved margins and market share expansion.",
+        "why_now": "The report was released on 2026-11-02, with market reaction expected at the next trading session.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 14,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-8bd3b6bcc5c1"
+        ],
+        "primary_source_event_id": "EVT-8bd3b6bcc5c1",
+        "source_headlines": [
+          "Shyam Metalics shares may react to higher volume growth, strong Q2 operating performance"
+        ],
+        "source_headline": "Shyam Metalics shares may react to higher volume growth, strong Q2 operating performance",
+        "source_url": "https://www.cnbctv18.com/market/shyam-metalics-share-price-ebitda-backward-integration-q2-results-capex-plans-net-debt-alom-solar-20024316.htm",
+        "source_name": "CNBC-TV18",
+        "materiality_max": 72,
+        "newest_source_at": "2026-11-02T00:11:14Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-02T00:28:21Z",
+        "updated_at": "2026-11-02T00:28:21Z",
+        "decay_at": "2026-11-03T12:11:14Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-03T12:11:14Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-52c1133413b1",
         "idea_version": "IDEAV-e676657421425d28",
@@ -254125,81 +254205,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-d0f885895e09",
-        "idea_version": "IDEAV-dca1b1c93084f0ac",
-        "idea_version_started_at": "2026-10-19T00:56:11Z",
-        "ticker": "AIV",
-        "company": "Aurelia Metals Limited",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Aurelia Metals Limited announced an increase in the resource estimate for its Mt Hogan Gold Project, which is a positive operational development.",
-        "why_now": "The resource increase is a price-sensitive announcement made today.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 16,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-474cb25c3306"
-        ],
-        "primary_source_event_id": "EVT-474cb25c3306",
-        "source_headlines": [
-          "AIV: Mt Hogan Gold Project Resource Increase [price-sensitive]"
-        ],
-        "source_headline": "AIV: Mt Hogan Gold Project Resource Increase [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AIV?key=2924-03149934-2A1704812",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 91,
-        "newest_source_at": "2026-10-19T00:45:20Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-19T00:56:11Z",
-        "updated_at": "2026-10-19T00:56:11Z",
-        "decay_at": "2026-10-20T12:45:20Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-22T00:53:39Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-2d38686e8413",
         "idea_version": "IDEAV-c9e5dac1e2b982f4",
         "idea_version_started_at": "2026-10-19T00:56:11Z",
@@ -261959,7 +261964,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2138,
-    "live_count": 47,
+    "live_count": 46,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -261978,9 +261983,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8619374,
-    "news_picked_today": 823,
-    "news_dropped_today": 5153
+    "news_seen_today": 8676727,
+    "news_picked_today": 835,
+    "news_dropped_today": 5165
   },
   "book_momentum": {
     "live_count": 8,
