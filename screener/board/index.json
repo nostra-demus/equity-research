@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-03T02:47:39Z",
+  "generated_at": "2026-11-03T02:59:45Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261103-182",
+      "headline": "National Aluminium Company Limited: National Aluminium Company Limited has informed the Exchange regarding a press release dated November 03, 2026, titled \"NALCO Scripts History with Best-Ever Half Yearly Financial Results Since Inception. \".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/bharatsahu_03112026080806_SELETTER.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-03T02:38:23Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "National Aluminium Company reported its best-ever half-yearly financial results since inception.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "National Aluminium Company reported its best-ever half-yearly financial results since inception.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "National Aluminium Company Limited",
+          "ticker": "532234",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261103-171",
       "headline": "SAU: Sigma Lithium Prices Upsized 125 Million Convertible Bonds [price-sensitive]",
@@ -1924,55 +1973,6 @@
           "name": "BPM Minerals Ltd",
           "ticker": null,
           "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-077",
-      "headline": "VMS TMT Limited: VMS TMT Limited has informed the Exchange about Disruption of Operations",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/VMSTMTLTD_02112026230348_Intimationofincident.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-02T18:04:08Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "VMS TMT Limited reported a disruption of operations, which directly impacts production capacity and revenue potential.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "VMS TMT Limited reported a disruption of operations, which directly impacts production capacity and revenue potential.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": -1,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "VMS TMT Limited",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "small",
@@ -261893,9 +261893,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1642502,
-    "news_picked_today": 235,
-    "news_dropped_today": 1493
+    "news_seen_today": 1781472,
+    "news_picked_today": 240,
+    "news_dropped_today": 1536
   },
   "book_momentum": {
     "live_count": 8,
