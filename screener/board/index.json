@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-03T11:54:26Z",
+  "generated_at": "2026-11-03T12:03:39Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261103-494",
+      "headline": "BLS International Services Limited: BLS International Services Limited has informed the Exchange regarding a press release dated November 03, 2026, titled \"BLS International Reports Strong Q2 & H1 FY27 Performance; Revenue Grows to Rs. 973 Crores, the Highest Ever\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/BLS_03112026165936_Press_Release_signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-03T11:29:54Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "BLS International reported record revenue of Rs. 973 Crores for Q2 & H1 FY27.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "BLS International reported record revenue of Rs. 973 Crores for Q2 & H1 FY27.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BLS International Services Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261103-456",
       "headline": "AGS Transact Technologies Limited: AGS Transact Technologies Limited has informed the Exchange about Corporate Insolvency Resolution Process",
@@ -1943,55 +1992,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-229",
-      "headline": "Apple Q4 results beat estimates as iPhone 18 Pro demand, price hikes offset rising chip costs",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/apple-q4-results-beat-estimates-as-iphone-18-pro-demand-price-hikes-offset-rising-chip-costs/articleshow/135481907.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T04:25:14Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "Apple reported Q4 results that beat estimates, driven by strong demand and pricing power.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Apple reported Q4 results that beat estimates, driven by strong demand and pricing power.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Apple",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -218805,148 +218805,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-9f872abee372",
-      "idea_version": "IDEAV-ad38f6dab09c5267",
-      "idea_version_started_at": "2026-11-02T02:34:40Z",
-      "ticker": "0013",
-      "company": "HUTCHMED",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Regulatory filings for the combination of ORPATHYS and TAGRISSO have been accepted for review in Europe and Japan, expanding the addressable market for its lung cancer treatment.",
-      "why_now": "The acceptance of these filings was announced on November 2, 2026, starting the formal regulatory clock in two major jurisdictions.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ec07e5f57957"
-      ],
-      "primary_source_event_id": "EVT-ec07e5f57957",
-      "source_headlines": [
-        "HUTCHMED (00013): VOLUNTARY ANNOUNCEMENT - HUTCHMED Announces Regulatory Filings Accepted for Review for ORPATHYS plus TAGRISSO in MET-Driven EGFR-Mutated Lung Cancer in Europe and Japan"
-      ],
-      "source_headline": "HUTCHMED (00013): VOLUNTARY ANNOUNCEMENT - HUTCHMED Announces Regulatory Filings Accepted for Review for ORPATHYS plus TAGRISSO in MET-Driven EGFR-Mutated Lung Cancer in Europe and Japan",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1102/2026110200041.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 94,
-      "newest_source_at": "2026-11-02T00:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-02T02:34:40Z",
-      "updated_at": "2026-11-02T02:34:40Z",
-      "decay_at": "2026-11-03T12:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-52c1133413b1",
-      "idea_version": "IDEAV-e676657421425d28",
-      "idea_version_started_at": "2026-11-02T00:08:03Z",
-      "ticker": "00013",
-      "company": "HUTCHMED",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Regulatory acceptance of filings for ORPATHYS and TAGRISSO in Europe and Japan validates the company's pipeline and clears a path for potential commercialization in major markets.",
-      "why_now": "The announcement of the regulatory filing acceptance was made on November 2, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ec07e5f57957"
-      ],
-      "primary_source_event_id": "EVT-ec07e5f57957",
-      "source_headlines": [
-        "HUTCHMED (00013): VOLUNTARY ANNOUNCEMENT - HUTCHMED Announces Regulatory Filings Accepted for Review for ORPATHYS plus TAGRISSO in MET-Driven EGFR-Mutated Lung Cancer in Europe and Japan"
-      ],
-      "source_headline": "HUTCHMED (00013): VOLUNTARY ANNOUNCEMENT - HUTCHMED Announces Regulatory Filings Accepted for Review for ORPATHYS plus TAGRISSO in MET-Driven EGFR-Mutated Lung Cancer in Europe and Japan",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1102/2026110200041.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 94,
-      "newest_source_at": "2026-11-02T00:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-02T00:08:03Z",
-      "updated_at": "2026-11-02T00:08:03Z",
-      "decay_at": "2026-11-03T12:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-520be705f9e6",
       "idea_version": "IDEAV-edc10bcd28c078cc",
       "idea_version_started_at": "2026-11-02T04:47:12Z",
@@ -223673,6 +223531,148 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-9f872abee372",
+      "idea_version": "IDEAV-ad38f6dab09c5267",
+      "idea_version_started_at": "2026-11-02T02:34:40Z",
+      "ticker": "0013",
+      "company": "HUTCHMED",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Regulatory filings for the combination of ORPATHYS and TAGRISSO have been accepted for review in Europe and Japan, expanding the addressable market for its lung cancer treatment.",
+      "why_now": "The acceptance of these filings was announced on November 2, 2026, starting the formal regulatory clock in two major jurisdictions.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ec07e5f57957"
+      ],
+      "primary_source_event_id": "EVT-ec07e5f57957",
+      "source_headlines": [
+        "HUTCHMED (00013): VOLUNTARY ANNOUNCEMENT - HUTCHMED Announces Regulatory Filings Accepted for Review for ORPATHYS plus TAGRISSO in MET-Driven EGFR-Mutated Lung Cancer in Europe and Japan"
+      ],
+      "source_headline": "HUTCHMED (00013): VOLUNTARY ANNOUNCEMENT - HUTCHMED Announces Regulatory Filings Accepted for Review for ORPATHYS plus TAGRISSO in MET-Driven EGFR-Mutated Lung Cancer in Europe and Japan",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1102/2026110200041.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 94,
+      "newest_source_at": "2026-11-02T00:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-02T02:34:40Z",
+      "updated_at": "2026-11-02T02:34:40Z",
+      "decay_at": "2026-11-03T12:00:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-52c1133413b1",
+      "idea_version": "IDEAV-e676657421425d28",
+      "idea_version_started_at": "2026-11-02T00:08:03Z",
+      "ticker": "00013",
+      "company": "HUTCHMED",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Regulatory acceptance of filings for ORPATHYS and TAGRISSO in Europe and Japan validates the company's pipeline and clears a path for potential commercialization in major markets.",
+      "why_now": "The announcement of the regulatory filing acceptance was made on November 2, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ec07e5f57957"
+      ],
+      "primary_source_event_id": "EVT-ec07e5f57957",
+      "source_headlines": [
+        "HUTCHMED (00013): VOLUNTARY ANNOUNCEMENT - HUTCHMED Announces Regulatory Filings Accepted for Review for ORPATHYS plus TAGRISSO in MET-Driven EGFR-Mutated Lung Cancer in Europe and Japan"
+      ],
+      "source_headline": "HUTCHMED (00013): VOLUNTARY ANNOUNCEMENT - HUTCHMED Announces Regulatory Filings Accepted for Review for ORPATHYS plus TAGRISSO in MET-Driven EGFR-Mutated Lung Cancer in Europe and Japan",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1102/2026110200041.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 94,
+      "newest_source_at": "2026-11-02T00:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-02T00:08:03Z",
+      "updated_at": "2026-11-02T00:08:03Z",
+      "decay_at": "2026-11-03T12:00:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-fcde510a4a40",
       "idea_version": "IDEAV-071f2d69d50f4733",
       "idea_version_started_at": "2026-11-01T06:01:40Z",
@@ -224688,14 +224688,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 575,
+    "total_count": 577,
     "shown_count": 500,
-    "hidden_count": 75,
+    "hidden_count": 77,
     "side_counts": {
       "long": {
-        "total_count": 300,
+        "total_count": 302,
         "shown_count": 250,
-        "hidden_count": 50
+        "hidden_count": 52
       },
       "short": {
         "total_count": 275,
@@ -224719,6 +224719,154 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-52c1133413b1",
+        "idea_version": "IDEAV-e676657421425d28",
+        "idea_version_started_at": "2026-11-02T00:08:03Z",
+        "ticker": "00013",
+        "company": "HUTCHMED",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Regulatory acceptance of filings for ORPATHYS and TAGRISSO in Europe and Japan validates the company's pipeline and clears a path for potential commercialization in major markets.",
+        "why_now": "The announcement of the regulatory filing acceptance was made on November 2, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 15,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-ec07e5f57957"
+        ],
+        "primary_source_event_id": "EVT-ec07e5f57957",
+        "source_headlines": [
+          "HUTCHMED (00013): VOLUNTARY ANNOUNCEMENT - HUTCHMED Announces Regulatory Filings Accepted for Review for ORPATHYS plus TAGRISSO in MET-Driven EGFR-Mutated Lung Cancer in Europe and Japan"
+        ],
+        "source_headline": "HUTCHMED (00013): VOLUNTARY ANNOUNCEMENT - HUTCHMED Announces Regulatory Filings Accepted for Review for ORPATHYS plus TAGRISSO in MET-Driven EGFR-Mutated Lung Cancer in Europe and Japan",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1102/2026110200041.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 94,
+        "newest_source_at": "2026-11-02T00:00:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-02T00:08:03Z",
+        "updated_at": "2026-11-02T00:08:03Z",
+        "decay_at": "2026-11-03T12:00:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-03T12:00:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-9f872abee372",
+        "idea_version": "IDEAV-ad38f6dab09c5267",
+        "idea_version_started_at": "2026-11-02T02:34:40Z",
+        "ticker": "0013",
+        "company": "HUTCHMED",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Regulatory filings for the combination of ORPATHYS and TAGRISSO have been accepted for review in Europe and Japan, expanding the addressable market for its lung cancer treatment.",
+        "why_now": "The acceptance of these filings was announced on November 2, 2026, starting the formal regulatory clock in two major jurisdictions.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 15,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-ec07e5f57957"
+        ],
+        "primary_source_event_id": "EVT-ec07e5f57957",
+        "source_headlines": [
+          "HUTCHMED (00013): VOLUNTARY ANNOUNCEMENT - HUTCHMED Announces Regulatory Filings Accepted for Review for ORPATHYS plus TAGRISSO in MET-Driven EGFR-Mutated Lung Cancer in Europe and Japan"
+        ],
+        "source_headline": "HUTCHMED (00013): VOLUNTARY ANNOUNCEMENT - HUTCHMED Announces Regulatory Filings Accepted for Review for ORPATHYS plus TAGRISSO in MET-Driven EGFR-Mutated Lung Cancer in Europe and Japan",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1102/2026110200041.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 94,
+        "newest_source_at": "2026-11-02T00:00:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-02T02:34:40Z",
+        "updated_at": "2026-11-02T02:34:40Z",
+        "decay_at": "2026-11-03T12:00:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-03T12:00:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-0da6fcdb33c0",
         "idea_version": "IDEAV-474b99d8f659cc9a",
@@ -254052,80 +254200,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-24de08dd43f9",
-        "idea_version": "IDEAV-618ffe55a4a9ef4e",
-        "idea_version_started_at": "2026-10-19T00:36:54Z",
-        "ticker": "RHC",
-        "company": "Ramsay Health Care",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The registration of the demerger booklet with ASIC marks a definitive step in the corporate restructuring process, unlocking value by separating the Sante business.",
-        "why_now": "The filing occurred on 2026-10-19, providing a clear timeline for the upcoming corporate action.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 18,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-2e01284e671a"
-        ],
-        "primary_source_event_id": "EVT-2e01284e671a",
-        "source_headlines": [
-          "RHC: Ramsay Sante Demerger Booklet Registered with ASIC [price-sensitive]"
-        ],
-        "source_headline": "RHC: Ramsay Sante Demerger Booklet Registered with ASIC [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RHC?key=2924-03149924-2A1704803",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-19T00:27:45Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-19T00:36:54Z",
-        "updated_at": "2026-10-19T00:36:54Z",
-        "decay_at": "2026-10-20T12:27:45Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-22T00:53:39Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-2d38686e8413",
         "idea_version": "IDEAV-c9e5dac1e2b982f4",
         "idea_version_started_at": "2026-10-19T00:56:11Z",
@@ -254191,79 +254265,6 @@
         "surfaced_at": "2026-10-19T00:56:11Z",
         "updated_at": "2026-10-19T00:56:11Z",
         "decay_at": "2026-10-20T12:17:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-22T00:53:39Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-47cbab11b25a",
-        "idea_version": "IDEAV-da8a44dea59e2022",
-        "idea_version_started_at": "2026-10-19T00:02:05Z",
-        "ticker": "VKTX",
-        "company": "Viking Therapeutics",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The $575 million capital raise significantly strengthens the balance sheet, providing the necessary runway to fund late-stage clinical trials for its obesity drug pipeline.",
-        "why_now": "The capital raise was announced on 2026-10-18, providing immediate liquidity to accelerate development timelines.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 65,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-9ee909dd2888"
-        ],
-        "primary_source_event_id": "EVT-9ee909dd2888",
-        "source_headlines": [
-          "Viking Therapeutics Just Raised $575 Million. Here's What It Means for the Obesity Stock's Next Chapter."
-        ],
-        "source_headline": "Viking Therapeutics Just Raised $575 Million. Here's What It Means for the Obesity Stock's Next Chapter.",
-        "source_url": "https://www.nasdaq.com/articles/viking-therapeutics-just-raised-575-million-heres-what-it-means-obesity-stocks-next",
-        "source_name": "Nasdaq",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-18T22:50:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-19T00:02:05Z",
-        "updated_at": "2026-10-19T00:02:05Z",
-        "decay_at": "2026-10-20T10:50:00Z",
         "status": "expired",
         "promoted_signal_id": null,
         "feedback": null,
@@ -261958,7 +261959,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2138,
-    "live_count": 49,
+    "live_count": 47,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -261977,9 +261978,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8393268,
-    "news_picked_today": 785,
-    "news_dropped_today": 5071
+    "news_seen_today": 8562353,
+    "news_picked_today": 809,
+    "news_dropped_today": 5119
   },
   "book_momentum": {
     "live_count": 8,
