@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-03T13:53:48Z",
+  "generated_at": "2026-11-03T13:55:48Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261103-686",
+      "headline": "Amber Enterprises India Limited: Pursuant to Regulation 30 of SEBI (LODR) Regulations, 2015, we wish to inform the exchange that IL JIN Electronics (India) Limited, a material subsidiary of the Company (\"IL JIN\") has completed the acquisition of the balance 40% equity stake of Power-One Micro Systems Private Limited (\"Power-One\") from Mr. Ramanna Rajesh Mayasandra, Mr. Harsha Venkatesh, Dwaith Advisory Private Limited and Mrs. Doddabidere Honappa Venna, shareholders of Power-One, pursuant to Sha",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/AMBER_03112026191915_SEIntimationUpdateonAcquisitionPowerOne.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-03T13:49:57Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "Amber Enterprises acquired the remaining 40% stake in Power-One Micro Systems, increasing its control over the subsidiary.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Amber Enterprises acquired the remaining 40% stake in Power-One Micro Systems, increasing its control over the subsidiary.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amber Enterprises India Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261103-628",
       "headline": "Amber Enterprises India Limited: Pursuant to Regulation 30 of SEBI (LODR) Regulations, 2015, we wish to inform the exchange that IL JIN Electronics (India) Limited, a material subsidiary of the Company (\"IL JIN\") has completed acquisition of the balance 1.50% equity stake of Ascent Circuits Private Limited (\"Ascent Circuits\"), from Ms. Manju Thomas, shareholder of Ascent Circuits, pursuant to Share Swap Agreement executed on 18th October 2026, thereby making Ascent Circuits Wholly-Owned Subsidia",
@@ -1538,6 +1587,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261103-692",
+      "headline": "Emaar Properties weighs $3.2 billion buyout of construction, development arm",
+      "headline_en": null,
+      "url": "https://gulfnews.com/business/property/emaar-properties-weighs-32-billion-buyout-of-construction-development-arm-1.500734408",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-03T12:56:39Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "Emaar Properties is considering a $3.2 billion buyout of its construction and development arm.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Emaar Properties is considering a $3.2 billion buyout of its construction and development arm.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Emaar Properties",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261103-604",
       "headline": "HG Infra Q2 Results: Profit halves as revenue falls 24%, margin contracts to 12%",
       "headline_en": null,
@@ -1886,104 +1984,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-484",
-      "headline": "ASK Automotive Q2 Results: Profit rises 27.5% to ₹102 crore, revenue jumps 47.5%",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/ask-automotive-share-price-q2-results-profit-rises-revenue-jumps-20026089.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T11:29:03Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "ASK Automotive reported a 27.5% profit increase to 102 crore rupees.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "ASK Automotive reported a 27.5% profit increase to 102 crore rupees.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ASK Automotive",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-613",
-      "headline": "Tasheel logs SAR 14.5m net profits in Q3-26 audited results",
-      "headline_en": null,
-      "url": "http://english.mubasher.info/news/4695491/Tasheel-logs-SAR-14-5m-net-profits-in-Q3-26-audited-results",
-      "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T11:04:16Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "Tasheel reported net profits of SAR 14.5m for Q3-26.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Tasheel reported net profits of SAR 14.5m for Q3-26.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tasheel",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -262043,9 +262043,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 9924700,
-    "news_picked_today": 1063,
-    "news_dropped_today": 5393
+    "news_seen_today": 9988486,
+    "news_picked_today": 1088,
+    "news_dropped_today": 5416
   },
   "book_momentum": {
     "live_count": 8,
