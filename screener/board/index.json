@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-03T16:28:23Z",
+  "generated_at": "2026-11-03T16:47:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20261103-709",
@@ -1334,6 +1334,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261103-834",
+      "headline": "Worksport Reports Preliminary Q3 Results, Reduces Operating Cash Use 89% from Second Quarter to Approximately $0.37 Million; Delivers record net sales of approximately $7.24 million",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/worksport-reports-preliminary-q3-results-reduces-operating-cash-use-89-second-quarter",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-03T16:05:16Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "Worksport reported record net sales of $7.24 million and an 89% reduction in operating cash burn.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Worksport reported record net sales of $7.24 million and an 89% reduction in operating cash burn.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Worksport",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261103-835",
+      "headline": "Dine Brands Global, Inc. Rejects Unsolicited $39.00 Per Share Acquisition Proposal",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/dine-brands-global-inc-rejects-unsolicited-3900-share-acquisition-proposal",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-03T16:05:07Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "Dine Brands rejected an unsolicited acquisition proposal of $39.00 per share.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Dine Brands rejected an unsolicited acquisition proposal of $39.00 per share.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dine Brands Global, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261103-785",
       "headline": "Arbor Realty Suspends Its Dividend as Shares Plunge 73% in 2026",
       "headline_en": null,
@@ -1875,106 +1973,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-742",
-      "headline": "Yum! Brands Reports Third-Quarter 2026 Results and $1.7 billion Pizza Hut Divestiture Gain",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/yum-brands-reports-third-quarter-2026-results-and-17-billion-pizza-hut-divestiture-gain",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T14:02:24Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "Yum! Brands announced a $1.7 billion divestiture gain related to Pizza Hut.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Yum! Brands announced a $1.7 billion divestiture gain related to Pizza Hut.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Yum! Brands",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-743",
-      "headline": "Eaton Corporation plc Reports Record Third Quarter 2026 Results, Raises Guidance, and Details €810 million COL Group Acquisition",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/eaton-corporation-plc-reports-record-third-quarter-2026-results-raises-guidance-and",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T14:02:24Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "Eaton reported record results, raised guidance, and announced an €810 million acquisition.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Eaton reported record results, raised guidance, and announced an €810 million acquisition.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change",
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Eaton Corporation",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -218563,221 +218561,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-9445b543d7a1",
-      "idea_version": "IDEAV-234d09b6b8e00bff",
-      "idea_version_started_at": "2026-11-02T05:09:22Z",
-      "ticker": "DIXON",
-      "company": "Dixon Technologies",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Dixon Technologies' Q2 guidance implies market share gain, which is a positive indicator for future revenue and profitability.",
-      "why_now": "The Q2 results and guidance were released on November 2, 2026, making this a current catalyst.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-aa5d3cace1e9"
-      ],
-      "primary_source_event_id": "EVT-aa5d3cace1e9",
-      "source_headlines": [
-        "Q2 Results Live Updates: RIL shares rise 6%, Dixon Tech guidance implies market share gain, stock up 8%"
-      ],
-      "source_headline": "Q2 Results Live Updates: RIL shares rise 6%, Dixon Tech guidance implies market share gain, stock up 8%",
-      "source_url": "https://www.cnbctv18.com/market/q2-results-live-updates-ril-jpl-dixon-muthoot-cdsl-itc-escorts-kubota-nalco-concor-upl-vrl-ge-vernova-jk-paper-share-price-liveblog-20024452.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-02T04:33:04Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-02T05:09:22Z",
-      "updated_at": "2026-11-02T05:09:22Z",
-      "decay_at": "2026-11-03T16:33:04Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-0cd482e22c18",
-      "idea_version": "IDEAV-2ab7daac8ea6fcff",
-      "idea_version_started_at": "2026-11-02T04:47:12Z",
-      "ticker": "AARTIIND",
-      "company": "Aarti Industries",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Aarti Industries' Q2 profit jumped 60% and revenue surged 75%, indicating significant operational improvement.",
-      "why_now": "The company's Q2 earnings report, released today, shows a substantial increase in both profit and revenue.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-07723b8f20bb"
-      ],
-      "primary_source_event_id": "EVT-07723b8f20bb",
-      "source_headlines": [
-        "Aarti Industries shares rise 6% as Q2 profit jumps 60%, revenue surges 75%"
-      ],
-      "source_headline": "Aarti Industries shares rise 6% as Q2 profit jumps 60%, revenue surges 75%",
-      "source_url": "https://www.cnbctv18.com/market/aarti-industries-share-price-rise-strong-q2-results-profit-revenue-surge-20024596.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-02T04:32:27Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-31T13:05:01Z",
-      "updated_at": "2026-11-02T04:47:12Z",
-      "decay_at": "2026-11-03T16:32:27Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-73490b61dc40",
-      "idea_version": "IDEAV-312865f84de28097",
-      "idea_version_started_at": "2026-11-02T04:47:12Z",
-      "ticker": "GAIL",
-      "company": "GAIL (India) Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "GAIL (India) reported strong Q2 FY2026-27 results with Revenue from Operations of ₹45,924 crore and PAT of ₹4,650 crore.",
-      "why_now": "The company released a revised press release today detailing its positive Q2 FY2026-27 financial performance.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-58af366681eb"
-      ],
-      "primary_source_event_id": "EVT-58af366681eb",
-      "source_headlines": [
-        "GAIL (India) Limited: GAIL (India) Limited has informed the Exchange regarding a revised press release dated October 30, 2026, titled \" GAIL reports Revenue from Operations of ₹45,924 crore and PAT of ₹4,650 crore for Q2 FY2026-27 .\"."
-      ],
-      "source_headline": "GAIL (India) Limited: GAIL (India) Limited has informed the Exchange regarding a revised press release dated October 30, 2026, titled \" GAIL reports Revenue from Operations of ₹45,924 crore and PAT of ₹4,650 crore for Q2 FY2026-27 .\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/GAIL_02112026101431_PR02112026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-02T04:44:41Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-31T13:05:01Z",
-      "updated_at": "2026-11-02T04:47:12Z",
-      "decay_at": "2026-11-03T16:44:41Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-a204395caab2",
       "idea_version": "IDEAV-6cd21665a86d4930",
       "idea_version_started_at": "2026-11-03T02:31:59Z",
@@ -220328,6 +220111,221 @@
       "surfaced_at": "2026-11-02T05:09:22Z",
       "updated_at": "2026-11-02T05:09:22Z",
       "decay_at": "2026-11-03T10:21:45Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-9445b543d7a1",
+      "idea_version": "IDEAV-234d09b6b8e00bff",
+      "idea_version_started_at": "2026-11-02T05:09:22Z",
+      "ticker": "DIXON",
+      "company": "Dixon Technologies",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Dixon Technologies' Q2 guidance implies market share gain, which is a positive indicator for future revenue and profitability.",
+      "why_now": "The Q2 results and guidance were released on November 2, 2026, making this a current catalyst.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-aa5d3cace1e9"
+      ],
+      "primary_source_event_id": "EVT-aa5d3cace1e9",
+      "source_headlines": [
+        "Q2 Results Live Updates: RIL shares rise 6%, Dixon Tech guidance implies market share gain, stock up 8%"
+      ],
+      "source_headline": "Q2 Results Live Updates: RIL shares rise 6%, Dixon Tech guidance implies market share gain, stock up 8%",
+      "source_url": "https://www.cnbctv18.com/market/q2-results-live-updates-ril-jpl-dixon-muthoot-cdsl-itc-escorts-kubota-nalco-concor-upl-vrl-ge-vernova-jk-paper-share-price-liveblog-20024452.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-02T04:33:04Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-02T05:09:22Z",
+      "updated_at": "2026-11-02T05:09:22Z",
+      "decay_at": "2026-11-03T16:33:04Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-0cd482e22c18",
+      "idea_version": "IDEAV-2ab7daac8ea6fcff",
+      "idea_version_started_at": "2026-11-02T04:47:12Z",
+      "ticker": "AARTIIND",
+      "company": "Aarti Industries",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Aarti Industries' Q2 profit jumped 60% and revenue surged 75%, indicating significant operational improvement.",
+      "why_now": "The company's Q2 earnings report, released today, shows a substantial increase in both profit and revenue.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-07723b8f20bb"
+      ],
+      "primary_source_event_id": "EVT-07723b8f20bb",
+      "source_headlines": [
+        "Aarti Industries shares rise 6% as Q2 profit jumps 60%, revenue surges 75%"
+      ],
+      "source_headline": "Aarti Industries shares rise 6% as Q2 profit jumps 60%, revenue surges 75%",
+      "source_url": "https://www.cnbctv18.com/market/aarti-industries-share-price-rise-strong-q2-results-profit-revenue-surge-20024596.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-02T04:32:27Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-31T13:05:01Z",
+      "updated_at": "2026-11-02T04:47:12Z",
+      "decay_at": "2026-11-03T16:32:27Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-73490b61dc40",
+      "idea_version": "IDEAV-312865f84de28097",
+      "idea_version_started_at": "2026-11-02T04:47:12Z",
+      "ticker": "GAIL",
+      "company": "GAIL (India) Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "GAIL (India) reported strong Q2 FY2026-27 results with Revenue from Operations of ₹45,924 crore and PAT of ₹4,650 crore.",
+      "why_now": "The company released a revised press release today detailing its positive Q2 FY2026-27 financial performance.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-58af366681eb"
+      ],
+      "primary_source_event_id": "EVT-58af366681eb",
+      "source_headlines": [
+        "GAIL (India) Limited: GAIL (India) Limited has informed the Exchange regarding a revised press release dated October 30, 2026, titled \" GAIL reports Revenue from Operations of ₹45,924 crore and PAT of ₹4,650 crore for Q2 FY2026-27 .\"."
+      ],
+      "source_headline": "GAIL (India) Limited: GAIL (India) Limited has informed the Exchange regarding a revised press release dated October 30, 2026, titled \" GAIL reports Revenue from Operations of ₹45,924 crore and PAT of ₹4,650 crore for Q2 FY2026-27 .\".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/GAIL_02112026101431_PR02112026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-02T04:44:41Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-31T13:05:01Z",
+      "updated_at": "2026-11-02T04:47:12Z",
+      "decay_at": "2026-11-03T16:44:41Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -224809,14 +224807,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 580,
+    "total_count": 583,
     "shown_count": 500,
-    "hidden_count": 80,
+    "hidden_count": 83,
     "side_counts": {
       "long": {
-        "total_count": 306,
+        "total_count": 309,
         "shown_count": 250,
-        "hidden_count": 56
+        "hidden_count": 59
       },
       "short": {
         "total_count": 274,
@@ -224840,6 +224838,230 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-73490b61dc40",
+        "idea_version": "IDEAV-312865f84de28097",
+        "idea_version_started_at": "2026-11-02T04:47:12Z",
+        "ticker": "GAIL",
+        "company": "GAIL (India) Limited",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "GAIL (India) reported strong Q2 FY2026-27 results with Revenue from Operations of ₹45,924 crore and PAT of ₹4,650 crore.",
+        "why_now": "The company released a revised press release today detailing its positive Q2 FY2026-27 financial performance.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-58af366681eb"
+        ],
+        "primary_source_event_id": "EVT-58af366681eb",
+        "source_headlines": [
+          "GAIL (India) Limited: GAIL (India) Limited has informed the Exchange regarding a revised press release dated October 30, 2026, titled \" GAIL reports Revenue from Operations of ₹45,924 crore and PAT of ₹4,650 crore for Q2 FY2026-27 .\"."
+        ],
+        "source_headline": "GAIL (India) Limited: GAIL (India) Limited has informed the Exchange regarding a revised press release dated October 30, 2026, titled \" GAIL reports Revenue from Operations of ₹45,924 crore and PAT of ₹4,650 crore for Q2 FY2026-27 .\".",
+        "source_url": "https://nsearchives.nseindia.com/corporate/GAIL_02112026101431_PR02112026.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-02T04:44:41Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-31T13:05:01Z",
+        "updated_at": "2026-11-02T04:47:12Z",
+        "decay_at": "2026-11-03T16:44:41Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-03T16:44:41Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-9445b543d7a1",
+        "idea_version": "IDEAV-234d09b6b8e00bff",
+        "idea_version_started_at": "2026-11-02T05:09:22Z",
+        "ticker": "DIXON",
+        "company": "Dixon Technologies",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Dixon Technologies' Q2 guidance implies market share gain, which is a positive indicator for future revenue and profitability.",
+        "why_now": "The Q2 results and guidance were released on November 2, 2026, making this a current catalyst.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-aa5d3cace1e9"
+        ],
+        "primary_source_event_id": "EVT-aa5d3cace1e9",
+        "source_headlines": [
+          "Q2 Results Live Updates: RIL shares rise 6%, Dixon Tech guidance implies market share gain, stock up 8%"
+        ],
+        "source_headline": "Q2 Results Live Updates: RIL shares rise 6%, Dixon Tech guidance implies market share gain, stock up 8%",
+        "source_url": "https://www.cnbctv18.com/market/q2-results-live-updates-ril-jpl-dixon-muthoot-cdsl-itc-escorts-kubota-nalco-concor-upl-vrl-ge-vernova-jk-paper-share-price-liveblog-20024452.htm",
+        "source_name": "CNBC-TV18",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-02T04:33:04Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-02T05:09:22Z",
+        "updated_at": "2026-11-02T05:09:22Z",
+        "decay_at": "2026-11-03T16:33:04Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-03T16:33:04Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-0cd482e22c18",
+        "idea_version": "IDEAV-2ab7daac8ea6fcff",
+        "idea_version_started_at": "2026-11-02T04:47:12Z",
+        "ticker": "AARTIIND",
+        "company": "Aarti Industries",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Aarti Industries' Q2 profit jumped 60% and revenue surged 75%, indicating significant operational improvement.",
+        "why_now": "The company's Q2 earnings report, released today, shows a substantial increase in both profit and revenue.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-07723b8f20bb"
+        ],
+        "primary_source_event_id": "EVT-07723b8f20bb",
+        "source_headlines": [
+          "Aarti Industries shares rise 6% as Q2 profit jumps 60%, revenue surges 75%"
+        ],
+        "source_headline": "Aarti Industries shares rise 6% as Q2 profit jumps 60%, revenue surges 75%",
+        "source_url": "https://www.cnbctv18.com/market/aarti-industries-share-price-rise-strong-q2-results-profit-revenue-surge-20024596.htm",
+        "source_name": "CNBC-TV18",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-02T04:32:27Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-31T13:05:01Z",
+        "updated_at": "2026-11-02T04:47:12Z",
+        "decay_at": "2026-11-03T16:32:27Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-03T16:32:27Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-520be705f9e6",
         "idea_version": "IDEAV-edc10bcd28c078cc",
@@ -253803,154 +254025,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-833ab8db1abc",
-        "idea_version": "IDEAV-e00d763ec241cd1f",
-        "idea_version_started_at": "2026-10-20T04:00:57Z",
-        "ticker": "07666",
-        "company": "Metis TechBio",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company entered a strategic collaboration with Eli Lilly to advance its proprietary LNP delivery technologies, providing immediate validation and potential milestone payments.",
-        "why_now": "The announcement was filed on 2026-10-19, making it a fresh catalyst for re-rating.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-671b6ca062b7"
-        ],
-        "primary_source_event_id": "EVT-671b6ca062b7",
-        "source_headlines": [
-          "METIS TECHBIO-P (07666): VOLUNTARY ANNOUNCEMENT METIS TECHBIO ENTERED STRATEGIC COLLABORATION WITH LILLY TO ADVANCE NEXT-GENERATION TISSUE-SPECIFIC LNP DELIVERY TECHNOLOGIES"
-        ],
-        "source_headline": "METIS TECHBIO-P (07666): VOLUNTARY ANNOUNCEMENT METIS TECHBIO ENTERED STRATEGIC COLLABORATION WITH LILLY TO ADVANCE NEXT-GENERATION TISSUE-SPECIFIC LNP DELIVERY TECHNOLOGIES",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1019/2026101900041.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 90,
-        "newest_source_at": "2026-10-19T10:17:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-20T04:00:57Z",
-        "updated_at": "2026-10-20T04:00:57Z",
-        "decay_at": "2026-10-20T22:17:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-22T11:04:11Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-481a4b3ef631",
-        "idea_version": "IDEAV-b3857cffba89d657",
-        "idea_version_started_at": "2026-10-20T04:00:57Z",
-        "ticker": "03692",
-        "company": "Hansoh Pharmaceutical Group",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company secured a strategic license agreement with Roche, which provides significant upfront and milestone revenue potential for its pipeline assets.",
-        "why_now": "The agreement was announced on 2026-10-19, providing a clear near-term catalyst for revenue growth.",
-        "conviction": 80,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-f72661182d15"
-        ],
-        "primary_source_event_id": "EVT-f72661182d15",
-        "source_headlines": [
-          "HANSOH PHARMA (03692): INSIDE INFORMATION - STRATEGIC COLLABORATION AND LICENSE AGREEMENT WITH ROCHE"
-        ],
-        "source_headline": "HANSOH PHARMA (03692): INSIDE INFORMATION - STRATEGIC COLLABORATION AND LICENSE AGREEMENT WITH ROCHE",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1019/2026101900015.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 97,
-        "newest_source_at": "2026-10-19T10:07:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-20T04:00:57Z",
-        "updated_at": "2026-10-20T04:00:57Z",
-        "decay_at": "2026-10-20T22:07:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-22T11:04:11Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-fc73cefe4bc2",
         "idea_version": "IDEAV-f8576c73d83db85d",
         "idea_version_started_at": "2026-10-19T19:35:51Z",
@@ -254172,81 +254246,6 @@
         "feedback": null,
         "stale": true,
         "archived_at": "2026-10-22T11:04:11Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-febecdcab4bc",
-        "idea_version": "IDEAV-b4d6944932eb667f",
-        "idea_version_started_at": "2026-10-19T10:36:10Z",
-        "ticker": "2317",
-        "company": "Foxconn",
-        "exchange": "TSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Foxconn's acquisition of a 50% stake in Mitsubishi Electric Mobility for 115 billion Yen expands its presence in the automotive sector and diversifies its business.",
-        "why_now": "The acquisition was announced today, 2026-10-19, providing a clear catalyst for the stock.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-4c1f89801764"
-        ],
-        "primary_source_event_id": "EVT-4c1f89801764",
-        "source_headlines": [
-          "Foxconn To Acquire 50% Stake In Mitsubishi Electric Mobility For 115 Bln Yen"
-        ],
-        "source_headline": "Foxconn To Acquire 50% Stake In Mitsubishi Electric Mobility For 115 Bln Yen",
-        "source_url": "https://www.nasdaq.com/articles/foxconn-acquire-50-stake-mitsubishi-electric-mobility-115-bln-yen",
-        "source_name": "Nasdaq",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-19T07:38:56Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-19T10:36:10Z",
-        "updated_at": "2026-10-19T10:36:10Z",
-        "decay_at": "2026-10-20T19:38:56Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-22T08:44:15Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
       },
@@ -262088,7 +262087,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2153,
-    "live_count": 46,
+    "live_count": 43,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -262107,9 +262106,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 12696685,
-    "news_picked_today": 1316,
-    "news_dropped_today": 5692
+    "news_seen_today": 12869597,
+    "news_picked_today": 1340,
+    "news_dropped_today": 6172
   },
   "book_momentum": {
     "live_count": 8,
