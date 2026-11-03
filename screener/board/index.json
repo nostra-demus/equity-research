@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-03T18:13:36Z",
+  "generated_at": "2026-11-03T18:17:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261103-709",
@@ -1334,20 +1334,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261103-845",
-      "headline": "GNG Electronics Q2 results: Net profit rises 73% to ₹56.3 crore, revenue jumps 42% to ₹625 crore",
+      "inbox_id": "INB-20261103-850",
+      "headline": "Subros Q2 results: Net profit rises 9.6% to ₹44.6 crore, revenue jumps 36.3% to ₹1,199 crore",
       "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/earnings/gng-electronics-q2-results-net-profit-rises-73-per-cent-to-rs-563-crore-revenue-jumps-42-per-cent-to-rs-625-crore-20026388.htm",
+      "url": "https://www.cnbctv18.com/market/earnings/subros-q2-results-net-profit-rises-96-per-cent-to-rs-446-crore-revenue-jumps-363-per-cent-to-rs-1199-crore-20026407.htm",
       "source_name": "CNBC-TV18",
       "input_nature": "news_headline",
-      "found_at": "2026-11-03T17:32:42Z",
+      "found_at": "2026-11-03T18:07:50Z",
       "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "GNG Electronics reported a 73% rise in net profit to ₹56.3 crore and 42% revenue growth to ₹625 crore.",
+      "prelim_note": "Subros reported Q2 net profit of ₹44.6 crore (up 9.6%) and revenue of ₹1,199 crore (up 36.3%).",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "GNG Electronics reported a 73% rise in net profit to ₹56.3 crore and 42% revenue growth to ₹625 crore.",
+      "triage_reason": "Subros reported Q2 net profit of ₹44.6 crore (up 9.6%) and revenue of ₹1,199 crore (up 36.3%).",
       "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 75,
@@ -1356,7 +1356,7 @@
         "source_tier": 0,
         "scope": 6,
         "event": 5,
-        "size": 0,
+        "size": -1,
         "recency": 5,
         "materiality_label_floor": 10,
         "quantified": 0,
@@ -1364,7 +1364,7 @@
         "scope_id": "single_name",
         "source_tier_id": "news",
         "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
+        "size_bucket": "small"
       },
       "event_types": [
         "earnings_revenue_margin"
@@ -1372,12 +1372,66 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "GNG Electronics",
+          "name": "Subros",
           "ticker": null,
           "listing_country": "IN"
         }
       ],
-      "size_bucket": "unknown",
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261103-849",
+      "headline": "Organigram To Acquire Aurora Cannabis In C$561 Mln Deal",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/organigram-acquire-aurora-cannabis-c-561-mln-deal",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-03T17:20:55Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "Organigram is acquiring Aurora Cannabis in a deal valued at C$561 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Organigram is acquiring Aurora Cannabis in a deal valued at C$561 million.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Organigram",
+          "ticker": null,
+          "listing_country": "CA"
+        },
+        {
+          "name": "Aurora Cannabis",
+          "ticker": null,
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1913,56 +1967,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-774",
-      "headline": "Pfizer Inc. Reports Third-Quarter 2026 Results and Raises Full-Year Guidance",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/pfizer-inc-reports-third-quarter-2026-results-and-raises-full-year-guidance",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T14:22:32Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "Pfizer reported Q3 2026 results and raised full-year guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Pfizer reported Q3 2026 results and raised full-year guidance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Pfizer Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -262098,9 +262102,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 14217378,
-    "news_picked_today": 1424,
-    "news_dropped_today": 6760
+    "news_seen_today": 14287096,
+    "news_picked_today": 1429,
+    "news_dropped_today": 6779
   },
   "book_momentum": {
     "live_count": 8,
