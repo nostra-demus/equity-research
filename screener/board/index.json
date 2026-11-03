@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-03T22:16:16Z",
+  "generated_at": "2026-11-03T22:24:21Z",
   "inbox": [
     {
       "inbox_id": "INB-20261103-877",
@@ -1433,6 +1433,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261103-885",
+      "headline": "Mumbai: NCLT Admits Insolvency Plea Against Dynamix Securities Over ₹518.89-Crore Loan Default",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/mumbai/mumbai-nclt-admits-insolvency-plea-against-dynamix-securities-over-51889-crore-loan-default",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-03T21:42:38Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "The NCLT admitted an insolvency plea against Dynamix Securities for a default of ₹518.89 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The NCLT admitted an insolvency plea against Dynamix Securities for a default of ₹518.89 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dynamix Securities",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261103-881",
       "headline": "Marvell to Acquire Lumentum in Historic $115B Tech Deal",
       "headline_en": null,
@@ -1929,55 +1978,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-857",
-      "headline": "Lloyds Metals Q2 results: Net profit jumps 88.1% to ₹1,046 crore, revenue rises 55.3% to ₹5,673 crore",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/earnings/lloyds-metals-q2-results-net-profit-jumps-881-per-cent-to-rs-1046-crore-revenue-rises-553-per-cent-to-rs-5673-crore-20026423.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T18:18:34Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "Lloyds Metals reported Q2 net profit growth of 88.1% to ₹1,046 crore and revenue growth of 55.3% to ₹5,673 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Lloyds Metals reported Q2 net profit growth of 88.1% to ₹1,046 crore and revenue growth of 55.3% to ₹5,673 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lloyds Metals",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -218482,77 +218482,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-5c5cdc69b5ae",
-      "idea_version": "IDEAV-02f5fe73cbf493ab",
-      "idea_version_started_at": "2026-11-02T16:25:43Z",
-      "ticker": "SUPREMEINF",
-      "company": "Supreme Infrastructure India Limited",
-      "exchange": "BSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The completion of a Rs. 2,200 crore debt settlement significantly reduces balance sheet risk and improves the company's solvency profile.",
-      "why_now": "The debt settlement completion was announced on November 2, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-444a640deed2"
-      ],
-      "primary_source_event_id": "EVT-444a640deed2",
-      "source_headlines": [
-        "Supreme Infrastructure India Limited: Supreme Infrastructure India Limited has informed the Exchange regarding a press release dated November 02, 2026, titled \"Supreme Infrastructure India Limited completes Rs. 2,200 Cr Debt Settlement, clears path for Revival.\"."
-      ],
-      "source_headline": "Supreme Infrastructure India Limited: Supreme Infrastructure India Limited has informed the Exchange regarding a press release dated November 02, 2026, titled \"Supreme Infrastructure India Limited completes Rs. 2,200 Cr Debt Settlement, clears path for Revival.\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/SUPREMEINF_02112026155037_pressreleasedebtsettlement.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-02T10:20:46Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-02T16:25:43Z",
-      "updated_at": "2026-11-02T16:25:43Z",
-      "decay_at": "2026-11-03T22:20:46Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-a204395caab2",
       "idea_version": "IDEAV-6cd21665a86d4930",
       "idea_version_started_at": "2026-11-03T02:31:59Z",
@@ -219889,6 +219818,77 @@
       "surfaced_at": "2026-11-01T02:40:39Z",
       "updated_at": "2026-11-01T02:40:39Z",
       "decay_at": "2026-11-02T14:29:03Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-5c5cdc69b5ae",
+      "idea_version": "IDEAV-02f5fe73cbf493ab",
+      "idea_version_started_at": "2026-11-02T16:25:43Z",
+      "ticker": "SUPREMEINF",
+      "company": "Supreme Infrastructure India Limited",
+      "exchange": "BSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The completion of a Rs. 2,200 crore debt settlement significantly reduces balance sheet risk and improves the company's solvency profile.",
+      "why_now": "The debt settlement completion was announced on November 2, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-444a640deed2"
+      ],
+      "primary_source_event_id": "EVT-444a640deed2",
+      "source_headlines": [
+        "Supreme Infrastructure India Limited: Supreme Infrastructure India Limited has informed the Exchange regarding a press release dated November 02, 2026, titled \"Supreme Infrastructure India Limited completes Rs. 2,200 Cr Debt Settlement, clears path for Revival.\"."
+      ],
+      "source_headline": "Supreme Infrastructure India Limited: Supreme Infrastructure India Limited has informed the Exchange regarding a press release dated November 02, 2026, titled \"Supreme Infrastructure India Limited completes Rs. 2,200 Cr Debt Settlement, clears path for Revival.\".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/SUPREMEINF_02112026155037_pressreleasedebtsettlement.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-02T10:20:46Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-02T16:25:43Z",
+      "updated_at": "2026-11-02T16:25:43Z",
+      "decay_at": "2026-11-03T22:20:46Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -225378,14 +225378,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 594,
+    "total_count": 595,
     "shown_count": 500,
-    "hidden_count": 94,
+    "hidden_count": 95,
     "side_counts": {
       "long": {
-        "total_count": 317,
+        "total_count": 318,
         "shown_count": 250,
-        "hidden_count": 67
+        "hidden_count": 68
       },
       "short": {
         "total_count": 277,
@@ -225409,6 +225409,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-5c5cdc69b5ae",
+        "idea_version": "IDEAV-02f5fe73cbf493ab",
+        "idea_version_started_at": "2026-11-02T16:25:43Z",
+        "ticker": "SUPREMEINF",
+        "company": "Supreme Infrastructure India Limited",
+        "exchange": "BSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The completion of a Rs. 2,200 crore debt settlement significantly reduces balance sheet risk and improves the company's solvency profile.",
+        "why_now": "The debt settlement completion was announced on November 2, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-444a640deed2"
+        ],
+        "primary_source_event_id": "EVT-444a640deed2",
+        "source_headlines": [
+          "Supreme Infrastructure India Limited: Supreme Infrastructure India Limited has informed the Exchange regarding a press release dated November 02, 2026, titled \"Supreme Infrastructure India Limited completes Rs. 2,200 Cr Debt Settlement, clears path for Revival.\"."
+        ],
+        "source_headline": "Supreme Infrastructure India Limited: Supreme Infrastructure India Limited has informed the Exchange regarding a press release dated November 02, 2026, titled \"Supreme Infrastructure India Limited completes Rs. 2,200 Cr Debt Settlement, clears path for Revival.\".",
+        "source_url": "https://nsearchives.nseindia.com/corporate/SUPREMEINF_02112026155037_pressreleasedebtsettlement.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-02T10:20:46Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-02T16:25:43Z",
+        "updated_at": "2026-11-02T16:25:43Z",
+        "decay_at": "2026-11-03T22:20:46Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-03T22:20:46Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-c0dcaf214e6c",
         "idea_version": "IDEAV-0beaebdaf60bd4aa",
@@ -254680,80 +254754,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-127874aade22",
-        "idea_version": "IDEAV-7b79c5097d33d1e9",
-        "idea_version_started_at": "2026-10-19T22:30:40Z",
-        "ticker": "PFC",
-        "company": "Power Finance Corporation",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The receipt of no-objection letters from exchanges for the merger with REC Limited removes a major regulatory hurdle for the consolidation of these two state-owned power financiers.",
-        "why_now": "The filing was released today, October 19, 2026, confirming the merger process is moving forward.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-2151aece0d12"
-        ],
-        "primary_source_event_id": "EVT-2151aece0d12",
-        "source_headlines": [
-          "Power Finance Corporation Limited: Intimation of receipt of No Objection letters from BSE Limited and National Stock Exchange of India Limited in relation to proposed scheme of merger of REC Limited ( Transferor Company ) with and into Power Finance Corporation Limited ( Company or Transferee Company )"
-        ],
-        "source_headline": "Power Finance Corporation Limited: Intimation of receipt of No Objection letters from BSE Limited and National Stock Exchange of India Limited in relation to proposed scheme of merger of REC Limited ( Transferor Company ) with and into Power Finance Corporation Limited ( Company or Transferee Company )",
-        "source_url": "https://nsearchives.nseindia.com/corporate/PFC2023_19102026223732_IntimationNoCNSEBSE19102026signed.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-19T17:08:22Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-19T22:30:40Z",
-        "updated_at": "2026-10-19T22:30:40Z",
-        "decay_at": "2026-10-21T05:08:22Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-22T23:50:46Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-ef656b14e8fc",
         "idea_version": "IDEAV-87b57bc6a9bc7419",
         "idea_version_started_at": "2026-10-19T22:30:40Z",
@@ -262666,7 +262666,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2162,
-    "live_count": 40,
+    "live_count": 39,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -262685,9 +262685,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 18669380,
-    "news_picked_today": 1681,
-    "news_dropped_today": 8351
+    "news_seen_today": 18748253,
+    "news_picked_today": 1688,
+    "news_dropped_today": 8392
   },
   "book_momentum": {
     "live_count": 8,
