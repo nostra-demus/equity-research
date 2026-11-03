@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-03T13:03:40Z",
+  "generated_at": "2026-11-03T13:08:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20261103-553",
@@ -189,6 +189,55 @@
       "companies": [
         {
           "name": "DHARAN INFRA-EPC LIMITED",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261103-615",
+      "headline": "Datamatics Global Services Limited: Datamatics Global Services Limited has informed the Exchange regarding a press release dated November 03, 2026, titled \"Datamatics Q2FY27 Revenue up 11.5% YoY to Rs. 546.6 crore; PAT at Rs. 73.4 crore up by 16.1% YoY\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/DGSL_03112026173931_PressRelease_03112026Uploadedsd.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-03T12:09:41Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "Datamatics reported Q2FY27 revenue of Rs. 546.6 crore (up 11.5% YoY) and PAT of Rs. 73.4 crore (up 16.1% YoY).",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Datamatics reported Q2FY27 revenue of Rs. 546.6 crore (up 11.5% YoY) and PAT of Rs. 73.4 crore (up 16.1% YoY).",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Datamatics Global Services Limited",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -1283,6 +1332,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261103-613",
+      "headline": "Tasheel logs SAR 14.5m net profits in Q3-26 audited results",
+      "headline_en": null,
+      "url": "http://english.mubasher.info/news/4695491/Tasheel-logs-SAR-14-5m-net-profits-in-Q3-26-audited-results",
+      "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-03T11:04:16Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "Tasheel reported net profits of SAR 14.5m for Q3-26.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tasheel reported net profits of SAR 14.5m for Q3-26.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tasheel",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261103-457",
       "headline": "Virgin Media O2 confirms thousands of UK job cuts in £800m cost-cutting drive",
       "headline_en": null,
@@ -1884,104 +1982,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-303",
-      "headline": "Bajaj Finserv Q2 Results: Profit Rises 23% To Rs 2,758 Crore, Total Income Up 17%",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/business/bajaj-finserv-q2-results-profit-gains-22-total-income-up-17-12275457#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T07:39:44Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "Bajaj Finserv reported a 23% increase in profit to Rs 2,758 crore for Q2.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Bajaj Finserv reported a 23% increase in profit to Rs 2,758 crore for Q2.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bajaj Finserv",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-317",
-      "headline": "Adnoc’s XRG to buy Australian LNG stake for $1.5bn",
-      "headline_en": null,
-      "url": "https://www.thenationalnews.com/business/energy/2026/11/03/adnocs-xrg-to-buy-australian-lng-stake-for-15bn/",
-      "source_name": "The National — All News",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T07:28:29Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "Adnoc's XRG is buying an Australian LNG stake for $1.5bn, a significant transaction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Adnoc's XRG is buying an Australian LNG stake for $1.5bn, a significant transaction.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Adnoc",
-          "ticker": null,
-          "listing_country": "AE"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -262041,9 +262041,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 9266281,
-    "news_picked_today": 952,
-    "news_dropped_today": 5264
+    "news_seen_today": 9327487,
+    "news_picked_today": 960,
+    "news_dropped_today": 5280
   },
   "book_momentum": {
     "live_count": 8,
