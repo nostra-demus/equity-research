@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-03T21:20:02Z",
+  "generated_at": "2026-11-03T21:23:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20261103-877",
@@ -218699,79 +218699,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-7ad730ef50fe",
-      "idea_version": "IDEAV-2132af05e26c4f81",
-      "idea_version_started_at": "2026-11-02T12:13:29Z",
-      "ticker": "IBST",
-      "company": "Ibstock",
-      "exchange": "LSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company has lowered its outlook due to a slump in brick demand and necessary production scaling, signaling deteriorating revenue and margin pressure.",
-      "why_now": "The guidance cut was released on November 2, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7cd8991abb64"
-      ],
-      "primary_source_event_id": "EVT-7cd8991abb64",
-      "source_headlines": [
-        "Ibstock cuts outlook as brick demand slumps and production is scaled back"
-      ],
-      "source_headline": "Ibstock cuts outlook as brick demand slumps and production is scaled back",
-      "source_url": "https://ukinvestormagazine.co.uk/ibstock-cuts-outlook-as-brick-demand-slumps-and-production-is-scaled-back/",
-      "source_name": "UK Investor Magazine",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-02T09:23:05Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-02T12:13:29Z",
-      "updated_at": "2026-11-02T12:13:29Z",
-      "decay_at": "2026-11-03T21:23:05Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-a204395caab2",
       "idea_version": "IDEAV-6cd21665a86d4930",
       "idea_version_started_at": "2026-11-03T02:31:59Z",
@@ -220108,6 +220035,79 @@
       "surfaced_at": "2026-11-01T02:40:39Z",
       "updated_at": "2026-11-01T02:40:39Z",
       "decay_at": "2026-11-02T14:29:03Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-7ad730ef50fe",
+      "idea_version": "IDEAV-2132af05e26c4f81",
+      "idea_version_started_at": "2026-11-02T12:13:29Z",
+      "ticker": "IBST",
+      "company": "Ibstock",
+      "exchange": "LSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company has lowered its outlook due to a slump in brick demand and necessary production scaling, signaling deteriorating revenue and margin pressure.",
+      "why_now": "The guidance cut was released on November 2, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7cd8991abb64"
+      ],
+      "primary_source_event_id": "EVT-7cd8991abb64",
+      "source_headlines": [
+        "Ibstock cuts outlook as brick demand slumps and production is scaled back"
+      ],
+      "source_headline": "Ibstock cuts outlook as brick demand slumps and production is scaled back",
+      "source_url": "https://ukinvestormagazine.co.uk/ibstock-cuts-outlook-as-brick-demand-slumps-and-production-is-scaled-back/",
+      "source_name": "UK Investor Magazine",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-02T09:23:05Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-02T12:13:29Z",
+      "updated_at": "2026-11-02T12:13:29Z",
+      "decay_at": "2026-11-03T21:23:05Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -225378,9 +225378,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 591,
+    "total_count": 592,
     "shown_count": 500,
-    "hidden_count": 91,
+    "hidden_count": 92,
     "side_counts": {
       "long": {
         "total_count": 316,
@@ -225388,9 +225388,9 @@
         "hidden_count": 66
       },
       "short": {
-        "total_count": 275,
+        "total_count": 276,
         "shown_count": 250,
-        "hidden_count": 25
+        "hidden_count": 26
       }
     },
     "retention": {
@@ -225409,6 +225409,82 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-7ad730ef50fe",
+        "idea_version": "IDEAV-2132af05e26c4f81",
+        "idea_version_started_at": "2026-11-02T12:13:29Z",
+        "ticker": "IBST",
+        "company": "Ibstock",
+        "exchange": "LSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company has lowered its outlook due to a slump in brick demand and necessary production scaling, signaling deteriorating revenue and margin pressure.",
+        "why_now": "The guidance cut was released on November 2, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-7cd8991abb64"
+        ],
+        "primary_source_event_id": "EVT-7cd8991abb64",
+        "source_headlines": [
+          "Ibstock cuts outlook as brick demand slumps and production is scaled back"
+        ],
+        "source_headline": "Ibstock cuts outlook as brick demand slumps and production is scaled back",
+        "source_url": "https://ukinvestormagazine.co.uk/ibstock-cuts-outlook-as-brick-demand-slumps-and-production-is-scaled-back/",
+        "source_name": "UK Investor Magazine",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-02T09:23:05Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-02T12:13:29Z",
+        "updated_at": "2026-11-02T12:13:29Z",
+        "decay_at": "2026-11-03T21:23:05Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-03T21:23:05Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-263619da5fbd",
         "idea_version": "IDEAV-dc2dfc869c2bf013",
@@ -262580,87 +262656,12 @@
         "archived_at": "2026-10-10T06:14:18Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-b7b9a3ca82be",
-        "idea_version": "IDEAV-104ab8f51e976f39",
-        "idea_version_started_at": "2026-10-07T03:42:33Z",
-        "ticker": "OCBC",
-        "company": "OCBC Bank",
-        "exchange": null,
-        "direction": "short",
-        "pair_with": null,
-        "reason": "OCBC's shares slid 5.2%, wiping S$7 billion off its value, indicating a significant negative market reaction to recent news, likely related to earnings or guidance.",
-        "why_now": "The sharp decline in share price and value occurred today, October 7, 2026, suggesting a fresh negative catalyst that may not be fully priced in.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-1e85e08d0c29"
-        ],
-        "primary_source_event_id": "EVT-1e85e08d0c29",
-        "source_headlines": [
-          "S$7 billion wiped off OCBC value as shares slide 5.2% in heavy trade"
-        ],
-        "source_headline": "S$7 billion wiped off OCBC value as shares slide 5.2% in heavy trade",
-        "source_url": "https://www.businesstimes.com.sg/companies-markets/s7-billion-wiped-ocbc-value-shares-slide-5-2-heavy-trade",
-        "source_name": "The Business Times (Singapore)",
-        "materiality_max": 98,
-        "newest_source_at": "2026-10-07T03:02:15Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-07T03:42:33Z",
-        "updated_at": "2026-10-07T03:42:33Z",
-        "decay_at": "2026-10-08T15:02:15Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-10T03:24:35Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2162,
-    "live_count": 43,
+    "live_count": 42,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -262679,9 +262680,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 17553143,
-    "news_picked_today": 1576,
-    "news_dropped_today": 8192
+    "news_seen_today": 17590735,
+    "news_picked_today": 1589,
+    "news_dropped_today": 8227
   },
   "book_momentum": {
     "live_count": 8,
