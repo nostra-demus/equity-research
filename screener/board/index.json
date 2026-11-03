@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-03T20:11:17Z",
+  "generated_at": "2026-11-03T20:12:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20261103-859",
@@ -1384,6 +1384,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261103-876",
+      "headline": "CVR Energy, Inc. Files Pro Forma Financials for $4.2 billion Acquisition",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/cvr-energy-inc-files-pro-forma-financials-42-billion-acquisition",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-03T19:50:54Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "CVR Energy filed financials for a $4.2 billion acquisition.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CVR Energy filed financials for a $4.2 billion acquisition.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CVR Energy, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261103-872",
       "headline": "CVR Energy, Inc. Reports Third Quarter 2026 Net Income of $570 million and Announces Refinery Acquisition",
       "headline_en": null,
@@ -1929,55 +1978,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-837",
-      "headline": "Unilever to cut €1bn in costs after food spin-off",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/d86c9440-0c50-4879-ae46-81c9649934c0?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T17:03:51Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "Unilever announced a plan to cut €1 billion in costs following its food business spin-off.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Unilever announced a plan to cut €1 billion in costs following its food business spin-off.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Unilever",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -262398,9 +262398,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 16173564,
-    "news_picked_today": 1521,
-    "news_dropped_today": 7743
+    "news_seen_today": 16245702,
+    "news_picked_today": 1526,
+    "news_dropped_today": 7762
   },
   "book_momentum": {
     "live_count": 8,
