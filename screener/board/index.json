@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-03T13:55:48Z",
+  "generated_at": "2026-11-03T13:58:46Z",
   "inbox": [
     {
       "inbox_id": "INB-20261103-686",
@@ -1685,6 +1685,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261103-698",
+      "headline": "SAIHEAT Limited Reports Third Quarter Fiscal 2026 Results With Revenues of $4.6 billion and Net Income of $413 million",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/saiheat-limited-reports-third-quarter-fiscal-2026-results-revenues-46-billion-and-net",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-03T12:08:44Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "SAIHEAT reported Q3 2026 revenue of $4.6 billion and net income of $413 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SAIHEAT reported Q3 2026 revenue of $4.6 billion and net income of $413 million.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SAIHEAT",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261103-503",
       "headline": "Karyopharm Therapeutics Inc. Files for Chapter 11 Bankruptcy on November 2, 2026",
       "headline_en": null,
@@ -1935,55 +1984,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-483",
-      "headline": "Chambal Fertilisers Q2 Results: Net profit falls 3% to ₹632 crore, declares ₹5 interim dividend",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/stocks/chambal-fertilisers-share-price-q2-results-net-profit-falls-3-to-rs-632-crore-declares-rs-5-interim-dividend-20026092.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T11:29:10Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "Chambal Fertilisers reported a 3% profit decline to 632 crore rupees.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Chambal Fertilisers reported a 3% profit decline to 632 crore rupees.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Chambal Fertilisers",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -262043,9 +262043,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 9988486,
-    "news_picked_today": 1088,
-    "news_dropped_today": 5416
+    "news_seen_today": 10020441,
+    "news_picked_today": 1096,
+    "news_dropped_today": 5432
   },
   "book_momentum": {
     "live_count": 8,
