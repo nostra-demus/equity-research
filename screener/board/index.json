@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-03T11:38:44Z",
+  "generated_at": "2026-11-03T11:44:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20261103-456",
@@ -684,6 +684,104 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261103-483",
+      "headline": "Chambal Fertilisers Q2 Results: Net profit falls 3% to ₹632 crore, declares ₹5 interim dividend",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/stocks/chambal-fertilisers-share-price-q2-results-net-profit-falls-3-to-rs-632-crore-declares-rs-5-interim-dividend-20026092.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-03T11:29:10Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "Chambal Fertilisers reported a 3% profit decline to 632 crore rupees.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Chambal Fertilisers reported a 3% profit decline to 632 crore rupees.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Chambal Fertilisers",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261103-484",
+      "headline": "ASK Automotive Q2 Results: Profit rises 27.5% to ₹102 crore, revenue jumps 47.5%",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/ask-automotive-share-price-q2-results-profit-rises-revenue-jumps-20026089.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-03T11:29:03Z",
+      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
+      "prelim_note": "ASK Automotive reported a 27.5% profit increase to 102 crore rupees.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "ASK Automotive reported a 27.5% profit increase to 102 crore rupees.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ASK Automotive",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1894,104 +1992,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-207",
-      "headline": "Disney layoffs: Thousands of job cuts expected as company targets 20% cost savings; these operations to be hit hardest",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/disney-layoffs-thousands-of-job-cuts-expected-as-company-targets-20-cost-savings-these-operations-to-be-hit-hardest-11793671345473.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T03:24:03Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "Disney is planning thousands of job cuts to achieve 20% cost savings.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Disney is planning thousands of job cuts to achieve 20% cost savings.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Disney",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261103-178",
-      "headline": "DoubleVerify Holdings, Inc. Stockholders Approve Merger Agreement with 118,218,914 Votes in Favor",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/doubleverify-holdings-inc-stockholders-approve-merger-agreement-118218914-votes-favor",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T02:08:39Z",
-      "sweep_file": "screener/inbox/2026-11-03_sweep.json",
-      "prelim_note": "DoubleVerify stockholders approved the merger agreement with a significant majority vote.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "DoubleVerify stockholders approved the merger agreement with a significant majority vote.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DoubleVerify Holdings, Inc.",
-          "ticker": "DV",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -261977,9 +261977,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8059158,
-    "news_picked_today": 757,
-    "news_dropped_today": 5003
+    "news_seen_today": 8198363,
+    "news_picked_today": 780,
+    "news_dropped_today": 5028
   },
   "book_momentum": {
     "live_count": 8,
