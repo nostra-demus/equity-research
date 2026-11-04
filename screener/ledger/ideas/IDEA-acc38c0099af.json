@@ -1,25 +1,25 @@
 {
-  "idea_id": "IDEA-2a61b0c43f99",
-  "idea_version": "IDEAV-37e6637583f8f395",
-  "idea_version_started_at": "2026-11-01T09:01:03Z",
-  "ticker": "2333",
-  "company": "Great Wall Motor",
-  "exchange": "HKEX",
+  "idea_id": "IDEA-acc38c0099af",
+  "idea_version": "IDEAV-2e02b6444305370c",
+  "idea_version_started_at": "2026-11-04T10:33:04Z",
+  "ticker": "UOB",
+  "company": "United Overseas Bank",
+  "exchange": "SGX",
   "ticker_verified": false,
   "listing_verified": false,
   "liquidity_verified": false,
   "listing_verification_source": null,
   "direction": "short",
   "pair_with": null,
-  "reason": "A 15.87% decline in total sales indicates that growth in NEV and overseas segments is insufficient to offset the contraction in the company's core domestic volume.",
-  "why_now": "The October sales data was released on 2026-11-01, confirming the negative volume trend.",
-  "conviction": 60,
+  "reason": "The bank missed Q3 earnings forecasts, indicating potential margin compression or higher-than-expected credit costs.",
+  "why_now": "The earnings miss was reported on 2026-11-04.",
+  "conviction": 65,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 14,
-    "impact": 16,
+    "impact": 19,
     "specificity": 7,
     "timing": 10,
     "expression": 0,
@@ -50,26 +50,26 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-d9d5e8906ae6"
+    "EVT-a363a3ee5ca3"
   ],
-  "primary_source_event_id": "EVT-d9d5e8906ae6",
+  "primary_source_event_id": "EVT-a363a3ee5ca3",
   "source_headlines": [
-    "GWM October sales fall 15.87% despite record NEV and overseas volumes"
+    "UOB shares fall over 5% after Q3 earnings miss forecast"
   ],
-  "source_headline": "GWM October sales fall 15.87% despite record NEV and overseas volumes",
-  "source_url": "https://cnevpost.com/2026/11/01/gwm-oct-2026-sales/",
-  "source_name": "CnEVPost",
-  "materiality_max": 88,
-  "newest_source_at": "2026-11-01T08:27:30Z",
+  "source_headline": "UOB shares fall over 5% after Q3 earnings miss forecast",
+  "source_url": "https://www.businesstimes.com.sg/companies-markets/uob-shares-fall-over-5-after-q3-earnings-miss-forecast",
+  "source_name": "The Business Times (Singapore)",
+  "materiality_max": 100,
+  "newest_source_at": "2026-11-04T01:19:59Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-11-01T09:01:03Z",
-  "updated_at": "2026-11-01T09:01:03Z",
-  "decay_at": "2026-11-02T20:27:30Z",
+  "surfaced_at": "2026-11-04T10:33:04Z",
+  "updated_at": "2026-11-04T10:33:04Z",
+  "decay_at": "2026-11-05T13:19:59Z",
   "status": "live",
   "promoted_signal_id": null
 }

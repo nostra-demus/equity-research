@@ -1,29 +1,29 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-10-20T19:09:38Z",
+  "archived_at": "2026-11-04T10:33:16Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-e9a3028a08b9",
-    "idea_version": "IDEAV-96e326b9618b57f5",
-    "idea_version_started_at": "2026-10-18T04:36:10Z",
-    "ticker": "PSB",
-    "company": "Punjab & Sind Bank",
-    "exchange": "NSE",
+    "idea_id": "IDEA-2a61b0c43f99",
+    "idea_version": "IDEAV-37e6637583f8f395",
+    "idea_version_started_at": "2026-11-01T09:01:03Z",
+    "ticker": "2333",
+    "company": "Great Wall Motor",
+    "exchange": "HKEX",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
-    "direction": "long",
+    "direction": "short",
     "pair_with": null,
-    "reason": "The bank recorded a 40% rise in net profit for Q2.",
-    "why_now": "The Q2 results were released on October 17, 2026.",
+    "reason": "A 15.87% decline in total sales indicates that growth in NEV and overseas segments is insufficient to offset the contraction in the company's core domestic volume.",
+    "why_now": "The October sales data was released on 2026-11-01, confirming the negative volume trend.",
     "conviction": 60,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
       "evidence": 14,
-      "impact": 19,
+      "impact": 16,
       "specificity": 7,
       "timing": 10,
       "expression": 0,
@@ -36,6 +36,7 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
+      "priced-in risk",
       "independent confirmation",
       "live price, liquidity, and consensus"
     ],
@@ -48,31 +49,31 @@
       "basis": "not_enough_outcomes",
       "evidenceIds": []
     },
-    "priced_in": "room",
+    "priced_in": "priced",
     "thesis_type": "company_specific",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-52b85c8f3b7e"
+      "EVT-d9d5e8906ae6"
     ],
-    "primary_source_event_id": "EVT-52b85c8f3b7e",
+    "primary_source_event_id": "EVT-d9d5e8906ae6",
     "source_headlines": [
-      "Punjab & Sind Bank records 40% rise in net profit in Q2"
+      "GWM October sales fall 15.87% despite record NEV and overseas volumes"
     ],
-    "source_headline": "Punjab & Sind Bank records 40% rise in net profit in Q2",
-    "source_url": "https://www.thehindubusinessline.com/money-and-banking/punjab-sind-bank-records-40-rise-in-net-profit-in-q2/article71597071.ece",
-    "source_name": "The Hindu BusinessLine",
-    "materiality_max": 96,
-    "newest_source_at": "2026-10-17T14:52:37Z",
+    "source_headline": "GWM October sales fall 15.87% despite record NEV and overseas volumes",
+    "source_url": "https://cnevpost.com/2026/11/01/gwm-oct-2026-sales/",
+    "source_name": "CnEVPost",
+    "materiality_max": 88,
+    "newest_source_at": "2026-11-01T08:27:30Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-10-18T04:36:10Z",
-    "updated_at": "2026-10-18T04:36:10Z",
-    "decay_at": "2026-10-19T02:52:37Z",
+    "surfaced_at": "2026-11-01T09:01:03Z",
+    "updated_at": "2026-11-01T09:01:03Z",
+    "decay_at": "2026-11-02T20:27:30Z",
     "status": "live",
     "promoted_signal_id": null
   }
