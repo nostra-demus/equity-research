@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-04T13:57:52Z",
+  "generated_at": "2026-11-04T14:08:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20261104-481",
@@ -1164,6 +1164,116 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261104-501",
+      "headline": "Nandy intervenes in Sky’s £1.6bn ITV takeover",
+      "headline_en": null,
+      "url": "https://www.cityam.com/nandy-intervenes-in-skys-1-6bn-itv-takeover/",
+      "source_name": "City A.M.",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-04T13:40:21Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "UK Culture Secretary intervenes in the £1.6bn ITV takeover by Sky.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "UK Culture Secretary intervenes in the £1.6bn ITV takeover by Sky.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 82,
+      "rank_factors": {
+        "materiality": 82,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 3,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ITV",
+          "ticker": "ITV",
+          "listing_country": "GB"
+        },
+        {
+          "name": "Sky",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-499",
+      "headline": "UK Probes £1.6 Billion Sky-ITV Deal Over Public Interest Concern",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-04/uk-probes-1-6-billion-sky-itv-deal-over-public-interest-concern",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-04T13:26:38Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "UK government intervenes in the £1.6 billion Sky-ITV deal on public interest grounds, risking a block.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "UK government intervenes in the £1.6 billion Sky-ITV deal on public interest grounds, risking a block.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 82,
+      "rank_factors": {
+        "materiality": 82,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 3,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ITV",
+          "ticker": "ITV",
+          "listing_country": "GB"
+        },
+        {
+          "name": "Sky",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261104-490",
       "headline": "Stanley Black & Decker, Inc. Reports 3Q 2026 Results, Raises Guidance, and Announces New $1 Billion Share Repurchase Authorization",
       "headline_en": null,
@@ -1907,106 +2017,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-329",
-      "headline": "Fine Organic Industries Q2 FY27 Results Signal Strong Profitability And Overseas Expansion, Net Profit Climbs 40% To ₹152.1 Crore As Revenue Grows 22% And Company Acquires 80% Stake In Malaysian Firm",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/fine-organic-industries-q2-fy27-results-signal-strong-profitability-and-overseas-expansion-net-profit-climbs-40-to-1521-crore-as-revenue-grows-22-and-company-acquires-80-stake-in-malaysian-firm",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T08:11:43Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Fine Organic Q2 FY27 net profit rose 40% to ₹152.1 crore, revenue grew 22% YoY, and company acquired 80% stake in Malaysian firm.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Fine Organic Q2 FY27 net profit rose 40% to ₹152.1 crore, revenue grew 22% YoY, and company acquired 80% stake in Malaysian firm.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Fine Organic Industries",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-264",
-      "headline": "Meta raises $15 billion through bond sale to fund AI infrastructure expansion",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/meta-raises-15-billion-through-bond-sale-to-fund-ai-infrastructure-expansion/articleshow/135530378.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T07:50:23Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Meta raises $15 billion in debt to fund AI infrastructure capex expansion, signaling material increase in capital intensity and near-term cash-burn pressure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Meta raises $15 billion in debt to fund AI infrastructure capex expansion, signaling material increase in capital intensity and near-term cash-burn pressure.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "debt_credit",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Meta Platforms",
-          "ticker": "META",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -263270,9 +263280,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 11064098,
-    "news_picked_today": 906,
-    "news_dropped_today": 10878
+    "news_seen_today": 11099669,
+    "news_picked_today": 924,
+    "news_dropped_today": 10956
   },
   "book_momentum": {
     "live_count": 8,
