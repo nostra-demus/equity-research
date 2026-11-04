@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-04T00:23:34Z",
+  "generated_at": "2026-11-04T00:26:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20261104-006",
@@ -893,6 +893,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261104-043",
+      "headline": "CSTONE PHARMA-B (02616): VOLUNTARY ANNOUNCEMENT - CSTONE AND KIMIA THERAPEUTICS ENTER CLINICAL DEVELOPMENT COLLABORATION TO ADVANCE A NOVEL DRUG CANDIDATE TARGETING REPAIR PATHWAYS CRITICAL FOR SOLID TUMOR SURVIVAL",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1104/2026110400027.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-04T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "CStone Pharma entered a clinical development collaboration for a novel solid tumor drug candidate.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "CStone Pharma entered a clinical development collaboration for a novel solid tumor drug candidate.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CStone Pharmaceuticals",
+          "ticker": "02616",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261104-036",
       "headline": "Curaleaf Holdings, Inc. Reports Third Quarter 2026 Results with Net Revenue of $352.7 million",
       "headline_en": null,
@@ -1182,6 +1231,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-042",
+      "headline": "CKLIFE SCIENCES (00775): BUSINESS UPDATE ON PRECLINICAL STUDIES OF CANCER VACCINES",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1104/2026110400029.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-04T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Company provided a business update on preclinical studies for its cancer vaccine pipeline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "Company provided a business update on preclinical studies for its cancer vaccine pipeline.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CK Life Sciences",
+          "ticker": "00775",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1867,98 +1965,6 @@
           "listing_country": null
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-030",
-      "headline": "Saudi proptech Ghanem raises $1.5 million pre-seed extension",
-      "headline_en": null,
-      "url": "https://www.wamda.com/2026/10/saudi-proptech-ghanem-raises-1-5-million-pre-seed-extension",
-      "source_name": "Wamda",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T00:16:48Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Small venture capital raise of $1.5 million for a proptech startup.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 61,
-      "triage_reason": "Small venture capital raise of $1.5 million for a proptech startup.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ghanem",
-          "ticker": null,
-          "listing_country": "SA"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-019",
-      "headline": "(URGENT) Seoul shares open sharply higher on tech gains ahead of U.S. election results",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20261104001800320",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T00:01:16Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Seoul shares opened higher on tech gains ahead of U.S. election results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 57,
-      "triage_reason": "Seoul shares opened higher on tech gains ahead of U.S. election results.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -264652,9 +264658,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 279154,
-    "news_picked_today": 41,
-    "news_dropped_today": 127
+    "news_seen_today": 358838,
+    "news_picked_today": 43,
+    "news_dropped_today": 149
   },
   "book_momentum": {
     "live_count": 8,
