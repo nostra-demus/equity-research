@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-04T14:08:16Z",
+  "generated_at": "2026-11-04T14:15:47Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261104-502",
+      "headline": "DEFM14A - WAFD INC (0000936528) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/936528/000114036126041902/0001140361-26-041902-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-04T13:26:07Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Definitive merger proxy statement filed for Washington Federal Inc., confirming shareholder vote on a pending M&A transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Definitive merger proxy statement filed for Washington Federal Inc., confirming shareholder vote on a pending M&A transaction.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Washington Federal Inc.",
+          "ticker": "WAFD",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261104-481",
       "headline": "CHAMPION TECH (00092): RESIGNATION OF AUDITOR AND CONTINUED SUSPENSION OF TRADING",
@@ -1968,55 +2017,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-311",
-      "headline": "Utkarsh Small Finance Bank Q2 FY27 Results Signal A Sharp Recovery In Financial Performance, Net Loss Narrows To ₹70 Crore From ₹348 Crore As Deposits Grow 6.6%",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/utkarsh-small-finance-bank-q2-fy27-results-signal-a-sharp-recovery-in-financial-performance-net-loss-narrows-to-70-crore-from-348-crore-as-deposits-grow-66",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T08:22:05Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Utkarsh Small Finance Bank reported a narrowed net loss of Rs 70 crore compared to Rs 348 crore in the prior period.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Utkarsh Small Finance Bank reported a narrowed net loss of Rs 70 crore compared to Rs 348 crore in the prior period.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Utkarsh Small Finance Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -263280,9 +263280,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 11099669,
-    "news_picked_today": 924,
-    "news_dropped_today": 10956
+    "news_seen_today": 11135623,
+    "news_picked_today": 929,
+    "news_dropped_today": 11071
   },
   "book_momentum": {
     "live_count": 8,
