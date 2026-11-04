@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-04T22:27:36Z",
+  "generated_at": "2026-11-04T22:37:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20261104-637",
@@ -1657,6 +1657,253 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261104-679",
+      "headline": "Qualcomm stock drops 6% on weak earnings forecast as memory shortage weighs on smartphone sales",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/11/04/qualcomm-qcom-earnings-report-q4-2026.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-04T22:03:43Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Qualcomm cut earnings guidance citing memory shortage and weak smartphone sales—a material guidance revision with identified supply and demand headwinds.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Qualcomm cut earnings guidance citing memory shortage and weak smartphone sales—a material guidance revision with identified supply and demand headwinds.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change",
+        "macro_sector",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Qualcomm",
+          "ticker": "QCOM",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-687",
+      "headline": "Qualcomm's Phone Chip Sales Drop 26%: Rapid Earnings Reaction",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/11/04/qualcomm-s-phone-chip-sales-drop-26-rapid-earnings-reaction/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-04T21:50:19Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Qualcomm reported a 26% drop in phone chip sales, a significant revenue metric.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Qualcomm reported a 26% drop in phone chip sales, a significant revenue metric.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Qualcomm",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-688",
+      "headline": "MercadoLibre's Growth Slows as Margin Shrinks: Rapid Earnings Reaction",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/11/04/mercadolibre-s-growth-slows-as-margin-shrinks-rapid-earnings-reaction/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-04T21:46:36Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "MercadoLibre reported slowing growth and shrinking margins in its latest earnings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "MercadoLibre reported slowing growth and shrinking margins in its latest earnings.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MercadoLibre",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-689",
+      "headline": "Sezzle Profit Jumps 79% as Credit Costs Ease: Rapid Earnings Reaction",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/11/04/sezzle-profit-jumps-79-as-credit-costs-ease-rapid-earnings-reaction/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-04T21:42:17Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Sezzle reported a 79% jump in profit driven by lower credit costs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Sezzle reported a 79% jump in profit driven by lower credit costs.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sezzle",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-693",
+      "headline": "LIV Golf Nears Liquidation After Turnaround Plan Derailed",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-04/liv-golf-turnaround-derailed-with-league-nearing-liquidation",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-04T21:17:27Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "LIV Golf is nearing liquidation after its turnaround plan failed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "LIV Golf is nearing liquidation after its turnaround plan failed.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LIV Golf",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261104-665",
       "headline": "Qualcomm stock drops 5% on weak earnings forecast as memory shortage weighs on smartphone sales",
       "headline_en": null,
@@ -1706,189 +1953,32 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261104-629",
-      "headline": "FitLab Blames Bankruptcy on Loss of Nike Partnership, Trump Tariffs",
+      "inbox_id": "INB-20261104-692",
+      "headline": "Stanley Black & Decker raises outlook as tariff refunds boost margins",
       "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-04/fitlab-blames-bankruptcy-on-loss-of-nike-partnership-trump-tariffs",
-      "source_name": "Bloomberg",
+      "url": "https://www.cfodive.com/news/stanley-black-decker-raises-outlook-tariff-refunds-boost-margins/873805/",
+      "source_name": "CFO Dive",
       "input_nature": "news_headline",
-      "found_at": "2026-11-04T19:47:44Z",
+      "found_at": "2026-11-04T20:53:50Z",
       "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "FitLab filed for bankruptcy citing the loss of a Nike partnership and tariff impacts.",
+      "prelim_note": "Stanley Black & Decker raised its outlook due to tariff refunds boosting margins.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "FitLab filed for bankruptcy citing the loss of a Nike partnership and tariff impacts.",
+      "triage_reason": "Stanley Black & Decker raised its outlook due to tariff refunds boosting margins.",
       "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 75,
+      "materiality_pre_score": 70,
       "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "FitLab",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-624",
-      "headline": "AMD to pay $2.9-billion for AI chip firm Taalas in one of the largest Canadian tech takeovers",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/business/article-amd-to-pay-29-billion-for-ai-chip-firm-taalas/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T19:07:12Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "AMD is acquiring Taalas for $2.9 billion, a major capital deployment with uncertain accretion and integration risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "AMD is acquiring Taalas for $2.9 billion, a major capital deployment with uncertain accretion and integration risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 7,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AMD (Advanced Micro Devices)",
-          "ticker": "AMD",
-          "listing_country": "US"
-        },
-        {
-          "name": "Taalas",
-          "ticker": null,
-          "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-609",
-      "headline": "Marvell's Deal to Acquire Lumentum Could Be a Game Changer for the Stock",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/11/04/marvells-deal-to-acquire-lumentum-could-be-a-game/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T17:15:00Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Marvell Technology is reportedly in talks to acquire Lumentum, representing a major M&A event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Marvell Technology is reportedly in talks to acquire Lumentum, representing a major M&A event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Marvell Technology",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Lumentum",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-612",
-      "headline": "Trimble Inc. Reports Third Quarter 2026 Revenue of $966.8 million and Updates Full Year Guidance",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/trimble-inc-reports-third-quarter-2026-revenue-9668-million-and-updates-full-year-guidance",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T17:11:20Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Trimble Inc. reported third quarter 2026 revenue of $966.8 million and updated its full year guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Trimble Inc. reported third quarter 2026 revenue of $966.8 million and updated its full year guidance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
+        "materiality": 70,
         "source_tier": 0,
         "scope": 6,
         "event": 7,
         "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
@@ -1896,121 +1986,17 @@
         "size_bucket": "large"
       },
       "event_types": [
-        "earnings_revenue_margin",
         "guidance_change"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Trimble Inc.",
+          "name": "Stanley Black & Decker",
           "ticker": null,
-          "listing_country": null
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-601",
-      "headline": "Aurora Cannabis Inc. Enters into Arrangement Agreement to be Acquired by Organigram Global Inc. for C$7.80 Per Share",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/aurora-cannabis-inc-enters-arrangement-agreement-be-acquired-organigram-global-inc-c-780",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T16:32:16Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Aurora Cannabis entered an agreement to be acquired by Organigram Global Inc. for C$7.80 per share.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Aurora Cannabis entered an agreement to be acquired by Organigram Global Inc. for C$7.80 per share.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Aurora Cannabis Inc.",
-          "ticker": null,
-          "listing_country": "CA"
-        },
-        {
-          "name": "Organigram Global Inc.",
-          "ticker": null,
-          "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-604",
-      "headline": "ECARX Holdings Inc. Reports Third Quarter 2026 Financial Results with Revenue of US$240.8 Million and Net Loss of US$48.6 Million",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/ecarx-holdings-inc-reports-third-quarter-2026-financial-results-revenue-us-2408-million",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T16:23:57Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "ECARX Holdings reported Q3 2026 revenue of US$240.8 million and a net loss of US$48.6 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "ECARX Holdings reported Q3 2026 revenue of US$240.8 million and a net loss of US$48.6 million.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ECARX Holdings Inc.",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -263344,9 +263330,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 14353747,
-    "news_picked_today": 1400,
-    "news_dropped_today": 21208
+    "news_seen_today": 14383599,
+    "news_picked_today": 1428,
+    "news_dropped_today": 21420
   },
   "book_momentum": {
     "live_count": 8,
