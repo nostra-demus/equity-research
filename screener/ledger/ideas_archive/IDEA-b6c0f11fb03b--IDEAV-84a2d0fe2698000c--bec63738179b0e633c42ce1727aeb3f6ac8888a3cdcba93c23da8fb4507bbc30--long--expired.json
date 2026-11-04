@@ -1,23 +1,23 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-10-08T03:53:12Z",
+  "archived_at": "2026-11-04T01:34:51Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-2dc2970b998e",
-    "idea_version": "IDEAV-6476c05829bcac72",
-    "idea_version_started_at": "2026-10-05T02:19:59Z",
-    "ticker": "SU.TO",
-    "company": "Suncor Energy",
-    "exchange": "Toronto",
+    "idea_id": "IDEA-b6c0f11fb03b",
+    "idea_version": "IDEAV-84a2d0fe2698000c",
+    "idea_version_started_at": "2026-10-31T23:45:32Z",
+    "ticker": "CVX",
+    "company": "Chevron Corporation",
+    "exchange": "NYSE",
     "ticker_verified": true,
     "listing_verified": true,
     "liquidity_verified": false,
     "listing_verification_source": "yahoo_symbol_directory",
-    "direction": "short",
+    "direction": "long",
     "pair_with": null,
-    "reason": "Suncor is selling its offshore Canada oil stakes to Ithaca Energy for $842 million, indicating a strategic divestment that may signal a focus on other assets or a need for capital.",
-    "why_now": "The sale agreement was announced today.",
-    "conviction": 70,
+    "reason": "A 50% increase in exploration spending signals management's confidence in long-term reserve replacement and future production growth, which typically supports valuation multiples in the energy sector.",
+    "why_now": "The announcement was made on 2026-10-31, making this a fresh capital allocation signal for the upcoming fiscal cycle.",
+    "conviction": 65,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 65,
     "trade_score_basis": "event_driven_v3",
@@ -47,30 +47,30 @@
       "evidenceIds": []
     },
     "priced_in": "room",
-    "thesis_type": "pair_trade",
+    "thesis_type": "company_specific",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-6c7a1b677142"
+      "EVT-e33cb058e61f"
     ],
-    "primary_source_event_id": "EVT-6c7a1b677142",
+    "primary_source_event_id": "EVT-e33cb058e61f",
     "source_headlines": [
-      "Suncor to sell offshore Canada oil stakes to Ithaca for $842 million"
+      "Chevron Raises Exploration Spending By 50%"
     ],
-    "source_headline": "Suncor to sell offshore Canada oil stakes to Ithaca for $842 million",
-    "source_url": "https://www.reuters.com/business/energy/suncor-sell-canadian-offshore-assets-ithaca-108-billion-2026-10-05/",
-    "source_name": "Reuters — Latest (news sitemap)",
-    "materiality_max": 79,
-    "newest_source_at": "2026-10-05T01:52:51Z",
+    "source_headline": "Chevron Raises Exploration Spending By 50%",
+    "source_url": "https://oilprice.com/Energy/Crude-Oil/Chevron-Raises-Exploration-Spending-By-50.html",
+    "source_name": "OilPrice.com",
+    "materiality_max": 100,
+    "newest_source_at": "2026-10-31T23:00:00Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-10-05T02:19:59Z",
-    "updated_at": "2026-10-05T02:19:59Z",
-    "decay_at": "2026-10-06T13:52:51Z",
+    "surfaced_at": "2026-10-31T23:45:32Z",
+    "updated_at": "2026-10-31T23:45:32Z",
+    "decay_at": "2026-11-02T11:00:00Z",
     "status": "live",
     "promoted_signal_id": null
   }
