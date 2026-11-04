@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-04T03:39:41Z",
+  "generated_at": "2026-11-04T03:43:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20261104-006",
@@ -92,6 +92,55 @@
           "name": "Sands China Ltd.",
           "ticker": "01928",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-211",
+      "headline": "Emaar Offers to Buy Out Construction Arm at $16.3 Billion Value",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-04/emaar-offers-to-buy-out-construction-arm-at-16-3-billion-value",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-04T03:31:07Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Emaar has offered to acquire its construction arm for $16.3 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Emaar has offered to acquire its construction arm for $16.3 billion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Emaar Properties",
+          "ticker": null,
+          "listing_country": "AE"
         }
       ],
       "size_bucket": "large",
@@ -1914,55 +1963,6 @@
       "companies": [
         {
           "name": "Cox Advanced Services Rhode Island, LLC",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-177",
-      "headline": "S-4/A - BPRF Holdings, LLC (0002143398) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/2143398/000110465926122127/0001104659-26-122127-index.htm",
-      "source_name": "SEC EDGAR — Latest S-4 (M&A / Exchange-Offer Registration)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-03T21:57:17Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "SEC S-4 filings indicate registration for an M&A or exchange offer, which is a significant corporate event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "SEC S-4 filings indicate registration for an M&A or exchange offer, which is a significant corporate event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BPRF Holdings, LLC",
           "ticker": null,
           "listing_country": "US"
         }
@@ -263950,9 +263950,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4426260,
-    "news_picked_today": 272,
-    "news_dropped_today": 1312
+    "news_seen_today": 4505798,
+    "news_picked_today": 276,
+    "news_dropped_today": 1332
   },
   "book_momentum": {
     "live_count": 8,
