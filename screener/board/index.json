@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-04T23:24:29Z",
+  "generated_at": "2026-11-04T23:32:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20261104-637",
@@ -48,6 +48,105 @@
           "name": "Agility Robotics, Inc.",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-706",
+      "headline": "CUP: Count to acquire majority interest in Skybridge [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CUP?key=2924-03158334-2A1708491",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-04T23:00:40Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Count announced the acquisition of a majority interest in Skybridge.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Count announced the acquisition of a majority interest in Skybridge.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Count",
+          "ticker": "CUP",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-703",
+      "headline": "NEU: Q3 2026 DAYBUE net sales up 39%, full year guidance upgraded [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NEU?key=2924-03158326-2A1708525",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-04T22:57:35Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Neuren Pharmaceuticals reported a 39% increase in Q3 2026 net sales and upgraded its full-year guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Neuren Pharmaceuticals reported a 39% increase in Q3 2026 net sales and upgraded its full-year guidance.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Neuren Pharmaceuticals",
+          "ticker": "NEU",
+          "listing_country": "AU"
         }
       ],
       "size_bucket": "mid",
@@ -1899,104 +1998,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-689",
-      "headline": "Sezzle Profit Jumps 79% as Credit Costs Ease: Rapid Earnings Reaction",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/11/04/sezzle-profit-jumps-79-as-credit-costs-ease-rapid-earnings-reaction/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T21:42:17Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Sezzle reported a 79% jump in profit driven by lower credit costs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Sezzle reported a 79% jump in profit driven by lower credit costs.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sezzle",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-693",
-      "headline": "LIV Golf Nears Liquidation After Turnaround Plan Derailed",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-04/liv-golf-turnaround-derailed-with-league-nearing-liquidation",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T21:17:27Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "LIV Golf is nearing liquidation after its turnaround plan failed.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "LIV Golf is nearing liquidation after its turnaround plan failed.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "LIV Golf",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -219835,77 +219836,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-3f7560fdd91d",
-      "idea_version": "IDEAV-a5af5216356fe6fd",
-      "idea_version_started_at": "2026-11-03T15:37:42Z",
-      "ticker": "BLS",
-      "company": "BLS International Services Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported record quarterly revenue of Rs. 973 crores, signaling strong operational momentum in its visa and consular services business.",
-      "why_now": "The earnings release was filed on November 03, 2026, providing a fresh catalyst for valuation adjustment.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-24126dbb259a"
-      ],
-      "primary_source_event_id": "EVT-24126dbb259a",
-      "source_headlines": [
-        "BLS International Services Limited: BLS International Services Limited has informed the Exchange regarding a press release dated November 03, 2026, titled \"BLS International Reports Strong Q2 & H1 FY27 Performance; Revenue Grows to Rs. 973 Crores, the Highest Ever\"."
-      ],
-      "source_headline": "BLS International Services Limited: BLS International Services Limited has informed the Exchange regarding a press release dated November 03, 2026, titled \"BLS International Reports Strong Q2 & H1 FY27 Performance; Revenue Grows to Rs. 973 Crores, the Highest Ever\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/BLS_03112026165936_Press_Release_signed.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-03T11:29:54Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-03T15:37:42Z",
-      "updated_at": "2026-11-03T15:37:42Z",
-      "decay_at": "2026-11-04T23:29:54Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-821e9e6d384b",
       "idea_version": "IDEAV-1397ef8c4d929cb6",
       "idea_version_started_at": "2026-11-03T15:37:42Z",
@@ -220822,6 +220752,77 @@
       "surfaced_at": "2026-11-02T02:53:32Z",
       "updated_at": "2026-11-02T02:53:32Z",
       "decay_at": "2026-11-03T14:17:08Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-3f7560fdd91d",
+      "idea_version": "IDEAV-a5af5216356fe6fd",
+      "idea_version_started_at": "2026-11-03T15:37:42Z",
+      "ticker": "BLS",
+      "company": "BLS International Services Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported record quarterly revenue of Rs. 973 crores, signaling strong operational momentum in its visa and consular services business.",
+      "why_now": "The earnings release was filed on November 03, 2026, providing a fresh catalyst for valuation adjustment.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-24126dbb259a"
+      ],
+      "primary_source_event_id": "EVT-24126dbb259a",
+      "source_headlines": [
+        "BLS International Services Limited: BLS International Services Limited has informed the Exchange regarding a press release dated November 03, 2026, titled \"BLS International Reports Strong Q2 & H1 FY27 Performance; Revenue Grows to Rs. 973 Crores, the Highest Ever\"."
+      ],
+      "source_headline": "BLS International Services Limited: BLS International Services Limited has informed the Exchange regarding a press release dated November 03, 2026, titled \"BLS International Reports Strong Q2 & H1 FY27 Performance; Revenue Grows to Rs. 973 Crores, the Highest Ever\".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/BLS_03112026165936_Press_Release_signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-03T11:29:54Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-03T15:37:42Z",
+      "updated_at": "2026-11-03T15:37:42Z",
+      "decay_at": "2026-11-04T23:29:54Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -226093,14 +226094,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 584,
+    "total_count": 585,
     "shown_count": 499,
-    "hidden_count": 85,
+    "hidden_count": 86,
     "side_counts": {
       "long": {
-        "total_count": 311,
+        "total_count": 312,
         "shown_count": 250,
-        "hidden_count": 61
+        "hidden_count": 62
       },
       "short": {
         "total_count": 274,
@@ -226124,6 +226125,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-3f7560fdd91d",
+        "idea_version": "IDEAV-a5af5216356fe6fd",
+        "idea_version_started_at": "2026-11-03T15:37:42Z",
+        "ticker": "BLS",
+        "company": "BLS International Services Limited",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company reported record quarterly revenue of Rs. 973 crores, signaling strong operational momentum in its visa and consular services business.",
+        "why_now": "The earnings release was filed on November 03, 2026, providing a fresh catalyst for valuation adjustment.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-24126dbb259a"
+        ],
+        "primary_source_event_id": "EVT-24126dbb259a",
+        "source_headlines": [
+          "BLS International Services Limited: BLS International Services Limited has informed the Exchange regarding a press release dated November 03, 2026, titled \"BLS International Reports Strong Q2 & H1 FY27 Performance; Revenue Grows to Rs. 973 Crores, the Highest Ever\"."
+        ],
+        "source_headline": "BLS International Services Limited: BLS International Services Limited has informed the Exchange regarding a press release dated November 03, 2026, titled \"BLS International Reports Strong Q2 & H1 FY27 Performance; Revenue Grows to Rs. 973 Crores, the Highest Ever\".",
+        "source_url": "https://nsearchives.nseindia.com/corporate/BLS_03112026165936_Press_Release_signed.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-03T11:29:54Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-03T15:37:42Z",
+        "updated_at": "2026-11-03T15:37:42Z",
+        "decay_at": "2026-11-04T23:29:54Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-04T23:29:54Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-a04c9484ab55",
         "idea_version": "IDEAV-9911c885fc1bde23",
@@ -255691,79 +255766,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-60e834f849f4",
-        "idea_version": "IDEAV-2a4c79c3550b25ef",
-        "idea_version_started_at": "2026-10-20T12:29:48Z",
-        "ticker": "MMM",
-        "company": "3M",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "3M raised its full-year guidance, signaling that the CEO's operational restructuring and cost-cutting initiatives are successfully improving margins and cash flow.",
-        "why_now": "The guidance hike was announced today, October 20, 2026, providing a fresh catalyst for earnings revisions.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 66,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-8a416f124ece"
-        ],
-        "primary_source_event_id": "EVT-8a416f124ece",
-        "source_headlines": [
-          "3M Lifts Forecast Again in Boost to CEO’s Revitalization Effort"
-        ],
-        "source_headline": "3M Lifts Forecast Again in Boost to CEO’s Revitalization Effort",
-        "source_url": "https://www.bloomberg.com/news/articles/2026-10-20/3m-lifts-forecast-again-in-boost-to-ceo-s-revitalization-effort",
-        "source_name": "Bloomberg",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-20T10:36:35Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-20T12:29:48Z",
-        "updated_at": "2026-10-20T12:29:48Z",
-        "decay_at": "2026-10-21T22:36:35Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-23T11:11:17Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-19eb7ab0fd47",
         "idea_version": "IDEAV-9660818a1ee322cd",
         "idea_version_started_at": "2026-10-20T10:11:37Z",
@@ -263311,7 +263313,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2180,
-    "live_count": 32,
+    "live_count": 31,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -263330,9 +263332,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 14559108,
-    "news_picked_today": 1468,
-    "news_dropped_today": 22580
+    "news_seen_today": 14587884,
+    "news_picked_today": 1487,
+    "news_dropped_today": 22777
   },
   "book_momentum": {
     "live_count": 8,
