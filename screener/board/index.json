@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-04T15:20:16Z",
+  "generated_at": "2026-11-04T15:28:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20261104-505",
@@ -1423,6 +1423,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261104-555",
+      "headline": "Empower Brands Makes Unsolicited Bid to Buy Helen of Troy for $1.6 Billion",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/deals/empower-brands-makes-unsolicited-bid-to-buy-helen-of-troy-for-1-6-billion-04261692?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-04T13:48:00Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Empower Brands made an unsolicited $1.6B bid for Helen of Troy, triggering potential control contest and strategic review.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Empower Brands made an unsolicited $1.6B bid for Helen of Troy, triggering potential control contest and strategic review.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Empower Brands",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Helen of Troy",
+          "ticker": "HELE",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261104-501",
       "headline": "Nandy intervenes in Sky’s £1.6bn ITV takeover",
       "headline_en": null,
@@ -1965,56 +2019,6 @@
       },
       "event_types": [
         "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nykaa",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-447",
-      "headline": "Nykaa Q2 Results: PAT soars 207% YoY to Rs 101 crore, revenue up 28%; co to acquire 82% stake in Simply Nam",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/nykaa-q2-results-pat-soars-207-yoy-to-rs-101-crore-revenue-up-28-co-to-acquire-82-stake-in-simply-nam/articleshow/135537436.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T11:21:24Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Nykaa reported a 207% YoY increase in PAT to Rs 101 crore and announced the acquisition of an 82% stake in Simply Nam.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nykaa reported a 207% YoY increase in PAT to Rs 101 crore and announced the acquisition of an 82% stake in Simply Nam.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "mna"
       ],
       "issuer_linkage": "primary",
       "companies": [
@@ -263287,9 +263291,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 11639633,
-    "news_picked_today": 990,
-    "news_dropped_today": 11178
+    "news_seen_today": 11711265,
+    "news_picked_today": 1005,
+    "news_dropped_today": 11307
   },
   "book_momentum": {
     "live_count": 8,
