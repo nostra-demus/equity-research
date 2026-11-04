@@ -1,6 +1,60 @@
 {
-  "generated_at": "2026-11-04T20:09:37Z",
+  "generated_at": "2026-11-04T20:18:50Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261104-637",
+      "headline": "ECA2026-791 - Information Regarding the Business Combination of Churchill Capital Corp XI (CCXI/W/U) and Agility Robotics, Inc.",
+      "headline_en": null,
+      "url": "http://www.nasdaqtrader.com/TraderNews.aspx?id=ECA2026-791",
+      "source_name": "Nasdaq Trader — Current Headlines / Market Alerts",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-04T23:01:00Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Churchill Capital Corp XI announced a business combination with Agility Robotics, Inc.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Churchill Capital Corp XI announced a business combination with Agility Robotics, Inc.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Churchill Capital Corp XI",
+          "ticker": "CCXI",
+          "listing_country": "US"
+        },
+        {
+          "name": "Agility Robotics, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261104-585",
       "headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Outcome of the Voting Results of the 9th (Ninth) Meeting of the Committee ofCreditors (CoC) of India Power Corporation Limited (IPCL)",
@@ -1407,6 +1461,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261104-629",
+      "headline": "FitLab Blames Bankruptcy on Loss of Nike Partnership, Trump Tariffs",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-04/fitlab-blames-bankruptcy-on-loss-of-nike-partnership-trump-tariffs",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-04T19:47:44Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "FitLab filed for bankruptcy citing the loss of a Nike partnership and tariff impacts.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "FitLab filed for bankruptcy citing the loss of a Nike partnership and tariff impacts.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FitLab",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261104-624",
       "headline": "AMD to pay $2.9-billion for AI chip firm Taalas in one of the largest Canadian tech takeovers",
       "headline_en": null,
@@ -1925,115 +2028,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-555",
-      "headline": "Empower Brands Makes Unsolicited Bid to Buy Helen of Troy for $1.6 Billion",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/deals/empower-brands-makes-unsolicited-bid-to-buy-helen-of-troy-for-1-6-billion-04261692?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T13:48:00Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Empower Brands made an unsolicited $1.6B bid for Helen of Troy, triggering potential control contest and strategic review.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Empower Brands made an unsolicited $1.6B bid for Helen of Troy, triggering potential control contest and strategic review.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Empower Brands",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Helen of Troy",
-          "ticker": "HELE",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-501",
-      "headline": "Nandy intervenes in Sky’s £1.6bn ITV takeover",
-      "headline_en": null,
-      "url": "https://www.cityam.com/nandy-intervenes-in-skys-1-6bn-itv-takeover/",
-      "source_name": "City A.M.",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T13:40:21Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "UK Culture Secretary intervenes in the £1.6bn ITV takeover by Sky.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "UK Culture Secretary intervenes in the £1.6bn ITV takeover by Sky.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 82,
-      "rank_factors": {
-        "materiality": 82,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 3,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ITV",
-          "ticker": "ITV",
-          "listing_country": "GB"
-        },
-        {
-          "name": "Sky",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -263368,9 +263362,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 13860315,
-    "news_picked_today": 1230,
-    "news_dropped_today": 15834
+    "news_seen_today": 13893441,
+    "news_picked_today": 1250,
+    "news_dropped_today": 16510
   },
   "book_momentum": {
     "live_count": 8,
