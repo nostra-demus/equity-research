@@ -1,29 +1,29 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-10-09T01:25:45Z",
+  "archived_at": "2026-11-04T10:33:16Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-ec8c1228de91",
-    "idea_version": "IDEAV-bf0f35f98c4f9d06",
-    "idea_version_started_at": "2026-10-06T01:46:49Z",
-    "ticker": "8601",
-    "company": "Daiwa Securities Group",
-    "exchange": "TSE",
+    "idea_id": "IDEA-496e451faee8",
+    "idea_version": "IDEAV-270c8bd493651265",
+    "idea_version_started_at": "2026-11-01T10:30:47Z",
+    "ticker": "01211",
+    "company": "BYD Company",
+    "exchange": "HKEX",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
-    "direction": "short",
+    "direction": "long",
     "pair_with": null,
-    "reason": "The company is facing potential reputational damage and regulatory scrutiny following unauthorized access that may have leaked customer data.",
-    "why_now": "The data breach risk was reported on October 6, 2026, posing immediate downside risk to customer trust and operational costs.",
-    "conviction": 50,
+    "reason": "BYD Company announced its production and sales volume for October 2026, a direct measure of its top-line performance in the automotive sector.",
+    "why_now": "The October 2026 sales data offers a current snapshot of the company's market activity.",
+    "conviction": 55,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
-      "evidence": 14,
-      "impact": 16,
+      "evidence": 25,
+      "impact": 15,
       "specificity": 7,
       "timing": 10,
       "expression": 0,
@@ -36,7 +36,6 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
-      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -53,26 +52,26 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-1fec3620ca13"
+      "EVT-1e5ea9fccd29"
     ],
-    "primary_source_event_id": "EVT-1fec3620ca13",
+    "primary_source_event_id": "EVT-1e5ea9fccd29",
     "source_headlines": [
-      "Daiwa Securities' customer data may have leaked due to unauthorized access"
+      "BYD COMPANY BYD COMPANY-R (01211 81211): VOLUNTARY ANNOUNCEMENT PRODUCTION AND SALES VOLUME FOR OCTOBER 2026"
     ],
-    "source_headline": "Daiwa Securities' customer data may have leaked due to unauthorized access",
-    "source_url": "https://mainichi.jp/english/articles/20261006/p2g/00m/0bu/010000c",
-    "source_name": "The Mainichi",
-    "materiality_max": 87,
-    "newest_source_at": "2026-10-06T00:30:08Z",
+    "source_headline": "BYD COMPANY BYD COMPANY-R (01211 81211): VOLUNTARY ANNOUNCEMENT PRODUCTION AND SALES VOLUME FOR OCTOBER 2026",
+    "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1101/2026110100043.pdf",
+    "source_name": "HKEXnews (HK Exchange Filing)",
+    "materiality_max": 96,
+    "newest_source_at": "2026-11-01T10:17:00Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-10-06T01:46:49Z",
-    "updated_at": "2026-10-06T01:46:49Z",
-    "decay_at": "2026-10-07T12:30:08Z",
+    "surfaced_at": "2026-11-01T10:30:47Z",
+    "updated_at": "2026-11-01T10:30:47Z",
+    "decay_at": "2026-11-02T22:17:00Z",
     "status": "live",
     "promoted_signal_id": null
   }
