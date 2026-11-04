@@ -1,6 +1,57 @@
 {
-  "generated_at": "2026-11-04T05:27:31Z",
+  "generated_at": "2026-11-04T05:38:58Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261104-231",
+      "headline": "Sun Pharmaceutical Industries Limited: The Exchange has sought clarification from Sun Pharmaceutical Industries Limited with respect to recent news item captioned India orders Sun Pharma to halt eye-care drug production at plant after quality lapses. The response from the Company is attached.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/SUNSEC_04112026100317_Reply_to_SEs_-_Rumour_Verification02112026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-04T04:34:11Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "India has ordered Sun Pharma to halt production at a plant due to quality lapses, which will directly impact revenue and operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "India has ordered Sun Pharma to halt production at a plant due to quality lapses, which will directly impact revenue and operations.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory",
+        "operations",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sun Pharmaceutical Industries Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261104-006",
       "headline": "INA: Update on Warburg Pincus and AVID proposals [price-sensitive]",
@@ -1923,55 +1974,6 @@
           "name": "Cox Communications Kansas, L.L.C.",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-189",
-      "headline": "S-4/A - Cox Arizona Telcom, L.L.C. (0002143206) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/2143206/000110465926122127/0001104659-26-122127-index.htm",
-      "source_name": "SEC EDGAR — Latest S-4 (M&A / Exchange-Offer Registration)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-03T21:57:17Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Cox Arizona Telcom, L.L.C. filed an amended S-4 registration statement, indicating an ongoing M&A or exchange offer.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Cox Arizona Telcom, L.L.C. filed an amended S-4 registration statement, indicating an ongoing M&A or exchange offer.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cox Arizona Telcom, L.L.C.",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -263883,9 +263885,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6242707,
-    "news_picked_today": 356,
-    "news_dropped_today": 2068
+    "news_seen_today": 6411944,
+    "news_picked_today": 367,
+    "news_dropped_today": 2177
   },
   "book_momentum": {
     "live_count": 8,
