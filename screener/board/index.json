@@ -1,6 +1,60 @@
 {
-  "generated_at": "2026-11-04T07:17:47Z",
+  "generated_at": "2026-11-04T07:28:09Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261104-259",
+      "headline": "Creative Newtech Limited: Creative Newtech Limited has informed the Exchange regarding 'Creative Newtech Limited approves acquisition of 100% stake in Zicom SaaS Private Limited for approximately Rs. 50.50 Crore (Enterprise Value) to strengthen its Surveillance and Managed Security Services Business'.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/CREATIVE_04112026123516_MR_Zicom_SaaS.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-04T07:05:32Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Creative Newtech board approved acquisition of 100% stake in Zicom SaaS Private Limited for Rs. 50.50 crore enterprise value; a named M&A deal to expand Surveillance and Managed Security Services business.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Creative Newtech board approved acquisition of 100% stake in Zicom SaaS Private Limited for Rs. 50.50 crore enterprise value; a named M&A deal to expand Surveillance and Managed Security Services business.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 62,
+      "rank_factors": {
+        "materiality": 62,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 8,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Creative Newtech Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Zicom SaaS Private Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261104-231",
       "headline": "Sun Pharmaceutical Industries Limited: The Exchange has sought clarification from Sun Pharmaceutical Industries Limited with respect to recent news item captioned India orders Sun Pharma to halt eye-care drug production at plant after quality lapses. The response from the Company is attached.",
@@ -1932,55 +1986,6 @@
           "name": "Cox Communications Hampton Roads, L.L.C.",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-192",
-      "headline": "S-4/A - Cox Nevada Telcom, L.L.C. (0002143184) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/2143184/000110465926122127/0001104659-26-122127-index.htm",
-      "source_name": "SEC EDGAR — Latest S-4 (M&A / Exchange-Offer Registration)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-03T21:57:17Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Cox Nevada Telcom, L.L.C. filed an amended S-4 registration statement, indicating an ongoing M&A or exchange offer.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Cox Nevada Telcom, L.L.C. filed an amended S-4 registration statement, indicating an ongoing M&A or exchange offer.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cox Nevada Telcom, L.L.C.",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -263672,9 +263677,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7621345,
-    "news_picked_today": 435,
-    "news_dropped_today": 4461
+    "news_seen_today": 7696591,
+    "news_picked_today": 438,
+    "news_dropped_today": 4482
   },
   "book_momentum": {
     "live_count": 8,
