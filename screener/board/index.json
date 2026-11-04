@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-04T09:32:39Z",
+  "generated_at": "2026-11-04T09:46:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20261104-295",
@@ -647,6 +647,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-329",
+      "headline": "Fine Organic Industries Q2 FY27 Results Signal Strong Profitability And Overseas Expansion, Net Profit Climbs 40% To ₹152.1 Crore As Revenue Grows 22% And Company Acquires 80% Stake In Malaysian Firm",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/fine-organic-industries-q2-fy27-results-signal-strong-profitability-and-overseas-expansion-net-profit-climbs-40-to-1521-crore-as-revenue-grows-22-and-company-acquires-80-stake-in-malaysian-firm",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-04T08:11:43Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Fine Organic Q2 FY27 net profit rose 40% to ₹152.1 crore, revenue grew 22% YoY, and company acquired 80% stake in Malaysian firm.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Fine Organic Q2 FY27 net profit rose 40% to ₹152.1 crore, revenue grew 22% YoY, and company acquired 80% stake in Malaysian firm.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Fine Organic Industries",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1755,6 +1805,105 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261104-322",
+      "headline": "BMW Accelerates Model Rollout, Cuts Profit Forecast",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-11-04/bmw-accelerates-model-rollout-cuts-profit-forecast-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-04T08:59:59Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "BMW cuts profit forecast and accelerates model rollout—confirmed earnings guidance cut plus strategic capex acceleration from a mega-cap automaker.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "BMW cuts profit forecast and accelerates model rollout—confirmed earnings guidance cut plus strategic capex acceleration from a mega-cap automaker.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BMW",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-321",
+      "headline": "SKF India raises FY27 revenue growth guidance to 20%, retains 17% margin target",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/earnings/skf-india-q2-results-raises-full-year-revenue-growth-guidance-to-20-pc-alpha-article-20026725.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-04T08:48:45Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "SKF India raised FY27 revenue growth guidance to 20% and retained 17% margin target, a quantified forward earnings upgrade that lifts consensus expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "SKF India raised FY27 revenue growth guidance to 20% and retained 17% margin target, a quantified forward earnings upgrade that lifts consensus expectations.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SKF India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261104-236",
       "headline": "Dr. Reddy's Laboratories Limited: The Exchange has sought clarification from Dr. Reddy's Laboratories Limited with respect to recent news item captioned Indias Dr Reddys gets US nod for $40 generic HIV prevention shot for 120 poorer countries. The response from the Company is attached.",
       "headline_en": null,
@@ -1849,158 +1998,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-063",
-      "headline": "S-4 - ADC Therapeutics SA (0001771910) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1771910/000095010326016858/0000950103-26-016858-index.htm",
-      "source_name": "SEC EDGAR — Latest S-4 (M&A / Exchange-Offer Registration)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-03T22:02:54Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "ADC Therapeutics filed an S-4 registration statement related to a potential M&A or exchange offer.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "ADC Therapeutics filed an S-4 registration statement related to a potential M&A or exchange offer.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ADC Therapeutics",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-271",
-      "headline": "JD.com wins conditional EU approval for $2.5 billion Ceconomy acquisition",
-      "headline_en": null,
-      "url": "https://technode.com/2026/11/04/jd-com-wins-conditional-eu-approval-for-2-5-billion-ceconomy-acquisition/",
-      "source_name": "TechNode",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T07:58:15Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "JD.com secures conditional EU regulatory approval for $2.5 billion Ceconomy acquisition, clearing a major gate in the M&A process.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "JD.com secures conditional EU regulatory approval for $2.5 billion Ceconomy acquisition, clearing a major gate in the M&A process.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 68,
-      "rank_factors": {
-        "materiality": 68,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 2,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "JD.com",
-          "ticker": null,
-          "listing_country": "CN"
-        },
-        {
-          "name": "Ceconomy",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-300",
-      "headline": "Sundaram Finance Limited: Sundaram Finance Limited has informed the Exchange regarding the resignation of Mr. S. Viji, Chairman and Non-Executive Director of the Company",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/SUNDARMFIN_04112026143658_Resignationinitmation.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-04T09:07:59Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Chairman and Non-Executive Director S. Viji resigned.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Chairman and Non-Executive Director S. Viji resigned.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "executive_exit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sundaram Finance Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -220694,78 +220691,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-0ac45b9845e1",
-      "idea_version": "IDEAV-1f48c63285d1ff1e",
-      "idea_version_started_at": "2026-11-02T23:10:25Z",
-      "ticker": "ON",
-      "company": "Onsemi",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Onsemi is acquiring Ferric to integrate power-delivery technology, which directly supports their stated goal of increasing AI-related revenue.",
-      "why_now": "The acquisition and updated AI revenue guidance were announced on November 2, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5cfa42b99d76"
-      ],
-      "primary_source_event_id": "EVT-5cfa42b99d76",
-      "source_headlines": [
-        "Onsemi To Acquire Ferric For Up To $775 Mln, Boosts AI Revenue Target"
-      ],
-      "source_headline": "Onsemi To Acquire Ferric For Up To $775 Mln, Boosts AI Revenue Target",
-      "source_url": "https://www.nasdaq.com/articles/onsemi-acquire-ferric-775-mln-boosts-ai-revenue-target",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-02T21:38:19Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-02T23:10:25Z",
-      "updated_at": "2026-11-02T23:10:25Z",
-      "decay_at": "2026-11-04T09:38:19Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-a204395caab2",
       "idea_version": "IDEAV-6cd21665a86d4930",
       "idea_version_started_at": "2026-11-03T02:31:59Z",
@@ -221611,6 +221536,78 @@
       "surfaced_at": "2026-11-02T10:18:41Z",
       "updated_at": "2026-11-03T02:31:59Z",
       "decay_at": "2026-11-04T09:00:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-0ac45b9845e1",
+      "idea_version": "IDEAV-1f48c63285d1ff1e",
+      "idea_version_started_at": "2026-11-02T23:10:25Z",
+      "ticker": "ON",
+      "company": "Onsemi",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Onsemi is acquiring Ferric to integrate power-delivery technology, which directly supports their stated goal of increasing AI-related revenue.",
+      "why_now": "The acquisition and updated AI revenue guidance were announced on November 2, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5cfa42b99d76"
+      ],
+      "primary_source_event_id": "EVT-5cfa42b99d76",
+      "source_headlines": [
+        "Onsemi To Acquire Ferric For Up To $775 Mln, Boosts AI Revenue Target"
+      ],
+      "source_headline": "Onsemi To Acquire Ferric For Up To $775 Mln, Boosts AI Revenue Target",
+      "source_url": "https://www.nasdaq.com/articles/onsemi-acquire-ferric-775-mln-boosts-ai-revenue-target",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-02T21:38:19Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-02T23:10:25Z",
+      "updated_at": "2026-11-02T23:10:25Z",
+      "decay_at": "2026-11-04T09:38:19Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -226380,14 +226377,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 576,
+    "total_count": 577,
     "shown_count": 500,
-    "hidden_count": 76,
+    "hidden_count": 77,
     "side_counts": {
       "long": {
-        "total_count": 305,
+        "total_count": 306,
         "shown_count": 250,
-        "hidden_count": 55
+        "hidden_count": 56
       },
       "short": {
         "total_count": 271,
@@ -226411,6 +226408,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-0ac45b9845e1",
+        "idea_version": "IDEAV-1f48c63285d1ff1e",
+        "idea_version_started_at": "2026-11-02T23:10:25Z",
+        "ticker": "ON",
+        "company": "Onsemi",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Onsemi is acquiring Ferric to integrate power-delivery technology, which directly supports their stated goal of increasing AI-related revenue.",
+        "why_now": "The acquisition and updated AI revenue guidance were announced on November 2, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-5cfa42b99d76"
+        ],
+        "primary_source_event_id": "EVT-5cfa42b99d76",
+        "source_headlines": [
+          "Onsemi To Acquire Ferric For Up To $775 Mln, Boosts AI Revenue Target"
+        ],
+        "source_headline": "Onsemi To Acquire Ferric For Up To $775 Mln, Boosts AI Revenue Target",
+        "source_url": "https://www.nasdaq.com/articles/onsemi-acquire-ferric-775-mln-boosts-ai-revenue-target",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-02T21:38:19Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-02T23:10:25Z",
+        "updated_at": "2026-11-02T23:10:25Z",
+        "decay_at": "2026-11-04T09:38:19Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-04T09:38:19Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-7698ab4f50a3",
         "idea_version": "IDEAV-8ad4e90bb9d67f38",
@@ -255683,80 +255755,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-12b791fa381c",
-        "idea_version": "IDEAV-306049d2351733b1",
-        "idea_version_started_at": "2026-10-20T02:20:53Z",
-        "ticker": "03696",
-        "company": "Insilico Medicine",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The achievement of an early drug discovery milestone triggers a cash payment from Servier, validating the company's AI-driven R&D platform and improving near-term cash flow.",
-        "why_now": "The milestone was announced on October 20, 2026, providing immediate positive sentiment for the stock.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 16,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-8a50cb54e9f0"
-        ],
-        "primary_source_event_id": "EVT-8a50cb54e9f0",
-        "source_headlines": [
-          "INSILICO (03696): VOLUNTARY ANNOUNCEMENT INSILICO MEDICINE TRIGGERS A MILESTONE PAYMENT IN AI-DRIVEN R&D COLLABORATION WITH SERVIER FOR ACHIEVING EARLY DRUG DISCOVERY MILESTONE"
-        ],
-        "source_headline": "INSILICO (03696): VOLUNTARY ANNOUNCEMENT INSILICO MEDICINE TRIGGERS A MILESTONE PAYMENT IN AI-DRIVEN R&D COLLABORATION WITH SERVIER FOR ACHIEVING EARLY DRUG DISCOVERY MILESTONE",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1020/2026102000129.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 90,
-        "newest_source_at": "2026-10-20T00:15:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-20T02:20:53Z",
-        "updated_at": "2026-10-20T02:20:53Z",
-        "decay_at": "2026-10-21T12:15:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-23T04:16:07Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-18ddb9fd5fec",
         "idea_version": "IDEAV-5db13e7aa00663b6",
         "idea_version_started_at": "2026-10-20T00:02:47Z",
@@ -263672,7 +263670,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2172,
-    "live_count": 44,
+    "live_count": 43,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -263691,9 +263689,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8840860,
-    "news_picked_today": 550,
-    "news_dropped_today": 7130
+    "news_seen_today": 8915865,
+    "news_picked_today": 571,
+    "news_dropped_today": 7277
   },
   "book_momentum": {
     "live_count": 8,
