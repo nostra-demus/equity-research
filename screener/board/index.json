@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-11-04T13:09:23Z",
+  "generated_at": "2026-11-04T13:18:38Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261104-481",
+      "headline": "CHAMPION TECH (00092): RESIGNATION OF AUDITOR AND CONTINUED SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1104/2026110402123.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-04T12:54:00Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Auditor resignation coupled with continued trading suspension signals critical governance failure and going-concern distress — dual red flags (§13, §24).",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Auditor resignation coupled with continued trading suspension signals critical governance failure and going-concern distress — dual red flags (§13, §24).",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 7,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "executive_exit",
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Champion Tech",
+          "ticker": "00092",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261104-375",
       "headline": "Zicom Electronic Security Systems Limited: Zicom Electronic Security Systems Limited has informed the Exchange about Corporate Insolvency Resolution Process",
@@ -1955,56 +2005,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-276",
-      "headline": "Novo Nordisk Q3 Adj. Operating Profit Increases, Obesity Sales Up 22%; Raises 2026 Outlook",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/novo-nordisk-q3-adj-operating-profit-increases-obesity-sales-22-raises-2026-outlook",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T07:11:24Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Q3 adjusted operating profit rose; obesity-treatment sales grew 22%; full-year 2026 guidance raised.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Q3 adjusted operating profit rose; obesity-treatment sales grew 22%; full-year 2026 guidance raised.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Novo Nordisk",
-          "ticker": "NVO",
-          "listing_country": "DK"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -218064,76 +218064,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-0448efa62005",
-      "idea_version": "IDEAV-ddebb2b478cc901d",
-      "idea_version_started_at": "2026-11-03T05:04:36Z",
-      "ticker": "AAPL",
-      "company": "Apple",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Rising memory chip costs will compress gross margins as the company faces difficulty passing these input price increases to consumers in a competitive hardware market.",
-      "why_now": "The company issued a direct warning regarding these costs on November 3, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5c0dd6ec7e58"
-      ],
-      "primary_source_event_id": "EVT-5c0dd6ec7e58",
-      "source_headlines": [
-        "Apple warns ‘unprecedented’ memory chip costs will hit margins"
-      ],
-      "source_headline": "Apple warns ‘unprecedented’ memory chip costs will hit margins",
-      "source_url": "https://www.ft.com/content/f6ad8c32-cacb-48ad-ad85-a9a7edac3f16?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-03T01:17:37Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-03T05:04:36Z",
-      "updated_at": "2026-11-03T05:04:36Z",
-      "decay_at": "2026-11-04T13:17:37Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-abe61d9932f3",
       "idea_version": "IDEAV-5cbc7c94b5ac81ac",
       "idea_version_started_at": "2026-11-04T10:33:04Z",
@@ -221126,6 +221056,76 @@
       "surfaced_at": "2026-11-02T10:18:41Z",
       "updated_at": "2026-11-02T10:18:41Z",
       "decay_at": "2026-11-03T20:42:42Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-0448efa62005",
+      "idea_version": "IDEAV-ddebb2b478cc901d",
+      "idea_version_started_at": "2026-11-03T05:04:36Z",
+      "ticker": "AAPL",
+      "company": "Apple",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Rising memory chip costs will compress gross margins as the company faces difficulty passing these input price increases to consumers in a competitive hardware market.",
+      "why_now": "The company issued a direct warning regarding these costs on November 3, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5c0dd6ec7e58"
+      ],
+      "primary_source_event_id": "EVT-5c0dd6ec7e58",
+      "source_headlines": [
+        "Apple warns ‘unprecedented’ memory chip costs will hit margins"
+      ],
+      "source_headline": "Apple warns ‘unprecedented’ memory chip costs will hit margins",
+      "source_url": "https://www.ft.com/content/f6ad8c32-cacb-48ad-ad85-a9a7edac3f16?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-03T01:17:37Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-03T05:04:36Z",
+      "updated_at": "2026-11-03T05:04:36Z",
+      "decay_at": "2026-11-04T13:17:37Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -226030,9 +226030,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 572,
+    "total_count": 573,
     "shown_count": 499,
-    "hidden_count": 73,
+    "hidden_count": 74,
     "side_counts": {
       "long": {
         "total_count": 303,
@@ -226040,9 +226040,9 @@
         "hidden_count": 53
       },
       "short": {
-        "total_count": 270,
+        "total_count": 271,
         "shown_count": 250,
-        "hidden_count": 20
+        "hidden_count": 21
       }
     },
     "retention": {
@@ -226061,6 +226061,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-0448efa62005",
+        "idea_version": "IDEAV-ddebb2b478cc901d",
+        "idea_version_started_at": "2026-11-03T05:04:36Z",
+        "ticker": "AAPL",
+        "company": "Apple",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Rising memory chip costs will compress gross margins as the company faces difficulty passing these input price increases to consumers in a competitive hardware market.",
+        "why_now": "The company issued a direct warning regarding these costs on November 3, 2026.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 67,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-5c0dd6ec7e58"
+        ],
+        "primary_source_event_id": "EVT-5c0dd6ec7e58",
+        "source_headlines": [
+          "Apple warns ‘unprecedented’ memory chip costs will hit margins"
+        ],
+        "source_headline": "Apple warns ‘unprecedented’ memory chip costs will hit margins",
+        "source_url": "https://www.ft.com/content/f6ad8c32-cacb-48ad-ad85-a9a7edac3f16?syn-25a6b1a6=1",
+        "source_name": "Financial Times",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-03T01:17:37Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-03T05:04:36Z",
+        "updated_at": "2026-11-03T05:04:36Z",
+        "decay_at": "2026-11-04T13:17:37Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-04T13:17:37Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-3d4a4fc75d1b",
         "idea_version": "IDEAV-5dc8ee51d3a00705",
@@ -263170,87 +263243,12 @@
         "archived_at": "2026-10-11T11:07:52Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-c4367824b313",
-        "idea_version": "IDEAV-a31dbf1764433a93",
-        "idea_version_started_at": "2026-10-08T09:52:56Z",
-        "ticker": "DPSC",
-        "company": "DPSC Limited",
-        "exchange": "BSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company has entered a formal Corporate Insolvency Resolution Process, signaling severe balance sheet distress and potential equity wipeout.",
-        "why_now": "The exchange filing confirming the insolvency process was released on October 8, 2026.",
-        "conviction": 90,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-01f5ac49557c"
-        ],
-        "primary_source_event_id": "EVT-01f5ac49557c",
-        "source_headlines": [
-          "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process"
-        ],
-        "source_headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process",
-        "source_url": "https://nsearchives.nseindia.com/corporate/DPSCLTD_08102026110702_ComplianceUnderReg46ofSEBI_LODR_30092026.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-08T05:37:15Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-08T09:52:56Z",
-        "updated_at": "2026-10-08T09:52:56Z",
-        "decay_at": "2026-10-09T17:37:15Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-11T09:12:26Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2179,
-    "live_count": 43,
+    "live_count": 42,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -263269,9 +263267,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 10706643,
-    "news_picked_today": 850,
-    "news_dropped_today": 10454
+    "news_seen_today": 10742954,
+    "news_picked_today": 876,
+    "news_dropped_today": 10548
   },
   "book_momentum": {
     "live_count": 8,
