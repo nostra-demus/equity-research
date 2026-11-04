@@ -1,13 +1,13 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-10-19T20:12:30Z",
+  "archived_at": "2026-11-04T03:39:16Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-5fe5950ec028",
-    "idea_version": "IDEAV-1ff517489e6fa495",
-    "idea_version_started_at": "2026-10-18T02:20:51Z",
-    "ticker": "VTRS",
-    "company": "Viatris",
+    "idea_id": "IDEA-cda3c2bb6558",
+    "idea_version": "IDEAV-eb4073c2f64b1779",
+    "idea_version_started_at": "2026-11-01T02:40:39Z",
+    "ticker": "LI",
+    "company": "Li Auto Inc.",
     "exchange": "NASDAQ",
     "ticker_verified": true,
     "listing_verified": true,
@@ -15,17 +15,17 @@
     "listing_verification_source": "yahoo_symbol_directory",
     "direction": "long",
     "pair_with": null,
-    "reason": "FDA approval of RYZUMVI for presbyopia opens a new revenue stream in the ophthalmic market, diversifying the company's product portfolio.",
-    "why_now": "The approval was announced on October 16, 2026, and provides a fresh catalyst for growth.",
-    "conviction": 65,
+    "reason": "Li Auto Inc. is providing a delivery update, which is a key indicator of revenue and market share for EV manufacturers.",
+    "why_now": "The delivery update is scheduled for November 1, 2026.",
+    "conviction": 55,
     "conviction_basis": "pre_edge_proxy",
-    "trade_score": 65,
+    "trade_score": 66,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
       "evidence": 18,
-      "impact": 19,
+      "impact": 16,
       "specificity": 15,
-      "timing": 6,
+      "timing": 10,
       "expression": 7,
       "corroboration": 0,
       "learning_adjustment": 0
@@ -34,6 +34,7 @@
     "missing_checks": [
       "live liquidity",
       "dated catalyst",
+      "price and market expectations",
       "independent confirmation",
       "live price, liquidity, and consensus"
     ],
@@ -46,31 +47,31 @@
       "basis": "not_enough_outcomes",
       "evidenceIds": []
     },
-    "priced_in": "room",
+    "priced_in": "unknown",
     "thesis_type": "company_specific",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-e1cd84373abb"
+      "EVT-d3784dbe7959"
     ],
-    "primary_source_event_id": "EVT-e1cd84373abb",
+    "primary_source_event_id": "EVT-d3784dbe7959",
     "source_headlines": [
-      "Viatris Receives U.S. FDA Approval for RYZUMVI® for the Treatment of Presbyopia | VTRS Stock News"
+      "Li Auto Inc. October 2026 Delivery Update"
     ],
-    "source_headline": "Viatris Receives U.S. FDA Approval for RYZUMVI® for the Treatment of Presbyopia | VTRS Stock News",
-    "source_url": "https://www.stocktitan.net/news/VTRS/viatris-receives-u-s-fda-approval-for-ryzumvi-for-the-treatment-of-hydthso0blvn.html",
-    "source_name": "Stock Titan — Latest News",
-    "materiality_max": 57,
-    "newest_source_at": "2026-10-16T20:05:00Z",
+    "source_headline": "Li Auto Inc. October 2026 Delivery Update",
+    "source_url": "https://www.globenewswire.com/news-release/2026/11/01/3392758/0/en/li-auto-inc-october-2026-delivery-update.html",
+    "source_name": "GlobeNewswire — News about Public Companies",
+    "materiality_max": 52,
+    "newest_source_at": "2026-11-01T02:00:00Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-10-18T02:20:51Z",
-    "updated_at": "2026-10-18T02:20:51Z",
-    "decay_at": "2026-10-18T08:05:00Z",
+    "surfaced_at": "2026-11-01T02:40:39Z",
+    "updated_at": "2026-11-01T02:40:39Z",
+    "decay_at": "2026-11-02T14:00:00Z",
     "status": "live",
     "promoted_signal_id": null
   }
