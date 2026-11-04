@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-04T13:31:38Z",
+  "generated_at": "2026-11-04T13:41:21Z",
   "inbox": [
     {
       "inbox_id": "INB-20261104-481",
@@ -1164,6 +1164,57 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261104-490",
+      "headline": "Stanley Black & Decker, Inc. Reports 3Q 2026 Results, Raises Guidance, and Announces New $1 Billion Share Repurchase Authorization",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/stanley-black-decker-inc-reports-3q-2026-results-raises-guidance-and-announces-new-1",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-04T12:51:57Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Stanley Black & Decker reports Q3 results, raises guidance, and authorizes $1B share repurchase—three concrete catalysts, concrete buyback size.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Stanley Black & Decker reports Q3 results, raises guidance, and authorizes $1B share repurchase—three concrete catalysts, concrete buyback size.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Stanley Black & Decker, Inc.",
+          "ticker": "SWK",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261104-435",
       "headline": "Kraft Heinz to Divest North American Coffee Business in Private Equity Deal",
       "headline_en": null,
@@ -1956,55 +2007,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-273",
-      "headline": "Emaar offers $3.4bn to acquire full control of Emaar Development",
-      "headline_en": null,
-      "url": "https://www.arabianbusiness.com/real-estate/emaar-offers-3-4bn-to-acquire-full-control-of-emaar-development",
-      "source_name": "Arabian Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T07:45:24Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Emaar announces $3.4bn offer to acquire 100% control of Emaar Development, a named M&A event with quantified deal value.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Emaar announces $3.4bn offer to acquire 100% control of Emaar Development, a named M&A event with quantified deal value.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Emaar",
-          "ticker": "EMAAR",
-          "listing_country": "AE"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -263268,9 +263270,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 10850210,
-    "news_picked_today": 881,
-    "news_dropped_today": 10615
+    "news_seen_today": 10921314,
+    "news_picked_today": 896,
+    "news_dropped_today": 10768
   },
   "book_momentum": {
     "live_count": 8,
