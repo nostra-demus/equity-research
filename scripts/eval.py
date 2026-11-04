@@ -2476,6 +2476,10 @@ if scope=="selftest":
         #   not field order -> a future record date before a passed ex-date must still FAIL (old parsed the
         #   first marker only).
         ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3.1%, record date 2026-10-06, ex-date 2026-10-05, is a reason to own.\n"),["on or before the decision date"]),
+        # ── round-6 ── Codex P1 (r4467937518): the ex-date's date must come from the ex-date's OWN field, not
+        #   a later comma-separated field — "ex-date TBD, payment date 2026-12-01" must FAIL (TBD is unparseable;
+        #   the payment date does not establish entitlement), not borrow 2026-12-01 as the ex-date.
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3.1%, ex-date TBD, payment date 2026-12-01, is a reason to own.\n"),["no parseable"]),
     ]
     bgbad=0
     for dt_,d_,th_,exp in _bg_cases:

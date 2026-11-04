@@ -1132,14 +1132,16 @@ def eval_bg_tradable_line_and_yield(decision_date, d, thesis):
                            f"clause — a trailing yield whose record date has passed is not income a buyer receives "
                            f"(CLAUDE.md §16): {seg.strip()[:140]!r}")
                 continue
-            # The entitlement date must be a parseable ISO CALENDAR date beside its marker, so staleness is
-            # checkable. "ex-date TBD", a non-ISO "August 14, 2025", or an impossible "2026-99-99" is not
-            # verifiable (reject it). Parse EVERY ex-/record marker on the clause and use the EX-date cutoff
-            # when present (a buyer on the ex-date does not receive the distribution), rather than letting
-            # field order pick the date; compare with <= (Codex r7 round 4, r4 round 5).
+            # The entitlement date must be a parseable ISO CALENDAR date in the SAME field as its marker, so
+            # staleness is checkable. "ex-date TBD", a non-ISO "August 14, 2025", or an impossible
+            # "2026-99-99" is not verifiable (reject it). Parse EVERY ex-/record marker on the clause and
+            # use the EX-date cutoff when present (a buyer on the ex-date does not receive the distribution),
+            # rather than letting field order pick the date; compare with <= (Codex r7 round 4, r4 round 5).
+            # Bind the date to the marker's OWN field — up to the next comma — so a later field's date
+            # (e.g. "ex-date TBD, payment date 2026-12-01") is not borrowed as the ex-date (Codex r1 round 6).
             ex_dates, rec_dates = [], []
             for m in _BG_EX_RECORD.finditer(seg):
-                dmm = _BG_ISO.search(seg[m.end():m.end() + 30])
+                dmm = _BG_ISO.search(seg[m.end():].split(",", 1)[0])
                 if dmm and isdate(dmm.group(0)):
                     (ex_dates if m.group(0).lower().lstrip().startswith("ex") else rec_dates).append(dmm.group(0))
             eff = ex_dates or rec_dates
