@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-04T01:39:12Z",
+  "generated_at": "2026-11-04T01:41:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20261104-006",
@@ -344,6 +344,55 @@
           "name": "AMD",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-118",
+      "headline": "HSBC HOLDINGS (00005): ISSUANCE OF SENIOR UNSECURED NOTES",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1104/2026110400007.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-03T23:10:00Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "HSBC Holdings announced the issuance of senior unsecured notes, a routine capital markets activity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "HSBC Holdings announced the issuance of senior unsecured notes, a routine capital markets activity.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HSBC HOLDINGS",
+          "ticker": "00005",
+          "listing_country": "CN"
         }
       ],
       "size_bucket": "mega",
@@ -1919,55 +1968,6 @@
         {
           "name": "CStone Pharmaceuticals",
           "ticker": "02616",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-044",
-      "headline": "GENFLEET-B (02595): VOLUNTARY ANNOUNCEMENT Multiple Innovative Combination Therapies of Oral Pan RAS Inhibitor GFH276 Recently Granted with Clinical Trial Approvals for First-line and Late-line Clinical Studies Addressing Major Tumor Indications in China or Abroad",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1104/2026110400011.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-03T23:30:00Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Genfleet received clinical trial approvals for its GFH276 inhibitor, advancing its oncology pipeline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Genfleet received clinical trial approvals for its GFH276 inhibitor, advancing its oncology pipeline.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Genfleet Therapeutics",
-          "ticker": "02595",
           "listing_country": "CN"
         }
       ],
@@ -264168,9 +264168,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1673354,
-    "news_picked_today": 137,
-    "news_dropped_today": 631
+    "news_seen_today": 1752964,
+    "news_picked_today": 140,
+    "news_dropped_today": 652
   },
   "book_momentum": {
     "live_count": 8,
