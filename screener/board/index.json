@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-04T17:31:19Z",
+  "generated_at": "2026-11-04T17:38:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20261104-585",
@@ -1461,6 +1461,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261104-612",
+      "headline": "Trimble Inc. Reports Third Quarter 2026 Revenue of $966.8 million and Updates Full Year Guidance",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/trimble-inc-reports-third-quarter-2026-revenue-9668-million-and-updates-full-year-guidance",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-04T17:11:20Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Trimble Inc. reported third quarter 2026 revenue of $966.8 million and updated its full year guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Trimble Inc. reported third quarter 2026 revenue of $966.8 million and updated its full year guidance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Trimble Inc.",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261104-601",
       "headline": "Aurora Cannabis Inc. Enters into Arrangement Agreement to be Acquired by Organigram Global Inc. for C$7.80 Per Share",
       "headline_en": null,
@@ -1985,56 +2035,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-545",
-      "headline": "GeoPark Limited Announces Bare Block Acquisition, Strategic Transactions with Grupo Gilinski, and US$ 550,000,000 Senior Notes Offering",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/geopark-limited-announces-bare-block-acquisition-strategic-transactions-grupo-gilinski-and",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T13:21:50Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "GeoPark announces $550 million senior-notes debt offering, bare-block acquisition, and strategic transactions with Grupo Gilinski; a material multi-part capital and M&A event with terms not disclosed in headline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "GeoPark announces $550 million senior-notes debt offering, bare-block acquisition, and strategic transactions with Grupo Gilinski; a material multi-part capital and M&A event with terms not disclosed in headline.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna",
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GeoPark Limited",
-          "ticker": "GEOPARK",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -263297,9 +263297,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 12621308,
-    "news_picked_today": 1169,
-    "news_dropped_today": 13951
+    "news_seen_today": 12689438,
+    "news_picked_today": 1180,
+    "news_dropped_today": 14036
   },
   "book_momentum": {
     "live_count": 8,
