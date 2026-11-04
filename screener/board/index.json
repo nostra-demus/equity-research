@@ -1,6 +1,407 @@
 {
-  "generated_at": "2026-11-04T12:51:08Z",
+  "generated_at": "2026-11-04T18:37:47Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261104-585",
+      "headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Outcome of the Voting Results of the 9th (Ninth) Meeting of the Committee ofCreditors (CoC) of India Power Corporation Limited (IPCL)",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/DPSCLTD_04112026214643_IntimationofOutcomeofVotingResultof9thCoCMeeing04112026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-04T16:16:58Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "India Power Corporation Limited is undergoing a corporate insolvency resolution process.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "India Power Corporation Limited is undergoing a corporate insolvency resolution process.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "India Power Corporation Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-606",
+      "headline": "Department of War's Office of Strategic Capital Signs $150 Million Conditional Loan Commitment With LeoLabs, Inc.",
+      "headline_en": null,
+      "url": "https://www.war.gov/News/Releases/Release/Article/4641087/department-of-wars-office-of-strategic-capital-signs-150-million-conditional-lo/",
+      "source_name": "U.S. Department of War (formerly DoD) — News Releases",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-04T15:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "The Department of War's Office of Strategic Capital has signed a $150 million conditional loan commitment with LeoLabs, Inc. to support space domain awareness technology.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The Department of War's Office of Strategic Capital has signed a $150 million conditional loan commitment with LeoLabs, Inc. to support space domain awareness technology.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LeoLabs, Inc.",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-505",
+      "headline": "KPA-BM HLDGS (02663): JOINT ANNOUNCEMENT - COMPLETION OF THE ACQUISITION AND MANDATORY UNCONDITIONAL CASH OFF BY KINGSTON SECURITIES FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR, ITS ULTIMATE BENEFICIAL OWNER AND PARTIES ACTING IN CONCERT WITH THEM)",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1104/2026110402321.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-04T14:57:00Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "KPA-BM HLDGS announced the completion of an acquisition and a mandatory unconditional cash offer by Kingston Securities to acquire all issued shares of the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "KPA-BM HLDGS announced the completion of an acquisition and a mandatory unconditional cash offer by Kingston Securities to acquire all issued shares of the company.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "KPA-BM HLDGS",
+          "ticker": "02663",
+          "listing_country": "CN"
+        },
+        {
+          "name": "KINGSTON SECURITIES",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-506",
+      "headline": "SKYFAME REALTY SKYFAME B3311 SKYFAME B3311B SKYFAME B3111B SKYFAME B3211 SKYFAME B3111 (00059 05311 05379 05567 05602 05855): (1) PROPOSED RESTRUCTURING INVOLVING (i) PROPOSED CAPITAL REORGANISATION; (ii) PROPOSED SUBSCRIPTION OF NEW SHARES UNDER SPECIFIC MANDATE; (iii) ACQUISITION; AND (iv) CREDITORS SCHEME; (2) APPLICATION FOR WHITEWASH WAIVER; (3) CONSENT FOR SPECIAL DEAL; AND (4) APPOINTMENT OF INDEPENDENT FINANCIAL ADVISER",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1104/2026110402317.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-04T14:54:00Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "SKYFAME REALTY announced a proposed restructuring involving capital reorganisation, subscription of new shares, an acquisition, and a creditors scheme.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SKYFAME REALTY announced a proposed restructuring involving capital reorganisation, subscription of new shares, an acquisition, and a creditors scheme.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "restructuring_layoffs",
+        "capital_actions",
+        "mna",
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SKYFAME REALTY",
+          "ticker": "00059",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-569",
+      "headline": "SINOMAB BIO-B (03681): COMPLETION OF MAJOR TRANSACTION IN RELATION TO THE DISPOSAL OF SUZHOU PROPERTY AND FACILITY",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1104/2026110402203.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-04T13:56:00Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "SinoMab BioScience completed the disposal of its Suzhou property and facility, representing a major transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SinoMab BioScience completed the disposal of its Suzhou property and facility, representing a major transaction.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SinoMab BioScience",
+          "ticker": "03681",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-502",
+      "headline": "DEFM14A - WAFD INC (0000936528) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/936528/000114036126041902/0001140361-26-041902-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-04T13:26:07Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Definitive merger proxy statement filed for Washington Federal Inc., confirming shareholder vote on a pending M&A transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Definitive merger proxy statement filed for Washington Federal Inc., confirming shareholder vote on a pending M&A transaction.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Washington Federal Inc.",
+          "ticker": "WAFD",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-481",
+      "headline": "CHAMPION TECH (00092): RESIGNATION OF AUDITOR AND CONTINUED SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1104/2026110402123.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-04T12:54:00Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Auditor resignation coupled with continued trading suspension signals critical governance failure and going-concern distress — dual red flags (§13, §24).",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Auditor resignation coupled with continued trading suspension signals critical governance failure and going-concern distress — dual red flags (§13, §24).",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 7,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "executive_exit",
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Champion Tech",
+          "ticker": "00092",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-375",
+      "headline": "Zicom Electronic Security Systems Limited: Zicom Electronic Security Systems Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/ZICOM_04112026181154_Intimation_4_Nov_signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-04T12:42:08Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Company has entered the Corporate Insolvency Resolution Process.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company has entered the Corporate Insolvency Resolution Process.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Zicom Electronic Security Systems Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261104-367",
       "headline": "Astron Paper & Board Mill Limited: Astron Paper & Board Mill Limited has informed the Exchange about Corporate Insolvency Resolution Process",
@@ -46,6 +447,105 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-473",
+      "headline": "Suspension of Trading in Debt Securities of Tyger Capital Private Limited",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/downloads/UploadDocs/Notices/20261104-26/20261104-26.pdf",
+      "source_name": "BSE India — Notices (RSS)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-04T12:27:00Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Trading suspension in debt securities signals credit distress, covenant breach, or imminent default; suspension is an immediate solvency red flag.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Trading suspension in debt securities signals credit distress, covenant breach, or imminent default; suspension is an immediate solvency red flag.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress",
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tyger Capital Private Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-471",
+      "headline": "Havells India Limited: Havells India Limited has informed the Exchange about strikes/lockouts/disturbances",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/HAVELLS1_04112026175549_signed_IntimationUpdate_Reg30_04112026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-04T12:26:04Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Havells India Limited reported a strike or lockout, which poses a risk to production and operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Havells India Limited reported a strike or lockout, which poses a risk to production and operations.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Havells India Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -907,48 +1407,156 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261104-351",
-      "headline": "Trainline shares slump after profit slips on watchdog probe",
+      "inbox_id": "INB-20261104-609",
+      "headline": "Marvell's Deal to Acquire Lumentum Could Be a Game Changer for the Stock",
       "headline_en": null,
-      "url": "https://www.cityam.com/trainline-shares-slump-after-profit-slips-on-watchdog-probe/",
-      "source_name": "City A.M.",
+      "url": "https://www.fool.com/investing/2026/11/04/marvells-deal-to-acquire-lumentum-could-be-a-game/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
       "input_nature": "news_headline",
-      "found_at": "2026-11-04T10:08:31Z",
+      "found_at": "2026-11-04T17:15:00Z",
       "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Shares slumped after profit fell due to an ongoing watchdog probe, combining financial miss with regulatory risk.",
+      "prelim_note": "Marvell Technology is reportedly in talks to acquire Lumentum, representing a major M&A event.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Shares slumped after profit fell due to an ongoing watchdog probe, combining financial miss with regulatory risk.",
-      "region": "GB",
+      "triage_reason": "Marvell Technology is reportedly in talks to acquire Lumentum, representing a major M&A event.",
+      "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 82,
+      "materiality_pre_score": 75,
       "rank_factors": {
-        "materiality": 82,
+        "materiality": 75,
         "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
         "recency": 5,
-        "materiality_label_floor": 3,
+        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "multi_name",
         "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
+        "event_id": "mna",
+        "size_bucket": "large"
       },
       "event_types": [
-        "earnings_revenue_margin",
-        "regulatory"
+        "mna"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Trainline PLC",
-          "ticker": "TRN",
-          "listing_country": "GB"
+          "name": "Marvell Technology",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Lumentum",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-612",
+      "headline": "Trimble Inc. Reports Third Quarter 2026 Revenue of $966.8 million and Updates Full Year Guidance",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/trimble-inc-reports-third-quarter-2026-revenue-9668-million-and-updates-full-year-guidance",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-04T17:11:20Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Trimble Inc. reported third quarter 2026 revenue of $966.8 million and updated its full year guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Trimble Inc. reported third quarter 2026 revenue of $966.8 million and updated its full year guidance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Trimble Inc.",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-601",
+      "headline": "Aurora Cannabis Inc. Enters into Arrangement Agreement to be Acquired by Organigram Global Inc. for C$7.80 Per Share",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/aurora-cannabis-inc-enters-arrangement-agreement-be-acquired-organigram-global-inc-c-780",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-04T16:32:16Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Aurora Cannabis entered an agreement to be acquired by Organigram Global Inc. for C$7.80 per share.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Aurora Cannabis entered an agreement to be acquired by Organigram Global Inc. for C$7.80 per share.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Aurora Cannabis Inc.",
+          "ticker": null,
+          "listing_country": "CA"
+        },
+        {
+          "name": "Organigram Global Inc.",
+          "ticker": null,
+          "listing_country": "CA"
         }
       ],
       "size_bucket": "mid",
@@ -957,21 +1565,70 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261104-348",
-      "headline": "Ahold Delhaize cuts profit forecast after cyber attack",
+      "inbox_id": "INB-20261104-604",
+      "headline": "ECARX Holdings Inc. Reports Third Quarter 2026 Financial Results with Revenue of US$240.8 Million and Net Loss of US$48.6 Million",
       "headline_en": null,
-      "url": "https://www.ft.com/content/c65eb5ae-0d16-4786-a8db-9db28d1791d7?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
+      "url": "https://www.nasdaq.com/articles/ecarx-holdings-inc-reports-third-quarter-2026-financial-results-revenue-us-2408-million",
+      "source_name": "Nasdaq",
       "input_nature": "news_headline",
-      "found_at": "2026-11-04T09:53:41Z",
+      "found_at": "2026-11-04T16:23:57Z",
       "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Ahold Delhaize cut its profit forecast specifically due to the impact of a cyber attack, a direct hit to earnings.",
+      "prelim_note": "ECARX Holdings reported Q3 2026 revenue of US$240.8 million and a net loss of US$48.6 million.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Ahold Delhaize cut its profit forecast specifically due to the impact of a cyber attack, a direct hit to earnings.",
-      "region": "GLOBAL",
+      "triage_reason": "ECARX Holdings reported Q3 2026 revenue of US$240.8 million and a net loss of US$48.6 million.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ECARX Holdings Inc.",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-595",
+      "headline": "Paddy Power owner Flutter cuts outlook after hefty quarterly loss",
+      "headline_en": null,
+      "url": "https://www.independent.co.uk/news/business/paddy-power-ireland-new-york-betfair-porto-b3079248.html",
+      "source_name": "The Independent — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-04T16:14:31Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Flutter Entertainment cut its financial outlook following a quarterly loss.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Flutter Entertainment cut its financial outlook following a quarterly loss.",
+      "region": "GB",
       "relevance": "material",
       "materiality_pre_score": 85,
       "rank_factors": {
@@ -991,14 +1648,14 @@
       },
       "event_types": [
         "guidance_change",
-        "cybersecurity"
+        "earnings_revenue_margin"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Ahold Delhaize",
-          "ticker": "AD",
-          "listing_country": "NL"
+          "name": "Flutter Entertainment",
+          "ticker": null,
+          "listing_country": "GB"
         }
       ],
       "size_bucket": "large",
@@ -1007,25 +1664,133 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261104-304",
-      "headline": "Dubai property developer Emaar offers to buy out construction arm at US$16.3 billion value",
+      "inbox_id": "INB-20261104-438",
+      "headline": "Lonza Acquires Merck U.S. CDMO Facilities, Competing with Samsung Biologics",
       "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/property/dubai-property-developer-emaar-offers-buy-out-construction-arm-us16-3-billion-value",
-      "source_name": "The Business Times (Singapore)",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=280502",
+      "source_name": "Business Korea — All English Articles",
       "input_nature": "news_headline",
-      "found_at": "2026-11-04T09:01:38Z",
+      "found_at": "2026-11-04T15:44:58Z",
       "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Emaar Properties offered to buy out its construction arm for US$16.3 billion.",
+      "prelim_note": "Lonza acquired Merck's U.S. CDMO facilities, impacting the competitive landscape for Samsung Biologics.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Emaar Properties offered to buy out its construction arm for US$16.3 billion.",
-      "region": "OTHER",
+      "triage_reason": "Lonza acquired Merck's U.S. CDMO facilities, impacting the competitive landscape for Samsung Biologics.",
+      "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 85,
+      "materiality_pre_score": 70,
       "rank_factors": {
-        "materiality": 85,
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lonza",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Merck",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Samsung Biologics",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-584",
+      "headline": "Kraft Heinz to divest its North American coffee business in $650 million deal",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/11/04/kraft-heinz-coffee-business-one-rock-deal.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-04T15:35:23Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Company to divest coffee business in a $650 million deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company to divest coffee business in a $650 million deal.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "The Kraft Heinz Company",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-517",
+      "headline": "Andersons to Buy Harvestone Low Carbon Partners for $915 Million",
+      "headline_en": null,
+      "url": "https://www.wsj.com/pro/private-equity/andersons-to-buy-harvestone-low-carbon-partners-for-915-million-4dc82e7b?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-04T14:50:00Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Andersons announced a $915 million acquisition of Harvestone Low Carbon Partners, materially deploying capital into low-carbon commodity services, but synergy targets and valuation rationale are not disclosed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Andersons announced a $915 million acquisition of Harvestone Low Carbon Partners, materially deploying capital into low-carbon commodity services, but synergy targets and valuation rationale are not disclosed.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
         "source_tier": 0,
         "scope": 5,
         "event": 9,
@@ -1045,9 +1810,14 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Emaar Properties",
+          "name": "Andersons",
           "ticker": null,
-          "listing_country": null
+          "listing_country": "US"
+        },
+        {
+          "name": "Harvestone Low Carbon Partners",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -1056,146 +1826,48 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261104-310",
-      "headline": "Novo Nordisk Lifts Guidance as Rollout of Wegovy Weight-Loss Pill Continues",
+      "inbox_id": "INB-20261104-549",
+      "headline": "57-year-old children's chain considers Chapter 11, liquidation",
       "headline_en": null,
-      "url": "https://www.wsj.com/health/pharma/novo-nordisk-lifts-guidance-as-rollout-of-wegovy-weight-loss-pill-continues-1f748068?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
+      "url": "https://www.thestreet.com/retail/57-year-old-childrens-chain-considers-chapter-11-liquidation",
+      "source_name": "TheStreet",
       "input_nature": "news_headline",
-      "found_at": "2026-11-04T08:41:00Z",
+      "found_at": "2026-11-04T14:01:47Z",
       "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Novo Nordisk raised its financial guidance due to strong Wegovy sales.",
+      "prelim_note": "A 57-year-old U.S. children's retail chain is considering Chapter 11 bankruptcy or liquidation.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Novo Nordisk raised its financial guidance due to strong Wegovy sales.",
-      "region": "GLOBAL",
+      "triage_reason": "A 57-year-old U.S. children's retail chain is considering Chapter 11 bankruptcy or liquidation.",
+      "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 75,
+      "materiality_pre_score": 80,
       "rank_factors": {
-        "materiality": 75,
+        "materiality": 80,
         "source_tier": 0,
         "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Novo Nordisk",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-311",
-      "headline": "Utkarsh Small Finance Bank Q2 FY27 Results Signal A Sharp Recovery In Financial Performance, Net Loss Narrows To ₹70 Crore From ₹348 Crore As Deposits Grow 6.6%",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/utkarsh-small-finance-bank-q2-fy27-results-signal-a-sharp-recovery-in-financial-performance-net-loss-narrows-to-70-crore-from-348-crore-as-deposits-grow-66",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T08:22:05Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Utkarsh Small Finance Bank reported a narrowed net loss of Rs 70 crore compared to Rs 348 crore in the prior period.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Utkarsh Small Finance Bank reported a narrowed net loss of Rs 70 crore compared to Rs 348 crore in the prior period.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Utkarsh Small Finance Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-329",
-      "headline": "Fine Organic Industries Q2 FY27 Results Signal Strong Profitability And Overseas Expansion, Net Profit Climbs 40% To ₹152.1 Crore As Revenue Grows 22% And Company Acquires 80% Stake In Malaysian Firm",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/fine-organic-industries-q2-fy27-results-signal-strong-profitability-and-overseas-expansion-net-profit-climbs-40-to-1521-crore-as-revenue-grows-22-and-company-acquires-80-stake-in-malaysian-firm",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T08:11:43Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Fine Organic Q2 FY27 net profit rose 40% to ₹152.1 crore, revenue grew 22% YoY, and company acquired 80% stake in Malaysian firm.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Fine Organic Q2 FY27 net profit rose 40% to ₹152.1 crore, revenue grew 22% YoY, and company acquired 80% stake in Malaysian firm.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
+        "event_id": "default_distress",
         "size_bucket": "unknown"
       },
       "event_types": [
-        "earnings_revenue_margin",
-        "mna"
+        "default_distress",
+        "restructuring_layoffs"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Fine Organic Industries",
+          "name": "[Children's retailer, unnamed]",
           "ticker": null,
-          "listing_country": "IN"
+          "listing_country": "US"
         }
       ],
       "size_bucket": "unknown",
@@ -1204,80 +1876,30 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261104-264",
-      "headline": "Meta raises $15 billion through bond sale to fund AI infrastructure expansion",
+      "inbox_id": "INB-20261104-555",
+      "headline": "Empower Brands Makes Unsolicited Bid to Buy Helen of Troy for $1.6 Billion",
       "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/meta-raises-15-billion-through-bond-sale-to-fund-ai-infrastructure-expansion/articleshow/135530378.cms",
-      "source_name": "The Economic Times",
+      "url": "https://www.wsj.com/business/deals/empower-brands-makes-unsolicited-bid-to-buy-helen-of-troy-for-1-6-billion-04261692?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
       "input_nature": "news_headline",
-      "found_at": "2026-11-04T07:50:23Z",
+      "found_at": "2026-11-04T13:48:00Z",
       "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Meta raises $15 billion in debt to fund AI infrastructure capex expansion, signaling material increase in capital intensity and near-term cash-burn pressure.",
+      "prelim_note": "Empower Brands made an unsolicited $1.6B bid for Helen of Troy, triggering potential control contest and strategic review.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Meta raises $15 billion in debt to fund AI infrastructure capex expansion, signaling material increase in capital intensity and near-term cash-burn pressure.",
+      "triage_reason": "Empower Brands made an unsolicited $1.6B bid for Helen of Troy, triggering potential control contest and strategic review.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 78,
       "rank_factors": {
         "materiality": 78,
         "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "debt_credit",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Meta Platforms",
-          "ticker": "META",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-273",
-      "headline": "Emaar offers $3.4bn to acquire full control of Emaar Development",
-      "headline_en": null,
-      "url": "https://www.arabianbusiness.com/real-estate/emaar-offers-3-4bn-to-acquire-full-control-of-emaar-development",
-      "source_name": "Arabian Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T07:45:24Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Emaar announces $3.4bn offer to acquire 100% control of Emaar Development, a named M&A event with quantified deal value.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Emaar announces $3.4bn offer to acquire 100% control of Emaar Development, a named M&A event with quantified deal value.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
         "scope": 5,
         "event": 9,
         "size": 2,
-        "recency": 5,
+        "recency": 4,
         "materiality_label_floor": 0,
         "quantified": 6,
         "boost_weight": 1,
@@ -1292,260 +1914,13 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Emaar",
-          "ticker": "EMAAR",
-          "listing_country": "AE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-276",
-      "headline": "Novo Nordisk Q3 Adj. Operating Profit Increases, Obesity Sales Up 22%; Raises 2026 Outlook",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/novo-nordisk-q3-adj-operating-profit-increases-obesity-sales-22-raises-2026-outlook",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T07:11:24Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Q3 adjusted operating profit rose; obesity-treatment sales grew 22%; full-year 2026 guidance raised.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Q3 adjusted operating profit rose; obesity-treatment sales grew 22%; full-year 2026 guidance raised.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Novo Nordisk",
-          "ticker": "NVO",
-          "listing_country": "DK"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-257",
-      "headline": "Kotak Mahindra Bank gets CCI nod to acquire Deutsche Bank India's retail, private banking businesses",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/money-and-banking/kotak-mahindra-bank-gets-cci-nod-to-acquire-deutsche-bank-indias-retail-private-banking-businesses/article71664088.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T05:27:54Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Kotak Mahindra Bank received CCI nod to acquire Deutsche Bank India's retail and private banking businesses.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Kotak Mahindra Bank received CCI nod to acquire Deutsche Bank India's retail and private banking businesses.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kotak Mahindra Bank",
+          "name": "Empower Brands",
           "ticker": null,
-          "listing_country": "IN"
+          "listing_country": null
         },
         {
-          "name": "Deutsche Bank India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-233",
-      "headline": "Fractal Analytics Sees Net Income More Than Double In Q2 FY27, Earnings Jump 139% To ₹79.2 Crore While Revenue Growth Of 20% Takes Sales To ₹956.5 Crore",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/fractal-analytics-sees-net-income-more-than-double-in-q2-fy27-earnings-jump-139-to-792-crore-while-revenue-growth-of-20-takes-sales-to-9565-crore",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T05:11:50Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Fractal Analytics reported a 139% increase in net income to ₹79.2 crore and 20% revenue growth to ₹956.5 crore for Q2 FY27.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Fractal Analytics reported a 139% increase in net income to ₹79.2 crore and 20% revenue growth to ₹956.5 crore for Q2 FY27.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Fractal Analytics",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-234",
-      "headline": "Lupin Q2 FY27 Results Reveal A Mixed Earnings Picture, Net Profit Declines 22% To ₹1,155 Crore Even As Sales Register A Healthy 14% Growth",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/lupin-q2-fy27-results-reveal-a-mixed-earnings-picture-net-profit-declines-22-to-1155-crore-even-as-sales-register-a-healthy-14-growth",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T05:01:09Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Lupin reported a 22% decline in net profit to ₹1,155 crore despite 14% sales growth in Q2 FY27.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Lupin reported a 22% decline in net profit to ₹1,155 crore despite 14% sales growth in Q2 FY27.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lupin",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-252",
-      "headline": "Omega Healthcare Investors, Inc. Reports Q3 2026 Net income of $87 million and Raises Full Year Guidance",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/omega-healthcare-investors-inc-reports-q3-2026-net-income-87-million-and-raises-full-year",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T04:58:46Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Omega Healthcare Investors, Inc. reported Q3 2026 net income of $87 million and raised its full year guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Omega Healthcare Investors, Inc. reported Q3 2026 net income of $87 million and raised its full year guidance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Omega Healthcare Investors, Inc.",
-          "ticker": null,
+          "name": "Helen of Troy",
+          "ticker": "HELE",
           "listing_country": "US"
         }
       ],
@@ -1555,322 +1930,21 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261104-225",
-      "headline": "Mitsui Chemicals to buy Japan chip material maker JSR for over $8.2bn",
+      "inbox_id": "INB-20261104-501",
+      "headline": "Nandy intervenes in Sky’s £1.6bn ITV takeover",
       "headline_en": null,
-      "url": "https://asia.nikkei.com/business/business-deals/mitsui-chemicals-to-buy-japan-chip-material-maker-jsr-for-over-8.2bn2",
-      "source_name": "Nikkei Asia",
+      "url": "https://www.cityam.com/nandy-intervenes-in-skys-1-6bn-itv-takeover/",
+      "source_name": "City A.M.",
       "input_nature": "news_headline",
-      "found_at": "2026-11-04T04:45:21Z",
+      "found_at": "2026-11-04T13:40:21Z",
       "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Major M&A deal valued at over $8.2bn for a chip material maker.",
+      "prelim_note": "UK Culture Secretary intervenes in the £1.6bn ITV takeover by Sky.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Major M&A deal valued at over $8.2bn for a chip material maker.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mitsui Chemicals",
-          "ticker": null,
-          "listing_country": "JP"
-        },
-        {
-          "name": "JSR",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-228",
-      "headline": "Jackson Financial Inc. Reports 3Q26 Results, Announces $1 billion Share Repurchase Increase and AARP Program Launch",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/jackson-financial-inc-reports-3q26-results-announces-1-billion-share-repurchase-increase",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T04:38:39Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Company reported 3Q26 results and announced a $1 billion share repurchase increase.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Company reported 3Q26 results and announced a $1 billion share repurchase increase.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Jackson Financial Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-219",
-      "headline": "Emcure Pharma shares hit 10% upper circuit after FY27 guidance hike; Jefferies raises target price by 8%",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/emcure-pharma-shares-hit-10-upper-circuit-after-fy27-guidance-hike-jefferies-raises-target-price-by-8/articleshow/135523159.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T04:31:03Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Emcure Pharma raised FY27 guidance, leading to a 10% share price increase and analyst target upgrades.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Emcure Pharma raised FY27 guidance, leading to a 10% share price increase and analyst target upgrades.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Emcure Pharma",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-211",
-      "headline": "Emaar Offers to Buy Out Construction Arm at $16.3 Billion Value",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-04/emaar-offers-to-buy-out-construction-arm-at-16-3-billion-value",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T03:31:07Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Emaar has offered to acquire its construction arm for $16.3 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Emaar has offered to acquire its construction arm for $16.3 billion.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Emaar Properties",
-          "ticker": null,
-          "listing_country": "AE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-141",
-      "headline": "Prestige Estates to acquire 100% stake of Gloind Vintage for ₹519 cr enterprise value",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/news/real-estate/prestige-estates-to-acquire-100-stake-of-gloind-vintage-for-519-cr-enterprise-value/article71663700.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T02:17:26Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Prestige Estates announced the acquisition of Gloind Vintage for an enterprise value of ₹519 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Prestige Estates announced the acquisition of Gloind Vintage for an enterprise value of ₹519 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Prestige Estates",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-143",
-      "headline": "Duolingo Reports Q3 2026 Results with 29% Daily Active User Growth and Raises Full-Year Guidance",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/duolingo-reports-q3-2026-results-29-daily-active-user-growth-and-raises-full-year-guidance",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T02:11:01Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Duolingo reported strong 29% DAU growth and raised its full-year guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Duolingo reported strong 29% DAU growth and raised its full-year guidance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Duolingo",
-          "ticker": "DUOL",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-150",
-      "headline": "DiamondRock Hospitality Company Reports Third Quarter 2026 Results, Acquires The Bellmoor Inn & Spa, and Raises 2026 Guidance",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/diamondrock-hospitality-company-reports-third-quarter-2026-results-acquires-bellmoor-inn",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T01:51:27Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "DiamondRock reported Q3 results, announced an acquisition, and raised its 2026 guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "DiamondRock reported Q3 results, announced an acquisition, and raised its 2026 guidance.",
-      "region": "US",
+      "triage_reason": "UK Culture Secretary intervenes in the £1.6bn ITV takeover by Sky.",
+      "region": "GB",
       "relevance": "material",
       "materiality_pre_score": 82,
       "rank_factors": {
@@ -1878,126 +1952,86 @@
         "source_tier": 0,
         "scope": 5,
         "event": 9,
-        "size": 1,
-        "recency": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 3,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ITV",
+          "ticker": "ITV",
+          "listing_country": "GB"
+        },
+        {
+          "name": "Sky",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-499",
+      "headline": "UK Probes £1.6 Billion Sky-ITV Deal Over Public Interest Concern",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-04/uk-probes-1-6-billion-sky-itv-deal-over-public-interest-concern",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-04T13:26:38Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "UK government intervenes in the £1.6 billion Sky-ITV deal on public interest grounds, risking a block.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "UK government intervenes in the £1.6 billion Sky-ITV deal on public interest grounds, risking a block.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 82,
+      "rank_factors": {
+        "materiality": 82,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
         "materiality_label_floor": 3,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "multi_name",
         "source_tier_id": "news",
         "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "mna",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DiamondRock Hospitality Company",
-          "ticker": "DRH",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-123",
-      "headline": "Meta raises US$15 billion in five-part US bond sale to fund AI expansion",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/telcos-media-tech/meta-raises-us15-billion-five-part-us-bond-sale-fund-ai-expansion",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T01:50:02Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Meta is raising a significant US$15 billion through a bond sale specifically to fund AI infrastructure and expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Meta is raising a significant US$15 billion through a bond sale specifically to fund AI infrastructure and expansion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "debt_credit",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Meta Platforms, Inc.",
-          "ticker": "META",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-103",
-      "headline": "UOB shares fall over 5% after Q3 earnings miss forecast",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/uob-shares-fall-over-5-after-q3-earnings-miss-forecast",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T01:19:59Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "UOB shares fell over 5% following a Q3 earnings miss.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "UOB shares fell over 5% following a Q3 earnings miss.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
         "size_bucket": "large"
       },
       "event_types": [
-        "earnings_revenue_margin"
+        "mna",
+        "regulatory"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "United Overseas Bank",
+          "name": "ITV",
+          "ticker": "ITV",
+          "listing_country": "GB"
+        },
+        {
+          "name": "Sky",
           "ticker": null,
-          "listing_country": "SG"
+          "listing_country": "GB"
         }
       ],
       "size_bucket": "large",
@@ -218060,76 +218094,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-0448efa62005",
-      "idea_version": "IDEAV-ddebb2b478cc901d",
-      "idea_version_started_at": "2026-11-03T05:04:36Z",
-      "ticker": "AAPL",
-      "company": "Apple",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Rising memory chip costs will compress gross margins as the company faces difficulty passing these input price increases to consumers in a competitive hardware market.",
-      "why_now": "The company issued a direct warning regarding these costs on November 3, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5c0dd6ec7e58"
-      ],
-      "primary_source_event_id": "EVT-5c0dd6ec7e58",
-      "source_headlines": [
-        "Apple warns ‘unprecedented’ memory chip costs will hit margins"
-      ],
-      "source_headline": "Apple warns ‘unprecedented’ memory chip costs will hit margins",
-      "source_url": "https://www.ft.com/content/f6ad8c32-cacb-48ad-ad85-a9a7edac3f16?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-03T01:17:37Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-03T05:04:36Z",
-      "updated_at": "2026-11-03T05:04:36Z",
-      "decay_at": "2026-11-04T13:17:37Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-abe61d9932f3",
       "idea_version": "IDEAV-5cbc7c94b5ac81ac",
       "idea_version_started_at": "2026-11-04T10:33:04Z",
@@ -220266,292 +220230,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-ec4e73f028be",
-      "idea_version": "IDEAV-942a7422017179ca",
-      "idea_version_started_at": "2026-11-03T12:53:36Z",
-      "ticker": "TRIDENT",
-      "company": "Trident",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company delivered a 93% jump in profit and announced a substantial ₹4,650 crore capital expenditure plan, indicating strong growth momentum.",
-      "why_now": "The market is reacting to the Q2 results and expansion announcement released today, November 3, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-715ab101bb1d"
-      ],
-      "primary_source_event_id": "EVT-715ab101bb1d",
-      "source_headlines": [
-        "Trident shares jump 13% after Q2 results; profit jumps 93%, board clears ₹4,650 crore expansion plan | What lies ahead"
-      ],
-      "source_headline": "Trident shares jump 13% after Q2 results; profit jumps 93%, board clears ₹4,650 crore expansion plan | What lies ahead",
-      "source_url": "https://www.livemint.com/market/stock-market-news/trident-shares-jump-13-after-q2-results-profit-jumps-93-board-clears-rs-4-650-crore-expansion-plan-what-lies-ahead-11793682049671.html",
-      "source_name": "Mint",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-03T05:25:41Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-03T12:53:36Z",
-      "updated_at": "2026-11-03T12:53:36Z",
-      "decay_at": "2026-11-04T17:25:41Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-3331c50611ff",
-      "idea_version": "IDEAV-141434107b073ac3",
-      "idea_version_started_at": "2026-11-03T12:13:33Z",
-      "ticker": "532234",
-      "company": "National Aluminium Company Limited",
-      "exchange": "BSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported its best-ever half-yearly financial results, signaling strong operational efficiency and margin expansion.",
-      "why_now": "The press release was issued on November 03, 2026, confirming the record performance.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ad453366375b"
-      ],
-      "primary_source_event_id": "EVT-ad453366375b",
-      "source_headlines": [
-        "National Aluminium Company Limited: National Aluminium Company Limited has informed the Exchange regarding a press release dated November 03, 2026, titled \"NALCO Scripts History with Best-Ever Half Yearly Financial Results Since Inception. \"."
-      ],
-      "source_headline": "National Aluminium Company Limited: National Aluminium Company Limited has informed the Exchange regarding a press release dated November 03, 2026, titled \"NALCO Scripts History with Best-Ever Half Yearly Financial Results Since Inception. \".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/bharatsahu_03112026080806_SELETTER.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-03T02:38:23Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-03T12:13:33Z",
-      "updated_at": "2026-11-03T12:13:33Z",
-      "decay_at": "2026-11-04T14:38:23Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-3da588978c6b",
-      "idea_version": "IDEAV-a103544f6efd07d3",
-      "idea_version_started_at": "2026-11-03T12:13:33Z",
-      "ticker": "TNPETRO",
-      "company": "Tamilnadu Petroproducts",
-      "exchange": "BSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported a 95% surge in net profit to ₹62.54 crore on the back of revenue that doubled year-on-year.",
-      "why_now": "The Q2 FY27 earnings results were released on November 03, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-28db2cf79445"
-      ],
-      "primary_source_event_id": "EVT-28db2cf79445",
-      "source_headlines": [
-        "Tamilnadu Petroproducts Q2 FY27 Earnings Outshines, Net Profit Zooms 95% To ₹62.54 Crore As Revenue Hits ₹941.63 Crore After Doubling Year-On-Year"
-      ],
-      "source_headline": "Tamilnadu Petroproducts Q2 FY27 Earnings Outshines, Net Profit Zooms 95% To ₹62.54 Crore As Revenue Hits ₹941.63 Crore After Doubling Year-On-Year",
-      "source_url": "https://www.freepressjournal.in/business/tamilnadu-petroproducts-q2-fy27-earnings-outshines-net-profit-zooms-95-to-6254-crore-as-revenue-hits-94163-crore-after-doubling-year-on-year",
-      "source_name": "Free Press Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-03T06:11:23Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-03T12:13:33Z",
-      "updated_at": "2026-11-03T12:13:33Z",
-      "decay_at": "2026-11-04T18:11:23Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-a4151217c05f",
-      "idea_version": "IDEAV-c85077d788972577",
-      "idea_version_started_at": "2026-11-03T12:13:33Z",
-      "ticker": "MANINFRA",
-      "company": "Man Infraconstruction Limited",
-      "exchange": "BSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company secured two new EPC work orders worth ₹583 crore, significantly expanding its order book and revenue visibility.",
-      "why_now": "The contract win was officially announced via exchange filing on November 03, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-048061a44c01"
-      ],
-      "primary_source_event_id": "EVT-048061a44c01",
-      "source_headlines": [
-        "Man Infraconstruction Limited: Man Infraconstruction Limited has informed the Exchange regarding a press release dated November 03, 2026, titled \"MICL GROUP SECURES TWO EPC WORK ORDERS WORTH ₹583 CRORE; EPC PORTFOLIO STRENGTHENS TO ₹858 CRORE \"."
-      ],
-      "source_headline": "Man Infraconstruction Limited: Man Infraconstruction Limited has informed the Exchange regarding a press release dated November 03, 2026, titled \"MICL GROUP SECURES TWO EPC WORK ORDERS WORTH ₹583 CRORE; EPC PORTFOLIO STRENGTHENS TO ₹858 CRORE \".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/kunjalparekh_03112026095358_MICL.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-03T04:30:04Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-03T12:13:33Z",
-      "updated_at": "2026-11-03T12:13:33Z",
-      "decay_at": "2026-11-04T16:30:04Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-aad096c437a5",
       "idea_version": "IDEAV-40a875b53bbb3edd",
       "idea_version_started_at": "2026-11-03T12:13:33Z",
@@ -220690,150 +220368,6 @@
       "surfaced_at": "2026-11-03T12:13:33Z",
       "updated_at": "2026-11-03T12:13:33Z",
       "decay_at": "2026-11-04T18:57:41Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-966757d19680",
-      "idea_version": "IDEAV-b1245e849dc4af56",
-      "idea_version_started_at": "2026-11-03T05:04:36Z",
-      "ticker": "DOMO",
-      "company": "Domo, Inc.",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is being acquired by Progress Software for $403.2 million, providing a clear exit valuation for shareholders.",
-      "why_now": "Progress Software filed pro forma financials for the acquisition on November 3, 2026.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2ba9b27ed126"
-      ],
-      "primary_source_event_id": "EVT-2ba9b27ed126",
-      "source_headlines": [
-        "Progress Software Corporation Files Pro Forma Financials for $403.2 million Acquisition of Domo, Inc."
-      ],
-      "source_headline": "Progress Software Corporation Files Pro Forma Financials for $403.2 million Acquisition of Domo, Inc.",
-      "source_url": "https://www.nasdaq.com/articles/progress-software-corporation-files-pro-forma-financials-4032-million-acquisition-domo-inc",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-03T01:18:41Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-03T05:04:36Z",
-      "updated_at": "2026-11-03T05:04:36Z",
-      "decay_at": "2026-11-04T13:18:41Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-3d4a4fc75d1b",
-      "idea_version": "IDEAV-5dc8ee51d3a00705",
-      "idea_version_started_at": "2026-11-03T03:42:49Z",
-      "ticker": "ARSHIYA",
-      "company": "Arshiya Limited",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company has entered the Corporate Insolvency Resolution Process, signaling severe financial distress and likely equity wipeout.",
-      "why_now": "The filing was made on 2026-11-03, making this a live insolvency event.",
-      "conviction": 90,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-86f11fa7affa"
-      ],
-      "primary_source_event_id": "EVT-86f11fa7affa",
-      "source_headlines": [
-        "Arshiya Limited: Arshiya Limited has informed the Exchange about Corporate Insolvency Resolution Process"
-      ],
-      "source_headline": "Arshiya Limited: Arshiya Limited has informed the Exchange about Corporate Insolvency Resolution Process",
-      "source_url": "https://nsearchives.nseindia.com/corporate/ARSHIYA_03112026062629_AL_19th_CoC_Meeting_Uploaded.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-03T00:56:47Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-03T03:42:49Z",
-      "updated_at": "2026-11-03T03:42:49Z",
-      "decay_at": "2026-11-04T12:56:47Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -221193,6 +220727,76 @@
       "surfaced_at": "2026-11-02T10:18:41Z",
       "updated_at": "2026-11-02T10:18:41Z",
       "decay_at": "2026-11-03T20:42:42Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-0448efa62005",
+      "idea_version": "IDEAV-ddebb2b478cc901d",
+      "idea_version_started_at": "2026-11-03T05:04:36Z",
+      "ticker": "AAPL",
+      "company": "Apple",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Rising memory chip costs will compress gross margins as the company faces difficulty passing these input price increases to consumers in a competitive hardware market.",
+      "why_now": "The company issued a direct warning regarding these costs on November 3, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5c0dd6ec7e58"
+      ],
+      "primary_source_event_id": "EVT-5c0dd6ec7e58",
+      "source_headlines": [
+        "Apple warns ‘unprecedented’ memory chip costs will hit margins"
+      ],
+      "source_headline": "Apple warns ‘unprecedented’ memory chip costs will hit margins",
+      "source_url": "https://www.ft.com/content/f6ad8c32-cacb-48ad-ad85-a9a7edac3f16?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-03T01:17:37Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-03T05:04:36Z",
+      "updated_at": "2026-11-03T05:04:36Z",
+      "decay_at": "2026-11-04T13:17:37Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -221615,6 +221219,436 @@
       "surfaced_at": "2026-11-02T02:53:32Z",
       "updated_at": "2026-11-02T02:53:32Z",
       "decay_at": "2026-11-03T14:17:08Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-ec4e73f028be",
+      "idea_version": "IDEAV-942a7422017179ca",
+      "idea_version_started_at": "2026-11-03T12:53:36Z",
+      "ticker": "TRIDENT",
+      "company": "Trident",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company delivered a 93% jump in profit and announced a substantial ₹4,650 crore capital expenditure plan, indicating strong growth momentum.",
+      "why_now": "The market is reacting to the Q2 results and expansion announcement released today, November 3, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-715ab101bb1d"
+      ],
+      "primary_source_event_id": "EVT-715ab101bb1d",
+      "source_headlines": [
+        "Trident shares jump 13% after Q2 results; profit jumps 93%, board clears ₹4,650 crore expansion plan | What lies ahead"
+      ],
+      "source_headline": "Trident shares jump 13% after Q2 results; profit jumps 93%, board clears ₹4,650 crore expansion plan | What lies ahead",
+      "source_url": "https://www.livemint.com/market/stock-market-news/trident-shares-jump-13-after-q2-results-profit-jumps-93-board-clears-rs-4-650-crore-expansion-plan-what-lies-ahead-11793682049671.html",
+      "source_name": "Mint",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-03T05:25:41Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-03T12:53:36Z",
+      "updated_at": "2026-11-03T12:53:36Z",
+      "decay_at": "2026-11-04T17:25:41Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-3331c50611ff",
+      "idea_version": "IDEAV-141434107b073ac3",
+      "idea_version_started_at": "2026-11-03T12:13:33Z",
+      "ticker": "532234",
+      "company": "National Aluminium Company Limited",
+      "exchange": "BSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported its best-ever half-yearly financial results, signaling strong operational efficiency and margin expansion.",
+      "why_now": "The press release was issued on November 03, 2026, confirming the record performance.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ad453366375b"
+      ],
+      "primary_source_event_id": "EVT-ad453366375b",
+      "source_headlines": [
+        "National Aluminium Company Limited: National Aluminium Company Limited has informed the Exchange regarding a press release dated November 03, 2026, titled \"NALCO Scripts History with Best-Ever Half Yearly Financial Results Since Inception. \"."
+      ],
+      "source_headline": "National Aluminium Company Limited: National Aluminium Company Limited has informed the Exchange regarding a press release dated November 03, 2026, titled \"NALCO Scripts History with Best-Ever Half Yearly Financial Results Since Inception. \".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/bharatsahu_03112026080806_SELETTER.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-03T02:38:23Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-03T12:13:33Z",
+      "updated_at": "2026-11-03T12:13:33Z",
+      "decay_at": "2026-11-04T14:38:23Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-3da588978c6b",
+      "idea_version": "IDEAV-a103544f6efd07d3",
+      "idea_version_started_at": "2026-11-03T12:13:33Z",
+      "ticker": "TNPETRO",
+      "company": "Tamilnadu Petroproducts",
+      "exchange": "BSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported a 95% surge in net profit to ₹62.54 crore on the back of revenue that doubled year-on-year.",
+      "why_now": "The Q2 FY27 earnings results were released on November 03, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-28db2cf79445"
+      ],
+      "primary_source_event_id": "EVT-28db2cf79445",
+      "source_headlines": [
+        "Tamilnadu Petroproducts Q2 FY27 Earnings Outshines, Net Profit Zooms 95% To ₹62.54 Crore As Revenue Hits ₹941.63 Crore After Doubling Year-On-Year"
+      ],
+      "source_headline": "Tamilnadu Petroproducts Q2 FY27 Earnings Outshines, Net Profit Zooms 95% To ₹62.54 Crore As Revenue Hits ₹941.63 Crore After Doubling Year-On-Year",
+      "source_url": "https://www.freepressjournal.in/business/tamilnadu-petroproducts-q2-fy27-earnings-outshines-net-profit-zooms-95-to-6254-crore-as-revenue-hits-94163-crore-after-doubling-year-on-year",
+      "source_name": "Free Press Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-03T06:11:23Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-03T12:13:33Z",
+      "updated_at": "2026-11-03T12:13:33Z",
+      "decay_at": "2026-11-04T18:11:23Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-a4151217c05f",
+      "idea_version": "IDEAV-c85077d788972577",
+      "idea_version_started_at": "2026-11-03T12:13:33Z",
+      "ticker": "MANINFRA",
+      "company": "Man Infraconstruction Limited",
+      "exchange": "BSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company secured two new EPC work orders worth ₹583 crore, significantly expanding its order book and revenue visibility.",
+      "why_now": "The contract win was officially announced via exchange filing on November 03, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-048061a44c01"
+      ],
+      "primary_source_event_id": "EVT-048061a44c01",
+      "source_headlines": [
+        "Man Infraconstruction Limited: Man Infraconstruction Limited has informed the Exchange regarding a press release dated November 03, 2026, titled \"MICL GROUP SECURES TWO EPC WORK ORDERS WORTH ₹583 CRORE; EPC PORTFOLIO STRENGTHENS TO ₹858 CRORE \"."
+      ],
+      "source_headline": "Man Infraconstruction Limited: Man Infraconstruction Limited has informed the Exchange regarding a press release dated November 03, 2026, titled \"MICL GROUP SECURES TWO EPC WORK ORDERS WORTH ₹583 CRORE; EPC PORTFOLIO STRENGTHENS TO ₹858 CRORE \".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/kunjalparekh_03112026095358_MICL.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-03T04:30:04Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-03T12:13:33Z",
+      "updated_at": "2026-11-03T12:13:33Z",
+      "decay_at": "2026-11-04T16:30:04Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-966757d19680",
+      "idea_version": "IDEAV-b1245e849dc4af56",
+      "idea_version_started_at": "2026-11-03T05:04:36Z",
+      "ticker": "DOMO",
+      "company": "Domo, Inc.",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is being acquired by Progress Software for $403.2 million, providing a clear exit valuation for shareholders.",
+      "why_now": "Progress Software filed pro forma financials for the acquisition on November 3, 2026.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2ba9b27ed126"
+      ],
+      "primary_source_event_id": "EVT-2ba9b27ed126",
+      "source_headlines": [
+        "Progress Software Corporation Files Pro Forma Financials for $403.2 million Acquisition of Domo, Inc."
+      ],
+      "source_headline": "Progress Software Corporation Files Pro Forma Financials for $403.2 million Acquisition of Domo, Inc.",
+      "source_url": "https://www.nasdaq.com/articles/progress-software-corporation-files-pro-forma-financials-4032-million-acquisition-domo-inc",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-03T01:18:41Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-03T05:04:36Z",
+      "updated_at": "2026-11-03T05:04:36Z",
+      "decay_at": "2026-11-04T13:18:41Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-3d4a4fc75d1b",
+      "idea_version": "IDEAV-5dc8ee51d3a00705",
+      "idea_version_started_at": "2026-11-03T03:42:49Z",
+      "ticker": "ARSHIYA",
+      "company": "Arshiya Limited",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company has entered the Corporate Insolvency Resolution Process, signaling severe financial distress and likely equity wipeout.",
+      "why_now": "The filing was made on 2026-11-03, making this a live insolvency event.",
+      "conviction": 90,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-86f11fa7affa"
+      ],
+      "primary_source_event_id": "EVT-86f11fa7affa",
+      "source_headlines": [
+        "Arshiya Limited: Arshiya Limited has informed the Exchange about Corporate Insolvency Resolution Process"
+      ],
+      "source_headline": "Arshiya Limited: Arshiya Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+      "source_url": "https://nsearchives.nseindia.com/corporate/ARSHIYA_03112026062629_AL_19th_CoC_Meeting_Uploaded.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-03T00:56:47Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-03T03:42:49Z",
+      "updated_at": "2026-11-03T03:42:49Z",
+      "decay_at": "2026-11-04T12:56:47Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -226026,19 +226060,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 571,
+    "total_count": 578,
     "shown_count": 499,
-    "hidden_count": 72,
+    "hidden_count": 79,
     "side_counts": {
       "long": {
-        "total_count": 303,
+        "total_count": 308,
         "shown_count": 250,
-        "hidden_count": 53
+        "hidden_count": 58
       },
       "short": {
-        "total_count": 269,
+        "total_count": 271,
         "shown_count": 250,
-        "hidden_count": 19
+        "hidden_count": 21
       }
     },
     "retention": {
@@ -226057,6 +226091,527 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-3da588978c6b",
+        "idea_version": "IDEAV-a103544f6efd07d3",
+        "idea_version_started_at": "2026-11-03T12:13:33Z",
+        "ticker": "TNPETRO",
+        "company": "Tamilnadu Petroproducts",
+        "exchange": "BSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company reported a 95% surge in net profit to ₹62.54 crore on the back of revenue that doubled year-on-year.",
+        "why_now": "The Q2 FY27 earnings results were released on November 03, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-28db2cf79445"
+        ],
+        "primary_source_event_id": "EVT-28db2cf79445",
+        "source_headlines": [
+          "Tamilnadu Petroproducts Q2 FY27 Earnings Outshines, Net Profit Zooms 95% To ₹62.54 Crore As Revenue Hits ₹941.63 Crore After Doubling Year-On-Year"
+        ],
+        "source_headline": "Tamilnadu Petroproducts Q2 FY27 Earnings Outshines, Net Profit Zooms 95% To ₹62.54 Crore As Revenue Hits ₹941.63 Crore After Doubling Year-On-Year",
+        "source_url": "https://www.freepressjournal.in/business/tamilnadu-petroproducts-q2-fy27-earnings-outshines-net-profit-zooms-95-to-6254-crore-as-revenue-hits-94163-crore-after-doubling-year-on-year",
+        "source_name": "Free Press Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-03T06:11:23Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-03T12:13:33Z",
+        "updated_at": "2026-11-03T12:13:33Z",
+        "decay_at": "2026-11-04T18:11:23Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-04T18:11:23Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-ec4e73f028be",
+        "idea_version": "IDEAV-942a7422017179ca",
+        "idea_version_started_at": "2026-11-03T12:53:36Z",
+        "ticker": "TRIDENT",
+        "company": "Trident",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company delivered a 93% jump in profit and announced a substantial ₹4,650 crore capital expenditure plan, indicating strong growth momentum.",
+        "why_now": "The market is reacting to the Q2 results and expansion announcement released today, November 3, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-715ab101bb1d"
+        ],
+        "primary_source_event_id": "EVT-715ab101bb1d",
+        "source_headlines": [
+          "Trident shares jump 13% after Q2 results; profit jumps 93%, board clears ₹4,650 crore expansion plan | What lies ahead"
+        ],
+        "source_headline": "Trident shares jump 13% after Q2 results; profit jumps 93%, board clears ₹4,650 crore expansion plan | What lies ahead",
+        "source_url": "https://www.livemint.com/market/stock-market-news/trident-shares-jump-13-after-q2-results-profit-jumps-93-board-clears-rs-4-650-crore-expansion-plan-what-lies-ahead-11793682049671.html",
+        "source_name": "Mint",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-03T05:25:41Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-03T12:53:36Z",
+        "updated_at": "2026-11-03T12:53:36Z",
+        "decay_at": "2026-11-04T17:25:41Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-04T17:25:41Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-a4151217c05f",
+        "idea_version": "IDEAV-c85077d788972577",
+        "idea_version_started_at": "2026-11-03T12:13:33Z",
+        "ticker": "MANINFRA",
+        "company": "Man Infraconstruction Limited",
+        "exchange": "BSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company secured two new EPC work orders worth ₹583 crore, significantly expanding its order book and revenue visibility.",
+        "why_now": "The contract win was officially announced via exchange filing on November 03, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-048061a44c01"
+        ],
+        "primary_source_event_id": "EVT-048061a44c01",
+        "source_headlines": [
+          "Man Infraconstruction Limited: Man Infraconstruction Limited has informed the Exchange regarding a press release dated November 03, 2026, titled \"MICL GROUP SECURES TWO EPC WORK ORDERS WORTH ₹583 CRORE; EPC PORTFOLIO STRENGTHENS TO ₹858 CRORE \"."
+        ],
+        "source_headline": "Man Infraconstruction Limited: Man Infraconstruction Limited has informed the Exchange regarding a press release dated November 03, 2026, titled \"MICL GROUP SECURES TWO EPC WORK ORDERS WORTH ₹583 CRORE; EPC PORTFOLIO STRENGTHENS TO ₹858 CRORE \".",
+        "source_url": "https://nsearchives.nseindia.com/corporate/kunjalparekh_03112026095358_MICL.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-03T04:30:04Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-03T12:13:33Z",
+        "updated_at": "2026-11-03T12:13:33Z",
+        "decay_at": "2026-11-04T16:30:04Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-04T16:30:04Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-3331c50611ff",
+        "idea_version": "IDEAV-141434107b073ac3",
+        "idea_version_started_at": "2026-11-03T12:13:33Z",
+        "ticker": "532234",
+        "company": "National Aluminium Company Limited",
+        "exchange": "BSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company reported its best-ever half-yearly financial results, signaling strong operational efficiency and margin expansion.",
+        "why_now": "The press release was issued on November 03, 2026, confirming the record performance.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-ad453366375b"
+        ],
+        "primary_source_event_id": "EVT-ad453366375b",
+        "source_headlines": [
+          "National Aluminium Company Limited: National Aluminium Company Limited has informed the Exchange regarding a press release dated November 03, 2026, titled \"NALCO Scripts History with Best-Ever Half Yearly Financial Results Since Inception. \"."
+        ],
+        "source_headline": "National Aluminium Company Limited: National Aluminium Company Limited has informed the Exchange regarding a press release dated November 03, 2026, titled \"NALCO Scripts History with Best-Ever Half Yearly Financial Results Since Inception. \".",
+        "source_url": "https://nsearchives.nseindia.com/corporate/bharatsahu_03112026080806_SELETTER.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-03T02:38:23Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-03T12:13:33Z",
+        "updated_at": "2026-11-03T12:13:33Z",
+        "decay_at": "2026-11-04T14:38:23Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-04T14:38:23Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-966757d19680",
+        "idea_version": "IDEAV-b1245e849dc4af56",
+        "idea_version_started_at": "2026-11-03T05:04:36Z",
+        "ticker": "DOMO",
+        "company": "Domo, Inc.",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company is being acquired by Progress Software for $403.2 million, providing a clear exit valuation for shareholders.",
+        "why_now": "Progress Software filed pro forma financials for the acquisition on November 3, 2026.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-2ba9b27ed126"
+        ],
+        "primary_source_event_id": "EVT-2ba9b27ed126",
+        "source_headlines": [
+          "Progress Software Corporation Files Pro Forma Financials for $403.2 million Acquisition of Domo, Inc."
+        ],
+        "source_headline": "Progress Software Corporation Files Pro Forma Financials for $403.2 million Acquisition of Domo, Inc.",
+        "source_url": "https://www.nasdaq.com/articles/progress-software-corporation-files-pro-forma-financials-4032-million-acquisition-domo-inc",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-03T01:18:41Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-03T05:04:36Z",
+        "updated_at": "2026-11-03T05:04:36Z",
+        "decay_at": "2026-11-04T13:18:41Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-04T13:18:41Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-0448efa62005",
+        "idea_version": "IDEAV-ddebb2b478cc901d",
+        "idea_version_started_at": "2026-11-03T05:04:36Z",
+        "ticker": "AAPL",
+        "company": "Apple",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Rising memory chip costs will compress gross margins as the company faces difficulty passing these input price increases to consumers in a competitive hardware market.",
+        "why_now": "The company issued a direct warning regarding these costs on November 3, 2026.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 67,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-5c0dd6ec7e58"
+        ],
+        "primary_source_event_id": "EVT-5c0dd6ec7e58",
+        "source_headlines": [
+          "Apple warns ‘unprecedented’ memory chip costs will hit margins"
+        ],
+        "source_headline": "Apple warns ‘unprecedented’ memory chip costs will hit margins",
+        "source_url": "https://www.ft.com/content/f6ad8c32-cacb-48ad-ad85-a9a7edac3f16?syn-25a6b1a6=1",
+        "source_name": "Financial Times",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-03T01:17:37Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-03T05:04:36Z",
+        "updated_at": "2026-11-03T05:04:36Z",
+        "decay_at": "2026-11-04T13:17:37Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-04T13:17:37Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-3d4a4fc75d1b",
+        "idea_version": "IDEAV-5dc8ee51d3a00705",
+        "idea_version_started_at": "2026-11-03T03:42:49Z",
+        "ticker": "ARSHIYA",
+        "company": "Arshiya Limited",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company has entered the Corporate Insolvency Resolution Process, signaling severe financial distress and likely equity wipeout.",
+        "why_now": "The filing was made on 2026-11-03, making this a live insolvency event.",
+        "conviction": 90,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-86f11fa7affa"
+        ],
+        "primary_source_event_id": "EVT-86f11fa7affa",
+        "source_headlines": [
+          "Arshiya Limited: Arshiya Limited has informed the Exchange about Corporate Insolvency Resolution Process"
+        ],
+        "source_headline": "Arshiya Limited: Arshiya Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+        "source_url": "https://nsearchives.nseindia.com/corporate/ARSHIYA_03112026062629_AL_19th_CoC_Meeting_Uploaded.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-03T00:56:47Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-03T03:42:49Z",
+        "updated_at": "2026-11-03T03:42:49Z",
+        "decay_at": "2026-11-04T12:56:47Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-04T12:56:47Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-a7bcdc17fdf6",
         "idea_version": "IDEAV-13cc207e739ce752",
@@ -255102,380 +255657,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-779eed182ae6",
-        "idea_version": "IDEAV-95bd4585bc441eee",
-        "idea_version_started_at": "2026-10-20T09:35:45Z",
-        "ticker": "229640",
-        "company": "LS Eco Energy",
-        "exchange": "KRX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company has already surpassed its full-year 2025 earnings target in just nine months, indicating significant margin expansion and demand for its power cable and infrastructure products.",
-        "why_now": "The performance update was released today, October 20, 2026, highlighting a strong Q3 finish.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-2f633562161b"
-        ],
-        "primary_source_event_id": "EVT-2f633562161b",
-        "source_headlines": [
-          "LS Eco Energy Surpasses Full-Year 2025 Earnings in Just Nine Months"
-        ],
-        "source_headline": "LS Eco Energy Surpasses Full-Year 2025 Earnings in Just Nine Months",
-        "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279202",
-        "source_name": "Business Korea — All English Articles",
-        "materiality_max": 92,
-        "newest_source_at": "2026-10-20T07:19:54Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-20T09:35:45Z",
-        "updated_at": "2026-10-20T09:35:45Z",
-        "decay_at": "2026-10-21T19:19:54Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-23T09:10:48Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-86ad1d17dce0",
-        "idea_version": "IDEAV-d424e4fb1889f9bc",
-        "idea_version_started_at": "2026-10-20T09:35:45Z",
-        "ticker": "VEE",
-        "company": "VEEM Ltd",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Securing orders for the Virginia-class submarine program provides long-term revenue visibility and validates the company's specialized manufacturing capabilities for the defense sector.",
-        "why_now": "The contract win was confirmed in a price-sensitive filing today, October 20, 2026.",
-        "conviction": 80,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-07b1a68ef602"
-        ],
-        "primary_source_event_id": "EVT-07b1a68ef602",
-        "source_headlines": [
-          "VEE: VEEM Secures HII Virginia Class Submarine Orders [price-sensitive]"
-        ],
-        "source_headline": "VEE: VEEM Secures HII Virginia Class Submarine Orders [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.VEE?key=2924-03150685-6A1350223",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 93,
-        "newest_source_at": "2026-10-20T06:46:02Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-20T09:35:45Z",
-        "updated_at": "2026-10-20T09:35:45Z",
-        "decay_at": "2026-10-21T18:46:02Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-23T06:49:13Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-049dd080737f",
-        "idea_version": "IDEAV-6450a4a8151902a7",
-        "idea_version_started_at": "2026-10-20T10:11:37Z",
-        "ticker": "PLUS",
-        "company": "Plus500",
-        "exchange": "LSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The acquisition of Brazilian broker-dealer Guru provides Plus500 with immediate access to the growing Latin American retail trading market, diversifying its geographic revenue base.",
-        "why_now": "The acquisition was announced on 2026-10-20.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-b87476716b4a"
-        ],
-        "primary_source_event_id": "EVT-b87476716b4a",
-        "source_headlines": [
-          "Plus500 To Acquire Brazilian Broker-Dealer Guru"
-        ],
-        "source_headline": "Plus500 To Acquire Brazilian Broker-Dealer Guru",
-        "source_url": "https://www.nasdaq.com/articles/plus500-acquire-brazilian-broker-dealer-guru",
-        "source_name": "Nasdaq",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-20T06:27:07Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-20T10:11:37Z",
-        "updated_at": "2026-10-20T10:11:37Z",
-        "decay_at": "2026-10-21T18:27:07Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-23T06:49:13Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-672d7d806521",
-        "idea_version": "IDEAV-f46726a6567f2eb2",
-        "idea_version_started_at": "2026-10-20T10:11:37Z",
-        "ticker": "GKP",
-        "company": "Gulf Keystone Petroleum",
-        "exchange": "LSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The $601 million merger with ShaMaran Petroleum consolidates assets in the Kurdistan region, likely leading to operational efficiencies and improved scale in a high-margin oil production area.",
-        "why_now": "The merger agreement was officially announced on 2026-10-20.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-ca95de80bad5"
-        ],
-        "primary_source_event_id": "EVT-ca95de80bad5",
-        "source_headlines": [
-          "UK-listed Gulf Keystone, Norway's ShaMaran agree $601 million merger in Kurdistan"
-        ],
-        "source_headline": "UK-listed Gulf Keystone, Norway's ShaMaran agree $601 million merger in Kurdistan",
-        "source_url": "https://www.reuters.com/business/uk-listed-gulf-keystone-norways-shamaran-agree-601-million-merger-kurdistan-2026-10-20/",
-        "source_name": "Reuters — Latest (news sitemap)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-20T06:26:29Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-20T10:11:37Z",
-        "updated_at": "2026-10-20T10:11:37Z",
-        "decay_at": "2026-10-21T18:26:29Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-23T06:49:13Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-1ab96d880872",
-        "idea_version": "IDEAV-c1dd138dade36dfb",
-        "idea_version_started_at": "2026-10-20T09:35:45Z",
-        "ticker": "ABB",
-        "company": "ABB Ltd",
-        "exchange": "SIX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The acquisition of a 51% stake in a joint venture with Mitsubishi Electric expands ABB's industrial automation footprint in Japan, providing a direct revenue synergy in the power and automation sector.",
-        "why_now": "The deal was announced today, October 20, 2026, with a valuation of JPY 82.4 billion.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-ddddc5d57a67"
-        ],
-        "primary_source_event_id": "EVT-ddddc5d57a67",
-        "source_headlines": [
-          "ABB To Acquire 51% Stake In Mitsubishi Electric Joint Venture For JPY 82.4 Bln"
-        ],
-        "source_headline": "ABB To Acquire 51% Stake In Mitsubishi Electric Joint Venture For JPY 82.4 Bln",
-        "source_url": "https://www.nasdaq.com/articles/abb-acquire-51-stake-mitsubishi-electric-joint-venture-jpy-824-bln",
-        "source_name": "Nasdaq",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-20T05:34:17Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-20T09:35:45Z",
-        "updated_at": "2026-10-20T09:35:45Z",
-        "decay_at": "2026-10-21T17:34:17Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-23T05:56:49Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-18ddb9fd5fec",
         "idea_version": "IDEAV-5db13e7aa00663b6",
         "idea_version_started_at": "2026-10-20T00:02:47Z",
@@ -263092,160 +263273,12 @@
         "archived_at": "2026-10-11T11:07:52Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-c4367824b313",
-        "idea_version": "IDEAV-a31dbf1764433a93",
-        "idea_version_started_at": "2026-10-08T09:52:56Z",
-        "ticker": "DPSC",
-        "company": "DPSC Limited",
-        "exchange": "BSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company has entered a formal Corporate Insolvency Resolution Process, signaling severe balance sheet distress and potential equity wipeout.",
-        "why_now": "The exchange filing confirming the insolvency process was released on October 8, 2026.",
-        "conviction": 90,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-01f5ac49557c"
-        ],
-        "primary_source_event_id": "EVT-01f5ac49557c",
-        "source_headlines": [
-          "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process"
-        ],
-        "source_headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process",
-        "source_url": "https://nsearchives.nseindia.com/corporate/DPSCLTD_08102026110702_ComplianceUnderReg46ofSEBI_LODR_30092026.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-08T05:37:15Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-08T09:52:56Z",
-        "updated_at": "2026-10-08T09:52:56Z",
-        "decay_at": "2026-10-09T17:37:15Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-11T09:12:26Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-c156981826c5",
-        "idea_version": "IDEAV-9e6a398130a16f71",
-        "idea_version_started_at": "2026-10-08T03:53:00Z",
-        "ticker": "PAH3.DE",
-        "company": "Porsche AG",
-        "exchange": "XETRA",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Massive workforce reductions of 9,000 jobs and management cuts indicate deep operational distress, while a 20% price hike risks significant volume loss in a competitive luxury market.",
-        "why_now": "The restructuring plan was reported on 2026-10-07.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 67,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-f5cfc3d9c19e"
-        ],
-        "primary_source_event_id": "EVT-f5cfc3d9c19e",
-        "source_headlines": [
-          "Layoff news: Porsche to terminate 9,000 jobs, management positions face 40% cuts; car prices to go up 20%"
-        ],
-        "source_headline": "Layoff news: Porsche to terminate 9,000 jobs, management positions face 40% cuts; car prices to go up 20%",
-        "source_url": "https://www.livemint.com/companies/news/layoff-news-porsche-to-terminate-9-000-jobs-management-positions-face-40-cuts-car-prices-to-go-up-20-11791395563763.html",
-        "source_name": "Mint",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-07T18:02:25Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-08T03:53:00Z",
-        "updated_at": "2026-10-08T03:53:00Z",
-        "decay_at": "2026-10-09T06:02:25Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-10T20:26:53Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2179,
-    "live_count": 44,
+    "live_count": 37,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -263264,9 +263297,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 10597900,
-    "news_picked_today": 733,
-    "news_dropped_today": 9803
+    "news_seen_today": 13163568,
+    "news_picked_today": 1207,
+    "news_dropped_today": 14897
   },
   "book_momentum": {
     "live_count": 8,
