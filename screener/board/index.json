@@ -1,6 +1,208 @@
 {
-  "generated_at": "2026-11-04T08:58:26Z",
+  "generated_at": "2026-11-04T09:10:37Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261104-281",
+      "headline": "SBP GROUP (01177): VOLUNTARY ANNOUNCEMENT - ENTER INTO PARTNERSHIP WITH BOEHRINGER INGELHEIM WITH POTENTIAL TOTAL DEAL VALUE OF US$7 BILLION",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1104/2026110400622.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-04T08:34:00Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "SBP Group entered a partnership with Boehringer Ingelheim with a potential deal value of US$7 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SBP Group entered a partnership with Boehringer Ingelheim with a potential deal value of US$7 billion.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SBP Group",
+          "ticker": "01177",
+          "listing_country": "CN"
+        },
+        {
+          "name": "Boehringer Ingelheim",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-282",
+      "headline": "CAFE DE CORAL H (00341): Positive Profit Alert",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1104/2026110400600.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-04T08:32:00Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Cafe de Coral issued a positive profit alert, indicating improved financial performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Cafe de Coral issued a positive profit alert, indicating improved financial performance.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cafe de Coral",
+          "ticker": "00341",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-285",
+      "headline": "HEMAY PHARMA-B (00054): UPDATE ON THE GLOBAL OFFERING (1) POSTPONEMENT OF THE GLOBAL OFFERING AND THE LISTING (2) REFUND OF APPLICATION MONIES (3) NO ISSUE OF SHARE CERTIFICATES",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1104/2026110400409.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-04T08:31:00Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Hemay Pharma-B has officially postponed its global offering and listing, requiring a refund of application monies.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Hemay Pharma-B has officially postponed its global offering and listing, requiring a refund of application monies.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HEMAY PHARMA-B",
+          "ticker": "00054",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-278",
+      "headline": "Redington Limited: Redington Limited has informed the Exchange regarding a press release dated November 04, 2026, titled \"Redington Q2 FY27 revenue rises 48% to ₹43,002 crore\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/Jhanviu_04112026135558_Press_relese__Q2_2026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-04T08:26:09Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Redington reported a 48% revenue increase to ₹43,002 crore for Q2 FY27.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Redington reported a 48% revenue increase to ₹43,002 crore for Q2 FY27.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Redington Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261104-259",
       "headline": "Creative Newtech Limited: Creative Newtech Limited has informed the Exchange regarding 'Creative Newtech Limited approves acquisition of 100% stake in Zicom SaaS Private Limited for approximately Rs. 50.50 Crore (Enterprise Value) to strengthen its Surveillance and Managed Security Services Business'.",
@@ -1794,203 +1996,6 @@
       "companies": [
         {
           "name": "Cox Nebraska Telcom, L.L.C.",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-066",
-      "headline": "S-4/A - TMI Partner Holdings, LLC (0002145437) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/2145437/000110465926122127/0001104659-26-122127-index.htm",
-      "source_name": "SEC EDGAR — Latest S-4 (M&A / Exchange-Offer Registration)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-03T21:57:17Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "TMI Partner Holdings filed an S-4/A registration statement related to a merger or exchange offer.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "TMI Partner Holdings filed an S-4/A registration statement related to a merger or exchange offer.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TMI Partner Holdings, LLC",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-216",
-      "headline": "Park National Corporation Details $12.6 billion in Assets and First Citizens Acquisition in Q3 2026 Investor Presentation",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/park-national-corporation-details-126-billion-assets-and-first-citizens-acquisition-q3",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T03:48:52Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Detailed Q3 2026 assets of $12.6 billion and discussed its First Citizens acquisition.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Detailed Q3 2026 assets of $12.6 billion and discussed its First Citizens acquisition.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Park National Corporation",
-          "ticker": "PRK",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-196",
-      "headline": "SCHEDULE 13D/A - ICAHN CARL C (0000921669) (Filed by)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/921669/000119312526445965/0001193125-26-445965-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-04T02:57:23Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Carl Icahn filed an amended Schedule 13D, indicating a change in significant ownership or activist position.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Carl Icahn filed an amended Schedule 13D, indicating a change in significant ownership or activist position.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Carl Icahn",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-182",
-      "headline": "S-4/A - Cox Advanced Services Nebraska, LLC (0002143312) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/2143312/000110465926122127/0001104659-26-122127-index.htm",
-      "source_name": "SEC EDGAR — Latest S-4 (M&A / Exchange-Offer Registration)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-03T21:57:17Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Cox Advanced Services Nebraska, LLC filed an amended S-4 registration statement, indicating an ongoing M&A or exchange offer.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Cox Advanced Services Nebraska, LLC filed an amended S-4 registration statement, indicating an ongoing M&A or exchange offer.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cox Advanced Services Nebraska, LLC",
           "ticker": null,
           "listing_country": null
         }
@@ -220617,78 +220622,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-7698ab4f50a3",
-      "idea_version": "IDEAV-8ad4e90bb9d67f38",
-      "idea_version_started_at": "2026-11-03T02:31:59Z",
-      "ticker": "ALO",
-      "company": "Alstom",
-      "exchange": "EPA",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is cutting its forward guidance, indicating weakening demand or execution issues in its project pipeline.",
-      "why_now": "The guidance cut was announced on 2026-11-02.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e6a540bb5941"
-      ],
-      "primary_source_event_id": "EVT-e6a540bb5941",
-      "source_headlines": [
-        "Alstom reports higher revenue, cuts outlook"
-      ],
-      "source_headline": "Alstom reports higher revenue, cuts outlook",
-      "source_url": "https://www.qatar-tribune.com/article/262255/business/alstom-reports-higher-revenue-cuts-outlook",
-      "source_name": "Qatar Tribune — Business",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-02T21:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-02T10:18:41Z",
-      "updated_at": "2026-11-03T02:31:59Z",
-      "decay_at": "2026-11-04T09:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-fee1e839a5af",
       "idea_version": "IDEAV-7713be9b154fa86f",
       "idea_version_started_at": "2026-11-03T02:31:59Z",
@@ -221606,6 +221539,78 @@
       "surfaced_at": "2026-11-02T02:53:32Z",
       "updated_at": "2026-11-02T02:53:32Z",
       "decay_at": "2026-11-03T14:17:08Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-7698ab4f50a3",
+      "idea_version": "IDEAV-8ad4e90bb9d67f38",
+      "idea_version_started_at": "2026-11-03T02:31:59Z",
+      "ticker": "ALO",
+      "company": "Alstom",
+      "exchange": "EPA",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is cutting its forward guidance, indicating weakening demand or execution issues in its project pipeline.",
+      "why_now": "The guidance cut was announced on 2026-11-02.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e6a540bb5941"
+      ],
+      "primary_source_event_id": "EVT-e6a540bb5941",
+      "source_headlines": [
+        "Alstom reports higher revenue, cuts outlook"
+      ],
+      "source_headline": "Alstom reports higher revenue, cuts outlook",
+      "source_url": "https://www.qatar-tribune.com/article/262255/business/alstom-reports-higher-revenue-cuts-outlook",
+      "source_name": "Qatar Tribune — Business",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-02T21:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-02T10:18:41Z",
+      "updated_at": "2026-11-03T02:31:59Z",
+      "decay_at": "2026-11-04T09:00:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -226375,9 +226380,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 575,
+    "total_count": 576,
     "shown_count": 500,
-    "hidden_count": 75,
+    "hidden_count": 76,
     "side_counts": {
       "long": {
         "total_count": 305,
@@ -226385,9 +226390,9 @@
         "hidden_count": 55
       },
       "short": {
-        "total_count": 270,
+        "total_count": 271,
         "shown_count": 250,
-        "hidden_count": 20
+        "hidden_count": 21
       }
     },
     "retention": {
@@ -226406,6 +226411,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-7698ab4f50a3",
+        "idea_version": "IDEAV-8ad4e90bb9d67f38",
+        "idea_version_started_at": "2026-11-03T02:31:59Z",
+        "ticker": "ALO",
+        "company": "Alstom",
+        "exchange": "EPA",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company is cutting its forward guidance, indicating weakening demand or execution issues in its project pipeline.",
+        "why_now": "The guidance cut was announced on 2026-11-02.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-e6a540bb5941"
+        ],
+        "primary_source_event_id": "EVT-e6a540bb5941",
+        "source_headlines": [
+          "Alstom reports higher revenue, cuts outlook"
+        ],
+        "source_headline": "Alstom reports higher revenue, cuts outlook",
+        "source_url": "https://www.qatar-tribune.com/article/262255/business/alstom-reports-higher-revenue-cuts-outlook",
+        "source_name": "Qatar Tribune — Business",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-02T21:00:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-02T10:18:41Z",
+        "updated_at": "2026-11-03T02:31:59Z",
+        "decay_at": "2026-11-04T09:00:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-04T09:00:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-c3e6a991ceeb",
         "idea_version": "IDEAV-799d3f3726020cf9",
@@ -263587,85 +263667,12 @@
         "archived_at": "2026-10-10T14:49:44Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-e0fd057ceca0",
-        "idea_version": "IDEAV-9883cb5211945f80",
-        "idea_version_started_at": "2026-10-07T20:55:35Z",
-        "ticker": "ADTX",
-        "company": "Aditxt, Inc.",
-        "exchange": "OTC Markets",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company has received a delisting notification from the exchange, signaling severe distress and potential loss of liquidity.",
-        "why_now": "The SEC filing was processed today, October 7, 2026.",
-        "conviction": 80,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 60,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-e2c49687f5e4"
-        ],
-        "primary_source_event_id": "EVT-e2c49687f5e4",
-        "source_headlines": [
-          "25-NSE - Aditxt, Inc. (0001726711) (Subject)"
-        ],
-        "source_headline": "25-NSE - Aditxt, Inc. (0001726711) (Subject)",
-        "source_url": "https://www.sec.gov/Archives/edgar/data/1726711/000135445726000962/0001354457-26-000962-index.htm",
-        "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-07T13:08:14Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-07T20:55:35Z",
-        "updated_at": "2026-10-07T20:55:35Z",
-        "decay_at": "2026-10-09T01:08:14Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-10T13:14:51Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2172,
-    "live_count": 45,
+    "live_count": 44,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -263684,9 +263691,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8583300,
-    "news_picked_today": 509,
-    "news_dropped_today": 6715
+    "news_seen_today": 8691919,
+    "news_picked_today": 521,
+    "news_dropped_today": 7111
   },
   "book_momentum": {
     "live_count": 8,
