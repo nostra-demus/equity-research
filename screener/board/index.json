@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-04T09:27:21Z",
+  "generated_at": "2026-11-04T09:32:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20261104-295",
@@ -500,6 +500,153 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-304",
+      "headline": "Dubai property developer Emaar offers to buy out construction arm at US$16.3 billion value",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/property/dubai-property-developer-emaar-offers-buy-out-construction-arm-us16-3-billion-value",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-04T09:01:38Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Emaar Properties offered to buy out its construction arm for US$16.3 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Emaar Properties offered to buy out its construction arm for US$16.3 billion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Emaar Properties",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-310",
+      "headline": "Novo Nordisk Lifts Guidance as Rollout of Wegovy Weight-Loss Pill Continues",
+      "headline_en": null,
+      "url": "https://www.wsj.com/health/pharma/novo-nordisk-lifts-guidance-as-rollout-of-wegovy-weight-loss-pill-continues-1f748068?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-04T08:41:00Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Novo Nordisk raised its financial guidance due to strong Wegovy sales.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Novo Nordisk raised its financial guidance due to strong Wegovy sales.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Novo Nordisk",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-311",
+      "headline": "Utkarsh Small Finance Bank Q2 FY27 Results Signal A Sharp Recovery In Financial Performance, Net Loss Narrows To ₹70 Crore From ₹348 Crore As Deposits Grow 6.6%",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/utkarsh-small-finance-bank-q2-fy27-results-signal-a-sharp-recovery-in-financial-performance-net-loss-narrows-to-70-crore-from-348-crore-as-deposits-grow-66",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-04T08:22:05Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Utkarsh Small Finance Bank reported a narrowed net loss of Rs 70 crore compared to Rs 348 crore in the prior period.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Utkarsh Small Finance Bank reported a narrowed net loss of Rs 70 crore compared to Rs 348 crore in the prior period.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Utkarsh Small Finance Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1810,197 +1957,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261104-235",
-      "headline": "Vishnu Prakash R Punglia Limited: Vishnu Prakash R Punglia Limited has informed the Exchange regarding 'Business update regarding MOU for proposed acquisition of N.K. Gupta Builders Private Limited'.",
+      "inbox_id": "INB-20261104-300",
+      "headline": "Sundaram Finance Limited: Sundaram Finance Limited has informed the Exchange regarding the resignation of Mr. S. Viji, Chairman and Non-Executive Director of the Company",
       "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/VPRPL_04112026112533_Intimation.pdf",
+      "url": "https://nsearchives.nseindia.com/corporate/SUNDARMFIN_04112026143658_Resignationinitmation.pdf",
       "source_name": "BSE / NSE Exchange Filing",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-11-04T05:57:05Z",
+      "found_at": "2026-11-04T09:07:59Z",
       "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Vishnu Prakash R Punglia Limited signed an MOU for the proposed acquisition of N.K. Gupta Builders Private Limited.",
+      "prelim_note": "Chairman and Non-Executive Director S. Viji resigned.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 96,
-      "triage_reason": "Vishnu Prakash R Punglia Limited signed an MOU for the proposed acquisition of N.K. Gupta Builders Private Limited.",
+      "triage_reason": "Chairman and Non-Executive Director S. Viji resigned.",
       "region": "IN",
       "relevance": "material",
-      "materiality_pre_score": 65,
+      "materiality_pre_score": 55,
       "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vishnu Prakash R Punglia Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-195",
-      "headline": "SCHEDULE 13D/A - CVR ENERGY INC (0001376139) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1376139/000119312526445965/0001193125-26-445965-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-04T02:57:23Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "CVR Energy filed an amended Schedule 13D, indicating a change in significant ownership or activist position.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "CVR Energy filed an amended Schedule 13D, indicating a change in significant ownership or activist position.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
+        "materiality": 55,
         "source_tier": 8,
         "scope": 6,
-        "event": 6,
-        "size": 1,
+        "event": 5,
+        "size": 2,
         "recency": 5,
-        "materiality_label_floor": 10,
+        "materiality_label_floor": 15,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "mid"
+        "event_id": "executive_exit",
+        "size_bucket": "large"
       },
       "event_types": [
-        "ownership_activist"
+        "executive_exit"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "CVR Energy",
+          "name": "Sundaram Finance Limited",
           "ticker": null,
-          "listing_country": "US"
+          "listing_country": "IN"
         }
       ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-053",
-      "headline": "CAZ: Option Agreement - Brazilian Rare Earth & Uranium Projects [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CAZ?key=2924-03157801-6A1353545",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-03T22:38:40Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Option agreement for new rare earth and uranium projects expands asset portfolio.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Option agreement for new rare earth and uranium projects expands asset portfolio.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CAZ",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-084",
-      "headline": "S-4/A - Cox Missouri Telcom, LLC (0002143881) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/2143881/000110465926122127/0001104659-26-122127-index.htm",
-      "source_name": "SEC EDGAR — Latest S-4 (M&A / Exchange-Offer Registration)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-03T21:57:17Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Cox Missouri Telcom, LLC filed an S-4/A, indicating a potential merger or exchange offer.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Cox Missouri Telcom, LLC filed an S-4/A, indicating a potential merger or exchange offer.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cox Missouri Telcom, LLC",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -263691,9 +263691,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8803361,
-    "news_picked_today": 536,
-    "news_dropped_today": 7120
+    "news_seen_today": 8840860,
+    "news_picked_today": 550,
+    "news_dropped_today": 7130
   },
   "book_momentum": {
     "live_count": 8,
