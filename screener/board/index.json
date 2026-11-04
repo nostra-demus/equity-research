@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-04T17:01:04Z",
+  "generated_at": "2026-11-04T17:06:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20261104-585",
@@ -1358,6 +1358,109 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261104-601",
+      "headline": "Aurora Cannabis Inc. Enters into Arrangement Agreement to be Acquired by Organigram Global Inc. for C$7.80 Per Share",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/aurora-cannabis-inc-enters-arrangement-agreement-be-acquired-organigram-global-inc-c-780",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-04T16:32:16Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Aurora Cannabis entered an agreement to be acquired by Organigram Global Inc. for C$7.80 per share.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Aurora Cannabis entered an agreement to be acquired by Organigram Global Inc. for C$7.80 per share.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Aurora Cannabis Inc.",
+          "ticker": null,
+          "listing_country": "CA"
+        },
+        {
+          "name": "Organigram Global Inc.",
+          "ticker": null,
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-604",
+      "headline": "ECARX Holdings Inc. Reports Third Quarter 2026 Financial Results with Revenue of US$240.8 Million and Net Loss of US$48.6 Million",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/ecarx-holdings-inc-reports-third-quarter-2026-financial-results-revenue-us-2408-million",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-04T16:23:57Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "ECARX Holdings reported Q3 2026 revenue of US$240.8 million and a net loss of US$48.6 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "ECARX Holdings reported Q3 2026 revenue of US$240.8 million and a net loss of US$48.6 million.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ECARX Holdings Inc.",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261104-595",
       "headline": "Paddy Power owner Flutter cuts outlook after hefty quarterly loss",
       "headline_en": null,
@@ -1926,105 +2029,6 @@
           "name": "Kraft Heinz",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-411",
-      "headline": "Wireless Data Demand Is Surging. Why Did Crown Castle Cut Its Dividend 32%?",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/11/04/wireless-data-demand-is-surging-why-did-crown-castle-cut-its-dividend-32/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T12:17:38Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Crown Castle cut its dividend by 32%.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Crown Castle cut its dividend by 32%.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "dividend_cut",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "dividend_cut"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Crown Castle",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-416",
-      "headline": "Avient Corporation Reports Third Quarter 2026 Results and Raises Full-Year Adjusted EPS Guidance",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/avient-corporation-reports-third-quarter-2026-results-and-raises-full-year-adjusted-eps",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T12:01:28Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Avient reported Q3 results and raised its full-year adjusted EPS guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Avient reported Q3 results and raised its full-year adjusted EPS guidance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Avient Corporation",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -263289,9 +263293,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 12346845,
-    "news_picked_today": 1139,
-    "news_dropped_today": 13477
+    "news_seen_today": 12381247,
+    "news_picked_today": 1150,
+    "news_dropped_today": 13562
   },
   "book_momentum": {
     "live_count": 8,
