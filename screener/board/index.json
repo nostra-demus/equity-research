@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-04T19:48:58Z",
+  "generated_at": "2026-11-04T20:00:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20261104-585",
@@ -1407,6 +1407,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261104-624",
+      "headline": "AMD to pay $2.9-billion for AI chip firm Taalas in one of the largest Canadian tech takeovers",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/business/article-amd-to-pay-29-billion-for-ai-chip-firm-taalas/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-04T19:07:12Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "AMD is acquiring Taalas for $2.9 billion, a major capital deployment with uncertain accretion and integration risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "AMD is acquiring Taalas for $2.9 billion, a major capital deployment with uncertain accretion and integration risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 7,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AMD (Advanced Micro Devices)",
+          "ticker": "AMD",
+          "listing_country": "US"
+        },
+        {
+          "name": "Taalas",
+          "ticker": null,
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261104-609",
       "headline": "Marvell's Deal to Acquire Lumentum Could Be a Game Changer for the Stock",
       "headline_en": null,
@@ -1956,61 +2010,6 @@
         "recency": 5,
         "materiality_label_floor": 3,
         "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ITV",
-          "ticker": "ITV",
-          "listing_country": "GB"
-        },
-        {
-          "name": "Sky",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-499",
-      "headline": "UK Probes £1.6 Billion Sky-ITV Deal Over Public Interest Concern",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-04/uk-probes-1-6-billion-sky-itv-deal-over-public-interest-concern",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T13:26:38Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "UK government intervenes in the £1.6 billion Sky-ITV deal on public interest grounds, risking a block.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "UK government intervenes in the £1.6 billion Sky-ITV deal on public interest grounds, risking a block.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 82,
-      "rank_factors": {
-        "materiality": 82,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 3,
-        "quantified": 0,
         "boost_weight": 1,
         "scope_id": "multi_name",
         "source_tier_id": "news",
@@ -263298,9 +263297,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 13793992,
-    "news_picked_today": 1214,
-    "news_dropped_today": 15730
+    "news_seen_today": 13827141,
+    "news_picked_today": 1226,
+    "news_dropped_today": 15790
   },
   "book_momentum": {
     "live_count": 8,
