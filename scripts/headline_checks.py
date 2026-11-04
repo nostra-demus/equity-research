@@ -1023,6 +1023,36 @@ def _has_cross_cmp(part1):
     return False
 
 
+# A decision-line statement that NEGATES itself ("Decision line unavailable / not established /
+# unknown / n/a") is not a positive declaration — an insufficient-data or failed-synthesis run must not
+# certify a tradable line it says it could not establish (Codex r2 round 5).
+_BG_DL_NEG = re.compile(
+    r"decision line[^|\n]{0,24}(?:unavailable|not\s+(?:available|established|determined|set)|undetermined|"
+    r"unknown|\bn/?a\b|none|pending|could\s+not|cannot\s+be)", re.I)
+# The finish-gate PROVISIONAL banner (a leading '>' blockquote quoting BG's own diagnostics). Only THIS
+# banner is stripped before the scan — stripping every blockquote (the round-3 over-fix) would also hide
+# a reader-facing blockquote that quotes a stale yield (Codex r3 round 5).
+_BG_BANNER = re.compile(r"PROVISIONAL — the automated finish-gate", re.I)
+
+
+def _strip_finish_gate_banner(text):
+    """Remove ONLY a leading finish-gate PROVISIONAL banner (a '>' blockquote whose first lines carry the
+    banner marker). Any other blockquote — including reader-facing thesis prose — is preserved."""
+    if not isinstance(text, str):
+        return text
+    lines = text.splitlines()
+    i = 0
+    while i < len(lines) and lines[i].strip() == "":
+        i += 1
+    if i < len(lines) and lines[i].lstrip().startswith(">") and _BG_BANNER.search("\n".join(lines[i:i + 6])):
+        while i < len(lines) and lines[i].lstrip().startswith(">"):
+            i += 1
+        while i < len(lines) and lines[i].strip() == "":
+            i += 1
+        return "\n".join(lines[i:])
+    return text
+
+
 def _part_one(thesis):
     """Part I (everything before '# PART II'), the reader-facing decision block."""
     m = re.search(r"(?im)^#\s*PART\s+II\b", thesis)
@@ -1045,14 +1075,14 @@ def eval_bg_tradable_line_and_yield(decision_date, d, thesis):
         return None  # forward-looking; pre-gate runs N/A
     if not isinstance(thesis, str):
         return ["final_thesis.md text unavailable — cannot check the tradable-line statement"]
+    # Strip ONLY a leading finish-gate PROVISIONAL banner (not every blockquote), so the banner's quoted
+    # diagnostics cannot satisfy the decision-line / currency checks on a re-gate, while reader-facing
+    # blockquote prose (e.g. a quoted stale yield) is still validated (Codex r5 round 3, r3 round 5).
+    thesis = _strip_finish_gate_banner(thesis)
     part1 = _part_one(thesis)
-    # Drop blockquote lines: a prior finish-gate PROVISIONAL banner is a leading '>' blockquote that
-    # QUOTES BG's own earlier diagnostics (e.g. "... Decision line ... 'USD'"), which would otherwise
-    # satisfy the decision-line / currency checks on a re-gate. A real Decision line is never a
-    # blockquote, so this is safe and fixes every caller, not just the live gate (Codex r5 round 3).
-    part1 = "\n".join(l for l in part1.splitlines() if not l.lstrip().startswith(">"))
     det = []
-    dl_lines = [l for l in part1.splitlines() if re.search(r"decision line", l, re.I)]
+    # A self-negating line ("Decision line unavailable …") is not a positive declaration (Codex r2 round 5).
+    dl_lines = [l for l in part1.splitlines() if re.search(r"decision line", l, re.I) and not _BG_DL_NEG.search(l)]
     if not dl_lines:
         det.append("Part I has no 'Decision line (ticker · venue · currency)' statement — the rating, price "
                    "and fair value must name the ONE listed line they apply to (CLAUDE.md §16)")
@@ -1074,18 +1104,20 @@ def eval_bg_tradable_line_and_yield(decision_date, d, thesis):
             if rec_v and line_v and not (set(rec_v) & set(line_v)):
                 det.append(f"the Decision line statement names a venue that does not match the record's exchange "
                            f"{exch.strip()!r} — the price and fair value must belong to one of the record's listed line(s) (CLAUDE.md §16)")
+    # This branch runs ONLY when the record positively flags a second listing, so a "no other listed
+    # line" statement would contradict the record and is not an escape here — a REAL quantified
+    # cross-line comparison is required (Codex r1 round 5).
     if isinstance(d, dict) and isinstance(d.get("exchange"), str) and _BG_MULTI_LISTING.search(d["exchange"]) \
-            and not (_has_cross_cmp(part1) or _BG_NO_OTHER.search(part1)):
+            and not _has_cross_cmp(part1):
         det.append(f"decision_record.json exchange {d['exchange']!r} flags another listed line, but Part I never "
-                   f"states a cross-line premium/discount (a figure, tied to the other line) or that no other listed line exists (CLAUDE.md §16)")
+                   f"states a cross-line premium/discount (a figure, tied to the other line) (CLAUDE.md §16)")
     # Yield availability (§16) is checked across the WHOLE thesis, not just Part I: a dividend/
     # distribution yield is a quoted yield wherever it is published (Codex r8 round 4). Banner-stripped,
     # scanned clause by clause so the required basis and ex-/record-date must sit in the YIELD's OWN
     # clause — unrelated "forward EPS guide; AGM record date …" on the line cannot satisfy them (Codex r3
     # round 4). The unavailability disclosure is checked on the whole line (explanatory prose may follow
     # the clause, e.g. a parenthetical that itself contains a ';').
-    thesis_nb = "\n".join(x for x in thesis.splitlines() if not x.lstrip().startswith(">"))
-    for l in thesis_nb.splitlines():
+    for l in thesis.splitlines():  # `thesis` already has the finish-gate banner stripped (above)
         for seg in re.split(r"[;]|\.\s", l):
             if not (_BG_YIELD_QUOTED.search(seg) and not _BG_YIELD_NONE.search(seg)):
                 continue
@@ -1100,17 +1132,23 @@ def eval_bg_tradable_line_and_yield(decision_date, d, thesis):
                            f"clause — a trailing yield whose record date has passed is not income a buyer receives "
                            f"(CLAUDE.md §16): {seg.strip()[:140]!r}")
                 continue
-            # The entitlement date must be a parseable ISO CALENDAR date sitting WITH the ex-/record-date
-            # marker, so staleness is actually checkable. "ex-date TBD", a non-ISO "August 14, 2025", or an
-            # impossible "2026-99-99" is not verifiable (reject it). Compare with <= : on the ex-date itself
-            # a buyer does not receive the distribution (Codex r7 round 4).
-            dm = _BG_ISO.search(seg[exm.end():exm.end() + 30])
-            if not dm or not isdate(dm.group(0)):
+            # The entitlement date must be a parseable ISO CALENDAR date beside its marker, so staleness is
+            # checkable. "ex-date TBD", a non-ISO "August 14, 2025", or an impossible "2026-99-99" is not
+            # verifiable (reject it). Parse EVERY ex-/record marker on the clause and use the EX-date cutoff
+            # when present (a buyer on the ex-date does not receive the distribution), rather than letting
+            # field order pick the date; compare with <= (Codex r7 round 4, r4 round 5).
+            ex_dates, rec_dates = [], []
+            for m in _BG_EX_RECORD.finditer(seg):
+                dmm = _BG_ISO.search(seg[m.end():m.end() + 30])
+                if dmm and isdate(dmm.group(0)):
+                    (ex_dates if m.group(0).lower().lstrip().startswith("ex") else rec_dates).append(dmm.group(0))
+            eff = ex_dates or rec_dates
+            if not eff:
                 det.append(f"a dividend/distribution yield's ex-/record-date has no parseable ISO (yyyy-mm-dd) "
                            f"date beside it, so whether a buyer today still receives the income cannot be verified "
                            f"(CLAUDE.md §16): {seg.strip()[:140]!r}")
-            elif dm.group(0) <= decision_date and not _BG_UNAVAIL.search(l):
-                det.append(f"a dividend/distribution yield's ex-/record-date {dm.group(0)} is on or before the "
+            elif min(eff) <= decision_date and not _BG_UNAVAIL.search(l):
+                det.append(f"a dividend/distribution yield's ex-/record-date {min(eff)} is on or before the "
                            f"decision date {decision_date} but the line does not state a buyer today no longer "
                            f"receives it — a yield whose record date has passed must never be a reason to own "
                            f"(CLAUDE.md §16): {seg.strip()[:140]!r}")

@@ -2402,7 +2402,7 @@ if scope=="selftest":
         ("2026-10-05",{**_bg_d,"exchange":"Nasdaq Global Select Market (also HKEX-listed)"},_bg_th(_bg_dl+"This is not the only listed line.\n"),["another listed line"]),
         # ...an explicit no-other-line statement PASSES (and a quantified cross-line premium PASSES even
         #   without the word "the" — gemini r2).
-        ("2026-10-05",{**_bg_d,"exchange":"Nasdaq Global Select Market (also HKEX-listed)"},_bg_th(_bg_dl+"There is no other listed line; this is the sole listed line for the decision.\n"),[]),
+        ("2026-10-05",{**_bg_d,"exchange":"Nasdaq Global Select Market (also HKEX-listed)"},_bg_th(_bg_dl+"There is no other listed line; this is the sole listed line for the decision.\n"),["cross-line premium/discount (a figure"]),  # Codex r1 r5: record flags a 2nd line, so no-other is contradictory -> FAIL
         ("2026-10-05",{**_bg_d,"exchange":"Nasdaq Global Select Market (also ADR-listed)"},_bg_th(_bg_dl+"The ADR trades at a 12% premium to NYSE common line.\n"),[]),
         # ── round-2 review-driven cases (Codex re-review of 064a861) ──
         # Codex P2 (r4176555569): the bare LABEL "cross-line premium/discount" with no figure must FAIL
@@ -2430,7 +2430,7 @@ if scope=="selftest":
         ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3.1%, ex-date 2025-08-14 passed, is a reason to own.\n"),["before the decision date"]),
         # Codex P2 (r4176592577): an unrelated premium/discount+% (a DCF discount rate) is NOT a cross-line
         #   comparison -> a multi-listed record with only that prose still FAILS (old _BG_CROSS_CMP matched it).
-        ("2026-10-05",{"ticker":"600690","exchange":"SHSE:600690 (also HKEX-listed)","currency":"CNY"},_bg_th("Decision line: 600690 · SSE · CNY\nDCF fair value uses a 10% discount for execution risk.\n"),["no other listed line exists"]),
+        ("2026-10-05",{"ticker":"600690","exchange":"SHSE:600690 (also HKEX-listed)","currency":"CNY"},_bg_th("Decision line: 600690 · SSE · CNY\nDCF fair value uses a 10% discount for execution risk.\n"),["cross-line premium/discount (a figure"]),
         # Codex P1 (r4176592579): an impossible ISO date (2026-99-99) must be rejected as unparseable
         #   (old shape-only _BG_ISO matched it and compared lexically as a future date).
         ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3.1%, ex-date 2026-99-99.\n"),["no parseable"]),
@@ -2455,7 +2455,7 @@ if scope=="selftest":
         ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Gross dividend yield 3.1%; forward EPS guide; AGM record date 2026-12-01.\n"),["a trailing/forward basis"]),
         # Codex P2 (r4176635327): a bare "line" is not an other-instrument reference — a multi-listed
         #   record with only "10% discount to the revenue line" must still FAIL (old _BG_LINE_REF matched "line").
-        ("2026-10-05",{"ticker":"600690","exchange":"SHSE:600690 (also HKEX-listed)","currency":"CNY"},_bg_th("Decision line: 600690 · SSE · CNY\nDCF fair value applies a 10% discount to the revenue line.\n"),["no other listed line exists"]),
+        ("2026-10-05",{"ticker":"600690","exchange":"SHSE:600690 (also HKEX-listed)","currency":"CNY"},_bg_th("Decision line: 600690 · SSE · CNY\nDCF fair value applies a 10% discount to the revenue line.\n"),["cross-line premium/discount (a figure"]),
         # Codex P2 (r4176635331): on the ex-date itself a buyer does not receive the distribution, so an
         #   ex-/record-date EQUAL to the decision date, presented as a reason to own, must FAIL (<= not <).
         ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3.1%, ex-date 2026-10-05, is a reason to own.\n"),["on or before the decision date"]),
@@ -2464,6 +2464,18 @@ if scope=="selftest":
         ("2026-10-05",_bg_d,
          "# PART I\n\n## 2. Headline Scorecard\n\n"+_bg_dl+"\n# PART II — ANALYSIS\n\nThe trailing dividend yield of 3.1%, ex-date 2025-08-14, is a reason to own.\n",
          ["on or before the decision date"]),
+        # ── round-5 review-driven cases (Codex re-review of 3a8e840) ──
+        # Codex P2 (r4467762116): a self-negating "Decision line unavailable: …" is not a declaration ->
+        #   FAIL on the missing-decision-line check (old treated any 'decision line' line as the statement).
+        ("2026-10-05",_bg_d,_bg_th("Decision line unavailable: AKAM · Nasdaq Global Select Market · USD\n"),["no 'Decision line"]),
+        # Codex P1 (r4467762126): only the finish-gate banner should be stripped — a reader-facing
+        #   blockquote quoting a stale yield must still be caught (old stripped ALL blockquotes).
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"> Trailing dividend yield 3.1%, ex-date 2025-08-14, is a reason to own.\n"),["on or before the decision date"]),
+        # (the genuine finish-gate banner is still stripped — the round-3 banner case above proves it.)
+        # Codex P1 (r4467762132): when both a record date and an ex-date appear, the EX-date cutoff governs,
+        #   not field order -> a future record date before a passed ex-date must still FAIL (old parsed the
+        #   first marker only).
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3.1%, record date 2026-10-06, ex-date 2026-10-05, is a reason to own.\n"),["on or before the decision date"]),
     ]
     bgbad=0
     for dt_,d_,th_,exp in _bg_cases:
