@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-04T21:32:43Z",
+  "generated_at": "2026-11-04T21:42:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20261104-637",
@@ -1657,6 +1657,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261104-665",
+      "headline": "Qualcomm stock drops 5% on weak earnings forecast as memory shortage weighs on smartphone sales",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/11/04/qualcomm-qcom-earnings-report-q4-2026.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-04T21:16:30Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Qualcomm stock dropped 5% following a weak earnings forecast and supply chain constraints.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Qualcomm stock dropped 5% following a weak earnings forecast and supply chain constraints.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Qualcomm",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261104-629",
       "headline": "FitLab Blames Bankruptcy on Loss of Nike Partnership, Trump Tariffs",
       "headline_en": null,
@@ -1962,56 +2011,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-595",
-      "headline": "Paddy Power owner Flutter cuts outlook after hefty quarterly loss",
-      "headline_en": null,
-      "url": "https://www.independent.co.uk/news/business/paddy-power-ireland-new-york-betfair-porto-b3079248.html",
-      "source_name": "The Independent — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T16:14:31Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Flutter Entertainment cut its financial outlook following a quarterly loss.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Flutter Entertainment cut its financial outlook following a quarterly loss.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change",
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Flutter Entertainment",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -263345,9 +263344,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 14173978,
-    "news_picked_today": 1344,
-    "news_dropped_today": 19512
+    "news_seen_today": 14204599,
+    "news_picked_today": 1371,
+    "news_dropped_today": 19725
   },
   "book_momentum": {
     "live_count": 8,
