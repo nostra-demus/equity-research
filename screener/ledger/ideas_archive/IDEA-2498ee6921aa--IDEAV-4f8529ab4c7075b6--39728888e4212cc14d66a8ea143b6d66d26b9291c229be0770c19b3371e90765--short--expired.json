@@ -1,0 +1,79 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-11-03T17:02:38Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-2498ee6921aa",
+    "idea_version": "IDEAV-4f8529ab4c7075b6",
+    "idea_version_started_at": "2026-10-31T22:55:38Z",
+    "ticker": "EKI",
+    "company": "EKI Energy Services",
+    "exchange": "BSE",
+    "ticker_verified": false,
+    "listing_verified": false,
+    "liquidity_verified": false,
+    "listing_verification_source": null,
+    "direction": "short",
+    "pair_with": null,
+    "reason": "The 12-month ban on the Managing Director by SEBI for financial misrepresentation creates significant governance risk and leadership uncertainty.",
+    "why_now": "The regulatory order was issued on 2026-10-31.",
+    "conviction": 80,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 45,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 21,
+      "specificity": 7,
+      "timing": 10,
+      "expression": 0,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "watch_only",
+    "missing_checks": [
+      "verified listed ticker",
+      "verified listing",
+      "live liquidity",
+      "dated catalyst",
+      "independent confirmation",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "governance_turnaround",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-d87e3453a815"
+    ],
+    "primary_source_event_id": "EVT-d87e3453a815",
+    "source_headlines": [
+      "SEBI bars EKI Energy Services MD Manish Dabkara for 12 months over financial misrepresentation"
+    ],
+    "source_headline": "SEBI bars EKI Energy Services MD Manish Dabkara for 12 months over financial misrepresentation",
+    "source_url": "https://www.thehindubusinessline.com/markets/sebi-bars-eki-energy-services-md-manish-dabkara-for-12-months-over-financial-misrepresentation/article71650614.ece",
+    "source_name": "The Hindu BusinessLine",
+    "materiality_max": 100,
+    "newest_source_at": "2026-10-31T17:01:28Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-10-31T19:00:11Z",
+    "updated_at": "2026-10-31T22:55:38Z",
+    "decay_at": "2026-11-02T05:01:28Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}

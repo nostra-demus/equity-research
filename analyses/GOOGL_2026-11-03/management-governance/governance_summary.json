@@ -1,0 +1,67 @@
+{
+  "ticker": "GOOGL",
+  "as_of_date": "2026-11-03",
+  "verdict": "Misaligned or weak stewardship",
+  "gate": {
+    "status": "PASS",
+    "tripping_fact": null,
+    "hard_disqualifier": false,
+    "critical_red_flag_count": 0,
+    "disqualifying_controller_ceo_cfo_chair": false,
+    "material_undisclosed_legal_matter": false
+  },
+  "scores": {
+    "management_quality": 67,
+    "capital_allocation": 57,
+    "incentive_alignment": 50,
+    "shareholder_friendliness": 39,
+    "disclosure_candor": 60,
+    "ownership_alignment_specialist": 57,
+    "people_network_integrity_pre_cap": 75,
+    "people_network_integrity_after_legal_cap": 65,
+    "people_network_integrity_final": 50,
+    "audit_assurance_quality": 55,
+    "rpt_leakage_risk_pre_cap": 39,
+    "rpt_leakage_risk_final": 40,
+    "contingent_liability_risk": 59,
+    "accounting_forensics_risk": 23,
+    "legal_regulatory_risk": 63,
+    "governance_risk": 60,
+    "data_quality": 57,
+    "overall_usefulness": 65
+  },
+  "checklist_risk": {
+    "value": 63,
+    "binding_component": "legal_regulatory_risk",
+    "inputs": {
+      "rpt_leakage": 40,
+      "contingent_liability": 59,
+      "accounting_forensics": 23,
+      "legal_regulatory": 63
+    }
+  },
+  "governance_score": 50.43,
+  "confidence_score": 65,
+  "confidence_adjusted_governance_score": 32.78,
+  "governance_rating": "Weak",
+  "red_flag_count": 5,
+  "critical_red_flag_count": 0,
+  "red_flag_ids": [
+    "RF-AUD-007",
+    "RF-FIN-003",
+    "RF-CL-001",
+    "RF-REG-001",
+    "RF-NET-003"
+  ],
+  "checklist_coverage": {
+    "answered": 102,
+    "total": 179,
+    "percent": 56.98,
+    "green": 47,
+    "amber": 47,
+    "red": 8,
+    "not_available": 77
+  },
+  "hard_disqualifier_handoff": "No hard disqualifier triggered from available evidence.",
+  "highest_value_next_data_request": "Alphabet definitive 2026 DEF 14A with compensation, ownership/pledge, board/committee, audit-fee, Item 404 RPT, and vote tables."
+}

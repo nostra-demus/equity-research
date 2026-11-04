@@ -1,0 +1,77 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-11-04T04:30:07Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-6f9fa5492bbb",
+    "idea_version": "IDEAV-fff09a3823f6635c",
+    "idea_version_started_at": "2026-11-01T06:01:40Z",
+    "ticker": "NIO",
+    "company": "Nio",
+    "exchange": "NYSE",
+    "ticker_verified": true,
+    "listing_verified": true,
+    "liquidity_verified": false,
+    "listing_verification_source": "yahoo_symbol_directory",
+    "direction": "short",
+    "pair_with": null,
+    "reason": "The company's 15.23% decline in October deliveries marks the end of a 31-month growth streak, signaling a potential loss of market share and momentum in a competitive EV market.",
+    "why_now": "The delivery data was released on November 1, 2026, confirming the immediate break in the long-term growth trend.",
+    "conviction": 75,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 67,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 21,
+      "specificity": 15,
+      "timing": 10,
+      "expression": 7,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "needs_data",
+    "missing_checks": [
+      "live liquidity",
+      "dated catalyst",
+      "independent confirmation",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-e54de5119d87"
+    ],
+    "primary_source_event_id": "EVT-e54de5119d87",
+    "source_headlines": [
+      "Nio October deliveries fall 15.23%, ending 31-month streak of year-on-year growth"
+    ],
+    "source_headline": "Nio October deliveries fall 15.23%, ending 31-month streak of year-on-year growth",
+    "source_url": "https://cnevpost.com/2026/11/01/nio-deliveries-oct-2026/",
+    "source_name": "CnEVPost",
+    "materiality_max": 100,
+    "newest_source_at": "2026-11-01T04:26:34Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-11-01T06:01:40Z",
+    "updated_at": "2026-11-01T06:01:40Z",
+    "decay_at": "2026-11-02T16:26:34Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}
