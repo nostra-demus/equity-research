@@ -1139,12 +1139,19 @@ def eval_bg_tradable_line_and_yield(decision_date, d, thesis):
             # rather than letting field order pick the date; compare with <= (Codex r7 round 4, r4 round 5).
             # Bind the date to the marker's OWN field — up to the next comma — so a later field's date
             # (e.g. "ex-date TBD, payment date 2026-12-01") is not borrowed as the ex-date (Codex r1 round 6).
+            ex_present = False
             ex_dates, rec_dates = [], []
             for m in _BG_EX_RECORD.finditer(seg):
+                is_ex = m.group(0).lower().lstrip().startswith("ex")
+                ex_present = ex_present or is_ex
                 dmm = _BG_ISO.search(seg[m.end():].split(",", 1)[0])
                 if dmm and isdate(dmm.group(0)):
-                    (ex_dates if m.group(0).lower().lstrip().startswith("ex") else rec_dates).append(dmm.group(0))
-            eff = ex_dates or rec_dates
+                    (ex_dates if is_ex else rec_dates).append(dmm.group(0))
+            # The ex-date is the binding cutoff: when an ex-date marker is PRESENT it must itself carry a
+            # valid date — do NOT fall back to a record date if the ex-date's own field is unparseable
+            # (e.g. "ex-date TBD, record date 2026-12-01") (Codex r1 round 7). A record date is used only
+            # when no ex-date marker appears at all.
+            eff = ex_dates if ex_present else rec_dates
             if not eff:
                 det.append(f"a dividend/distribution yield's ex-/record-date has no parseable ISO (yyyy-mm-dd) "
                            f"date beside it, so whether a buyer today still receives the income cannot be verified "

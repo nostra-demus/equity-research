@@ -2480,6 +2480,10 @@ if scope=="selftest":
         #   a later comma-separated field — "ex-date TBD, payment date 2026-12-01" must FAIL (TBD is unparseable;
         #   the payment date does not establish entitlement), not borrow 2026-12-01 as the ex-date.
         ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3.1%, ex-date TBD, payment date 2026-12-01, is a reason to own.\n"),["no parseable"]),
+        # ── round-7 ── Codex P1 (r4468009004): an ex-date marker GOVERNS — when it is present but its own
+        #   field is unparseable, BG must not fall back to a record date. "ex-date TBD, record date 2026-12-01"
+        #   must FAIL (the controlling ex-date is unknown), not pass on the future record date.
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3.1%, ex-date TBD, record date 2026-12-01, is a reason to own.\n"),["no parseable"]),
     ]
     bgbad=0
     for dt_,d_,th_,exp in _bg_cases:
