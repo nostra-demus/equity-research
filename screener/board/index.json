@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-04T10:25:53Z",
+  "generated_at": "2026-11-04T10:32:38Z",
   "inbox": [
     {
       "inbox_id": "INB-20261104-338",
@@ -46,6 +46,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-359",
+      "headline": "SUNSHINE (00509): CANCELLATION OF LISTING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1104/2026110401430.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-04T09:49:00Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Sunshine (00509) is being delisted from the exchange.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Sunshine (00509) is being delisted from the exchange.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SUNSHINE",
+          "ticker": "00509",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1948,56 +1997,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-018",
-      "headline": "AMD shares jump 7% in extended trade after strong Q3 results, guidance, data center bet",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/amd-q3-results-revenue-eps-beat-q4-guidance-chip-data-center-ai-demand-ceo-lisa-su-outlook-share-price-20026436.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T00:01:58Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "AMD reported strong Q3 results and guidance, driving a 7% share price increase.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "AMD reported strong Q3 results and guidance, driving a 7% share price increase.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AMD",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -220475,77 +220474,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-a204395caab2",
-      "idea_version": "IDEAV-6cd21665a86d4930",
-      "idea_version_started_at": "2026-11-03T02:31:59Z",
-      "ticker": "PNN",
-      "company": "Power Minerals",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company secured a A$5 million strategic investment, providing necessary capital and validation.",
-      "why_now": "The investment was announced via exchange filing on 2026-11-02.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6c4dad072eb0"
-      ],
-      "primary_source_event_id": "EVT-6c4dad072eb0",
-      "source_headlines": [
-        "PNN: POWER SECURES A$5M STRATEGIC CORNERSTONE INVESTMENT [price-sensitive]"
-      ],
-      "source_headline": "PNN: POWER SECURES A$5M STRATEGIC CORNERSTONE INVESTMENT [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PNN?key=2924-03157365-2A1707980",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 98,
-      "newest_source_at": "2026-11-02T22:26:01Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-03T02:31:59Z",
-      "updated_at": "2026-11-03T02:31:59Z",
-      "decay_at": "2026-11-04T10:26:01Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-9e711acef9ae",
       "idea_version": "IDEAV-6fc5b52a377e3f5e",
       "idea_version_started_at": "2026-11-04T06:42:55Z",
@@ -224649,6 +224577,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-a204395caab2",
+      "idea_version": "IDEAV-6cd21665a86d4930",
+      "idea_version_started_at": "2026-11-03T02:31:59Z",
+      "ticker": "PNN",
+      "company": "Power Minerals",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company secured a A$5 million strategic investment, providing necessary capital and validation.",
+      "why_now": "The investment was announced via exchange filing on 2026-11-02.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6c4dad072eb0"
+      ],
+      "primary_source_event_id": "EVT-6c4dad072eb0",
+      "source_headlines": [
+        "PNN: POWER SECURES A$5M STRATEGIC CORNERSTONE INVESTMENT [price-sensitive]"
+      ],
+      "source_headline": "PNN: POWER SECURES A$5M STRATEGIC CORNERSTONE INVESTMENT [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PNN?key=2924-03157365-2A1707980",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 98,
+      "newest_source_at": "2026-11-02T22:26:01Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-03T02:31:59Z",
+      "updated_at": "2026-11-03T02:31:59Z",
+      "decay_at": "2026-11-04T10:26:01Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-41c5501266bc",
       "idea_version": "IDEAV-03b730a97de42b8a",
       "idea_version_started_at": "2026-11-01T10:30:47Z",
@@ -226377,14 +226376,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 580,
+    "total_count": 581,
     "shown_count": 499,
-    "hidden_count": 81,
+    "hidden_count": 82,
     "side_counts": {
       "long": {
-        "total_count": 308,
+        "total_count": 309,
         "shown_count": 250,
-        "hidden_count": 58
+        "hidden_count": 59
       },
       "short": {
         "total_count": 273,
@@ -226408,6 +226407,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-a204395caab2",
+        "idea_version": "IDEAV-6cd21665a86d4930",
+        "idea_version_started_at": "2026-11-03T02:31:59Z",
+        "ticker": "PNN",
+        "company": "Power Minerals",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company secured a A$5 million strategic investment, providing necessary capital and validation.",
+        "why_now": "The investment was announced via exchange filing on 2026-11-02.",
+        "conviction": 50,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-6c4dad072eb0"
+        ],
+        "primary_source_event_id": "EVT-6c4dad072eb0",
+        "source_headlines": [
+          "PNN: POWER SECURES A$5M STRATEGIC CORNERSTONE INVESTMENT [price-sensitive]"
+        ],
+        "source_headline": "PNN: POWER SECURES A$5M STRATEGIC CORNERSTONE INVESTMENT [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PNN?key=2924-03157365-2A1707980",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 98,
+        "newest_source_at": "2026-11-02T22:26:01Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-03T02:31:59Z",
+        "updated_at": "2026-11-03T02:31:59Z",
+        "decay_at": "2026-11-04T10:26:01Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-04T10:26:01Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-2cfb749c8806",
         "idea_version": "IDEAV-fa2639c2d1dc9855",
@@ -255755,82 +255828,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-aaa2cb1ecefc",
-        "idea_version": "IDEAV-a400997e7a2405c3",
-        "idea_version_started_at": "2026-10-20T05:56:49Z",
-        "ticker": "NAB",
-        "company": "National Australia Bank",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The bank is initiating a significant restructuring involving 2,500 job cuts, which is expected to improve operational efficiency and reduce long-term cost bases.",
-        "why_now": "The announcement was made on October 20, 2026, with the majority of cuts scheduled to occur within the coming months.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 7,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-b8af2e8030f1",
-          "EVT-63368d24348e"
-        ],
-        "primary_source_event_id": "EVT-b8af2e8030f1",
-        "source_headlines": [
-          "NAB to cut 2,500 jobs in massive restructure",
-          "NAB to cut 2500 jobs in huge restructuring, most to go within months"
-        ],
-        "source_headline": "NAB to cut 2,500 jobs in massive restructure",
-        "source_url": "https://www.theguardian.com/australia-news/2026/oct/20/nab-bank-restructure-2500-jobs-cuts",
-        "source_name": "The Guardian — World news",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-20T01:27:04Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-20T05:56:49Z",
-        "updated_at": "2026-10-20T05:56:49Z",
-        "decay_at": "2026-10-21T13:27:04Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-23T04:16:07Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-18ddb9fd5fec",
         "idea_version": "IDEAV-5db13e7aa00663b6",
         "idea_version_started_at": "2026-10-20T00:02:47Z",
@@ -263600,7 +263597,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2172,
-    "live_count": 40,
+    "live_count": 39,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -263619,9 +263616,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 9286253,
-    "news_picked_today": 614,
-    "news_dropped_today": 7810
+    "news_seen_today": 9323548,
+    "news_picked_today": 624,
+    "news_dropped_today": 8160
   },
   "book_momentum": {
     "live_count": 8,
