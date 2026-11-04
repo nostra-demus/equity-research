@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-04T10:17:22Z",
+  "generated_at": "2026-11-04T10:24:30Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261104-338",
+      "headline": "DADI INTL GROUP (08130): INSIDE INFORMATION: (1) DECISION OF THE GEM LISTING REVIEW COMMITTEE ON THE CANCELLATION OF LISTING; (2) THE EXCHANGE'S RESPONSE TO THE COMPANY'S REQUEST FOR THE SUSPENSION OF THE IMPLEMENTATION OF THE DELISTING DECISION; AND (3) UPDATE ON THE LEAVE APPLICATION FOR JUDICIAL REVIEW AND THE CANCELLATION OF LISTING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1104/2026110401584.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-04T10:06:00Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "GEM Listing Review Committee issued decision to cancel company's listing; company seeking judicial review and suspension of delisting implementation — a regulatory enforcement action and going-concern threat.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "GEM Listing Review Committee issued decision to cancel company's listing; company seeking judicial review and suspension of delisting implementation — a regulatory enforcement action and going-concern threat.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 79,
+      "rank_factors": {
+        "materiality": 79,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 6,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DADI INTL GROUP",
+          "ticker": "08130",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261104-331",
       "headline": "GRAND BAOXIN (01293): DECISION OF THE LISTING COMMITTEE ON CANCELLATION OF LISTING",
@@ -1948,55 +1997,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-321",
-      "headline": "SKF India raises FY27 revenue growth guidance to 20%, retains 17% margin target",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/earnings/skf-india-q2-results-raises-full-year-revenue-growth-guidance-to-20-pc-alpha-article-20026725.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T08:48:45Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "SKF India raised FY27 revenue growth guidance to 20% and retained 17% margin target, a quantified forward earnings upgrade that lifts consensus expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "SKF India raised FY27 revenue growth guidance to 20% and retained 17% margin target, a quantified forward earnings upgrade that lifts consensus expectations.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SKF India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -217774,79 +217774,6 @@
   "handoffs": [],
   "ideas": [
     {
-      "idea_id": "IDEA-2cfb749c8806",
-      "idea_version": "IDEAV-fa2639c2d1dc9855",
-      "idea_version_started_at": "2026-11-02T23:10:25Z",
-      "ticker": "MRVL",
-      "company": "Marvell Technology",
-      "exchange": "NASDAQ",
-      "direction": "pair",
-      "pair_with": "LITE",
-      "reason": "Marvell is acquiring Lumentum in an all-stock deal, creating a classic arbitrage opportunity where the acquirer typically faces selling pressure while the target trades toward the offer price.",
-      "why_now": "The acquisition was announced on November 2, 2026, and the market is currently reacting to the deal terms and the significant dilution implied by the $115 billion price tag.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 76,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 23,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "pair_trade",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d5d0dcd047f8",
-        "EVT-78cc439f9063",
-        "EVT-807bdfc38eea"
-      ],
-      "primary_source_event_id": "EVT-d5d0dcd047f8",
-      "source_headlines": [
-        "Lumentum Goes From $1 Billion Spinoff to $115 Billion Takeover",
-        "Stock Market Today, Nov. 2: Marvell Announces $115 Billion All-Stock Acquisition of Lumentum",
-        "Marvell Technology Is Acquiring Lumentum. Why Does the Market Hate the Move?"
-      ],
-      "source_headline": "Lumentum Goes From $1 Billion Spinoff to $115 Billion Takeover",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-11-02/lumentum-goes-from-1-billion-spinoff-to-115-billion-takeover",
-      "source_name": "Bloomberg",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-02T22:22:02Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-02T23:10:25Z",
-      "updated_at": "2026-11-02T23:10:25Z",
-      "decay_at": "2026-11-04T10:22:02Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-22b8ed9b7225",
       "idea_version": "IDEAV-26f247165827bedf",
       "idea_version_started_at": "2026-11-04T03:58:17Z",
@@ -219036,77 +218963,6 @@
       "surfaced_at": "2026-11-03T19:40:00Z",
       "updated_at": "2026-11-03T19:40:00Z",
       "decay_at": "2026-11-05T06:52:36Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-f57f73aa30ee",
-      "idea_version": "IDEAV-2d16ea5fdf9fa39f",
-      "idea_version_started_at": "2026-11-02T23:10:25Z",
-      "ticker": "AEHR",
-      "company": "Aehr Test Systems",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Aehr reported a tripling of revenue driven by a surge in AI-related orders, indicating strong demand for their semiconductor test and burn-in equipment.",
-      "why_now": "The earnings report was released on November 2, 2026, showing immediate operational momentum.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-488542adb3a3"
-      ],
-      "primary_source_event_id": "EVT-488542adb3a3",
-      "source_headlines": [
-        "Aehr Revenue Triples as AI Orders Pile Up: Rapid Earnings Reaction"
-      ],
-      "source_headline": "Aehr Revenue Triples as AI Orders Pile Up: Rapid Earnings Reaction",
-      "source_url": "https://www.nasdaq.com/articles/aehr-revenue-triples-ai-orders-pile-rapid-earnings-reaction",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-02T22:20:19Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-02T23:10:25Z",
-      "updated_at": "2026-11-02T23:10:25Z",
-      "decay_at": "2026-11-04T10:20:19Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -220835,6 +220691,79 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-2cfb749c8806",
+      "idea_version": "IDEAV-fa2639c2d1dc9855",
+      "idea_version_started_at": "2026-11-02T23:10:25Z",
+      "ticker": "MRVL",
+      "company": "Marvell Technology",
+      "exchange": "NASDAQ",
+      "direction": "pair",
+      "pair_with": "LITE",
+      "reason": "Marvell is acquiring Lumentum in an all-stock deal, creating a classic arbitrage opportunity where the acquirer typically faces selling pressure while the target trades toward the offer price.",
+      "why_now": "The acquisition was announced on November 2, 2026, and the market is currently reacting to the deal terms and the significant dilution implied by the $115 billion price tag.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 76,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 23,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "pair_trade",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d5d0dcd047f8",
+        "EVT-78cc439f9063",
+        "EVT-807bdfc38eea"
+      ],
+      "primary_source_event_id": "EVT-d5d0dcd047f8",
+      "source_headlines": [
+        "Lumentum Goes From $1 Billion Spinoff to $115 Billion Takeover",
+        "Stock Market Today, Nov. 2: Marvell Announces $115 Billion All-Stock Acquisition of Lumentum",
+        "Marvell Technology Is Acquiring Lumentum. Why Does the Market Hate the Move?"
+      ],
+      "source_headline": "Lumentum Goes From $1 Billion Spinoff to $115 Billion Takeover",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-02/lumentum-goes-from-1-billion-spinoff-to-115-billion-takeover",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-02T22:22:02Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-02T23:10:25Z",
+      "updated_at": "2026-11-02T23:10:25Z",
+      "decay_at": "2026-11-04T10:22:02Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-c186a214190f",
       "idea_version": "IDEAV-daba0b795cb2ff6d",
       "idea_version_started_at": "2026-11-01T22:52:23Z",
@@ -221320,6 +221249,77 @@
       "surfaced_at": "2026-11-01T09:01:03Z",
       "updated_at": "2026-11-01T09:01:03Z",
       "decay_at": "2026-11-02T20:00:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-f57f73aa30ee",
+      "idea_version": "IDEAV-2d16ea5fdf9fa39f",
+      "idea_version_started_at": "2026-11-02T23:10:25Z",
+      "ticker": "AEHR",
+      "company": "Aehr Test Systems",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Aehr reported a tripling of revenue driven by a surge in AI-related orders, indicating strong demand for their semiconductor test and burn-in equipment.",
+      "why_now": "The earnings report was released on November 2, 2026, showing immediate operational momentum.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-488542adb3a3"
+      ],
+      "primary_source_event_id": "EVT-488542adb3a3",
+      "source_headlines": [
+        "Aehr Revenue Triples as AI Orders Pile Up: Rapid Earnings Reaction"
+      ],
+      "source_headline": "Aehr Revenue Triples as AI Orders Pile Up: Rapid Earnings Reaction",
+      "source_url": "https://www.nasdaq.com/articles/aehr-revenue-triples-ai-orders-pile-rapid-earnings-reaction",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-02T22:20:19Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-02T23:10:25Z",
+      "updated_at": "2026-11-02T23:10:25Z",
+      "decay_at": "2026-11-04T10:20:19Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -226376,19 +226376,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 578,
-    "shown_count": 500,
-    "hidden_count": 78,
+    "total_count": 580,
+    "shown_count": 499,
+    "hidden_count": 81,
     "side_counts": {
       "long": {
-        "total_count": 306,
+        "total_count": 308,
         "shown_count": 250,
-        "hidden_count": 56
+        "hidden_count": 58
       },
       "short": {
-        "total_count": 272,
+        "total_count": 273,
         "shown_count": 250,
-        "hidden_count": 22
+        "hidden_count": 23
       }
     },
     "retention": {
@@ -226407,6 +226407,156 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-2cfb749c8806",
+        "idea_version": "IDEAV-fa2639c2d1dc9855",
+        "idea_version_started_at": "2026-11-02T23:10:25Z",
+        "ticker": "MRVL",
+        "company": "Marvell Technology",
+        "exchange": "NASDAQ",
+        "direction": "pair",
+        "pair_with": "LITE",
+        "reason": "Marvell is acquiring Lumentum in an all-stock deal, creating a classic arbitrage opportunity where the acquirer typically faces selling pressure while the target trades toward the offer price.",
+        "why_now": "The acquisition was announced on November 2, 2026, and the market is currently reacting to the deal terms and the significant dilution implied by the $115 billion price tag.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 76,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 23,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 7,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "pair_trade",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-d5d0dcd047f8",
+          "EVT-78cc439f9063",
+          "EVT-807bdfc38eea"
+        ],
+        "primary_source_event_id": "EVT-d5d0dcd047f8",
+        "source_headlines": [
+          "Lumentum Goes From $1 Billion Spinoff to $115 Billion Takeover",
+          "Stock Market Today, Nov. 2: Marvell Announces $115 Billion All-Stock Acquisition of Lumentum",
+          "Marvell Technology Is Acquiring Lumentum. Why Does the Market Hate the Move?"
+        ],
+        "source_headline": "Lumentum Goes From $1 Billion Spinoff to $115 Billion Takeover",
+        "source_url": "https://www.bloomberg.com/news/articles/2026-11-02/lumentum-goes-from-1-billion-spinoff-to-115-billion-takeover",
+        "source_name": "Bloomberg",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-02T22:22:02Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-02T23:10:25Z",
+        "updated_at": "2026-11-02T23:10:25Z",
+        "decay_at": "2026-11-04T10:22:02Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-04T10:22:02Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-f57f73aa30ee",
+        "idea_version": "IDEAV-2d16ea5fdf9fa39f",
+        "idea_version_started_at": "2026-11-02T23:10:25Z",
+        "ticker": "AEHR",
+        "company": "Aehr Test Systems",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Aehr reported a tripling of revenue driven by a surge in AI-related orders, indicating strong demand for their semiconductor test and burn-in equipment.",
+        "why_now": "The earnings report was released on November 2, 2026, showing immediate operational momentum.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 60,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-488542adb3a3"
+        ],
+        "primary_source_event_id": "EVT-488542adb3a3",
+        "source_headlines": [
+          "Aehr Revenue Triples as AI Orders Pile Up: Rapid Earnings Reaction"
+        ],
+        "source_headline": "Aehr Revenue Triples as AI Orders Pile Up: Rapid Earnings Reaction",
+        "source_url": "https://www.nasdaq.com/articles/aehr-revenue-triples-ai-orders-pile-rapid-earnings-reaction",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-02T22:20:19Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-02T23:10:25Z",
+        "updated_at": "2026-11-02T23:10:25Z",
+        "decay_at": "2026-11-04T10:20:19Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-04T10:20:19Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-fee1e839a5af",
         "idea_version": "IDEAV-7713be9b154fa86f",
@@ -255680,155 +255830,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-ce1429be5073",
-        "idea_version": "IDEAV-97aefb9f10f608e3",
-        "idea_version_started_at": "2026-10-20T04:00:57Z",
-        "ticker": "K71U",
-        "company": "Keppel Reit",
-        "exchange": "SGX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The acquisition of a 51% stake in Keppel South Central for $610.9 million increases the REIT's exposure to high-quality office assets and is accretive to its portfolio.",
-        "why_now": "The deal was announced on 2026-10-20, providing immediate clarity on capital deployment.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-2b39d07ccc39"
-        ],
-        "primary_source_event_id": "EVT-2b39d07ccc39",
-        "source_headlines": [
-          "Keppel Reit to buy 51% stake in Keppel South Central for $610.9 million"
-        ],
-        "source_headline": "Keppel Reit to buy 51% stake in Keppel South Central for $610.9 million",
-        "source_url": "https://www.straitstimes.com/business/keppel-reit-to-buy-51-stake-in-keppel-south-central-for-610-9-million",
-        "source_name": "The Straits Times",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-20T01:03:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-20T04:00:57Z",
-        "updated_at": "2026-10-20T04:00:57Z",
-        "decay_at": "2026-10-21T13:03:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-23T04:16:07Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-20aa195678e4",
-        "idea_version": "IDEAV-0b7c7fb4ddbc93d0",
-        "idea_version_started_at": "2026-10-20T02:20:53Z",
-        "ticker": "01477",
-        "company": "Ocumension-B",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Positive topline results from the 36-month Phase III trial of OT-101 significantly de-risk the product's path to commercialization and market share capture in myopia management.",
-        "why_now": "The trial results were released on October 20, 2026, providing a clear catalyst for re-rating.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-4dcb3ba55279"
-        ],
-        "primary_source_event_id": "EVT-4dcb3ba55279",
-        "source_headlines": [
-          "OCUMENSION-B (01477): INSIDE INFORMATION ANNOUNCEMENT TOPLINE RESULTS OF THE MONTH 36 PRIMARY ANALYSIS OF THE GLOBAL MULTI-CENTRE PHASE III CLINICAL TRIAL OF OT-101 (0.01% ATROPINE SULFATE EYE DROPS)"
-        ],
-        "source_headline": "OCUMENSION-B (01477): INSIDE INFORMATION ANNOUNCEMENT TOPLINE RESULTS OF THE MONTH 36 PRIMARY ANALYSIS OF THE GLOBAL MULTI-CENTRE PHASE III CLINICAL TRIAL OF OT-101 (0.01% ATROPINE SULFATE EYE DROPS)",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1020/2026102000141.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 95,
-        "newest_source_at": "2026-10-20T00:25:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-20T02:20:53Z",
-        "updated_at": "2026-10-20T02:20:53Z",
-        "decay_at": "2026-10-21T12:25:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-23T04:16:07Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-18ddb9fd5fec",
         "idea_version": "IDEAV-5db13e7aa00663b6",
         "idea_version_started_at": "2026-10-20T00:02:47Z",
@@ -263593,86 +263594,12 @@
         "archived_at": "2026-10-10T20:26:53Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-06894aca2687",
-        "idea_version": "IDEAV-845e2a5a164bd16c",
-        "idea_version_started_at": "2026-10-07T18:07:00Z",
-        "ticker": "08455",
-        "company": "LAI Group",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company is initiating a dilutive rights issue (two shares for every one held) alongside a capital reorganization, which typically signals balance sheet stress.",
-        "why_now": "The filing was released on October 7, 2026.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-c7a7057fb664"
-        ],
-        "primary_source_event_id": "EVT-c7a7057fb664",
-        "source_headlines": [
-          "LAI GROUP (08455): (1) PROPOSED CAPITAL REORGANISATION; (2) PROPOSED CHANGE IN BOARD LOT SIZE; (3) PROPOSED INCREASE IN AUTHORISED SHARE CAPITAL; (4) PROPOSED RIGHTS ISSUE ON THE BASIS OF TWO RIGHTS SHARES FOR EVERY ONE ADJUSTED SHARE HELD ON THE RECORD DATE ON NON-FULLY UNDERWRITTEN BASIS; AND (5) CONNECTED TRANSACTION IN RELATION TO THE UNDERWRITING AGREEMENT"
-        ],
-        "source_headline": "LAI GROUP (08455): (1) PROPOSED CAPITAL REORGANISATION; (2) PROPOSED CHANGE IN BOARD LOT SIZE; (3) PROPOSED INCREASE IN AUTHORISED SHARE CAPITAL; (4) PROPOSED RIGHTS ISSUE ON THE BASIS OF TWO RIGHTS SHARES FOR EVERY ONE ADJUSTED SHARE HELD ON THE RECORD DATE ON NON-FULLY UNDERWRITTEN BASIS; AND (5) CONNECTED TRANSACTION IN RELATION TO THE UNDERWRITING AGREEMENT",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1007/2026100701981.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-07T14:10:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-07T18:07:00Z",
-        "updated_at": "2026-10-07T18:07:00Z",
-        "decay_at": "2026-10-09T02:10:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-10T16:24:56Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2172,
-    "live_count": 42,
+    "live_count": 40,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -263691,9 +263618,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 9175442,
-    "news_picked_today": 595,
-    "news_dropped_today": 7757
+    "news_seen_today": 9212469,
+    "news_picked_today": 598,
+    "news_dropped_today": 7778
   },
   "book_momentum": {
     "live_count": 8,
