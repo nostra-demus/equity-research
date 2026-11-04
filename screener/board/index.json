@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-04T02:37:38Z",
+  "generated_at": "2026-11-04T03:14:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20261104-006",
@@ -95,6 +95,107 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-143",
+      "headline": "Duolingo Reports Q3 2026 Results with 29% Daily Active User Growth and Raises Full-Year Guidance",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/duolingo-reports-q3-2026-results-29-daily-active-user-growth-and-raises-full-year-guidance",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-04T02:11:01Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Duolingo reported strong 29% DAU growth and raised its full-year guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Duolingo reported strong 29% DAU growth and raised its full-year guidance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Duolingo",
+          "ticker": "DUOL",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-150",
+      "headline": "DiamondRock Hospitality Company Reports Third Quarter 2026 Results, Acquires The Bellmoor Inn & Spa, and Raises 2026 Guidance",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/diamondrock-hospitality-company-reports-third-quarter-2026-results-acquires-bellmoor-inn",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-04T01:51:27Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "DiamondRock reported Q3 results, announced an acquisition, and raised its 2026 guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "DiamondRock reported Q3 results, announced an acquisition, and raised its 2026 guidance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 82,
+      "rank_factors": {
+        "materiality": 82,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 3,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "mna",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DiamondRock Hospitality Company",
+          "ticker": "DRH",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -794,143 +895,192 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261104-097",
-      "headline": "WIN: WIN Scales Up Butchers Creek With Additional Gold Tenure [price-sensitive]",
+      "inbox_id": "INB-20261104-182",
+      "headline": "S-4/A - Cox Advanced Services Nebraska, LLC (0002143312) (Filer)",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WIN?key=2924-03157891_PS-6A1353566",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-04T00:36:06Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "WIN Metals is expanding its Butchers Creek gold project with additional tenure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "WIN Metals is expanding its Butchers Creek gold project with additional tenure.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capex",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "WIN Metals",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-015",
-      "headline": "VSR: Assays confirm Significant Copper & Gold at El Dinero [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.VSR?key=2924-03157823-6A1353553",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-03T22:53:05Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "The company reported significant copper and gold assay results from its El Dinero project.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "The company reported significant copper and gold assay results from its El Dinero project.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "VSR",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-114",
-      "headline": "NT 20-F - MIXED MARTIAL ARTS GROUP LTD (0001981519) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1981519/000149315226049822/0001493152-26-049822-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "url": "https://www.sec.gov/Archives/edgar/data/2143312/000110465926122127/0001104659-26-122127-index.htm",
+      "source_name": "SEC EDGAR — Latest S-4 (M&A / Exchange-Offer Registration)",
       "input_nature": "regulatory_filing",
-      "found_at": "2026-11-03T22:15:13Z",
+      "found_at": "2026-11-03T21:57:17Z",
       "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Filing of an NT 20-F indicates a delay in the annual report, which is a significant red flag for financial reporting.",
+      "prelim_note": "Cox Advanced Services Nebraska, LLC filed an amended S-4 registration statement, indicating an ongoing M&A or exchange offer.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Filing of an NT 20-F indicates a delay in the annual report, which is a significant red flag for financial reporting.",
+      "triage_score": 95,
+      "triage_reason": "Cox Advanced Services Nebraska, LLC filed an amended S-4 registration statement, indicating an ongoing M&A or exchange offer.",
       "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 65,
+      "materiality_pre_score": 70,
       "rank_factors": {
-        "materiality": 65,
+        "materiality": 70,
         "source_tier": 8,
-        "scope": 6,
-        "event": 7,
+        "scope": 5,
+        "event": 9,
         "size": 0,
         "recency": 3,
-        "materiality_label_floor": 5,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "multi_name",
         "source_tier_id": "primary_filing",
-        "event_id": "accounting_restatement",
+        "event_id": "mna",
         "size_bucket": "unknown"
       },
       "event_types": [
-        "accounting_restatement"
+        "mna"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "MIXED MARTIAL ARTS GROUP LTD",
+          "name": "Cox Advanced Services Nebraska, LLC",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-184",
+      "headline": "S-4/A - Cox Advanced Services Ohio, LLC (0002143307) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/2143307/000110465926122127/0001104659-26-122127-index.htm",
+      "source_name": "SEC EDGAR — Latest S-4 (M&A / Exchange-Offer Registration)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-03T21:57:17Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Cox Advanced Services Ohio, LLC filed an amended S-4 registration statement, indicating an ongoing M&A or exchange offer.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Cox Advanced Services Ohio, LLC filed an amended S-4 registration statement, indicating an ongoing M&A or exchange offer.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cox Advanced Services Ohio, LLC",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-186",
+      "headline": "S-4/A - Cox Advanced Services Arizona, LLC (0002143209) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/2143209/000110465926122127/0001104659-26-122127-index.htm",
+      "source_name": "SEC EDGAR — Latest S-4 (M&A / Exchange-Offer Registration)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-03T21:57:17Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Cox Advanced Services Arizona, LLC filed an amended S-4 registration statement, indicating an ongoing M&A or exchange offer.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Cox Advanced Services Arizona, LLC filed an amended S-4 registration statement, indicating an ongoing M&A or exchange offer.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cox Advanced Services Arizona, LLC",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-166",
+      "headline": "S-4/A - Cox Communications Louisiana, L.L.C. (0002143559) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/2143559/000110465926122127/0001104659-26-122127-index.htm",
+      "source_name": "SEC EDGAR — Latest S-4 (M&A / Exchange-Offer Registration)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-03T21:57:17Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "SEC S-4 filings indicate registration for an M&A or exchange offer, which is a significant corporate event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "SEC S-4 filings indicate registration for an M&A or exchange offer, which is a significant corporate event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cox Communications Louisiana, L.L.C.",
           "ticker": null,
           "listing_country": "US"
         }
@@ -941,980 +1091,47 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261104-005",
-      "headline": "MKR: Gold Sales of A$3.906 Million Reported in October 2026 [price-sensitive]",
+      "inbox_id": "INB-20261104-160",
+      "headline": "S-4/A - Cox Communications Georgia, LLC (0002143563) (Filer)",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MKR?key=2924-03157834-2A1708239",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-03T22:57:20Z",
+      "url": "https://www.sec.gov/Archives/edgar/data/2143563/000110465926122127/0001104659-26-122127-index.htm",
+      "source_name": "SEC EDGAR — Latest S-4 (M&A / Exchange-Offer Registration)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-03T21:57:17Z",
       "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "MKR reported gold sales of A$3.906 million for October 2026.",
+      "prelim_note": "SEC S-4 filings indicate registration for an M&A or exchange offer, which is a significant corporate event.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "MKR reported gold sales of A$3.906 million for October 2026.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MKR",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-026",
-      "headline": "AEV: Jundee South Project Binding Earn-in Agreement up to $10M [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AEV?key=2924-03157815-6A1353536",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-03T22:47:15Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "The company entered a binding earn-in agreement for a project with a value of up to $10 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "The company entered a binding earn-in agreement for a project with a value of up to $10 million.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capex",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Aura Energy",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-008",
-      "headline": "Kakao Bank logs record earnings on rise in interest, non-interest income",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20261104001700320",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T23:56:13Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Kakao Bank reported record earnings driven by interest and non-interest income growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Kakao Bank reported record earnings driven by interest and non-interest income growth.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kakao Bank",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-025",
-      "headline": "AXI: Appointment of Managing Director & CEO and Placement [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AXI?key=2924-03157877-2A1708257",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-04T00:06:06Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Appointment of a new CEO is a significant management change for the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Appointment of a new CEO is a significant management change for the company.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Axiom Properties",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-012",
-      "headline": "FL1: Licence Renewals Granted in Mali [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FL1?key=2924-03157827-6A1353496",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-03T22:54:45Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "FL1 received license renewals for its operations in Mali.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "FL1 received license renewals for its operations in Mali.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "FL1",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-014",
-      "headline": "HRE: Heritage Clearance Received for Radium Hill U-REE-Sc Project [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.HRE?key=2924-03157825-3A705777",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-03T22:53:40Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "HRE received heritage clearance for its Radium Hill project, removing a key development hurdle.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "HRE received heritage clearance for its Radium Hill project, removing a key development hurdle.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HRE",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-098",
-      "headline": "FXG: Felix Receives Firm Commitments for $7.25M Placement [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FXG?key=2924-03157784-2A1708207",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-03T22:28:15Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Felix Group Holdings raised 7.25 million AUD via a share placement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Felix Group Holdings raised 7.25 million AUD via a share placement.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Felix Group Holdings",
-          "ticker": "FXG",
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-110",
-      "headline": "RGL: Trading Halt [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RGL?key=2924-03157767-6A1353533",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-03T22:14:50Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Trading halt pending a price-sensitive announcement often precedes significant corporate news or M&A.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Trading halt pending a price-sensitive announcement often precedes significant corporate news or M&A.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "strategic_review",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "RGL",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-138",
-      "headline": "IVR: Heritage Clearance Provides Clear Approval Pathway",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.IVR?key=2924-03157746-2A1708192",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-03T22:03:05Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Company received regulatory clearance providing a clear pathway for project development.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Company received regulatory clearance providing a clear pathway for project development.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IVR",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-004",
-      "headline": "SCW: Operating Update [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SCW?key=2924-03157836-2A1708240",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-03T22:58:10Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "SCW released a price-sensitive operating update.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "SCW released a price-sensitive operating update.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SCW",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-009",
-      "headline": "PKY: Independent Verification of Platform beyond design intent [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PKY?key=2924-03157830-6A1353555",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-03T22:56:25Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "PKY announced independent verification of its platform performance beyond design intent.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "PKY announced independent verification of its platform performance beyond design intent.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PKY",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-013",
-      "headline": "NRL: Suspension from Quotation [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NRL?key=2924-03157826-6A1353551",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-03T22:53:55Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "NRL has been suspended from quotation, indicating a significant operational or regulatory issue.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "NRL has been suspended from quotation, indicating a significant operational or regulatory issue.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NRL",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-027",
-      "headline": "WOR: Venture Global awards EPC contract for CP2 Expansion project",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WOR?key=2924-03157813-2A1708224",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-03T22:46:00Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Worley was awarded an EPC contract for a major expansion project, indicating significant new business.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Worley was awarded an EPC contract for a major expansion project, indicating significant new business.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Worley",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-048",
-      "headline": "BTR: Drilling to Commence at Priority Sandstone TMH-style Targets [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BTR?key=2924-03157804-6A1353550",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-03T22:40:25Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Commencement of drilling at priority targets indicates operational progress.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Commencement of drilling at priority targets indicates operational progress.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BTR",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-049",
-      "headline": "IRD: Central Eyre iron Project Mining Lease [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.IRD?key=2924-03157802-2A1708220",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-03T22:39:10Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Securing a mining lease is a significant operational milestone for the project.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Securing a mining lease is a significant operational milestone for the project.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IRD",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-139",
-      "headline": "Weyco Group, Inc. Reports Third Quarter 2026 Results and Declares Special Cash Dividend of $2.00 Per Share",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/weyco-group-inc-reports-third-quarter-2026-results-and-declares-special-cash-dividend-200",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T02:11:01Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Weyco Group reported Q3 2026 results and declared a special cash dividend of $2.00 per share.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Weyco Group reported Q3 2026 results and declared a special cash dividend of $2.00 per share.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Weyco Group, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-140",
-      "headline": "Marico sees sustained growth momentum, raises FY27 margin outlook",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/marico-shares-surge-9-4-as-company-lifts-margin-outlook/articleshow/135518090.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T01:56:15Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Marico raised its FY27 margin outlook citing sustained growth momentum.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Marico raised its FY27 margin outlook citing sustained growth momentum.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Marico",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-065",
-      "headline": "Goodman promises 9pc earnings lift despite data centre challenges",
-      "headline_en": null,
-      "url": "https://www.afr.com/property/commercial/goodman-promises-9pc-earnings-lift-despite-data-centre-challenges-20261104-p61azm?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T00:19:59Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Goodman Group projects a 9% earnings increase for the period.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Goodman Group projects a 9% earnings increase for the period.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Goodman Group",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-041",
-      "headline": "Block raises full-year profit outlook as Cash App drives Q3 growth",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/telcos-media-tech/block-raises-full-year-profit-outlook-cash-app-drives-q3-growth",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T00:13:46Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Block raised its full-year profit outlook driven by Cash App growth in Q3.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Block raised its full-year profit outlook driven by Cash App growth in Q3.",
+      "triage_score": 95,
+      "triage_reason": "SEC S-4 filings indicate registration for an M&A or exchange offer, which is a significant corporate event.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 70,
       "rank_factors": {
         "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 3,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Block",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-001",
-      "headline": "GW1: Strategic Partnership with Atana Elements inc. [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GW1?key=2924-03157847-6A1353554",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-03T23:05:45Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "GW1 announced a strategic partnership with Atana Elements inc.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "GW1 announced a strategic partnership with Atana Elements inc.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "multi_name",
         "source_tier_id": "primary_filing",
-        "event_id": null,
+        "event_id": "mna",
         "size_bucket": "unknown"
       },
       "event_types": [
-        "commercial"
+        "mna"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "GW1",
+          "name": "Cox Communications Georgia, LLC",
           "ticker": null,
-          "listing_country": "AU"
+          "listing_country": "US"
         }
       ],
       "size_bucket": "unknown",
@@ -1923,47 +1140,831 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261104-108",
-      "headline": "CR3: Drilling Mobilisation to Barking Gecko Uranium Prospect [price-sensitive]",
+      "inbox_id": "INB-20261104-162",
+      "headline": "S-4/A - Cox Communications Hampton Roads, L.L.C. (0002143561) (Filer)",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CR3?key=2924-03157771-2A1708206",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-03T22:17:45Z",
+      "url": "https://www.sec.gov/Archives/edgar/data/2143561/000110465926122127/0001104659-26-122127-index.htm",
+      "source_name": "SEC EDGAR — Latest S-4 (M&A / Exchange-Offer Registration)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-03T21:57:17Z",
       "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "CR3 announced drilling mobilization to a uranium prospect, marked as price-sensitive.",
+      "prelim_note": "SEC S-4 filings indicate registration for an M&A or exchange offer, which is a significant corporate event.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "CR3 announced drilling mobilization to a uranium prospect, marked as price-sensitive.",
-      "region": "OTHER",
+      "triage_score": 95,
+      "triage_reason": "SEC S-4 filings indicate registration for an M&A or exchange offer, which is a significant corporate event.",
+      "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 60,
+      "materiality_pre_score": 70,
       "rank_factors": {
-        "materiality": 60,
+        "materiality": 70,
         "source_tier": 8,
-        "scope": 6,
-        "event": 2,
+        "scope": 5,
+        "event": 9,
         "size": 0,
         "recency": 3,
-        "materiality_label_floor": 10,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "multi_name",
         "source_tier_id": "primary_filing",
-        "event_id": "operations",
+        "event_id": "mna",
         "size_bucket": "unknown"
       },
       "event_types": [
-        "operations"
+        "mna"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "CR3",
+          "name": "Cox Communications Hampton Roads, L.L.C.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-192",
+      "headline": "S-4/A - Cox Nevada Telcom, L.L.C. (0002143184) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/2143184/000110465926122127/0001104659-26-122127-index.htm",
+      "source_name": "SEC EDGAR — Latest S-4 (M&A / Exchange-Offer Registration)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-03T21:57:17Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Cox Nevada Telcom, L.L.C. filed an amended S-4 registration statement, indicating an ongoing M&A or exchange offer.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Cox Nevada Telcom, L.L.C. filed an amended S-4 registration statement, indicating an ongoing M&A or exchange offer.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cox Nevada Telcom, L.L.C.",
           "ticker": null,
           "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-188",
+      "headline": "S-4/A - Cox Advanced Services California, LLC (0002143207) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/2143207/000110465926122127/0001104659-26-122127-index.htm",
+      "source_name": "SEC EDGAR — Latest S-4 (M&A / Exchange-Offer Registration)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-03T21:57:17Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Cox Advanced Services California, LLC filed an amended S-4 registration statement, indicating an ongoing M&A or exchange offer.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Cox Advanced Services California, LLC filed an amended S-4 registration statement, indicating an ongoing M&A or exchange offer.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cox Advanced Services California, LLC",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-171",
+      "headline": "S-4/A - CB Commercial Devices, LLC (0002143517) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/2143517/000110465926122127/0001104659-26-122127-index.htm",
+      "source_name": "SEC EDGAR — Latest S-4 (M&A / Exchange-Offer Registration)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-03T21:57:17Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "SEC S-4 filings indicate registration for an M&A or exchange offer, which is a significant corporate event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "SEC S-4 filings indicate registration for an M&A or exchange offer, which is a significant corporate event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CB Commercial Devices, LLC",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-191",
+      "headline": "S-4/A - Cox California Telcom, L.L.C. (0002143202) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/2143202/000110465926122127/0001104659-26-122127-index.htm",
+      "source_name": "SEC EDGAR — Latest S-4 (M&A / Exchange-Offer Registration)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-03T21:57:17Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Cox California Telcom, L.L.C. filed an amended S-4 registration statement, indicating an ongoing M&A or exchange offer.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Cox California Telcom, L.L.C. filed an amended S-4 registration statement, indicating an ongoing M&A or exchange offer.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cox California Telcom, L.L.C.",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-175",
+      "headline": "S-4/A - Cox Communications Arizona, LLC (0002143473) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/2143473/000110465926122127/0001104659-26-122127-index.htm",
+      "source_name": "SEC EDGAR — Latest S-4 (M&A / Exchange-Offer Registration)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-03T21:57:17Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "SEC S-4 filings indicate registration for an M&A or exchange offer, which is a significant corporate event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "SEC S-4 filings indicate registration for an M&A or exchange offer, which is a significant corporate event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cox Communications Arizona, LLC",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-180",
+      "headline": "S-4/A - Cox Advanced Services Kansas, LLC (0002143321) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/2143321/000110465926122127/0001104659-26-122127-index.htm",
+      "source_name": "SEC EDGAR — Latest S-4 (M&A / Exchange-Offer Registration)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-03T21:57:17Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "SEC S-4 filings indicate registration for an M&A or exchange offer, which is a significant corporate event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "SEC S-4 filings indicate registration for an M&A or exchange offer, which is a significant corporate event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cox Advanced Services Kansas, LLC",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-164",
+      "headline": "S-4/A - Cox Communications Kansas, L.L.C. (0002143560) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/2143560/000110465926122127/0001104659-26-122127-index.htm",
+      "source_name": "SEC EDGAR — Latest S-4 (M&A / Exchange-Offer Registration)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-03T21:57:17Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "SEC S-4 filings indicate registration for an M&A or exchange offer, which is a significant corporate event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "SEC S-4 filings indicate registration for an M&A or exchange offer, which is a significant corporate event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cox Communications Kansas, L.L.C.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-189",
+      "headline": "S-4/A - Cox Arizona Telcom, L.L.C. (0002143206) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/2143206/000110465926122127/0001104659-26-122127-index.htm",
+      "source_name": "SEC EDGAR — Latest S-4 (M&A / Exchange-Offer Registration)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-03T21:57:17Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Cox Arizona Telcom, L.L.C. filed an amended S-4 registration statement, indicating an ongoing M&A or exchange offer.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Cox Arizona Telcom, L.L.C. filed an amended S-4 registration statement, indicating an ongoing M&A or exchange offer.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cox Arizona Telcom, L.L.C.",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-183",
+      "headline": "S-4/A - Cox Advanced Services North Carolina, LLC (0002143309) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/2143309/000110465926122127/0001104659-26-122127-index.htm",
+      "source_name": "SEC EDGAR — Latest S-4 (M&A / Exchange-Offer Registration)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-03T21:57:17Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Cox Advanced Services North Carolina, LLC filed an amended S-4 registration statement, indicating an ongoing M&A or exchange offer.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Cox Advanced Services North Carolina, LLC filed an amended S-4 registration statement, indicating an ongoing M&A or exchange offer.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cox Advanced Services North Carolina, LLC",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-190",
+      "headline": "S-4/A - Cox Arkansas Telcom, L.L.C. (0002143205) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/2143205/000110465926122127/0001104659-26-122127-index.htm",
+      "source_name": "SEC EDGAR — Latest S-4 (M&A / Exchange-Offer Registration)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-03T21:57:17Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Cox Arkansas Telcom, L.L.C. filed an amended S-4 registration statement, indicating an ongoing M&A or exchange offer.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Cox Arkansas Telcom, L.L.C. filed an amended S-4 registration statement, indicating an ongoing M&A or exchange offer.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cox Arkansas Telcom, L.L.C.",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-187",
+      "headline": "S-4/A - Cox Advanced Services Arkansas, LLC (0002143208) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/2143208/000110465926122127/0001104659-26-122127-index.htm",
+      "source_name": "SEC EDGAR — Latest S-4 (M&A / Exchange-Offer Registration)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-03T21:57:17Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Cox Advanced Services Arkansas, LLC filed an amended S-4 registration statement, indicating an ongoing M&A or exchange offer.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Cox Advanced Services Arkansas, LLC filed an amended S-4 registration statement, indicating an ongoing M&A or exchange offer.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cox Advanced Services Arkansas, LLC",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-178",
+      "headline": "S-4/A - Cox Advanced Services Rhode Island, LLC (0002143330) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/2143330/000110465926122127/0001104659-26-122127-index.htm",
+      "source_name": "SEC EDGAR — Latest S-4 (M&A / Exchange-Offer Registration)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-03T21:57:17Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "SEC S-4 filings indicate registration for an M&A or exchange offer, which is a significant corporate event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "SEC S-4 filings indicate registration for an M&A or exchange offer, which is a significant corporate event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cox Advanced Services Rhode Island, LLC",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-177",
+      "headline": "S-4/A - BPRF Holdings, LLC (0002143398) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/2143398/000110465926122127/0001104659-26-122127-index.htm",
+      "source_name": "SEC EDGAR — Latest S-4 (M&A / Exchange-Offer Registration)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-03T21:57:17Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "SEC S-4 filings indicate registration for an M&A or exchange offer, which is a significant corporate event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "SEC S-4 filings indicate registration for an M&A or exchange offer, which is a significant corporate event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BPRF Holdings, LLC",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-179",
+      "headline": "S-4/A - Cox Advanced Services Virginia, LLC (0002143328) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/2143328/000110465926122127/0001104659-26-122127-index.htm",
+      "source_name": "SEC EDGAR — Latest S-4 (M&A / Exchange-Offer Registration)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-03T21:57:17Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "SEC S-4 filings indicate registration for an M&A or exchange offer, which is a significant corporate event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "SEC S-4 filings indicate registration for an M&A or exchange offer, which is a significant corporate event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cox Advanced Services Virginia, LLC",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-168",
+      "headline": "S-4/A - Cox Colorado Telcom, L.L.C. (0002143532) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/2143532/000110465926122127/0001104659-26-122127-index.htm",
+      "source_name": "SEC EDGAR — Latest S-4 (M&A / Exchange-Offer Registration)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-03T21:57:17Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "SEC S-4 filings indicate registration for an M&A or exchange offer, which is a significant corporate event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "SEC S-4 filings indicate registration for an M&A or exchange offer, which is a significant corporate event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cox Colorado Telcom, L.L.C.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-170",
+      "headline": "S-4/A - CCI Corporate Services, LLC (0002143519) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/2143519/000110465926122127/0001104659-26-122127-index.htm",
+      "source_name": "SEC EDGAR — Latest S-4 (M&A / Exchange-Offer Registration)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-03T21:57:17Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "SEC S-4 filings indicate registration for an M&A or exchange offer, which is a significant corporate event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "SEC S-4 filings indicate registration for an M&A or exchange offer, which is a significant corporate event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CCI Corporate Services, LLC",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "unknown",
@@ -220168,79 +220169,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-c3e6a991ceeb",
-      "idea_version": "IDEAV-799d3f3726020cf9",
-      "idea_version_started_at": "2026-11-02T17:53:39Z",
-      "ticker": "THOMASCOOK",
-      "company": "Thomas Cook India",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company reported a 22% decline in net profit and a 6% drop in revenue for Q2, signaling weakening demand or margin compression in their travel services business.",
-      "why_now": "The results were released on November 02, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-515546f17a3a"
-      ],
-      "primary_source_event_id": "EVT-515546f17a3a",
-      "source_headlines": [
-        "Thomas Cook India Q2 Results: Net profit falls 22% to ₹51.6 crore, revenue down 6%"
-      ],
-      "source_headline": "Thomas Cook India Q2 Results: Net profit falls 22% to ₹51.6 crore, revenue down 6%",
-      "source_url": "https://www.cnbctv18.com/market/thomas-cook-india-share-price-q2-results-net-profit-falls-rs-51-6-crore-revenue-20025196.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-02T14:44:10Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-02T17:53:39Z",
-      "updated_at": "2026-11-02T17:53:39Z",
-      "decay_at": "2026-11-04T02:44:10Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-a204395caab2",
       "idea_version": "IDEAV-6cd21665a86d4930",
       "idea_version_started_at": "2026-11-03T02:31:59Z",
@@ -221437,6 +221365,79 @@
       "surfaced_at": "2026-11-02T16:55:16Z",
       "updated_at": "2026-11-02T17:53:39Z",
       "decay_at": "2026-11-03T23:51:27Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-c3e6a991ceeb",
+      "idea_version": "IDEAV-799d3f3726020cf9",
+      "idea_version_started_at": "2026-11-02T17:53:39Z",
+      "ticker": "THOMASCOOK",
+      "company": "Thomas Cook India",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company reported a 22% decline in net profit and a 6% drop in revenue for Q2, signaling weakening demand or margin compression in their travel services business.",
+      "why_now": "The results were released on November 02, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-515546f17a3a"
+      ],
+      "primary_source_event_id": "EVT-515546f17a3a",
+      "source_headlines": [
+        "Thomas Cook India Q2 Results: Net profit falls 22% to ₹51.6 crore, revenue down 6%"
+      ],
+      "source_headline": "Thomas Cook India Q2 Results: Net profit falls 22% to ₹51.6 crore, revenue down 6%",
+      "source_url": "https://www.cnbctv18.com/market/thomas-cook-india-share-price-q2-results-net-profit-falls-rs-51-6-crore-revenue-20025196.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-02T14:44:10Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-02T17:53:39Z",
+      "updated_at": "2026-11-02T17:53:39Z",
+      "decay_at": "2026-11-04T02:44:10Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -226854,9 +226855,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 591,
+    "total_count": 592,
     "shown_count": 500,
-    "hidden_count": 91,
+    "hidden_count": 92,
     "side_counts": {
       "long": {
         "total_count": 317,
@@ -226864,9 +226865,9 @@
         "hidden_count": 67
       },
       "short": {
-        "total_count": 274,
+        "total_count": 275,
         "shown_count": 250,
-        "hidden_count": 24
+        "hidden_count": 25
       }
     },
     "retention": {
@@ -226885,6 +226886,82 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-c3e6a991ceeb",
+        "idea_version": "IDEAV-799d3f3726020cf9",
+        "idea_version_started_at": "2026-11-02T17:53:39Z",
+        "ticker": "THOMASCOOK",
+        "company": "Thomas Cook India",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company reported a 22% decline in net profit and a 6% drop in revenue for Q2, signaling weakening demand or margin compression in their travel services business.",
+        "why_now": "The results were released on November 02, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-515546f17a3a"
+        ],
+        "primary_source_event_id": "EVT-515546f17a3a",
+        "source_headlines": [
+          "Thomas Cook India Q2 Results: Net profit falls 22% to ₹51.6 crore, revenue down 6%"
+        ],
+        "source_headline": "Thomas Cook India Q2 Results: Net profit falls 22% to ₹51.6 crore, revenue down 6%",
+        "source_url": "https://www.cnbctv18.com/market/thomas-cook-india-share-price-q2-results-net-profit-falls-rs-51-6-crore-revenue-20025196.htm",
+        "source_name": "CNBC-TV18",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-02T14:44:10Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-02T17:53:39Z",
+        "updated_at": "2026-11-02T17:53:39Z",
+        "decay_at": "2026-11-04T02:44:10Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-04T02:44:10Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-52adf63476e1",
         "idea_version": "IDEAV-30014ba5992a2336",
@@ -264063,88 +264140,12 @@
         "archived_at": "2026-10-10T13:14:51Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-48fab202d92b",
-        "idea_version": "IDEAV-65c5e22efadad95c",
-        "idea_version_started_at": "2026-10-07T20:55:35Z",
-        "ticker": "PNN.L",
-        "company": "Pennon Group",
-        "exchange": "London",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company is executing a dilutive £550 million rights issue and cutting its dividend to address financial strain caused by record regulatory fines for sewage spills.",
-        "why_now": "The rights issue was officially launched today, October 7, 2026, creating immediate downward pressure on equity value.",
-        "conviction": 85,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 77,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 10,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-7c20c72a68ec",
-          "EVT-e1b89b886904",
-          "EVT-da630567bb98"
-        ],
-        "primary_source_event_id": "EVT-7c20c72a68ec",
-        "source_headlines": [
-          "Troubled South West Water owner taps investors for £550m days after being handed record fine for sewage spills",
-          "South West Water owner asks investors for £550m after record sewage fine",
-          "UK's Pennon launches £550 million rights issue, cuts dividend to fund investment"
-        ],
-        "source_headline": "Troubled South West Water owner taps investors for £550m days after being handed record fine for sewage spills",
-        "source_url": "https://www.thisismoney.co.uk/money/markets/article-16189369/Troubled-South-West-Water-owner-taps-investors-550m-days-handed-record-fine-sewage-spills.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
-        "source_name": "This is Money (Daily Mail) — Markets",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-07T10:50:57Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-07T20:55:35Z",
-        "updated_at": "2026-10-07T20:55:35Z",
-        "decay_at": "2026-10-08T22:50:57Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-10T10:55:18Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2162,
-    "live_count": 36,
+    "live_count": 35,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -264163,7 +264164,7 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3108677,
+    "news_seen_today": 4027996,
     "news_picked_today": 189,
     "news_dropped_today": 963
   },
