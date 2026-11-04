@@ -1,0 +1,75 @@
+{
+  "idea_id": "IDEA-2cfb749c8806",
+  "idea_version": "IDEAV-fa2639c2d1dc9855",
+  "idea_version_started_at": "2026-11-02T23:10:25Z",
+  "ticker": "MRVL",
+  "company": "Marvell Technology",
+  "exchange": "NASDAQ",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "pair",
+  "pair_with": "LITE",
+  "reason": "Marvell is acquiring Lumentum in an all-stock deal, creating a classic arbitrage opportunity where the acquirer typically faces selling pressure while the target trades toward the offer price.",
+  "why_now": "The acquisition was announced on November 2, 2026, and the market is currently reacting to the deal terms and the significant dilution implied by the $115 billion price tag.",
+  "conviction": 75,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 76,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 23,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 7,
+    "corroboration": 7,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "pair_trade",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-d5d0dcd047f8",
+    "EVT-78cc439f9063",
+    "EVT-807bdfc38eea"
+  ],
+  "primary_source_event_id": "EVT-d5d0dcd047f8",
+  "source_headlines": [
+    "Lumentum Goes From $1 Billion Spinoff to $115 Billion Takeover",
+    "Stock Market Today, Nov. 2: Marvell Announces $115 Billion All-Stock Acquisition of Lumentum",
+    "Marvell Technology Is Acquiring Lumentum. Why Does the Market Hate the Move?"
+  ],
+  "source_headline": "Lumentum Goes From $1 Billion Spinoff to $115 Billion Takeover",
+  "source_url": "https://www.bloomberg.com/news/articles/2026-11-02/lumentum-goes-from-1-billion-spinoff-to-115-billion-takeover",
+  "source_name": "Bloomberg",
+  "materiality_max": 100,
+  "newest_source_at": "2026-11-02T22:22:02Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-11-02T23:10:25Z",
+  "updated_at": "2026-11-02T23:10:25Z",
+  "decay_at": "2026-11-04T10:22:02Z",
+  "status": "live",
+  "promoted_signal_id": null
+}

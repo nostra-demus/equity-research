@@ -1,0 +1,79 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-10-31T11:39:58Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-b185b56cf3f7",
+    "idea_version": "IDEAV-b1f241a0b9637bcb",
+    "idea_version_started_at": "2026-10-29T02:54:08Z",
+    "ticker": "ULBI",
+    "company": "Ultralife Corp",
+    "exchange": "NASDAQ",
+    "ticker_verified": true,
+    "listing_verified": true,
+    "liquidity_verified": false,
+    "listing_verification_source": "yahoo_symbol_directory",
+    "direction": "long",
+    "pair_with": null,
+    "reason": "EnerSys has initiated a third-party tender offer for Ultralife, which typically forces a price convergence toward the offer price.",
+    "why_now": "The SC TO-T filing was processed on October 28, 2026, making the acquisition attempt live.",
+    "conviction": 85,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 60,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 25,
+      "impact": 20,
+      "specificity": 15,
+      "timing": 10,
+      "expression": 7,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "needs_data",
+    "missing_checks": [
+      "live liquidity",
+      "dated catalyst",
+      "priced-in risk",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "priced",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-3b6456da3a29",
+      "EVT-cfc5dd709a10"
+    ],
+    "primary_source_event_id": "EVT-3b6456da3a29",
+    "source_headlines": [
+      "SC TO-T - ULTRALIFE CORP (0000875657) (Subject)",
+      "SC TO-T - EnerSys (0001289308) (Filed by)"
+    ],
+    "source_headline": "SC TO-T - ULTRALIFE CORP (0000875657) (Subject)",
+    "source_url": "https://www.sec.gov/Archives/edgar/data/875657/000119312526435071/0001193125-26-435071-index.htm",
+    "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
+    "materiality_max": 100,
+    "newest_source_at": "2026-10-28T11:00:54Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-10-29T02:54:08Z",
+    "updated_at": "2026-10-29T02:54:08Z",
+    "decay_at": "2026-10-29T23:00:54Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}
