@@ -1,6 +1,114 @@
 {
-  "generated_at": "2026-11-04T12:37:01Z",
+  "generated_at": "2026-11-04T12:51:08Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261104-367",
+      "headline": "Astron Paper & Board Mill Limited: Astron Paper & Board Mill Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/ASTRON_04112026175719_Letter_7th_CoC_Signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-04T12:27:40Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Astron Paper & Board Mill Limited has informed about a Corporate Insolvency Resolution Process.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Astron Paper & Board Mill Limited has informed about a Corporate Insolvency Resolution Process.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Astron Paper & Board Mill Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-373",
+      "headline": "GLMS SEC (01456): DISCLOSEABLE AND CONNECTED TRANSACTION IN RELATION TO THE PARTICIPATION BY THE WHOLLY-OWNED SUBSIDIARY MINSHENG SECURITIES IN THE MERGER BY ABSORPTION OF MINSHENG FUTURES BY GUOLIAN FUTURES BY WAY OF SHARE EXCHANGE",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1104/2026110402055.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-04T12:19:00Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "GLMS SEC's wholly-owned subsidiary MinSheng Securities is participating in a merger by absorption of MinSheng Futures by Guolian Futures via share exchange.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "GLMS SEC's wholly-owned subsidiary MinSheng Securities is participating in a merger by absorption of MinSheng Futures by Guolian Futures via share exchange.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GLMS SEC",
+          "ticker": "01456",
+          "listing_country": "CN"
+        },
+        {
+          "name": "MinSheng Securities",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "MinSheng Futures",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261104-362",
       "headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-CIRP Disclosures on the Q1FY27 Financial Results and the Business Transfer Agreement (BTA) between India Power Corporation Limited and IPCL Power Limited",
@@ -1893,109 +2001,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-116",
-      "headline": "MarineMax, Inc. Obtains All Regulatory Approvals for Merger, Expects Closing by End of Calendar Year 2026",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/marinemax-inc-obtains-all-regulatory-approvals-merger-expects-closing-end-calendar-year",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T01:12:20Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "MarineMax has cleared all regulatory hurdles for a merger, providing certainty for deal closure by year-end 2026.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "MarineMax has cleared all regulatory hurdles for a merger, providing certainty for deal closure by year-end 2026.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MarineMax, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-028",
-      "headline": "Saudi Aramco acquires 49% of HUMAIN with $2.6 billion cash injection",
-      "headline_en": null,
-      "url": "https://www.wamda.com/2026/11/saudi-aramco-acquires-49-humain-2-6-billion-cash-injection",
-      "source_name": "Wamda",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T00:16:48Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Saudi Aramco is acquiring a 49% stake in HUMAIN for $2.6 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Saudi Aramco is acquiring a 49% stake in HUMAIN for $2.6 billion.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Saudi Aramco",
-          "ticker": null,
-          "listing_country": "SA"
-        },
-        {
-          "name": "HUMAIN",
-          "ticker": null,
-          "listing_country": "SA"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -263259,9 +263264,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 10524738,
-    "news_picked_today": 705,
-    "news_dropped_today": 9759
+    "news_seen_today": 10597900,
+    "news_picked_today": 733,
+    "news_dropped_today": 9803
   },
   "book_momentum": {
     "live_count": 8,
