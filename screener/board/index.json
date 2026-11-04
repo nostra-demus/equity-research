@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-04T00:29:34Z",
+  "generated_at": "2026-11-04T00:34:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261104-006",
@@ -200,6 +200,104 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-063",
+      "headline": "S-4 - ADC Therapeutics SA (0001771910) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1771910/000095010326016858/0000950103-26-016858-index.htm",
+      "source_name": "SEC EDGAR — Latest S-4 (M&A / Exchange-Offer Registration)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-03T22:02:54Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "ADC Therapeutics filed an S-4 registration statement related to a potential M&A or exchange offer.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "ADC Therapeutics filed an S-4 registration statement related to a potential M&A or exchange offer.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ADC Therapeutics",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-053",
+      "headline": "CAZ: Option Agreement - Brazilian Rare Earth & Uranium Projects [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CAZ?key=2924-03157801-6A1353545",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-03T22:38:40Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Option agreement for new rare earth and uranium projects expands asset portfolio.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Option agreement for new rare earth and uranium projects expands asset portfolio.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CAZ",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -744,6 +842,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261104-048",
+      "headline": "BTR: Drilling to Commence at Priority Sandstone TMH-style Targets [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BTR?key=2924-03157804-6A1353550",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-03T22:40:25Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Commencement of drilling at priority targets indicates operational progress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Commencement of drilling at priority targets indicates operational progress.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BTR",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-049",
+      "headline": "IRD: Central Eyre iron Project Mining Lease [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.IRD?key=2924-03157802-2A1708220",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-03T22:39:10Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Securing a mining lease is a significant operational milestone for the project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Securing a mining lease is a significant operational milestone for the project.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IRD",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261104-041",
       "headline": "Block raises full-year profit outlook as Cash App drives Q3 growth",
       "headline_en": null,
@@ -1040,6 +1236,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261104-062",
+      "headline": "AGT: Proposed A$4.86 Million Capital Raising and Business Update [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AGT?key=2924-03157799-2A1708218",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-03T22:38:25Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Equus Mining announced a proposed capital raising of A$4.86 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Equus Mining announced a proposed capital raising of A$4.86 million.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Equus Mining",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261104-024",
       "headline": "SCG: Operating Update [price-sensitive]",
       "headline_en": null,
@@ -1285,6 +1530,202 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261104-050",
+      "headline": "KLI: New Magnetic Survey Reveals Huge Resource Growth Potential [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.KLI?key=2924-03157803-6A1353547",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-03T22:39:10Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Magnetic survey results suggest potential resource growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 70,
+      "triage_reason": "Magnetic survey results suggest potential resource growth.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "KLI",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-058",
+      "headline": "8-K - GXO Logistics, Inc. (0001852244) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1852244/000185224426000053/0001852244-26-000053-index.htm",
+      "source_name": "SEC EDGAR — Latest 8-K (Current Reports)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-03T21:52:32Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Standard 8-K filing for GXO Logistics.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 70,
+      "triage_reason": "Standard 8-K filing for GXO Logistics.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GXO Logistics",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-051",
+      "headline": "8-K - PROCTER & GAMBLE Co (0000080424) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/80424/000162828026069608/0001628280-26-069608-index.htm",
+      "source_name": "SEC EDGAR — Latest 8-K (Current Reports)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-03T21:42:13Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Standard 8-K filing for Procter & Gamble.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 70,
+      "triage_reason": "Standard 8-K filing for Procter & Gamble.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Procter & Gamble",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-056",
+      "headline": "8-K - INTERNATIONAL FLAVORS & FRAGRANCES INC (0000051253) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/51253/000114036126041833/0001140361-26-041833-index.htm",
+      "source_name": "SEC EDGAR — Latest 8-K (Current Reports)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-03T21:41:20Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Standard 8-K filing for IFF.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 70,
+      "triage_reason": "Standard 8-K filing for IFF.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "International Flavors & Fragrances",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261104-002",
       "headline": "GW1: Proposed issue of securities - GW1",
       "headline_en": null,
@@ -1334,69 +1775,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261104-042",
-      "headline": "CKLIFE SCIENCES (00775): BUSINESS UPDATE ON PRECLINICAL STUDIES OF CANCER VACCINES",
+      "inbox_id": "INB-20261104-047",
+      "headline": "FOS: Change in substantial holding from SKM",
       "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1104/2026110400029.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-04T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Company provided a business update on preclinical studies for its cancer vaccine pipeline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "Company provided a business update on preclinical studies for its cancer vaccine pipeline.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CK Life Sciences",
-          "ticker": "00775",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-017",
-      "headline": "ESR: Board Change - Non-Executive Director resignation",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ESR?key=2924-03157876-6A1353565",
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FOS?key=2924-03157805-3A705770",
       "source_name": "ASX (Australia Exchange Filing)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-11-03T23:59:46Z",
+      "found_at": "2026-11-03T22:40:35Z",
       "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "A non-executive director has resigned from the board of ESR.",
+      "prelim_note": "Change in substantial holding notice for FOS.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "A non-executive director has resigned from the board of ESR.",
+      "triage_score": 69,
+      "triage_reason": "Change in substantial holding notice for FOS.",
       "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 45,
@@ -1404,24 +1796,24 @@
         "materiality": 45,
         "source_tier": 8,
         "scope": 6,
-        "event": 4,
+        "event": 6,
         "size": 0,
-        "recency": 5,
+        "recency": 4,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
-        "event_id": "management",
+        "event_id": "ownership_activist",
         "size_bucket": "unknown"
       },
       "event_types": [
-        "management"
+        "ownership_activist"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "ESR",
+          "name": "FOS",
           "ticker": null,
           "listing_country": "AU"
         }
@@ -1432,182 +1824,35 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261104-010",
-      "headline": "AGT: Proposed issue of securities - AGT",
+      "inbox_id": "INB-20261104-059",
+      "headline": "8-K - ACADIA REALTY TRUST (0000899629) (Filer)",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AGT?key=2924-03157829-2A1708235",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-03T22:56:05Z",
+      "url": "https://www.sec.gov/Archives/edgar/data/899629/000119312526445576/0001193125-26-445576-index.htm",
+      "source_name": "SEC EDGAR — Latest 8-K (Current Reports)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-03T21:59:37Z",
       "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "AGT announced a proposed issue of securities.",
+      "prelim_note": "Standard 8-K filing for Acadia Realty Trust.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "AGT announced a proposed issue of securities.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AGT",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-007",
-      "headline": "IMPACT THERAP-B (07630): VOLUNTARY ANNOUNCEMENT - ON-MARKET SHARE REPURCHASE",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1104/2026110400003.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-03T22:20:00Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Impact Therap-B announced an on-market share repurchase program.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "Impact Therap-B announced an on-market share repurchase program.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Impact Therap-B",
-          "ticker": "07630",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-038",
-      "headline": "Avis Budget Group Reports Third Quarter 2026 Results",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/avis-budget-group-reports-third-quarter-2026-results",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T23:42:34Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Avis Budget Group reported Q3 2026 financial results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "Avis Budget Group reported Q3 2026 financial results.",
+      "triage_score": 69,
+      "triage_reason": "Standard 8-K filing for Acadia Realty Trust.",
       "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 50,
+      "materiality_pre_score": 45,
       "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Avis Budget Group",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-035",
-      "headline": "Gladstone Commercial Corporation Reports Results for the Third Quarter Ended September 30, 2026",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/gladstone-commercial-corporation-reports-results-third-quarter-ended-september-30-2026",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T00:02:10Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Gladstone Commercial Corporation reported Q3 2026 results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "Gladstone Commercial Corporation reported Q3 2026 results.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
+        "materiality": 45,
+        "source_tier": 8,
         "scope": 6,
         "event": 5,
         "size": 1,
-        "recency": 5,
+        "recency": 4,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
-        "source_tier_id": "news",
+        "source_tier_id": "primary_filing",
         "event_id": "earnings_revenue_margin",
         "size_bucket": "mid"
       },
@@ -1617,7 +1862,7 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Gladstone Commercial Corporation",
+          "name": "Acadia Realty Trust",
           "ticker": null,
           "listing_country": "US"
         }
@@ -1628,35 +1873,35 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261104-037",
-      "headline": "Denali Therapeutics Reports Third Quarter 2026 Financial Results",
+      "inbox_id": "INB-20261104-054",
+      "headline": "8-K - Summit Hotel Properties, Inc. (0001497645) (Filer)",
       "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/denali-therapeutics-reports-third-quarter-2026-financial-results",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T23:52:46Z",
+      "url": "https://www.sec.gov/Archives/edgar/data/1497645/000149764526000080/0001497645-26-000080-index.htm",
+      "source_name": "SEC EDGAR — Latest 8-K (Current Reports)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-03T21:54:37Z",
       "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Denali Therapeutics reported Q3 2026 financial results.",
+      "prelim_note": "Standard 8-K filing for Summit Hotel Properties.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "Denali Therapeutics reported Q3 2026 financial results.",
+      "triage_score": 69,
+      "triage_reason": "Standard 8-K filing for Summit Hotel Properties.",
       "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 50,
+      "materiality_pre_score": 45,
       "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
+        "materiality": 45,
+        "source_tier": 8,
         "scope": 6,
         "event": 5,
         "size": 1,
-        "recency": 5,
+        "recency": 4,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
-        "source_tier_id": "news",
+        "source_tier_id": "primary_filing",
         "event_id": "earnings_revenue_margin",
         "size_bucket": "mid"
       },
@@ -1666,7 +1911,7 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Denali Therapeutics",
+          "name": "Summit Hotel Properties",
           "ticker": null,
           "listing_country": "US"
         }
@@ -1677,35 +1922,35 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261104-040",
-      "headline": "Ardelyx, Inc. Reports Third Quarter 2026 Financial Results",
+      "inbox_id": "INB-20261104-060",
+      "headline": "8-K - KADANT INC (0000886346) (Filer)",
       "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/ardelyx-inc-reports-third-quarter-2026-financial-results",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-03T23:42:14Z",
+      "url": "https://www.sec.gov/Archives/edgar/data/886346/000088634626000059/0000886346-26-000059-index.htm",
+      "source_name": "SEC EDGAR — Latest 8-K (Current Reports)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-03T21:44:55Z",
       "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Ardelyx reported Q3 2026 financial results.",
+      "prelim_note": "Standard 8-K filing for Kadant Inc.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "Ardelyx reported Q3 2026 financial results.",
+      "triage_score": 69,
+      "triage_reason": "Standard 8-K filing for Kadant Inc.",
       "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 50,
+      "materiality_pre_score": 45,
       "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
+        "materiality": 45,
+        "source_tier": 8,
         "scope": 6,
         "event": 5,
         "size": 1,
-        "recency": 5,
+        "recency": 4,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
-        "source_tier_id": "news",
+        "source_tier_id": "primary_filing",
         "event_id": "earnings_revenue_margin",
         "size_bucket": "mid"
       },
@@ -1715,257 +1960,12 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Ardelyx",
+          "name": "Kadant Inc",
           "ticker": null,
           "listing_country": "US"
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-029",
-      "headline": "CYB: AUCyber establishes AI Transformation Division",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CYB?key=2924-03157811-2A1708222",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-03T22:44:15Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Establishment of an AI division is a strategic operational shift.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 65,
-      "triage_reason": "Establishment of an AI division is a strategic operational shift.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CyberCX",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-032",
-      "headline": "KINGFARPROPERTY (01354): INTERIM DIVIDEND FOR THE SIX MONTHS ENDED 30 JUNE 2026",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1104/2026110400045.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-04T00:11:00Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Routine interim dividend declaration for Kingfar Property.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 64,
-      "triage_reason": "Routine interim dividend declaration for Kingfar Property.",
-      "region": "CN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kingfar Property",
-          "ticker": "01354",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-021",
-      "headline": "SCHEDULE 13G/A - MILLENNIUM MANAGEMENT LLC (0001273087) (Filed by)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1273087/000110465926122222/0001104659-26-122222-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-03T22:51:02Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Routine 13G/A filing by Millennium Management.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 64,
-      "triage_reason": "Routine 13G/A filing by Millennium Management.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Millennium Management",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-020",
-      "headline": "SCHEDULE 13G/A - Cytek Biosciences, Inc. (0001831915) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1831915/000110465926122222/0001104659-26-122222-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-03T22:51:02Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Routine 13G/A filing for Cytek Biosciences.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 64,
-      "triage_reason": "Routine 13G/A filing for Cytek Biosciences.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cytek Biosciences",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-022",
-      "headline": "SCHEDULE 13D - WASSON GREGORY D (0001188827) (Filed by)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1188827/000114036126041845/0001140361-26-041845-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-03T22:49:33Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Routine 13D filing by Gregory D. Wasson.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 64,
-      "triage_reason": "Routine 13D filing by Gregory D. Wasson.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Wasson Gregory D",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -264658,9 +264658,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 478268,
-    "news_picked_today": 45,
-    "news_dropped_today": 171
+    "news_seen_today": 557962,
+    "news_picked_today": 63,
+    "news_dropped_today": 201
   },
   "book_momentum": {
     "live_count": 8,
