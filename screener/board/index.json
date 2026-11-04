@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-04T06:43:22Z",
+  "generated_at": "2026-11-04T06:57:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20261104-231",
@@ -151,6 +151,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261104-257",
+      "headline": "Kotak Mahindra Bank gets CCI nod to acquire Deutsche Bank India's retail, private banking businesses",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/money-and-banking/kotak-mahindra-bank-gets-cci-nod-to-acquire-deutsche-bank-indias-retail-private-banking-businesses/article71664088.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-04T05:27:54Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Kotak Mahindra Bank received CCI nod to acquire Deutsche Bank India's retail and private banking businesses.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Kotak Mahindra Bank received CCI nod to acquire Deutsche Bank India's retail and private banking businesses.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kotak Mahindra Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Deutsche Bank India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261104-233",
       "headline": "Fractal Analytics Sees Net Income More Than Double In Q2 FY27, Earnings Jump 139% To ₹79.2 Crore While Revenue Growth Of 20% Takes Sales To ₹956.5 Crore",
       "headline_en": null,
@@ -241,6 +295,56 @@
           "name": "Lupin",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-252",
+      "headline": "Omega Healthcare Investors, Inc. Reports Q3 2026 Net income of $87 million and Raises Full Year Guidance",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/omega-healthcare-investors-inc-reports-q3-2026-net-income-87-million-and-raises-full-year",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-04T04:58:46Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Omega Healthcare Investors, Inc. reported Q3 2026 net income of $87 million and raised its full year guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Omega Healthcare Investors, Inc. reported Q3 2026 net income of $87 million and raised its full year guidance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Omega Healthcare Investors, Inc.",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -1877,104 +1981,6 @@
           "name": "Cox Nevada Telcom, L.L.C.",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-188",
-      "headline": "S-4/A - Cox Advanced Services California, LLC (0002143207) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/2143207/000110465926122127/0001104659-26-122127-index.htm",
-      "source_name": "SEC EDGAR — Latest S-4 (M&A / Exchange-Offer Registration)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-03T21:57:17Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Cox Advanced Services California, LLC filed an amended S-4 registration statement, indicating an ongoing M&A or exchange offer.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Cox Advanced Services California, LLC filed an amended S-4 registration statement, indicating an ongoing M&A or exchange offer.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cox Advanced Services California, LLC",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-171",
-      "headline": "S-4/A - CB Commercial Devices, LLC (0002143517) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/2143517/000110465926122127/0001104659-26-122127-index.htm",
-      "source_name": "SEC EDGAR — Latest S-4 (M&A / Exchange-Offer Registration)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-03T21:57:17Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "SEC S-4 filings indicate registration for an M&A or exchange offer, which is a significant corporate event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "SEC S-4 filings indicate registration for an M&A or exchange offer, which is a significant corporate event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CB Commercial Devices, LLC",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "unknown",
@@ -263666,9 +263672,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7389828,
-    "news_picked_today": 395,
-    "news_dropped_today": 3037
+    "news_seen_today": 7468526,
+    "news_picked_today": 425,
+    "news_dropped_today": 3511
   },
   "book_momentum": {
     "live_count": 8,
