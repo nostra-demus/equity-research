@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-04T17:15:37Z",
+  "generated_at": "2026-11-04T17:31:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20261104-585",
@@ -1407,6 +1407,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261104-609",
+      "headline": "Marvell's Deal to Acquire Lumentum Could Be a Game Changer for the Stock",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/11/04/marvells-deal-to-acquire-lumentum-could-be-a-game/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-04T17:15:00Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Marvell Technology is reportedly in talks to acquire Lumentum, representing a major M&A event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Marvell Technology is reportedly in talks to acquire Lumentum, representing a major M&A event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Marvell Technology",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Lumentum",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261104-601",
       "headline": "Aurora Cannabis Inc. Enters into Arrangement Agreement to be Acquired by Organigram Global Inc. for C$7.80 Per Share",
       "headline_en": null,
@@ -1981,57 +2035,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-490",
-      "headline": "Stanley Black & Decker, Inc. Reports 3Q 2026 Results, Raises Guidance, and Announces New $1 Billion Share Repurchase Authorization",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/stanley-black-decker-inc-reports-3q-2026-results-raises-guidance-and-announces-new-1",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T12:51:57Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Stanley Black & Decker reports Q3 results, raises guidance, and authorizes $1B share repurchase—three concrete catalysts, concrete buyback size.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Stanley Black & Decker reports Q3 results, raises guidance, and authorizes $1B share repurchase—three concrete catalysts, concrete buyback size.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Stanley Black & Decker, Inc.",
-          "ticker": "SWK",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -220227,78 +220230,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-ec4e73f028be",
-      "idea_version": "IDEAV-942a7422017179ca",
-      "idea_version_started_at": "2026-11-03T12:53:36Z",
-      "ticker": "TRIDENT",
-      "company": "Trident",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company delivered a 93% jump in profit and announced a substantial ₹4,650 crore capital expenditure plan, indicating strong growth momentum.",
-      "why_now": "The market is reacting to the Q2 results and expansion announcement released today, November 3, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-715ab101bb1d"
-      ],
-      "primary_source_event_id": "EVT-715ab101bb1d",
-      "source_headlines": [
-        "Trident shares jump 13% after Q2 results; profit jumps 93%, board clears ₹4,650 crore expansion plan | What lies ahead"
-      ],
-      "source_headline": "Trident shares jump 13% after Q2 results; profit jumps 93%, board clears ₹4,650 crore expansion plan | What lies ahead",
-      "source_url": "https://www.livemint.com/market/stock-market-news/trident-shares-jump-13-after-q2-results-profit-jumps-93-board-clears-rs-4-650-crore-expansion-plan-what-lies-ahead-11793682049671.html",
-      "source_name": "Mint",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-03T05:25:41Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-03T12:53:36Z",
-      "updated_at": "2026-11-03T12:53:36Z",
-      "decay_at": "2026-11-04T17:25:41Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-3da588978c6b",
       "idea_version": "IDEAV-a103544f6efd07d3",
       "idea_version_started_at": "2026-11-03T12:13:33Z",
@@ -221360,6 +221291,78 @@
       "surfaced_at": "2026-11-02T02:53:32Z",
       "updated_at": "2026-11-02T02:53:32Z",
       "decay_at": "2026-11-03T14:17:08Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-ec4e73f028be",
+      "idea_version": "IDEAV-942a7422017179ca",
+      "idea_version_started_at": "2026-11-03T12:53:36Z",
+      "ticker": "TRIDENT",
+      "company": "Trident",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company delivered a 93% jump in profit and announced a substantial ₹4,650 crore capital expenditure plan, indicating strong growth momentum.",
+      "why_now": "The market is reacting to the Q2 results and expansion announcement released today, November 3, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-715ab101bb1d"
+      ],
+      "primary_source_event_id": "EVT-715ab101bb1d",
+      "source_headlines": [
+        "Trident shares jump 13% after Q2 results; profit jumps 93%, board clears ₹4,650 crore expansion plan | What lies ahead"
+      ],
+      "source_headline": "Trident shares jump 13% after Q2 results; profit jumps 93%, board clears ₹4,650 crore expansion plan | What lies ahead",
+      "source_url": "https://www.livemint.com/market/stock-market-news/trident-shares-jump-13-after-q2-results-profit-jumps-93-board-clears-rs-4-650-crore-expansion-plan-what-lies-ahead-11793682049671.html",
+      "source_name": "Mint",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-03T05:25:41Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-03T12:53:36Z",
+      "updated_at": "2026-11-03T12:53:36Z",
+      "decay_at": "2026-11-04T17:25:41Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -226057,14 +226060,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 576,
+    "total_count": 577,
     "shown_count": 499,
-    "hidden_count": 77,
+    "hidden_count": 78,
     "side_counts": {
       "long": {
-        "total_count": 306,
+        "total_count": 307,
         "shown_count": 250,
-        "hidden_count": 56
+        "hidden_count": 57
       },
       "short": {
         "total_count": 271,
@@ -226088,6 +226091,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-ec4e73f028be",
+        "idea_version": "IDEAV-942a7422017179ca",
+        "idea_version_started_at": "2026-11-03T12:53:36Z",
+        "ticker": "TRIDENT",
+        "company": "Trident",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company delivered a 93% jump in profit and announced a substantial ₹4,650 crore capital expenditure plan, indicating strong growth momentum.",
+        "why_now": "The market is reacting to the Q2 results and expansion announcement released today, November 3, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-715ab101bb1d"
+        ],
+        "primary_source_event_id": "EVT-715ab101bb1d",
+        "source_headlines": [
+          "Trident shares jump 13% after Q2 results; profit jumps 93%, board clears ₹4,650 crore expansion plan | What lies ahead"
+        ],
+        "source_headline": "Trident shares jump 13% after Q2 results; profit jumps 93%, board clears ₹4,650 crore expansion plan | What lies ahead",
+        "source_url": "https://www.livemint.com/market/stock-market-news/trident-shares-jump-13-after-q2-results-profit-jumps-93-board-clears-rs-4-650-crore-expansion-plan-what-lies-ahead-11793682049671.html",
+        "source_name": "Mint",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-03T05:25:41Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-03T12:53:36Z",
+        "updated_at": "2026-11-03T12:53:36Z",
+        "decay_at": "2026-11-04T17:25:41Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-04T17:25:41Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-a4151217c05f",
         "idea_version": "IDEAV-c85077d788972577",
@@ -255579,80 +255657,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-86ad1d17dce0",
-        "idea_version": "IDEAV-d424e4fb1889f9bc",
-        "idea_version_started_at": "2026-10-20T09:35:45Z",
-        "ticker": "VEE",
-        "company": "VEEM Ltd",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Securing orders for the Virginia-class submarine program provides long-term revenue visibility and validates the company's specialized manufacturing capabilities for the defense sector.",
-        "why_now": "The contract win was confirmed in a price-sensitive filing today, October 20, 2026.",
-        "conviction": 80,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-07b1a68ef602"
-        ],
-        "primary_source_event_id": "EVT-07b1a68ef602",
-        "source_headlines": [
-          "VEE: VEEM Secures HII Virginia Class Submarine Orders [price-sensitive]"
-        ],
-        "source_headline": "VEE: VEEM Secures HII Virginia Class Submarine Orders [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.VEE?key=2924-03150685-6A1350223",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 93,
-        "newest_source_at": "2026-10-20T06:46:02Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-20T09:35:45Z",
-        "updated_at": "2026-10-20T09:35:45Z",
-        "decay_at": "2026-10-21T18:46:02Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-23T06:49:13Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-18ddb9fd5fec",
         "idea_version": "IDEAV-5db13e7aa00663b6",
         "idea_version_started_at": "2026-10-20T00:02:47Z",
@@ -263274,7 +263278,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2179,
-    "live_count": 39,
+    "live_count": 38,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -263293,9 +263297,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 12518437,
-    "news_picked_today": 1159,
-    "news_dropped_today": 13721
+    "news_seen_today": 12621308,
+    "news_picked_today": 1169,
+    "news_dropped_today": 13951
   },
   "book_momentum": {
     "live_count": 8,
