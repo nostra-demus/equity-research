@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-04T01:35:43Z",
+  "generated_at": "2026-11-04T01:39:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20261104-006",
@@ -95,6 +95,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-116",
+      "headline": "MarineMax, Inc. Obtains All Regulatory Approvals for Merger, Expects Closing by End of Calendar Year 2026",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/marinemax-inc-obtains-all-regulatory-approvals-merger-expects-closing-end-calendar-year",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-04T01:12:20Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "MarineMax has cleared all regulatory hurdles for a merger, providing certainty for deal closure by year-end 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "MarineMax has cleared all regulatory hurdles for a merger, providing certainty for deal closure by year-end 2026.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MarineMax, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1920,55 +1969,6 @@
           "name": "Genfleet Therapeutics",
           "ticker": "02595",
           "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-105",
-      "headline": "TTM: Suspension from Quotation [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TTM?key=2924-03157775-6A1353535",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-03T22:21:15Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "TTM has been suspended from quotation on the ASX.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "TTM has been suspended from quotation on the ASX.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": -1,
-        "recency": 3,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TTM",
-          "ticker": null,
-          "listing_country": "AU"
         }
       ],
       "size_bucket": "small",
@@ -264168,9 +264168,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1593696,
-    "news_picked_today": 130,
-    "news_dropped_today": 614
+    "news_seen_today": 1673354,
+    "news_picked_today": 137,
+    "news_dropped_today": 631
   },
   "book_momentum": {
     "live_count": 8,
