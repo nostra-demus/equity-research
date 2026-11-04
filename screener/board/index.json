@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-04T04:22:44Z",
+  "generated_at": "2026-11-04T04:29:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20261104-006",
@@ -1042,6 +1042,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261104-216",
+      "headline": "Park National Corporation Details $12.6 billion in Assets and First Citizens Acquisition in Q3 2026 Investor Presentation",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/park-national-corporation-details-126-billion-assets-and-first-citizens-acquisition-q3",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-04T03:48:52Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Detailed Q3 2026 assets of $12.6 billion and discussed its First Citizens acquisition.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Detailed Q3 2026 assets of $12.6 billion and discussed its First Citizens acquisition.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Park National Corporation",
+          "ticker": "PRK",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261104-196",
       "headline": "SCHEDULE 13D/A - ICAHN CARL C (0000921669) (Filed by)",
       "headline_en": null,
@@ -1916,55 +1966,6 @@
           "name": "Cox Advanced Services Arkansas, LLC",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-178",
-      "headline": "S-4/A - Cox Advanced Services Rhode Island, LLC (0002143330) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/2143330/000110465926122127/0001104659-26-122127-index.htm",
-      "source_name": "SEC EDGAR — Latest S-4 (M&A / Exchange-Offer Registration)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-03T21:57:17Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "SEC S-4 filings indicate registration for an M&A or exchange offer, which is a significant corporate event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "SEC S-4 filings indicate registration for an M&A or exchange offer, which is a significant corporate event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cox Advanced Services Rhode Island, LLC",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "unknown",
@@ -264017,9 +264018,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5142353,
-    "news_picked_today": 316,
-    "news_dropped_today": 1604
+    "news_seen_today": 5223469,
+    "news_picked_today": 322,
+    "news_dropped_today": 1718
   },
   "book_momentum": {
     "live_count": 8,
