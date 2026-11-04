@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-04T10:24:30Z",
+  "generated_at": "2026-11-04T10:25:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20261104-338",
@@ -644,6 +644,106 @@
           "name": "Sands China Ltd.",
           "ticker": "01928",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-351",
+      "headline": "Trainline shares slump after profit slips on watchdog probe",
+      "headline_en": null,
+      "url": "https://www.cityam.com/trainline-shares-slump-after-profit-slips-on-watchdog-probe/",
+      "source_name": "City A.M.",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-04T10:08:31Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Shares slumped after profit fell due to an ongoing watchdog probe, combining financial miss with regulatory risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Shares slumped after profit fell due to an ongoing watchdog probe, combining financial miss with regulatory risk.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 82,
+      "rank_factors": {
+        "materiality": 82,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 3,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Trainline PLC",
+          "ticker": "TRN",
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-348",
+      "headline": "Ahold Delhaize cuts profit forecast after cyber attack",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/c65eb5ae-0d16-4786-a8db-9db28d1791d7?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-04T09:53:41Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Ahold Delhaize cut its profit forecast specifically due to the impact of a cyber attack, a direct hit to earnings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ahold Delhaize cut its profit forecast specifically due to the impact of a cyber attack, a direct hit to earnings.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change",
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ahold Delhaize",
+          "ticker": "AD",
+          "listing_country": "NL"
         }
       ],
       "size_bucket": "large",
@@ -1895,105 +1995,6 @@
           "name": "AMD",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-274",
-      "headline": "Emaar plans AED12.5b Emaar Development buyout",
-      "headline_en": null,
-      "url": "https://www.emirates247.com/business/emaar-properties-plans-to-acquire-remaining-emaar-development-shares-at-aed15-each/7425",
-      "source_name": "Emirates 24|7 — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T07:57:00Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Emaar announces AED 12.5bn ($3.4bn) offer to acquire 100% control of Emaar Development, a named M&A event with quantified deal value.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Emaar announces AED 12.5bn ($3.4bn) offer to acquire 100% control of Emaar Development, a named M&A event with quantified deal value.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Emaar",
-          "ticker": "EMAAR",
-          "listing_country": "AE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-322",
-      "headline": "BMW Accelerates Model Rollout, Cuts Profit Forecast",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-11-04/bmw-accelerates-model-rollout-cuts-profit-forecast-video",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T08:59:59Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "BMW cuts profit forecast and accelerates model rollout—confirmed earnings guidance cut plus strategic capex acceleration from a mega-cap automaker.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "BMW cuts profit forecast and accelerates model rollout—confirmed earnings guidance cut plus strategic capex acceleration from a mega-cap automaker.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BMW",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "mega",
@@ -263618,9 +263619,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 9212469,
-    "news_picked_today": 598,
-    "news_dropped_today": 7778
+    "news_seen_today": 9286253,
+    "news_picked_today": 614,
+    "news_dropped_today": 7810
   },
   "book_momentum": {
     "live_count": 8,
