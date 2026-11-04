@@ -27,7 +27,7 @@ permissions:
 jobs:
   ui-server:
     name: ui/server — typecheck + tests
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     defaults:
       run:
         working-directory: ui/server
@@ -56,7 +56,7 @@ jobs:
 
   eval-contracts:
     name: eval — decision-record contracts + framework anchors
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -322,7 +322,7 @@ jobs:
 
   tools-tests:
     name: tools — deterministic extractor + CIQ facts tests
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -469,7 +469,7 @@ jobs:
 
   ui-web:
     name: ui/web — typecheck + tests + build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     defaults:
       run:
         working-directory: ui/web
@@ -513,7 +513,7 @@ jobs:
 
   edge:
     name: edge — offline-gate uptime-monitor unit tests
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
         uses: actions/checkout@v4
