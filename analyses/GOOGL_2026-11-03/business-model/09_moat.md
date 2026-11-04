@@ -1,0 +1,69 @@
+# Moat — GOOGL
+
+Alphabet reports under US GAAP and all money figures are US dollars.
+
+## 1. Named Competitors
+
+- **Meta Platforms (META):** competes for consumer attention, discovery, and advertising budgets through its Family of Apps; this is an advertising-attention overlap, not a pure-search comparison. [Competitive Map — GOOGL, §2]
+- **Amazon.com (AMZN):** competes in commercial queries and retail media through sponsored, display, and video advertising; it is not a like-for-like general-search business. [Competitive Map — GOOGL, §2]
+- **Microsoft (MSFT):** competes in general search through Bing, Copilot, Edge, and search advertising. [Competitive Map — GOOGL, §2]
+
+## 2. Moat Sources
+
+| Possible Moat | Present? (Y/N) | Evidence | Strength /100 |
+|---|---|---|---:|
+| Brand | Y | Alphabet says Google’s product innovation has made its services widely used and its brand one of the world’s most recognized; Google Services includes Search, YouTube, Maps, Chrome, Android, Play and other daily-use products. This is company disclosure, not an independently measured brand-value estimate. [data/GOOGL/Alphabet_Inc_-_Form_10-K(Feb-05-2026).doc, FY2025, Item 1—Google Services, p.4] | 70 |
+| Cost advantage | Y | Alphabet says its AI infrastructure and data-center efficiencies let it operate at increasing scale. That supports a scale-related cost advantage, but the filing does not disclose unit costs versus Meta, Amazon, or Microsoft; it is therefore only partly proven. [data/GOOGL/Alphabet_Inc_-_Form_10-K(Feb-05-2026).doc, FY2025, Item 1—Making AI Helpful for Everyone, pp.3–4] | 55 |
+| Distribution | Y | Android, Chrome, Search, Maps, Play, YouTube, and devices place Google services across many user touchpoints. The December 2025 Search judgment also imposed restrictions on how Google distributes services and requires data sharing and syndication offers to competitors, showing this distribution position faces a real legal constraint. [data/GOOGL/Alphabet_Inc_-_Form_10-K(Feb-05-2026).doc, FY2025, Item 1—Google Services, p.4; Note 10—Antitrust Matters: Search] | 65 |
+| Scale | Y | Google Services generated $342.721bn of FY2025 revenue and $139.404bn of segment operating income; Alphabet also says all 15 products with at least 500m users use Gemini, including seven with at least 2bn users. This scale funds data, infrastructure, product development, and advertiser reach. [data/GOOGL/Alphabet_Inc_-_Form_10-K(Feb-05-2026).doc, FY2025, Note 15, pp.86–87; Item 1—Making AI Helpful for Everyone, p.3] | 80 |
+| Technology / IP | Y | Alphabet cites custom TPUs, including seventh-generation Ironwood, Gemini models used across its large products, and patents, trade secrets, trademarks, copyrights, and contractual protections. The filing also says AI is rapidly evolving, so these assets need continued investment to remain an advantage. [data/GOOGL/Alphabet_Inc_-_Form_10-K(Feb-05-2026).doc, FY2025, Item 1—Making AI Helpful for Everyone and Intellectual Property, pp.3, 8] | 75 |
+| Licenses / regulation | N | No licensing franchise that blocks Meta, Amazon, or Microsoft is proven. Regulation is currently a constraint: the filing describes competition remedies affecting Search, Android, and advertising technology. [data/GOOGL/Alphabet_Inc_-_Form_10-K(Feb-05-2026).doc, FY2025, Note 10—Antitrust Matters] | 10 |
+| Network effects | Y | Google’s advertising technologies serve millions of companies across devices and formats, while Google Network partners add publisher inventory. The two-sided feedback loop between users, advertiser demand, and inventory is an inference from this disclosed structure; the filing does not quantify the incremental economic effect. *Inference, not from filings.* [data/GOOGL/Alphabet_Inc_-_Form_10-K(Feb-05-2026).doc, FY2025, Item 1—How We Make Money, pp.4–5] | 65 |
+| Switching costs | N | Cloud backlog reflects committed contracts, but advertisers, distributors, publishers, and content providers can terminate at any time. The filing does not disclose group retention, advertiser churn, or renewal rates that would prove a broad switching-cost moat. [data/GOOGL/Alphabet_Inc_-_Form_10-K(Feb-05-2026).doc, FY2025, Note 2—Revenue Backlog; Item 1A—Advertising Risk] | 35 |
+| Natural resource access | N | Not proven from available data. Alphabet’s moat candidates are software, data, distribution, and infrastructure rather than exclusive control of a natural resource. [data/GOOGL/Alphabet_Inc_-_Form_10-K(Feb-05-2026).doc, FY2025, Item 1—Business] | 0 |
+| Location advantage | N | Not proven from available data. Alphabet operates globally, but the filing does not identify a place-based barrier that prevents these named global competitors from serving the same customers. [data/GOOGL/Alphabet_Inc_-_Form_10-K(Feb-05-2026).doc, FY2025, Item 1—Business] | 5 |
+
+## 3. Competitive Economics
+
+| Company / Competitor | Gross Margin | EBIT Margin | Return on capital (ROIC, or ROE for financials) | Period | Source |
+|---|---:|---:|---:|---|---|
+| Alphabet | 59.7% | 32.0% | 19.3% ROIC (CIQ vendor measure) | FY2025 | Gross margin reconciles to $240.301bn gross profit / $402.836bn revenue from the filing; the 19.3% ROIC is the authoritative CIQ read. [data/GOOGL/Alphabet_Inc_-_Form_10-K(Feb-05-2026).doc, FY2025, Consolidated Statements of Income, p.49; CIQ Financials→Income Statement (margin %) and Ratios (ROIC), FY2025 — vendor export] |
+| Meta Platforms | Not disclosed in upstream competitive map | 41.4% | 30.2% ROE† | FY2025 | [Meta FY2025 Form 10-K, Financial Statements, cited in Competitive Map — GOOGL §2] |
+| Amazon.com | Not disclosed in upstream competitive map | 11.2% | 22.3% ROE† | FY2025 | [Amazon FY2025 Form 10-K, Financial Statements, cited in Competitive Map — GOOGL §2] |
+| Microsoft | Not disclosed in upstream competitive map | 46.8% | 34.0% ROE† | FY2026 | [Microsoft FY2026 Form 10-K, Item 8, cited in Competitive Map — GOOGL §2] |
+
+†These are consolidated ROE figures inherited from the competitive map, not operating-company ROIC. They cannot be ranked directly against Alphabet’s ROIC, and none represents the precise search/advertising overlap.
+
+**Economic-moat test — Not assessable.** Return on capital **not assessable against cost of capital**: **18.6% average CIQ ROIC** versus **WACC not determinable** (gap: not assessable). Alphabet’s CIQ ROIC was 18.6% on a simple FY2021–FY2025 average (18.5%, 16.5%, 17.6%, 21.0%, 19.3%), but a matching group WACC cannot be determined from the admitted evidence: the pool contains neither a group-disclosed WACC nor a dated, sourced CAPM input set of risk-free rate, beta, and equity-risk premium. *Inference, not from filings:* a positive spread is plausible, but it is not proven here. [CIQ Financials→Income Statement + Ratios, FY2021–FY2025 — vendor export]
+
+The latest vendor ROIC was 15.6% for LTM September 2026, below FY2025’s 19.3%; this is a vendor-defined measure and the calculation basis is not disclosed in the workbook. [CIQ Financials→Income Statement + Ratios, LTM September 2026 — vendor export]
+
+**Cross-check of return measure and gross capital.** No management ROIC headline was found in the admitted filings. Using a 16.0% normalized tax rate, FY2025 NOPAT was $108.393bn = $129.039bn EBIT × (1 − 16.0%). The 16.0% rate is the rounded average of FY2023–FY2025 reported effective rates of 13.9%, 16.4%, and 16.8%; it avoids treating FY2025’s unquantified non-deductible EC fine and legal-settlement effect as structural. [data/GOOGL/Alphabet_Inc_-_Form_10-K(Feb-05-2026).doc, FY2023–FY2025, Consolidated Statements of Income, p.49; Note 14—Income Taxes]
+
+On a gross-capital basis that does **not** net Alphabet’s cash, FY2025 computed ROIC was 27.0%: $108.393bn NOPAT ÷ $401.537bn average funded capital. The denominator is the average of FY2024 $339.266bn ($325.084bn equity + $14.182bn funded debt) and FY2025 $463.808bn ($415.265bn equity + $48.543bn funded debt), excluding lease obligations; the filing reported $95.657bn and $126.843bn of cash, cash equivalents, and marketable securities in those years, so a net-of-cash denominator would overstate the return. This 27.0% figure is not comparable with CIQ’s 19.3% vendor ROIC because their capital bases differ; the lower CIQ measure is used for the through-cycle read. [data/GOOGL/Alphabet_Inc_-_Form_10-K(Feb-05-2026).doc, FY2025, Consolidated Balance Sheets, p.48; Note 6—Debt]
+
+## 4. Where The Company Sits
+
+**Relative to peers:** Insufficient data to compare against named peers on a like-for-like margin and capital-efficiency basis. Alphabet’s 32.0% FY2025 EBIT margin is below Meta’s 41.4% and Microsoft’s 46.8% but above Amazon’s 11.2%; gross margins are absent from the upstream peer profiles and the available peer return figures are ROE rather than ROIC. [Competitive Map — GOOGL, §2]
+
+**Absolute (the economic moat test):** the company earns a return on capital **not assessable against its cost of capital** (18.6% FY2021–FY2025 average CIQ ROIC versus no admissible group WACC). The economic spread therefore is not proven, even though its reported return history is high in absolute terms. [CIQ Financials→Income Statement + Ratios, FY2021–FY2025 — vendor export]
+
+## 5. Moat Verdict
+
+**Narrow moat.** Alphabet has evidenced scale, brand, product distribution, technology/IP, and a likely two-sided advertising network effect, but the necessary group cost-of-capital comparison is missing and peer evidence does not establish that its economics are superior to the strongest named platforms. The next five years must show that Search monetization and Cloud returns remain high after the AI/data-center build, without continued loss of ROIC as capital is added; durability is discounted because the business-quality review scores industry rate-of-change/disruption risk only 40/100. [Business Quality — GOOGL, §1 and §4]
+
+**Moat trajectory — stable (mixed; direction not established).** The evidence does not support “widening” or “eroding” as a confirmed call: profitability lines improve, while capital efficiency, cash conversion, and the latest pricing-growth rate deteriorate or slow.
+
+### Trajectory evidence panel
+
+| Metric (same 3–5 year window) | Start | Latest | Direction | Supports / contradicts the stated trajectory |
+|---|---:|---:|---|---|
+| Gross margin | 57% (FY2023) | 61% (LTM Sep. 2026) | Up 400bps | Contradicts an erosion call; supports stronger unit economics. [CIQ Financials→Income Statement, FY2023 and LTM Sep. 2026 — vendor export] |
+| EBITDA margin | 31% (FY2023) | 39% (LTM Sep. 2026) | Up 800bps | Contradicts erosion; supports wider operating profitability. [CIQ Financials→Income Statement, FY2023 and LTM Sep. 2026 — vendor export] |
+| EBIT or operating margin | 27.4% (FY2023) | 33.9% (nine months ended Sep. 2026) | Up 650bps | Contradicts erosion, though the latest period is not a full year. [data/GOOGL/Alphabet_Inc_-_Form_10-K(Feb-05-2026).doc, FY2023, Consolidated Statements of Income, p.49; data/GOOGL/Alphabet_Inc_-_Form_10-Q(Oct-29-2026).doc, nine months 2026, Consolidated Statements of Income] |
+| Return on capital (ROIC / ROCE) vs cost of capital | 17.6% ROIC (FY2023); WACC not determinable | 15.6% ROIC (LTM Sep. 2026); WACC not determinable | ROIC down 200bps; economic spread not assessable | Supports caution: more capital has not yet converted into a higher vendor ROIC. [CIQ Financials→Income Statement + Ratios, FY2023 and LTM Sep. 2026 — vendor export] |
+| Market share (or the closest disclosed volume/position proxy) | Not disclosed | Google 91.05% / Bing 4.80% of worldwide web-search referrals (Oct. 2026) | Not assessable | Neither supports nor contradicts the trajectory: this is one unverified point, not a trend, and it excludes social/video and retail media. [Web: StatCounter Global Stats, worldwide search-engine market share, October 2026, retrieved 2026-11-03 — indicative, unverified; Competitive Map — GOOGL, §3] |
+| Cash conversion (CFO ÷ EBITDA) | 105.7% ($101.746bn ÷ $96.239bn, FY2023) | 96.8% ($179.551bn ÷ $185.516bn, LTM Sep. 2026) | Down 890bps | Supports caution and contradicts the higher-margin rows; this ratio is not a standalone measure of cash quality. [data/GOOGL/Alphabet_Inc_-_Form_10-K(Feb-05-2026).doc, FY2023, Consolidated Statements of Cash Flows, p.52; CIQ Financials→Cash Flow and Income Statement, LTM Sep. 2026 — vendor export] |
+| Pricing / realised price or mix | Google Search cost-per-click +7% (FY2025) | +4% (nine months 2026, year-on-year) | Growth rate slower | Supports caution, but does not prove price erosion because both periods remain positive and product, geographic, and currency mix affect the measure. [data/GOOGL/Alphabet_Inc_-_Form_10-K(Feb-05-2026).doc, FY2025, Item 7—Monetization Metrics; data/GOOGL/Alphabet_Inc_-_Form_10-Q(Oct-29-2026).doc, nine months 2026, Item 2—Monetization Metrics] |
+
+Gross margin (+400bps), EBITDA margin (+800bps), and operating margin (+650bps) all contradict an erosion conclusion. The opposite evidence is material: CIQ ROIC fell from 17.6% to 15.6%, CFO/EBITDA fell from 105.7% to 96.8%, and Search cost-per-click growth slowed from 7% to 4%; market share has no disclosed trend. The best reading is therefore a stable structural moat with mixed current economics, not a demonstrated widening moat. The single data point that would flip this read is FY2026 full-year ROIC on the same CIQ basis: recovery above FY2025’s 19.3% alongside the higher margins would support widening; a further decline below the LTM 15.6% would support erosion. The expected February 2027 filing window is based on the prior-year filing cadence and is not a confirmed reporting date. [CIQ Financials→Income Statement + Ratios, FY2025 and LTM Sep. 2026 — vendor export; data/GOOGL/Alphabet_Inc_-_Form_10-K(Feb-05-2026).doc, filed 2026-02-05]

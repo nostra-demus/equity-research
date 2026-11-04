@@ -1,0 +1,79 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-11-04T03:39:16Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-083c9caae543",
+    "idea_version": "IDEAV-98032d0888923e28",
+    "idea_version_started_at": "2026-11-01T03:42:18Z",
+    "ticker": "VOW3",
+    "company": "Volkswagen",
+    "exchange": "XTRA",
+    "ticker_verified": false,
+    "listing_verified": false,
+    "liquidity_verified": false,
+    "listing_verification_source": null,
+    "direction": "short",
+    "pair_with": null,
+    "reason": "IG Metall warning strikes in the German metal and electrical industry, a key sector for automotive manufacturing, are likely to disrupt production and increase costs for major automakers like Volkswagen.",
+    "why_now": "Warning strikes began shortly after midnight on November 1, 2026, indicating an immediate operational risk.",
+    "conviction": 45,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 45,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 19,
+      "specificity": 7,
+      "timing": 10,
+      "expression": 0,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "watch_only",
+    "missing_checks": [
+      "verified listed ticker",
+      "verified listing",
+      "live liquidity",
+      "dated catalyst",
+      "independent confirmation",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "sector_cycle",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-c10d6ca9b45c"
+    ],
+    "primary_source_event_id": "EVT-c10d6ca9b45c",
+    "source_headlines": [
+      "Metal and electrical industry: IG Metall warning strikes started shortly after midnight"
+    ],
+    "source_headline": "Metall- und Elektroindustrie: Warnstreiks der IG Metall kurz nach Mitternacht gestartet",
+    "source_url": "https://www.handelsblatt.com/politik/deutschland/metall-und-elektroindustrie-warnstreiks-der-ig-metall-kurz-nach-mitternacht-gestartet/100266374.html",
+    "source_name": "Handelsblatt",
+    "materiality_max": 68,
+    "newest_source_at": "2026-11-01T00:41:16Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-11-01T03:42:18Z",
+    "updated_at": "2026-11-01T03:42:18Z",
+    "decay_at": "2026-11-02T12:41:16Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}
