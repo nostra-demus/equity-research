@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-04T21:42:12Z",
+  "generated_at": "2026-11-04T22:01:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20261104-637",
@@ -219991,77 +219991,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-0c047d75c2ad",
-      "idea_version": "IDEAV-e1d691d07466967a",
-      "idea_version_started_at": "2026-11-03T12:53:36Z",
-      "ticker": "00403",
-      "company": "Starlite Holdings Limited",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning, indicating a material deterioration in financial performance.",
-      "why_now": "The profit warning was filed today, November 3, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5535643b8c1d"
-      ],
-      "primary_source_event_id": "EVT-5535643b8c1d",
-      "source_headlines": [
-        "STARLITE HOLD (00403): PROFIT WARNING"
-      ],
-      "source_headline": "STARLITE HOLD (00403): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1103/2026110301630.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-03T09:46:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-03T12:53:36Z",
-      "updated_at": "2026-11-03T12:53:36Z",
-      "decay_at": "2026-11-04T21:46:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-a04c9484ab55",
       "idea_version": "IDEAV-9911c885fc1bde23",
       "idea_version_started_at": "2026-11-03T12:53:36Z",
@@ -221050,6 +220979,77 @@
       "surfaced_at": "2026-11-03T12:53:36Z",
       "updated_at": "2026-11-03T12:53:36Z",
       "decay_at": "2026-11-04T20:43:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-0c047d75c2ad",
+      "idea_version": "IDEAV-e1d691d07466967a",
+      "idea_version_started_at": "2026-11-03T12:53:36Z",
+      "ticker": "00403",
+      "company": "Starlite Holdings Limited",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a profit warning, indicating a material deterioration in financial performance.",
+      "why_now": "The profit warning was filed today, November 3, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5535643b8c1d"
+      ],
+      "primary_source_event_id": "EVT-5535643b8c1d",
+      "source_headlines": [
+        "STARLITE HOLD (00403): PROFIT WARNING"
+      ],
+      "source_headline": "STARLITE HOLD (00403): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1103/2026110301630.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-03T09:46:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-03T12:53:36Z",
+      "updated_at": "2026-11-03T12:53:36Z",
+      "decay_at": "2026-11-04T21:46:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -226107,9 +226107,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 582,
+    "total_count": 583,
     "shown_count": 499,
-    "hidden_count": 83,
+    "hidden_count": 84,
     "side_counts": {
       "long": {
         "total_count": 310,
@@ -226117,9 +226117,9 @@
         "hidden_count": 60
       },
       "short": {
-        "total_count": 273,
+        "total_count": 274,
         "shown_count": 250,
-        "hidden_count": 23
+        "hidden_count": 24
       }
     },
     "retention": {
@@ -226138,6 +226138,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-0c047d75c2ad",
+        "idea_version": "IDEAV-e1d691d07466967a",
+        "idea_version_started_at": "2026-11-03T12:53:36Z",
+        "ticker": "00403",
+        "company": "Starlite Holdings Limited",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company issued a profit warning, indicating a material deterioration in financial performance.",
+        "why_now": "The profit warning was filed today, November 3, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-5535643b8c1d"
+        ],
+        "primary_source_event_id": "EVT-5535643b8c1d",
+        "source_headlines": [
+          "STARLITE HOLD (00403): PROFIT WARNING"
+        ],
+        "source_headline": "STARLITE HOLD (00403): PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1103/2026110301630.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-03T09:46:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-03T12:53:36Z",
+        "updated_at": "2026-11-03T12:53:36Z",
+        "decay_at": "2026-11-04T21:46:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-04T21:46:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-056be750d8b7",
         "idea_version": "IDEAV-d64fff47a5008f07",
@@ -263245,87 +263319,12 @@
         "archived_at": "2026-10-11T13:19:44Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-790093145eaa",
-        "idea_version": "IDEAV-b7d8c650422f7266",
-        "idea_version_started_at": "2026-10-08T13:35:02Z",
-        "ticker": "EZJ",
-        "company": "EasyJet",
-        "exchange": "LSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The airline is doubling its winter flight capacity cuts, indicating that rising operational costs are severely impacting margins.",
-        "why_now": "The announcement was made today, October 8, 2026.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-ba5d75b53172"
-        ],
-        "primary_source_event_id": "EVT-ba5d75b53172",
-        "source_headlines": [
-          "EasyJet doubles winter flight cuts amid rising costs"
-        ],
-        "source_headline": "EasyJet doubles winter flight cuts amid rising costs",
-        "source_url": "https://www.ft.com/content/e24cfc54-ef45-487c-a94f-948abb60dd65?syn-25a6b1a6=1",
-        "source_name": "Financial Times",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-08T12:54:56Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-08T13:35:02Z",
-        "updated_at": "2026-10-08T13:35:02Z",
-        "decay_at": "2026-10-10T00:54:56Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-11T13:19:44Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2180,
-    "live_count": 34,
+    "live_count": 33,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -263344,9 +263343,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 14204599,
-    "news_picked_today": 1371,
-    "news_dropped_today": 19725
+    "news_seen_today": 14264859,
+    "news_picked_today": 1373,
+    "news_dropped_today": 20299
   },
   "book_momentum": {
     "live_count": 8,
