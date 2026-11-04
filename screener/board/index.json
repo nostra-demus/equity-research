@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-04T08:18:04Z",
+  "generated_at": "2026-11-04T08:30:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20261104-259",
@@ -200,6 +200,155 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-264",
+      "headline": "Meta raises $15 billion through bond sale to fund AI infrastructure expansion",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/meta-raises-15-billion-through-bond-sale-to-fund-ai-infrastructure-expansion/articleshow/135530378.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-04T07:50:23Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Meta raises $15 billion in debt to fund AI infrastructure capex expansion, signaling material increase in capital intensity and near-term cash-burn pressure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Meta raises $15 billion in debt to fund AI infrastructure capex expansion, signaling material increase in capital intensity and near-term cash-burn pressure.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "debt_credit",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meta Platforms",
+          "ticker": "META",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-273",
+      "headline": "Emaar offers $3.4bn to acquire full control of Emaar Development",
+      "headline_en": null,
+      "url": "https://www.arabianbusiness.com/real-estate/emaar-offers-3-4bn-to-acquire-full-control-of-emaar-development",
+      "source_name": "Arabian Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-04T07:45:24Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Emaar announces $3.4bn offer to acquire 100% control of Emaar Development, a named M&A event with quantified deal value.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Emaar announces $3.4bn offer to acquire 100% control of Emaar Development, a named M&A event with quantified deal value.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Emaar",
+          "ticker": "EMAAR",
+          "listing_country": "AE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-276",
+      "headline": "Novo Nordisk Q3 Adj. Operating Profit Increases, Obesity Sales Up 22%; Raises 2026 Outlook",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/novo-nordisk-q3-adj-operating-profit-increases-obesity-sales-22-raises-2026-outlook",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-04T07:11:24Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Q3 adjusted operating profit rose; obesity-treatment sales grew 22%; full-year 2026 guidance raised.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Q3 adjusted operating profit rose; obesity-treatment sales grew 22%; full-year 2026 guidance raised.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Novo Nordisk",
+          "ticker": "NVO",
+          "listing_country": "DK"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1110,6 +1259,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261104-274",
+      "headline": "Emaar plans AED12.5b Emaar Development buyout",
+      "headline_en": null,
+      "url": "https://www.emirates247.com/business/emaar-properties-plans-to-acquire-remaining-emaar-development-shares-at-aed15-each/7425",
+      "source_name": "Emirates 24|7 — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-04T07:57:00Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Emaar announces AED 12.5bn ($3.4bn) offer to acquire 100% control of Emaar Development, a named M&A event with quantified deal value.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Emaar announces AED 12.5bn ($3.4bn) offer to acquire 100% control of Emaar Development, a named M&A event with quantified deal value.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Emaar",
+          "ticker": "EMAAR",
+          "listing_country": "AE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261104-236",
       "headline": "Dr. Reddy's Laboratories Limited: The Exchange has sought clarification from Dr. Reddy's Laboratories Limited with respect to recent news item captioned Indias Dr Reddys gets US nod for $40 generic HIV prevention shot for 120 poorer countries. The response from the Company is attached.",
       "headline_en": null,
@@ -1253,6 +1451,60 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-271",
+      "headline": "JD.com wins conditional EU approval for $2.5 billion Ceconomy acquisition",
+      "headline_en": null,
+      "url": "https://technode.com/2026/11/04/jd-com-wins-conditional-eu-approval-for-2-5-billion-ceconomy-acquisition/",
+      "source_name": "TechNode",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-04T07:58:15Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "JD.com secures conditional EU regulatory approval for $2.5 billion Ceconomy acquisition, clearing a major gate in the M&A process.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "JD.com secures conditional EU regulatory approval for $2.5 billion Ceconomy acquisition, clearing a major gate in the M&A process.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 68,
+      "rank_factors": {
+        "materiality": 68,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 2,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "JD.com",
+          "ticker": null,
+          "listing_country": "CN"
+        },
+        {
+          "name": "Ceconomy",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1741,251 +1993,6 @@
           "name": "Cox Advanced Services Nebraska, LLC",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-184",
-      "headline": "S-4/A - Cox Advanced Services Ohio, LLC (0002143307) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/2143307/000110465926122127/0001104659-26-122127-index.htm",
-      "source_name": "SEC EDGAR — Latest S-4 (M&A / Exchange-Offer Registration)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-03T21:57:17Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Cox Advanced Services Ohio, LLC filed an amended S-4 registration statement, indicating an ongoing M&A or exchange offer.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Cox Advanced Services Ohio, LLC filed an amended S-4 registration statement, indicating an ongoing M&A or exchange offer.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cox Advanced Services Ohio, LLC",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-186",
-      "headline": "S-4/A - Cox Advanced Services Arizona, LLC (0002143209) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/2143209/000110465926122127/0001104659-26-122127-index.htm",
-      "source_name": "SEC EDGAR — Latest S-4 (M&A / Exchange-Offer Registration)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-03T21:57:17Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Cox Advanced Services Arizona, LLC filed an amended S-4 registration statement, indicating an ongoing M&A or exchange offer.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Cox Advanced Services Arizona, LLC filed an amended S-4 registration statement, indicating an ongoing M&A or exchange offer.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cox Advanced Services Arizona, LLC",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-166",
-      "headline": "S-4/A - Cox Communications Louisiana, L.L.C. (0002143559) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/2143559/000110465926122127/0001104659-26-122127-index.htm",
-      "source_name": "SEC EDGAR — Latest S-4 (M&A / Exchange-Offer Registration)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-03T21:57:17Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "SEC S-4 filings indicate registration for an M&A or exchange offer, which is a significant corporate event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "SEC S-4 filings indicate registration for an M&A or exchange offer, which is a significant corporate event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cox Communications Louisiana, L.L.C.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-160",
-      "headline": "S-4/A - Cox Communications Georgia, LLC (0002143563) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/2143563/000110465926122127/0001104659-26-122127-index.htm",
-      "source_name": "SEC EDGAR — Latest S-4 (M&A / Exchange-Offer Registration)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-03T21:57:17Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "SEC S-4 filings indicate registration for an M&A or exchange offer, which is a significant corporate event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "SEC S-4 filings indicate registration for an M&A or exchange offer, which is a significant corporate event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cox Communications Georgia, LLC",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-162",
-      "headline": "S-4/A - Cox Communications Hampton Roads, L.L.C. (0002143561) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/2143561/000110465926122127/0001104659-26-122127-index.htm",
-      "source_name": "SEC EDGAR — Latest S-4 (M&A / Exchange-Offer Registration)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-03T21:57:17Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "SEC S-4 filings indicate registration for an M&A or exchange offer, which is a significant corporate event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "SEC S-4 filings indicate registration for an M&A or exchange offer, which is a significant corporate event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cox Communications Hampton Roads, L.L.C.",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "unknown",
@@ -263677,9 +263684,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8223097,
-    "news_picked_today": 472,
-    "news_dropped_today": 6152
+    "news_seen_today": 8330764,
+    "news_picked_today": 490,
+    "news_dropped_today": 6206
   },
   "book_momentum": {
     "live_count": 8,
