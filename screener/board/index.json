@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-11-04T10:04:24Z",
+  "generated_at": "2026-11-04T10:16:42Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261104-331",
+      "headline": "GRAND BAOXIN (01293): DECISION OF THE LISTING COMMITTEE ON CANCELLATION OF LISTING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1104/2026110401240.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-04T09:27:00Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "The Listing Committee has decided to cancel the company's listing, a terminal event for public equity holders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The Listing Committee has decided to cancel the company's listing, a terminal event for public equity holders.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GRAND BAOXIN",
+          "ticker": "01293",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-336",
+      "headline": "GLORY SUN LAND (00299): Cancellation of listing",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1104/2026110401162.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-04T09:15:00Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Listing cancellation removes trading access for GLORY SUN LAND shareholders and ends exchange liquidity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Listing cancellation removes trading access for GLORY SUN LAND shareholders and ends exchange liquidity.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GLORY SUN LAND",
+          "ticker": "00299",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261104-295",
       "headline": "BIL VYAPAR LIMITED: BIL VYAPAR LIMITED has informed the Exchange about Corporate Insolvency Resolution Process",
@@ -1899,105 +1997,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-236",
-      "headline": "Dr. Reddy's Laboratories Limited: The Exchange has sought clarification from Dr. Reddy's Laboratories Limited with respect to recent news item captioned Indias Dr Reddys gets US nod for $40 generic HIV prevention shot for 120 poorer countries. The response from the Company is attached.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/DRREDDY_04112026113836_SE_intimation_Reg30_Market_Rumour_Verification_NSE_signed.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-04T06:08:52Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Dr. Reddy's Laboratories has responded to exchange clarification regarding US FDA approval for a $40 generic HIV-prevention shot for 120 countries, representing regulatory validation and material new commercial opportunity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Dr. Reddy's Laboratories has responded to exchange clarification regarding US FDA approval for a $40 generic HIV-prevention shot for 120 countries, representing regulatory validation and material new commercial opportunity.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dr. Reddy's Laboratories Limited",
-          "ticker": "DRREDDY",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-118",
-      "headline": "HSBC HOLDINGS (00005): ISSUANCE OF SENIOR UNSECURED NOTES",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1104/2026110400007.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-03T23:10:00Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "HSBC Holdings announced the issuance of senior unsecured notes, a routine capital markets activity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "HSBC Holdings announced the issuance of senior unsecured notes, a routine capital markets activity.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HSBC HOLDINGS",
-          "ticker": "00005",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -220619,78 +220618,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-fee1e839a5af",
-      "idea_version": "IDEAV-7713be9b154fa86f",
-      "idea_version_started_at": "2026-11-03T02:31:59Z",
-      "ticker": "TCMD",
-      "company": "Tactile Medical",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Operating expenses are growing faster than revenue, signaling margin compression and poor cost control.",
-      "why_now": "The Q3 2026 earnings report released on 2026-11-02 highlights this negative divergence.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-dd4dd1048acc"
-      ],
-      "primary_source_event_id": "EVT-dd4dd1048acc",
-      "source_headlines": [
-        "Tactile Medical's Spending Outpaces Sales: Rapid Earnings Reaction"
-      ],
-      "source_headline": "Tactile Medical's Spending Outpaces Sales: Rapid Earnings Reaction",
-      "source_url": "https://www.nasdaq.com/articles/tactile-medicals-spending-outpaces-sales-rapid-earnings-reaction",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-02T22:13:29Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-03T02:31:59Z",
-      "updated_at": "2026-11-03T02:31:59Z",
-      "decay_at": "2026-11-04T10:13:29Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-a204395caab2",
       "idea_version": "IDEAV-6cd21665a86d4930",
       "idea_version_started_at": "2026-11-03T02:31:59Z",
@@ -221536,6 +221463,78 @@
       "surfaced_at": "2026-11-02T10:18:41Z",
       "updated_at": "2026-11-03T02:31:59Z",
       "decay_at": "2026-11-04T09:00:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-fee1e839a5af",
+      "idea_version": "IDEAV-7713be9b154fa86f",
+      "idea_version_started_at": "2026-11-03T02:31:59Z",
+      "ticker": "TCMD",
+      "company": "Tactile Medical",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Operating expenses are growing faster than revenue, signaling margin compression and poor cost control.",
+      "why_now": "The Q3 2026 earnings report released on 2026-11-02 highlights this negative divergence.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-dd4dd1048acc"
+      ],
+      "primary_source_event_id": "EVT-dd4dd1048acc",
+      "source_headlines": [
+        "Tactile Medical's Spending Outpaces Sales: Rapid Earnings Reaction"
+      ],
+      "source_headline": "Tactile Medical's Spending Outpaces Sales: Rapid Earnings Reaction",
+      "source_url": "https://www.nasdaq.com/articles/tactile-medicals-spending-outpaces-sales-rapid-earnings-reaction",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-02T22:13:29Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-03T02:31:59Z",
+      "updated_at": "2026-11-03T02:31:59Z",
+      "decay_at": "2026-11-04T10:13:29Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -226377,9 +226376,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 577,
+    "total_count": 578,
     "shown_count": 500,
-    "hidden_count": 77,
+    "hidden_count": 78,
     "side_counts": {
       "long": {
         "total_count": 306,
@@ -226387,9 +226386,9 @@
         "hidden_count": 56
       },
       "short": {
-        "total_count": 271,
+        "total_count": 272,
         "shown_count": 250,
-        "hidden_count": 21
+        "hidden_count": 22
       }
     },
     "retention": {
@@ -226408,6 +226407,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-fee1e839a5af",
+        "idea_version": "IDEAV-7713be9b154fa86f",
+        "idea_version_started_at": "2026-11-03T02:31:59Z",
+        "ticker": "TCMD",
+        "company": "Tactile Medical",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Operating expenses are growing faster than revenue, signaling margin compression and poor cost control.",
+        "why_now": "The Q3 2026 earnings report released on 2026-11-02 highlights this negative divergence.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-dd4dd1048acc"
+        ],
+        "primary_source_event_id": "EVT-dd4dd1048acc",
+        "source_headlines": [
+          "Tactile Medical's Spending Outpaces Sales: Rapid Earnings Reaction"
+        ],
+        "source_headline": "Tactile Medical's Spending Outpaces Sales: Rapid Earnings Reaction",
+        "source_url": "https://www.nasdaq.com/articles/tactile-medicals-spending-outpaces-sales-rapid-earnings-reaction",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-02T22:13:29Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-03T02:31:59Z",
+        "updated_at": "2026-11-03T02:31:59Z",
+        "decay_at": "2026-11-04T10:13:29Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-04T10:13:29Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-0ac45b9845e1",
         "idea_version": "IDEAV-1f48c63285d1ff1e",
@@ -263593,84 +263667,12 @@
         "archived_at": "2026-10-10T16:24:56Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-875480fa9405",
-        "idea_version": "IDEAV-c24530fc35c6493c",
-        "idea_version_started_at": "2026-10-08T03:53:00Z",
-        "ticker": "8455.HK",
-        "company": "LAI Group",
-        "exchange": "Hong Kong",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The proposed rights issue on a non-fully underwritten basis signals severe liquidity stress and significant dilution for existing shareholders.",
-        "why_now": "The capital reorganization and rights issue were announced via exchange filing on 2026-10-07.",
-        "conviction": 80,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 76,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-c7a7057fb664"
-        ],
-        "primary_source_event_id": "EVT-c7a7057fb664",
-        "source_headlines": [
-          "LAI GROUP (08455): (1) PROPOSED CAPITAL REORGANISATION; (2) PROPOSED CHANGE IN BOARD LOT SIZE; (3) PROPOSED INCREASE IN AUTHORISED SHARE CAPITAL; (4) PROPOSED RIGHTS ISSUE ON THE BASIS OF TWO RIGHTS SHARES FOR EVERY ONE ADJUSTED SHARE HELD ON THE RECORD DATE ON NON-FULLY UNDERWRITTEN BASIS; AND (5) CONNECTED TRANSACTION IN RELATION TO THE UNDERWRITING AGREEMENT"
-        ],
-        "source_headline": "LAI GROUP (08455): (1) PROPOSED CAPITAL REORGANISATION; (2) PROPOSED CHANGE IN BOARD LOT SIZE; (3) PROPOSED INCREASE IN AUTHORISED SHARE CAPITAL; (4) PROPOSED RIGHTS ISSUE ON THE BASIS OF TWO RIGHTS SHARES FOR EVERY ONE ADJUSTED SHARE HELD ON THE RECORD DATE ON NON-FULLY UNDERWRITTEN BASIS; AND (5) CONNECTED TRANSACTION IN RELATION TO THE UNDERWRITING AGREEMENT",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1007/2026100701981.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-07T14:10:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-08T03:53:00Z",
-        "updated_at": "2026-10-08T03:53:00Z",
-        "decay_at": "2026-10-09T02:10:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-10T14:49:44Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2172,
-    "live_count": 43,
+    "live_count": 42,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -263689,9 +263691,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 9064795,
-    "news_picked_today": 581,
-    "news_dropped_today": 7603
+    "news_seen_today": 9175442,
+    "news_picked_today": 595,
+    "news_dropped_today": 7757
   },
   "book_momentum": {
     "live_count": 8,
