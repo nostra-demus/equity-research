@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-04T12:56:35Z",
+  "generated_at": "2026-11-04T13:01:38Z",
   "inbox": [
     {
       "inbox_id": "INB-20261104-375",
@@ -90,6 +90,56 @@
       "companies": [
         {
           "name": "Astron Paper & Board Mill Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-473",
+      "headline": "Suspension of Trading in Debt Securities of Tyger Capital Private Limited",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/downloads/UploadDocs/Notices/20261104-26/20261104-26.pdf",
+      "source_name": "BSE India — Notices (RSS)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-04T12:27:00Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Trading suspension in debt securities signals credit distress, covenant breach, or imminent default; suspension is an immediate solvency red flag.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Trading suspension in debt securities signals credit distress, covenant breach, or imminent default; suspension is an immediate solvency red flag.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress",
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tyger Capital Private Limited",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -1955,60 +2005,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-257",
-      "headline": "Kotak Mahindra Bank gets CCI nod to acquire Deutsche Bank India's retail, private banking businesses",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/money-and-banking/kotak-mahindra-bank-gets-cci-nod-to-acquire-deutsche-bank-indias-retail-private-banking-businesses/article71664088.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T05:27:54Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Kotak Mahindra Bank received CCI nod to acquire Deutsche Bank India's retail and private banking businesses.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Kotak Mahindra Bank received CCI nod to acquire Deutsche Bank India's retail and private banking businesses.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kotak Mahindra Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Deutsche Bank India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -220777,77 +220773,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-3d4a4fc75d1b",
-      "idea_version": "IDEAV-5dc8ee51d3a00705",
-      "idea_version_started_at": "2026-11-03T03:42:49Z",
-      "ticker": "ARSHIYA",
-      "company": "Arshiya Limited",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company has entered the Corporate Insolvency Resolution Process, signaling severe financial distress and likely equity wipeout.",
-      "why_now": "The filing was made on 2026-11-03, making this a live insolvency event.",
-      "conviction": 90,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-86f11fa7affa"
-      ],
-      "primary_source_event_id": "EVT-86f11fa7affa",
-      "source_headlines": [
-        "Arshiya Limited: Arshiya Limited has informed the Exchange about Corporate Insolvency Resolution Process"
-      ],
-      "source_headline": "Arshiya Limited: Arshiya Limited has informed the Exchange about Corporate Insolvency Resolution Process",
-      "source_url": "https://nsearchives.nseindia.com/corporate/ARSHIYA_03112026062629_AL_19th_CoC_Meeting_Uploaded.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-03T00:56:47Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-03T03:42:49Z",
-      "updated_at": "2026-11-03T03:42:49Z",
-      "decay_at": "2026-11-04T12:56:47Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-9e711acef9ae",
       "idea_version": "IDEAV-6fc5b52a377e3f5e",
       "idea_version_started_at": "2026-11-04T06:42:55Z",
@@ -221623,6 +221548,77 @@
       "surfaced_at": "2026-11-02T02:53:32Z",
       "updated_at": "2026-11-02T02:53:32Z",
       "decay_at": "2026-11-03T14:17:08Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-3d4a4fc75d1b",
+      "idea_version": "IDEAV-5dc8ee51d3a00705",
+      "idea_version_started_at": "2026-11-03T03:42:49Z",
+      "ticker": "ARSHIYA",
+      "company": "Arshiya Limited",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company has entered the Corporate Insolvency Resolution Process, signaling severe financial distress and likely equity wipeout.",
+      "why_now": "The filing was made on 2026-11-03, making this a live insolvency event.",
+      "conviction": 90,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-86f11fa7affa"
+      ],
+      "primary_source_event_id": "EVT-86f11fa7affa",
+      "source_headlines": [
+        "Arshiya Limited: Arshiya Limited has informed the Exchange about Corporate Insolvency Resolution Process"
+      ],
+      "source_headline": "Arshiya Limited: Arshiya Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+      "source_url": "https://nsearchives.nseindia.com/corporate/ARSHIYA_03112026062629_AL_19th_CoC_Meeting_Uploaded.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-03T00:56:47Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-03T03:42:49Z",
+      "updated_at": "2026-11-03T03:42:49Z",
+      "decay_at": "2026-11-04T12:56:47Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -226034,9 +226030,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 571,
+    "total_count": 572,
     "shown_count": 499,
-    "hidden_count": 72,
+    "hidden_count": 73,
     "side_counts": {
       "long": {
         "total_count": 303,
@@ -226044,9 +226040,9 @@
         "hidden_count": 53
       },
       "short": {
-        "total_count": 269,
+        "total_count": 270,
         "shown_count": 250,
-        "hidden_count": 19
+        "hidden_count": 20
       }
     },
     "retention": {
@@ -226065,6 +226061,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-3d4a4fc75d1b",
+        "idea_version": "IDEAV-5dc8ee51d3a00705",
+        "idea_version_started_at": "2026-11-03T03:42:49Z",
+        "ticker": "ARSHIYA",
+        "company": "Arshiya Limited",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company has entered the Corporate Insolvency Resolution Process, signaling severe financial distress and likely equity wipeout.",
+        "why_now": "The filing was made on 2026-11-03, making this a live insolvency event.",
+        "conviction": 90,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-86f11fa7affa"
+        ],
+        "primary_source_event_id": "EVT-86f11fa7affa",
+        "source_headlines": [
+          "Arshiya Limited: Arshiya Limited has informed the Exchange about Corporate Insolvency Resolution Process"
+        ],
+        "source_headline": "Arshiya Limited: Arshiya Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+        "source_url": "https://nsearchives.nseindia.com/corporate/ARSHIYA_03112026062629_AL_19th_CoC_Meeting_Uploaded.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-03T00:56:47Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-03T03:42:49Z",
+        "updated_at": "2026-11-03T03:42:49Z",
+        "decay_at": "2026-11-04T12:56:47Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-04T12:56:47Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-a7bcdc17fdf6",
         "idea_version": "IDEAV-13cc207e739ce752",
@@ -263175,85 +263245,12 @@
         "archived_at": "2026-10-11T09:12:26Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-c156981826c5",
-        "idea_version": "IDEAV-9e6a398130a16f71",
-        "idea_version_started_at": "2026-10-08T03:53:00Z",
-        "ticker": "PAH3.DE",
-        "company": "Porsche AG",
-        "exchange": "XETRA",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Massive workforce reductions of 9,000 jobs and management cuts indicate deep operational distress, while a 20% price hike risks significant volume loss in a competitive luxury market.",
-        "why_now": "The restructuring plan was reported on 2026-10-07.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 67,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-f5cfc3d9c19e"
-        ],
-        "primary_source_event_id": "EVT-f5cfc3d9c19e",
-        "source_headlines": [
-          "Layoff news: Porsche to terminate 9,000 jobs, management positions face 40% cuts; car prices to go up 20%"
-        ],
-        "source_headline": "Layoff news: Porsche to terminate 9,000 jobs, management positions face 40% cuts; car prices to go up 20%",
-        "source_url": "https://www.livemint.com/companies/news/layoff-news-porsche-to-terminate-9-000-jobs-management-positions-face-40-cuts-car-prices-to-go-up-20-11791395563763.html",
-        "source_name": "Mint",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-07T18:02:25Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-08T03:53:00Z",
-        "updated_at": "2026-10-08T03:53:00Z",
-        "decay_at": "2026-10-09T06:02:25Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-10T20:26:53Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2179,
-    "live_count": 44,
+    "live_count": 43,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -263272,9 +263269,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 10634387,
-    "news_picked_today": 840,
-    "news_dropped_today": 10200
+    "news_seen_today": 10670370,
+    "news_picked_today": 847,
+    "news_dropped_today": 10385
   },
   "book_momentum": {
     "live_count": 8,
