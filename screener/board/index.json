@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-04T16:01:10Z",
+  "generated_at": "2026-11-04T16:08:30Z",
   "inbox": [
     {
       "inbox_id": "INB-20261104-505",
@@ -103,6 +103,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-569",
+      "headline": "SINOMAB BIO-B (03681): COMPLETION OF MAJOR TRANSACTION IN RELATION TO THE DISPOSAL OF SUZHOU PROPERTY AND FACILITY",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1104/2026110402203.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-04T13:56:00Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "SinoMab BioScience completed the disposal of its Suzhou property and facility, representing a major transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SinoMab BioScience completed the disposal of its Suzhou property and facility, representing a major transaction.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SinoMab BioScience",
+          "ticker": "03681",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1980,55 +2029,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-460",
-      "headline": "Nykaa Q2 results: Net profit more than triples to ₹101.2 crore, revenue rises 28% to ₹3,006 crore",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/earnings/nykaa-q2-results-net-profit-more-than-triples-to-rs-1012-crore-revenue-rises-28-per-cent-to-rs-3006-crore-20027108.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T11:24:28Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Nykaa reported a 200%+ profit increase to ₹101.2 crore and 28% revenue growth to ₹3,006 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nykaa reported a 200%+ profit increase to ₹101.2 crore and 28% revenue growth to ₹3,006 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nykaa",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -263291,9 +263291,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 11962890,
-    "news_picked_today": 1040,
-    "news_dropped_today": 11704
+    "news_seen_today": 11998257,
+    "news_picked_today": 1054,
+    "news_dropped_today": 12194
   },
   "book_momentum": {
     "live_count": 8,
