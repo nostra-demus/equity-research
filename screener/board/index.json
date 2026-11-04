@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-04T16:38:57Z",
+  "generated_at": "2026-11-04T16:48:57Z",
   "inbox": [
     {
       "inbox_id": "INB-20261104-585",
@@ -1358,6 +1358,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261104-595",
+      "headline": "Paddy Power owner Flutter cuts outlook after hefty quarterly loss",
+      "headline_en": null,
+      "url": "https://www.independent.co.uk/news/business/paddy-power-ireland-new-york-betfair-porto-b3079248.html",
+      "source_name": "The Independent — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-04T16:14:31Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Flutter Entertainment cut its financial outlook following a quarterly loss.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Flutter Entertainment cut its financial outlook following a quarterly loss.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Flutter Entertainment",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261104-438",
       "headline": "Lonza Acquires Merck U.S. CDMO Facilities, Competing with Samsung Biologics",
       "headline_en": null,
@@ -1978,55 +2028,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-437",
-      "headline": "IGL Spirits Enters Stock Market With Strong Financial Numbers Following India Glycols Demerger, Profit Surges To ₹244 Crore As Revenue Nearly Doubles In Two Years",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/igl-spirits-enters-stock-market-with-strong-financial-numbers-following-india-glycols-demerger-profit-surges-to-244-crore-as-revenue-nearly-doubles-in-two-years",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T12:00:15Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "IGL Spirits reported a profit of ₹244 crore and nearly doubled revenue over two years.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "IGL Spirits reported a profit of ₹244 crore and nearly doubled revenue over two years.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IGL Spirits",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -263288,9 +263289,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 12208329,
-    "news_picked_today": 1124,
-    "news_dropped_today": 13132
+    "news_seen_today": 12277698,
+    "news_picked_today": 1136,
+    "news_dropped_today": 13240
   },
   "book_momentum": {
     "live_count": 8,
