@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-04T05:11:39Z",
+  "generated_at": "2026-11-04T05:14:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20261104-006",
@@ -146,6 +146,56 @@
           "name": "JSR",
           "ticker": null,
           "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261104-228",
+      "headline": "Jackson Financial Inc. Reports 3Q26 Results, Announces $1 billion Share Repurchase Increase and AARP Program Launch",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/jackson-financial-inc-reports-3q26-results-announces-1-billion-share-repurchase-increase",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-04T04:38:39Z",
+      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
+      "prelim_note": "Company reported 3Q26 results and announced a $1 billion share repurchase increase.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company reported 3Q26 results and announced a $1 billion share repurchase increase.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jackson Financial Inc.",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -1920,55 +1970,6 @@
       "companies": [
         {
           "name": "Cox Arizona Telcom, L.L.C.",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261104-183",
-      "headline": "S-4/A - Cox Advanced Services North Carolina, LLC (0002143309) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/2143309/000110465926122127/0001104659-26-122127-index.htm",
-      "source_name": "SEC EDGAR — Latest S-4 (M&A / Exchange-Offer Registration)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-03T21:57:17Z",
-      "sweep_file": "screener/inbox/2026-11-04_sweep.json",
-      "prelim_note": "Cox Advanced Services North Carolina, LLC filed an amended S-4 registration statement, indicating an ongoing M&A or exchange offer.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Cox Advanced Services North Carolina, LLC filed an amended S-4 registration statement, indicating an ongoing M&A or exchange offer.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cox Advanced Services North Carolina, LLC",
           "ticker": null,
           "listing_country": null
         }
@@ -263882,9 +263883,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5956000,
-    "news_picked_today": 342,
-    "news_dropped_today": 2010
+    "news_seen_today": 6037396,
+    "news_picked_today": 353,
+    "news_dropped_today": 2023
   },
   "book_momentum": {
     "live_count": 8,
