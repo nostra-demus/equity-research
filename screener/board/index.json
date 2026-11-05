@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T02:04:27Z",
+  "generated_at": "2026-11-05T02:09:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20261105-084",
@@ -589,6 +589,56 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261105-152",
+      "headline": "Arcutis Biotherapeutics, Inc. Reports Q3 2026 Net Product Revenues of $143.9 million and Raises Full-Year Guidance to $535 million–$545 million",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/arcutis-biotherapeutics-inc-reports-q3-2026-net-product-revenues-1439-million-and-raises",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T01:38:46Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Arcutis reported Q3 net product revenue of $143.9 million and raised full-year 2026 guidance to $535–$545 million, signaling improved execution and forward visibility.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Arcutis reported Q3 net product revenue of $143.9 million and raised full-year 2026 guidance to $535–$545 million, signaling improved execution and forward visibility.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "guidance_change",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Arcutis Biotherapeutics, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1332,6 +1382,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261105-154",
+      "headline": "KPA-BM HLDGS (02663): EXCHANGE NOTICE - RESUMPTION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1105/2026110500149.htm",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-05T00:35:00Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Trading resumption after a halt indicates a material event occurred, but headline omits the underlying cause.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Trading resumption after a halt indicates a material event occurred, but headline omits the underlying cause.",
+      "region": "CN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "KPA-BM Holdings",
+          "ticker": "02663",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261105-053",
       "headline": "Manulife Q3 Profit Falls 22%; Core Earnings Rise 4%",
       "headline_en": null,
@@ -1850,109 +1949,6 @@
       "companies": [
         {
           "name": "INOX India Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-133",
-      "headline": "[JPXI]JPXI Makes Strategic Investment in Smartround, Inc.",
-      "headline_en": null,
-      "url": "https://www.jpx.co.jp/english/corporate/news/news-releases/6020/20261105-01.html",
-      "source_name": "Japan Exchange Group (JPX) — News Release",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-05T01:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "JPXI made a strategic investment in Smartround, Inc., indicating a capital allocation move.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 79,
-      "triage_reason": "JPXI made a strategic investment in Smartround, Inc., indicating a capital allocation move.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Japan Exchange Group",
-          "ticker": null,
-          "listing_country": "JP"
-        },
-        {
-          "name": "Smartround",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-002",
-      "headline": "SKF India Limited: Approved proposed capacity expansion by addition of new channels at various locations, details provided in attachment.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/SKFINDIA25_03112026202711_NSE.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-03T14:57:45Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "SKF India board-approved capacity expansion across multiple locations; capex amount, timeline, and scope not quantified in headline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 79,
-      "triage_reason": "SKF India board-approved capacity expansion across multiple locations; capex amount, timeline, and scope not quantified in headline.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 58,
-      "rank_factors": {
-        "materiality": 58,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SKF India Limited",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -265296,9 +265292,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 791039,
-    "news_picked_today": 171,
-    "news_dropped_today": 2325
+    "news_seen_today": 816443,
+    "news_picked_today": 174,
+    "news_dropped_today": 2442
   },
   "book_momentum": {
     "live_count": 8,
