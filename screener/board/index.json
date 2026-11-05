@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T13:04:32Z",
+  "generated_at": "2026-11-05T13:07:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20261105-535",
@@ -1092,6 +1092,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261105-574",
+      "headline": "Toyota Motor Corporation Amends Share Repurchase Program to 1,300 Billion Yen and Reports FY2027 First Half Results",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/toyota-motor-corporation-amends-share-repurchase-program-1300-billion-yen-and-reports",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T11:52:49Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Toyota increased its share repurchase program to 1,300 billion Yen alongside earnings results.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Toyota increased its share repurchase program to 1,300 billion Yen alongside earnings results.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Toyota Motor Corporation",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261105-517",
       "headline": "Adani Ports to buy Europe-based liquid storage operator Evos in €2.56 billion deal",
       "headline_en": null,
@@ -1951,55 +2001,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-257",
-      "headline": "Toyota raises profit forecast as strong hybrid sales defy China slump",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/automobiles/toyota-raises-profit-forecast-as-strong-hybrid-sales-defy-china-slump",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T05:44:18Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Toyota raised its profit forecast due to strong hybrid sales.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Toyota raised its profit forecast due to strong hybrid sales.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Toyota",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -261664,9 +261665,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4982058,
-    "news_picked_today": 901,
-    "news_dropped_today": 16379
+    "news_seen_today": 5003339,
+    "news_picked_today": 914,
+    "news_dropped_today": 16414
   },
   "book_momentum": {
     "live_count": 8,
