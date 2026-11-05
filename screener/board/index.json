@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T02:09:29Z",
+  "generated_at": "2026-11-05T02:21:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20261105-084",
@@ -1137,6 +1137,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261105-156",
+      "headline": "Inside CVS’s Decision to Break Up a Healthcare Juggernaut",
+      "headline_en": null,
+      "url": "https://www.wsj.com/health/healthcare/inside-cvss-decision-to-break-up-a-healthcare-juggernaut-39925a2e?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T01:30:00Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "CVS Health announced a decision to break up its integrated healthcare business; the separation affects capital structure, operational focus, and investor returns.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "CVS Health announced a decision to break up its integrated healthcare business; the separation affects capital structure, operational focus, and investor returns.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "strategic_review",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "strategic_review",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CVS Health",
+          "ticker": "CVS",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261105-072",
       "headline": "NextDC board hires bankers for potential takeover battle",
       "headline_en": null,
@@ -1905,55 +1955,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-098",
-      "headline": "INOX India Limited: INOX India Limited has informed the Exchange regarding a press release dated November 03, 2026, titled \"Result Press Release for the Quarter and Half Year ended on 30th September, 2026.\".",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/KAMLESHS_03112026190613_SEPressRelease03112026signed.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-03T13:37:10Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "INOX India Limited released financial results for the quarter and half year ended September 30, 2026.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "INOX India Limited released financial results for the quarter and half year ended September 30, 2026.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "INOX India Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -265292,9 +265293,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 816443,
-    "news_picked_today": 174,
-    "news_dropped_today": 2442
+    "news_seen_today": 867075,
+    "news_picked_today": 176,
+    "news_dropped_today": 2536
   },
   "book_momentum": {
     "live_count": 8,
