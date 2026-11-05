@@ -2384,6 +2384,19 @@ if scope=="selftest":
         ("2026-11-06", _bh_th("Fortress balance sheet (net cash even after $53.8B of new debt issuance)."), []),  # amount not attached to the term
         ("2026-11-06", "# T\n\n# PART I — X\n\nclean.\n\n# PART II — Y\n\nNet debt of $5 bn appears only in Part II.\n", []),  # Part II out of scope
         ("2026-11-06", 7, []),                                                                                 # non-string: defensive, never raises
+        # ── Codex r1 (PR #781) regression cases — each flips behaviour vs the pre-fix matcher ──
+        # F2: verb/noun connectors. A bare figure stated as "totaled"/"reached"/"position was" is still a
+        # §15 violation; the pre-fix _BH_CONN allowlist skipped these verbs and let the gate pass silently.
+        ("2026-11-06", _bh_th("Net debt totaled $9.3 billion this quarter."), ["no basis label"]),
+        ("2026-11-06", _bh_th("The net cash position was $10 billion at year-end."), ["no basis label"]),
+        ("2026-11-06", _bh_th("Net debt reached $9.3 billion and amounted to a record high."), ["no basis label"]),
+        # F3: hyphenated investment-basis modifiers. "incl. short-term/liquid-fund investments" IS a valid
+        # §15 basis label; the pre-fix \w+ could not cross the hyphen, so these compliant forms were
+        # false-flagged. They pass now (and name the strict figure beside the broad one).
+        ("2026-11-06", _bh_th("Net cash is $10 billion including short-term investments. Strict net cash is $0.15 bn."), []),
+        # F1: §15 wants the strict FIGURE beside a broad one, not a bare "strict" token borrowed from an
+        # unrelated clause ("Strict leverage is 1.0x"). Pre-fix this passed; now it flags (no strict figure).
+        ("2026-11-06", _bh_th("Net cash of ₹33.7 bn on the broad basis. Strict leverage is 1.0x."), ["never names the strict"]),
     ]
     bhbad=0
     for dt_,th_,exp in bhcases:

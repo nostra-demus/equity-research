@@ -925,9 +925,12 @@ _BH_MONEY = (r"(?:[$€£¥₹]|\b(?:US\$|USD|EUR|GBP|INR|CNY|RMB|JPY|AED|SAR|Rs
 # connectors, then the amount ("net debt doubled to $9.3 billion") — or the amount, then at most a few
 # filler words, then the term ("₹31 billion of net cash"). "net cash even after $53.8B of new debt" is NOT
 # attached (the amount belongs to something else), which keeps unrelated figures in the same clause out.
-_BH_CONN = (r"(?:[\s,:(~≈=\-—]|\b(?:of|at|to|from|was|is|were|are|stood|stands|jumped|rose|fell|doubled|"
+_BH_CONN = (r"(?:[\s,:(~≈=\-—]|\b(?:of|at|to|from|was|is|were|are|be|been|stood|stands|jumped|rose|fell|doubled|"
             r"tripled|up|down|about|around|roughly|approximately|approx|over|under|nearly|almost|only|just|"
-            r"already|by|c)\b\.?)*")
+            r"already|by|c|in|now|currently|presently|totals?|totall?ed|totall?ing|reach(?:es|ed|ing)?|"
+            r"amounts?|amounted|amounting|positions?|came|comes?|coming|sits?|sat|sitting|registered|registers|"
+            r"printed|prints|clocked|remains?|remained|holds?|held|ends?|ended|equals?|equall?ed|swung|grew|"
+            r"climbed|rising|falling|widened|narrowed|ballooned|surged|swelled)\b\.?)*")
 _BH_A = re.compile(_BH_NET + _BH_CONN + "(?:" + _BH_MONEY + ")", re.I)
 _BH_B = re.compile("(?:" + _BH_MONEY + r")(?:\s+(?:of|its|the|a|total|reported|group|consolidated|year-end|"
                    r"pro[\s-]*forma|(?:post|pre)-\w+))*\s+" + _BH_NET, re.I)
@@ -935,11 +938,11 @@ _BH_B = re.compile("(?:" + _BH_MONEY + r")(?:\s+(?:of|its|the|a|total|reported|g
 # including/excluding-investments clause, or an explicit company-defined figure.
 _BH_BASIS = re.compile(
     r"\bstrict\b|\bbroad\b|gross[\s-]*liquidity|cash\s*(?:&|and)\s*(?:cash[\s-]*)?equivalents"
-    r"|\b(?:incl|excl)\w*\.?\s+(?:\w+\s+){0,4}?(?:investments?|treasury|securities|deposits|funds)"
+    r"|\b(?:incl|excl)\w*\.?\s+(?:[\w-]+\s+){0,4}?(?:investments?|treasury|securities|deposits|funds)"
     r"|company[\s-]*defined|(?:company|management)'?s?\s+(?:own\s+)?(?:definition|figure)"
     r"|as defined by (?:the )?company", re.I)
 _BH_NONSTRICT = re.compile(
-    r"\bbroad\b|gross[\s-]*liquidity|\b(?:incl|including|includes)\w*\.?\s+(?:\w+\s+){0,4}?"
+    r"\bbroad\b|gross[\s-]*liquidity|\b(?:incl|including|includes)\w*\.?\s+(?:[\w-]+\s+){0,4}?"
     r"(?:investments?|treasury|securities|deposits|funds)", re.I)
 
 
@@ -963,17 +966,22 @@ def eval_bh_net_debt_basis_label(decision_date, thesis):
     if not isinstance(thesis, str) or not thesis.strip():
         return []
     part1 = _part_one(thesis)
-    det, nonstrict = [], False
+    det, nonstrict, strict_fig = [], False, False
     for line in part1.splitlines():
         for seg in re.split(r"(?<=[.!?;])\s+(?=[A-Z*(\[‘\"])", line):
             if not (_BH_A.search(seg) or _BH_B.search(seg)):
                 continue
+            # §15 requires the STRICT FIGURE alongside an investment-inclusive one — so "strict" only
+            # discharges that duty when it sits in a segment that itself quotes a net-cash/net-debt
+            # AMOUNT (a quantified strict figure), not as a bare token borrowed from "strict leverage".
+            if re.search(r"\bstrict\b", seg, re.I):
+                strict_fig = True
             if _BH_BASIS.search(seg):
                 nonstrict = nonstrict or bool(_BH_NONSTRICT.search(seg))
             else:
                 det.append("Part I states a net cash / net debt amount with no basis label "
                            f"(strict / broad / gross-liquidity, CLAUDE.md §15): {seg.strip()[:160]!r}")
-    if nonstrict and not re.search(r"\bstrict\b", part1, re.I):
+    if nonstrict and not strict_fig:
         det.append("Part I labels a net cash / net debt figure broad / gross-liquidity but never names the "
                    "strict (debt − cash & equivalents) figure alongside it (CLAUDE.md §15)")
     return det
