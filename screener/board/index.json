@@ -1,6 +1,105 @@
 {
-  "generated_at": "2026-11-05T12:36:19Z",
+  "generated_at": "2026-11-05T13:08:05Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261105-535",
+      "headline": "LOGAN GROUP LOGAN GRP N2612 LOGAN GRP N2801 (03380 40508 40527): TRANSACTIONS IN CONNECTION WITH THE RESTRUCTURING INVOLVING, AMONG OTHERS: (1) CONNECTED TRANSACTION: PROPOSED ISSUE OF MANDATORY CONVERTIBLE BONDS UNDER SPECIFIC MANDATE; (2) MAJOR TRANSACTION: POSSIBLE TRANSFER OF THE ALC ASSETS FOR THE PURPOSE OF THE RESTRUCTURING; (3) ISSUE OF REDEMPTION SHARES IN RESPECT OF THE REDEMPTION OF PERPETUAL SECURITIES; AND (4) NOTICE OF EXTRAORDINARY GENERAL MEETING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1105/2026110502019.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-05T12:43:00Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Hong Kong-listed company announcing major restructuring involving mandatory convertible bond issuance, possible asset transfer (ALC assets), perpetual securities redemption, and EGM; significant capital-structure event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Hong Kong-listed company announcing major restructuring involving mandatory convertible bond issuance, possible asset transfer (ALC assets), perpetual securities redemption, and EGM; significant capital-structure event.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions",
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Logan Group",
+          "ticker": "03380",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261105-534",
+      "headline": "15-12G - NATHANS FAMOUS, INC. (0000069733) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/69733/000110465926123026/0001104659-26-123026-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-05T12:00:19Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Form 15-12G filing signals termination or suspension of public equity registration—a forced delisting that eliminates public trading access and impairs shareholder liquidity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Form 15-12G filing signals termination or suspension of public equity registration—a forced delisting that eliminates public trading access and impairs shareholder liquidity.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 13,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nathan's Famous, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261105-476",
       "headline": "MTT GROUP (02350): SUPPLEMENTAL ANNOUNCEMENT DISCLOSEABLE TRANSACTION ACQUISITION OF 100% EQUITY INTEREST IN THE TARGET COMPANY INVOLVING THE ISSUE OF CONSIDERATION SHARES UNDER THE GENERAL MANDATE",
@@ -786,6 +885,158 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261105-569",
+      "headline": "Papa John’s Cuts Outlook Again as Quarterly Sales Sink",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/retail/papa-johns-cuts-outlook-again-as-quarterly-sales-sink-789ef18c?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T12:45:00Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Papa John's cut its outlook due to sinking quarterly sales.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Papa John's cut its outlook due to sinking quarterly sales.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Papa John's",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261105-570",
+      "headline": "Molson Coors Cuts Outlook, Expects Soft Beer Demand to Continue",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/earnings/molson-coors-cuts-outlook-expects-soft-beer-demand-to-continue-5718eeae?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T12:35:00Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Molson Coors cut its outlook citing soft beer demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Molson Coors cut its outlook citing soft beer demand.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Molson Coors",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261105-572",
+      "headline": "Icahn Enterprises L.P. Reports CVR Energy Agreement to Acquire Refineries for approximately $4.2 billion",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/icahn-enterprises-lp-reports-cvr-energy-agreement-acquire-refineries-approximately-42",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T12:14:20Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Icahn Enterprises announced an agreement to acquire refineries for approximately $4.2 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Icahn Enterprises announced an agreement to acquire refineries for approximately $4.2 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Icahn Enterprises",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "CVR Energy",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261105-528",
       "headline": "Marvell to buy Lumentum in $115 billion all-stock deal",
       "headline_en": null,
@@ -833,6 +1084,56 @@
           "name": "Lumentum Holdings",
           "ticker": "LITE",
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261105-574",
+      "headline": "Toyota Motor Corporation Amends Share Repurchase Program to 1,300 Billion Yen and Reports FY2027 First Half Results",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/toyota-motor-corporation-amends-share-repurchase-program-1300-billion-yen-and-reports",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T11:52:49Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Toyota increased its share repurchase program to 1,300 billion Yen alongside earnings results.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Toyota increased its share repurchase program to 1,300 billion Yen alongside earnings results.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Toyota Motor Corporation",
+          "ticker": null,
+          "listing_country": "JP"
         }
       ],
       "size_bucket": "mega",
@@ -1700,302 +2001,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-257",
-      "headline": "Toyota raises profit forecast as strong hybrid sales defy China slump",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/automobiles/toyota-raises-profit-forecast-as-strong-hybrid-sales-defy-china-slump",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T05:44:18Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Toyota raised its profit forecast due to strong hybrid sales.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Toyota raised its profit forecast due to strong hybrid sales.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Toyota",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-277",
-      "headline": "Acadia Healthcare Company, Inc. Reports Third Quarter 2026 Revenue of $895.3 million and Raises Full Year 2026 Financial Guidance",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/acadia-healthcare-company-inc-reports-third-quarter-2026-revenue-8953-million-and-raises",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T05:38:42Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Company reported Q3 2026 revenue of $895.3 million and raised full-year 2026 guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Company reported Q3 2026 revenue of $895.3 million and raised full-year 2026 guidance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Acadia Healthcare Company, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-309",
-      "headline": "Toyota H1 Results Climb, Upgrades FY27 Profit View, Cuts Revenue Outlook; Shares Climb",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/toyota-h1-results-climb-upgrades-fy27-profit-view-cuts-revenue-outlook-shares-climb",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T05:36:16Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Toyota reported H1 results, raised its FY27 profit guidance, but lowered its revenue outlook, creating a mixed financial signal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Toyota reported H1 results, raised its FY27 profit guidance, but lowered its revenue outlook, creating a mixed financial signal.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Toyota",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-279",
-      "headline": "Toyota Raises Profit Forecast, Sending Shares Soaring 17%",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-05/toyota-raises-profit-forecast-on-hybrid-demand-weak-yen",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T04:59:34Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Toyota raised its full-year profit forecast, with shares rising 17%.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Toyota raised its full-year profit forecast, with shares rising 17%.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Toyota",
-          "ticker": "TM",
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-223",
-      "headline": "PI Industries shares fall 15% after sharp margin contraction in Q2; weak agri exports drag earnings",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/pi-industries-share-price-q2-review-sharp-margin-contraction-weak-agri-exports-drag-earnings-20027560.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T04:41:09Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "PI Industries shares fell 15% following a sharp margin contraction and weak exports in Q2.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "PI Industries shares fell 15% following a sharp margin contraction and weak exports in Q2.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PI Industries",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-230",
-      "headline": "LIV Golf faces liquidation as $300m rescue deal collapses",
-      "headline_en": null,
-      "url": "https://www.thenationalnews.com/sport/2026/11/05/liv-golf-faces-liquidation-as-300m-rescue-deal-collapses/",
-      "source_name": "The National — All News",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T04:27:25Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "LIV Golf faces potential liquidation following the collapse of a $300 million rescue deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "LIV Golf faces potential liquidation following the collapse of a $300 million rescue deal.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "LIV Golf",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -219985,6 +219990,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-0d084cede79e",
+      "idea_version": "IDEAV-536feaa8d0e1f8db",
+      "idea_version_started_at": "2026-11-05T12:54:05Z",
+      "ticker": "SONY",
+      "company": "Sony Group Corporation",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Sony raised its annual profit forecast driven by strong performance in its gaming division and the success of its Spider-Man franchise.",
+      "why_now": "The guidance upgrade was reported on 2026-11-05.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-971e6c0d3e5d"
+      ],
+      "primary_source_event_id": "EVT-971e6c0d3e5d",
+      "source_headlines": [
+        "Sony raises annual profit forecast on Spider-Man hit, gaming gains"
+      ],
+      "source_headline": "Sony raises annual profit forecast on Spider-Man hit, gaming gains",
+      "source_url": "https://asia.nikkei.com/business/companies/sony-raises-annual-profit-forecast-on-spider-man-hit-gaming-gains",
+      "source_name": "Nikkei Asia",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-05T07:48:47Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-05T12:54:05Z",
+      "updated_at": "2026-11-05T12:54:05Z",
+      "decay_at": "2026-11-06T19:48:47Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-abe61d9932f3",
       "idea_version": "IDEAV-5cbc7c94b5ac81ac",
       "idea_version_started_at": "2026-11-04T10:33:04Z",
@@ -220125,6 +220200,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-479c3a6267f3",
+      "idea_version": "IDEAV-5ac30ca513e455b9",
+      "idea_version_started_at": "2026-11-05T12:54:05Z",
+      "ticker": "ACHC",
+      "company": "Acadia Healthcare Company, Inc.",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported Q3 2026 revenue of $895.3 million and raised its full-year 2026 financial guidance.",
+      "why_now": "The earnings and guidance update was released on 2026-11-05.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9671eb00686e"
+      ],
+      "primary_source_event_id": "EVT-9671eb00686e",
+      "source_headlines": [
+        "Acadia Healthcare Company, Inc. Reports Third Quarter 2026 Revenue of $895.3 million and Raises Full Year 2026 Financial Guidance"
+      ],
+      "source_headline": "Acadia Healthcare Company, Inc. Reports Third Quarter 2026 Revenue of $895.3 million and Raises Full Year 2026 Financial Guidance",
+      "source_url": "https://www.nasdaq.com/articles/acadia-healthcare-company-inc-reports-third-quarter-2026-revenue-8953-million-and-raises",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-05T05:38:42Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-05T12:54:05Z",
+      "updated_at": "2026-11-05T12:54:05Z",
+      "decay_at": "2026-11-06T17:38:42Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-617337d6962c",
       "idea_version": "IDEAV-41ce9a2637f1a2a8",
       "idea_version_started_at": "2026-11-04T03:39:00Z",
@@ -220189,6 +220334,80 @@
       "surfaced_at": "2026-11-04T03:39:00Z",
       "updated_at": "2026-11-04T03:39:00Z",
       "decay_at": "2026-11-05T13:12:20Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-237bc01d6762",
+      "idea_version": "IDEAV-72d4edd5febe887c",
+      "idea_version_started_at": "2026-11-05T12:54:05Z",
+      "ticker": "TM",
+      "company": "Toyota Motor Corporation",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Toyota raised its profit forecast due to strong hybrid vehicle sales, which are offsetting weakness in the Chinese market.",
+      "why_now": "The guidance upgrade was announced on 2026-11-05.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 10,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5af1e04d1e13",
+        "EVT-e91dc80ad609",
+        "EVT-21135fe99735"
+      ],
+      "primary_source_event_id": "EVT-5af1e04d1e13",
+      "source_headlines": [
+        "Toyota raises profit forecast as strong hybrid sales defy China slump",
+        "Toyota Raises Profit Forecast, Sending Shares Soaring 17%",
+        "Toyota H1 Results Climb, Upgrades FY27 Profit View, Cuts Revenue Outlook; Shares Climb"
+      ],
+      "source_headline": "Toyota raises profit forecast as strong hybrid sales defy China slump",
+      "source_url": "https://asia.nikkei.com/business/automobiles/toyota-raises-profit-forecast-as-strong-hybrid-sales-defy-china-slump",
+      "source_name": "Nikkei Asia",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-05T05:44:18Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-05T12:54:05Z",
+      "updated_at": "2026-11-05T12:54:05Z",
+      "decay_at": "2026-11-06T17:44:18Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -220332,6 +220551,151 @@
       "surfaced_at": "2026-11-04T10:56:26Z",
       "updated_at": "2026-11-04T10:56:26Z",
       "decay_at": "2026-11-05T20:41:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-1820b9b947cf",
+      "idea_version": "IDEAV-8d2162532ab48802",
+      "idea_version_started_at": "2026-11-05T12:54:05Z",
+      "ticker": "RHM",
+      "company": "Rheinmetall AG",
+      "exchange": "XETRA",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company lowered its sales forecast due to delays in a major armoured vehicle contract, signaling near-term revenue recognition headwinds.",
+      "why_now": "The guidance cut was announced on 2026-11-05.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-813bd7c1de4d"
+      ],
+      "primary_source_event_id": "EVT-813bd7c1de4d",
+      "source_headlines": [
+        "Rheinmetall cuts sales forecast after delays to armoured vehicle megadeal"
+      ],
+      "source_headline": "Rheinmetall cuts sales forecast after delays to armoured vehicle megadeal",
+      "source_url": "https://www.ft.com/content/4d0c5a48-3ef7-494d-baf8-063ef9edb2e5?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-05T07:35:23Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-05T12:54:05Z",
+      "updated_at": "2026-11-05T12:54:05Z",
+      "decay_at": "2026-11-06T19:35:23Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-a289625cef3a",
+      "idea_version": "IDEAV-66bff5e60c148673",
+      "idea_version_started_at": "2026-11-05T12:54:05Z",
+      "ticker": "CBK",
+      "company": "Commerzbank",
+      "exchange": "XETRA",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Commerzbank reported a 45% rise in quarterly net income, strengthening its position as it faces a potential takeover bid from UniCredit.",
+      "why_now": "The earnings report was released on 2026-11-05, highlighting the bank's operational performance ahead of M&A activity.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "pair_trade",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-86b0f4df1c44"
+      ],
+      "primary_source_event_id": "EVT-86b0f4df1c44",
+      "source_headlines": [
+        "Commerzbank Quarterly Net Rises 45% Ahead of UniCredit Takeover"
+      ],
+      "source_headline": "Commerzbank Quarterly Net Rises 45% Ahead of UniCredit Takeover",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-05/commerzbank-quarterly-net-rises-45-ahead-of-unicredit-takeover",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-05T06:08:30Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-05T12:54:05Z",
+      "updated_at": "2026-11-05T12:54:05Z",
+      "decay_at": "2026-11-06T18:08:30Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -223834,77 +224198,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-0fd0e842a006",
-      "idea_version": "IDEAV-886decd986f651cb",
-      "idea_version_started_at": "2026-11-02T17:53:39Z",
-      "ticker": "GRSE",
-      "company": "Garden Reach Shipbuilders & Engineers Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company secured a major contract worth Rs.32,000 Crore for the construction of five Next Generation Corvettes for the Indian Navy, providing significant long-term revenue visibility.",
-      "why_now": "The contract was officially signed on November 02, 2026.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 23,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-736349459c52"
-      ],
-      "primary_source_event_id": "EVT-736349459c52",
-      "source_headlines": [
-        "Garden Reach Shipbuilders & Engineers Limited: In terms of Regulation 30 and other applicable provisions of the Securities and Exchange Board of India (Listing Obligations and Disclosure Requirements) Regulations, 2015, we wish to inform you that the Company has signed a contract on 02 Nov 2026 for Construction of Five (5) Next Generation Corvettes (NGCs) with the Indian Navy in New Delhi at a total value of Rs.32,000 Crore.The details of the Order are enclosed.This is for your information and r"
-      ],
-      "source_headline": "Garden Reach Shipbuilders & Engineers Limited: In terms of Regulation 30 and other applicable provisions of the Securities and Exchange Board of India (Listing Obligations and Disclosure Requirements) Regulations, 2015, we wish to inform you that the Company has signed a contract on 02 Nov 2026 for Construction of Five (5) Next Generation Corvettes (NGCs) with the Indian Navy in New Delhi at a total value of Rs.32,000 Crore.The details of the Order are enclosed.This is for your information and r",
-      "source_url": "https://nsearchives.nseindia.com/corporate/GRSE_02112026171922_Corp_Ann_Signing_of_contract_for_5_NGCs.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-02T11:51:27Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-02T16:55:16Z",
-      "updated_at": "2026-11-02T17:53:39Z",
-      "decay_at": "2026-11-03T23:51:27Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-c3e6a991ceeb",
       "idea_version": "IDEAV-799d3f3726020cf9",
       "idea_version_started_at": "2026-11-02T17:53:39Z",
@@ -224050,77 +224343,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-fcb45707e839",
-      "idea_version": "IDEAV-d1e26a45e4d7f36b",
-      "idea_version_started_at": "2026-11-02T16:55:16Z",
-      "ticker": "ARVINDFASN",
-      "company": "Arvind Fashions Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported its highest ever revenue and EBITDA, with 10.0% revenue growth and 15.5% EBITDA growth, indicating strong operational leverage.",
-      "why_now": "The financial results were announced on November 2, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5829af439c1d"
-      ],
-      "primary_source_event_id": "EVT-5829af439c1d",
-      "source_headlines": [
-        "Arvind Fashions Limited: Arvind Fashions Limited has informed the Exchange regarding a press release dated November 02, 2026, titled \"Arvind Fashions Ltd. announces highest ever revenue as well as EBITDA, delivers revenue growth of 10.0%, EBITDA growth of 15.5%\"."
-      ],
-      "source_headline": "Arvind Fashions Limited: Arvind Fashions Limited has informed the Exchange regarding a press release dated November 02, 2026, titled \"Arvind Fashions Ltd. announces highest ever revenue as well as EBITDA, delivers revenue growth of 10.0%, EBITDA growth of 15.5%\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/ARVINDFASN_02112026181824_PRIntimation.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-02T12:49:05Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-02T16:55:16Z",
-      "updated_at": "2026-11-02T16:55:16Z",
-      "decay_at": "2026-11-04T00:49:05Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-a204395caab2",
       "idea_version": "IDEAV-6cd21665a86d4930",
       "idea_version_started_at": "2026-11-03T02:31:59Z",
@@ -224202,14 +224424,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 540,
+    "total_count": 538,
     "shown_count": 499,
-    "hidden_count": 41,
+    "hidden_count": 39,
     "side_counts": {
       "long": {
-        "total_count": 278,
+        "total_count": 276,
         "shown_count": 250,
-        "hidden_count": 28
+        "hidden_count": 26
       },
       "short": {
         "total_count": 263,
@@ -224219,12 +224441,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1622,
+      "evicted_count": 1624,
       "oldest_retained_at": "2026-10-08T22:50:57Z",
       "side_counts": {
         "long": {
-          "evicted_count": 1070,
-          "oldest_retained_at": "2026-10-21T09:23:00Z"
+          "evicted_count": 1072,
+          "oldest_retained_at": "2026-10-21T12:00:00Z"
         },
         "short": {
           "evicted_count": 553,
@@ -227125,8 +227347,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-04T00:49:05Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-05T12:54:24Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -227199,8 +227421,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-03T23:51:27Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-05T12:54:24Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -261423,8 +261645,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2185,
-    "live_count": 22,
+    "surfaced_total": 2190,
+    "live_count": 27,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -261443,9 +261665,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4898940,
-    "news_picked_today": 833,
-    "news_dropped_today": 15967
+    "news_seen_today": 5003339,
+    "news_picked_today": 914,
+    "news_dropped_today": 16414
   },
   "book_momentum": {
     "live_count": 8,
