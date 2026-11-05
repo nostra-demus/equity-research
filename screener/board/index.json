@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-05T11:28:26Z",
+  "generated_at": "2026-11-05T11:34:11Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261105-476",
+      "headline": "MTT GROUP (02350): SUPPLEMENTAL ANNOUNCEMENT DISCLOSEABLE TRANSACTION ACQUISITION OF 100% EQUITY INTEREST IN THE TARGET COMPANY INVOLVING THE ISSUE OF CONSIDERATION SHARES UNDER THE GENERAL MANDATE",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1105/2026110501895.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-05T11:22:00Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "MTT Group is acquiring 100% of a target company via share issuance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "MTT Group is acquiring 100% of a target company via share issuance.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MTT GROUP",
+          "ticker": "02350",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261105-433",
       "headline": "C&D PROPERTY (02156): (1) COMPLETION OF THE ACQUISITION OF 100% EQUITY INTERESTS IN LIANFA PROPERTY; AND (2) CONTINUING CONNECTED TRANSACTIONS PURSUANT TO RULE 14A.60 OF THE LISTING RULES",
@@ -732,6 +781,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261105-482",
+      "headline": "Bharti Airtel Q2 Results: Profit rises 9%, revenue beats estimates as ARPU climbs to ₹271",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/earnings/bharti-airtel-q2-results-profit-rises-9-pc-revenue-beats-estimates-arpu-climbs-to-rs-271-20028127.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T11:23:01Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Q2 profit +9%, revenue beat analyst consensus, ARPU climbed to ₹271; three confirmed positive metrics signal pricing power and operational leverage for telecom incumbent.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Q2 profit +9%, revenue beat analyst consensus, ARPU climbed to ₹271; three confirmed positive metrics signal pricing power and operational leverage for telecom incumbent.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bharti Airtel Limited",
+          "ticker": "BHARTIARTL",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1899,110 +1997,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-197",
-      "headline": "BMW's second profit warning of the year hit harder than the first",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/automotive/bmws-second-profit-warning-of-the-year-hit-harder-than-the-first",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T03:07:00Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "BMW issued its second profit warning of the year, indicating significant financial deterioration.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "BMW issued its second profit warning of the year, indicating significant financial deterioration.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BMW",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-187",
-      "headline": "China blocks SoftBank’s $5.4bn takeover of ABB’s robotics division",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/f10c3e24-45e4-47ff-bde2-24a8de90aec4?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T03:02:02Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "China blocked SoftBank's $5.4 billion acquisition of ABB's robotics division.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "China blocked SoftBank's $5.4 billion acquisition of ABB's robotics division.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SoftBank",
-          "ticker": null,
-          "listing_country": "JP"
-        },
-        {
-          "name": "ABB",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -261451,9 +261445,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4500646,
-    "news_picked_today": 713,
-    "news_dropped_today": 14839
+    "news_seen_today": 4521491,
+    "news_picked_today": 727,
+    "news_dropped_today": 14897
   },
   "book_momentum": {
     "live_count": 8,
