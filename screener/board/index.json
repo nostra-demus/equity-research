@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T15:18:15Z",
+  "generated_at": "2026-11-05T15:22:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20261105-686",
@@ -1130,6 +1130,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261105-710",
+      "headline": "Denny's restaurants operator files for Chapter 11 bankruptcy",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/restaurants/dennys-restaurants-operator-files-for-chapter-11-bankruptcy",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T15:07:00Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Denny's operator filed for Chapter 11 bankruptcy, indicating a total loss of equity value.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Denny's operator filed for Chapter 11 bankruptcy, indicating a total loss of equity value.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Denny's",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261105-694",
       "headline": "BT cuts almost 8,000 jobs amid sweeping cost-saving programme",
       "headline_en": null,
@@ -1218,6 +1267,56 @@
       "companies": [
         {
           "name": "Wendy's",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261105-709",
+      "headline": "Advanced Drainage Systems Q2 Profit Falls 29%; Cuts FY27 Sales Outlook",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/advanced-drainage-systems-q2-profit-falls-29-cuts-fy27-sales-outlook",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T14:21:03Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Advanced Drainage Systems reported a 29% profit decline and cut its FY27 sales outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Advanced Drainage Systems reported a 29% profit decline and cut its FY27 sales outlook.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Advanced Drainage Systems",
           "ticker": null,
           "listing_country": "US"
         }
@@ -1880,110 +1979,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-517",
-      "headline": "Adani Ports to buy Europe-based liquid storage operator Evos in €2.56 billion deal",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/stocks/adani-ports-share-price-to-buy-europe-based-liquid-storage-operator-evos-in-e2-56-billion-deal-20028138.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T11:33:53Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Adani Ports announced €2.56 billion acquisition of Evos, a Europe-based liquid storage operator, expanding into new geography and non-port assets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Adani Ports announced €2.56 billion acquisition of Evos, a Europe-based liquid storage operator, expanding into new geography and non-port assets.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Adani Ports and Special Economic Zone",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Evos",
-          "ticker": null,
-          "listing_country": "NL"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-521",
-      "headline": "Adani Ports to acquire 100% Evos B.V. at enterprise value of 2.56 billion euros",
-      "headline_en": null,
-      "url": "https://www.deccanherald.com/business/adani-ports-to-acquire-100-evos-bv-at-enterprise-value-of-256-billion-euros-4208603",
-      "source_name": "Deccan Herald",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T11:33:41Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Adani Ports announced acquisition of Evos B.V. at enterprise value of €2.56 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Adani Ports announced acquisition of Evos B.V. at enterprise value of €2.56 billion.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 82,
-      "rank_factors": {
-        "materiality": 82,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Adani Ports and Special Economic Zone Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -261791,9 +261786,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5665166,
-    "news_picked_today": 1148,
-    "news_dropped_today": 18772
+    "news_seen_today": 5685666,
+    "news_picked_today": 1165,
+    "news_dropped_today": 18827
   },
   "book_momentum": {
     "live_count": 8,
