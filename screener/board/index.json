@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T18:07:08Z",
+  "generated_at": "2026-11-05T18:13:22Z",
   "inbox": [
     {
       "inbox_id": "INB-20261105-771",
@@ -1326,6 +1326,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261105-772",
+      "headline": "Sula Vineyards Q2 Results: Net profit surges 35% on premium wine sales, wine tourism growth",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/stocks/sula-vineyards-share-price-q2-results-net-profit-surges-35-on-premium-wine-sales-wine-tourism-growth-20028400.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T17:55:17Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Sula Vineyards reported a 35% surge in net profit driven by premium wine sales and tourism growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Sula Vineyards reported a 35% surge in net profit driven by premium wine sales and tourism growth.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sula Vineyards",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261105-769",
       "headline": "Emaar plans to delist construction unit after board approves $3.3 billion buyout",
       "headline_en": null,
@@ -1919,55 +1968,6 @@
           "name": "BT",
           "ticker": null,
           "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-683",
-      "headline": "Wendy’s rejects Trian-led buyout offer, adopts ‘poison pill’ plan",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/business/article-wendys-rejects-trian-led-buyout-offer-adopts-poison-pill-plan/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T14:22:05Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Wendy's rejected a buyout offer from Trian and implemented a poison pill defense, signaling a potential hostile takeover battle.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Wendy's rejected a buyout offer from Trian and implemented a poison pill defense, signaling a potential hostile takeover battle.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Wendy's",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -221460,77 +221460,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-9e711acef9ae",
-      "idea_version": "IDEAV-6fc5b52a377e3f5e",
-      "idea_version_started_at": "2026-11-04T06:42:55Z",
-      "ticker": "DRREDDY",
-      "company": "Dr. Reddy's Laboratories Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company received US regulatory approval for a generic HIV prevention shot, opening a new commercial revenue stream across 120 countries.",
-      "why_now": "The exchange filing on 2026-11-04 confirms the regulatory nod and the company's response to the news.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3d956ff42165"
-      ],
-      "primary_source_event_id": "EVT-3d956ff42165",
-      "source_headlines": [
-        "Dr. Reddy's Laboratories Limited: The Exchange has sought clarification from Dr. Reddy's Laboratories Limited with respect to recent news item captioned Indias Dr Reddys gets US nod for $40 generic HIV prevention shot for 120 poorer countries. The response from the Company is attached."
-      ],
-      "source_headline": "Dr. Reddy's Laboratories Limited: The Exchange has sought clarification from Dr. Reddy's Laboratories Limited with respect to recent news item captioned Indias Dr Reddys gets US nod for $40 generic HIV prevention shot for 120 poorer countries. The response from the Company is attached.",
-      "source_url": "https://nsearchives.nseindia.com/corporate/DRREDDY_04112026113836_SE_intimation_Reg30_Market_Rumour_Verification_NSE_signed.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 97,
-      "newest_source_at": "2026-11-04T06:08:52Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-04T06:42:55Z",
-      "updated_at": "2026-11-04T06:42:55Z",
-      "decay_at": "2026-11-05T18:08:52Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-22b8ed9b7225",
       "idea_version": "IDEAV-26f247165827bedf",
       "idea_version_started_at": "2026-11-04T03:58:17Z",
@@ -224658,6 +224587,77 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": true
+    },
+    {
+      "idea_id": "IDEA-9e711acef9ae",
+      "idea_version": "IDEAV-6fc5b52a377e3f5e",
+      "idea_version_started_at": "2026-11-04T06:42:55Z",
+      "ticker": "DRREDDY",
+      "company": "Dr. Reddy's Laboratories Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company received US regulatory approval for a generic HIV prevention shot, opening a new commercial revenue stream across 120 countries.",
+      "why_now": "The exchange filing on 2026-11-04 confirms the regulatory nod and the company's response to the news.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3d956ff42165"
+      ],
+      "primary_source_event_id": "EVT-3d956ff42165",
+      "source_headlines": [
+        "Dr. Reddy's Laboratories Limited: The Exchange has sought clarification from Dr. Reddy's Laboratories Limited with respect to recent news item captioned Indias Dr Reddys gets US nod for $40 generic HIV prevention shot for 120 poorer countries. The response from the Company is attached."
+      ],
+      "source_headline": "Dr. Reddy's Laboratories Limited: The Exchange has sought clarification from Dr. Reddy's Laboratories Limited with respect to recent news item captioned Indias Dr Reddys gets US nod for $40 generic HIV prevention shot for 120 poorer countries. The response from the Company is attached.",
+      "source_url": "https://nsearchives.nseindia.com/corporate/DRREDDY_04112026113836_SE_intimation_Reg30_Market_Rumour_Verification_NSE_signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 97,
+      "newest_source_at": "2026-11-04T06:08:52Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-04T06:42:55Z",
+      "updated_at": "2026-11-04T06:42:55Z",
+      "decay_at": "2026-11-05T18:08:52Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     }
   ],
   "ideas_archive": {
@@ -224670,14 +224670,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 544,
+    "total_count": 545,
     "shown_count": 500,
-    "hidden_count": 44,
+    "hidden_count": 45,
     "side_counts": {
       "long": {
-        "total_count": 280,
+        "total_count": 281,
         "shown_count": 250,
-        "hidden_count": 30
+        "hidden_count": 31
       },
       "short": {
         "total_count": 264,
@@ -224701,6 +224701,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-9e711acef9ae",
+        "idea_version": "IDEAV-6fc5b52a377e3f5e",
+        "idea_version_started_at": "2026-11-04T06:42:55Z",
+        "ticker": "DRREDDY",
+        "company": "Dr. Reddy's Laboratories Limited",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company received US regulatory approval for a generic HIV prevention shot, opening a new commercial revenue stream across 120 countries.",
+        "why_now": "The exchange filing on 2026-11-04 confirms the regulatory nod and the company's response to the news.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-3d956ff42165"
+        ],
+        "primary_source_event_id": "EVT-3d956ff42165",
+        "source_headlines": [
+          "Dr. Reddy's Laboratories Limited: The Exchange has sought clarification from Dr. Reddy's Laboratories Limited with respect to recent news item captioned Indias Dr Reddys gets US nod for $40 generic HIV prevention shot for 120 poorer countries. The response from the Company is attached."
+        ],
+        "source_headline": "Dr. Reddy's Laboratories Limited: The Exchange has sought clarification from Dr. Reddy's Laboratories Limited with respect to recent news item captioned Indias Dr Reddys gets US nod for $40 generic HIV prevention shot for 120 poorer countries. The response from the Company is attached.",
+        "source_url": "https://nsearchives.nseindia.com/corporate/DRREDDY_04112026113836_SE_intimation_Reg30_Market_Rumour_Verification_NSE_signed.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 97,
+        "newest_source_at": "2026-11-04T06:08:52Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-04T06:42:55Z",
+        "updated_at": "2026-11-04T06:42:55Z",
+        "decay_at": "2026-11-05T18:08:52Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-05T18:08:52Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-abe61d9932f3",
         "idea_version": "IDEAV-5cbc7c94b5ac81ac",
@@ -254193,81 +254267,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-4e64f81182d7",
-        "idea_version": "IDEAV-6d435676e92af205",
-        "idea_version_started_at": "2026-10-21T12:30:01Z",
-        "ticker": "IBE",
-        "company": "Iberdrola",
-        "exchange": "BME",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company raised its profit growth outlook through 2030, signaling improved long-term earnings visibility.",
-        "why_now": "The guidance hike was announced on 2026-10-21.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-5386c0113cb6"
-        ],
-        "primary_source_event_id": "EVT-5386c0113cb6",
-        "source_headlines": [
-          "Iberdrola raises outlook again, eyes higher profit growth through 2030"
-        ],
-        "source_headline": "Iberdrola raises outlook again, eyes higher profit growth through 2030",
-        "source_url": "https://www.reuters.com/business/energy/iberdrola-raises-outlook-again-eyes-higher-profit-growth-through-2030-2026-10-21/",
-        "source_name": "Reuters — Latest (news sitemap)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-21T06:24:52Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-21T12:30:01Z",
-        "updated_at": "2026-10-21T12:30:01Z",
-        "decay_at": "2026-10-22T18:24:52Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-24T07:02:29Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-dbcd29e8ecf7",
         "idea_version": "IDEAV-3c165f12640d6237",
         "idea_version_started_at": "2026-10-21T01:23:08Z",
@@ -261961,7 +261960,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2196,
-    "live_count": 25,
+    "live_count": 24,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -261980,9 +261979,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6470735,
-    "news_picked_today": 1345,
-    "news_dropped_today": 22079
+    "news_seen_today": 6507185,
+    "news_picked_today": 1347,
+    "news_dropped_today": 22173
   },
   "book_momentum": {
     "live_count": 8,
