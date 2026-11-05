@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-05T21:24:42Z",
+  "generated_at": "2026-11-05T21:27:30Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261105-786",
+      "headline": "JHX: Q2 FY27 Results Pack [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.JHX?key=2924-03158661-2A1708915",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-05T21:12:19Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "James Hardie Industries released Q2 FY27 financial results.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "James Hardie Industries released Q2 FY27 financial results.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "James Hardie Industries",
+          "ticker": "JHX",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261105-773",
       "headline": "Kalyani Forge Limited: Kalyani Forge Limited has informed the Exchange regarding a press release dated November 05, 2026, titled \"Kalyani Forge Board Approves ₹45 Crore Funding Plan to Power Next Phase of Growth; H1 FY27 PBT More Than Doubles (+118.8%) and EBITDA Grows 38.8% YoY\".",
@@ -1922,56 +1971,6 @@
       "companies": [
         {
           "name": "Shield AI",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-740",
-      "headline": "ARKO Q3 Profit Down; Raises Lower End Of FY26 EBITDA Outlook",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/arko-q3-profit-down-raises-lower-end-fy26-ebitda-outlook",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T15:53:06Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "ARKO's Q3 profit is down, but the company raised the lower end of its FY26 EBITDA outlook.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "ARKO's Q3 profit is down, but the company raised the lower end of its FY26 EBITDA outlook.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ARKO",
           "ticker": null,
           "listing_country": null
         }
@@ -262414,9 +262413,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7151345,
-    "news_picked_today": 1511,
-    "news_dropped_today": 26857
+    "news_seen_today": 7182807,
+    "news_picked_today": 1524,
+    "news_dropped_today": 26892
   },
   "book_momentum": {
     "live_count": 8,
