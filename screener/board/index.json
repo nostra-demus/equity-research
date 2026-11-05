@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T05:38:35Z",
+  "generated_at": "2026-11-05T05:50:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20261105-206",
@@ -242,6 +242,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261105-257",
+      "headline": "Toyota raises profit forecast as strong hybrid sales defy China slump",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/automobiles/toyota-raises-profit-forecast-as-strong-hybrid-sales-defy-china-slump",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T05:44:18Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Toyota raised its profit forecast due to strong hybrid sales.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Toyota raised its profit forecast due to strong hybrid sales.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Toyota",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -959,6 +1008,154 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261105-249",
+      "headline": "Permian Resources Corporation Announces Third Quarter 2026 Results and ~$1.15 Billion in Acquisitions",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/permian-resources-corporation-announces-third-quarter-2026-results-and-115-billion",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T04:58:46Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Permian Resources announced ~$1.15 billion in acquisitions, a quantified M&A event that can materially alter revenue, margins, cash flow, and capital structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Permian Resources announced ~$1.15 billion in acquisitions, a quantified M&A event that can materially alter revenue, margins, cash flow, and capital structure.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Permian Resources Corporation",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261105-246",
+      "headline": "Knowledge Marine & Engineering Works Limited: Knowledge Marine & Engineering Works Limited has informed the Exchange regarding a press release dated November 05, 2026, titled \"KMEW completes acquisition of TSHD River Pearl 48 to support Large-Scale Maintenance Dredging Projects \".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/KMEW_05112026110721_Press_Release_-_Acquisition_of_RP_48-s.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-05T05:37:29Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Knowledge Marine & Engineering Works completed the acquisition of a dredging vessel to support large-scale projects.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Knowledge Marine & Engineering Works completed the acquisition of a dredging vessel to support large-scale projects.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Knowledge Marine & Engineering Works",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261105-261",
+      "headline": "BREAKING NEWS: Toyota raises FY 2026 net profit outlook to 3.57 tril. yen",
+      "headline_en": null,
+      "url": "https://english.kyodonews.net/articles/-/90449",
+      "source_name": "Kyodo News (Japan Wire)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T05:01:00Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Toyota raised FY2026 net profit outlook to ¥3.57 trillion; a quantified profit-guidance raise from an official source.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Toyota raised FY2026 net profit outlook to ¥3.57 trillion; a quantified profit-guidance raise from an official source.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 76,
+      "rank_factors": {
+        "materiality": 76,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Toyota",
+          "ticker": "TM",
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261105-163",
       "headline": "Arm Holdings shares close over 5% lower as AI data centre revenue forecast barely beats estimates",
       "headline_en": null,
@@ -1405,6 +1602,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261105-258",
+      "headline": "NextDC prepares for takeover battle after Goodman share raid",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/infrastructure/nextdc-prepares-for-takeover-battle-after-share-raid-20261105-p61bl3?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T05:24:18Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "NextDC is preparing for a potential takeover battle following a share raid.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "NextDC is preparing for a potential takeover battle following a share raid.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NextDC",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261105-171",
       "headline": "Safety Insurance Group, Inc. Reports Third Quarter 2026 Results and Shareholder Approval of Mapfre Acquisition",
       "headline_en": null,
@@ -1702,296 +1948,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261105-241",
-      "headline": "Lupin Q2 Review: Jefferies Cuts Target 15%, Flags US Competition; Kotak Retains Add",
+      "inbox_id": "INB-20261105-260",
+      "headline": "Toyota Raises Profit Forecast on Hybrid Demand; Shares Surge",
       "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/lupin-q2-review-jefferies-cuts-target-15-flags-us-competition-kotak-retains-add-12285206#publisher=newsstand",
-      "source_name": "NDTV Profit",
+      "url": "https://www.bloomberg.com/news/articles/2026-11-05/toyota-raises-profit-forecast-on-hybrid-demand-weak-yen",
+      "source_name": "Bloomberg",
       "input_nature": "news_headline",
-      "found_at": "2026-11-05T03:09:26Z",
+      "found_at": "2026-11-05T04:59:34Z",
       "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Jefferies cut Lupin's target price by 15% citing US competition.",
+      "prelim_note": "Toyota raised FY2026 net profit outlook; a company-moving guidance increase from an official source tied to hybrid vehicle demand.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 93,
-      "triage_reason": "Jefferies cut Lupin's target price by 15% citing US competition.",
-      "region": "IN",
+      "triage_reason": "Toyota raised FY2026 net profit outlook; a company-moving guidance increase from an official source tied to hybrid vehicle demand.",
+      "region": "JP",
       "relevance": "material",
-      "materiality_pre_score": 55,
+      "materiality_pre_score": 73,
       "rank_factors": {
-        "materiality": 55,
+        "materiality": 73,
         "source_tier": 0,
         "scope": 6,
-        "event": 5,
+        "event": 7,
         "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lupin",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-212",
-      "headline": "Premier Energies Limited: Premier Energies Limited has informed the Exchange regarding a press release dated November 05, 2026, titled \"Premier Energies Reports Strong Q2 FY27 Results\"",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/PEL2024_05112026101211_Press_Release_Signed.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-05T04:42:45Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Company announced Q2 FY27 results characterized as strong on 2026-11-05, affecting revenue and earnings expectations, but headline provides no quantified figures.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Company announced Q2 FY27 results characterized as strong on 2026-11-05, affecting revenue and earnings expectations, but headline provides no quantified figures.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 68,
-      "rank_factors": {
-        "materiality": 68,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Premier Energies Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-083",
-      "headline": "STARGLORY HLDGS (08213): DECISION OF THE STOCK EXCHANGE PURSUANT TO RULE 17.26 OF THE GEM LISTING RULES",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1105/2026110402289.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-05T00:29:00Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Starglory Holdings received a decision from the HKEX regarding Rule 17.26, which often relates to listing status and sufficiency of operations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Starglory Holdings received a decision from the HKEX regarding Rule 17.26, which often relates to listing status and sufficiency of operations.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Starglory Holdings",
-          "ticker": "08213",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-209",
-      "headline": "FE CONSORT INTL (00035): SUPPLEMENTAL ANNOUNCEMENT DISCLOSEABLE TRANSACTIONS IN RELATION TO THE DISPOSAL OF OFFICE, HOTEL AND TOWN HALL IN THE UNITED KINGDOM",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1103/2026110302059.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-03T11:03:00Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "The headline indicates a supplemental announcement regarding the disposal of office, hotel, and town hall assets in the United Kingdom by FE Consort Intl.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "The headline indicates a supplemental announcement regarding the disposal of office, hotel, and town hall assets in the United Kingdom by FE Consort Intl.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "FE CONSORT INTL",
-          "ticker": "00035",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-151",
-      "headline": "US sanctions India-based couple, companies over alleged support for Iran's Shadow oil fleet",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/news/economy/foreign-trade/us-sanctions-india-based-couple-companies-over-alleged-support-for-irans-shadow-oil-fleet/articleshow/135555569.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T01:41:13Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "US sanctions on India-based entities for supporting Iran's oil fleet represent a significant regulatory and legal risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "US sanctions on India-based entities for supporting Iran's oil fleet represent a significant regulatory and legal risk.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
         "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
       },
       "event_types": [
-        "regulatory",
-        "litigation_enforcement"
+        "guidance_change"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "India-based entities",
-          "ticker": null,
-          "listing_country": null
+          "name": "Toyota",
+          "ticker": "TM",
+          "listing_country": "JP"
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-242",
-      "headline": "Mahindra Lifespace Developers Limited: Mahindra Lifespace Developers Limited has informed the Exchange regarding a press release dated November 05, 2026, titled \"Mahindra Lifespaces signs its first 100-acre plotted development inMMR\".",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/MAHLIFE1_05112026101046_IntimationofPressRelease_1_BPsg.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-05T04:41:16Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Mahindra Lifespace signed first 100-acre plotted-development project in MMR; capex commitment and expected returns unquantified.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Mahindra Lifespace signed first 100-acre plotted-development project in MMR; capex commitment and expected returns unquantified.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 52,
-      "rank_factors": {
-        "materiality": 52,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 18,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mahindra Lifespace Developers Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -265329,9 +265329,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2293858,
-    "news_picked_today": 317,
-    "news_dropped_today": 7435
+    "news_seen_today": 2354187,
+    "news_picked_today": 339,
+    "news_dropped_today": 7605
   },
   "book_momentum": {
     "live_count": 8,
