@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T04:49:11Z",
+  "generated_at": "2026-11-05T04:55:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20261105-206",
@@ -242,6 +242,106 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261105-223",
+      "headline": "PI Industries shares fall 15% after sharp margin contraction in Q2; weak agri exports drag earnings",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/pi-industries-share-price-q2-review-sharp-margin-contraction-weak-agri-exports-drag-earnings-20027560.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T04:41:09Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "PI Industries shares fell 15% following a sharp margin contraction and weak exports in Q2.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "PI Industries shares fell 15% following a sharp margin contraction and weak exports in Q2.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PI Industries",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261105-219",
+      "headline": "CoreCivic, Inc. Reports Third Quarter 2026 Results, $2.2 billion Facility Sales, and $500.0 million Share Repurchase Program Expansion",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/corecivic-inc-reports-third-quarter-2026-results-22-billion-facility-sales-and-5000",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T03:58:25Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "CoreCivic reported Q3 results, announced $2.2 billion in facility sales, and expanded its share repurchase program by $500 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CoreCivic reported Q3 results, announced $2.2 billion in facility sales, and expanded its share repurchase program by $500 million.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "mna",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CoreCivic, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -911,6 +1011,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261105-214",
+      "headline": "Aaron Industries Limited: Aaron Industries Limited has informed the Exchange regarding Disclosure received under Regulation 29(2) of the SEBI (Substantial Acquisition of Shares and Takeovers) Regulations, 2011.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/AARON_05112026100401_Disclosure_SEBISAST_PromoterGroup.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-05T04:34:38Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Company disclosed receipt of a substantial acquisition filing under SEBI Reg 29(2) on 2026-11-05, signaling potential change of control, but headline provides no stake %, acquirer identity, price, or deal terms.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Company disclosed receipt of a substantial acquisition filing under SEBI Reg 29(2) on 2026-11-05, signaling potential change of control, but headline provides no stake %, acquirer identity, price, or deal terms.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 68,
+      "rank_factors": {
+        "materiality": 68,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 2,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Aaron Industries Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261105-167",
       "headline": "IRI: Director Resignation",
       "headline_en": null,
@@ -1256,6 +1405,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261105-216",
+      "headline": "Fabtech Technologies Limited: Fabtech Technologies Limited has informed the Exchange regarding Resignation of Mr Kalpesh Chauhan as Chief Financial Officer of the company w.e.f. November 12, 2026.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/FABTECH_05112026094326_Intimation_Signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-05T04:14:53Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "CFO Kalpesh Chauhan resignation at Fabtech Technologies Limited, effective Nov 12, 2026, signals potential management instability or accounting concerns.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "CFO Kalpesh Chauhan resignation at Fabtech Technologies Limited, effective Nov 12, 2026, signals potential management instability or accounting concerns.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 58,
+      "rank_factors": {
+        "materiality": 58,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 12,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "executive_exit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Fabtech Technologies Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261105-085",
       "headline": "HUTCHMED (00013): VOLUNTARY ANNOUNCEMENT - HUTCHMED Announces Sovleplenib Granted US FDA Orphan Drug Designation for Autoimmune Hemolytic Anemia",
       "headline_en": null,
@@ -1396,6 +1594,55 @@
           "name": "Total Brain",
           "ticker": null,
           "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261105-212",
+      "headline": "Premier Energies Limited: Premier Energies Limited has informed the Exchange regarding a press release dated November 05, 2026, titled \"Premier Energies Reports Strong Q2 FY27 Results\"",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/PEL2024_05112026101211_Press_Release_Signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-05T04:42:45Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Company announced Q2 FY27 results characterized as strong on 2026-11-05, affecting revenue and earnings expectations, but headline provides no quantified figures.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Company announced Q2 FY27 results characterized as strong on 2026-11-05, affecting revenue and earnings expectations, but headline provides no quantified figures.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 68,
+      "rank_factors": {
+        "materiality": 68,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Premier Energies Limited",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "unknown",
@@ -1552,6 +1799,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261105-229",
+      "headline": "OpenAI Acquires Pierre Computer Company To Expand Codex AI Coding Tools & Strengthen AI-Powered Software Development",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/tech/openai-acquires-pierre-computer-company-to-expand-codex-ai-coding-tools-strengthen-ai-powered-software-development-2",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T04:02:23Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "OpenAI acquired Pierre Computer Company to expand its AI software development capabilities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "OpenAI acquired Pierre Computer Company to expand its AI software development capabilities.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261105-015",
       "headline": "Metropolis Healthcare Limited: Metropolis Healthcare Limited has informed the Exchange regarding a press release dated November 03, 2026, titled \"Metropolis Healthcare reports strong Q2 FY27 performance, with revenue up 16% to Rs. 497 crore and PAT up 43% to Rs. 75 crore. .",
       "headline_en": null,
@@ -1694,307 +1990,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-166",
-      "headline": "CommonSpirit Health signs definitive agreement to sell 3 more N.D. hospitals to Altru Health System",
-      "headline_en": null,
-      "url": "https://www.fiercehealthcare.com/providers/commonspirit-health-talks-hand-3-more-north-dakota-hospitals-altru-health-system",
-      "source_name": "Fierce Healthcare",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T02:28:51Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "CommonSpirit Health signed definitive agreement to sell 3 North Dakota hospitals to Altru Health System, a confirmed divestiture affecting asset base and operations, though transaction value is undisclosed.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "CommonSpirit Health signed definitive agreement to sell 3 North Dakota hospitals to Altru Health System, a confirmed divestiture affecting asset base and operations, though transaction value is undisclosed.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 67,
-      "rank_factors": {
-        "materiality": 67,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 3,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CommonSpirit Health",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Altru Health System",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-044",
-      "headline": "Vermilion Energy Inc. Reports Q3 2026 Results and Approves 2027 E&D Capital Budget of $675 to $725 million",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/vermilion-energy-inc-reports-q3-2026-results-and-approves-2027-ed-capital-budget-675-725",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T23:41:44Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Reports Q3 results and sets a specific 2027 capital expenditure budget of $675 to $725 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Reports Q3 results and sets a specific 2027 capital expenditure budget of $675 to $725 million.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vermilion Energy Inc.",
-          "ticker": "VET",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-048",
-      "headline": "NAB warns of economic crunch as bad loan risk rises",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/financial-services/nab-lifts-credit-charges-cash-profit-down-13pc-amid-economic-pressure-20261105-p61bey?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T23:36:55Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Major bank warns of rising bad loan risks and an economic crunch, signaling credit quality deterioration.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Major bank warns of rising bad loan risks and an economic crunch, signaling credit quality deterioration.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "macro_sector",
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "National Australia Bank",
-          "ticker": "NAB",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-042",
-      "headline": "GOLDENPOWER (03919): RIGHTS ISSUE ON THE BASIS OF ONE RIGHTS SHARE FOR EVERY TWO EXISTING SHARES HELD ON THE RECORD DATE ON A NON-UNDERWRITTEN BASIS",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1105/2026110500022.htm",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-04T22:10:00Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Rights issue 1-for-2 basis announced; 50% shareholder dilution, quantified and non-underwritten.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Rights issue 1-for-2 basis announced; 50% shareholder dilution, quantified and non-underwritten.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 68,
-      "rank_factors": {
-        "materiality": 68,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 2,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Golden Power",
-          "ticker": "03919",
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-036",
-      "headline": "Signpost India Limited: Signpost India Limited has informed the Exchange regarding a press release dated November 03, 2026, titled \"Signpost India s H1 FY27 profit rises 11% to Rs. 34.5 crore; operating cash flow triples to Rs. 61.4 crore.\"",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/SIGNPOST_03112026191502_SIL_SE_Reg_30_Press_Release_03112026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-03T13:45:09Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Signpost India reported an 11% increase in H1 FY27 profit to Rs. 34.5 crore and a tripling of operating cash flow to Rs. 61.4 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Signpost India reported an 11% increase in H1 FY27 profit to Rs. 34.5 crore and a tripling of operating cash flow to Rs. 61.4 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Signpost India Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-100",
-      "headline": "Transrail Lighting Limited: Transrail Lighting Limited has informed the Exchange about change in Management considered in the Board Meeting held on November 3, 2026",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/TRANSRAIL_03112026190207_OutcomeBM03112026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-03T13:34:09Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Transrail Lighting Limited announced a change in management following a board meeting.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Transrail Lighting Limited announced a change in management following a board meeting.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Transrail Lighting Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -265333,9 +265328,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1997812,
-    "news_picked_today": 273,
-    "news_dropped_today": 5847
+    "news_seen_today": 2020541,
+    "news_picked_today": 291,
+    "news_dropped_today": 5925
   },
   "book_momentum": {
     "live_count": 8,
