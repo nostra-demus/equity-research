@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T06:02:38Z",
+  "generated_at": "2026-11-05T06:09:26Z",
   "inbox": [
     {
       "inbox_id": "INB-20261105-206",
@@ -1156,6 +1156,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261105-269",
+      "headline": "NFL: Norfolk Ciclon Copper Project - Further Transaction Update",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NFL?key=2924-03158552-6A1353812",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-05T05:27:41Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Norfolk Metals provided a further transaction update regarding the Ciclon Copper Project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Norfolk Metals provided a further transaction update regarding the Ciclon Copper Project.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Norfolk Metals",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261105-261",
       "headline": "BREAKING NEWS: Toyota raises FY 2026 net profit outlook to 3.57 tril. yen",
       "headline_en": null,
@@ -1943,55 +1992,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-263",
-      "headline": "Markolines Pavement Technologies Limited: Markolines Pavement Technologies Limited has informed the Exchange regarding a press release dated November 05, 2026, titled \"Please find attached the Press Release issued by Markolines Pavement Technologies Limited regarding the receipt of work orders from Brihanmumbai Municipal Corporation (BMC) for road resurfacing works using microsurfacing technology on the Eastern Express Highway and Western Express Highway, aggregating to approximately ₹135.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/MPTL2002_05112026105910_PressRelease051126WorkOrdersBMC.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-05T05:29:26Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "The company secured road resurfacing work orders from the Brihanmumbai Municipal Corporation aggregating to approximately ₹135 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "The company secured road resurfacing work orders from the Brihanmumbai Municipal Corporation aggregating to approximately ₹135 million.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Markolines Pavement Technologies Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -261515,9 +261515,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2453663,
-    "news_picked_today": 348,
-    "news_dropped_today": 7716
+    "news_seen_today": 2473681,
+    "news_picked_today": 354,
+    "news_dropped_today": 7854
   },
   "book_momentum": {
     "live_count": 8,
