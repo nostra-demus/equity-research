@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T02:26:34Z",
+  "generated_at": "2026-11-05T02:36:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20261105-084",
@@ -292,6 +292,106 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261105-164",
+      "headline": "CVS Health to split $117 billion business, separating 9,000 pharmacies from Aetna insurance",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/business/companies/cvs-health-to-split-117-billion-business-separating-9000-pharmacies-from-aetna-insurance-20027519.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T02:06:39Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "CVS Health announced a separation of its $117 billion pharmacy business from Aetna insurance, a major capital restructuring affecting competitive positioning, capital allocation, and shareholder returns.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "CVS Health announced a separation of its $117 billion pharmacy business from Aetna insurance, a major capital restructuring affecting competitive positioning, capital allocation, and shareholder returns.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CVS Health",
+          "ticker": "CVS",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261105-163",
+      "headline": "Arm Holdings shares close over 5% lower as AI data centre revenue forecast barely beats estimates",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/arm-holdings-share-price-ai-data-centre-revenue-forecast-wall-street-estimates-q3-2026-20027462.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T01:46:44Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Arm Holdings stock fell 5% following AI data-centre revenue forecast barely beating estimates, signalling market disappointment on forward guidance despite earnings beat.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Arm Holdings stock fell 5% following AI data-centre revenue forecast barely beating estimates, signalling market disappointment on forward guidance despite earnings beat.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 64,
+      "rank_factors": {
+        "materiality": 64,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 6,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Arm Holdings",
+          "ticker": "ARM",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -836,6 +936,60 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261105-166",
+      "headline": "CommonSpirit Health signs definitive agreement to sell 3 more N.D. hospitals to Altru Health System",
+      "headline_en": null,
+      "url": "https://www.fiercehealthcare.com/providers/commonspirit-health-talks-hand-3-more-north-dakota-hospitals-altru-health-system",
+      "source_name": "Fierce Healthcare",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T02:28:51Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "CommonSpirit Health signed definitive agreement to sell 3 North Dakota hospitals to Altru Health System, a confirmed divestiture affecting asset base and operations, though transaction value is undisclosed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "CommonSpirit Health signed definitive agreement to sell 3 North Dakota hospitals to Altru Health System, a confirmed divestiture affecting asset base and operations, though transaction value is undisclosed.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 67,
+      "rank_factors": {
+        "materiality": 67,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 3,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CommonSpirit Health",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Altru Health System",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1808,147 +1962,6 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-150",
-      "headline": "BREAKING NEWS: BOJ has entered phase to discuss rate hike size: policymaker in minutes",
-      "headline_en": null,
-      "url": "https://english.kyodonews.net/articles/-/90398",
-      "source_name": "Kyodo News (Japan Wire)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T00:34:36Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "A Bank of Japan policymaker indicated the central bank is discussing the size of a potential rate hike, signaling a shift toward tighter monetary policy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "A Bank of Japan policymaker indicated the central bank is discussing the size of a potential rate hike, signaling a shift toward tighter monetary policy.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-046",
-      "headline": "Freshpet, Inc. Reports Third Quarter 2026 Financial Results",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/freshpet-inc-reports-third-quarter-2026-financial-results",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T23:41:34Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Official release of Q3 2026 financial results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Official release of Q3 2026 financial results.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Freshpet, Inc.",
-          "ticker": "FRPT",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-017",
-      "headline": "424B2 - JPMorgan Chase Financial Co. LLC (0001665650) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1665650/000191870426033969/0001918704-26-033969-index.htm",
-      "source_name": "SEC EDGAR — Latest 424B2 (Prospectus, shelf takedown)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-03T14:08:21Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Prospectus for debt offering by JPMorgan Chase subsidiary confirms active refinancing; routine capital action for mega-cap bank, no size disclosed.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "Prospectus for debt offering by JPMorgan Chase subsidiary confirms active refinancing; routine capital action for mega-cap bank, no size disclosed.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 57,
-      "rank_factors": {
-        "materiality": 57,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "JPMorgan Chase Financial Co. LLC",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -265287,9 +265300,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 917451,
-    "news_picked_today": 181,
-    "news_dropped_today": 2603
+    "news_seen_today": 942682,
+    "news_picked_today": 189,
+    "news_dropped_today": 2739
   },
   "book_momentum": {
     "live_count": 8,
