@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T01:15:23Z",
+  "generated_at": "2026-11-05T01:25:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20261105-084",
@@ -1862,6 +1862,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261105-123",
+      "headline": "NT 20-F - Australian Oilseeds Holdings Ltd (0001959994) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1959994/000121390026115143/0001213900-26-115143-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-03T13:10:01Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Australian Oilseeds Holdings Ltd filed a notification of late filing for its annual report (NT 20-F).",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 71,
+      "triage_reason": "Australian Oilseeds Holdings Ltd filed a notification of late filing for its annual report (NT 20-F).",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "accounting_restatement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Australian Oilseeds Holdings Ltd",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261105-099",
       "headline": "10-Q - Beam Therapeutics Inc. (0001745999) (Filer)",
       "headline_en": null,
@@ -1906,55 +1955,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-107",
-      "headline": "8-K - Yum China Holdings, Inc. (0001673358) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1673358/000119312526444429/0001193125-26-444429-index.htm",
-      "source_name": "SEC EDGAR — Latest 8-K (Current Reports)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-03T13:24:24Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Yum China Holdings filed an 8-K, which typically contains material information regarding corporate events or financial updates.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 70,
-      "triage_reason": "Yum China Holdings filed an 8-K, which typically contains material information regarding corporate events or financial updates.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Yum China Holdings, Inc.",
-          "ticker": "YUMC",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -221582,78 +221582,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-0696bb64e0b4",
-      "idea_version": "IDEAV-8206e0d4df7f15ac",
-      "idea_version_started_at": "2026-11-03T16:11:18Z",
-      "ticker": "BATAINDIA",
-      "company": "Bata India",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported a significant 29% YoY jump in profit for the second quarter.",
-      "why_now": "The results were reported on November 03, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ce535fd1cc16"
-      ],
-      "primary_source_event_id": "EVT-ce535fd1cc16",
-      "source_headlines": [
-        "Q2 Results Live Updates: NSE profit jumps 23% YoY, Bata profit jumps nearly 29%"
-      ],
-      "source_headline": "Q2 Results Live Updates: NSE profit jumps 23% YoY, Bata profit jumps nearly 29%",
-      "source_url": "https://www.cnbctv18.com/market/q2-results-live-updates-sbi-itc-nse-bata-graphite-dam-dhoot-chambal-mcx-mgl-neuland-esds-nalco-kec-utkarsh-concor-share-price-liveblog-20025445.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-03T13:23:47Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-03T16:11:18Z",
-      "updated_at": "2026-11-03T16:11:18Z",
-      "decay_at": "2026-11-05T01:23:47Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-9e711acef9ae",
       "idea_version": "IDEAV-6fc5b52a377e3f5e",
       "idea_version_started_at": "2026-11-04T06:42:55Z",
@@ -222640,6 +222568,78 @@
       "surfaced_at": "2026-11-03T17:02:33Z",
       "updated_at": "2026-11-03T17:02:33Z",
       "decay_at": "2026-11-05T01:04:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-0696bb64e0b4",
+      "idea_version": "IDEAV-8206e0d4df7f15ac",
+      "idea_version_started_at": "2026-11-03T16:11:18Z",
+      "ticker": "BATAINDIA",
+      "company": "Bata India",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported a significant 29% YoY jump in profit for the second quarter.",
+      "why_now": "The results were reported on November 03, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ce535fd1cc16"
+      ],
+      "primary_source_event_id": "EVT-ce535fd1cc16",
+      "source_headlines": [
+        "Q2 Results Live Updates: NSE profit jumps 23% YoY, Bata profit jumps nearly 29%"
+      ],
+      "source_headline": "Q2 Results Live Updates: NSE profit jumps 23% YoY, Bata profit jumps nearly 29%",
+      "source_url": "https://www.cnbctv18.com/market/q2-results-live-updates-sbi-itc-nse-bata-graphite-dam-dhoot-chambal-mcx-mgl-neuland-esds-nalco-kec-utkarsh-concor-share-price-liveblog-20025445.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-03T13:23:47Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-03T16:11:18Z",
+      "updated_at": "2026-11-03T16:11:18Z",
+      "decay_at": "2026-11-05T01:23:47Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -228053,14 +228053,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 588,
+    "total_count": 589,
     "shown_count": 499,
-    "hidden_count": 89,
+    "hidden_count": 90,
     "side_counts": {
       "long": {
-        "total_count": 314,
+        "total_count": 315,
         "shown_count": 250,
-        "hidden_count": 64
+        "hidden_count": 65
       },
       "short": {
         "total_count": 275,
@@ -228084,6 +228084,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-0696bb64e0b4",
+        "idea_version": "IDEAV-8206e0d4df7f15ac",
+        "idea_version_started_at": "2026-11-03T16:11:18Z",
+        "ticker": "BATAINDIA",
+        "company": "Bata India",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company reported a significant 29% YoY jump in profit for the second quarter.",
+        "why_now": "The results were reported on November 03, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-ce535fd1cc16"
+        ],
+        "primary_source_event_id": "EVT-ce535fd1cc16",
+        "source_headlines": [
+          "Q2 Results Live Updates: NSE profit jumps 23% YoY, Bata profit jumps nearly 29%"
+        ],
+        "source_headline": "Q2 Results Live Updates: NSE profit jumps 23% YoY, Bata profit jumps nearly 29%",
+        "source_url": "https://www.cnbctv18.com/market/q2-results-live-updates-sbi-itc-nse-bata-graphite-dam-dhoot-chambal-mcx-mgl-neuland-esds-nalco-kec-utkarsh-concor-share-price-liveblog-20025445.htm",
+        "source_name": "CNBC-TV18",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-03T13:23:47Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-03T16:11:18Z",
+        "updated_at": "2026-11-03T16:11:18Z",
+        "decay_at": "2026-11-05T01:23:47Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-05T01:23:47Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-587a71813790",
         "idea_version": "IDEAV-6245776e5dcf5068",
@@ -257651,79 +257726,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-8e38ef15bf4e",
-        "idea_version": "IDEAV-babbca001e70f436",
-        "idea_version_started_at": "2026-10-20T13:35:08Z",
-        "ticker": "RTX",
-        "company": "RTX",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "RTX increased its 2026 outlook for both adjusted sales and adjusted EPS, signaling continued strength in its aerospace and defense segments.",
-        "why_now": "The guidance update was released today, October 20, 2026.",
-        "conviction": 80,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 66,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-c672eca05d79"
-        ],
-        "primary_source_event_id": "EVT-c672eca05d79",
-        "source_headlines": [
-          "RTX Raises 2026 Outlook For Adj. Sales, Adj. EPS"
-        ],
-        "source_headline": "RTX Raises 2026 Outlook For Adj. Sales, Adj. EPS",
-        "source_url": "https://www.nasdaq.com/articles/rtx-raises-2026-outlook-adj-sales-adj-eps",
-        "source_name": "Nasdaq",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-20T11:46:15Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-20T13:35:08Z",
-        "updated_at": "2026-10-20T13:35:08Z",
-        "decay_at": "2026-10-21T23:46:15Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-23T12:15:49Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-7880bfd6f22e",
         "idea_version": "IDEAV-018b6a7dce1b7bf4",
         "idea_version_started_at": "2026-10-20T13:35:08Z",
@@ -265272,7 +265274,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2180,
-    "live_count": 28,
+    "live_count": 27,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -265291,9 +265293,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 508296,
-    "news_picked_today": 112,
-    "news_dropped_today": 1160
+    "news_seen_today": 534556,
+    "news_picked_today": 128,
+    "news_dropped_today": 1456
   },
   "book_momentum": {
     "live_count": 8,
