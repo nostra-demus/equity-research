@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T03:23:09Z",
+  "generated_at": "2026-11-05T03:31:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20261105-182",
@@ -302,6 +302,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261105-192",
+      "headline": "Root, Inc. Reports $14 million Net Income and $381 million Revenue for Q3 2026",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/root-inc-reports-14-million-net-income-and-381-million-revenue-q3-2026",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T02:28:34Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Root, Inc. reported $381 million in revenue and $14 million in net income for Q3 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Root, Inc. reported $381 million in revenue and $14 million in net income for Q3 2026.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Root, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1247,6 +1296,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261105-193",
+      "headline": "Sturm, Ruger & Company, Inc. Reports Third Quarter 2026 Net Sales of $147.6 Million",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/sturm-ruger-company-inc-reports-third-quarter-2026-net-sales-1476-million",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T02:28:34Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Sturm, Ruger & Company, Inc. reported Q3 2026 net sales of $147.6 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Sturm, Ruger & Company, Inc. reported Q3 2026 net sales of $147.6 million.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sturm, Ruger & Company, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261105-166",
       "headline": "CommonSpirit Health signs definitive agreement to sell 3 more N.D. hospitals to Altru Health System",
       "headline_en": null,
@@ -1889,104 +1987,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-020",
-      "headline": "Dev Accelerator Limited: Dev Accelerator Limited has informed the Exchange about The Board of Directors of the Company, at its meeting held on November 03, 2026, considered and approved the proposal for raising funds through Issuance of Non-Convertible Debentures, in dematerialized form, in one or more series or tranches on a private placement basis for an aggregate amount up to Rs. 300 [(Indian Rupees Three Hundred Crores Only)] ( NCDs ) to eligible investors including individuals, body corpora",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/DEVACCE_03112026193219_SE_Outcome_of_Board_Meeting.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-03T14:02:30Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Board-approved ₹300 crore private non-convertible debenture issuance will increase debt, alter leverage ratios, and add recurring interest expense; material for creditworthiness and capital-structure analysis.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Board-approved ₹300 crore private non-convertible debenture issuance will increase debt, alter leverage ratios, and add recurring interest expense; material for creditworthiness and capital-structure analysis.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dev Accelerator Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-128",
-      "headline": "Xpro India Limited: Xpro India Limited has informed the Exchange about Giving guarantees/indemnity/ becoming a surety for third party",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/XPROINDIASKD_03112026182112_Results_outcome_of_BM_03112026_signed.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-03T13:00:45Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Xpro India disclosed giving guarantees for a third party, creating a contingent liability with no amount specified.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Xpro India disclosed giving guarantees for a third party, creating a contingent liability with no amount specified.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 48,
-      "rank_factors": {
-        "materiality": 48,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 22,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Xpro India Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -265325,9 +265325,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1339047,
-    "news_picked_today": 230,
-    "news_dropped_today": 3610
+    "news_seen_today": 1363403,
+    "news_picked_today": 248,
+    "news_dropped_today": 3760
   },
   "book_momentum": {
     "live_count": 8,
