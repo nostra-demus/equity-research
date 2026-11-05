@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T01:25:13Z",
+  "generated_at": "2026-11-05T01:33:23Z",
   "inbox": [
     {
       "inbox_id": "INB-20261105-084",
@@ -936,6 +936,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261105-128",
+      "headline": "Xpro India Limited: Xpro India Limited has informed the Exchange about Giving guarantees/indemnity/ becoming a surety for third party",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/XPROINDIASKD_03112026182112_Results_outcome_of_BM_03112026_signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-03T13:00:45Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Xpro India disclosed giving guarantees for a third party, creating a contingent liability with no amount specified.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Xpro India disclosed giving guarantees for a third party, creating a contingent liability with no amount specified.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 48,
+      "rank_factors": {
+        "materiality": 48,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 22,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Xpro India Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261105-053",
       "headline": "Manulife Q3 Profit Falls 22%; Core Earnings Rise 4%",
       "headline_en": null,
@@ -1421,6 +1470,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261105-127",
+      "headline": "Supreme Infrastructure India Limited: board meeting 06-Nov-2026 — Fund Raising",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/SUPREMEINF_03112026183116_BM_Intimation_NCDs.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-03T13:01:56Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Board meeting 06-Nov-2026 (tomorrow) with fund raising on agenda; confirmed scheduled event but outcome not yet decided.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 77,
+      "triage_reason": "Board meeting 06-Nov-2026 (tomorrow) with fund raising on agenda; confirmed scheduled event but outcome not yet decided.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 63,
+      "rank_factors": {
+        "materiality": 63,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Supreme Infrastructure India Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261105-079",
       "headline": "SCHEDULE 13D/A - Grindr Inc. (0001820144) (Subject)",
       "headline_en": null,
@@ -1854,104 +1952,6 @@
           "name": "Timken India Limited",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-123",
-      "headline": "NT 20-F - Australian Oilseeds Holdings Ltd (0001959994) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1959994/000121390026115143/0001213900-26-115143-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-03T13:10:01Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Australian Oilseeds Holdings Ltd filed a notification of late filing for its annual report (NT 20-F).",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 71,
-      "triage_reason": "Australian Oilseeds Holdings Ltd filed a notification of late filing for its annual report (NT 20-F).",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "accounting_restatement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Australian Oilseeds Holdings Ltd",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-099",
-      "headline": "10-Q - Beam Therapeutics Inc. (0001745999) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1745999/000119312526444455/0001193125-26-444455-index.htm",
-      "source_name": "SEC EDGAR — Latest 10-Q (Quarterly Report)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-03T13:37:41Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Beam Therapeutics filed its quarterly 10-Q report.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 70,
-      "triage_reason": "Beam Therapeutics filed its quarterly 10-Q report.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Beam Therapeutics Inc.",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "mid",
@@ -265293,9 +265293,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 534556,
-    "news_picked_today": 128,
-    "news_dropped_today": 1456
+    "news_seen_today": 586116,
+    "news_picked_today": 133,
+    "news_dropped_today": 1691
   },
   "book_momentum": {
     "live_count": 8,
