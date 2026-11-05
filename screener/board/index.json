@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T13:11:39Z",
+  "generated_at": "2026-11-05T13:19:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20261105-535",
@@ -880,6 +880,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261105-590",
+      "headline": "Titan shines in Q2 Results 2026; Net profit doubles to ₹2,393 crore, aided by one-time gain; jewellery business up 24%",
+      "headline_en": null,
+      "url": "https://www.livemint.com/market/stock-market-news/titan-shines-in-q2-results-2026-net-profit-doubles-to-rs-2-393-crore-aided-by-one-time-gain-jewellery-business-up-24-11793880484831.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T12:48:39Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Titan reported a net profit of ₹2,393 crore, doubling year-over-year, with 24% growth in the jewellery segment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Titan reported a net profit of ₹2,393 crore, doubling year-over-year, with 24% growth in the jewellery segment.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Titan",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1946,61 +1995,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-282",
-      "headline": "Commerzbank Quarterly Net Rises 45% Ahead of UniCredit Takeover",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-05/commerzbank-quarterly-net-rises-45-ahead-of-unicredit-takeover",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T06:08:30Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Commerzbank reported a 45% increase in quarterly net profit amid ongoing takeover interest from UniCredit.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Commerzbank reported a 45% increase in quarterly net profit amid ongoing takeover interest from UniCredit.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Commerzbank",
-          "ticker": null,
-          "listing_country": "DE"
-        },
-        {
-          "name": "UniCredit",
-          "ticker": null,
-          "listing_country": "IT"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -220270,76 +220264,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-617337d6962c",
-      "idea_version": "IDEAV-41ce9a2637f1a2a8",
-      "idea_version_started_at": "2026-11-04T03:39:00Z",
-      "ticker": "HZO",
-      "company": "MarineMax, Inc.",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company has cleared all regulatory hurdles for its pending merger, removing a significant overhang and providing a clear path to closing by the end of 2026.",
-      "why_now": "The announcement of final regulatory approval occurred on 2026-11-04.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d061a29c3cf5"
-      ],
-      "primary_source_event_id": "EVT-d061a29c3cf5",
-      "source_headlines": [
-        "MarineMax, Inc. Obtains All Regulatory Approvals for Merger, Expects Closing by End of Calendar Year 2026"
-      ],
-      "source_headline": "MarineMax, Inc. Obtains All Regulatory Approvals for Merger, Expects Closing by End of Calendar Year 2026",
-      "source_url": "https://www.nasdaq.com/articles/marinemax-inc-obtains-all-regulatory-approvals-merger-expects-closing-end-calendar-year",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-04T01:12:20Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-04T03:39:00Z",
-      "updated_at": "2026-11-04T03:39:00Z",
-      "decay_at": "2026-11-05T13:12:20Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-237bc01d6762",
       "idea_version": "IDEAV-72d4edd5febe887c",
       "idea_version_started_at": "2026-11-05T12:54:05Z",
@@ -222195,6 +222119,76 @@
       "surfaced_at": "2026-11-04T03:39:00Z",
       "updated_at": "2026-11-04T03:39:00Z",
       "decay_at": "2026-11-05T12:02:20Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-617337d6962c",
+      "idea_version": "IDEAV-41ce9a2637f1a2a8",
+      "idea_version_started_at": "2026-11-04T03:39:00Z",
+      "ticker": "HZO",
+      "company": "MarineMax, Inc.",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company has cleared all regulatory hurdles for its pending merger, removing a significant overhang and providing a clear path to closing by the end of 2026.",
+      "why_now": "The announcement of final regulatory approval occurred on 2026-11-04.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d061a29c3cf5"
+      ],
+      "primary_source_event_id": "EVT-d061a29c3cf5",
+      "source_headlines": [
+        "MarineMax, Inc. Obtains All Regulatory Approvals for Merger, Expects Closing by End of Calendar Year 2026"
+      ],
+      "source_headline": "MarineMax, Inc. Obtains All Regulatory Approvals for Merger, Expects Closing by End of Calendar Year 2026",
+      "source_url": "https://www.nasdaq.com/articles/marinemax-inc-obtains-all-regulatory-approvals-merger-expects-closing-end-calendar-year",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-04T01:12:20Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-04T03:39:00Z",
+      "updated_at": "2026-11-04T03:39:00Z",
+      "decay_at": "2026-11-05T13:12:20Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -224424,14 +224418,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 538,
+    "total_count": 539,
     "shown_count": 499,
-    "hidden_count": 39,
+    "hidden_count": 40,
     "side_counts": {
       "long": {
-        "total_count": 276,
+        "total_count": 277,
         "shown_count": 250,
-        "hidden_count": 26
+        "hidden_count": 27
       },
       "short": {
         "total_count": 263,
@@ -224455,6 +224449,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-617337d6962c",
+        "idea_version": "IDEAV-41ce9a2637f1a2a8",
+        "idea_version_started_at": "2026-11-04T03:39:00Z",
+        "ticker": "HZO",
+        "company": "MarineMax, Inc.",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company has cleared all regulatory hurdles for its pending merger, removing a significant overhang and providing a clear path to closing by the end of 2026.",
+        "why_now": "The announcement of final regulatory approval occurred on 2026-11-04.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 65,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-d061a29c3cf5"
+        ],
+        "primary_source_event_id": "EVT-d061a29c3cf5",
+        "source_headlines": [
+          "MarineMax, Inc. Obtains All Regulatory Approvals for Merger, Expects Closing by End of Calendar Year 2026"
+        ],
+        "source_headline": "MarineMax, Inc. Obtains All Regulatory Approvals for Merger, Expects Closing by End of Calendar Year 2026",
+        "source_url": "https://www.nasdaq.com/articles/marinemax-inc-obtains-all-regulatory-approvals-merger-expects-closing-end-calendar-year",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-04T01:12:20Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-04T03:39:00Z",
+        "updated_at": "2026-11-04T03:39:00Z",
+        "decay_at": "2026-11-05T13:12:20Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-05T13:12:20Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-2a4b25e53837",
         "idea_version": "IDEAV-59f8c38a3f28e2e4",
@@ -253731,80 +253798,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-52c1133413b1",
-        "idea_version": "IDEAV-1ae64137af195dd1",
-        "idea_version_started_at": "2026-10-21T03:43:27Z",
-        "ticker": "00013",
-        "company": "HUTCHMED",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The closing of the license agreement with GSK for the KRAS-EGFR-Antibody Conjugate therapy provides a significant upfront cash infusion and validates the company's R&D pipeline.",
-        "why_now": "The deal closing was officially announced on 2026-10-21.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-a03bab1cda93"
-        ],
-        "primary_source_event_id": "EVT-a03bab1cda93",
-        "source_headlines": [
-          "HUTCHMED (00013): VOLUNTARY ANNOUNCEMENT - HUTCHMED Announces Closing of KRAS-EGFR-Antibody Conjugate Therapy License to GSK Outside China"
-        ],
-        "source_headline": "HUTCHMED (00013): VOLUNTARY ANNOUNCEMENT - HUTCHMED Announces Closing of KRAS-EGFR-Antibody Conjugate Therapy License to GSK Outside China",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1021/2026102100053.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 94,
-        "newest_source_at": "2026-10-21T00:00:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-21T03:43:27Z",
-        "updated_at": "2026-10-21T03:43:27Z",
-        "decay_at": "2026-10-22T12:00:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-24T00:29:04Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-dbcd29e8ecf7",
         "idea_version": "IDEAV-3c165f12640d6237",
         "idea_version_started_at": "2026-10-21T01:23:08Z",
@@ -261646,7 +261639,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2190,
-    "live_count": 27,
+    "live_count": 26,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -261665,9 +261658,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5024572,
-    "news_picked_today": 922,
-    "news_dropped_today": 16430
+    "news_seen_today": 5045745,
+    "news_picked_today": 943,
+    "news_dropped_today": 16601
   },
   "book_momentum": {
     "live_count": 8,
