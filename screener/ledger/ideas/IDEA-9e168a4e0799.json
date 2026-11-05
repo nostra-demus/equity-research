@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-9e168a4e0799",
-  "idea_version": "IDEAV-fc88c3c5a5a68ffb",
-  "idea_version_started_at": "2026-11-03T21:03:27Z",
+  "idea_version": "IDEAV-f171ecf4e8e8da71",
+  "idea_version_started_at": "2026-11-05T20:09:05Z",
   "ticker": "MRVL",
   "company": "Marvell Technology",
   "exchange": "NASDAQ",
@@ -11,15 +11,15 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "short",
   "pair_with": null,
-  "reason": "The $115 billion acquisition of Lumentum represents a massive capital outlay that likely involves significant dilution or debt, typically pressuring the acquirer's stock in the near term.",
-  "why_now": "The deal was announced on November 3, 2026.",
-  "conviction": 50,
+  "reason": "The $115 billion acquisition of Lumentum represents a massive premium and significant dilution risk for Marvell shareholders in a high-valuation environment.",
+  "why_now": "The deal was announced today, November 5, 2026, and typically triggers a sell-off in the acquirer's stock due to the size of the transaction.",
+  "conviction": 75,
   "conviction_basis": "pre_edge_proxy",
-  "trade_score": 60,
+  "trade_score": 69,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 14,
-    "impact": 24,
+    "impact": 23,
     "specificity": 15,
     "timing": 10,
     "expression": 7,
@@ -30,7 +30,6 @@
   "missing_checks": [
     "live liquidity",
     "dated catalyst",
-    "priced-in risk",
     "independent confirmation",
     "live price, liquidity, and consensus"
   ],
@@ -43,22 +42,22 @@
     "basis": "not_enough_outcomes",
     "evidenceIds": []
   },
-  "priced_in": "priced",
+  "priced_in": "room",
   "thesis_type": "company_specific",
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-1cb816fc4878"
+    "EVT-7688296e55b2"
   ],
-  "primary_source_event_id": "EVT-1cb816fc4878",
+  "primary_source_event_id": "EVT-7688296e55b2",
   "source_headlines": [
-    "Marvell to Acquire Lumentum in Historic $115B Tech Deal"
+    "Marvell agrees to buy Lumentum in $115B stock deal"
   ],
-  "source_headline": "Marvell to Acquire Lumentum in Historic $115B Tech Deal",
-  "source_url": "https://www.bloomberg.com/news/videos/2026-11-03/marvell-to-acquire-lumentum-in-historic-115b-tech-deal-video",
-  "source_name": "Bloomberg",
+  "source_headline": "Marvell agrees to buy Lumentum in $115B stock deal",
+  "source_url": "https://www.manufacturingdive.com/news/marvell-lumentum-115b-stock-deal-ai-data-centers/873783/",
+  "source_name": "Manufacturing Dive",
   "materiality_max": 100,
-  "newest_source_at": "2026-11-03T20:12:07Z",
+  "newest_source_at": "2026-11-05T16:09:00Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
@@ -66,8 +65,8 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-11-03T21:03:27Z",
-  "updated_at": "2026-11-03T21:03:27Z",
-  "decay_at": "2026-11-05T08:12:07Z",
+  "updated_at": "2026-11-05T20:09:05Z",
+  "decay_at": "2026-11-07T04:09:00Z",
   "status": "live",
   "promoted_signal_id": null
 }
