@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T00:17:08Z",
+  "generated_at": "2026-11-05T00:25:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20261105-005",
@@ -90,6 +90,55 @@
       "companies": [
         {
           "name": "Embassy Developments Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261105-015",
+      "headline": "Metropolis Healthcare Limited: Metropolis Healthcare Limited has informed the Exchange regarding a press release dated November 03, 2026, titled \"Metropolis Healthcare reports strong Q2 FY27 performance, with revenue up 16% to Rs. 497 crore and PAT up 43% to Rs. 75 crore. .",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/METROPOLIS_03112026194532_Signed_SE_Intimation_Press_Release.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-03T14:16:00Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Metropolis Healthcare reports Q2 FY27 revenue ₹497 crore (+16% YoY) and PAT ₹75 crore (+43% YoY), a confirmed earnings beat on both metrics.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Metropolis Healthcare reports Q2 FY27 revenue ₹497 crore (+16% YoY) and PAT ₹75 crore (+43% YoY), a confirmed earnings beat on both metrics.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Metropolis Healthcare Limited",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -337,6 +386,55 @@
           "name": "Concord Enviro Systems Limited",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261105-014",
+      "headline": "FERRETTI (09638): INSIDE INFORMATION ANNOUNCEMENT - REORGANIZATION OF THE TECHNICAL AND OPERATIONS FUNCTIONS OF THE GROUP TO ACCELERATE INNOVATION AND INDUSTRIAL EXCELLENCE",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1103/2026110302451.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-03T14:20:00Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "HKEx material-event disclosure of technical and operations reorganization; headline lacks specific quantification of cost, headcount, capex, or timeline impact.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 64,
+      "triage_reason": "HKEx material-event disclosure of technical and operations reorganization; headline lacks specific quantification of cost, headcount, capex, or timeline impact.",
+      "region": "CN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 48,
+      "rank_factors": {
+        "materiality": 48,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ferretti Group",
+          "ticker": "09638",
+          "listing_country": "HK"
         }
       ],
       "size_bucket": "unknown",
@@ -263953,7 +264051,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4460,
+    "inbox_unconsumed": 4462,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -263962,9 +264060,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 81524,
-    "news_picked_today": 13,
-    "news_dropped_today": 347
+    "news_seen_today": 135302,
+    "news_picked_today": 15,
+    "news_dropped_today": 417
   },
   "book_momentum": {
     "live_count": 8,
