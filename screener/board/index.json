@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-05T10:04:53Z",
+  "generated_at": "2026-11-05T10:13:29Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261105-408",
+      "headline": "Petronet LNG Limited: Petronet LNG Limited has informed the Exchange regarding a press release dated November 03, 2026, titled \"Petronet LNG seeks early recovery of Qatar cargoes.Petronet hit with Rs. 625 cr claim over idle Qatar LNG shipsPetronet in talk with Qatar for delivery of delayed LNG cargoes\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/PETRONET_05112026151036_pressrelease03112026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-05T09:41:54Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Petronet LNG faces a Rs. 625 crore claim related to idle Qatar LNG ships, representing a significant potential financial liability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Petronet LNG faces a Rs. 625 crore claim related to idle Qatar LNG ships, representing a significant potential financial liability.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Petronet LNG Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261105-395",
       "headline": "Adani Ports and Special Economic Zone Limited: Adani Ports and Special Economic Zone Limited has informed the Exchange about Disclosure under Regulation 30 of the SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015 ( SEBI Listing Regulations ), regarding an agreement to acquire 100% stake in Evos B.V.",
@@ -1960,58 +2009,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-375",
-      "headline": "MEILAN AIRPORT (00357): DISCLOSEABLE AND CONNECTED TRANSACTION DISPOSAL OF EQUITY INTEREST, PROPOSED AMENDMENTS TO THE ARTICLES OF ASSOCIATION, PROPOSED APPOINTMENT OF A NON-EXECUTIVE DIRECTOR, PROPOSED ADJUSTMENT TO THE ANNUAL REMUNERATION PROPOSAL FOR THE DIRECTORS FOR THE YEAR 2026, AND PROPOSED REGISTRATION AND ISSUANCE OF COMMERCIAL MORTGAGE-BACKED NOTES AND NOTICE OF THE EGM",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1105/2026110500864.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-05T08:37:00Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Discloseable connected M&A (equity-interest disposal), governance amendments, director appointment, and commercial mortgage-backed notes issuance requiring EGM, but deal size and strategic rationale unstated.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Discloseable connected M&A (equity-interest disposal), governance amendments, director appointment, and commercial mortgage-backed notes issuance requiring EGM, but deal size and strategic rationale unstated.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 62,
-      "rank_factors": {
-        "materiality": 62,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 8,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "capital_actions",
-        "management",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MEILAN AIRPORT",
-          "ticker": "00357",
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -261682,9 +261679,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3818079,
-    "news_picked_today": 588,
-    "news_dropped_today": 13500
+    "news_seen_today": 3876457,
+    "news_picked_today": 590,
+    "news_dropped_today": 13642
   },
   "book_momentum": {
     "live_count": 8,
