@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-05T06:37:10Z",
+  "generated_at": "2026-11-05T06:46:29Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261105-292",
+      "headline": "HSBC HOLDINGS (00005): HSBC HOLDINGS PLC ANNOUNCES TENDER OFFER FOR ONE SERIES OF SECURITIES",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1105/2026110500503.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-05T06:23:00Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "HSBC is initiating a tender offer for a series of securities, impacting capital structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "HSBC is initiating a tender offer for a series of securities, impacting capital structure.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HSBC Holdings",
+          "ticker": "00005",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261105-206",
       "headline": "EUR: Implementation of Schemes",
@@ -247,6 +296,61 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261105-282",
+      "headline": "Commerzbank Quarterly Net Rises 45% Ahead of UniCredit Takeover",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-05/commerzbank-quarterly-net-rises-45-ahead-of-unicredit-takeover",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T06:08:30Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Commerzbank reported a 45% increase in quarterly net profit amid ongoing takeover interest from UniCredit.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Commerzbank reported a 45% increase in quarterly net profit amid ongoing takeover interest from UniCredit.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Commerzbank",
+          "ticker": null,
+          "listing_country": "DE"
+        },
+        {
+          "name": "UniCredit",
+          "ticker": null,
+          "listing_country": "IT"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261105-257",
       "headline": "Toyota raises profit forecast as strong hybrid sales defy China slump",
       "headline_en": null,
@@ -341,6 +445,56 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261105-309",
+      "headline": "Toyota H1 Results Climb, Upgrades FY27 Profit View, Cuts Revenue Outlook; Shares Climb",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/toyota-h1-results-climb-upgrades-fy27-profit-view-cuts-revenue-outlook-shares-climb",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T05:36:16Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Toyota reported H1 results, raised its FY27 profit guidance, but lowered its revenue outlook, creating a mixed financial signal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Toyota reported H1 results, raised its FY27 profit guidance, but lowered its revenue outlook, creating a mixed financial signal.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Toyota",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1843,155 +1997,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-258",
-      "headline": "NextDC prepares for takeover battle after Goodman share raid",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/infrastructure/nextdc-prepares-for-takeover-battle-after-share-raid-20261105-p61bl3?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T05:24:18Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "NextDC is preparing for a potential takeover battle following a share raid.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "NextDC is preparing for a potential takeover battle following a share raid.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NextDC",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-171",
-      "headline": "Safety Insurance Group, Inc. Reports Third Quarter 2026 Results and Shareholder Approval of Mapfre Acquisition",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/safety-insurance-group-inc-reports-third-quarter-2026-results-and-shareholder-approval",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T02:18:28Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Safety Insurance Group reported Q3 results and confirmed shareholder approval for the Mapfre acquisition.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Safety Insurance Group reported Q3 results and confirmed shareholder approval for the Mapfre acquisition.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Safety Insurance Group, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-147",
-      "headline": "Expedia Group, Inc. Reports Q3 2026 Financial Results and Increases Full Year Guidance",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/expedia-group-inc-reports-q3-2026-financial-results-and-increases-full-year-guidance",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T00:52:32Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Expedia raised full-year 2026 guidance alongside Q3 results, signaling above-consensus management confidence.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Expedia raised full-year 2026 guidance alongside Q3 results, signaling above-consensus management confidence.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 76,
-      "rank_factors": {
-        "materiality": 76,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Expedia Group, Inc.",
-          "ticker": "EXPE",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -221619,78 +221624,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-dc65d089bf37",
-      "idea_version": "IDEAV-31688b86e41e89fc",
-      "idea_version_started_at": "2026-11-03T19:40:00Z",
-      "ticker": "BMWYY",
-      "company": "BMW",
-      "exchange": "OTC",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company cut its financial outlook for the second consecutive quarter, indicating persistent structural headwinds and margin compression in its automotive business.",
-      "why_now": "The guidance cut was announced on November 3, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6174e68b7c85"
-      ],
-      "primary_source_event_id": "EVT-6174e68b7c85",
-      "source_headlines": [
-        "BMW Cuts Outlook for Second Straight Quarter Amid Restructuring"
-      ],
-      "source_headline": "BMW Cuts Outlook for Second Straight Quarter Amid Restructuring",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-11-03/bmw-cuts-outlook-for-second-straight-quarter-amid-restructuring",
-      "source_name": "Bloomberg",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-03T18:39:54Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-03T19:40:00Z",
-      "updated_at": "2026-11-03T19:40:00Z",
-      "decay_at": "2026-11-05T06:39:54Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-9e711acef9ae",
       "idea_version": "IDEAV-6fc5b52a377e3f5e",
       "idea_version_started_at": "2026-11-04T06:42:55Z",
@@ -222321,6 +222254,78 @@
       "surfaced_at": "2026-11-02T23:10:25Z",
       "updated_at": "2026-11-02T23:10:25Z",
       "decay_at": "2026-11-04T10:20:19Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-dc65d089bf37",
+      "idea_version": "IDEAV-31688b86e41e89fc",
+      "idea_version_started_at": "2026-11-03T19:40:00Z",
+      "ticker": "BMWYY",
+      "company": "BMW",
+      "exchange": "OTC",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company cut its financial outlook for the second consecutive quarter, indicating persistent structural headwinds and margin compression in its automotive business.",
+      "why_now": "The guidance cut was announced on November 3, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6174e68b7c85"
+      ],
+      "primary_source_event_id": "EVT-6174e68b7c85",
+      "source_headlines": [
+        "BMW Cuts Outlook for Second Straight Quarter Amid Restructuring"
+      ],
+      "source_headline": "BMW Cuts Outlook for Second Straight Quarter Amid Restructuring",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-03/bmw-cuts-outlook-for-second-straight-quarter-amid-restructuring",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-03T18:39:54Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-03T19:40:00Z",
+      "updated_at": "2026-11-03T19:40:00Z",
+      "decay_at": "2026-11-05T06:39:54Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -224418,9 +224423,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 537,
+    "total_count": 538,
     "shown_count": 499,
-    "hidden_count": 38,
+    "hidden_count": 39,
     "side_counts": {
       "long": {
         "total_count": 275,
@@ -224428,9 +224433,9 @@
         "hidden_count": 25
       },
       "short": {
-        "total_count": 263,
+        "total_count": 264,
         "shown_count": 250,
-        "hidden_count": 13
+        "hidden_count": 14
       }
     },
     "retention": {
@@ -224449,6 +224454,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-dc65d089bf37",
+        "idea_version": "IDEAV-31688b86e41e89fc",
+        "idea_version_started_at": "2026-11-03T19:40:00Z",
+        "ticker": "BMWYY",
+        "company": "BMW",
+        "exchange": "OTC",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company cut its financial outlook for the second consecutive quarter, indicating persistent structural headwinds and margin compression in its automotive business.",
+        "why_now": "The guidance cut was announced on November 3, 2026.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-6174e68b7c85"
+        ],
+        "primary_source_event_id": "EVT-6174e68b7c85",
+        "source_headlines": [
+          "BMW Cuts Outlook for Second Straight Quarter Amid Restructuring"
+        ],
+        "source_headline": "BMW Cuts Outlook for Second Straight Quarter Amid Restructuring",
+        "source_url": "https://www.bloomberg.com/news/articles/2026-11-03/bmw-cuts-outlook-for-second-straight-quarter-amid-restructuring",
+        "source_name": "Bloomberg",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-03T18:39:54Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-03T19:40:00Z",
+        "updated_at": "2026-11-03T19:40:00Z",
+        "decay_at": "2026-11-05T06:39:54Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-05T06:39:54Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-faaeb5bb205e",
         "idea_version": "IDEAV-bc99e1e945b10031",
@@ -261560,86 +261640,12 @@
         "archived_at": "2026-10-11T15:54:26Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-7470585394f5",
-        "idea_version": "IDEAV-ffc4a9332af08053",
-        "idea_version_started_at": "2026-10-08T16:19:11Z",
-        "ticker": "POLYCAB",
-        "company": "Polycab India Limited",
-        "exchange": "NSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company has entered a formal Corporate Insolvency Resolution Process, signaling severe financial distress and potential equity wipeout.",
-        "why_now": "The exchange filing was released on 2026-10-08, making this an immediate liquidity and solvency crisis.",
-        "conviction": 90,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 23,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-922a052e7d2c"
-        ],
-        "primary_source_event_id": "EVT-922a052e7d2c",
-        "source_headlines": [
-          "Polycab India Limited: Polycab India Limited has informed the Exchange about Corporate Insolvency Resolution Process"
-        ],
-        "source_headline": "Polycab India Limited: Polycab India Limited has informed the Exchange about Corporate Insolvency Resolution Process",
-        "source_url": "https://nsearchives.nseindia.com/corporate/POLYCAB_08102026204050_StockExchangeIntimationCIRPupdate08102026F.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-08T15:11:15Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-08T14:29:57Z",
-        "updated_at": "2026-10-08T16:19:11Z",
-        "decay_at": "2026-10-10T03:11:15Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-11T15:33:11Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2183,
-    "live_count": 28,
+    "live_count": 27,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -261658,9 +261664,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2610913,
-    "news_picked_today": 374,
-    "news_dropped_today": 8386
+    "news_seen_today": 2629884,
+    "news_picked_today": 402,
+    "news_dropped_today": 8550
   },
   "book_momentum": {
     "live_count": 8,
