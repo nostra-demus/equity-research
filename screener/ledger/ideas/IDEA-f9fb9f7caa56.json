@@ -1,24 +1,24 @@
 {
-  "idea_id": "IDEA-fee1e839a5af",
-  "idea_version": "IDEAV-7713be9b154fa86f",
-  "idea_version_started_at": "2026-11-03T02:31:59Z",
-  "ticker": "TCMD",
-  "company": "Tactile Medical",
-  "exchange": "NASDAQ",
+  "idea_id": "IDEA-f9fb9f7caa56",
+  "idea_version": "IDEAV-21c63f60a107b9f4",
+  "idea_version_started_at": "2026-11-05T22:25:32Z",
+  "ticker": "MYX",
+  "company": "Mayne Pharma",
+  "exchange": "ASX",
   "ticker_verified": false,
   "listing_verified": false,
   "liquidity_verified": false,
   "listing_verification_source": null,
-  "direction": "short",
+  "direction": "long",
   "pair_with": null,
-  "reason": "Operating expenses are growing faster than revenue, signaling margin compression and poor cost control.",
-  "why_now": "The Q3 2026 earnings report released on 2026-11-02 highlights this negative divergence.",
-  "conviction": 75,
+  "reason": "Mayne Pharma's divestiture of its International segment for $55.5m adds cash, improving liquidity and potentially boosting EPS, supporting a long position.",
+  "why_now": "The divestiture was announced on 2026-11-05, providing a fresh catalyst.",
+  "conviction": 55,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
-    "evidence": 14,
+    "evidence": 25,
     "impact": 18,
     "specificity": 7,
     "timing": 10,
@@ -32,7 +32,6 @@
     "verified listing",
     "live liquidity",
     "dated catalyst",
-    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -49,26 +48,26 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-dd4dd1048acc"
+    "EVT-8c6fa202610a"
   ],
-  "primary_source_event_id": "EVT-dd4dd1048acc",
+  "primary_source_event_id": "EVT-8c6fa202610a",
   "source_headlines": [
-    "Tactile Medical's Spending Outpaces Sales: Rapid Earnings Reaction"
+    "MYX: Mayne Pharma to divest International segment for $55.5m [price-sensitive]"
   ],
-  "source_headline": "Tactile Medical's Spending Outpaces Sales: Rapid Earnings Reaction",
-  "source_url": "https://www.nasdaq.com/articles/tactile-medicals-spending-outpaces-sales-rapid-earnings-reaction",
-  "source_name": "Nasdaq",
+  "source_headline": "MYX: Mayne Pharma to divest International segment for $55.5m [price-sensitive]",
+  "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MYX?key=2924-03158746-3A705930",
+  "source_name": "ASX (Australia Exchange Filing)",
   "materiality_max": 100,
-  "newest_source_at": "2026-11-02T22:13:29Z",
+  "newest_source_at": "2026-11-05T21:52:54Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-11-03T02:31:59Z",
-  "updated_at": "2026-11-03T02:31:59Z",
-  "decay_at": "2026-11-04T10:13:29Z",
+  "surfaced_at": "2026-11-05T22:25:32Z",
+  "updated_at": "2026-11-05T22:25:32Z",
+  "decay_at": "2026-11-07T09:52:54Z",
   "status": "live",
   "promoted_signal_id": null
 }

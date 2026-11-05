@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T22:24:36Z",
+  "generated_at": "2026-11-05T22:25:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20261105-787",
@@ -220600,6 +220600,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-f9fb9f7caa56",
+      "idea_version": "IDEAV-21c63f60a107b9f4",
+      "idea_version_started_at": "2026-11-05T22:25:32Z",
+      "ticker": "MYX",
+      "company": "Mayne Pharma",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Mayne Pharma's divestiture of its International segment for $55.5m adds cash, improving liquidity and potentially boosting EPS, supporting a long position.",
+      "why_now": "The divestiture was announced on 2026-11-05, providing a fresh catalyst.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8c6fa202610a"
+      ],
+      "primary_source_event_id": "EVT-8c6fa202610a",
+      "source_headlines": [
+        "MYX: Mayne Pharma to divest International segment for $55.5m [price-sensitive]"
+      ],
+      "source_headline": "MYX: Mayne Pharma to divest International segment for $55.5m [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MYX?key=2924-03158746-3A705930",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-05T21:52:54Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-05T22:25:32Z",
+      "updated_at": "2026-11-05T22:25:32Z",
+      "decay_at": "2026-11-07T09:52:54Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-05fc720c6b1f",
       "idea_version": "IDEAV-9b6a43b3fc3c2b16",
       "idea_version_started_at": "2026-11-05T20:09:05Z",
@@ -222798,77 +222869,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-f57f73aa30ee",
-      "idea_version": "IDEAV-2d16ea5fdf9fa39f",
-      "idea_version_started_at": "2026-11-02T23:10:25Z",
-      "ticker": "AEHR",
-      "company": "Aehr Test Systems",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Aehr reported a tripling of revenue driven by a surge in AI-related orders, indicating strong demand for their semiconductor test and burn-in equipment.",
-      "why_now": "The earnings report was released on November 2, 2026, showing immediate operational momentum.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-488542adb3a3"
-      ],
-      "primary_source_event_id": "EVT-488542adb3a3",
-      "source_headlines": [
-        "Aehr Revenue Triples as AI Orders Pile Up: Rapid Earnings Reaction"
-      ],
-      "source_headline": "Aehr Revenue Triples as AI Orders Pile Up: Rapid Earnings Reaction",
-      "source_url": "https://www.nasdaq.com/articles/aehr-revenue-triples-ai-orders-pile-rapid-earnings-reaction",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-02T22:20:19Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-02T23:10:25Z",
-      "updated_at": "2026-11-02T23:10:25Z",
-      "decay_at": "2026-11-04T10:20:19Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-f92b8922e81b",
       "idea_version": "IDEAV-10fe4bd7cb218bbb",
       "idea_version_started_at": "2026-11-05T06:02:04Z",
@@ -224805,150 +224805,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-fee1e839a5af",
-      "idea_version": "IDEAV-7713be9b154fa86f",
-      "idea_version_started_at": "2026-11-03T02:31:59Z",
-      "ticker": "TCMD",
-      "company": "Tactile Medical",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Operating expenses are growing faster than revenue, signaling margin compression and poor cost control.",
-      "why_now": "The Q3 2026 earnings report released on 2026-11-02 highlights this negative divergence.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-dd4dd1048acc"
-      ],
-      "primary_source_event_id": "EVT-dd4dd1048acc",
-      "source_headlines": [
-        "Tactile Medical's Spending Outpaces Sales: Rapid Earnings Reaction"
-      ],
-      "source_headline": "Tactile Medical's Spending Outpaces Sales: Rapid Earnings Reaction",
-      "source_url": "https://www.nasdaq.com/articles/tactile-medicals-spending-outpaces-sales-rapid-earnings-reaction",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-02T22:13:29Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-03T02:31:59Z",
-      "updated_at": "2026-11-03T02:31:59Z",
-      "decay_at": "2026-11-04T10:13:29Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-0ac45b9845e1",
-      "idea_version": "IDEAV-1f48c63285d1ff1e",
-      "idea_version_started_at": "2026-11-02T23:10:25Z",
-      "ticker": "ON",
-      "company": "Onsemi",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Onsemi is acquiring Ferric to integrate power-delivery technology, which directly supports their stated goal of increasing AI-related revenue.",
-      "why_now": "The acquisition and updated AI revenue guidance were announced on November 2, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5cfa42b99d76"
-      ],
-      "primary_source_event_id": "EVT-5cfa42b99d76",
-      "source_headlines": [
-        "Onsemi To Acquire Ferric For Up To $775 Mln, Boosts AI Revenue Target"
-      ],
-      "source_headline": "Onsemi To Acquire Ferric For Up To $775 Mln, Boosts AI Revenue Target",
-      "source_url": "https://www.nasdaq.com/articles/onsemi-acquire-ferric-775-mln-boosts-ai-revenue-target",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-02T21:38:19Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-02T23:10:25Z",
-      "updated_at": "2026-11-02T23:10:25Z",
-      "decay_at": "2026-11-04T09:38:19Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-a204395caab2",
       "idea_version": "IDEAV-6cd21665a86d4930",
       "idea_version_started_at": "2026-11-03T02:31:59Z",
@@ -225101,32 +224957,32 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 550,
+    "total_count": 547,
     "shown_count": 500,
-    "hidden_count": 50,
+    "hidden_count": 47,
     "side_counts": {
       "long": {
-        "total_count": 287,
+        "total_count": 285,
         "shown_count": 250,
-        "hidden_count": 37
+        "hidden_count": 35
       },
       "short": {
-        "total_count": 263,
+        "total_count": 262,
         "shown_count": 250,
-        "hidden_count": 13
+        "hidden_count": 12
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1627,
+      "evicted_count": 1630,
       "oldest_retained_at": "2026-10-09T02:10:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 1073,
-          "oldest_retained_at": "2026-10-21T12:15:00Z"
+          "evicted_count": 1075,
+          "oldest_retained_at": "2026-10-21T13:03:00Z"
         },
         "short": {
-          "evicted_count": 555,
+          "evicted_count": 556,
           "oldest_retained_at": "2026-10-09T02:10:00Z"
         }
       }
@@ -228687,8 +228543,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-04T10:20:19Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-05T22:25:37Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -228762,8 +228618,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-04T10:13:29Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-05T22:25:37Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -228837,8 +228693,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-04T09:38:19Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-05T22:25:37Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -262394,8 +262250,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2203,
-    "live_count": 25,
+    "surfaced_total": 2204,
+    "live_count": 26,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
