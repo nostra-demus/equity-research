@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T13:25:17Z",
+  "generated_at": "2026-11-05T13:30:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20261105-535",
@@ -1032,6 +1032,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261105-604",
+      "headline": "Adani Ports Expands Into European Energy Storage Market With €2.56 Billion Evos Acquisition",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/adani-ports-expands-into-european-energy-storage-market-with-256-billion-evos-acquisition",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T12:28:42Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Adani Ports announced €2.56 billion acquisition of Evos, expanding into European energy-storage market with 8 terminals—quantified, confirmed M&A and capital-allocation event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Adani Ports announced €2.56 billion acquisition of Evos, expanding into European energy-storage market with 8 terminals—quantified, confirmed M&A and capital-allocation event.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adani Ports & Special Economic Zone Ltd",
+          "ticker": "ADANIPORTS",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261105-572",
       "headline": "Icahn Enterprises L.P. Reports CVR Energy Agreement to Acquire Refineries for approximately $4.2 billion",
       "headline_en": null,
@@ -1946,55 +1996,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-340",
-      "headline": "Amagi Media Labs Q2 FY27 Earnings Steal The Spotlight With 114% Jump In Adjusted EBITDA, Revenue Rises 27% To ₹476 Crore As Net Profit Reaches ₹75 Crore",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/amagi-media-labs-q2-fy27-earnings-steal-the-spotlight-with-114-jump-in-adjusted-ebitda-revenue-rises-27-to-476-crore-as-net-profit-reaches-75-crore",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T07:04:56Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Amagi Media Labs reported a 114% jump in adjusted EBITDA and 27% revenue growth to ₹476 crore, with net profit reaching ₹75 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Amagi Media Labs reported a 114% jump in adjusted EBITDA and 27% revenue growth to ₹476 crore, with net profit reaching ₹75 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Amagi Media Labs",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -261662,9 +261663,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5067106,
-    "news_picked_today": 950,
-    "news_dropped_today": 16762
+    "news_seen_today": 5088256,
+    "news_picked_today": 964,
+    "news_dropped_today": 16844
   },
   "book_momentum": {
     "live_count": 8,
