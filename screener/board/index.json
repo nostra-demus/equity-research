@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T01:03:09Z",
+  "generated_at": "2026-11-05T01:12:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20261105-084",
@@ -1034,6 +1034,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261105-102",
+      "headline": "HONG WEI ASIA (08191): PLACING OF NEW SHARES UNDER SPECIFIC MANDATE",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1103/2026110302365.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-03T13:26:00Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Hong Wei Asia is conducting a placing of new shares, which is dilutive to existing shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Hong Wei Asia is conducting a placing of new shares, which is dilutive to existing shareholders.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 0,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hong Wei Asia",
+          "ticker": "08191",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261105-071",
       "headline": "US sanctions India-based couple, companies accused of helping Iran’s shadow fleet",
       "headline_en": null,
@@ -1764,6 +1813,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261105-103",
+      "headline": "Timken India Limited: Pursuant to Regulation 30 of Securities and Exchange Board of India (Listing Obligations and Disclosure Requirements) Regulations, 2015, we hereby give an update on Order passed by Office of the Commissioner (Appeals), Central Goods and Service Tax & Central Excise. Please see attachment for more details.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/TIMKEN_03112026185457_Letter03112026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-03T13:26:16Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Timken India received an order from the GST and Central Excise Commissioner, representing a potential regulatory or tax liability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 71,
+      "triage_reason": "Timken India received an order from the GST and Central Excise Commissioner, representing a potential regulatory or tax liability.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Timken India Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261105-099",
       "headline": "10-Q - Beam Therapeutics Inc. (0001745999) (Filer)",
       "headline_en": null,
@@ -1813,149 +1911,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261105-090",
-      "headline": "ADASPACE (06935): GLOBAL OFFERING",
+      "inbox_id": "INB-20261105-107",
+      "headline": "8-K - Yum China Holdings, Inc. (0001673358) (Filer)",
       "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1105/2026110500055.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-04T22:12:00Z",
+      "url": "https://www.sec.gov/Archives/edgar/data/1673358/000119312526444429/0001193125-26-444429-index.htm",
+      "source_name": "SEC EDGAR — Latest 8-K (Current Reports)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-03T13:24:24Z",
       "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Equity offering announced; no offering size, valuation, or timeline disclosed in headline.",
+      "prelim_note": "Yum China Holdings filed an 8-K, which typically contains material information regarding corporate events or financial updates.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "Equity offering announced; no offering size, valuation, or timeline disclosed in headline.",
-      "region": "CN",
-      "relevance": "relevant_non_material",
+      "triage_score": 70,
+      "triage_reason": "Yum China Holdings filed an 8-K, which typically contains material information regarding corporate events or financial updates.",
+      "region": "US",
+      "relevance": "material",
       "materiality_pre_score": 50,
       "rank_factors": {
         "materiality": 50,
         "source_tier": 8,
         "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ADASPACE",
-          "ticker": "06935",
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-092",
-      "headline": "CNBM (03323): VOLUNTARY ANNOUNCEMENT TIANSHAN MATERIAL REGULATORY UPDATES",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1105/2026110500017.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-04T22:06:00Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Tianshan subsidiary regulatory update flagged as material; specific regulation, order, or operational impact not disclosed.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "Tianshan subsidiary regulatory update flagged as material; specific regulation, order, or operational impact not disclosed.",
-      "region": "CN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 38,
-      "rank_factors": {
-        "materiality": 38,
-        "source_tier": 8,
-        "scope": 6,
         "event": 4,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 7,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CNBM",
-          "ticker": "03323",
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-006",
-      "headline": "Entertainment Network (India) Limited: Entertainment Network (India) Limited has informed the Exchange regarding a press release dated November 03, 2026, titled \"ENIL Reports 9.5% YoY EBITDA Growth in Q2FY27\".",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/ENIL_03112026201317_ENILPressReleaseQ2FY27.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-03T14:43:32Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Entertainment Network (India) reported 9.5% YoY EBITDA growth in Q2FY27; no forward guidance, beat/miss context, or management commentary on trajectory indicated.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "Entertainment Network (India) reported 9.5% YoY EBITDA growth in Q2FY27; no forward guidance, beat/miss context, or management commentary on trajectory indicated.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 48,
-      "rank_factors": {
-        "materiality": 48,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
+        "size": 2,
         "recency": 0,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
+        "event_id": "regulatory",
+        "size_bucket": "large"
       },
       "event_types": [
-        "earnings_revenue_margin"
+        "regulatory"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Entertainment Network (India) Limited",
-          "ticker": null,
-          "listing_country": "IN"
+          "name": "Yum China Holdings, Inc.",
+          "ticker": "YUMC",
+          "listing_country": "US"
         }
       ],
-      "size_bucket": "unknown",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -221653,77 +221652,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-89650d65cdd4",
-      "idea_version": "IDEAV-5c3b7b033a0e63ed",
-      "idea_version_started_at": "2026-11-03T17:02:33Z",
-      "ticker": "03315",
-      "company": "GOLDPAC GROUP",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A profit warning indicates deteriorating earnings visibility and potential margin compression for the company.",
-      "why_now": "The warning was issued on November 03, 2026, creating immediate downside pressure.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d2944a3279f1"
-      ],
-      "primary_source_event_id": "EVT-d2944a3279f1",
-      "source_headlines": [
-        "GOLDPAC GROUP (03315): PROFIT WARNING"
-      ],
-      "source_headline": "GOLDPAC GROUP (03315): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1103/2026110302349.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-03T13:04:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-03T17:02:33Z",
-      "updated_at": "2026-11-03T17:02:33Z",
-      "decay_at": "2026-11-05T01:04:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-0696bb64e0b4",
       "idea_version": "IDEAV-8206e0d4df7f15ac",
       "idea_version_started_at": "2026-11-03T16:11:18Z",
@@ -222641,6 +222569,77 @@
       "surfaced_at": "2026-11-02T02:53:32Z",
       "updated_at": "2026-11-02T02:53:32Z",
       "decay_at": "2026-11-03T14:17:08Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-89650d65cdd4",
+      "idea_version": "IDEAV-5c3b7b033a0e63ed",
+      "idea_version_started_at": "2026-11-03T17:02:33Z",
+      "ticker": "03315",
+      "company": "GOLDPAC GROUP",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A profit warning indicates deteriorating earnings visibility and potential margin compression for the company.",
+      "why_now": "The warning was issued on November 03, 2026, creating immediate downside pressure.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d2944a3279f1"
+      ],
+      "primary_source_event_id": "EVT-d2944a3279f1",
+      "source_headlines": [
+        "GOLDPAC GROUP (03315): PROFIT WARNING"
+      ],
+      "source_headline": "GOLDPAC GROUP (03315): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1103/2026110302349.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-03T13:04:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-03T17:02:33Z",
+      "updated_at": "2026-11-03T17:02:33Z",
+      "decay_at": "2026-11-05T01:04:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -228054,9 +228053,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 586,
+    "total_count": 587,
     "shown_count": 499,
-    "hidden_count": 87,
+    "hidden_count": 88,
     "side_counts": {
       "long": {
         "total_count": 313,
@@ -228064,9 +228063,9 @@
         "hidden_count": 63
       },
       "short": {
-        "total_count": 274,
+        "total_count": 275,
         "shown_count": 250,
-        "hidden_count": 24
+        "hidden_count": 25
       }
     },
     "retention": {
@@ -228085,6 +228084,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-89650d65cdd4",
+        "idea_version": "IDEAV-5c3b7b033a0e63ed",
+        "idea_version_started_at": "2026-11-03T17:02:33Z",
+        "ticker": "03315",
+        "company": "GOLDPAC GROUP",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "A profit warning indicates deteriorating earnings visibility and potential margin compression for the company.",
+        "why_now": "The warning was issued on November 03, 2026, creating immediate downside pressure.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-d2944a3279f1"
+        ],
+        "primary_source_event_id": "EVT-d2944a3279f1",
+        "source_headlines": [
+          "GOLDPAC GROUP (03315): PROFIT WARNING"
+        ],
+        "source_headline": "GOLDPAC GROUP (03315): PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1103/2026110302349.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-03T13:04:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-03T17:02:33Z",
+        "updated_at": "2026-11-03T17:02:33Z",
+        "decay_at": "2026-11-05T01:04:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-05T01:04:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-821e9e6d384b",
         "idea_version": "IDEAV-1397ef8c4d929cb6",
@@ -265195,85 +265268,12 @@
         "archived_at": "2026-10-11T15:33:11Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-8c352967472b",
-        "idea_version": "IDEAV-5c0dfa8b6f6509f8",
-        "idea_version_started_at": "2026-10-08T14:29:57Z",
-        "ticker": "EMA",
-        "company": "Emera",
-        "exchange": "NYSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Acquiring a company for $10 billion typically requires significant debt issuance or equity dilution, which often pressures the acquirer's stock price in the near term.",
-        "why_now": "The acquisition announcement occurred on 2026-10-08.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 67,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-76dc69ffdde1"
-        ],
-        "primary_source_event_id": "EVT-76dc69ffdde1",
-        "source_headlines": [
-          "Emera to Acquire Canadian Utilities for $10B"
-        ],
-        "source_headline": "Emera to Acquire Canadian Utilities for $10B",
-        "source_url": "https://www.rigzone.com/news/emera_to_acquire_canadian_utilities_for_10b-08-oct-2026-184801-article/?rss=true",
-        "source_name": "Rigzone",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-08T13:18:28Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-07T17:12:46Z",
-        "updated_at": "2026-10-08T14:29:57Z",
-        "decay_at": "2026-10-10T01:18:28Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-11T13:19:44Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2180,
-    "live_count": 30,
+    "live_count": 29,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -265292,9 +265292,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 350042,
-    "news_picked_today": 100,
-    "news_dropped_today": 1004
+    "news_seen_today": 455752,
+    "news_picked_today": 108,
+    "news_dropped_today": 1140
   },
   "book_momentum": {
     "live_count": 8,
