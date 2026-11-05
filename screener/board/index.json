@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-11-05T18:39:25Z",
+  "generated_at": "2026-11-05T18:46:12Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261105-773",
+      "headline": "Kalyani Forge Limited: Kalyani Forge Limited has informed the Exchange regarding a press release dated November 05, 2026, titled \"Kalyani Forge Board Approves ₹45 Crore Funding Plan to Power Next Phase of Growth; H1 FY27 PBT More Than Doubles (+118.8%) and EBITDA Grows 38.8% YoY\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/KALYANIFRG_05112026234302_Kalyani_Forge_Press_Release_Q2_FY27-_Signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-05T18:13:47Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Kalyani Forge reported a 118.8% increase in H1 FY27 PBT and approved a ₹45 crore funding plan for growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Kalyani Forge reported a 118.8% increase in H1 FY27 PBT and approved a ₹45 crore funding plan for growth.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kalyani Forge Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261105-771",
       "headline": "Adani Ports and Special Economic Zone Limited: Adani Ports and Special Economic Zone Limited has informed the Exchange regarding 'Audio Recording of Analysts/Investors Call pertaining to agreement to acquire 100% stake in Evos B.V.'.",
@@ -1922,55 +1972,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-694",
-      "headline": "BT cuts almost 8,000 jobs amid sweeping cost-saving programme",
-      "headline_en": null,
-      "url": "https://www.theguardian.com/business/2026/nov/05/bt-cuts-jobs-cost-saving-programme-profit-share-price",
-      "source_name": "The Guardian — World news",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T14:40:48Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "BT announced plans to cut nearly 8,000 jobs as part of a cost-saving program.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "BT announced plans to cut nearly 8,000 jobs as part of a cost-saving program.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BT",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -261979,9 +261980,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6724017,
-    "news_picked_today": 1358,
-    "news_dropped_today": 22594
+    "news_seen_today": 6742008,
+    "news_picked_today": 1359,
+    "news_dropped_today": 22785
   },
   "book_momentum": {
     "live_count": 8,
