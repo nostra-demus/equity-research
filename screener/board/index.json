@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T08:20:02Z",
+  "generated_at": "2026-11-05T08:48:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20261105-328",
@@ -1763,6 +1763,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261105-360",
+      "headline": "Cipla Limited: Cipla Limited has informed the Exchange about Copy of Newspaper Publication of 'Notice of Final Hearing of Company Scheme Petition'",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/CIPLA_05112026132230_SE_Intimation_Newspaper_Advertisement_20261105_signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-05T07:52:58Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "A scheme petition's final hearing notice signals imminent material corporate restructuring with potential effects on capital structure, operations, and regulatory status, but the scheme's nature and impact are not disclosed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "A scheme petition's final hearing notice signals imminent material corporate restructuring with potential effects on capital structure, operations, and regulatory status, but the scheme's nature and impact are not disclosed.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "strategic_review",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory",
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cipla Limited",
+          "ticker": "CIPLA",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261105-281",
       "headline": "LG Electronics India Limited: LG Electronics India Limited has informed the Exchange regarding a press release dated November 05, 2026, titled \"\"LG Electronics India Continues Strong Momentum Delivers Highest Growth Post Listing in Q2 FY27 \".",
       "headline_en": null,
@@ -1952,56 +2002,6 @@
           "name": "HUDCO",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-321",
-      "headline": "Legrand 9-month Profit Rises, Organic Sales Growth At 12.7%; Raises 2026 Targets",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/legrand-9-month-profit-rises-organic-sales-growth-127-raises-2026-targets",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T07:01:06Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Legrand reported 12.7% organic sales growth and raised 2026 targets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Legrand reported 12.7% organic sales growth and raised 2026 targets.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Legrand",
-          "ticker": null,
-          "listing_country": "FR"
         }
       ],
       "size_bucket": "large",
@@ -261675,9 +261675,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3034184,
-    "news_picked_today": 518,
-    "news_dropped_today": 11698
+    "news_seen_today": 3222676,
+    "news_picked_today": 520,
+    "news_dropped_today": 12296
   },
   "book_momentum": {
     "live_count": 8,
