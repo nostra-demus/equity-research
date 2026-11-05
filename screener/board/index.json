@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T20:26:43Z",
+  "generated_at": "2026-11-05T20:30:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20261105-773",
@@ -1376,6 +1376,109 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261105-785",
+      "headline": "Shield AI Acquiring Radar Manufacturer Echodyne For $5.3 Billion In C-UAS Play",
+      "headline_en": null,
+      "url": "https://www.defensedaily.com/shield-ai-acquiring-radar-manufacturer-echodyne-for-5-3-billion-in-c-uas-play/unmanned-systems/",
+      "source_name": "Defense Daily",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T20:05:35Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Shield AI is acquiring Echodyne for $5.3 billion to expand its counter-UAS capabilities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Shield AI is acquiring Echodyne for $5.3 billion to expand its counter-UAS capabilities.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shield AI",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Echodyne",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261105-784",
+      "headline": "LIV golf to shutter league, lawyer says in bankruptcy hearing",
+      "headline_en": null,
+      "url": "https://thehill.com/policy/sports-gaming/6202125-liv-golf-bankruptcy-hearing/",
+      "source_name": "The Hill — Homenews",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T20:01:07Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "LIV Golf is reportedly planning to shutter its league following bankruptcy proceedings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "LIV Golf is reportedly planning to shutter its league following bankruptcy proceedings.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LIV Golf",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261105-781",
       "headline": "Hertz Shares Plunge as Car Renter Warns It’s Running Low on Cash",
       "headline_en": null,
@@ -1874,104 +1977,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-744",
-      "headline": "SpaceX Default Risk Hits Fresh Peak as Tech-Led Selloff Builds",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-05/spacex-default-risk-hits-fresh-peak-as-tech-led-selloff-builds",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T15:48:12Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "SpaceX's default risk has reached a new peak amidst a tech-led selloff.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "SpaceX's default risk has reached a new peak amidst a tech-led selloff.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-716",
-      "headline": "Godfrey Phillips Q2 results: Profit drops nearly 38% to ₹190 crore, board declares ₹10 dividend",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/earnings/godfrey-phillips-q2-results-profit-drops-37-percent-board-declares-rs-10-dividend-20028285.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T15:39:14Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Godfrey Phillips reported a 38% profit drop to 190 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Godfrey Phillips reported a 38% profit drop to 190 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Godfrey Phillips",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -262479,9 +262484,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7013815,
-    "news_picked_today": 1428,
-    "news_dropped_today": 25956
+    "news_seen_today": 7029125,
+    "news_picked_today": 1434,
+    "news_dropped_today": 25974
   },
   "book_momentum": {
     "live_count": 8,
