@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T00:12:53Z",
+  "generated_at": "2026-11-05T00:17:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20261105-005",
@@ -46,6 +46,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261105-008",
+      "headline": "Embassy Developments Limited: Press Release Embassy Developments Posts Highest-Ever Quarterly Pre-Sales of INR 3,225 Crore",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/EMBDL_03112026200535_EDL_Press_Release_03112026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-03T14:36:57Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Embassy Developments reported record quarterly pre-sales of INR 3,225 Crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Embassy Developments reported record quarterly pre-sales of INR 3,225 Crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Embassy Developments Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -198,6 +247,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261105-012",
+      "headline": "8-K - ZEBRA TECHNOLOGIES CORP (0000877212) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/877212/000162828026069148/0001628280-26-069148-index.htm",
+      "source_name": "SEC EDGAR — Latest 8-K (Current Reports)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-03T14:24:23Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Routine 8-K filing for Zebra Technologies, no specific material event indicated in the headline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 66,
+      "triage_reason": "Routine 8-K filing for Zebra Technologies, no specific material event indicated in the headline.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ZEBRA TECHNOLOGIES CORP",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261105-013",
+      "headline": "Concord Enviro Systems Limited: In compliance with Regulation 30 and 33 of SEBI (LODR) 2015, Outcome of Board Meeting held on November 03, 2026.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/CONCORDENVIRO_03112026195033_OutcomeBM03112026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-03T14:24:03Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Routine outcome of board meeting filing for Concord Enviro Systems.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 64,
+      "triage_reason": "Routine outcome of board meeting filing for Concord Enviro Systems.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Concord Enviro Systems Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261105-004",
       "headline": "CIMC (02039): INSIDE INFORMATION ANNOUNCEMENT ON PERFORMANCE OF GUARANTEE OBLIGATIONS",
       "headline_en": null,
@@ -242,6 +389,202 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261105-011",
+      "headline": "Dam Capital Advisors Limited: Dam Capital Advisors Limited has informed the Exchange regarding Cessation of Mr. Rajendra Prabhakar Chitale as Non- Executive Independent Director of the company w.e.f. December 14, 2026.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/DAMCAPITAL_03112026195834_Signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-03T14:28:46Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Mr. Rajendra Prabhakar Chitale has ceased to be a Non-Executive Independent Director of Dam Capital Advisors Limited effective December 14, 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 63,
+      "triage_reason": "Mr. Rajendra Prabhakar Chitale has ceased to be a Non-Executive Independent Director of Dam Capital Advisors Limited effective December 14, 2026.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "management",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dam Capital Advisors Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261105-007",
+      "headline": "Arvee Laboratories (India) Limited: Arvee Laboratories (India) Limited has informed the Exchange regarding Appointment of Mr Shalin Bharatbhai Chokshi as Executive Director of the company w.e.f. November 03, 2026.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/ARVEE_03112026200412_out.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-03T14:37:04Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Appointment of a new Executive Director at Arvee Laboratories.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 62,
+      "triage_reason": "Appointment of a new Executive Director at Arvee Laboratories.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "management",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Arvee Laboratories (India) Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261105-010",
+      "headline": "4 - CONSTELLIUM SE (0001563411) (Issuer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1563411/000156341126000202/0001563411-26-000202-index.htm",
+      "source_name": "SEC EDGAR — Latest Filings, Form 4 (insider transactions)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-03T14:34:19Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Routine insider transaction filing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 48,
+      "triage_reason": "Routine insider transaction filing.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 30,
+      "rank_factors": {
+        "materiality": 30,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "insider_transaction",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "insider_transaction"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Constellium SE",
+          "ticker": "CSTM",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261105-009",
+      "headline": "4 - Deslarzes Jean-Christophe (0002092745) (Reporting)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/2092745/000156341126000202/0001563411-26-000202-index.htm",
+      "source_name": "SEC EDGAR — Latest Filings, Form 4 (insider transactions)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-03T14:34:19Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Routine insider transaction filing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 46,
+      "triage_reason": "Routine insider transaction filing.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 30,
+      "rank_factors": {
+        "materiality": 30,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "insider_transaction",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "insider_transaction"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Deslarzes Jean-Christophe",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -263610,7 +263953,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4453,
+    "inbox_unconsumed": 4460,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -263619,9 +263962,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 27362,
-    "news_picked_today": 6,
-    "news_dropped_today": 162
+    "news_seen_today": 81524,
+    "news_picked_today": 13,
+    "news_dropped_today": 347
   },
   "book_momentum": {
     "live_count": 8,
