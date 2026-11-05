@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T07:59:35Z",
+  "generated_at": "2026-11-05T08:11:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261105-328",
@@ -340,6 +340,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261105-354",
+      "headline": "Ajmera Realty & Infra India Limited: Ajmera Realty & Infra India Limited has informed the Exchange regarding a press release dated November 03, 2026, titled \"Ajmera Realty delivers strong H1FY27 performance: Revenue Up 33% YoY, PAT rises 32%; Debt-to-Equity improves to 0.44x\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/AJMERA_03112026140333_Intimation_sd.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-03T08:34:08Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Ajmera Realty reported H1FY27 revenue growth of 33% YoY and PAT growth of 32%, with debt-to-equity improving to 0.44x.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ajmera Realty reported H1FY27 revenue growth of 33% YoY and PAT growth of 32%, with debt-to-equity improving to 0.44x.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ajmera Realty & Infra India Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1951,57 +2000,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-141",
-      "headline": "PTC Inc. Reports Fourth Quarter 2026 Results and Suspends Guidance Due to Pending Acquisition",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/ptc-inc-reports-fourth-quarter-2026-results-and-suspends-guidance-due-pending-acquisition",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T01:02:30Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "PTC Inc. reported Q4 2026 results and suspended guidance due to a pending acquisition.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "PTC Inc. reported Q4 2026 results and suspended guidance due to a pending acquisition.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change",
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PTC Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -261671,9 +261669,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2932082,
-    "news_picked_today": 502,
-    "news_dropped_today": 10610
+    "news_seen_today": 2994351,
+    "news_picked_today": 514,
+    "news_dropped_today": 11438
   },
   "book_momentum": {
     "live_count": 8,
