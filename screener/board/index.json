@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-05T23:19:55Z",
+  "generated_at": "2026-11-05T23:29:53Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261105-827",
+      "headline": "INA: Receipt of further improved proposal from Warburg Pincus [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.INA?key=2924-03158850-2A1709051",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-05T22:54:15Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Receipt of an improved acquisition proposal is a material event for shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Receipt of an improved acquisition proposal is a material event for shareholders.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "INA",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261105-787",
       "headline": "MYX: Mayne Pharma to divest International segment for $55.5m [price-sensitive]",
@@ -1627,6 +1676,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261105-811",
+      "headline": "TC Energy Corporation Reports Third Quarter 2026 Results and Revises 2026 Outlook",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/tc-energy-corporation-reports-third-quarter-2026-results-and-revises-2026-outlook",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T22:31:49Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "TC Energy reported Q3 results and revised its 2026 outlook, which is a material event for investors.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "TC Energy reported Q3 results and revised its 2026 outlook, which is a material event for investors.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TC Energy Corporation",
+          "ticker": "TRP",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261105-791",
       "headline": "DraftKings Cuts Outlook as It Pours More Money Into Prediction Markets",
       "headline_en": null,
@@ -1873,104 +1972,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-780",
-      "headline": "SanDisk stock plunges 20% as AI selloff deepens despite strong earnings",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/investing/stocks/sandisk-stock-plunges-20-as-ai-selloff-deepens-despite-strong-earnings-sndk",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T19:08:04Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "SanDisk stock dropped 20% following earnings, indicating a significant negative market reaction to the report.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "SanDisk stock dropped 20% following earnings, indicating a significant negative market reaction to the report.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SanDisk",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-772",
-      "headline": "Sula Vineyards Q2 Results: Net profit surges 35% on premium wine sales, wine tourism growth",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/stocks/sula-vineyards-share-price-q2-results-net-profit-surges-35-on-premium-wine-sales-wine-tourism-growth-20028400.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T17:55:17Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Sula Vineyards reported a 35% surge in net profit driven by premium wine sales and tourism growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Sula Vineyards reported a 35% surge in net profit driven by premium wine sales and tourism growth.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sula Vineyards",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -262264,9 +262265,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7442950,
-    "news_picked_today": 1640,
-    "news_dropped_today": 29488
+    "news_seen_today": 7457702,
+    "news_picked_today": 1666,
+    "news_dropped_today": 29726
   },
   "book_momentum": {
     "live_count": 8,
