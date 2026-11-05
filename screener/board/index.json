@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T04:58:15Z",
+  "generated_at": "2026-11-05T05:20:20Z",
   "inbox": [
     {
       "inbox_id": "INB-20261105-206",
@@ -1109,6 +1109,57 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261105-243",
+      "headline": "Dr. Reddy's Laboratories Limited: Dr. Reddy's Laboratories Limited has informed the Exchange regarding a press release dated November 05, 2026, titled \"Dr. Reddy s receives marketing authorization for generic semaglutide injection in Brazil\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/DRREDDY_05112026095128_DRL_SE_intimation_signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-05T04:21:37Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Dr. Reddy's received marketing authorization for generic semaglutide injection in Brazil; regulatory milestone confirmed but market size and revenue contribution unquantified.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Dr. Reddy's received marketing authorization for generic semaglutide injection in Brazil; regulatory milestone confirmed but market size and revenue contribution unquantified.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 58,
+      "rank_factors": {
+        "materiality": 58,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 12,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory",
+        "product",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dr. Reddy's Laboratories Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261105-167",
       "headline": "IRI: Director Resignation",
       "headline_en": null,
@@ -1897,99 +1948,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261105-229",
-      "headline": "OpenAI Acquires Pierre Computer Company To Expand Codex AI Coding Tools & Strengthen AI-Powered Software Development",
+      "inbox_id": "INB-20261105-242",
+      "headline": "Mahindra Lifespace Developers Limited: Mahindra Lifespace Developers Limited has informed the Exchange regarding a press release dated November 05, 2026, titled \"Mahindra Lifespaces signs its first 100-acre plotted development inMMR\".",
       "headline_en": null,
-      "url": "https://www.freepressjournal.in/tech/openai-acquires-pierre-computer-company-to-expand-codex-ai-coding-tools-strengthen-ai-powered-software-development-2",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T04:02:23Z",
+      "url": "https://nsearchives.nseindia.com/corporate/MAHLIFE1_05112026101046_IntimationofPressRelease_1_BPsg.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-05T04:41:16Z",
       "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "OpenAI acquired Pierre Computer Company to expand its AI software development capabilities.",
+      "prelim_note": "Mahindra Lifespace signed first 100-acre plotted-development project in MMR; capex commitment and expected returns unquantified.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 91,
-      "triage_reason": "OpenAI acquired Pierre Computer Company to expand its AI software development capabilities.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "OpenAI",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-015",
-      "headline": "Metropolis Healthcare Limited: Metropolis Healthcare Limited has informed the Exchange regarding a press release dated November 03, 2026, titled \"Metropolis Healthcare reports strong Q2 FY27 performance, with revenue up 16% to Rs. 497 crore and PAT up 43% to Rs. 75 crore. .",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/METROPOLIS_03112026194532_Signed_SE_Intimation_Press_Release.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-03T14:16:00Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Metropolis Healthcare reports Q2 FY27 revenue ₹497 crore (+16% YoY) and PAT ₹75 crore (+43% YoY), a confirmed earnings beat on both metrics.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Metropolis Healthcare reports Q2 FY27 revenue ₹497 crore (+16% YoY) and PAT ₹75 crore (+43% YoY), a confirmed earnings beat on both metrics.",
+      "triage_reason": "Mahindra Lifespace signed first 100-acre plotted-development project in MMR; capex commitment and expected returns unquantified.",
       "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 52,
       "rank_factors": {
-        "materiality": 65,
+        "materiality": 52,
         "source_tier": 8,
         "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 0,
-        "materiality_label_floor": 5,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 18,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
+        "event_id": null,
+        "size_bucket": "large"
       },
       "event_types": [
-        "earnings_revenue_margin"
+        "commercial"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Metropolis Healthcare Limited",
+          "name": "Mahindra Lifespace Developers Limited",
           "ticker": null,
           "listing_country": "IN"
         }
       ],
-      "size_bucket": "mid",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -219981,76 +219983,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-5463de12643f",
-      "idea_version": "IDEAV-02d77e26cd39e251",
-      "idea_version_started_at": "2026-11-03T19:40:00Z",
-      "ticker": "UL",
-      "company": "Unilever",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is initiating a 1 billion euro cost-cutting program following the planned spin-off of its food division, which should improve operating margins.",
-      "why_now": "The announcement was made on November 3, 2026, and the restructuring is immediate.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-19a9290506fb"
-      ],
-      "primary_source_event_id": "EVT-19a9290506fb",
-      "source_headlines": [
-        "Unilever to cut €1bn in costs after food spin-off"
-      ],
-      "source_headline": "Unilever to cut €1bn in costs after food spin-off",
-      "source_url": "https://www.ft.com/content/d86c9440-0c50-4879-ae46-81c9649934c0?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-03T17:03:51Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-03T19:40:00Z",
-      "updated_at": "2026-11-03T19:40:00Z",
-      "decay_at": "2026-11-05T05:03:51Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-abe61d9932f3",
       "idea_version": "IDEAV-5cbc7c94b5ac81ac",
       "idea_version_started_at": "2026-11-04T10:33:04Z",
@@ -221970,6 +221902,76 @@
       "surfaced_at": "2026-11-02T10:18:41Z",
       "updated_at": "2026-11-02T10:18:41Z",
       "decay_at": "2026-11-03T20:42:42Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-5463de12643f",
+      "idea_version": "IDEAV-02d77e26cd39e251",
+      "idea_version_started_at": "2026-11-03T19:40:00Z",
+      "ticker": "UL",
+      "company": "Unilever",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is initiating a 1 billion euro cost-cutting program following the planned spin-off of its food division, which should improve operating margins.",
+      "why_now": "The announcement was made on November 3, 2026, and the restructuring is immediate.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-19a9290506fb"
+      ],
+      "primary_source_event_id": "EVT-19a9290506fb",
+      "source_headlines": [
+        "Unilever to cut €1bn in costs after food spin-off"
+      ],
+      "source_headline": "Unilever to cut €1bn in costs after food spin-off",
+      "source_url": "https://www.ft.com/content/d86c9440-0c50-4879-ae46-81c9649934c0?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-03T17:03:51Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-03T19:40:00Z",
+      "updated_at": "2026-11-03T19:40:00Z",
+      "decay_at": "2026-11-05T05:03:51Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -228088,14 +228090,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 589,
+    "total_count": 590,
     "shown_count": 499,
-    "hidden_count": 90,
+    "hidden_count": 91,
     "side_counts": {
       "long": {
-        "total_count": 315,
+        "total_count": 316,
         "shown_count": 250,
-        "hidden_count": 65
+        "hidden_count": 66
       },
       "short": {
         "total_count": 275,
@@ -228119,6 +228121,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-5463de12643f",
+        "idea_version": "IDEAV-02d77e26cd39e251",
+        "idea_version_started_at": "2026-11-03T19:40:00Z",
+        "ticker": "UL",
+        "company": "Unilever",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company is initiating a 1 billion euro cost-cutting program following the planned spin-off of its food division, which should improve operating margins.",
+        "why_now": "The announcement was made on November 3, 2026, and the restructuring is immediate.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 67,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-19a9290506fb"
+        ],
+        "primary_source_event_id": "EVT-19a9290506fb",
+        "source_headlines": [
+          "Unilever to cut €1bn in costs after food spin-off"
+        ],
+        "source_headline": "Unilever to cut €1bn in costs after food spin-off",
+        "source_url": "https://www.ft.com/content/d86c9440-0c50-4879-ae46-81c9649934c0?syn-25a6b1a6=1",
+        "source_name": "Financial Times",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-03T17:03:51Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-03T19:40:00Z",
+        "updated_at": "2026-11-03T19:40:00Z",
+        "decay_at": "2026-11-05T05:03:51Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-05T05:03:51Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-0696bb64e0b4",
         "idea_version": "IDEAV-8206e0d4df7f15ac",
@@ -257614,80 +257689,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-e7efd421b84c",
-        "idea_version": "IDEAV-ecc53e14c5817939",
-        "idea_version_started_at": "2026-10-21T01:02:58Z",
-        "ticker": "09696",
-        "company": "Tianqi Lithium",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company issued a positive profit alert, indicating improved earnings performance.",
-        "why_now": "The filing was released on 2026-10-20, providing a clear fundamental catalyst.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-f356105d90be"
-        ],
-        "primary_source_event_id": "EVT-f356105d90be",
-        "source_headlines": [
-          "TIANQI LITHIUM (09696): POSITIVE PROFIT ALERT"
-        ],
-        "source_headline": "TIANQI LITHIUM (09696): POSITIVE PROFIT ALERT",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1020/2026102001221.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-20T11:53:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-21T01:02:58Z",
-        "updated_at": "2026-10-21T01:02:58Z",
-        "decay_at": "2026-10-21T23:53:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-23T12:15:49Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-a9f69dba306c",
         "idea_version": "IDEAV-a8ae3b4de95319e8",
         "idea_version_started_at": "2026-10-20T13:35:08Z",
@@ -265309,7 +265310,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2180,
-    "live_count": 27,
+    "live_count": 26,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -265328,9 +265329,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2043102,
-    "news_picked_today": 305,
-    "news_dropped_today": 5935
+    "news_seen_today": 2132468,
+    "news_picked_today": 313,
+    "news_dropped_today": 6887
   },
   "book_momentum": {
     "live_count": 8,
