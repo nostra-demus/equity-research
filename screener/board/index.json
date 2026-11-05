@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T08:55:11Z",
+  "generated_at": "2026-11-05T09:10:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20261105-328",
@@ -1714,6 +1714,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261105-364",
+      "headline": "Rheinmetall Shares Plunge After Order Delays Force Arms Maker to Trim Guidance Again",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/earnings/rheinmetall-shares-plunge-after-order-delays-force-arms-maker-to-trim-guidance-again-87734af7?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T08:34:00Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Rheinmetall trimmed guidance for the second time after order delays, indicating weaker defense-sector demand and eroding management credibility.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Rheinmetall trimmed guidance for the second time after order delays, indicating weaker defense-sector demand and eroding management credibility.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Rheinmetall",
+          "ticker": "RHM",
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261105-249",
       "headline": "Permian Resources Corporation Announces Third Quarter 2026 Results and ~$1.15 Billion in Acquisitions",
       "headline_en": null,
@@ -1956,55 +2006,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-327",
-      "headline": "HUDCO targets ₹2 lakh crore loan book by FY27, maintains 3% margin guidance",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/earnings/hudco-q2-results-loan-book-target-fy27-nim-guidance-urban-infrastructure-alpha-article-20027716.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T07:02:18Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "HUDCO set a specific loan book target of ₹2 lakh crore by FY27 and maintained margin guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "HUDCO set a specific loan book target of ₹2 lakh crore by FY27 and maintained margin guidance.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HUDCO",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -261675,9 +261676,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3280136,
-    "news_picked_today": 523,
-    "news_dropped_today": 12317
+    "news_seen_today": 3396754,
+    "news_picked_today": 535,
+    "news_dropped_today": 12329
   },
   "book_momentum": {
     "live_count": 8,
