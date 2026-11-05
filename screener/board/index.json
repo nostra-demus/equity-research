@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T09:10:16Z",
+  "generated_at": "2026-11-05T09:19:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20261105-328",
@@ -1517,6 +1517,58 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261105-375",
+      "headline": "MEILAN AIRPORT (00357): DISCLOSEABLE AND CONNECTED TRANSACTION DISPOSAL OF EQUITY INTEREST, PROPOSED AMENDMENTS TO THE ARTICLES OF ASSOCIATION, PROPOSED APPOINTMENT OF A NON-EXECUTIVE DIRECTOR, PROPOSED ADJUSTMENT TO THE ANNUAL REMUNERATION PROPOSAL FOR THE DIRECTORS FOR THE YEAR 2026, AND PROPOSED REGISTRATION AND ISSUANCE OF COMMERCIAL MORTGAGE-BACKED NOTES AND NOTICE OF THE EGM",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1105/2026110500864.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-05T08:37:00Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Discloseable connected M&A (equity-interest disposal), governance amendments, director appointment, and commercial mortgage-backed notes issuance requiring EGM, but deal size and strategic rationale unstated.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Discloseable connected M&A (equity-interest disposal), governance amendments, director appointment, and commercial mortgage-backed notes issuance requiring EGM, but deal size and strategic rationale unstated.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 62,
+      "rank_factors": {
+        "materiality": 62,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 8,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "capital_actions",
+        "management",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MEILAN AIRPORT",
+          "ticker": "00357",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261105-086",
       "headline": "ASMPT (00522): PRESS RELEASE - ASMPT CONCLUDES STRATEGIC OPTIONS ASSESSMENT AND RETAINS SMT SOLUTIONS SEGMENT",
       "headline_en": null,
@@ -1714,6 +1766,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261105-366",
+      "headline": "Rheinmetall Cuts 2026 Sales Guidance, Shares Plunge",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-11-05/rheinmetall-cuts-2026-sales-guidance-shares-plunge-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T08:55:19Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Rheinmetall cut FY2026 sales guidance with visible share-price decline, a decision-changing disclosure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Rheinmetall cut FY2026 sales guidance with visible share-price decline, a decision-changing disclosure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Rheinmetall",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261105-364",
       "headline": "Rheinmetall Shares Plunge After Order Delays Force Arms Maker to Trim Guidance Again",
       "headline_en": null,
@@ -1759,6 +1860,56 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261105-376",
+      "headline": "SC HOLDINGS (00413): (1) DISCLOSEABLE AND CONNECTED TRANSACTION IN RESPECT OF THE DISPOSAL OF THE ENTIRE ISSUED SHARE CAPITAL OF TWO WHOLLY-OWNED SUBSIDIARIES AND (2) NOTICE OF EGM",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1105/2026110500812.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-05T08:34:00Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Disposal of entire share capital of two wholly-owned subsidiaries announced as discloseable transaction; deal value and timing not specified.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Disposal of entire share capital of two wholly-owned subsidiaries announced as discloseable transaction; deal value and timing not specified.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 63,
+      "rank_factors": {
+        "materiality": 63,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 7,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SC HOLDINGS",
+          "ticker": "00413",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1858,154 +2009,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-281",
-      "headline": "LG Electronics India Limited: LG Electronics India Limited has informed the Exchange regarding a press release dated November 05, 2026, titled \"\"LG Electronics India Continues Strong Momentum Delivers Highest Growth Post Listing in Q2 FY27 \".",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/LGEINDIA_05112026112137_PressRelease.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-05T05:52:40Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "The company reported its highest growth post-listing in Q2 FY27, indicating strong operational momentum.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "The company reported its highest growth post-listing in Q2 FY27, indicating strong operational momentum.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "LG Electronics India Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-246",
-      "headline": "Knowledge Marine & Engineering Works Limited: Knowledge Marine & Engineering Works Limited has informed the Exchange regarding a press release dated November 05, 2026, titled \"KMEW completes acquisition of TSHD River Pearl 48 to support Large-Scale Maintenance Dredging Projects \".",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/KMEW_05112026110721_Press_Release_-_Acquisition_of_RP_48-s.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-05T05:37:29Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Knowledge Marine & Engineering Works completed the acquisition of a dredging vessel to support large-scale projects.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Knowledge Marine & Engineering Works completed the acquisition of a dredging vessel to support large-scale projects.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Knowledge Marine & Engineering Works",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-269",
-      "headline": "NFL: Norfolk Ciclon Copper Project - Further Transaction Update",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NFL?key=2924-03158552-6A1353812",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-05T05:27:41Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Norfolk Metals provided a further transaction update regarding the Ciclon Copper Project.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Norfolk Metals provided a further transaction update regarding the Ciclon Copper Project.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Norfolk Metals",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -261676,9 +261679,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3396754,
-    "news_picked_today": 535,
-    "news_dropped_today": 12329
+    "news_seen_today": 3435380,
+    "news_picked_today": 547,
+    "news_dropped_today": 12461
   },
   "book_momentum": {
     "live_count": 8,
