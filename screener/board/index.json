@@ -1,6 +1,153 @@
 {
-  "generated_at": "2026-11-05T09:32:14Z",
+  "generated_at": "2026-11-05T09:48:38Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261105-382",
+      "headline": "YANCHANG PETRO (00346): APPOINTMENT OF INDEPENDENT FORENSIC ACCOUNTANT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1105/2026110501100.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-05T08:51:00Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Appointment of an independent forensic accountant is a significant red flag regarding financial integrity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Appointment of an independent forensic accountant is a significant red flag regarding financial integrity.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "accounting_restatement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "YANCHANG PETRO",
+          "ticker": "00346",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261105-383",
+      "headline": "HYSAN DEV (00014): Notice of Listing on The Stock Exchange of Hong Kong Limited - U.S.$4,000,000,000 Medium Term Note Programme of Hysan (MTN) Limited, which is unconditionally and irrevocably guaranteed by Hysan Development Company Limited",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1105/2026110501012.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-05T08:45:00Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Hysan launches $4 billion Medium-Term Note programme, expanding debt issuance capacity and raising financial leverage.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Hysan launches $4 billion Medium-Term Note programme, expanding debt issuance capacity and raising financial leverage.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hysan Development Company Limited",
+          "ticker": "00014",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261105-386",
+      "headline": "INA: Execution of Flagstone JV Implementation Deed [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.INA?key=2924-03158638-2A1708885",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-05T08:28:07Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "The company has executed a joint venture implementation deed, which is a material step in a strategic partnership.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company has executed a joint venture implementation deed, which is a material step in a strategic partnership.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ingenia Communities Group",
+          "ticker": "INA",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261105-328",
       "headline": "Bharat Forge Limited: Bharat Forge Limited has informed the Exchange about Acquisition",
@@ -1517,6 +1664,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261105-377",
+      "headline": "Amalgamation of RUDRA ECOVATION LIMITED (Scrip Code- 514010)",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/downloads/UploadDocs/Notices/20261105-12/20261105-12.pdf",
+      "source_name": "BSE India — Notices (RSS)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-05T08:48:01Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Rudra Ecovation Limited has disclosed an amalgamation scheme to the BSE, a capital-structure transaction requiring shareholder and regulatory approval.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Rudra Ecovation Limited has disclosed an amalgamation scheme to the BSE, a capital-structure transaction requiring shareholder and regulatory approval.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Rudra Ecovation Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261105-375",
       "headline": "MEILAN AIRPORT (00357): DISCLOSEABLE AND CONNECTED TRANSACTION DISPOSAL OF EQUITY INTEREST, PROPOSED AMENDMENTS TO THE ARTICLES OF ASSOCIATION, PROPOSED APPOINTMENT OF A NON-EXECUTIVE DIRECTOR, PROPOSED ADJUSTMENT TO THE ANNUAL REMUNERATION PROPOSAL FOR THE DIRECTORS FOR THE YEAR 2026, AND PROPOSED REGISTRATION AND ISSUANCE OF COMMERCIAL MORTGAGE-BACKED NOTES AND NOTICE OF THE EGM",
       "headline_en": null,
@@ -1807,205 +2003,6 @@
           "name": "Rheinmetall",
           "ticker": null,
           "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-364",
-      "headline": "Rheinmetall Shares Plunge After Order Delays Force Arms Maker to Trim Guidance Again",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/earnings/rheinmetall-shares-plunge-after-order-delays-force-arms-maker-to-trim-guidance-again-87734af7?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T08:34:00Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Rheinmetall trimmed guidance for the second time after order delays, indicating weaker defense-sector demand and eroding management credibility.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Rheinmetall trimmed guidance for the second time after order delays, indicating weaker defense-sector demand and eroding management credibility.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Rheinmetall",
-          "ticker": "RHM",
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-376",
-      "headline": "SC HOLDINGS (00413): (1) DISCLOSEABLE AND CONNECTED TRANSACTION IN RESPECT OF THE DISPOSAL OF THE ENTIRE ISSUED SHARE CAPITAL OF TWO WHOLLY-OWNED SUBSIDIARIES AND (2) NOTICE OF EGM",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1105/2026110500812.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-05T08:34:00Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Disposal of entire share capital of two wholly-owned subsidiaries announced as discloseable transaction; deal value and timing not specified.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Disposal of entire share capital of two wholly-owned subsidiaries announced as discloseable transaction; deal value and timing not specified.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 63,
-      "rank_factors": {
-        "materiality": 63,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 7,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SC HOLDINGS",
-          "ticker": "00413",
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-249",
-      "headline": "Permian Resources Corporation Announces Third Quarter 2026 Results and ~$1.15 Billion in Acquisitions",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/permian-resources-corporation-announces-third-quarter-2026-results-and-115-billion",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T04:58:46Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Permian Resources announced ~$1.15 billion in acquisitions, a quantified M&A event that can materially alter revenue, margins, cash flow, and capital structure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Permian Resources announced ~$1.15 billion in acquisitions, a quantified M&A event that can materially alter revenue, margins, cash flow, and capital structure.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Permian Resources Corporation",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-360",
-      "headline": "Cipla Limited: Cipla Limited has informed the Exchange about Copy of Newspaper Publication of 'Notice of Final Hearing of Company Scheme Petition'",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/CIPLA_05112026132230_SE_Intimation_Newspaper_Advertisement_20261105_signed.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-05T07:52:58Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "A scheme petition's final hearing notice signals imminent material corporate restructuring with potential effects on capital structure, operations, and regulatory status, but the scheme's nature and impact are not disclosed.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "A scheme petition's final hearing notice signals imminent material corporate restructuring with potential effects on capital structure, operations, and regulatory status, but the scheme's nature and impact are not disclosed.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "strategic_review",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory",
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cipla Limited",
-          "ticker": "CIPLA",
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -261679,9 +261676,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3569520,
-    "news_picked_today": 548,
-    "news_dropped_today": 12628
+    "news_seen_today": 3720044,
+    "news_picked_today": 558,
+    "news_dropped_today": 13002
   },
   "book_momentum": {
     "live_count": 8,
