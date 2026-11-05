@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-05T12:36:19Z",
+  "generated_at": "2026-11-05T12:44:20Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261105-534",
+      "headline": "15-12G - NATHANS FAMOUS, INC. (0000069733) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/69733/000110465926123026/0001104659-26-123026-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-05T12:00:19Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Form 15-12G filing signals termination or suspension of public equity registration—a forced delisting that eliminates public trading access and impairs shareholder liquidity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Form 15-12G filing signals termination or suspension of public equity registration—a forced delisting that eliminates public trading access and impairs shareholder liquidity.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 13,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nathan's Famous, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261105-476",
       "headline": "MTT GROUP (02350): SUPPLEMENTAL ANNOUNCEMENT DISCLOSEABLE TRANSACTION ACQUISITION OF 100% EQUITY INTEREST IN THE TARGET COMPANY INVOLVING THE ISSUE OF CONSIDERATION SHARES UNDER THE GENERAL MANDATE",
@@ -1947,55 +1996,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-230",
-      "headline": "LIV Golf faces liquidation as $300m rescue deal collapses",
-      "headline_en": null,
-      "url": "https://www.thenationalnews.com/sport/2026/11/05/liv-golf-faces-liquidation-as-300m-rescue-deal-collapses/",
-      "source_name": "The National — All News",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T04:27:25Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "LIV Golf faces potential liquidation following the collapse of a $300 million rescue deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "LIV Golf faces potential liquidation following the collapse of a $300 million rescue deal.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "LIV Golf",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -261443,9 +261443,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4898940,
-    "news_picked_today": 833,
-    "news_dropped_today": 15967
+    "news_seen_today": 4919435,
+    "news_picked_today": 841,
+    "news_dropped_today": 16175
   },
   "book_momentum": {
     "live_count": 8,
