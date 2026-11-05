@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T04:55:17Z",
+  "generated_at": "2026-11-05T04:58:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20261105-206",
@@ -291,6 +291,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261105-230",
+      "headline": "LIV Golf faces liquidation as $300m rescue deal collapses",
+      "headline_en": null,
+      "url": "https://www.thenationalnews.com/sport/2026/11/05/liv-golf-faces-liquidation-as-300m-rescue-deal-collapses/",
+      "source_name": "The National — All News",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T04:27:25Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "LIV Golf faces potential liquidation following the collapse of a $300 million rescue deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "LIV Golf faces potential liquidation following the collapse of a $300 million rescue deal.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LIV Golf",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1602,6 +1651,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261105-241",
+      "headline": "Lupin Q2 Review: Jefferies Cuts Target 15%, Flags US Competition; Kotak Retains Add",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/lupin-q2-review-jefferies-cuts-target-15-flags-us-competition-kotak-retains-add-12285206#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T03:09:26Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Jefferies cut Lupin's target price by 15% citing US competition.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Jefferies cut Lupin's target price by 15% citing US competition.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lupin",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261105-212",
       "headline": "Premier Energies Limited: Premier Energies Limited has informed the Exchange regarding a press release dated November 05, 2026, titled \"Premier Energies Reports Strong Q2 FY27 Results\"",
       "headline_en": null,
@@ -1892,104 +1990,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-211",
-      "headline": "SHOUCHENG (00697): VOLUNTARY ANNOUNCEMENT - REGARDING THE INVESTMENT IN CICC CAINIAO LOGISTICS REIT",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1103/2026110301989.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-03T10:52:00Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Investment in a logistics REIT is a capital-deployment action affecting capital structure and returns, but the headline lacks quantified size, terms, or timing.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Investment in a logistics REIT is a capital-deployment action affecting capital structure and returns, but the headline lacks quantified size, terms, or timing.",
-      "region": "CN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 52,
-      "rank_factors": {
-        "materiality": 52,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 18,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shoucheng",
-          "ticker": "00697",
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-193",
-      "headline": "Sturm, Ruger & Company, Inc. Reports Third Quarter 2026 Net Sales of $147.6 Million",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/sturm-ruger-company-inc-reports-third-quarter-2026-net-sales-1476-million",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T02:28:34Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Sturm, Ruger & Company, Inc. reported Q3 2026 net sales of $147.6 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Sturm, Ruger & Company, Inc. reported Q3 2026 net sales of $147.6 million.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sturm, Ruger & Company, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -265328,9 +265328,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2020541,
-    "news_picked_today": 291,
-    "news_dropped_today": 5925
+    "news_seen_today": 2043102,
+    "news_picked_today": 305,
+    "news_dropped_today": 5935
   },
   "book_momentum": {
     "live_count": 8,
