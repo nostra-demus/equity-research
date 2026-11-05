@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T16:40:33Z",
+  "generated_at": "2026-11-05T16:52:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261105-749",
@@ -1228,6 +1228,105 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261105-764",
+      "headline": "Gildan shares tumble 25% after third-quarter results disappoint; cuts full-year guidance",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/business/article-gildan-third-quarter-results-full-year-guidance/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T16:31:00Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Gildan shares fell 25% following disappointing Q3 results and a cut to full-year guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Gildan shares fell 25% following disappointing Q3 results and a cut to full-year guidance.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Gildan",
+          "ticker": null,
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261105-752",
+      "headline": "Wendy’s Says Billionaire Peltz’ $1.4 Billion Buyout Deal ‘Substantially Undervalues’ Fast Food Chain",
+      "headline_en": null,
+      "url": "https://www.forbes.com/sites/zacharyfolk/2026/11/05/wendys-says-billionaire-peltz-14-billion-buyout-deal-substantially-undervalues-fast-food-chain/",
+      "source_name": "Forbes",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T16:13:20Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Wendy's rejected a $1.4 billion buyout offer from Nelson Peltz, citing undervaluation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Wendy's rejected a $1.4 billion buyout offer from Nelson Peltz, citing undervaluation.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Wendy's",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261105-745",
       "headline": "Zillow Moves on Weak Results; Dutch Bros Reduces Guidance | Stock Movers",
       "headline_en": null,
@@ -1869,115 +1968,6 @@
       "companies": [
         {
           "name": "Insight Enterprises",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-643",
-      "headline": "Qualcomm Sinks 11% as Soft Profit Guidance and Handset Slump Overshadow Beat; Arm Holdings Drops 7%, Skyworks Slides 2%",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/11/05/qualcomm-sinks-11-as-soft-profit-guidance-and-handset-slump-overshadow-beat-arm-holdings-drops-7-skyworks-slides-2/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T13:43:59Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Qualcomm shares fell 11% due to soft profit guidance and a handset market slump.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Qualcomm shares fell 11% due to soft profit guidance and a handset market slump.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Qualcomm",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Arm Holdings",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Skyworks",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-619",
-      "headline": "Wendy's rejects $1.4 billion takeover proposal from Nelson Peltz’s Trian",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/11/05/wendys-rejects-takeover-proposal.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T13:26:28Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Company rejected a specific $1.4 billion takeover proposal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Company rejected a specific $1.4 billion takeover proposal.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Wendy's",
           "ticker": null,
           "listing_country": "US"
         }
@@ -221542,78 +221532,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-14fa28bd0d8f",
-      "idea_version": "IDEAV-f7f40dcaa7e1ad8f",
-      "idea_version_started_at": "2026-11-04T05:56:45Z",
-      "ticker": "4185",
-      "company": "Mitsui Chemicals",
-      "exchange": "TSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of JSR for over $8.2 billion significantly expands Mitsui's footprint in the high-margin semiconductor materials market, providing a long-term growth engine in photoresists.",
-      "why_now": "The deal was announced on 2026-11-04 and represents a major strategic shift for the company.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d28d1cea192b"
-      ],
-      "primary_source_event_id": "EVT-d28d1cea192b",
-      "source_headlines": [
-        "Mitsui Chemicals to buy Japan chip material maker JSR for over $8.2bn"
-      ],
-      "source_headline": "Mitsui Chemicals to buy Japan chip material maker JSR for over $8.2bn",
-      "source_url": "https://asia.nikkei.com/business/business-deals/mitsui-chemicals-to-buy-japan-chip-material-maker-jsr-for-over-8.2bn2",
-      "source_name": "Nikkei Asia",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-04T04:45:21Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-04T05:56:45Z",
-      "updated_at": "2026-11-04T05:56:45Z",
-      "decay_at": "2026-11-05T16:45:21Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-9e711acef9ae",
       "idea_version": "IDEAV-6fc5b52a377e3f5e",
       "idea_version_started_at": "2026-11-04T06:42:55Z",
@@ -223089,6 +223007,78 @@
       "surfaced_at": "2026-11-04T06:42:55Z",
       "updated_at": "2026-11-04T06:42:55Z",
       "decay_at": "2026-11-05T16:34:11Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-14fa28bd0d8f",
+      "idea_version": "IDEAV-f7f40dcaa7e1ad8f",
+      "idea_version_started_at": "2026-11-04T05:56:45Z",
+      "ticker": "4185",
+      "company": "Mitsui Chemicals",
+      "exchange": "TSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The acquisition of JSR for over $8.2 billion significantly expands Mitsui's footprint in the high-margin semiconductor materials market, providing a long-term growth engine in photoresists.",
+      "why_now": "The deal was announced on 2026-11-04 and represents a major strategic shift for the company.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d28d1cea192b"
+      ],
+      "primary_source_event_id": "EVT-d28d1cea192b",
+      "source_headlines": [
+        "Mitsui Chemicals to buy Japan chip material maker JSR for over $8.2bn"
+      ],
+      "source_headline": "Mitsui Chemicals to buy Japan chip material maker JSR for over $8.2bn",
+      "source_url": "https://asia.nikkei.com/business/business-deals/mitsui-chemicals-to-buy-japan-chip-material-maker-jsr-for-over-8.2bn2",
+      "source_name": "Nikkei Asia",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-04T04:45:21Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-04T05:56:45Z",
+      "updated_at": "2026-11-04T05:56:45Z",
+      "decay_at": "2026-11-05T16:45:21Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -224682,14 +224672,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 542,
+    "total_count": 543,
     "shown_count": 500,
-    "hidden_count": 42,
+    "hidden_count": 43,
     "side_counts": {
       "long": {
-        "total_count": 278,
+        "total_count": 279,
         "shown_count": 250,
-        "hidden_count": 28
+        "hidden_count": 29
       },
       "short": {
         "total_count": 264,
@@ -224713,6 +224703,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-14fa28bd0d8f",
+        "idea_version": "IDEAV-f7f40dcaa7e1ad8f",
+        "idea_version_started_at": "2026-11-04T05:56:45Z",
+        "ticker": "4185",
+        "company": "Mitsui Chemicals",
+        "exchange": "TSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The acquisition of JSR for over $8.2 billion significantly expands Mitsui's footprint in the high-margin semiconductor materials market, providing a long-term growth engine in photoresists.",
+        "why_now": "The deal was announced on 2026-11-04 and represents a major strategic shift for the company.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-d28d1cea192b"
+        ],
+        "primary_source_event_id": "EVT-d28d1cea192b",
+        "source_headlines": [
+          "Mitsui Chemicals to buy Japan chip material maker JSR for over $8.2bn"
+        ],
+        "source_headline": "Mitsui Chemicals to buy Japan chip material maker JSR for over $8.2bn",
+        "source_url": "https://asia.nikkei.com/business/business-deals/mitsui-chemicals-to-buy-japan-chip-material-maker-jsr-for-over-8.2bn2",
+        "source_name": "Nikkei Asia",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-04T04:45:21Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-04T05:56:45Z",
+        "updated_at": "2026-11-04T05:56:45Z",
+        "decay_at": "2026-11-05T16:45:21Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-05T16:45:21Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-eeaf93a2d564",
         "idea_version": "IDEAV-6c7dd6f1a7fb03d0",
@@ -254207,81 +254272,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-b22ee26f6b6d",
-        "idea_version": "IDEAV-d0c8685438b4d709",
-        "idea_version_started_at": "2026-10-21T12:30:01Z",
-        "ticker": "VAR",
-        "company": "Vaar Energi",
-        "exchange": "OSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company doubled its profit due to high oil and gas prices and subsequently increased its dividend payout.",
-        "why_now": "The dividend increase and earnings beat were reported on 2026-10-21.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "commodity_conditional",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-7f334c8b4a5c"
-        ],
-        "primary_source_event_id": "EVT-7f334c8b4a5c",
-        "source_headlines": [
-          "Vaar Energi raises dividend as profit doubles on high oil, gas prices"
-        ],
-        "source_headline": "Vaar Energi raises dividend as profit doubles on high oil, gas prices",
-        "source_url": "https://www.reuters.com/business/energy/vaar-energi-raises-dividend-profit-doubles-high-oil-gas-prices-2026-10-21/",
-        "source_name": "Reuters — Latest (news sitemap)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-21T05:30:28Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-21T12:30:01Z",
-        "updated_at": "2026-10-21T12:30:01Z",
-        "decay_at": "2026-10-22T17:30:28Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-24T05:52:15Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-dbcd29e8ecf7",
         "idea_version": "IDEAV-3c165f12640d6237",
         "idea_version_started_at": "2026-10-21T01:23:08Z",
@@ -261975,7 +261965,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2196,
-    "live_count": 27,
+    "live_count": 26,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -261994,9 +261984,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5944757,
-    "news_picked_today": 1264,
-    "news_dropped_today": 20624
+    "news_seen_today": 6040154,
+    "news_picked_today": 1279,
+    "news_dropped_today": 20729
   },
   "book_momentum": {
     "live_count": 8,
