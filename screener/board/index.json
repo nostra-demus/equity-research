@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T00:25:15Z",
+  "generated_at": "2026-11-05T00:34:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20261105-005",
@@ -149,6 +149,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261105-020",
+      "headline": "Dev Accelerator Limited: Dev Accelerator Limited has informed the Exchange about The Board of Directors of the Company, at its meeting held on November 03, 2026, considered and approved the proposal for raising funds through Issuance of Non-Convertible Debentures, in dematerialized form, in one or more series or tranches on a private placement basis for an aggregate amount up to Rs. 300 [(Indian Rupees Three Hundred Crores Only)] ( NCDs ) to eligible investors including individuals, body corpora",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/DEVACCE_03112026193219_SE_Outcome_of_Board_Meeting.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-03T14:02:30Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Board-approved ₹300 crore private non-convertible debenture issuance will increase debt, alter leverage ratios, and add recurring interest expense; material for creditworthiness and capital-structure analysis.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Board-approved ₹300 crore private non-convertible debenture issuance will increase debt, alter leverage ratios, and add recurring interest expense; material for creditworthiness and capital-structure analysis.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dev Accelerator Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261105-003",
       "headline": "DSBJ (02384): VOLUNTARY ANNOUNCEMENT CONTROLLING SHAREHOLDERS' PROPOSAL ON SHAREHOLDER RETURNS FOR THE NEXT THREE YEARS",
       "headline_en": null,
@@ -193,6 +242,104 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261105-017",
+      "headline": "424B2 - JPMorgan Chase Financial Co. LLC (0001665650) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1665650/000191870426033969/0001918704-26-033969-index.htm",
+      "source_name": "SEC EDGAR — Latest 424B2 (Prospectus, shelf takedown)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-03T14:08:21Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Prospectus for debt offering by JPMorgan Chase subsidiary confirms active refinancing; routine capital action for mega-cap bank, no size disclosed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 80,
+      "triage_reason": "Prospectus for debt offering by JPMorgan Chase subsidiary confirms active refinancing; routine capital action for mega-cap bank, no size disclosed.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 57,
+      "rank_factors": {
+        "materiality": 57,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "JPMorgan Chase Financial Co. LLC",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261105-018",
+      "headline": "424B2 - JPMORGAN CHASE & CO (0000019617) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/19617/000191870426033969/0001918704-26-033969-index.htm",
+      "source_name": "SEC EDGAR — Latest 424B2 (Prospectus, shelf takedown)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-03T14:08:21Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Prospectus for debt offering by JPMorgan Chase parent confirms active refinancing; routine capital action for mega-cap bank, no size disclosed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 80,
+      "triage_reason": "Prospectus for debt offering by JPMorgan Chase parent confirms active refinancing; routine capital action for mega-cap bank, no size disclosed.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 57,
+      "rank_factors": {
+        "materiality": 57,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "JPMorgan Chase & Co",
+          "ticker": "JPM",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -340,6 +487,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261105-021",
+      "headline": "SEC STAFF ACTION - Vivakor, Inc. (0001450704) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1450704/999999999726001708/9999999997-26-001708-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-03T14:00:12Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "SEC STAFF ACTION label on Vivakor filing suggests regulatory or enforcement matter exists, but headline provides no detail on nature, timing, scale, or consequence.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 66,
+      "triage_reason": "SEC STAFF ACTION label on Vivakor filing suggests regulatory or enforcement matter exists, but headline provides no detail on nature, timing, scale, or consequence.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 48,
+      "rank_factors": {
+        "materiality": 48,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vivakor, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -541,6 +737,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261105-016",
+      "headline": "S-3ASR - ACADIA REALTY TRUST (0000899629) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/899629/000119312526444495/0001193125-26-444495-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-03T14:07:39Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Automatic shelf registration enables potential equity or debt issuance but confirms no deal, timing, or size.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 63,
+      "triage_reason": "Automatic shelf registration enables potential equity or debt issuance but confirms no deal, timing, or size.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 48,
+      "rank_factors": {
+        "materiality": 48,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Acadia Realty Trust",
+          "ticker": "LAND",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261105-007",
       "headline": "Arvee Laboratories (India) Limited: Arvee Laboratories (India) Limited has informed the Exchange regarding Appointment of Mr Shalin Bharatbhai Chokshi as Executive Director of the company w.e.f. November 03, 2026.",
       "headline_en": null,
@@ -585,6 +830,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261105-019",
+      "headline": "Lupin Limited: Lupin Limited has informed the Exchange regarding a press release dated November 03, 2026, titled \"Lupin Launches Raltegravir Tablets, USP, 600 mg in the United States\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/Lupin2_03112026193332_SEletterpressrelease.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-03T14:04:01Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Lupin announces US generic raltegravir launch, a real product event; routine for pharma sector, likely already in consensus unless exclusive (no exclusivity stated), no numbers provided.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 58,
+      "triage_reason": "Lupin announces US generic raltegravir launch, a real product event; routine for pharma sector, likely already in consensus unless exclusive (no exclusivity stated), no numbers provided.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 42,
+      "rank_factors": {
+        "materiality": 42,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "product",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lupin Limited",
+          "ticker": "LUPIN",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -264051,7 +264346,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4462,
+    "inbox_unconsumed": 4468,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -264060,9 +264355,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 135302,
-    "news_picked_today": 15,
-    "news_dropped_today": 417
+    "news_seen_today": 162149,
+    "news_picked_today": 21,
+    "news_dropped_today": 555
   },
   "book_momentum": {
     "live_count": 8,
