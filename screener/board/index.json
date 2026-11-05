@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-05T14:07:38Z",
+  "generated_at": "2026-11-05T14:12:48Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261105-660",
+      "headline": "425 - Lumentum Holdings Inc. (0001633978) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1633978/000119312526448735/0001193125-26-448735-index.htm",
+      "source_name": "SEC EDGAR — Latest 425 (M&A Business-Combination Communications)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-05T13:41:58Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Lumentum Holdings Inc. files SEC Form 425, confirming active merger or business-combination negotiations are underway; deal acquirer, value, and terms not disclosed in headline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Lumentum Holdings Inc. files SEC Form 425, confirming active merger or business-combination negotiations are underway; deal acquirer, value, and terms not disclosed in headline.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 71,
+      "rank_factors": {
+        "materiality": 71,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lumentum Holdings Inc.",
+          "ticker": "LITE",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261105-622",
       "headline": "GUSHENGTANG (02273): VOLUNTARY ANNOUNCEMENT - ACQUISITIONS OF EQUITY INTERESTS IN THE TARGET COMPANIES",
@@ -1946,55 +1995,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-419",
-      "headline": "Adani Ports to Buy Europe’s Evos in Deal Valued at $2.9 Billion",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-05/adani-ports-to-buy-europe-s-evos-in-deal-valued-at-2-9-billion",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T10:00:47Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Adani Ports to acquire Evos for $2.9 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Adani Ports to acquire Evos for $2.9 billion.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Adani Ports",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -219844,76 +219844,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-22b8ed9b7225",
-      "idea_version": "IDEAV-26f247165827bedf",
-      "idea_version_started_at": "2026-11-04T03:58:17Z",
-      "ticker": "DUOL",
-      "company": "Duolingo",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported strong Q3 2026 results with 29% growth in daily active users and raised its full-year guidance, signaling sustained momentum in user engagement and monetization.",
-      "why_now": "The earnings report and guidance hike were released on 2026-11-04.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-725386482f5f"
-      ],
-      "primary_source_event_id": "EVT-725386482f5f",
-      "source_headlines": [
-        "Duolingo Reports Q3 2026 Results with 29% Daily Active User Growth and Raises Full-Year Guidance"
-      ],
-      "source_headline": "Duolingo Reports Q3 2026 Results with 29% Daily Active User Growth and Raises Full-Year Guidance",
-      "source_url": "https://www.nasdaq.com/articles/duolingo-reports-q3-2026-results-29-daily-active-user-growth-and-raises-full-year-guidance",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-04T02:11:01Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-04T03:58:17Z",
-      "updated_at": "2026-11-04T03:58:17Z",
-      "decay_at": "2026-11-05T14:11:01Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-0d084cede79e",
       "idea_version": "IDEAV-536feaa8d0e1f8db",
       "idea_version_started_at": "2026-11-05T12:54:05Z",
@@ -221696,6 +221626,76 @@
       "surfaced_at": "2026-11-02T23:10:25Z",
       "updated_at": "2026-11-02T23:10:25Z",
       "decay_at": "2026-11-04T10:22:02Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-22b8ed9b7225",
+      "idea_version": "IDEAV-26f247165827bedf",
+      "idea_version_started_at": "2026-11-04T03:58:17Z",
+      "ticker": "DUOL",
+      "company": "Duolingo",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported strong Q3 2026 results with 29% growth in daily active users and raised its full-year guidance, signaling sustained momentum in user engagement and monetization.",
+      "why_now": "The earnings report and guidance hike were released on 2026-11-04.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-725386482f5f"
+      ],
+      "primary_source_event_id": "EVT-725386482f5f",
+      "source_headlines": [
+        "Duolingo Reports Q3 2026 Results with 29% Daily Active User Growth and Raises Full-Year Guidance"
+      ],
+      "source_headline": "Duolingo Reports Q3 2026 Results with 29% Daily Active User Growth and Raises Full-Year Guidance",
+      "source_url": "https://www.nasdaq.com/articles/duolingo-reports-q3-2026-results-29-daily-active-user-growth-and-raises-full-year-guidance",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-04T02:11:01Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-04T03:58:17Z",
+      "updated_at": "2026-11-04T03:58:17Z",
+      "decay_at": "2026-11-05T14:11:01Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -224561,14 +224561,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 541,
+    "total_count": 542,
     "shown_count": 499,
-    "hidden_count": 42,
+    "hidden_count": 43,
     "side_counts": {
       "long": {
-        "total_count": 277,
+        "total_count": 278,
         "shown_count": 250,
-        "hidden_count": 27
+        "hidden_count": 28
       },
       "short": {
         "total_count": 265,
@@ -224592,6 +224592,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-22b8ed9b7225",
+        "idea_version": "IDEAV-26f247165827bedf",
+        "idea_version_started_at": "2026-11-04T03:58:17Z",
+        "ticker": "DUOL",
+        "company": "Duolingo",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company reported strong Q3 2026 results with 29% growth in daily active users and raised its full-year guidance, signaling sustained momentum in user engagement and monetization.",
+        "why_now": "The earnings report and guidance hike were released on 2026-11-04.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 67,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-725386482f5f"
+        ],
+        "primary_source_event_id": "EVT-725386482f5f",
+        "source_headlines": [
+          "Duolingo Reports Q3 2026 Results with 29% Daily Active User Growth and Raises Full-Year Guidance"
+        ],
+        "source_headline": "Duolingo Reports Q3 2026 Results with 29% Daily Active User Growth and Raises Full-Year Guidance",
+        "source_url": "https://www.nasdaq.com/articles/duolingo-reports-q3-2026-results-29-daily-active-user-growth-and-raises-full-year-guidance",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-04T02:11:01Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-04T03:58:17Z",
+        "updated_at": "2026-11-04T03:58:17Z",
+        "decay_at": "2026-11-05T14:11:01Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-05T14:11:01Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-57a726d1a993",
         "idea_version": "IDEAV-596ed5bad750b043",
@@ -254017,80 +254090,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-a6b4b796e78e",
-        "idea_version": "IDEAV-ab39be73913ec9f6",
-        "idea_version_started_at": "2026-10-21T05:48:10Z",
-        "ticker": "ASB",
-        "company": "Austal",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Austal secured a $245 million contract for Landing Craft Heavy Infrastructure, which will directly boost its revenue and order book.",
-        "why_now": "The company announced the new $245 million contract win today, providing a clear catalyst.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 18,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-98289ee6bfd9"
-        ],
-        "primary_source_event_id": "EVT-98289ee6bfd9",
-        "source_headlines": [
-          "ASB: Austal secures $245M for Landing Craft Heavy Infrastructure"
-        ],
-        "source_headline": "ASB: Austal secures $245M for Landing Craft Heavy Infrastructure",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ASB?key=2924-03151137-6A1350425",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-21T02:53:06Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-21T05:48:10Z",
-        "updated_at": "2026-10-21T05:48:10Z",
-        "decay_at": "2026-10-22T14:53:06Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-24T03:47:02Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-dbcd29e8ecf7",
         "idea_version": "IDEAV-3c165f12640d6237",
         "idea_version_started_at": "2026-10-21T01:23:08Z",
@@ -261784,7 +261783,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2193,
-    "live_count": 26,
+    "live_count": 25,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -261803,9 +261802,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5277501,
-    "news_picked_today": 1033,
-    "news_dropped_today": 17663
+    "news_seen_today": 5318035,
+    "news_picked_today": 1037,
+    "news_dropped_today": 17803
   },
   "book_momentum": {
     "live_count": 8,
