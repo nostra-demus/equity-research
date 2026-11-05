@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-05T03:08:41Z",
+  "generated_at": "2026-11-05T03:17:09Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261105-182",
+      "headline": "NYM: Investor Presentation - Redhill Copper Acquisition",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NYM?key=2924-03158446-6A1353773",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-05T02:50:51Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "White Cliff Minerals is acquiring Redhill Copper, a strategic expansion of its asset base.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "White Cliff Minerals is acquiring Redhill Copper, a strategic expansion of its asset base.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "White Cliff Minerals",
+          "ticker": "NYM",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261105-084",
       "headline": "GRAND PHARMA (00512): VOLUNTARY ANNOUNCEMENT: THE INTERNATIONAL MULTI-CENTER PHASE III CLINICAL TRIAL FOR THE TREATMENT OF PTERYGIUM OF THE GROUP'S GLOBAL INNOVATIVE OPHTHALMIC DRUG CBT-001 HAS REACHED ITS PRIMARY CLINICAL ENDPOINT",
@@ -144,6 +193,61 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261105-187",
+      "headline": "China blocks SoftBank’s $5.4bn takeover of ABB’s robotics division",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/f10c3e24-45e4-47ff-bde2-24a8de90aec4?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T03:02:02Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "China blocked SoftBank's $5.4 billion acquisition of ABB's robotics division.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "China blocked SoftBank's $5.4 billion acquisition of ABB's robotics division.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SoftBank",
+          "ticker": null,
+          "listing_country": "JP"
+        },
+        {
+          "name": "ABB",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1641,6 +1745,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261105-184",
+      "headline": "Net Lease Office Properties Reports Third Quarter 2026 Results and Declares $1.50 Special Cash Distribution",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/net-lease-office-properties-reports-third-quarter-2026-results-and-declares-150-special",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T02:38:38Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Net Lease Office Properties reported Q3 results and declared a $1.50 special cash distribution.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Net Lease Office Properties reported Q3 results and declared a $1.50 special cash distribution.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capital_actions",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Net Lease Office Properties",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261105-174",
       "headline": "Montrose Environmental Group, Inc. Reports Third Quarter 2026 Results and Continues Strategic Review",
       "headline_en": null,
@@ -1830,153 +1984,6 @@
           "name": "Xpro India Limited",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-154",
-      "headline": "KPA-BM HLDGS (02663): EXCHANGE NOTICE - RESUMPTION OF TRADING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1105/2026110500149.htm",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-05T00:35:00Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Trading resumption after a halt indicates a material event occurred, but headline omits the underlying cause.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Trading resumption after a halt indicates a material event occurred, but headline omits the underlying cause.",
-      "region": "CN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "KPA-BM Holdings",
-          "ticker": "02663",
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-053",
-      "headline": "Manulife Q3 Profit Falls 22%; Core Earnings Rise 4%",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/manulife-q3-profit-falls-22-core-earnings-rise-4",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-04T23:22:13Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Reported a 22% fall in profit despite a 4% rise in core earnings.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Reported a 22% fall in profit despite a 4% rise in core earnings.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 68,
-      "rank_factors": {
-        "materiality": 68,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Manulife Financial Corporation",
-          "ticker": "MFC",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-003",
-      "headline": "DSBJ (02384): VOLUNTARY ANNOUNCEMENT CONTROLLING SHAREHOLDERS' PROPOSAL ON SHAREHOLDER RETURNS FOR THE NEXT THREE YEARS",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1103/2026110302503.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-03T14:48:00Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Controlling shareholder proposes three-year shareholder-return policy; unquantified but affects capital structure and future cash distributions to shareholders.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "Controlling shareholder proposes three-year shareholder-return policy; unquantified but affects capital structure and future cash distributions to shareholders.",
-      "region": "CN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DSBJ",
-          "ticker": "02384",
-          "listing_country": "HK"
         }
       ],
       "size_bucket": "unknown",
@@ -265318,9 +265325,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1241387,
-    "news_picked_today": 211,
-    "news_dropped_today": 3245
+    "news_seen_today": 1290415,
+    "news_picked_today": 227,
+    "news_dropped_today": 3469
   },
   "book_momentum": {
     "live_count": 8,
