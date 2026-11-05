@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-05T13:43:22Z",
+  "generated_at": "2026-11-05T13:54:29Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261105-608",
+      "headline": "Britannia Industries Limited: Britannia Industries Limited has informed the Exchange regarding a press release dated November 05, 2026, titled \"Britannia s Consolidated Sales for the quarter grew 16.6% while Net profit grew 10.8%\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/BRITANNIA1_05112026185848_Press_Release_Q2_26-27.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-05T13:30:47Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Britannia Industries reported consolidated sales growth of 16.6% and net profit growth of 10.8% for the quarter.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Britannia Industries reported consolidated sales growth of 16.6% and net profit growth of 10.8% for the quarter.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Britannia Industries Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261105-535",
       "headline": "LOGAN GROUP LOGAN GRP N2612 LOGAN GRP N2801 (03380 40508 40527): TRANSACTIONS IN CONNECTION WITH THE RESTRUCTURING INVOLVING, AMONG OTHERS: (1) CONNECTED TRANSACTION: PROPOSED ISSUE OF MANDATORY CONVERTIBLE BONDS UNDER SPECIFIC MANDATE; (2) MAJOR TRANSACTION: POSSIBLE TRANSFER OF THE ALC ASSETS FOR THE PURPOSE OF THE RESTRUCTURING; (3) ISSUE OF REDEMPTION SHARES IN RESPECT OF THE REDEMPTION OF PERPETUAL SECURITIES; AND (4) NOTICE OF EXTRAORDINARY GENERAL MEETING",
@@ -880,6 +929,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261105-619",
+      "headline": "Wendy's rejects $1.4 billion takeover proposal from Nelson Peltz’s Trian",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/11/05/wendys-rejects-takeover-proposal.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T13:26:28Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Company rejected a specific $1.4 billion takeover proposal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company rejected a specific $1.4 billion takeover proposal.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Wendy's",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1893,109 +1991,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-344",
-      "headline": "Q2 Results Live Updates: M&M revenue up 27.1% Juniper Hotels reports EBITDA up 56%",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/q2-results-live-updates-bse-mm-bharti-airtel-ongc-titan-lg-britannia-nbcc-ncc-lenskart-nykaa-orkla-lic-samil-prestige-share-price-liveblog-20027499.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T07:38:53Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Mahindra & Mahindra reported a 27.1% revenue increase, and Juniper Hotels reported a 56% EBITDA increase.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Mahindra & Mahindra reported a 27.1% revenue increase, and Juniper Hotels reported a 56% EBITDA increase.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mahindra & Mahindra",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Juniper Hotels",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-346",
-      "headline": "Rheinmetall cuts sales forecast after delays to armoured vehicle megadeal",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/4d0c5a48-3ef7-494d-baf8-063ef9edb2e5?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T07:35:23Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Rheinmetall cut its sales forecast due to delays in an armored vehicle contract.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Rheinmetall cut its sales forecast due to delays in an armored vehicle contract.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Rheinmetall",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -219915,76 +219910,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-57a726d1a993",
-      "idea_version": "IDEAV-596ed5bad750b043",
-      "idea_version_started_at": "2026-11-04T03:58:17Z",
-      "ticker": "DRH",
-      "company": "DiamondRock Hospitality Company",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported positive Q3 2026 results, raised its full-year guidance, and expanded its portfolio through the acquisition of The Bellmoor Inn & Spa.",
-      "why_now": "The earnings release and acquisition announcement occurred on 2026-11-04.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-929e580cbbaa"
-      ],
-      "primary_source_event_id": "EVT-929e580cbbaa",
-      "source_headlines": [
-        "DiamondRock Hospitality Company Reports Third Quarter 2026 Results, Acquires The Bellmoor Inn & Spa, and Raises 2026 Guidance"
-      ],
-      "source_headline": "DiamondRock Hospitality Company Reports Third Quarter 2026 Results, Acquires The Bellmoor Inn & Spa, and Raises 2026 Guidance",
-      "source_url": "https://www.nasdaq.com/articles/diamondrock-hospitality-company-reports-third-quarter-2026-results-acquires-bellmoor-inn",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-04T01:51:27Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-04T03:58:17Z",
-      "updated_at": "2026-11-04T03:58:17Z",
-      "decay_at": "2026-11-05T13:51:27Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-0d084cede79e",
       "idea_version": "IDEAV-536feaa8d0e1f8db",
       "idea_version_started_at": "2026-11-05T12:54:05Z",
@@ -221767,6 +221692,76 @@
       "surfaced_at": "2026-11-02T23:10:25Z",
       "updated_at": "2026-11-02T23:10:25Z",
       "decay_at": "2026-11-04T10:22:02Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-57a726d1a993",
+      "idea_version": "IDEAV-596ed5bad750b043",
+      "idea_version_started_at": "2026-11-04T03:58:17Z",
+      "ticker": "DRH",
+      "company": "DiamondRock Hospitality Company",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported positive Q3 2026 results, raised its full-year guidance, and expanded its portfolio through the acquisition of The Bellmoor Inn & Spa.",
+      "why_now": "The earnings release and acquisition announcement occurred on 2026-11-04.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-929e580cbbaa"
+      ],
+      "primary_source_event_id": "EVT-929e580cbbaa",
+      "source_headlines": [
+        "DiamondRock Hospitality Company Reports Third Quarter 2026 Results, Acquires The Bellmoor Inn & Spa, and Raises 2026 Guidance"
+      ],
+      "source_headline": "DiamondRock Hospitality Company Reports Third Quarter 2026 Results, Acquires The Bellmoor Inn & Spa, and Raises 2026 Guidance",
+      "source_url": "https://www.nasdaq.com/articles/diamondrock-hospitality-company-reports-third-quarter-2026-results-acquires-bellmoor-inn",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-04T01:51:27Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-04T03:58:17Z",
+      "updated_at": "2026-11-04T03:58:17Z",
+      "decay_at": "2026-11-05T13:51:27Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -224562,14 +224557,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 540,
+    "total_count": 541,
     "shown_count": 499,
-    "hidden_count": 41,
+    "hidden_count": 42,
     "side_counts": {
       "long": {
-        "total_count": 276,
+        "total_count": 277,
         "shown_count": 250,
-        "hidden_count": 26
+        "hidden_count": 27
       },
       "short": {
         "total_count": 265,
@@ -224593,6 +224588,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-57a726d1a993",
+        "idea_version": "IDEAV-596ed5bad750b043",
+        "idea_version_started_at": "2026-11-04T03:58:17Z",
+        "ticker": "DRH",
+        "company": "DiamondRock Hospitality Company",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company reported positive Q3 2026 results, raised its full-year guidance, and expanded its portfolio through the acquisition of The Bellmoor Inn & Spa.",
+        "why_now": "The earnings release and acquisition announcement occurred on 2026-11-04.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 67,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-929e580cbbaa"
+        ],
+        "primary_source_event_id": "EVT-929e580cbbaa",
+        "source_headlines": [
+          "DiamondRock Hospitality Company Reports Third Quarter 2026 Results, Acquires The Bellmoor Inn & Spa, and Raises 2026 Guidance"
+        ],
+        "source_headline": "DiamondRock Hospitality Company Reports Third Quarter 2026 Results, Acquires The Bellmoor Inn & Spa, and Raises 2026 Guidance",
+        "source_url": "https://www.nasdaq.com/articles/diamondrock-hospitality-company-reports-third-quarter-2026-results-acquires-bellmoor-inn",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-04T01:51:27Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-04T03:58:17Z",
+        "updated_at": "2026-11-04T03:58:17Z",
+        "decay_at": "2026-11-05T13:51:27Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-05T13:51:27Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-52433aa40a10",
         "idea_version": "IDEAV-71fa741cf310bcdc",
@@ -254019,81 +254087,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-9d6049b683f8",
-        "idea_version": "IDEAV-4943447f0fca889c",
-        "idea_version_started_at": "2026-10-21T06:15:19Z",
-        "ticker": "DLF",
-        "company": "DLF Ltd",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Strong luxury housing demand drove pre-sales to ₹3,800 crore, signaling robust margin expansion for the quarter.",
-        "why_now": "The Q2 earnings results were reported today, October 21, 2026.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-747ba2f35118"
-        ],
-        "primary_source_event_id": "EVT-747ba2f35118",
-        "source_headlines": [
-          "DLF rebounds in Q2 as luxury demand drives ₹3,800 crore pre-sales"
-        ],
-        "source_headline": "DLF rebounds in Q2 as luxury demand drives ₹3,800 crore pre-sales",
-        "source_url": "https://www.livemint.com/market/mark-to-market/dlf-q2-presales-luxury-housing-launches-11792472022718.html",
-        "source_name": "Mint",
-        "materiality_max": 93,
-        "newest_source_at": "2026-10-21T02:41:07Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-17T00:40:56Z",
-        "updated_at": "2026-10-21T06:15:19Z",
-        "decay_at": "2026-10-22T14:41:07Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-24T03:47:02Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-dbcd29e8ecf7",
         "idea_version": "IDEAV-3c165f12640d6237",
         "idea_version_started_at": "2026-10-21T01:23:08Z",
@@ -261787,7 +261780,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2193,
-    "live_count": 27,
+    "live_count": 26,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -261806,9 +261799,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5193517,
-    "news_picked_today": 968,
-    "news_dropped_today": 17224
+    "news_seen_today": 5214714,
+    "news_picked_today": 989,
+    "news_dropped_today": 17323
   },
   "book_momentum": {
     "live_count": 8,
