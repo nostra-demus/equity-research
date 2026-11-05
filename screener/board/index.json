@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-05T11:07:57Z",
+  "generated_at": "2026-11-05T11:14:00Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261105-433",
+      "headline": "C&D PROPERTY (02156): (1) COMPLETION OF THE ACQUISITION OF 100% EQUITY INTERESTS IN LIANFA PROPERTY; AND (2) CONTINUING CONNECTED TRANSACTIONS PURSUANT TO RULE 14A.60 OF THE LISTING RULES",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1105/2026110501819.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-05T11:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "C&D Property completed the acquisition of 100% equity interest in Lianfa Property.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "C&D Property completed the acquisition of 100% equity interest in Lianfa Property.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "C&D Property",
+          "ticker": "02156",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261105-408",
       "headline": "Petronet LNG Limited: Petronet LNG Limited has informed the Exchange regarding a press release dated November 03, 2026, titled \"Petronet LNG seeks early recovery of Qatar cargoes.Petronet hit with Rs. 625 cr claim over idle Qatar LNG shipsPetronet in talk with Qatar for delivery of delayed LNG cargoes\".",
@@ -1959,55 +2008,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-146",
-      "headline": "David Jones collapses into administration; NAB warns of economic crunch from bad loans; Republican blame game erupts",
-      "headline_en": null,
-      "url": "https://www.afr.com/markets/equity-markets/david-jones-collapses-into-administration-nab-warns-of-economic-crunch-from-bad-loans-republican-blame-game-erupts-20261105-p61bo9?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T01:02:04Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Australian retailer David Jones enters administration (restructuring/insolvency event equivalent to Chapter 11); headline also flags NAB warning of credit-stress deterioration as secondary sector context.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Australian retailer David Jones enters administration (restructuring/insolvency event equivalent to Chapter 11); headline also flags NAB warning of credit-stress deterioration as secondary sector context.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 82,
-      "rank_factors": {
-        "materiality": 82,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 3,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "David Jones Ltd",
-          "ticker": "DJS",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -261456,9 +261456,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4377880,
-    "news_picked_today": 647,
-    "news_dropped_today": 14593
+    "news_seen_today": 4398419,
+    "news_picked_today": 662,
+    "news_dropped_today": 14650
   },
   "book_momentum": {
     "live_count": 8,
