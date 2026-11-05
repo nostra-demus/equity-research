@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T04:26:17Z",
+  "generated_at": "2026-11-05T04:35:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20261105-206",
@@ -1601,6 +1601,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261105-211",
+      "headline": "SHOUCHENG (00697): VOLUNTARY ANNOUNCEMENT - REGARDING THE INVESTMENT IN CICC CAINIAO LOGISTICS REIT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1103/2026110301989.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-03T10:52:00Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Investment in a logistics REIT is a capital-deployment action affecting capital structure and returns, but the headline lacks quantified size, terms, or timing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Investment in a logistics REIT is a capital-deployment action affecting capital structure and returns, but the headline lacks quantified size, terms, or timing.",
+      "region": "CN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 52,
+      "rank_factors": {
+        "materiality": 52,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 18,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shoucheng",
+          "ticker": "00697",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261105-193",
       "headline": "Sturm, Ruger & Company, Inc. Reports Third Quarter 2026 Net Sales of $147.6 Million",
       "headline_en": null,
@@ -1945,49 +1994,6 @@
           "listing_country": "IN"
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-202",
-      "headline": "SCIA, police to form joint team to investigate Yoon's martial law bid",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20261105003000315",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T03:14:08Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "South Korean authorities are investigating the President's martial law bid, creating significant political instability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "South Korean authorities are investigating the President's martial law bid, creating significant political instability.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -265327,9 +265333,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1930241,
-    "news_picked_today": 270,
-    "news_dropped_today": 4722
+    "news_seen_today": 1952818,
+    "news_picked_today": 272,
+    "news_dropped_today": 5176
   },
   "book_momentum": {
     "live_count": 8,
