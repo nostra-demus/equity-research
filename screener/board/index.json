@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T11:14:00Z",
+  "generated_at": "2026-11-05T11:18:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20261105-433",
@@ -732,6 +732,104 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261105-470",
+      "headline": "Tega Industries Q2 results: Net loss at ₹47.4 crore, revenue jumps to ₹4,254 crore",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/earnings/tega-industries-q2-results-net-loss-at-rs47-4-crore-revenue-jumps-to-rs4254-crore-20028100.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T10:57:52Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Tega Industries reported a net loss of ₹47.4 crore despite revenue growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tega Industries reported a net loss of ₹47.4 crore despite revenue growth.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tega Industries",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261105-474",
+      "headline": "Adani Ports to acquire 100% of Evos BV at enterprise value of 2.56 billion euros",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/economy/logistics/adani-ports-to-acquire-100-of-evos-bv-at-enterprise-value-of-256-billion-euros/article71669508.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T10:42:30Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Adani Ports to acquire Evos BV for 2.56 billion euros.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Adani Ports to acquire Evos BV for 2.56 billion euros.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adani Ports",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1905,109 +2003,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-180",
-      "headline": "Mitsui Chemicals eyes acquisition of JSR for over ¥1 trillion",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/business/2026/11/05/companies/mitsui-chemicals-jsr-acquisition/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T02:29:00Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Mitsui Chemicals eyes acquisition of JSR for ¥1 trillion (~$6.5–7 billion), a named-valuation M&A in chemicals.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Mitsui Chemicals eyes acquisition of JSR for ¥1 trillion (~$6.5–7 billion), a named-valuation M&A in chemicals.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 74,
-      "rank_factors": {
-        "materiality": 74,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 11,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mitsui Chemicals",
-          "ticker": null,
-          "listing_country": "JP"
-        },
-        {
-          "name": "JSR Corporation",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-192",
-      "headline": "Root, Inc. Reports $14 million Net Income and $381 million Revenue for Q3 2026",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/root-inc-reports-14-million-net-income-and-381-million-revenue-q3-2026",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T02:28:34Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Root, Inc. reported $381 million in revenue and $14 million in net income for Q3 2026.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Root, Inc. reported $381 million in revenue and $14 million in net income for Q3 2026.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Root, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -261456,9 +261451,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4398419,
-    "news_picked_today": 662,
-    "news_dropped_today": 14650
+    "news_seen_today": 4418851,
+    "news_picked_today": 704,
+    "news_dropped_today": 14680
   },
   "book_momentum": {
     "live_count": 8,
