@@ -569,6 +569,11 @@ from headline_checks import (
     eval_ak_red_flag_severity_reconciliation,
 )
 
+# ── Check BH (net-cash / net-debt basis label in Part I, CLAUDE.md §15) ──
+# Same shared module and rationale as AI/AJ/AK: one detector, imported by the retrospective eval and the
+# live 10B.1 gate.
+from headline_checks import BH_DATE, eval_bh_net_debt_basis_label
+
 # ── Check AP (valuation-summary lever-sidecar integrity, §25/§28) ──
 # Detection logic in scripts/valuation_summary_checks.py — importable + pure (mirrors headline_checks.py),
 # so the SAME core is finish-gate-ready. valuation_summary.json is §25 DATA that reaches main WITHOUT CI;
@@ -2354,6 +2359,41 @@ if scope=="selftest":
         if not ok: akbad+=1
         print(f"  [{'ok' if ok else 'XX'}] AK({dt_!r},red_flags={d_.get('red_flags')!r}) -> {got}"+("" if ok else f"  EXPECTED exp={exp}"))
     bad+=akbad
+
+    # BH — net-cash / net-debt basis label in Part I (§15). No committed run reaches BH_DATE, so drive every
+    # branch here. The three RED cases are the REAL committed-Part-I sentences that shipped a bare figure
+    # (INDIAMART_2026-08-14: broad ₹33.7bn quoted as "~₹31 billion of net cash" while strict is ₹0.15bn).
+    BH=eval_bh_net_debt_basis_label
+    def _bh_th(txt): return "# T\n\n# PART I — INVESTMENT COMMITTEE DECISION\n\n"+txt+"\n\n# PART II — CROSS-CUTTING ANALYSIS\n\n"
+    bhcases=[
+        ("2026-11-05", _bh_th("the balance sheet has ~₹31 billion of net cash."), None),                       # predates BH_DATE
+        ("2026-11-06", _bh_th("the balance sheet has zero real debt with ~₹31 billion of net cash."),          # INDIAMART (real)
+         ["no basis label"]),
+        ("2026-11-06", _bh_th("Net debt already doubled to $9.3 billion before that loan is even drawn."),    # UBER (real)
+         ["no basis label"]),
+        ("2026-11-06", _bh_th("A bridge converts ₹8,231 crore net cash to ~₹33,000 crore net debt."),         # TMCV (real)
+         ["no basis label"]),
+        ("2026-11-06", _bh_th("On a DCF that subtracts $13.7bn of post-Viterra net debt, value is ~$108."),   # BG (real)
+         ["no basis label"]),
+        ("2026-11-06", _bh_th("Strict net cash is ₹0.15 bn; broad net cash (incl. liquid-fund investments) is ₹33.7 bn."), []),
+        ("2026-11-06", _bh_th("Net debt (strict, debt − cash & equivalents) is $9.3 billion."), []),
+        ("2026-11-06", _bh_th("Net cash of ₹33.7 bn on the broad basis."),                                     # broad, strict never named
+         ["never names the strict"]),
+        ("2026-11-06", _bh_th("Net cash of ₹33.7 bn on the broad basis; strict net cash is ₹0.15 bn."), []),
+        ("2026-11-06", _bh_th("Net debt / EBITDA is 1.2x and the company runs a net-cash balance sheet."), []),  # ratio + unquantified: out of scope
+        ("2026-11-06", _bh_th("Fortress balance sheet (net cash even after $53.8B of new debt issuance)."), []),  # amount not attached to the term
+        ("2026-11-06", "# T\n\n# PART I — X\n\nclean.\n\n# PART II — Y\n\nNet debt of $5 bn appears only in Part II.\n", []),  # Part II out of scope
+        ("2026-11-06", 7, []),                                                                                 # non-string: defensive, never raises
+    ]
+    bhbad=0
+    for dt_,th_,exp in bhcases:
+        got=BH(dt_,th_)
+        if exp is None: ok=(got is None)
+        elif not exp:   ok=(isinstance(got,list) and len(got)==0)
+        else:           ok=(isinstance(got,list) and len(got)>0 and all(any(x in v for v in got) for x in exp))
+        if not ok: bhbad+=1
+        print(f"  [{'ok' if ok else 'XX'}] BH({dt_!r}) -> {got}"+("" if ok else f"  EXPECTED exp={exp}"))
+    bad+=bhbad
 
     # check AN — supersession-integrity (§4a). Fixture-free: build tmp target dirs to exercise the
     # existence branches. A valid sidecar → []; a dangling/empty target → violation; no supersession → None.
@@ -4232,6 +4272,16 @@ for drp in runs:
         add("AK_red_flag_severity_reconciliation",True,
             "module-declared Critical red-flag counts reconcile with decision_record.json red_flags "
             "and the Headline Scorecard Rating-cap cell does not deny one")
+    # BH net-cash / net-debt basis label in Part I (forward-looking; landing BH_DATE) — CLAUDE.md §15.
+    #   synthesizer.md Part I item 6 requires every net cash / net debt framing to state its basis, and
+    #   to show the strict figure beside any investment-inclusive one; nothing verified it.
+    bhresult=eval_bh_net_debt_basis_label(ddte,thesis)
+    if bhresult is None:
+        add("BH_net_debt_basis_label",True,f"run predates the gate ({ddte}) — N/A",na=True)
+    elif bhresult:
+        add("BH_net_debt_basis_label",False,"; ".join(bhresult))
+    else:
+        add("BH_net_debt_basis_label",True,"every net cash / net debt amount in Part I carries its §15 basis label")
     # AN supersession-integrity (§4a): validate any append-only corrections.json's superseded_by chain.
     # Schema-gated (only a corrections/v1 sidecar counts) so AN honors exactly what the resolver honors.
     _corr=_an_valid_sidecar(run)
@@ -4344,6 +4394,11 @@ for drp in runs:
         if r:
             retro.append({"check":"AK_red_flag_severity_reconciliation","status":"FAIL","detail":"; ".join(r),
                           "note":f"retrospective — decision_date {ddte!r} predates AK_DATE ({AK_DATE}); informational only, does not affect pass/gate_eligible/suite_pass"})
+    if bhresult is None:
+        r=eval_bh_net_debt_basis_label(BH_DATE,thesis)
+        if r:
+            retro.append({"check":"BH_net_debt_basis_label","status":"FAIL","detail":"; ".join(r),
+                          "note":f"retrospective — decision_date {ddte!r} predates BH_DATE ({BH_DATE}); informational only, does not affect pass/gate_eligible/suite_pass"})
     # AY: same pattern as AI/AK — the underlying signal (the finish-gate's own PROVISIONAL banner, the
     # verify-evidence verdict) already fully existed on this run before AY_DATE; only the date gate on the
     # PRIMARY check above is bypassed here, not the status computed by resolve_integrity_status.
@@ -4436,9 +4491,9 @@ FRAMEWORK_CONTRACTS={
  ".claude/agents/catalyst/01_catalyst-calendar.md":["12-Month Catalyst Calendar","Bullish Trigger","Bearish Trigger"],
  ".claude/agents/catalyst/99_catalyst-synthesis.md":["Catalyst strength /100","No proven catalyst yet","depends_on"],
  ".claude/agents/memo-writer.md":["memo.md","colleague","~10"],
- ".claude/commands/research/full.md":["audit_dossier.md","memo.md","memo-writer","post_mortem_decision","RATING-CAP","TERMINAL","10B.3","GATE-EXPECTATIONS","expectations-gap.md","rating_caps","eval_ad_filter_4_6_cap","eval_ae_filter5_cap","eval_af_filter1_integrity_cap","eval_ac_turnaround_cap","eval_aq_forensic_mosaic_cap","headline_checks","eval_ai_headline_reconciliation","eval_ak_red_flag_severity_reconciliation","valuation_summary_checks","eval_ap_valuation_summary_integrity","--data-needs-prewrite","before 10B.3A"],
+ ".claude/commands/research/full.md":["audit_dossier.md","memo.md","memo-writer","post_mortem_decision","RATING-CAP","TERMINAL","10B.3","GATE-EXPECTATIONS","expectations-gap.md","rating_caps","eval_ad_filter_4_6_cap","eval_ae_filter5_cap","eval_af_filter1_integrity_cap","eval_ac_turnaround_cap","eval_aq_forensic_mosaic_cap","headline_checks","eval_ai_headline_reconciliation","eval_ak_red_flag_severity_reconciliation","eval_bh_net_debt_basis_label","valuation_summary_checks","eval_ap_valuation_summary_integrity","--data-needs-prewrite","before 10B.3A"],
  "scripts/rating_caps.py":["AC_DATE","AD_DATE","AE_DATE","AF_DATE","AQ_DATE","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","eval_ae_filter5_cap","eval_af_filter1_integrity_cap","eval_aq_forensic_mosaic_cap","_tag_fired_standalone","HIGH_CONVICTION_DECISIONS","FORENSIC_TAGS","MOSAIC_MIN_DISTINCT_TAGS","MOSAIC_MIN_DISTINCT_MODULES"],
- "scripts/headline_checks.py":["AI_DATE","CONF_SPLIT_DATE","eval_ai_headline_reconciliation","_scorecard_section","_hs_cell","_metric_numbers","_reconciles","AK_DATE","eval_ak_red_flag_severity_reconciliation","_module_critical_count","_AK_CRITICAL_PATTERNS","_AK_DENIAL","_AK_AFFIRM"],
+ "scripts/headline_checks.py":["AI_DATE","CONF_SPLIT_DATE","eval_ai_headline_reconciliation","_scorecard_section","_hs_cell","_metric_numbers","_reconciles","AK_DATE","eval_ak_red_flag_severity_reconciliation","_module_critical_count","_AK_CRITICAL_PATTERNS","_AK_DENIAL","_AK_AFFIRM","BH_DATE","eval_bh_net_debt_basis_label","_BH_BASIS","_part_one"],
  "scripts/valuation_summary_checks.py":["eval_ap_valuation_summary_integrity","scan_committed","_selftest","_REQUIRED","level_from_multiple"],
  # BF — without this row the whole basis-check module could be deleted and the suite would still
  # print PASS, which is the hole this registry exists to close (see its own comment above).
@@ -4461,7 +4516,7 @@ FRAMEWORK_CONTRACTS={
  "scripts/market_prices.py":["data/_market","close_on","total_return","beta_adjusted_excess","raw_excess_pct","beta_adjusted_excess_pct","available","as_of","date,symbol,close"],
  "frameworks/MARKET_FEED.md":["date,symbol,close","_symbols.json","beta_adjusted_excess","close_on","EXTERNAL_DATA"],
  "frameworks/EXTERNAL_DATA.md":["data/_market","market_prices.py","beta-adjusted","tracking_price","date,symbol,close"],
- "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","eval_t_probability","PROB_DATE","eval_forecast_type","FORECAST_TYPE_ENUM","FTYPE_DATE","eval_forecast_entry_completeness","OWNERCONF_DATE","owner_module","confidence_score","evidence_today","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE","AA_module_verdict_lock","AA_DATE","BSS_CAP_VERDICT","MG_CAP_VERDICT","eval_aa_module_verdict_lock","extract_synthesis_verdict","AB_bm_disqualifier_lock","AB_DATE","BM_CAP_VERDICT","eval_ab_bm_verdict_lock","AC_turnaround_cap","AC_DATE","TURNAROUND_TYPE","ABOVE_STARTER_AC","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","AD_DATE","CAP4_TAG","CAP6_TAG","AD_filter_4_6_cap","eval_ae_filter5_cap","AE_DATE","CAP5_TAG","ABOVE_STARTER_AE","AE_filter5_cap","_tag_fired_standalone","eval_af_filter1_integrity_cap","AF_DATE","CAP1_TAG","ABOVE_WATCHLIST_AF","AF_filter1_integrity_cap","eval_ag_calibration_feedback_gate","AG_DATE","AG_FTYPE_DATE","AG_TTYPE_DATE","AG_ERRTAX_DATE","AG_STATUSES","_ag_leading_error_categories","_calib_summary_asof","CALIB_SUMMARIES","eval_ah_expectations_gap_gate","AH_DATE","AH_expectations_gap_gate","eval_ai_headline_reconciliation","AI_DATE","_scorecard_section","_hs_cell","_metric_numbers","_reconciles","eval_aj_decision_audit_trail","AJ_DATE","AJ_MIN_ROWS","AJ_REQUIRED_COLS","_decision_audit_section","_decision_audit_header","_decision_audit_rows","_audit_cell_blank","eval_ak_red_flag_severity_reconciliation","AK_DATE","_module_critical_count","_AK_CRITICAL_PATTERNS","_AK_DENIAL","_AK_AFFIRM","AL_pre_mortem_check","PRE_MORTEM_CHECK_DATE","PM_OUTCOMES","eval_am_bear_case_sanity","AM_DATE","eval_an_supersession_integrity","eval_ar_short_bull_case_sanity","AR_DATE","AO_forecast_resolvability","AO_DATE","eval_ao_forecast_resolvability","_ao_earliest_date","eval_ap_valuation_summary_integrity","scan_committed","eval_ay_fixture_integrity","AY_DATE","resolve_integrity_status"],
+ "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","eval_t_probability","PROB_DATE","eval_forecast_type","FORECAST_TYPE_ENUM","FTYPE_DATE","eval_forecast_entry_completeness","OWNERCONF_DATE","owner_module","confidence_score","evidence_today","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE","AA_module_verdict_lock","AA_DATE","BSS_CAP_VERDICT","MG_CAP_VERDICT","eval_aa_module_verdict_lock","extract_synthesis_verdict","AB_bm_disqualifier_lock","AB_DATE","BM_CAP_VERDICT","eval_ab_bm_verdict_lock","AC_turnaround_cap","AC_DATE","TURNAROUND_TYPE","ABOVE_STARTER_AC","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","AD_DATE","CAP4_TAG","CAP6_TAG","AD_filter_4_6_cap","eval_ae_filter5_cap","AE_DATE","CAP5_TAG","ABOVE_STARTER_AE","AE_filter5_cap","_tag_fired_standalone","eval_af_filter1_integrity_cap","AF_DATE","CAP1_TAG","ABOVE_WATCHLIST_AF","AF_filter1_integrity_cap","eval_ag_calibration_feedback_gate","AG_DATE","AG_FTYPE_DATE","AG_TTYPE_DATE","AG_ERRTAX_DATE","AG_STATUSES","_ag_leading_error_categories","_calib_summary_asof","CALIB_SUMMARIES","eval_ah_expectations_gap_gate","AH_DATE","AH_expectations_gap_gate","eval_ai_headline_reconciliation","AI_DATE","_scorecard_section","_hs_cell","_metric_numbers","_reconciles","eval_aj_decision_audit_trail","AJ_DATE","AJ_MIN_ROWS","AJ_REQUIRED_COLS","_decision_audit_section","_decision_audit_header","_decision_audit_rows","_audit_cell_blank","eval_ak_red_flag_severity_reconciliation","AK_DATE","_module_critical_count","_AK_CRITICAL_PATTERNS","_AK_DENIAL","_AK_AFFIRM","AL_pre_mortem_check","PRE_MORTEM_CHECK_DATE","PM_OUTCOMES","eval_am_bear_case_sanity","AM_DATE","eval_an_supersession_integrity","eval_ar_short_bull_case_sanity","AR_DATE","AO_forecast_resolvability","AO_DATE","eval_ao_forecast_resolvability","_ao_earliest_date","eval_ap_valuation_summary_integrity","scan_committed","eval_ay_fixture_integrity","AY_DATE","resolve_integrity_status","BH_net_debt_basis_label","eval_bh_net_debt_basis_label"],
  "scripts/data_need_contract.py":["DATA_NEED_PROMISE_RE","DATA_NEED_URL_RE","check_live_orb_routes","discover_orb_roster"],
 
  ".github/workflows/ci.yml":["eval-contracts","scripts/eval.py"],
