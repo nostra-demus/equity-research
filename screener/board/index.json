@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T08:11:47Z",
+  "generated_at": "2026-11-05T08:20:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20261105-328",
@@ -389,6 +389,61 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261105-358",
+      "headline": "China blocks SoftBank’s $5.4 billion ABB robot unit takeover",
+      "headline_en": null,
+      "url": "https://www.japantimes.co.jp/business/2026/11/05/companies/china-block-softbank-robot-sale/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T08:01:00Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "China's regulatory blockage of SoftBank's $5.4 billion planned acquisition of ABB's robotics unit thwarts a major capital deployment and signals escalating strategic-technology protectionism.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "China's regulatory blockage of SoftBank's $5.4 billion planned acquisition of ABB's robotics unit thwarts a major capital deployment and signals escalating strategic-technology protectionism.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SoftBank Group",
+          "ticker": null,
+          "listing_country": "JP"
+        },
+        {
+          "name": "ABB Ltd",
+          "ticker": null,
+          "listing_country": "CH"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1511,6 +1566,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261105-355",
+      "headline": "Maersk Raises Guidance Again on Higher Freight Rates and Resilient Demand",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/logistics/maersk-raises-guidance-again-on-higher-freight-rates-and-resilient-demand-12a571b0?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T07:54:00Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Maersk raises guidance citing higher freight rates and resilient demand, signaling improved earnings and cash-flow outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Maersk raises guidance citing higher freight rates and resilient demand, signaling improved earnings and cash-flow outlook.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 79,
+      "rank_factors": {
+        "materiality": 79,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Maersk",
+          "ticker": "MAERSKB",
+          "listing_country": "DK"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261105-164",
       "headline": "CVS Health to split $117 billion business, separating 9,000 pharmacies from Aetna insurance",
       "headline_en": null,
@@ -1901,105 +2005,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-261",
-      "headline": "BREAKING NEWS: Toyota raises FY 2026 net profit outlook to 3.57 tril. yen",
-      "headline_en": null,
-      "url": "https://english.kyodonews.net/articles/-/90449",
-      "source_name": "Kyodo News (Japan Wire)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T05:01:00Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Toyota raised FY2026 net profit outlook to ¥3.57 trillion; a quantified profit-guidance raise from an official source.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Toyota raised FY2026 net profit outlook to ¥3.57 trillion; a quantified profit-guidance raise from an official source.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 76,
-      "rank_factors": {
-        "materiality": 76,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Toyota",
-          "ticker": "TM",
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-163",
-      "headline": "Arm Holdings shares close over 5% lower as AI data centre revenue forecast barely beats estimates",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/arm-holdings-share-price-ai-data-centre-revenue-forecast-wall-street-estimates-q3-2026-20027462.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T01:46:44Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Arm Holdings stock fell 5% following AI data-centre revenue forecast barely beating estimates, signalling market disappointment on forward guidance despite earnings beat.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Arm Holdings stock fell 5% following AI data-centre revenue forecast barely beating estimates, signalling market disappointment on forward guidance despite earnings beat.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 64,
-      "rank_factors": {
-        "materiality": 64,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 6,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Arm Holdings",
-          "ticker": "ARM",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -220412,77 +220417,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-9e168a4e0799",
-      "idea_version": "IDEAV-fc88c3c5a5a68ffb",
-      "idea_version_started_at": "2026-11-03T21:03:27Z",
-      "ticker": "MRVL",
-      "company": "Marvell Technology",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The $115 billion acquisition of Lumentum represents a massive capital outlay that likely involves significant dilution or debt, typically pressuring the acquirer's stock in the near term.",
-      "why_now": "The deal was announced on November 3, 2026.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 24,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1cb816fc4878"
-      ],
-      "primary_source_event_id": "EVT-1cb816fc4878",
-      "source_headlines": [
-        "Marvell to Acquire Lumentum in Historic $115B Tech Deal"
-      ],
-      "source_headline": "Marvell to Acquire Lumentum in Historic $115B Tech Deal",
-      "source_url": "https://www.bloomberg.com/news/videos/2026-11-03/marvell-to-acquire-lumentum-in-historic-115b-tech-deal-video",
-      "source_name": "Bloomberg",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-03T20:12:07Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-03T21:03:27Z",
-      "updated_at": "2026-11-03T21:03:27Z",
-      "decay_at": "2026-11-05T08:12:07Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-0da6fcdb33c0",
       "idea_version": "IDEAV-facebead08d5df8b",
       "idea_version_started_at": "2026-11-05T06:36:43Z",
@@ -222047,6 +221981,77 @@
       "status": "live",
       "promoted_signal_id": null,
       "feedback": "up",
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-9e168a4e0799",
+      "idea_version": "IDEAV-fc88c3c5a5a68ffb",
+      "idea_version_started_at": "2026-11-03T21:03:27Z",
+      "ticker": "MRVL",
+      "company": "Marvell Technology",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The $115 billion acquisition of Lumentum represents a massive capital outlay that likely involves significant dilution or debt, typically pressuring the acquirer's stock in the near term.",
+      "why_now": "The deal was announced on November 3, 2026.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 24,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1cb816fc4878"
+      ],
+      "primary_source_event_id": "EVT-1cb816fc4878",
+      "source_headlines": [
+        "Marvell to Acquire Lumentum in Historic $115B Tech Deal"
+      ],
+      "source_headline": "Marvell to Acquire Lumentum in Historic $115B Tech Deal",
+      "source_url": "https://www.bloomberg.com/news/videos/2026-11-03/marvell-to-acquire-lumentum-in-historic-115b-tech-deal-video",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-03T20:12:07Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-03T21:03:27Z",
+      "updated_at": "2026-11-03T21:03:27Z",
+      "decay_at": "2026-11-05T08:12:07Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
       "stale": true
     },
     {
@@ -224426,9 +224431,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 543,
+    "total_count": 544,
     "shown_count": 499,
-    "hidden_count": 44,
+    "hidden_count": 45,
     "side_counts": {
       "long": {
         "total_count": 278,
@@ -224436,9 +224441,9 @@
         "hidden_count": 28
       },
       "short": {
-        "total_count": 266,
+        "total_count": 267,
         "shown_count": 250,
-        "hidden_count": 16
+        "hidden_count": 17
       }
     },
     "retention": {
@@ -224457,6 +224462,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-9e168a4e0799",
+        "idea_version": "IDEAV-fc88c3c5a5a68ffb",
+        "idea_version_started_at": "2026-11-03T21:03:27Z",
+        "ticker": "MRVL",
+        "company": "Marvell Technology",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The $115 billion acquisition of Lumentum represents a massive capital outlay that likely involves significant dilution or debt, typically pressuring the acquirer's stock in the near term.",
+        "why_now": "The deal was announced on November 3, 2026.",
+        "conviction": 50,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 60,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 24,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-1cb816fc4878"
+        ],
+        "primary_source_event_id": "EVT-1cb816fc4878",
+        "source_headlines": [
+          "Marvell to Acquire Lumentum in Historic $115B Tech Deal"
+        ],
+        "source_headline": "Marvell to Acquire Lumentum in Historic $115B Tech Deal",
+        "source_url": "https://www.bloomberg.com/news/videos/2026-11-03/marvell-to-acquire-lumentum-in-historic-115b-tech-deal-video",
+        "source_name": "Bloomberg",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-03T20:12:07Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-03T21:03:27Z",
+        "updated_at": "2026-11-03T21:03:27Z",
+        "decay_at": "2026-11-05T08:12:07Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-05T08:12:07Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-4c3197aa39ce",
         "idea_version": "IDEAV-85926b3dd0976788",
@@ -261572,85 +261651,12 @@
         "archived_at": "2026-10-12T02:08:48Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-ebfbd0cbbc7c",
-        "idea_version": "IDEAV-a458d90141a3fd2e",
-        "idea_version_started_at": "2026-10-09T00:14:06Z",
-        "ticker": "MSFT",
-        "company": "Microsoft",
-        "exchange": "NASDAQ",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "A freeze on green cards for IT firms increases labor costs and operational friction for high-skill talent acquisition, directly impacting margins.",
-        "why_now": "The administration's policy shift was reported on October 8, 2026.",
-        "conviction": 50,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 61,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 15,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "policy_conditional",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-95578ceceebe"
-        ],
-        "primary_source_event_id": "EVT-95578ceceebe",
-        "source_headlines": [
-          "Trump administration freezes green cards for Microsoft, IT firms, probes universities"
-        ],
-        "source_headline": "Trump administration freezes green cards for Microsoft, IT firms, probes universities",
-        "source_url": "https://www.businesstimes.com.sg/international/trump-administration-freezes-green-cards-microsoft-it-firms-probes-universities",
-        "source_name": "The Business Times (Singapore)",
-        "materiality_max": 83,
-        "newest_source_at": "2026-10-08T23:51:02Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-09T00:14:06Z",
-        "updated_at": "2026-10-09T00:14:06Z",
-        "decay_at": "2026-10-10T11:51:02Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-12T00:03:09Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2183,
-    "live_count": 22,
+    "live_count": 21,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -261669,9 +261675,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2994351,
-    "news_picked_today": 514,
-    "news_dropped_today": 11438
+    "news_seen_today": 3034184,
+    "news_picked_today": 518,
+    "news_dropped_today": 11698
   },
   "book_momentum": {
     "live_count": 8,
