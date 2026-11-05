@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-05T17:14:59Z",
+  "generated_at": "2026-11-05T17:26:21Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261105-771",
+      "headline": "Adani Ports and Special Economic Zone Limited: Adani Ports and Special Economic Zone Limited has informed the Exchange regarding 'Audio Recording of Analysts/Investors Call pertaining to agreement to acquire 100% stake in Evos B.V.'.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/rkbhagia_05112026222750_Letter14.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-05T16:58:04Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Adani Ports confirmed the acquisition of 100% stake in Evos B.V.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Adani Ports confirmed the acquisition of 100% stake in Evos B.V.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adani Ports and Special Economic Zone Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261105-765",
       "headline": "Inventurus Knowledge Solutions Limited: Inventurus Knowledge Solutions Limited has informed the Exchange regarding a press release dated November 05, 2026, titled \"IKS Health s Q2 FY27 Earnings Reflect Strong Momentum with 104 % Revenue and 62.5% EBITDA YoY Growth.\"",
@@ -1917,56 +1966,6 @@
       "companies": [
         {
           "name": "Wendy's",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-709",
-      "headline": "Advanced Drainage Systems Q2 Profit Falls 29%; Cuts FY27 Sales Outlook",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/advanced-drainage-systems-q2-profit-falls-29-cuts-fy27-sales-outlook",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T14:21:03Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Advanced Drainage Systems reported a 29% profit decline and cut its FY27 sales outlook.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Advanced Drainage Systems reported a 29% profit decline and cut its FY27 sales outlook.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Advanced Drainage Systems",
           "ticker": null,
           "listing_country": "US"
         }
@@ -261981,9 +261980,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6134566,
-    "news_picked_today": 1308,
-    "news_dropped_today": 21156
+    "news_seen_today": 6228608,
+    "news_picked_today": 1320,
+    "news_dropped_today": 21264
   },
   "book_momentum": {
     "live_count": 8,
