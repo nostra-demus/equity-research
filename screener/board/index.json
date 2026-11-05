@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T05:51:36Z",
+  "generated_at": "2026-11-05T06:01:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20261105-206",
@@ -1008,6 +1008,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261105-265",
+      "headline": "PPC: Scheme Booklet Despatched to Peet Shareholders [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PPC?key=2924-03158548-6A1353814",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-05T05:22:31Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "The company has dispatched the scheme booklet to shareholders regarding a previously announced acquisition/scheme of arrangement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "The company has dispatched the scheme booklet to shareholders regarding a previously announced acquisition/scheme of arrangement.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Peet Limited",
+          "ticker": "PPC",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261105-249",
       "headline": "Permian Resources Corporation Announces Third Quarter 2026 Results and ~$1.15 Billion in Acquisitions",
       "headline_en": null,
@@ -1899,99 +1948,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261105-129",
-      "headline": "TOT: Chief Executive Officer Resignation [price-sensitive]",
+      "inbox_id": "INB-20261105-263",
+      "headline": "Markolines Pavement Technologies Limited: Markolines Pavement Technologies Limited has informed the Exchange regarding a press release dated November 05, 2026, titled \"Please find attached the Press Release issued by Markolines Pavement Technologies Limited regarding the receipt of work orders from Brihanmumbai Municipal Corporation (BMC) for road resurfacing works using microsurfacing technology on the Eastern Express Highway and Western Express Highway, aggregating to approximately ₹135.",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TOT?key=2924-03158385-2A1708559",
-      "source_name": "ASX (Australia Exchange Filing)",
+      "url": "https://nsearchives.nseindia.com/corporate/MPTL2002_05112026105910_PressRelease051126WorkOrdersBMC.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-11-05T00:53:25Z",
+      "found_at": "2026-11-05T05:29:26Z",
       "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "The CEO of Total Brain (TOT) has resigned, which is a material leadership change.",
+      "prelim_note": "The company secured road resurfacing work orders from the Brihanmumbai Municipal Corporation aggregating to approximately ₹135 million.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 93,
-      "triage_reason": "The CEO of Total Brain (TOT) has resigned, which is a material leadership change.",
-      "region": "OTHER",
+      "triage_reason": "The company secured road resurfacing work orders from the Brihanmumbai Municipal Corporation aggregating to approximately ₹135 million.",
+      "region": "IN",
       "relevance": "material",
-      "materiality_pre_score": 65,
+      "materiality_pre_score": 75,
       "rank_factors": {
-        "materiality": 65,
+        "materiality": 75,
         "source_tier": 8,
         "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "executive_exit",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Total Brain",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-260",
-      "headline": "Toyota Raises Profit Forecast on Hybrid Demand; Shares Surge",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-05/toyota-raises-profit-forecast-on-hybrid-demand-weak-yen",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T04:59:34Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Toyota raised FY2026 net profit outlook; a company-moving guidance increase from an official source tied to hybrid vehicle demand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Toyota raised FY2026 net profit outlook; a company-moving guidance increase from an official source tied to hybrid vehicle demand.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 73,
-      "rank_factors": {
-        "materiality": 73,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
+        "event": 0,
+        "size": -1,
         "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
       },
       "event_types": [
-        "guidance_change"
+        "commercial"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Toyota",
-          "ticker": "TM",
-          "listing_country": "JP"
+          "name": "Markolines Pavement Technologies Limited",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
-      "size_bucket": "mega",
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -265329,9 +265329,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2374102,
-    "news_picked_today": 344,
-    "news_dropped_today": 7624
+    "news_seen_today": 2453663,
+    "news_picked_today": 348,
+    "news_dropped_today": 7716
   },
   "book_momentum": {
     "live_count": 8,
