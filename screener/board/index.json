@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T04:15:19Z",
+  "generated_at": "2026-11-05T04:26:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20261105-206",
@@ -1453,6 +1453,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261105-209",
+      "headline": "FE CONSORT INTL (00035): SUPPLEMENTAL ANNOUNCEMENT DISCLOSEABLE TRANSACTIONS IN RELATION TO THE DISPOSAL OF OFFICE, HOTEL AND TOWN HALL IN THE UNITED KINGDOM",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1103/2026110302059.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-03T11:03:00Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "The headline indicates a supplemental announcement regarding the disposal of office, hotel, and town hall assets in the United Kingdom by FE Consort Intl.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "The headline indicates a supplemental announcement regarding the disposal of office, hotel, and town hall assets in the United Kingdom by FE Consort Intl.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FE CONSORT INTL",
+          "ticker": "00035",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261105-151",
       "headline": "US sanctions India-based couple, companies over alleged support for Iran's Shadow oil fleet",
       "headline_en": null,
@@ -1940,55 +1989,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-144",
-      "headline": "Cummins India shares in focus after Q2 results miss; cost pressures impact margins",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/cummins-india-share-price-q2-results-miss-cost-pressures-impact-margins-20027475.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T01:30:35Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Cummins India shares are in focus following a Q2 earnings miss and margin pressure from costs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Cummins India shares are in focus following a Q2 earnings miss and margin pressure from costs.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cummins India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -265327,9 +265327,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1813858,
-    "news_picked_today": 266,
-    "news_dropped_today": 4486
+    "news_seen_today": 1930241,
+    "news_picked_today": 270,
+    "news_dropped_today": 4722
   },
   "book_momentum": {
     "live_count": 8,
