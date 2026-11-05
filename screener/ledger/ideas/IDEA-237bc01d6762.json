@@ -1,0 +1,76 @@
+{
+  "idea_id": "IDEA-237bc01d6762",
+  "idea_version": "IDEAV-72d4edd5febe887c",
+  "idea_version_started_at": "2026-11-05T12:54:05Z",
+  "ticker": "TM",
+  "company": "Toyota Motor Corporation",
+  "exchange": "NYSE",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "long",
+  "pair_with": null,
+  "reason": "Toyota raised its profit forecast due to strong hybrid vehicle sales, which are offsetting weakness in the Chinese market.",
+  "why_now": "The guidance upgrade was announced on 2026-11-05.",
+  "conviction": 75,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 60,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 21,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 7,
+    "corroboration": 10,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "priced-in risk",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "priced",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-5af1e04d1e13",
+    "EVT-e91dc80ad609",
+    "EVT-21135fe99735"
+  ],
+  "primary_source_event_id": "EVT-5af1e04d1e13",
+  "source_headlines": [
+    "Toyota raises profit forecast as strong hybrid sales defy China slump",
+    "Toyota Raises Profit Forecast, Sending Shares Soaring 17%",
+    "Toyota H1 Results Climb, Upgrades FY27 Profit View, Cuts Revenue Outlook; Shares Climb"
+  ],
+  "source_headline": "Toyota raises profit forecast as strong hybrid sales defy China slump",
+  "source_url": "https://asia.nikkei.com/business/automobiles/toyota-raises-profit-forecast-as-strong-hybrid-sales-defy-china-slump",
+  "source_name": "Nikkei Asia",
+  "materiality_max": 100,
+  "newest_source_at": "2026-11-05T05:44:18Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-11-05T12:54:05Z",
+  "updated_at": "2026-11-05T12:54:05Z",
+  "decay_at": "2026-11-06T17:44:18Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
