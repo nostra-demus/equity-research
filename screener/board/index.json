@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T13:42:40Z",
+  "generated_at": "2026-11-05T13:43:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261105-535",
@@ -220265,6 +220265,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-be33721eeb33",
+      "idea_version": "IDEAV-0850ca6888da3a39",
+      "idea_version_started_at": "2026-11-05T13:42:59Z",
+      "ticker": "AMKBY",
+      "company": "A.P. Møller - Mærsk A/S",
+      "exchange": "OTC Markets",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Disappointing earnings and guidance suggest that the recent tailwinds in global container shipping rates are fading faster than anticipated, pressuring margins.",
+      "why_now": "The earnings release and guidance downgrade occurred on November 5, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "sector_cycle",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c11893d946ff"
+      ],
+      "primary_source_event_id": "EVT-c11893d946ff",
+      "source_headlines": [
+        "Maersk Shares Tumble After Earnings, Guidance Disappoint"
+      ],
+      "source_headline": "Maersk Shares Tumble After Earnings, Guidance Disappoint",
+      "source_url": "https://www.wsj.com/business/logistics/maersk-raises-guidance-again-on-higher-freight-rates-and-resilient-demand-12a571b0?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-05T09:41:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-05T13:42:59Z",
+      "updated_at": "2026-11-05T13:42:59Z",
+      "decay_at": "2026-11-06T21:41:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-237bc01d6762",
       "idea_version": "IDEAV-72d4edd5febe887c",
       "idea_version_started_at": "2026-11-05T12:54:05Z",
@@ -220476,6 +220547,150 @@
       "surfaced_at": "2026-11-04T10:56:26Z",
       "updated_at": "2026-11-04T10:56:26Z",
       "decay_at": "2026-11-05T20:41:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-3495b6682569",
+      "idea_version": "IDEAV-7b3a0c67fe4f72f7",
+      "idea_version_started_at": "2026-11-05T13:42:59Z",
+      "ticker": "ADANIPORTS",
+      "company": "Adani Ports and Special Economic Zone Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The acquisition of Evos B.V. for $2.9 billion significantly expands the company's footprint in European liquid bulk storage, diversifying its revenue base beyond Indian port operations.",
+      "why_now": "The deal was officially announced via exchange filing on November 5, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8b1bdc786f47",
+        "EVT-d17d20214db5"
+      ],
+      "primary_source_event_id": "EVT-8b1bdc786f47",
+      "source_headlines": [
+        "Adani Ports and Special Economic Zone Limited: Adani Ports and Special Economic Zone Limited has informed the Exchange about Disclosure under Regulation 30 of the SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015 ( SEBI Listing Regulations ), regarding an agreement to acquire 100% stake in Evos B.V.",
+        "Adani Ports to Buy Europe’s Evos in Deal Valued at $2.9 Billion"
+      ],
+      "source_headline": "Adani Ports and Special Economic Zone Limited: Adani Ports and Special Economic Zone Limited has informed the Exchange about Disclosure under Regulation 30 of the SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015 ( SEBI Listing Regulations ), regarding an agreement to acquire 100% stake in Evos B.V.",
+      "source_url": "https://nsearchives.nseindia.com/corporate/rkbhagia_05112026150844_APSEZSEIntimation.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-05T10:00:47Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-05T13:42:59Z",
+      "updated_at": "2026-11-05T13:42:59Z",
+      "decay_at": "2026-11-06T22:00:47Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-c2db97ac8f36",
+      "idea_version": "IDEAV-2f613abcdc9f307e",
+      "idea_version_started_at": "2026-11-05T13:42:59Z",
+      "ticker": "PETRONET",
+      "company": "Petronet LNG Limited",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company faces a Rs. 625 crore claim related to idle LNG ships, which will likely impact short-term cash flow and increase legal uncertainty.",
+      "why_now": "The disclosure of the claim and ongoing negotiations was filed on November 5, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ccc17ed4ac5a"
+      ],
+      "primary_source_event_id": "EVT-ccc17ed4ac5a",
+      "source_headlines": [
+        "Petronet LNG Limited: Petronet LNG Limited has informed the Exchange regarding a press release dated November 03, 2026, titled \"Petronet LNG seeks early recovery of Qatar cargoes.Petronet hit with Rs. 625 cr claim over idle Qatar LNG shipsPetronet in talk with Qatar for delivery of delayed LNG cargoes\"."
+      ],
+      "source_headline": "Petronet LNG Limited: Petronet LNG Limited has informed the Exchange regarding a press release dated November 03, 2026, titled \"Petronet LNG seeks early recovery of Qatar cargoes.Petronet hit with Rs. 625 cr claim over idle Qatar LNG shipsPetronet in talk with Qatar for delivery of delayed LNG cargoes\".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/PETRONET_05112026151036_pressrelease03112026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-05T09:41:54Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-05T13:42:59Z",
+      "updated_at": "2026-11-05T13:42:59Z",
+      "decay_at": "2026-11-06T21:41:54Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -224266,78 +224481,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-52adf63476e1",
-      "idea_version": "IDEAV-30014ba5992a2336",
-      "idea_version_started_at": "2026-11-02T16:55:16Z",
-      "ticker": "GOPAL",
-      "company": "Gopal Snacks Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported a near 2-fold increase in net profit for Q2, driven by higher sales and an exceptional gain, signaling improved margins.",
-      "why_now": "The Q2 results were reported on November 2, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d4bc3f4fa2f7"
-      ],
-      "primary_source_event_id": "EVT-d4bc3f4fa2f7",
-      "source_headlines": [
-        "Gopal Snacks Q2 Results: Net profit zooms nearly 2-fold on higher sales and exceptional gain"
-      ],
-      "source_headline": "Gopal Snacks Q2 Results: Net profit zooms nearly 2-fold on higher sales and exceptional gain",
-      "source_url": "https://www.cnbctv18.com/market/stocks/gopal-snacks-share-price-q2-results-net-profit-zooms-nearly-2-fold-on-higher-sales-and-exceptional-gain-20025162.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-02T13:29:16Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-02T16:55:16Z",
-      "updated_at": "2026-11-02T16:55:16Z",
-      "decay_at": "2026-11-04T01:29:16Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-a204395caab2",
       "idea_version": "IDEAV-6cd21665a86d4930",
       "idea_version_started_at": "2026-11-03T02:31:59Z",
@@ -224419,14 +224562,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 541,
+    "total_count": 540,
     "shown_count": 499,
-    "hidden_count": 42,
+    "hidden_count": 41,
     "side_counts": {
       "long": {
-        "total_count": 277,
+        "total_count": 276,
         "shown_count": 250,
-        "hidden_count": 27
+        "hidden_count": 26
       },
       "short": {
         "total_count": 265,
@@ -224436,12 +224579,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1624,
+      "evicted_count": 1625,
       "oldest_retained_at": "2026-10-08T22:50:57Z",
       "side_counts": {
         "long": {
-          "evicted_count": 1072,
-          "oldest_retained_at": "2026-10-21T12:00:00Z"
+          "evicted_count": 1073,
+          "oldest_retained_at": "2026-10-21T12:15:00Z"
         },
         "short": {
           "evicted_count": 553,
@@ -227493,8 +227636,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-04T01:29:16Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-05T13:43:10Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -261643,8 +261786,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2190,
-    "live_count": 24,
+    "surfaced_total": 2193,
+    "live_count": 27,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
