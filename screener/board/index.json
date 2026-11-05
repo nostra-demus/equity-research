@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T12:18:18Z",
+  "generated_at": "2026-11-05T12:21:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20261105-476",
@@ -781,6 +781,61 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261105-528",
+      "headline": "Marvell to buy Lumentum in $115 billion all-stock deal",
+      "headline_en": null,
+      "url": "https://www.tomshardware.com/tech-industry/semiconductors/marvell-to-buy-lumentum-in-usd115-billion-all-stock-deal-combined-company-to-supply-scale-up-and-scale-in-optics-for-ai-data-centers",
+      "source_name": "Tom's Hardware",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T12:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Marvell announces $115 billion all-stock acquisition of Lumentum; material shareholder dilution for acquirer, integration risk, premium gain for target.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Marvell announces $115 billion all-stock acquisition of Lumentum; material shareholder dilution for acquirer, integration risk, premium gain for target.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Marvell Technology",
+          "ticker": "MRVL",
+          "listing_country": "US"
+        },
+        {
+          "name": "Lumentum Holdings",
+          "ticker": "LITE",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1941,57 +1996,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-219",
-      "headline": "CoreCivic, Inc. Reports Third Quarter 2026 Results, $2.2 billion Facility Sales, and $500.0 million Share Repurchase Program Expansion",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/corecivic-inc-reports-third-quarter-2026-results-22-billion-facility-sales-and-5000",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T03:58:25Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "CoreCivic reported Q3 results, announced $2.2 billion in facility sales, and expanded its share repurchase program by $500 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "CoreCivic reported Q3 results, announced $2.2 billion in facility sales, and expanded its share repurchase program by $500 million.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "mna",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CoreCivic, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -261439,9 +261443,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4794639,
-    "news_picked_today": 812,
-    "news_dropped_today": 15556
+    "news_seen_today": 4815740,
+    "news_picked_today": 823,
+    "news_dropped_today": 15593
   },
   "book_momentum": {
     "live_count": 8,
