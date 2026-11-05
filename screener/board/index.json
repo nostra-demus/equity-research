@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-05T00:41:12Z",
+  "generated_at": "2026-11-05T00:50:12Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261105-037",
+      "headline": "HUSCOKE HLDGS (00704): INSIDE INFORMATION NOTICE OF DEFAULT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1105/2026110500121.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-05T00:06:00Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "HusCoke Holdings disclosed a notice of default to the Hong Kong Exchange, a going-concern and solvency event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "HusCoke Holdings disclosed a notice of default to the Hong Kong Exchange, a going-concern and solvency event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 88,
+      "rank_factors": {
+        "materiality": 88,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HusCoke Holdings",
+          "ticker": "00704",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261105-005",
       "headline": "Lloyds Metals And Energy Limited: Approval for Setting up of 360 MW Thermal Power Plant by the Company at Konsari, Maharashtra",
@@ -43,6 +92,55 @@
           "name": "Lloyds Metals and Energy Limited",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261105-038",
+      "headline": "CLOUDBREAK-B (02592): VOLUNTARY ANNOUNCEMENT - BUSINESS UPDATE IN RELATION TO THE TOPLINE RESULTS FROM THE PHASE 3 STUDY OF CBT-001 IN PATIENTS WITH PTERYGIUM",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1105/2026110500119.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-05T00:02:00Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Cloudbreak announced Phase 3 topline results for drug candidate CBT-001 in pterygium via Hong Kong Exchange voluntary disclosure; outcome not stated in headline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Cloudbreak announced Phase 3 topline results for drug candidate CBT-001 in pterygium via Hong Kong Exchange voluntary disclosure; outcome not stated in headline.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 76,
+      "rank_factors": {
+        "materiality": 76,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cloudbreak",
+          "ticker": "02592",
+          "listing_country": "HK"
         }
       ],
       "size_bucket": "unknown",
@@ -149,6 +247,155 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261105-044",
+      "headline": "Vermilion Energy Inc. Reports Q3 2026 Results and Approves 2027 E&D Capital Budget of $675 to $725 million",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/vermilion-energy-inc-reports-q3-2026-results-and-approves-2027-ed-capital-budget-675-725",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-04T23:41:44Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Reports Q3 results and sets a specific 2027 capital expenditure budget of $675 to $725 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Reports Q3 results and sets a specific 2027 capital expenditure budget of $675 to $725 million.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vermilion Energy Inc.",
+          "ticker": "VET",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261105-048",
+      "headline": "NAB warns of economic crunch as bad loan risk rises",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/financial-services/nab-lifts-credit-charges-cash-profit-down-13pc-amid-economic-pressure-20261105-p61bey?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-04T23:36:55Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Major bank warns of rising bad loan risks and an economic crunch, signaling credit quality deterioration.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Major bank warns of rising bad loan risks and an economic crunch, signaling credit quality deterioration.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "macro_sector",
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "National Australia Bank",
+          "ticker": "NAB",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261105-042",
+      "headline": "GOLDENPOWER (03919): RIGHTS ISSUE ON THE BASIS OF ONE RIGHTS SHARE FOR EVERY TWO EXISTING SHARES HELD ON THE RECORD DATE ON A NON-UNDERWRITTEN BASIS",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1105/2026110500022.htm",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-04T22:10:00Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Rights issue 1-for-2 basis announced; 50% shareholder dilution, quantified and non-underwritten.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Rights issue 1-for-2 basis announced; 50% shareholder dilution, quantified and non-underwritten.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 68,
+      "rank_factors": {
+        "materiality": 68,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 2,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Golden Power",
+          "ticker": "03919",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261105-036",
       "headline": "Signpost India Limited: Signpost India Limited has informed the Exchange regarding a press release dated November 03, 2026, titled \"Signpost India s H1 FY27 profit rises 11% to Rs. 34.5 crore; operating cash flow triples to Rs. 61.4 crore.\"",
       "headline_en": null,
@@ -247,6 +494,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261105-053",
+      "headline": "Manulife Q3 Profit Falls 22%; Core Earnings Rise 4%",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/manulife-q3-profit-falls-22-core-earnings-rise-4",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-04T23:22:13Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Reported a 22% fall in profit despite a 4% rise in core earnings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Reported a 22% fall in profit despite a 4% rise in core earnings.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 68,
+      "rank_factors": {
+        "materiality": 68,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Manulife Financial Corporation",
+          "ticker": "MFC",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261105-003",
       "headline": "DSBJ (02384): VOLUNTARY ANNOUNCEMENT CONTROLLING SHAREHOLDERS' PROPOSAL ON SHAREHOLDER RETURNS FOR THE NEXT THREE YEARS",
       "headline_en": null,
@@ -291,6 +587,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261105-046",
+      "headline": "Freshpet, Inc. Reports Third Quarter 2026 Financial Results",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/freshpet-inc-reports-third-quarter-2026-financial-results",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-04T23:41:34Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Official release of Q3 2026 financial results.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Official release of Q3 2026 financial results.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Freshpet, Inc.",
+          "ticker": "FRPT",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -438,6 +783,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261105-045",
+      "headline": "German American Bancorp, Inc. Details 3rd Quarter 2026 Financial Results",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/german-american-bancorp-inc-details-3rd-quarter-2026-financial-results",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-04T23:41:43Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "Official release of Q3 2026 financial results for a regional bank.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 79,
+      "triage_reason": "Official release of Q3 2026 financial results for a regional bank.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "German American Bancorp, Inc.",
+          "ticker": "GABC",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -835,50 +1229,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261105-022",
-      "headline": "424B5 - DigitalOcean Holdings, Inc. (0001582961) (Filer)",
+      "inbox_id": "INB-20261105-041",
+      "headline": "MANULIFE-S (00945): Manulife Financial Corporation reported its third quarter results for the period ended September 30, 2026",
       "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1582961/000110465926121722/0001104659-26-121722-index.htm",
-      "source_name": "SEC EDGAR — Latest 424B5 (Shelf Offering Final Prospectus)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-03T14:15:23Z",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1105/2026110500097.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-04T23:26:00Z",
       "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "DigitalOcean filed a shelf offering prospectus for potential future capital raising.",
+      "prelim_note": "Manulife Q3 2026 results reported; no quantitative data or direction in headline.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 66,
-      "triage_reason": "DigitalOcean filed a shelf offering prospectus for potential future capital raising.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
+      "triage_score": 65,
+      "triage_reason": "Manulife Q3 2026 results reported; no quantitative data or direction in headline.",
+      "region": "GLOBAL",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
       "rank_factors": {
-        "materiality": 50,
+        "materiality": 40,
         "source_tier": 8,
         "scope": 6,
-        "event": 0,
+        "event": 5,
         "size": 2,
-        "recency": 0,
+        "recency": 4,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "large"
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
       },
       "event_types": [
-        "capital_actions"
+        "earnings_revenue_margin"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "DigitalOcean Holdings, Inc.",
-          "ticker": null,
-          "listing_country": "US"
+          "name": "Manulife Financial Corporation",
+          "ticker": "00945",
+          "listing_country": "HK"
         }
       ],
-      "size_bucket": "large",
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -928,6 +1322,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261105-039",
+      "headline": "NAB: NAB 2026 Full Year Results email to shareholders",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NAB?key=2924-03158356-3A705875",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-04T23:51:05Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "NAB full-year earnings announced; no quantitative data, guidance, or direction in headline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 64,
+      "triage_reason": "NAB full-year earnings announced; no quantitative data, guidance, or direction in headline.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 38,
+      "rank_factors": {
+        "materiality": 38,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "National Australia Bank",
+          "ticker": "NAB",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1423,6 +1866,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261105-063",
+      "headline": "SCHEDULE 13D/A - Zage George Raymond III (0001833678) (Filed by)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1833678/000114036126041991/0001140361-26-041991-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-05T00:34:08Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "George Raymond Zage III filed an amended Schedule 13D ownership disclosure filing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 60,
+      "triage_reason": "George Raymond Zage III filed an amended Schedule 13D ownership disclosure filing.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 35,
+      "rank_factors": {
+        "materiality": 35,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261105-023",
       "headline": "Surveillance measure in respect of companies with high promoter pledge",
       "headline_en": null,
@@ -1458,293 +1944,6 @@
       "event_types": [
         "regulatory"
       ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-029",
-      "headline": "SHANGHAI XNG (03666): TERMINATION OF THE CAPITAL REORGANISATION; AND CONTINUATION OF THE PROPOSED CHANGE OF COMPANY NAME",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1103/2026110302433.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-03T13:59:00Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Shanghai XNG terminated a capital reorganization plan.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 59,
-      "triage_reason": "Shanghai XNG terminated a capital reorganization plan.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SHANGHAI XNG",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-019",
-      "headline": "Lupin Limited: Lupin Limited has informed the Exchange regarding a press release dated November 03, 2026, titled \"Lupin Launches Raltegravir Tablets, USP, 600 mg in the United States\".",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/Lupin2_03112026193332_SEletterpressrelease.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-03T14:04:01Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Lupin announces US generic raltegravir launch, a real product event; routine for pharma sector, likely already in consensus unless exclusive (no exclusivity stated), no numbers provided.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 58,
-      "triage_reason": "Lupin announces US generic raltegravir launch, a real product event; routine for pharma sector, likely already in consensus unless exclusive (no exclusivity stated), no numbers provided.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 42,
-      "rank_factors": {
-        "materiality": 42,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lupin Limited",
-          "ticker": "LUPIN",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-010",
-      "headline": "4 - CONSTELLIUM SE (0001563411) (Issuer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1563411/000156341126000202/0001563411-26-000202-index.htm",
-      "source_name": "SEC EDGAR — Latest Filings, Form 4 (insider transactions)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-03T14:34:19Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Routine insider transaction filing.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 48,
-      "triage_reason": "Routine insider transaction filing.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 30,
-      "rank_factors": {
-        "materiality": 30,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "insider_transaction",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "insider_transaction"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Constellium SE",
-          "ticker": "CSTM",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-030",
-      "headline": "Suyog Telematics Limited: Suyog Telematics Limited has informed the Exchange regarding Appointment of Mr. Pankaj Mehta as Non- Executive Independent Director of the company w.e.f. December 01, 2026.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/SUYOG_03112026192930_OutcomeofBM03112026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-03T13:59:46Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Suyog Telematics appointed a new independent director.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "Suyog Telematics appointed a new independent director.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 30,
-      "rank_factors": {
-        "materiality": 30,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Suyog Telematics Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-009",
-      "headline": "4 - Deslarzes Jean-Christophe (0002092745) (Reporting)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/2092745/000156341126000202/0001563411-26-000202-index.htm",
-      "source_name": "SEC EDGAR — Latest Filings, Form 4 (insider transactions)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-03T14:34:19Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Routine insider transaction filing.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 46,
-      "triage_reason": "Routine insider transaction filing.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 30,
-      "rank_factors": {
-        "materiality": 30,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "insider_transaction",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "insider_transaction"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Deslarzes Jean-Christophe",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-001",
-      "headline": "GSPL Transmission Limited: GSPL Transmission Limited has informed the Exchange regarding 'the Board of Directors of the Company at its Meeting held today, i.e. Tuesday, 3rd November, 2026, has, inter-alia, consideredand approved the request received from GSEG for reclassification from the category of 'Promoter' to the 'Public Shareholder', subject to compliance with the requirements of Regulation 31A of the SEBI Listing Regulations.'.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/GSPLTRANS_03112026203706_Reg31AConsiderationOfRequestByBoardReclassificationRequest.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-03T15:07:14Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "not material",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 45,
-      "triage_reason": "not material",
-      "region": "IN",
-      "relevance": "irrelevant",
-      "materiality_pre_score": 35,
-      "rank_factors": {
-        "materiality": 35,
-        "source_tier": 8,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [],
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
@@ -265075,7 +265274,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4483,
+    "inbox_unconsumed": 4487,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -265084,9 +265283,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 189268,
-    "news_picked_today": 36,
-    "news_dropped_today": 756
+    "news_seen_today": 243034,
+    "news_picked_today": 63,
+    "news_dropped_today": 801
   },
   "book_momentum": {
     "live_count": 8,
