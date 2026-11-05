@@ -1,0 +1,79 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-11-05T06:02:09Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-b30a77d203d3",
+    "idea_version": "IDEAV-39d0930379bf6c2f",
+    "idea_version_started_at": "2026-11-02T02:34:40Z",
+    "ticker": "1094",
+    "company": "Cherish Sun",
+    "exchange": "HKEX",
+    "ticker_verified": false,
+    "listing_verified": false,
+    "liquidity_verified": false,
+    "listing_verification_source": null,
+    "direction": "short",
+    "pair_with": null,
+    "reason": "A proposed change of auditor and a notice for a special general meeting often signal underlying accounting disagreements or governance risks.",
+    "why_now": "The formal notice of the auditor change and SGM was filed on November 1, 2026.",
+    "conviction": 45,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 45,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 25,
+      "impact": 14,
+      "specificity": 7,
+      "timing": 10,
+      "expression": 0,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "watch_only",
+    "missing_checks": [
+      "verified listed ticker",
+      "verified listing",
+      "live liquidity",
+      "dated catalyst",
+      "price and market expectations",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "unknown",
+    "thesis_type": "governance_turnaround",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-060afe40a8a4"
+    ],
+    "primary_source_event_id": "EVT-060afe40a8a4",
+    "source_headlines": [
+      "CHERISH SUN (01094): PROPOSED CHANGE OF AUDITOR AND NOTICE OF SPECIAL GENERAL MEETING"
+    ],
+    "source_headline": "CHERISH SUN (01094): PROPOSED CHANGE OF AUDITOR AND NOTICE OF SPECIAL GENERAL MEETING",
+    "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1102/2026110200005.pdf",
+    "source_name": "HKEXnews (HK Exchange Filing)",
+    "materiality_max": 91,
+    "newest_source_at": "2026-11-01T22:08:00Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-11-02T02:34:40Z",
+    "updated_at": "2026-11-02T02:34:40Z",
+    "decay_at": "2026-11-03T10:08:00Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}

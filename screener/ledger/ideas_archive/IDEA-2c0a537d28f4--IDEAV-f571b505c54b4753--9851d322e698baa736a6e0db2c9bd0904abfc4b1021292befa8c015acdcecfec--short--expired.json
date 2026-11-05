@@ -1,0 +1,79 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-11-05T06:02:09Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-2c0a537d28f4",
+    "idea_version": "IDEAV-f571b505c54b4753",
+    "idea_version_started_at": "2026-11-01T19:26:17Z",
+    "ticker": "2070",
+    "company": "SPIMACO",
+    "exchange": "TSE",
+    "ticker_verified": false,
+    "listing_verified": false,
+    "liquidity_verified": false,
+    "listing_verification_source": null,
+    "direction": "short",
+    "pair_with": null,
+    "reason": "The CFO confirmed Q3 losses are being driven by a combination of declining sales and increased provisioning, suggesting deteriorating credit or operational quality.",
+    "why_now": "The specific driver of the loss was clarified by management on November 1, 2026.",
+    "conviction": 60,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 45,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 19,
+      "specificity": 7,
+      "timing": 10,
+      "expression": 0,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "watch_only",
+    "missing_checks": [
+      "verified listed ticker",
+      "verified listing",
+      "live liquidity",
+      "dated catalyst",
+      "independent confirmation",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-1e53b69965fd"
+    ],
+    "primary_source_event_id": "EVT-1e53b69965fd",
+    "source_headlines": [
+      "‎SPIMACO’s Q3 loss driven by lower sales, higher provisions: CFO"
+    ],
+    "source_headline": "‎SPIMACO’s Q3 loss driven by lower sales, higher provisions: CFO",
+    "source_url": "https://www.argaam.com/en/article/articledetail/id/1949199",
+    "source_name": "Argaam — Main News (English)",
+    "materiality_max": 100,
+    "newest_source_at": "2026-11-01T19:20:00Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-11-01T19:26:17Z",
+    "updated_at": "2026-11-01T19:26:17Z",
+    "decay_at": "2026-11-03T07:20:00Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}
