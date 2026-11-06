@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-06T14:36:25Z",
+  "generated_at": "2026-11-06T14:50:36Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261106-689",
+      "headline": "25-NSE - PROCTER & GAMBLE Co (0000080424) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/80424/000087666126000894/0000876661-26-000894-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-06T14:04:48Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "SEC Form 25-NSE notifies delisting of Procter & Gamble from NYSE; if accurate, delisting of a mega-cap blue-chip is extraordinary and requires immediate verification.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SEC Form 25-NSE notifies delisting of Procter & Gamble from NYSE; if accurate, delisting of a mega-cap blue-chip is extraordinary and requires immediate verification.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Procter & Gamble Co",
+          "ticker": "PG",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261106-644",
       "headline": "JOHNSON HLDGS (01955): Profit Warning",
@@ -1923,56 +1972,6 @@
       "companies": [
         {
           "name": "Innodata Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-554",
-      "headline": "Corsair Gaming, Inc. Reports Q3 2026 Net Revenue of $367.0 million and Raises Full-Year Outlook",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/corsair-gaming-inc-reports-q3-2026-net-revenue-3670-million-and-raises-full-year-outlook",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T10:18:32Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Q3 2026 net revenue of $367.0 million with full-year outlook raised demonstrates market-beating execution.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Q3 2026 net revenue of $367.0 million with full-year outlook raised demonstrates market-beating execution.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 82,
-      "rank_factors": {
-        "materiality": 82,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Corsair Gaming, Inc.",
           "ticker": null,
           "listing_country": "US"
         }
@@ -263676,9 +263675,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2816492,
-    "news_picked_today": 1362,
-    "news_dropped_today": 16230
+    "news_seen_today": 2879100,
+    "news_picked_today": 1372,
+    "news_dropped_today": 16484
   },
   "book_momentum": {
     "live_count": 8,
