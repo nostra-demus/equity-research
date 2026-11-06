@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-06T20:57:46Z",
+  "generated_at": "2026-11-06T20:58:46Z",
   "inbox": [
     {
       "inbox_id": "INB-20261106-816",
@@ -1299,6 +1299,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261106-878",
+      "headline": "DraftKings Lost 28% in One Morning and Elizabeth Warren Is Already Probing the Product It Bet Everything On",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/11/06/draftkings-lost-28-in-one-morning-and-elizabeth-warren-is-already-probing-the-product-it-bet-everything-on/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T20:25:50Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "DraftKings stock fell 28% following news of a probe by Elizabeth Warren into its core product.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "DraftKings stock fell 28% following news of a probe by Elizabeth Warren into its core product.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DraftKings",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-872",
+      "headline": "Bosch reports 19% jump in Q2 PAT to Rs 840 crore, revenue rises 28.2%",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/business/companies/bosch-reports-19-jump-in-q2-pat-to-rs-840-crore-revenue-rises-282-4210632",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T20:10:22Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Bosch reported a 19% increase in Q2 PAT to Rs 840 crore and a 28.2% revenue increase.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bosch reported a 19% increase in Q2 PAT to Rs 840 crore and a 28.2% revenue increase.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bosch",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261106-869",
       "headline": "Alphabet’s Drone Unit to Invest Up to $125 Million in New Texas Facility",
       "headline_en": null,
@@ -1895,109 +1993,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-865",
-      "headline": "Fox bought Roku",
-      "headline_en": null,
-      "url": "https://www.theverge.com/streaming/1028629/fox-roku-acquisition-close",
-      "source_name": "The Verge",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T15:00:56Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Fox has acquired Roku, a major media and technology M&A event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Fox has acquired Roku, a major media and technology M&A event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Fox Corporation",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Roku",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-866",
-      "headline": "Pfizer to build $650M manufacturing technology center in Connecticut",
-      "headline_en": null,
-      "url": "https://www.manufacturingdive.com/news/pfizer-650m-manufacturing-technology-center-connecticut/873918/",
-      "source_name": "Manufacturing Dive",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T15:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Pfizer is investing $650 million to build a new manufacturing technology center in Connecticut.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Pfizer is investing $650 million to build a new manufacturing technology center in Connecticut.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Pfizer",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -263907,9 +263902,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3715787,
-    "news_picked_today": 1950,
-    "news_dropped_today": 23898
+    "news_seen_today": 3723612,
+    "news_picked_today": 1961,
+    "news_dropped_today": 23911
   },
   "book_momentum": {
     "live_count": 8,
