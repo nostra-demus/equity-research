@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-06T08:40:57Z",
+  "generated_at": "2026-11-06T08:52:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20261106-456",
@@ -1892,6 +1892,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261106-492",
+      "headline": "Tech Mahindra Limited: Tech Mahindra Limited has informed the Exchange about Acquisition",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/Apekshakhemka_06112026135439_Pininfarina__SE_Intimation_of_commitment_to_Tender_Final_S.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-06T08:25:05Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "M&A transaction announced by Tech Mahindra; no target identity, deal value, structure, or strategic rationale disclosed in headline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "M&A transaction announced by Tech Mahindra; no target identity, deal value, structure, or strategic rationale disclosed in headline.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tech Mahindra Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261106-422",
       "headline": "Kia to invest 3 tln won in Gwangju to build PBV mobility ecosystem by 2029",
       "headline_en": null,
@@ -1936,49 +1985,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-345",
-      "headline": "War on the weekend? Strategist’s startling Iran warning",
-      "headline_en": null,
-      "url": "https://www.afr.com/chanticleer/war-on-the-weekend-strategist-s-startling-iran-warning-20261106-p61c2c?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T02:54:37Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Geopolitical warnings regarding Iran represent a potential supply shock and regional conflict escalation risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Geopolitical warnings regarding Iran represent a potential supply shock and regional conflict escalation risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -264032,9 +264038,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1332212,
-    "news_picked_today": 902,
-    "news_dropped_today": 10522
+    "news_seen_today": 1377741,
+    "news_picked_today": 919,
+    "news_dropped_today": 10553
   },
   "book_momentum": {
     "live_count": 8,
