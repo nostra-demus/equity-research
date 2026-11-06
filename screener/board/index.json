@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T23:52:51Z",
+  "generated_at": "2026-11-05T23:59:57Z",
   "inbox": [
     {
       "inbox_id": "INB-20261105-827",
@@ -1676,6 +1676,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261105-833",
+      "headline": "China blocks SoftBank's $5.4bn deal for ABB robotics division",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/business-deals/china-blocks-softbank-s-5.4bn-deal-for-abb-robotics-division",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T23:36:54Z",
+      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
+      "prelim_note": "China blocked SoftBank's $5.4 billion acquisition of an ABB robotics division, effectively killing the deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "China blocked SoftBank's $5.4 billion acquisition of an ABB robotics division, effectively killing the deal.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SoftBank Group",
+          "ticker": null,
+          "listing_country": "JP"
+        },
+        {
+          "name": "ABB",
+          "ticker": null,
+          "listing_country": "CH"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261105-811",
       "headline": "TC Energy Corporation Reports Third Quarter 2026 Results and Revises 2026 Outlook",
       "headline_en": null,
@@ -1923,55 +1977,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261105-781",
-      "headline": "Hertz Shares Plunge as Car Renter Warns It’s Running Low on Cash",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/hertz-shares-plunge-as-car-renter-warns-it-s-running-low-on-cash-11793905693517.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T19:08:13Z",
-      "sweep_file": "screener/inbox/2026-11-05_sweep.json",
-      "prelim_note": "Hertz warned it is running low on cash, signaling severe liquidity distress.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Hertz warned it is running low on cash, signaling severe liquidity distress.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hertz",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -262265,9 +262270,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7515127,
-    "news_picked_today": 1713,
-    "news_dropped_today": 30183
+    "news_seen_today": 7529199,
+    "news_picked_today": 1726,
+    "news_dropped_today": 30242
   },
   "book_momentum": {
     "live_count": 8,
