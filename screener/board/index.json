@@ -1,6 +1,60 @@
 {
-  "generated_at": "2026-11-06T19:23:27Z",
+  "generated_at": "2026-11-06T19:29:25Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261106-816",
+      "headline": "Tata Motors Limited: Tata Motors Limited has informed the Exchange regarding a press release dated November 07, 2026, titled \"TML CV Holdings B.V., an Indirect Wholly Owned Subsidiary of Tata Motors Limited (formerly TML Commercial Vehicles Limited) ( the Company ) Voluntary Totalitarian Tender Offer for all the common shares of Iveco Group N.V.\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/TMLCOMMERCIAL_07112026002910_final.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-06T19:00:48Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Tata Motors subsidiary has launched a voluntary tender offer for all common shares of Iveco Group N.V.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tata Motors subsidiary has launched a voluntary tender offer for all common shares of Iveco Group N.V.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Motors Limited",
+          "ticker": "TATAMOTORS",
+          "listing_country": "IN"
+        },
+        {
+          "name": "Iveco Group N.V.",
+          "ticker": "IVG",
+          "listing_country": "IT"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261106-725",
       "headline": "AJR INFRA AND TOLLING LIMITED: AJR INFRA AND TOLLING LIMITED has informed the Exchange about Approved the Acquisition of 100% equity stake in Rajahmundry Expressway Private Limited ( REPL ), resulting REPL to become a Wholly-Owned Subsidiary of the Company.",
@@ -1934,56 +1988,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-679",
-      "headline": "Moderna Turns To Q3 Profit, Revenue Rises 29%; Raises Annual Revenue Growth Outlook",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/moderna-turns-q3-profit-revenue-rises-29-raises-annual-revenue-growth-outlook",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T13:50:53Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Moderna reported Q3 profit, 29% revenue growth, and raised annual revenue guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Moderna reported Q3 profit, 29% revenue growth, and raised annual revenue guidance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Moderna",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -263828,9 +263832,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3555949,
-    "news_picked_today": 1754,
-    "news_dropped_today": 22006
+    "news_seen_today": 3574711,
+    "news_picked_today": 1756,
+    "news_dropped_today": 22076
   },
   "book_momentum": {
     "live_count": 8,
