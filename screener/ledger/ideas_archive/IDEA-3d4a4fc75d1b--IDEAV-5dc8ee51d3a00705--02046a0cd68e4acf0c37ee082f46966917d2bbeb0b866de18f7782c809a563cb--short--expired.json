@@ -1,29 +1,29 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-10-23T04:16:07Z",
+  "archived_at": "2026-11-06T01:05:07Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-ce1429be5073",
-    "idea_version": "IDEAV-97aefb9f10f608e3",
-    "idea_version_started_at": "2026-10-20T04:00:57Z",
-    "ticker": "K71U",
-    "company": "Keppel Reit",
-    "exchange": "SGX",
+    "idea_id": "IDEA-3d4a4fc75d1b",
+    "idea_version": "IDEAV-5dc8ee51d3a00705",
+    "idea_version_started_at": "2026-11-03T03:42:49Z",
+    "ticker": "ARSHIYA",
+    "company": "Arshiya Limited",
+    "exchange": "NSE",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
-    "direction": "long",
+    "direction": "short",
     "pair_with": null,
-    "reason": "The acquisition of a 51% stake in Keppel South Central for $610.9 million increases the REIT's exposure to high-quality office assets and is accretive to its portfolio.",
-    "why_now": "The deal was announced on 2026-10-20, providing immediate clarity on capital deployment.",
-    "conviction": 70,
+    "reason": "The company has entered the Corporate Insolvency Resolution Process, signaling severe financial distress and likely equity wipeout.",
+    "why_now": "The filing was made on 2026-11-03, making this a live insolvency event.",
+    "conviction": 90,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
-      "evidence": 14,
-      "impact": 19,
+      "evidence": 25,
+      "impact": 21,
       "specificity": 7,
       "timing": 10,
       "expression": 0,
@@ -36,7 +36,6 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
-      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -49,30 +48,30 @@
       "evidenceIds": []
     },
     "priced_in": "room",
-    "thesis_type": "company_specific",
+    "thesis_type": "balance_sheet_survival",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-2b39d07ccc39"
+      "EVT-86f11fa7affa"
     ],
-    "primary_source_event_id": "EVT-2b39d07ccc39",
+    "primary_source_event_id": "EVT-86f11fa7affa",
     "source_headlines": [
-      "Keppel Reit to buy 51% stake in Keppel South Central for $610.9 million"
+      "Arshiya Limited: Arshiya Limited has informed the Exchange about Corporate Insolvency Resolution Process"
     ],
-    "source_headline": "Keppel Reit to buy 51% stake in Keppel South Central for $610.9 million",
-    "source_url": "https://www.straitstimes.com/business/keppel-reit-to-buy-51-stake-in-keppel-south-central-for-610-9-million",
-    "source_name": "The Straits Times",
+    "source_headline": "Arshiya Limited: Arshiya Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+    "source_url": "https://nsearchives.nseindia.com/corporate/ARSHIYA_03112026062629_AL_19th_CoC_Meeting_Uploaded.pdf",
+    "source_name": "BSE / NSE Exchange Filing",
     "materiality_max": 100,
-    "newest_source_at": "2026-10-20T01:03:00Z",
+    "newest_source_at": "2026-11-03T00:56:47Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-10-20T04:00:57Z",
-    "updated_at": "2026-10-20T04:00:57Z",
-    "decay_at": "2026-10-21T13:03:00Z",
+    "surfaced_at": "2026-11-03T03:42:49Z",
+    "updated_at": "2026-11-03T03:42:49Z",
+    "decay_at": "2026-11-04T12:56:47Z",
     "status": "live",
     "promoted_signal_id": null
   }
