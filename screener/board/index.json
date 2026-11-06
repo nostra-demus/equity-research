@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-06T02:59:44Z",
+  "generated_at": "2026-11-06T03:03:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20261106-072",
@@ -1752,6 +1752,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261106-315",
+      "headline": "‎MESC subsidiary secures AED 234M in banking facilities",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1951012",
+      "source_name": "Argaam — Company Disclosures (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T21:02:00Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "MESC subsidiary secured AED 234M in new banking facilities, improving liquidity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "MESC subsidiary secured AED 234M in new banking facilities, improving liquidity.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Middle East Specialized Cables",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261106-104",
       "headline": "China’s block on SoftBank deal fires the starting gun on the robot wars",
       "headline_en": null,
@@ -1895,55 +1944,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-131",
-      "headline": "Airbnb raises revenue growth forecast, fueled by global demand, corporate travel",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/world/article-airbnb-raises-revenue-growth-forecast/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T00:31:46Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Airbnb raised its revenue growth forecast due to strong demand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Airbnb raised its revenue growth forecast due to strong demand.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Airbnb",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -263934,9 +263934,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 522711,
-    "news_picked_today": 412,
-    "news_dropped_today": 2084
+    "news_seen_today": 534444,
+    "news_picked_today": 424,
+    "news_dropped_today": 2120
   },
   "book_momentum": {
     "live_count": 8,
