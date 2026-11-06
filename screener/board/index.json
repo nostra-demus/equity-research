@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-06T09:38:57Z",
+  "generated_at": "2026-11-06T09:45:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20261106-456",
@@ -1941,51 +1941,51 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261106-505",
-      "headline": "GOGOX (02246): (1) MAJOR TRANSACTION DISPOSAL OF A SUBSIDIARY ; (2) PROPOSED CHANGE OF COMPANY NAME AND (3) NOTICE OF EXTRAORDINARY GENERAL MEETING",
+      "inbox_id": "INB-20261106-506",
+      "headline": "West Coast Paper Mills Limited: West Coast Paper Mills Limited has informed the Exchange regarding a press release dated November 06, 2026, titled \"Press Release on Unaudited Financial Results for the Quarter and Half year ended on 30th September 2026 and additional capacity expansion of Optical Fiber and Optical Fiber Cable of West Coast Optilinks, a division of West Coast Paper Mills Limited.\".",
       "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1106/2026110600388.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
+      "url": "https://nsearchives.nseindia.com/corporate/WSTCSTPAPR_06112026150124_PressReleaseSixNovTwentySix.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-11-06T08:30:00Z",
+      "found_at": "2026-11-06T09:31:36Z",
       "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Major transaction announced to dispose of a subsidiary, with proposed company name change and EGM notice; no disposal price, subsidiary size, or financial impact disclosed.",
+      "prelim_note": "West Coast Paper Mills reported financial results and announced a capacity expansion for its optical fiber division.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 99,
-      "triage_reason": "Major transaction announced to dispose of a subsidiary, with proposed company name change and EGM notice; no disposal price, subsidiary size, or financial impact disclosed.",
-      "region": "CN",
+      "triage_reason": "West Coast Paper Mills reported financial results and announced a capacity expansion for its optical fiber division.",
+      "region": "IN",
       "relevance": "material",
-      "materiality_pre_score": 72,
+      "materiality_pre_score": 75,
       "rank_factors": {
-        "materiality": 72,
+        "materiality": 75,
         "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
         "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "multi_name",
+        "scope_id": "single_name",
         "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
+        "event_id": "capex",
+        "size_bucket": "small"
       },
       "event_types": [
-        "mna",
-        "capital_actions"
+        "earnings_revenue_margin",
+        "capex"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "GoGoX",
-          "ticker": "02246",
-          "listing_country": "HK"
+          "name": "West Coast Paper Mills Limited",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
-      "size_bucket": "unknown",
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -264039,9 +264039,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1551628,
-    "news_picked_today": 970,
-    "news_dropped_today": 11198
+    "news_seen_today": 1587019,
+    "news_picked_today": 984,
+    "news_dropped_today": 11304
   },
   "book_momentum": {
     "live_count": 8,
