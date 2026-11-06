@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-06T21:40:01Z",
+  "generated_at": "2026-11-06T21:50:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20261106-816",
@@ -1299,6 +1299,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261106-882",
+      "headline": "US Treasury cuts off MEXC over alleged $16B in illicit transactions",
+      "headline_en": null,
+      "url": "https://cointelegraph.com/news/us-treasury-bans-mexc-over-alleged-16b-illicit-transactions?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source_name": "Cointelegraph",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T21:05:25Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "US Treasury cut off MEXC over alleged $16B in illicit transactions, a major regulatory enforcement action.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "US Treasury cut off MEXC over alleged $16B in illicit transactions, a major regulatory enforcement action.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MEXC",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261106-878",
       "headline": "DraftKings Lost 28% in One Morning and Elizabeth Warren Is Already Probing the Product It Bet Everything On",
       "headline_en": null,
@@ -1941,55 +1991,6 @@
           "name": "ABB",
           "ticker": null,
           "listing_country": "CH"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-860",
-      "headline": "Marvell Is Betting $115 Billion on 1 of AI's Biggest Bottlenecks",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/11/06/marvell-is-betting-115-billion-on-1-of-ais-biggest/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T15:45:00Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Marvell is committing $115 billion in capital investment to address AI infrastructure bottlenecks.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Marvell is committing $115 billion in capital investment to address AI infrastructure bottlenecks.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Marvell Technology",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -223016,77 +223017,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-be33721eeb33",
-      "idea_version": "IDEAV-0850ca6888da3a39",
-      "idea_version_started_at": "2026-11-05T13:42:59Z",
-      "ticker": "AMKBY",
-      "company": "A.P. Møller - Mærsk A/S",
-      "exchange": "OTC Markets",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Disappointing earnings and guidance suggest that the recent tailwinds in global container shipping rates are fading faster than anticipated, pressuring margins.",
-      "why_now": "The earnings release and guidance downgrade occurred on November 5, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "sector_cycle",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c11893d946ff"
-      ],
-      "primary_source_event_id": "EVT-c11893d946ff",
-      "source_headlines": [
-        "Maersk Shares Tumble After Earnings, Guidance Disappoint"
-      ],
-      "source_headline": "Maersk Shares Tumble After Earnings, Guidance Disappoint",
-      "source_url": "https://www.wsj.com/business/logistics/maersk-raises-guidance-again-on-higher-freight-rates-and-resilient-demand-12a571b0?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-05T09:41:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-05T13:42:59Z",
-      "updated_at": "2026-11-05T13:42:59Z",
-      "decay_at": "2026-11-06T21:41:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-89ae39c7d833",
       "idea_version": "IDEAV-f0f68e729880d19c",
       "idea_version_started_at": "2026-11-06T20:30:17Z",
@@ -224521,77 +224451,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-c2db97ac8f36",
-      "idea_version": "IDEAV-2f613abcdc9f307e",
-      "idea_version_started_at": "2026-11-05T13:42:59Z",
-      "ticker": "PETRONET",
-      "company": "Petronet LNG Limited",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company faces a Rs. 625 crore claim related to idle LNG ships, which will likely impact short-term cash flow and increase legal uncertainty.",
-      "why_now": "The disclosure of the claim and ongoing negotiations was filed on November 5, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ccc17ed4ac5a"
-      ],
-      "primary_source_event_id": "EVT-ccc17ed4ac5a",
-      "source_headlines": [
-        "Petronet LNG Limited: Petronet LNG Limited has informed the Exchange regarding a press release dated November 03, 2026, titled \"Petronet LNG seeks early recovery of Qatar cargoes.Petronet hit with Rs. 625 cr claim over idle Qatar LNG shipsPetronet in talk with Qatar for delivery of delayed LNG cargoes\"."
-      ],
-      "source_headline": "Petronet LNG Limited: Petronet LNG Limited has informed the Exchange regarding a press release dated November 03, 2026, titled \"Petronet LNG seeks early recovery of Qatar cargoes.Petronet hit with Rs. 625 cr claim over idle Qatar LNG shipsPetronet in talk with Qatar for delivery of delayed LNG cargoes\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/PETRONET_05112026151036_pressrelease03112026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-05T09:41:54Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-05T13:42:59Z",
-      "updated_at": "2026-11-05T13:42:59Z",
-      "decay_at": "2026-11-06T21:41:54Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-537238bc1448",
       "idea_version": "IDEAV-17b1069d942ad2c2",
       "idea_version_started_at": "2026-11-05T11:07:34Z",
@@ -225292,6 +225151,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-be33721eeb33",
+      "idea_version": "IDEAV-0850ca6888da3a39",
+      "idea_version_started_at": "2026-11-05T13:42:59Z",
+      "ticker": "AMKBY",
+      "company": "A.P. Møller - Mærsk A/S",
+      "exchange": "OTC Markets",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Disappointing earnings and guidance suggest that the recent tailwinds in global container shipping rates are fading faster than anticipated, pressuring margins.",
+      "why_now": "The earnings release and guidance downgrade occurred on November 5, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "sector_cycle",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c11893d946ff"
+      ],
+      "primary_source_event_id": "EVT-c11893d946ff",
+      "source_headlines": [
+        "Maersk Shares Tumble After Earnings, Guidance Disappoint"
+      ],
+      "source_headline": "Maersk Shares Tumble After Earnings, Guidance Disappoint",
+      "source_url": "https://www.wsj.com/business/logistics/maersk-raises-guidance-again-on-higher-freight-rates-and-resilient-demand-12a571b0?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-05T09:41:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-05T13:42:59Z",
+      "updated_at": "2026-11-05T13:42:59Z",
+      "decay_at": "2026-11-06T21:41:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-c534f287a00b",
       "idea_version": "IDEAV-f1474c7e4ffcb220",
       "idea_version_started_at": "2026-11-05T06:36:43Z",
@@ -225429,6 +225359,77 @@
       "surfaced_at": "2026-11-04T10:56:26Z",
       "updated_at": "2026-11-04T10:56:26Z",
       "decay_at": "2026-11-05T20:41:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-c2db97ac8f36",
+      "idea_version": "IDEAV-2f613abcdc9f307e",
+      "idea_version_started_at": "2026-11-05T13:42:59Z",
+      "ticker": "PETRONET",
+      "company": "Petronet LNG Limited",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company faces a Rs. 625 crore claim related to idle LNG ships, which will likely impact short-term cash flow and increase legal uncertainty.",
+      "why_now": "The disclosure of the claim and ongoing negotiations was filed on November 5, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ccc17ed4ac5a"
+      ],
+      "primary_source_event_id": "EVT-ccc17ed4ac5a",
+      "source_headlines": [
+        "Petronet LNG Limited: Petronet LNG Limited has informed the Exchange regarding a press release dated November 03, 2026, titled \"Petronet LNG seeks early recovery of Qatar cargoes.Petronet hit with Rs. 625 cr claim over idle Qatar LNG shipsPetronet in talk with Qatar for delivery of delayed LNG cargoes\"."
+      ],
+      "source_headline": "Petronet LNG Limited: Petronet LNG Limited has informed the Exchange regarding a press release dated November 03, 2026, titled \"Petronet LNG seeks early recovery of Qatar cargoes.Petronet hit with Rs. 625 cr claim over idle Qatar LNG shipsPetronet in talk with Qatar for delivery of delayed LNG cargoes\".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/PETRONET_05112026151036_pressrelease03112026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-05T09:41:54Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-05T13:42:59Z",
+      "updated_at": "2026-11-05T13:42:59Z",
+      "decay_at": "2026-11-06T21:41:54Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -226594,9 +226595,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 528,
+    "total_count": 530,
     "shown_count": 500,
-    "hidden_count": 28,
+    "hidden_count": 30,
     "side_counts": {
       "long": {
         "total_count": 271,
@@ -226604,9 +226605,9 @@
         "hidden_count": 21
       },
       "short": {
-        "total_count": 257,
+        "total_count": 259,
         "shown_count": 250,
-        "hidden_count": 7
+        "hidden_count": 9
       }
     },
     "retention": {
@@ -226625,6 +226626,154 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-c2db97ac8f36",
+        "idea_version": "IDEAV-2f613abcdc9f307e",
+        "idea_version_started_at": "2026-11-05T13:42:59Z",
+        "ticker": "PETRONET",
+        "company": "Petronet LNG Limited",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company faces a Rs. 625 crore claim related to idle LNG ships, which will likely impact short-term cash flow and increase legal uncertainty.",
+        "why_now": "The disclosure of the claim and ongoing negotiations was filed on November 5, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-ccc17ed4ac5a"
+        ],
+        "primary_source_event_id": "EVT-ccc17ed4ac5a",
+        "source_headlines": [
+          "Petronet LNG Limited: Petronet LNG Limited has informed the Exchange regarding a press release dated November 03, 2026, titled \"Petronet LNG seeks early recovery of Qatar cargoes.Petronet hit with Rs. 625 cr claim over idle Qatar LNG shipsPetronet in talk with Qatar for delivery of delayed LNG cargoes\"."
+        ],
+        "source_headline": "Petronet LNG Limited: Petronet LNG Limited has informed the Exchange regarding a press release dated November 03, 2026, titled \"Petronet LNG seeks early recovery of Qatar cargoes.Petronet hit with Rs. 625 cr claim over idle Qatar LNG shipsPetronet in talk with Qatar for delivery of delayed LNG cargoes\".",
+        "source_url": "https://nsearchives.nseindia.com/corporate/PETRONET_05112026151036_pressrelease03112026.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-05T09:41:54Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-05T13:42:59Z",
+        "updated_at": "2026-11-05T13:42:59Z",
+        "decay_at": "2026-11-06T21:41:54Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-06T21:41:54Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-be33721eeb33",
+        "idea_version": "IDEAV-0850ca6888da3a39",
+        "idea_version_started_at": "2026-11-05T13:42:59Z",
+        "ticker": "AMKBY",
+        "company": "A.P. Møller - Mærsk A/S",
+        "exchange": "OTC Markets",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Disappointing earnings and guidance suggest that the recent tailwinds in global container shipping rates are fading faster than anticipated, pressuring margins.",
+        "why_now": "The earnings release and guidance downgrade occurred on November 5, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 60,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "sector_cycle",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-c11893d946ff"
+        ],
+        "primary_source_event_id": "EVT-c11893d946ff",
+        "source_headlines": [
+          "Maersk Shares Tumble After Earnings, Guidance Disappoint"
+        ],
+        "source_headline": "Maersk Shares Tumble After Earnings, Guidance Disappoint",
+        "source_url": "https://www.wsj.com/business/logistics/maersk-raises-guidance-again-on-higher-freight-rates-and-resilient-demand-12a571b0?mod=pls_whats_news_us_business_f",
+        "source_name": "The Wall Street Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-05T09:41:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-05T13:42:59Z",
+        "updated_at": "2026-11-05T13:42:59Z",
+        "decay_at": "2026-11-06T21:41:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-06T21:41:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-0d084cede79e",
         "idea_version": "IDEAV-536feaa8d0e1f8db",
@@ -263729,161 +263878,12 @@
         "archived_at": "2026-10-12T10:33:51Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-c0f022152a38",
-        "idea_version": "IDEAV-6dd0fbbf441759c0",
-        "idea_version_started_at": "2026-10-09T12:39:29Z",
-        "ticker": "SSPGY",
-        "company": "SSP Group",
-        "exchange": "LSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company warned on profits due to a decline in tourism linked to the Iran conflict, which directly impacts their airport and travel-hub retail revenue.",
-        "why_now": "The profit warning was issued on 2026-10-09, reflecting a live impact on current-quarter guidance.",
-        "conviction": 80,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-691739ca96f6"
-        ],
-        "primary_source_event_id": "EVT-691739ca96f6",
-        "source_headlines": [
-          "Upper Crust owner SSP warns on profit as Iran war hits tourism"
-        ],
-        "source_headline": "Upper Crust owner SSP warns on profit as Iran war hits tourism",
-        "source_url": "https://www.cityam.com/upper-crust-owner-ssp-warns-on-profit-as-iran-war-hits-tourism/",
-        "source_name": "City A.M.",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-09T09:45:05Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-09T12:39:29Z",
-        "updated_at": "2026-10-09T12:39:29Z",
-        "decay_at": "2026-10-10T21:45:05Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-12T10:33:51Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-4f3cb64516d2",
-        "idea_version": "IDEAV-b504373a698d491c",
-        "idea_version_started_at": "2026-10-09T23:48:51Z",
-        "ticker": "00599",
-        "company": "E. Bon Holdings",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "E. Bon Holdings issued a profit warning, indicating a likely deterioration in its financial performance.",
-        "why_now": "The profit warning was filed today, October 9, 2026, providing a clear, immediate negative catalyst.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-6f18f576b393"
-        ],
-        "primary_source_event_id": "EVT-6f18f576b393",
-        "source_headlines": [
-          "E. BON HOLDINGS (00599): PROFIT WARNING"
-        ],
-        "source_headline": "E. BON HOLDINGS (00599): PROFIT WARNING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1009/2026100900579.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-09T09:31:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-09T12:39:29Z",
-        "updated_at": "2026-10-09T23:48:51Z",
-        "decay_at": "2026-10-10T21:31:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-12T11:48:24Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2227,
-    "live_count": 40,
+    "live_count": 38,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -263902,9 +263902,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3778289,
-    "news_picked_today": 2108,
-    "news_dropped_today": 24628
+    "news_seen_today": 3786300,
+    "news_picked_today": 2121,
+    "news_dropped_today": 24999
   },
   "book_momentum": {
     "live_count": 8,
