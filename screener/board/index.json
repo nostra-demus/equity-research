@@ -1,6 +1,60 @@
 {
-  "generated_at": "2026-11-06T16:04:59Z",
+  "generated_at": "2026-11-06T16:16:53Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261106-725",
+      "headline": "AJR INFRA AND TOLLING LIMITED: AJR INFRA AND TOLLING LIMITED has informed the Exchange about Approved the Acquisition of 100% equity stake in Rajahmundry Expressway Private Limited ( REPL ), resulting REPL to become a Wholly-Owned Subsidiary of the Company.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/AJRINFRA_06112026212722_Outcome_of_Board_Meeting_06-11-2026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-06T15:58:00Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "AJR Infra and Tolling Limited is acquiring a 100% stake in Rajahmundry Expressway Private Limited.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "AJR Infra and Tolling Limited is acquiring a 100% stake in Rajahmundry Expressway Private Limited.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AJR Infra and Tolling Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Rajahmundry Expressway Private Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261106-719",
       "headline": "Prestige Estates Projects Limited: PRESTIGE: Prestige Estates Projects Limited has informed the Exchange about Acquisition of 100% stake in Allure Developers Private Limited.",
@@ -1191,6 +1245,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261106-727",
+      "headline": "Fox completes its $22B acquisition of Roku",
+      "headline_en": null,
+      "url": "https://techcrunch.com/2026/11/06/fox-completes-its-22b-acquisition-of-roku/",
+      "source_name": "TechCrunch",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T16:05:36Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Fox is acquiring Roku for $22 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Fox is acquiring Roku for $22 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Fox",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Roku",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261106-724",
       "headline": "Fox Completes $22 Billion Roku Acquisition, Expanding Streaming Reach",
       "headline_en": null,
@@ -1881,104 +1989,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-600",
-      "headline": "Voltas Q2 Results: Net profit zooms 53% on RAC growth, better UCP profitability; misses estimates",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/stocks/voltas-share-price-q2-results-net-profit-zooms-53-on-rac-growth-better-ucp-profitability-misses-estimates-20029073.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T12:00:38Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Voltas reported a 53% increase in net profit but missed analyst estimates.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Voltas reported a 53% increase in net profit but missed analyst estimates.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Voltas",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-607",
-      "headline": "Moderna Boosts Revenue Guidance on Covid Vaccine Sales",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-06/moderna-boosts-revenue-guidance-on-strong-covid-vaccine-sales",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T11:45:00Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Moderna raised its revenue guidance due to Covid vaccine sales.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Moderna raised its revenue guidance due to Covid vaccine sales.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Moderna",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -263677,9 +263687,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3119804,
-    "news_picked_today": 1471,
-    "news_dropped_today": 17945
+    "news_seen_today": 3166932,
+    "news_picked_today": 1475,
+    "news_dropped_today": 18109
   },
   "book_momentum": {
     "live_count": 8,
