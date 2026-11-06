@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-06T19:09:12Z",
+  "generated_at": "2026-11-06T19:14:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20261106-725",
@@ -1394,6 +1394,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261106-810",
+      "headline": "TTK Prestige Q2 profit surges 65% to ₹104.4 crore as domestic sales drive growth",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/ttk-prestige-q2-profit-surges-65-to-1044-crore-as-domestic-sales-drive-growth/article71675549.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T16:39:21Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "TTK Prestige reported a 65% surge in Q2 profit to ₹104.4 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "TTK Prestige reported a 65% surge in Q2 profit to ₹104.4 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TTK Prestige",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261106-633",
       "headline": "‎Silver Lake, PIF in talks to acquire Unity Software: Sources",
       "headline_en": null,
@@ -1932,61 +1981,6 @@
           "name": "Moderna",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-664",
-      "headline": "QIAGEN N.V. Reports Q3 2026 Results and Suspends Outlook Pending Acquisition by EQT Private Equity",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/qiagen-nv-reports-q3-2026-results-and-suspends-outlook-pending-acquisition-eqt-private",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T13:31:43Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "QIAGEN acquired by EQT Private Equity; outlook suspended pending deal closure signals material uncertainty in near-term execution and guidance risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "QIAGEN acquired by EQT Private Equity; outlook suspended pending deal closure signals material uncertainty in near-term execution and guidance risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 82,
-      "rank_factors": {
-        "materiality": 82,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 3,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "QIAGEN N.V.",
-          "ticker": "QGEN",
-          "listing_country": "US"
-        },
-        {
-          "name": "EQT Private Equity",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -263904,9 +263898,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3529415,
-    "news_picked_today": 1719,
-    "news_dropped_today": 21921
+    "news_seen_today": 3537903,
+    "news_picked_today": 1727,
+    "news_dropped_today": 21937
   },
   "book_momentum": {
     "live_count": 8,
