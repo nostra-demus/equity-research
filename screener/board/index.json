@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-06T14:32:46Z",
+  "generated_at": "2026-11-06T14:36:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20261106-644",
@@ -987,6 +987,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261106-679",
+      "headline": "Moderna Turns To Q3 Profit, Revenue Rises 29%; Raises Annual Revenue Growth Outlook",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/moderna-turns-q3-profit-revenue-rises-29-raises-annual-revenue-growth-outlook",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T13:50:53Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Moderna reported Q3 profit, 29% revenue growth, and raised annual revenue guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Moderna reported Q3 profit, 29% revenue growth, and raised annual revenue guidance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Moderna",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261106-673",
       "headline": "Moderna Boosts Revenue Guidance on Covid Vaccine Sales",
       "headline_en": null,
@@ -1928,61 +1978,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-515",
-      "headline": "Monte dei Paschi Raises Profit Guidance as Intesa Prepares to Launch Takeover Bid",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/earnings/monte-dei-paschi-profit-rises-as-intesa-takeover-looms-1551efed?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T10:12:00Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Monte dei Paschi raised profit guidance amid news of a potential takeover bid by Intesa.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Monte dei Paschi raised profit guidance amid news of a potential takeover bid by Intesa.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change",
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Monte dei Paschi",
-          "ticker": null,
-          "listing_country": "IT"
-        },
-        {
-          "name": "Intesa",
-          "ticker": null,
-          "listing_country": "IT"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -263681,9 +263676,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2791376,
-    "news_picked_today": 1357,
-    "news_dropped_today": 16211
+    "news_seen_today": 2816492,
+    "news_picked_today": 1362,
+    "news_dropped_today": 16230
   },
   "book_momentum": {
     "live_count": 8,
