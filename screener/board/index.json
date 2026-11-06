@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-06T19:38:25Z",
+  "generated_at": "2026-11-06T19:54:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20261106-816",
@@ -51,6 +51,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-817",
+      "headline": "15-12G - Elme Communities (0000104894) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/104894/000110465926123774/0001104659-26-123774-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-06T19:00:19Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Form 15-12G filing terminates public registration, indicating delisting and materially affecting shareholder liquidity and capital structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Form 15-12G filing terminates public registration, indicating delisting and materially affecting shareholder liquidity and capital structure.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Elme Communities",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1939,55 +1988,6 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-662",
-      "headline": "Who is Kishore Biyani? CBI books Future Retail founder, brother in ₹904-crore SBI loan fraud case",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/people/who-is-kishore-biyani-cbi-books-future-retail-founder-brother-in-904-crore-sbi-loan-fraud-case-11793971071226.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T13:59:47Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "CBI booked Future Retail founder Kishore Biyani in a ₹904-crore loan fraud case.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "CBI booked Future Retail founder Kishore Biyani in a ₹904-crore loan fraud case.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Future Retail",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -222519,76 +222519,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-0d084cede79e",
-      "idea_version": "IDEAV-536feaa8d0e1f8db",
-      "idea_version_started_at": "2026-11-05T12:54:05Z",
-      "ticker": "SONY",
-      "company": "Sony Group Corporation",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Sony raised its annual profit forecast driven by strong performance in its gaming division and the success of its Spider-Man franchise.",
-      "why_now": "The guidance upgrade was reported on 2026-11-05.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-971e6c0d3e5d"
-      ],
-      "primary_source_event_id": "EVT-971e6c0d3e5d",
-      "source_headlines": [
-        "Sony raises annual profit forecast on Spider-Man hit, gaming gains"
-      ],
-      "source_headline": "Sony raises annual profit forecast on Spider-Man hit, gaming gains",
-      "source_url": "https://asia.nikkei.com/business/companies/sony-raises-annual-profit-forecast-on-spider-man-hit-gaming-gains",
-      "source_name": "Nikkei Asia",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-05T07:48:47Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-05T12:54:05Z",
-      "updated_at": "2026-11-05T12:54:05Z",
-      "decay_at": "2026-11-06T19:48:47Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-76874be29f78",
       "idea_version": "IDEAV-fdea07b5d2495fee",
       "idea_version_started_at": "2026-11-06T07:46:04Z",
@@ -224656,6 +224586,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-0d084cede79e",
+      "idea_version": "IDEAV-536feaa8d0e1f8db",
+      "idea_version_started_at": "2026-11-05T12:54:05Z",
+      "ticker": "SONY",
+      "company": "Sony Group Corporation",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Sony raised its annual profit forecast driven by strong performance in its gaming division and the success of its Spider-Man franchise.",
+      "why_now": "The guidance upgrade was reported on 2026-11-05.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-971e6c0d3e5d"
+      ],
+      "primary_source_event_id": "EVT-971e6c0d3e5d",
+      "source_headlines": [
+        "Sony raises annual profit forecast on Spider-Man hit, gaming gains"
+      ],
+      "source_headline": "Sony raises annual profit forecast on Spider-Man hit, gaming gains",
+      "source_url": "https://asia.nikkei.com/business/companies/sony-raises-annual-profit-forecast-on-spider-man-hit-gaming-gains",
+      "source_name": "Nikkei Asia",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-05T07:48:47Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-05T12:54:05Z",
+      "updated_at": "2026-11-05T12:54:05Z",
+      "decay_at": "2026-11-06T19:48:47Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-abe61d9932f3",
       "idea_version": "IDEAV-5cbc7c94b5ac81ac",
       "idea_version_started_at": "2026-11-04T10:33:04Z",
@@ -226519,14 +226519,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 530,
+    "total_count": 531,
     "shown_count": 500,
-    "hidden_count": 30,
+    "hidden_count": 31,
     "side_counts": {
       "long": {
-        "total_count": 272,
+        "total_count": 273,
         "shown_count": 250,
-        "hidden_count": 22
+        "hidden_count": 23
       },
       "short": {
         "total_count": 258,
@@ -226550,6 +226550,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-0d084cede79e",
+        "idea_version": "IDEAV-536feaa8d0e1f8db",
+        "idea_version_started_at": "2026-11-05T12:54:05Z",
+        "ticker": "SONY",
+        "company": "Sony Group Corporation",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Sony raised its annual profit forecast driven by strong performance in its gaming division and the success of its Spider-Man franchise.",
+        "why_now": "The guidance upgrade was reported on 2026-11-05.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 66,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-971e6c0d3e5d"
+        ],
+        "primary_source_event_id": "EVT-971e6c0d3e5d",
+        "source_headlines": [
+          "Sony raises annual profit forecast on Spider-Man hit, gaming gains"
+        ],
+        "source_headline": "Sony raises annual profit forecast on Spider-Man hit, gaming gains",
+        "source_url": "https://asia.nikkei.com/business/companies/sony-raises-annual-profit-forecast-on-spider-man-hit-gaming-gains",
+        "source_name": "Nikkei Asia",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-05T07:48:47Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-05T12:54:05Z",
+        "updated_at": "2026-11-05T12:54:05Z",
+        "decay_at": "2026-11-06T19:48:47Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-06T19:48:47Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-1820b9b947cf",
         "idea_version": "IDEAV-8d2162532ab48802",
@@ -255676,82 +255749,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-e5a33fd56bcc",
-        "idea_version": "IDEAV-acbf90ced813c5c0",
-        "idea_version_started_at": "2026-10-22T09:01:10Z",
-        "ticker": "PCJEWELLER",
-        "company": "PC Jeweller",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company reported a 58% YoY increase in net profit and achieved debt-free status, significantly improving its balance sheet health.",
-        "why_now": "The earnings release and debt-free announcement occurred on 2026-10-22.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 7,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-1e63aa3118fb",
-          "EVT-49c6ee43a8ef"
-        ],
-        "primary_source_event_id": "EVT-1e63aa3118fb",
-        "source_headlines": [
-          "India's PC Jeweller jumps on rise in quarterly profit and debt-free status",
-          "PC Jeweller shares soar 9% after Q2 net profit rises 58% YoY; plans 100 new stores in 18 months"
-        ],
-        "source_headline": "India's PC Jeweller jumps on rise in quarterly profit and debt-free status",
-        "source_url": "https://www.reuters.com/world/india/indias-pc-jeweller-jumps-rise-quarterly-profit-debt-free-status-2026-10-22/",
-        "source_name": "Reuters — Latest (news sitemap)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-22T04:03:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-22T09:01:10Z",
-        "updated_at": "2026-10-22T09:01:10Z",
-        "decay_at": "2026-10-23T16:03:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-25T04:09:53Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-021cb7d43110",
         "idea_version": "IDEAV-4c92366d879a9c10",
         "idea_version_started_at": "2026-10-22T07:29:08Z",
@@ -263811,7 +263808,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2223,
-    "live_count": 37,
+    "live_count": 36,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -263830,9 +263827,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3584044,
-    "news_picked_today": 1760,
-    "news_dropped_today": 22480
+    "news_seen_today": 3610209,
+    "news_picked_today": 1777,
+    "news_dropped_today": 23015
   },
   "book_momentum": {
     "live_count": 8,
