@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-06T20:53:46Z",
+  "generated_at": "2026-11-06T20:57:46Z",
   "inbox": [
     {
       "inbox_id": "INB-20261106-816",
@@ -1299,6 +1299,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261106-869",
+      "headline": "Alphabet’s Drone Unit to Invest Up to $125 Million in New Texas Facility",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/alphabets-drone-unit-to-invest-up-to-125-million-in-new-texas-facility-d9725c3b?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T19:56:00Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Alphabet's drone unit is investing $125 million in a new Texas facility.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Alphabet's drone unit is investing $125 million in a new Texas facility.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Alphabet",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261106-742",
       "headline": "Blend posts smaller Q3 loss, warns of steeper mortgage revenue drop ahead",
       "headline_en": null,
@@ -1945,60 +1994,6 @@
         {
           "name": "Pfizer",
           "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-724",
-      "headline": "Fox Completes $22 Billion Roku Acquisition, Expanding Streaming Reach",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-06/fox-finalizes-22-billion-roku-acquisition-in-streaming-push",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T14:57:00Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Fox completed a $22 billion acquisition of Roku, materially reshaping Fox's streaming footprint and consolidating the market; Roku shareholders receive liquidity, Fox bears integration and debt risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Fox completed a $22 billion acquisition of Roku, materially reshaping Fox's streaming footprint and consolidating the market; Roku shareholders receive liquidity, Fox bears integration and debt risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Fox Corporation",
-          "ticker": "FOXA",
-          "listing_country": "US"
-        },
-        {
-          "name": "Roku",
-          "ticker": "ROKU",
           "listing_country": "US"
         }
       ],
@@ -263912,9 +263907,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3707914,
-    "news_picked_today": 1940,
-    "news_dropped_today": 23860
+    "news_seen_today": 3715787,
+    "news_picked_today": 1950,
+    "news_dropped_today": 23898
   },
   "book_momentum": {
     "live_count": 8,
