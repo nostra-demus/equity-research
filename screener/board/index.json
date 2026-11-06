@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-06T12:15:06Z",
+  "generated_at": "2026-11-06T12:21:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20261106-584",
@@ -594,6 +594,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261106-600",
+      "headline": "Voltas Q2 Results: Net profit zooms 53% on RAC growth, better UCP profitability; misses estimates",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/stocks/voltas-share-price-q2-results-net-profit-zooms-53-on-rac-growth-better-ucp-profitability-misses-estimates-20029073.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T12:00:38Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Voltas reported a 53% increase in net profit but missed analyst estimates.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Voltas reported a 53% increase in net profit but missed analyst estimates.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Voltas",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-607",
+      "headline": "Moderna Boosts Revenue Guidance on Covid Vaccine Sales",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-06/moderna-boosts-revenue-guidance-on-strong-covid-vaccine-sales",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T11:45:00Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Moderna raised its revenue guidance due to Covid vaccine sales.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Moderna raised its revenue guidance due to Covid vaccine sales.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Moderna",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261106-595",
       "headline": "Dropbox, Inc. Reports Third Quarter 2026 Results and Announces $350.0 million Planned Acquisition of Tigris Data Inc.",
       "headline_en": null,
@@ -641,6 +739,55 @@
           "name": "Tigris Data",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-608",
+      "headline": "Adani Ports to acquire Europe's second-largest liquid storage operator Evos for €2.56 billion",
+      "headline_en": null,
+      "url": "https://www.businesstoday.in/latest/corporate/story/adani-ports-to-acquire-europes-second-largest-liquid-storage-operator-evos-for-eu2-56-billion-566243-2026-11-06?utm_source=rssfeed",
+      "source_name": "Business Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T11:28:43Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Adani Ports to acquire Evos for €2.56 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Adani Ports to acquire Evos for €2.56 billion.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adani Ports",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -1853,155 +2000,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-418",
-      "headline": "Warburg Pincus lobs fifth bid in $3.2b tussle for ASX-listed Ingenia",
-      "headline_en": null,
-      "url": "https://www.afr.com/property/commercial/warburg-pincus-lobs-fifth-bid-in-3-2b-tussle-for-asx-listed-ingenia-20261106-p61ahl?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T05:02:40Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Warburg Pincus has made a $3.2 billion bid for Ingenia.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Warburg Pincus has made a $3.2 billion bid for Ingenia.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ingenia",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-427",
-      "headline": "Cello World Reports Q2 Net Profit Of Rs 82 Crore As Revenue Rises 8 Per Cent, Writing Instruments Segment Surges",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/cello-world-reports-q2-net-profit-of-rs-82-crore-as-revenue-rises-8-per-cent-writing-instruments-segment-surges",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T04:58:57Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Cello World reported a Q2 net profit of Rs 82 crore with 8% revenue growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Cello World reported a Q2 net profit of Rs 82 crore with 8% revenue growth.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cello World",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-448",
-      "headline": "Construction Partners, Inc. Announces Preliminary Fiscal 2026 Results, Introduces Fiscal 2027 Outlook, and Acquires Piedmont Paving",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/construction-partners-inc-announces-preliminary-fiscal-2026-results-introduces-fiscal-2027",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T04:58:51Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Construction Partners announced preliminary results, provided fiscal 2027 guidance, and acquired Piedmont Paving.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Construction Partners announced preliminary results, provided fiscal 2027 guidance, and acquired Piedmont Paving.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change",
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Construction Partners, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -263841,9 +263839,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2315502,
-    "news_picked_today": 1153,
-    "news_dropped_today": 13847
+    "news_seen_today": 2328094,
+    "news_picked_today": 1169,
+    "news_dropped_today": 13951
   },
   "book_momentum": {
     "live_count": 8,
