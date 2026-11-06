@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-06T07:12:05Z",
+  "generated_at": "2026-11-06T07:24:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20261106-456",
@@ -1715,6 +1715,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261106-460",
+      "headline": "WCE: Trading Halt [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WCE?key=2924-03159115-6A1353984",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-06T06:30:46Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "A trading halt is a price-sensitive event indicating pending material news.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "A trading halt is a price-sensitive event indicating pending material news.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "WCE",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261106-071",
       "headline": "HSBC HOLDINGS (00005): ISSUANCE OF PERPETUAL SUBORDINATED CONTINGENT CONVERTIBLE SECURITIES",
       "headline_en": null,
@@ -1906,55 +1955,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-217",
-      "headline": "Toyota hikes profit forecasts on strong demand and weak yen",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/business/2026/11/06/companies/toyota-profit-forecast-upward-revision/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T01:03:00Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Toyota raised profit forecasts citing strong demand and weak yen, a disclosed guidance change affecting margin and earnings expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Toyota raised profit forecasts citing strong demand and weak yen, a disclosed guidance change affecting margin and earnings expectations.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Toyota",
-          "ticker": "7203.T",
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -263729,9 +263729,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1081874,
-    "news_picked_today": 833,
-    "news_dropped_today": 7591
+    "news_seen_today": 1120788,
+    "news_picked_today": 842,
+    "news_dropped_today": 7726
   },
   "book_momentum": {
     "live_count": 8,
