@@ -1,6 +1,154 @@
 {
-  "generated_at": "2026-11-06T14:50:36Z",
+  "generated_at": "2026-11-06T14:54:18Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261106-690",
+      "headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Intimation of the Meeting of the Suspended Board of Directors with the Resolution Professional (RP) (Management Committee) pursuant to Regulation 29(1)(a) of SEBI (Listing Obligations & Disclosure Requirements) Regulations, 2015 (Listing Regulations)",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/DPSCLTD_06112026201107_IntimationofManagement_BoardMeetin06112026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-06T14:41:20Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "The company is undergoing a corporate insolvency resolution process, indicating severe financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company is undergoing a corporate insolvency resolution process, indicating severe financial distress.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DPSC Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-696",
+      "headline": "CASABLANCA (02223): (1) MAJOR AND CONNECTED TRANSACTION IN RELATION TO DISPOSAL OF A SUBSIDIARY AND RENEWAL OF LEASE AGREEMENTS; AND (2) DECLARATION OF SPECIAL DIVIDEND",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1106/2026110601752.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-06T14:38:00Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Company announced a major disposal of a subsidiary and a special dividend declaration.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company announced a major disposal of a subsidiary and a special dividend declaration.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CASABLANCA",
+          "ticker": "02223",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-700",
+      "headline": "HAITONG UT (01905): JOINT ANNOUNCEMENT - IRREVOCABLE UNDERTAKING IN RELATION TO THE (1) PRE-CONDITIONAL VOLUNTARY CASH PARTIAL OFFER BY THE DOMESTIC SHARE OFFEROR TO ACQUIRE 1,244,831,880 DOMESTIC SHARES IN THE ISSUED SHARE CAPITAL OF THE COMPANY; AND (2) PRE-CONDITIONAL VOLUNTARY CASH PARTIAL OFFER BY THE JOINT FINANCIAL ADVISER ON BEHALF OF THE H SHARE OFFEROR TO ACQUIRE 2,955,171,120 H SHARES IN THE ISSUED SHARE CAPITAL OF THE COMPANY",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1106/2026110601728.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-06T14:30:00Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Major voluntary cash partial offer to acquire significant domestic and H-share stakes.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Major voluntary cash partial offer to acquire significant domestic and H-share stakes.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HAITONG UT",
+          "ticker": "01905",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261106-689",
       "headline": "25-NSE - PROCTER & GAMBLE Co (0000080424) (Subject)",
@@ -1829,154 +1977,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-539",
-      "headline": "Who is Venugopal Dhoot? Former Videocon promoter declared ‘bankrupt’ by NCLT Mumbai bench over ₹12,668-cr SBI default",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/people/who-is-venugopal-dhoot-former-videocon-promoter-declared-bankrupt-by-nclt-mumbai-bench-over-rs-12-668-cr-sbi-default-11793958227774.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T10:45:00Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Former Videocon promoter declared bankrupt over a ₹12,668-crore default.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Former Videocon promoter declared bankrupt over a ₹12,668-crore default.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Videocon",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-548",
-      "headline": "HCC's Q2 FY27 Earnings Hit A Roadblock, Profit Plunges 53% To ₹22.56 Crore Even As ₹34,805 Crore Bid Pipeline Signals Growth Potential",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/hccs-q2-fy27-earnings-hit-a-roadblock-profit-plunges-53-to-2256-crore-even-as-34805-crore-bid-pipeline-signals-growth-potential",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T10:44:11Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "HCC reported a 53% decline in profit to ₹22.56 crore for Q2 FY27.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "HCC reported a 53% decline in profit to ₹22.56 crore for Q2 FY27.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HCC",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-553",
-      "headline": "Innodata Inc. Reports Q3 2026 Revenue of $95.6 million and Raises Full-Year Revenue Growth Guidance to 42% or more",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/innodata-inc-reports-q3-2026-revenue-956-million-and-raises-full-year-revenue-growth",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T10:18:59Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Q3 2026 revenue of $95.6 million with full-year guidance raised to 42%+ growth materially revises expectations upward.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Q3 2026 revenue of $95.6 million with full-year guidance raised to 42%+ growth materially revises expectations upward.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Innodata Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -263675,9 +263675,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2879100,
-    "news_picked_today": 1372,
-    "news_dropped_today": 16484
+    "news_seen_today": 2891569,
+    "news_picked_today": 1389,
+    "news_dropped_today": 16491
   },
   "book_momentum": {
     "live_count": 8,
