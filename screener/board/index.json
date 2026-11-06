@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-06T18:57:13Z",
+  "generated_at": "2026-11-06T19:04:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20261106-725",
@@ -1497,6 +1497,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261106-802",
+      "headline": "Albertsons ordered to pay $900M in Washington state opioid case",
+      "headline_en": null,
+      "url": "https://www.grocerydive.com/news/albertsons-washington-state-opioid-case-grocery/873958/",
+      "source_name": "Grocery Dive",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T16:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Albertsons has been ordered to pay a $900 million fine in an opioid-related legal case.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Albertsons has been ordered to pay a $900 million fine in an opioid-related legal case.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Albertsons",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261106-724",
       "headline": "Fox Completes $22 Billion Roku Acquisition, Expanding Streaming Reach",
       "headline_en": null,
@@ -1938,55 +1987,6 @@
           "name": "EQT Private Equity",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-659",
-      "headline": "Qiagen N.V. Announces Public Takeover Offer from EQT Private Equity at €46.50 Per Share",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/qiagen-nv-announces-public-takeover-offer-eqt-private-equity-eu4650-share",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T13:21:18Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Qiagen N.V. received a public takeover offer from EQT Private Equity at €46.50 per share.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Qiagen N.V. received a public takeover offer from EQT Private Equity at €46.50 per share.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Qiagen N.V.",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -263904,9 +263904,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3503687,
-    "news_picked_today": 1683,
-    "news_dropped_today": 21789
+    "news_seen_today": 3512343,
+    "news_picked_today": 1705,
+    "news_dropped_today": 21863
   },
   "book_momentum": {
     "live_count": 8,
