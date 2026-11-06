@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-06T20:21:38Z",
+  "generated_at": "2026-11-06T20:29:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20261106-816",
@@ -1851,6 +1851,109 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261106-865",
+      "headline": "Fox bought Roku",
+      "headline_en": null,
+      "url": "https://www.theverge.com/streaming/1028629/fox-roku-acquisition-close",
+      "source_name": "The Verge",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T15:00:56Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Fox has acquired Roku, a major media and technology M&A event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Fox has acquired Roku, a major media and technology M&A event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Fox Corporation",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Roku",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-866",
+      "headline": "Pfizer to build $650M manufacturing technology center in Connecticut",
+      "headline_en": null,
+      "url": "https://www.manufacturingdive.com/news/pfizer-650m-manufacturing-technology-center-connecticut/873918/",
+      "source_name": "Manufacturing Dive",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T15:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Pfizer is investing $650 million to build a new manufacturing technology center in Connecticut.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Pfizer is investing $650 million to build a new manufacturing technology center in Connecticut.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pfizer",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261106-724",
       "headline": "Fox Completes $22 Billion Roku Acquisition, Expanding Streaming Reach",
       "headline_en": null,
@@ -1896,106 +1999,6 @@
         {
           "name": "Roku",
           "ticker": "ROKU",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-718",
-      "headline": "Docebo Inc. Reports Third Quarter 2026 Results and Announces $60.0 million Special Dividend",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/docebo-inc-reports-third-quarter-2026-results-and-announces-600-million-special-dividend",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T14:52:12Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Docebo reported Q3 2026 results and announced a $60 million special dividend.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Docebo reported Q3 2026 results and announced a $60 million special dividend.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Docebo Inc.",
-          "ticker": null,
-          "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-716",
-      "headline": "Humana Inc. Reports Third Quarter 2026 Financial Results and Raises Full Year 2026 Adjusted EPS Guidance",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/humana-inc-reports-third-quarter-2026-financial-results-and-raises-full-year-2026-adjusted",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T14:52:01Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Humana reported Q3 2026 results and raised its full-year 2026 adjusted EPS guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Humana reported Q3 2026 results and raised its full-year 2026 adjusted EPS guidance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Humana Inc.",
-          "ticker": null,
           "listing_country": "US"
         }
       ],
@@ -263839,9 +263842,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3675094,
-    "news_picked_today": 1869,
-    "news_dropped_today": 23331
+    "news_seen_today": 3683455,
+    "news_picked_today": 1905,
+    "news_dropped_today": 23415
   },
   "book_momentum": {
     "live_count": 8,
