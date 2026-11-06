@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-06T00:06:04Z",
+  "generated_at": "2026-11-06T00:12:57Z",
   "inbox": [
     {
       "inbox_id": "INB-20261106-015",
@@ -742,6 +742,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261106-019",
+      "headline": "Wonder Announces Confidential Submission of Draft Registration Statement for Proposed Initial Public Offering",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/wonder-announces-confidential-submission-of-draft-registration-statement-for-proposed-initial-public-offering-302929955.html",
+      "source_name": "PR Newswire — Financial Services & Investing",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-05T14:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Confidential IPO filing is a significant step toward a public market debut.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 42,
+      "triage_reason": "Confidential IPO filing is a significant step toward a public market debut.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Wonder",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261106-002",
       "headline": "ANNOUNCEMENT OF PUBLIC OFFERING OF SHARES OF NORDIC FIBREBOARD AS",
       "headline_en": null,
@@ -881,6 +930,202 @@
           "name": "MetaVia",
           "ticker": "MTVA",
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-020",
+      "headline": "MBody AI Doubles Deployment at Major Northeast Casino & Entertainment Destination | MBAI Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/MBAI/m-body-ai-doubles-deployment-at-major-northeast-casino-entertainment-p4sxt709hivt.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-05T13:35:00Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "MBody AI doubled its deployment at a major casino destination, indicating commercial traction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 41,
+      "triage_reason": "MBody AI doubled its deployment at a major casino destination, indicating commercial traction.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 2,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MBody AI",
+          "ticker": "MBAI",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-022",
+      "headline": "Care Bears And Prenetics' IM8 Announce Global Partnership | PRE Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/PRE/care-bears-and-prenetics-im8-announce-global-f4hgtf8wihcg.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-05T13:32:00Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Prenetics announced a global partnership for its IM8 brand, likely impacting revenue potential.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 41,
+      "triage_reason": "Prenetics announced a global partnership for its IM8 brand, likely impacting revenue potential.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 2,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Prenetics",
+          "ticker": "PRE",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-021",
+      "headline": "MBody AI Doubles Deployment at Major Northeast Casino & Entertainment Destination",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/11/05/3396458/0/en/mbody-ai-doubles-deployment-at-major-northeast-casino-entertainment-destination.html",
+      "source_name": "GlobeNewswire — News about Public Companies",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-05T13:35:00Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "MBody AI doubled its deployment at a major casino destination, indicating commercial traction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 41,
+      "triage_reason": "MBody AI doubled its deployment at a major casino destination, indicating commercial traction.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 2,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MBody AI",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-023",
+      "headline": "Care Bears And Prenetics' IM8 Announce Global Partnership",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/care-bears-and-prenetics-im8-announce-global-partnership-302930786.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-05T13:32:00Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Prenetics announced a global partnership for its IM8 brand, likely impacting revenue potential.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 41,
+      "triage_reason": "Prenetics announced a global partnership for its IM8 brand, likely impacting revenue potential.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 2,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Prenetics",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "small",
@@ -263148,7 +263393,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4505,
+    "inbox_unconsumed": 4510,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -263157,9 +263402,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 27838,
-    "news_picked_today": 18,
-    "news_dropped_today": 54
+    "news_seen_today": 41686,
+    "news_picked_today": 23,
+    "news_dropped_today": 97
   },
   "book_momentum": {
     "live_count": 8,
