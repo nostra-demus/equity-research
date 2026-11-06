@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-06T19:14:16Z",
+  "generated_at": "2026-11-06T19:17:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20261106-725",
@@ -1443,6 +1443,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261106-815",
+      "headline": "Premier Energies Q2 net profit rises 31% to ₹462.4 crore",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/premier-energies-q2-net-profit-rises-31-to-4624-crore/article71673725.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T16:30:49Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Premier Energies reported a 31% rise in Q2 net profit to ₹462.4 crore, a significant earnings beat.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Premier Energies reported a 31% rise in Q2 net profit to ₹462.4 crore, a significant earnings beat.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Premier Energies",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261106-633",
       "headline": "‎Silver Lake, PIF in talks to acquire Unity Software: Sources",
       "headline_en": null,
@@ -1924,55 +1973,6 @@
       },
       "event_types": [
         "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Moderna",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-673",
-      "headline": "Moderna Boosts Revenue Guidance on Covid Vaccine Sales",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/business/moderna-boosts-revenue-guidance-on-covid-vaccine-sales-12293468#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T13:33:36Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Moderna boosted its revenue guidance due to Covid vaccine sales.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Moderna boosted its revenue guidance due to Covid vaccine sales.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
         "guidance_change"
       ],
       "issuer_linkage": "primary",
@@ -263898,9 +263898,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3537903,
-    "news_picked_today": 1727,
-    "news_dropped_today": 21937
+    "news_seen_today": 3546367,
+    "news_picked_today": 1733,
+    "news_dropped_today": 21955
   },
   "book_momentum": {
     "live_count": 8,
