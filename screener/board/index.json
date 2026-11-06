@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-06T08:52:55Z",
+  "generated_at": "2026-11-06T09:00:26Z",
   "inbox": [
     {
       "inbox_id": "INB-20261106-456",
@@ -242,6 +242,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-503",
+      "headline": "NCLT declares Videocon's Venugopal Dhoot as bankrupt over ₹12,668-cr SBI dues",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/news/nclt-declares-videocons-venugopal-dhoot-as-bankrupt-over-12668-cr-sbi-dues/article71673524.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T08:26:35Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "NCLT declares Videocon promoter Venugopal Dhoot bankrupt over ₹12,668 crore SBI unpaid dues — existential control and solvency risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "NCLT declares Videocon promoter Venugopal Dhoot bankrupt over ₹12,668 crore SBI unpaid dues — existential control and solvency risk.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Videocon",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1933,55 +1982,6 @@
           "name": "Tech Mahindra Limited",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-422",
-      "headline": "Kia to invest 3 tln won in Gwangju to build PBV mobility ecosystem by 2029",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20261106006300320",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T04:58:51Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Kia announces 3 trillion won investment in Gwangju for purpose-built vehicle mobility ecosystem by 2029.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Kia announces 3 trillion won investment in Gwangju for purpose-built vehicle mobility ecosystem by 2029.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kia",
-          "ticker": "000270.KS",
-          "listing_country": "KR"
         }
       ],
       "size_bucket": "large",
@@ -264038,9 +264038,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1377741,
-    "news_picked_today": 919,
-    "news_dropped_today": 10553
+    "news_seen_today": 1389204,
+    "news_picked_today": 940,
+    "news_dropped_today": 10652
   },
   "book_momentum": {
     "live_count": 8,
