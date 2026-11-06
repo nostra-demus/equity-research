@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-06T22:49:44Z",
+  "generated_at": "2026-11-06T22:58:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20261106-816",
@@ -1299,6 +1299,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261106-921",
+      "headline": "Stock Market Today, Nov. 6: AMD Surges 11% on Record Quarterly Revenue and Stronger Growth Outlook",
+      "headline_en": null,
+      "url": "https://www.fool.com/coverage/stock-market-today/2026/11/06/stock-market-today-nov-6-amd-surges-11-on-record-quarterly-revenue-and-stronger-growth-outlook/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T22:05:02Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "AMD reported record quarterly revenue and provided a stronger growth outlook, driving an 11% stock price increase.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "AMD reported record quarterly revenue and provided a stronger growth outlook, driving an 11% stock price increase.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AMD",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261106-892",
       "headline": "Itaú Unibanco Holding S.A. Reports R$ 12,617 Million Recurring Managerial Result for Third Quarter of 2026",
       "headline_en": null,
@@ -1939,55 +1989,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-802",
-      "headline": "Albertsons ordered to pay $900M in Washington state opioid case",
-      "headline_en": null,
-      "url": "https://www.grocerydive.com/news/albertsons-washington-state-opioid-case-grocery/873958/",
-      "source_name": "Grocery Dive",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T16:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Albertsons has been ordered to pay a $900 million fine in an opioid-related legal case.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Albertsons has been ordered to pay a $900 million fine in an opioid-related legal case.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Albertsons",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -264180,9 +264181,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3867391,
-    "news_picked_today": 2242,
-    "news_dropped_today": 26174
+    "news_seen_today": 3874437,
+    "news_picked_today": 2276,
+    "news_dropped_today": 26428
   },
   "book_momentum": {
     "live_count": 8,
