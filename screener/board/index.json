@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-06T18:20:04Z",
+  "generated_at": "2026-11-06T18:31:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20261106-725",
@@ -1196,6 +1196,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261106-737",
+      "headline": "PPL Corporation Announces Third-Quarter 2026 Financial Results and $25 billion Capital Plan",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/ppl-corporation-announces-third-quarter-2026-financial-results-and-25-billion-capital-plan",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T18:08:36Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "PPL Corporation reported Q3 2026 results and announced a $25 billion capital plan.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "PPL Corporation reported Q3 2026 results and announced a $25 billion capital plan.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PPL Corporation",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261106-733",
       "headline": "Brookfield Asset Management Ltd. Reports Third Quarter 2026 Results with $25 Billion Fundraised and $864 Million in Fee-Related Earnings",
       "headline_en": null,
@@ -1939,55 +1989,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-674",
-      "headline": "Q2 Results Live: Kwality Wall's Narrows Loss, Voltas Net Profit Rises 53%",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/q2-results-live-updates-november-6-siemens-bosch-hindalco-voltas-among-223-companies-to-announce-earnings-today-12291338#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T13:06:28Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Voltas reported a 53% increase in net profit for Q2.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Voltas reported a 53% increase in net profit for Q2.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Voltas",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -263902,9 +263903,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3448600,
-    "news_picked_today": 1594,
-    "news_dropped_today": 21014
+    "news_seen_today": 3458036,
+    "news_picked_today": 1609,
+    "news_dropped_today": 21287
   },
   "book_momentum": {
     "live_count": 8,
