@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-06T00:57:11Z",
+  "generated_at": "2026-11-06T01:04:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20261106-072",
@@ -1131,6 +1131,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261106-123",
+      "headline": "'Musk selloff': Tesla and SpaceX combine for $456 billion two-day wipeout",
+      "headline_en": null,
+      "url": "https://www.marketwatch.com/bulletins/redirect/go?g=37a848a7-2324-48a0-bd74-abe2a35267fe&mod=mw_rss_bulletins",
+      "source_name": "MarketWatch",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T22:36:53Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Tesla fell ~15-20% over two days attributed to founder Elon Musk selling; insider action is real but scale of sale and reason (forced liquidation vs voluntary rebalancing) not disclosed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "Tesla fell ~15-20% over two days attributed to founder Elon Musk selling; insider action is real but scale of sale and reason (forced liquidation vs voluntary rebalancing) not disclosed.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "insider_transaction",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "insider_transaction"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tesla",
+          "ticker": "TSLA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261106-080",
       "headline": "MI6: Change in substantial holding - T Goyder",
       "headline_en": null,
@@ -1915,49 +1964,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-114",
-      "headline": "China’s Copper Squeeze Deepens as Buyers Scramble for Metal",
-      "headline_en": null,
-      "url": "https://www.livemint.com/market/chinas-copper-squeeze-deepens-as-buyers-scramble-for-metal-11793921664348.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T23:34:23Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "China's copper squeeze is deepening as buyers scramble for metal, indicating a potential supply shock for the commodity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "China's copper squeeze is deepening as buyers scramble for metal, indicating a potential supply shock for the commodity.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 2,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -264231,9 +264237,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 191381,
-    "news_picked_today": 136,
-    "news_dropped_today": 656
+    "news_seen_today": 204847,
+    "news_picked_today": 140,
+    "news_dropped_today": 724
   },
   "book_momentum": {
     "live_count": 8,
