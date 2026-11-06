@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-06T07:46:33Z",
+  "generated_at": "2026-11-06T07:53:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20261106-456",
@@ -242,6 +242,65 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-473",
+      "headline": "Q2 Results Live: Vardhman Textiles Profit Jumps 91%; Anup Engineering Profit Plunges 79%; Siemens, Hindalco, Voltas Also In Focus",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/q2-results-live-updates-november-6-siemens-bosch-hindalco-voltas-among-223-companies-to-announce-earnings-today-12291338#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T06:44:41Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Vardhman Textiles reported a 91% profit jump and Anup Engineering reported a 79% profit plunge.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Vardhman Textiles reported a 91% profit jump and Anup Engineering reported a 79% profit plunge.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 5,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vardhman Textiles",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Anup Engineering",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Siemens",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1904,55 +1963,6 @@
           "name": "HSBC HOLDINGS",
           "ticker": "00005",
           "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-078",
-      "headline": "AIA: AIA - announces interest rate for retail bond offer",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AIA?key=2924-03158889-3A705958",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-05T23:42:05Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "AIA confirms retail bond offering with coupon rate set, a confirmed debt capital action affecting leverage and cost of capital.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "AIA confirms retail bond offering with coupon rate set, a confirmed debt capital action affecting leverage and cost of capital.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 62,
-      "rank_factors": {
-        "materiality": 62,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 8,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AIA",
-          "ticker": "AIA",
-          "listing_country": null
         }
       ],
       "size_bucket": "mega",
@@ -263799,9 +263809,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1171803,
-    "news_picked_today": 855,
-    "news_dropped_today": 8505
+    "news_seen_today": 1184376,
+    "news_picked_today": 864,
+    "news_dropped_today": 8568
   },
   "book_momentum": {
     "live_count": 8,
