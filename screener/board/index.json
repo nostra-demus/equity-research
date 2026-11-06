@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-06T13:26:17Z",
+  "generated_at": "2026-11-06T13:31:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20261106-626",
@@ -792,6 +792,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-635",
+      "headline": "Cohance Lifesciences Q2 Results: Net profit plunges 80% on lower revenue, unfavourable product mix",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/stocks/cohance-lifesciences-share-price-q2-results-net-profit-plunges-80-on-lower-revenue-unfavourable-product-mix-20029136.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T13:18:07Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Cohance Lifesciences reported an 80% plunge in net profit due to lower revenue and product mix issues.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Cohance Lifesciences reported an 80% plunge in net profit due to lower revenue and product mix issues.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cohance Lifesciences",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1953,55 +2002,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-452",
-      "headline": "Gyrodyne, LLC Reports Preliminary Net Assets in Liquidation of approximately $10.75 per Share",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/gyrodyne-llc-reports-preliminary-net-assets-liquidation-approximately-1075-share",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T05:58:54Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Gyrodyne announces preliminary net assets in liquidation of approximately $10.75 per share, a survival event for equity holders.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Gyrodyne announces preliminary net assets in liquidation of approximately $10.75 per share, a survival event for equity holders.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Gyrodyne LLC",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -263841,9 +263841,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2548885,
-    "news_picked_today": 1277,
-    "news_dropped_today": 15091
+    "news_seen_today": 2561876,
+    "news_picked_today": 1280,
+    "news_dropped_today": 15208
   },
   "book_momentum": {
     "live_count": 8,
