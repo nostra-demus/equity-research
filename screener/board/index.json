@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-06T00:46:15Z",
+  "generated_at": "2026-11-06T00:52:22Z",
   "inbox": [
     {
       "inbox_id": "INB-20261106-072",
@@ -190,6 +190,55 @@
           "name": "Adani Ports",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-112",
+      "headline": "Macquarie Beats Expectations With 50% Jump in First-Half Profit",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/earnings/macquarie-beats-expectations-with-50-jump-in-first-half-profit-b8de7b98?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T23:44:00Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Macquarie reported a 50% increase in first-half profit, beating analyst expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Macquarie reported a 50% increase in first-half profit, beating analyst expectations.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Macquarie Group",
+          "ticker": null,
+          "listing_country": "AU"
         }
       ],
       "size_bucket": "large",
@@ -394,6 +443,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261106-092",
+      "headline": "Britannia profit rises 11% to 726cr in Q2",
+      "headline_en": null,
+      "url": "https://timesofindia.indiatimes.com/business/india-business/britannia-profit-rises-11-to-726cr-in-q2/articleshow/135589268.cms",
+      "source_name": "The Times of India (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T23:56:27Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Britannia reported an 11% rise in Q2 profit to 726 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Britannia reported an 11% rise in Q2 profit to 726 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Britannia Industries",
+          "ticker": "BRITANNIA",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261106-079",
       "headline": "SBZ: Schoolblazer Group- Placement Update [price-sensitive]",
       "headline_en": null,
@@ -482,6 +580,253 @@
       "companies": [
         {
           "name": "Taziz",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-119",
+      "headline": "Noel to retire as VC, Titan Q2 net rises over 2x to 2.4k cr",
+      "headline_en": null,
+      "url": "https://timesofindia.indiatimes.com/business/india-business/noel-to-retire-as-vc-titan-q2-net-rises-over-2x-to-2-4k-cr/articleshow/135589143.cms",
+      "source_name": "The Times of India (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T23:32:39Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Titan Company reported Q2 net profit rising over 2x to 2,400 crore rupees alongside the announcement of Noel Tata retiring as Vice Chairman.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Titan Company reported Q2 net profit rising over 2x to 2,400 crore rupees alongside the announcement of Noel Tata retiring as Vice Chairman.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Titan Company",
+          "ticker": "TITAN",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-121",
+      "headline": "ONGC net jumps 57% to 15.5k cr as oil gains",
+      "headline_en": null,
+      "url": "https://timesofindia.indiatimes.com/business/india-business/ongc-net-jumps-57-to-15-5k-cr-as-oil-gains/articleshow/135589133.cms",
+      "source_name": "The Times of India (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T23:30:01Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "ONGC reported net profit jumped 57% to 15,500 crore rupees due to higher crude oil gains.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "ONGC reported net profit jumped 57% to 15,500 crore rupees due to higher crude oil gains.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Oil and Natural Gas Corporation",
+          "ticker": "ONGC",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-104",
+      "headline": "China’s block on SoftBank deal fires the starting gun on the robot wars",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/77b31f52-0485-414b-be6a-198d71fabc1a?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T00:01:01Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "China's block on a SoftBank deal highlights significant regulatory and geopolitical risk for cross-border tech M&A.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "China's block on a SoftBank deal highlights significant regulatory and geopolitical risk for cross-border tech M&A.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SoftBank",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-088",
+      "headline": "Cloudflare stock mounts big comeback after fastest sales surge in nearly 4 years",
+      "headline_en": null,
+      "url": "https://www.marketwatch.com/bulletins/redirect/go?g=f90ce007-a988-4b7b-973e-a9d45ec1c6f2&mod=mw_rss_bulletins",
+      "source_name": "MarketWatch",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T23:52:23Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Cloudflare reported its fastest sales surge in nearly 4 years, driving a significant stock recovery.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Cloudflare reported its fastest sales surge in nearly 4 years, driving a significant stock recovery.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cloudflare",
+          "ticker": "NET",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-102",
+      "headline": "Anthropic’s IPO timing in doubt due to AI backlash, sources say",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/business/article-anthropic-ipo-valuation-ai-investors/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T00:03:09Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Anthropic's potential IPO is facing delays due to market sentiment, impacting capital market expectations for the AI sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Anthropic's potential IPO is facing delays due to market sentiment, impacting capital market expectations for the AI sector.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
           "ticker": null,
           "listing_country": null
         }
@@ -639,6 +984,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261106-118",
+      "headline": "OCBC’s Q3 net profit up 3% at $2.04b, lifted by record banking operations profit",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/ocbcs-q3-net-profit-up-3-at-2-04b-lifted-by-record-banking-operations-profit",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T23:32:48Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "OCBC reported a 3% increase in Q3 net profit to S$2.04 billion, driven by record banking operations profit.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "OCBC reported a 3% increase in Q3 net profit to S$2.04 billion, driven by record banking operations profit.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Oversea-Chinese Banking Corporation",
+          "ticker": "O39",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261106-067",
       "headline": "BREAKING NEWS: Chubu Electric ordered to improve operations after nuclear plant data fraud",
       "headline_en": null,
@@ -680,6 +1074,55 @@
           "name": "Chubu Electric",
           "ticker": null,
           "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-115",
+      "headline": "Micron freezes Taiwan plant as workers demand bigger cut",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/technology/micron-freezes-taiwan-plant-workers-union-pay-dispute-profit-sharing",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T23:37:00Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Micron has frozen its Taiwan plant as workers demand a bigger cut, which could disrupt operations and impact production.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "Micron has frozen its Taiwan plant as workers demand a bigger cut, which could disrupt operations and impact production.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Micron",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -732,6 +1175,207 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-093",
+      "headline": "New gold discovery boosts Perpetua’s Stibnite project",
+      "headline_en": null,
+      "url": "https://www.mining.com/new-gold-discovery-boosts-perpetuas-stibnite-project/",
+      "source_name": "Mining.com",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T23:57:00Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "A new gold discovery significantly boosts the outlook for Perpetua's Stibnite project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "A new gold discovery significantly boosts the outlook for Perpetua's Stibnite project.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 68,
+      "rank_factors": {
+        "materiality": 68,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 2,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Perpetua Resources",
+          "ticker": "PPTA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-120",
+      "headline": "Monster Tops Estimates on Growing Global Energy Drink Demand",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-05/monster-tops-estimates-on-growing-global-energy-drink-demand",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T23:30:27Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Monster Beverage beat earnings estimates on growing global energy drink demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "Monster Beverage beat earnings estimates on growing global energy drink demand.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Monster Beverage Corp",
+          "ticker": "MNST",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-090",
+      "headline": "Hedge Fund VARA Plunges 33% in Brutal October for AI Stocks",
+      "headline_en": null,
+      "url": "https://www.livemint.com/market/hedge-fund-vara-plunges-33-in-brutal-october-for-ai-stocks-11793923146546.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T23:59:06Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Hedge fund VARA plunged 33% in October, signaling significant volatility and losses in the AI sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Hedge fund VARA plunged 33% in October, signaling significant volatility and losses in the AI sector.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "VARA",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-100",
+      "headline": "Democratic wave crushes AI trade, taking Atlassian and Iren with it",
+      "headline_en": null,
+      "url": "https://www.afr.com/technology/atlassian-posts-second-quarterly-profit-as-tech-stock-get-smashed-20261106-p61btp?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T23:46:26Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "A 'Democratic wave' is cited as crushing AI-related trades, specifically impacting Atlassian and Iren.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "A 'Democratic wave' is cited as crushing AI-related trades, specifically impacting Atlassian and Iren.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Atlassian",
+          "ticker": "TEAM",
+          "listing_country": "US"
+        },
+        {
+          "name": "Iris Energy",
+          "ticker": "IREN",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -884,6 +1528,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261106-113",
+      "headline": "Qantas Expects $2.63 Billion First-Half Fuel Bill Amid Elevated Oil Prices",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/energy-oil/qantas-expects-2-63-billion-first-half-fuel-bill-amid-elevated-oil-prices-b4657da0?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T23:44:00Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Qantas expects a $2.63 billion fuel bill for the first half due to high oil prices, which could impact its margins.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 77,
+      "triage_reason": "Qantas expects a $2.63 billion fuel bill for the first half due to high oil prices, which could impact its margins.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Qantas",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261106-083",
       "headline": "BRII-B (02137): VOLUNTARY ANNOUNCEMENT Presents Late-Breaking Data from Phase 2 ENRICH and ENHANCE Studies at AASLD 2026",
       "headline_en": null,
@@ -933,6 +1626,61 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261106-096",
+      "headline": "Meta, Google, and TikTok sue California AG over teen social media law",
+      "headline_en": null,
+      "url": "https://techcrunch.com/2026/11/05/meta-google-and-tiktok-sue-california-ag-over-teen-social-media-law/",
+      "source_name": "TechCrunch",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T00:01:38Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Major tech firms are suing the California AG over a new social media law, indicating significant legal and regulatory risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 73,
+      "triage_reason": "Major tech firms are suing the California AG over a new social media law, indicating significant legal and regulatory risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meta",
+          "ticker": "META",
+          "listing_country": "US"
+        },
+        {
+          "name": "Alphabet",
+          "ticker": "GOOGL",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261106-084",
       "headline": "DUIBA (01753): CHANGE OF INDEPENDENT NON-EXECUTIVE DIRECTORS AND CHANGE OF COMPOSITION OF BOARD COMMITTEES",
       "headline_en": null,
@@ -977,6 +1725,49 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-091",
+      "headline": "Trai paves way for spectrum assignment to satcom companies",
+      "headline_en": null,
+      "url": "https://timesofindia.indiatimes.com/business/india-business/trai-paves-way-for-spectrum-assignment-to-satcom-companies/articleshow/135589313.cms",
+      "source_name": "The Times of India (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T23:58:38Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "TRAI is paving the way for spectrum assignment to satellite communication companies, a key regulatory milestone for the sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 71,
+      "triage_reason": "TRAI is paving the way for spectrum assignment to satellite communication companies, a key regulatory milestone for the sector.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1080,382 +1871,83 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261106-075",
-      "headline": "BTC: BTC expands Exstent partnership to include India [price-sensitive]",
+      "inbox_id": "INB-20261106-107",
+      "headline": "Conrad Hotel electrocution deaths: Four staff arrested for negligence",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BTC?key=2924-03158901-3A705961",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-06T00:04:45Z",
+      "url": "https://www.deccanherald.com/india/karnataka/bengaluru/conrad-hotel-electrocution-deaths-four-staff-arrested-for-negligence-4209405",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T23:57:22Z",
       "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "BTC expands partnership to India; marked price-sensitive but no revenue, contract value, or customer detail disclosed.",
+      "prelim_note": "The arrest of staff following electrocution deaths at a Conrad Hotel creates significant legal and reputational risk for the property operator.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "BTC expands partnership to India; marked price-sensitive but no revenue, contract value, or customer detail disclosed.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 48,
+      "triage_score": 69,
+      "triage_reason": "The arrest of staff following electrocution deaths at a Conrad Hotel creates significant legal and reputational risk for the property operator.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
       "rank_factors": {
-        "materiality": 48,
-        "source_tier": 8,
+        "materiality": 50,
+        "source_tier": 0,
         "scope": 6,
-        "event": 0,
-        "size": 0,
+        "event": 6,
+        "size": 2,
         "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BTC",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-057",
-      "headline": "WYNN MACAU WYNN MAC N2710 WYNN MAC B2903 WYNN MAC N3402 WYNN MAC N2912 WYNN MAC N2808 (01128 05280 05754 05877 40102 40357): Inside Information - Unaudited Results for the Third Quarter and the First Three Quarters of Fiscal 2026 ended 30 September 2026 of our Controlling Shareholder, Wynn Resorts, Limited, Form 10-Q Quarterly Report",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1106/2026110600049.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-05T22:41:00Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Wynn Macau is reporting the Q3 2026 results of its controlling shareholder, Wynn Resorts.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 66,
-      "triage_reason": "Wynn Macau is reporting the Q3 2026 results of its controlling shareholder, Wynn Resorts.",
-      "region": "CN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 2,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
         "size_bucket": "large"
       },
       "event_types": [
-        "earnings_revenue_margin"
+        "litigation_enforcement"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Wynn Macau",
-          "ticker": "01128",
-          "listing_country": "CN"
-        },
-        {
-          "name": "Wynn Resorts",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-065",
-      "headline": "OCBC’s Q3 net earnings up 3% at $2.04b, lifted by record banking operations profit",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/ocbcs-q3-net-profit-up-3-at-2-04b-lifted-by-record-banking-operations-profit",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T23:32:48Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "OCBC reported Q3 net earnings of $2.04 billion, up 3%.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "OCBC reported Q3 net earnings of $2.04 billion, up 3%.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "OCBC",
-          "ticker": null,
-          "listing_country": "SG"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-009",
-      "headline": "Madica secures $6 million to invest in up to 30 African startups",
-      "headline_en": null,
-      "url": "https://www.wamda.com/2026/10/madica-secures-6-million-invest-30-african-startups",
-      "source_name": "Wamda",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T23:37:13Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Madica secured $6 million for startup investments.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 62,
-      "triage_reason": "Madica secured $6 million for startup investments.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Madica",
+          "name": "Conrad Hotel",
           "ticker": null,
           "listing_country": null
         }
       ],
-      "size_bucket": "unknown",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261106-069",
-      "headline": "Installed Building Products, Inc. Reports Third Quarter 2026 Net Revenue of $808.4 million and Declares $0.39 Dividend",
+      "inbox_id": "INB-20261106-114",
+      "headline": "China’s Copper Squeeze Deepens as Buyers Scramble for Metal",
       "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/installed-building-products-inc-reports-third-quarter-2026-net-revenue-8084-million-and",
-      "source_name": "Nasdaq",
+      "url": "https://www.livemint.com/market/chinas-copper-squeeze-deepens-as-buyers-scramble-for-metal-11793921664348.html",
+      "source_name": "Mint",
       "input_nature": "news_headline",
-      "found_at": "2026-11-05T23:13:09Z",
+      "found_at": "2026-11-05T23:34:23Z",
       "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Installed Building Products reported Q3 2026 revenue of $808.4 million and declared a dividend.",
+      "prelim_note": "China's copper squeeze is deepening as buyers scramble for metal, indicating a potential supply shock for the commodity.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 61,
-      "triage_reason": "Installed Building Products reported Q3 2026 revenue of $808.4 million and declared a dividend.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Installed Building Products",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-045",
-      "headline": "Rio Tinto approves $144 million investment to advance Resolution Copper project",
-      "headline_en": null,
-      "url": "http://www.businesswire.com/news/home/20261105436569/en/Rio-Tinto-approves-144-million-investment-to-advance-Resolution-Copper-project/?feedref=JjAwJuNHiystnCoBq_hl-fqXyBvmekC3Xq1G1wQ7hjMFbZM1ntlKeK-8bUzJqFSVSfe41V1BKA-b6v2ZVrSSNs-dUYKiDvY7XniNSqv88QcY1Ge_vf9QIMZ4alzIf_0HlyE0C4hZhHVlTvKnn0d0vQ==",
-      "source_name": "Business Wire — Product/Service News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-11-05T13:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Rio Tinto approves $144 million capital investment to advance Resolution Copper project; a named capex commitment by a mega-cap mining company for a strategic long-term project affecting capital allocation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 58,
-      "triage_reason": "Rio Tinto approves $144 million capital investment to advance Resolution Copper project; a named capex commitment by a mega-cap mining company for a strategic long-term project affecting capital allocation.",
-      "region": "GB",
+      "triage_score": 69,
+      "triage_reason": "China's copper squeeze is deepening as buyers scramble for metal, indicating a potential supply shock for the commodity.",
+      "region": "CN",
       "relevance": "material",
-      "materiality_pre_score": 72,
+      "materiality_pre_score": 75,
       "rank_factors": {
-        "materiality": 72,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Rio Tinto",
-          "ticker": "RIO",
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-061",
-      "headline": "Novo CEO gives key update on when its next obesity drug could launch",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/investing/stocks/nvo-novo-nordisk-ceo-doustdar-next-obesity-drug-cagrisema-could-launch-early-2027-pending-fda-approval",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T00:03:00Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Novo Nordisk CEO provided an update on the launch timeline for a new obesity drug.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 58,
-      "triage_reason": "Novo Nordisk CEO provided an update on the launch timeline for a new obesity drug.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
+        "materiality": 75,
         "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Novo Nordisk",
-          "ticker": null,
-          "listing_country": "DK"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-014",
-      "headline": "Mantle8 starts natural hydrogen exploration in Ras Al-Khaimah",
-      "headline_en": null,
-      "url": "https://www.meed.com/mantle8-starts-natural-hydrogen-exploration-in-ras-al-khaimah",
-      "source_name": "MEED — UAE",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T23:37:14Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Mantle8 has commenced natural hydrogen exploration in Ras Al-Khaimah, representing an early-stage operational development.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 58,
-      "triage_reason": "Mantle8 has commenced natural hydrogen exploration in Ras Al-Khaimah, representing an early-stage operational development.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
+        "scope": -22,
         "event": 2,
         "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "commodity",
         "source_tier_id": "news",
         "event_id": "operations",
         "size_bucket": "unknown"
@@ -1463,519 +1955,8 @@
       "event_types": [
         "operations"
       ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mantle8",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-012",
-      "headline": "YouTube allows in-video product sale for viewers in KSA, UAE and Egypt",
-      "headline_en": null,
-      "url": "https://www.wamda.com/2026/10/youtube-allows-video-product-sale-viewers-ksa-uae-egypt",
-      "source_name": "Wamda",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T23:37:13Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "YouTube enabled in-video product sales in KSA, UAE, and Egypt.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 58,
-      "triage_reason": "YouTube enabled in-video product sales in KSA, UAE, and Egypt.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [
-        {
-          "name": "Alphabet",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-066",
-      "headline": "Japan’s real wages rise for ninth month in September, backing BOJ rate hike",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/international/japans-real-wages-rise-ninth-month-september-backing-boj-rate-hike",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T23:59:48Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Japan's real wages rose for the ninth consecutive month, supporting expectations for a Bank of Japan rate hike.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 57,
-      "triage_reason": "Japan's real wages rose for the ninth consecutive month, supporting expectations for a Bank of Japan rate hike.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
+      "issuer_linkage": "sector",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-025",
-      "headline": "CRG Residential Opens Three New Multifamily Developments, Adding $167.5 Million in Investment Across the Midwest",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/crg-residential-opens-three-new-multifamily-developments-adding-167-5-million-in-investment-across-the-midwest-302930196.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-11-05T13:42:00Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "CRG Residential announced $167.5 million in new multifamily developments.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 55,
-      "triage_reason": "CRG Residential announced $167.5 million in new multifamily developments.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CRG Residential",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-017",
-      "headline": "Adnoc Gas seals LNG supply agreement with TotalEnergies",
-      "headline_en": null,
-      "url": "https://www.meed.com/adnoc-gas-seals-lng-supply-agreement-with-totalenergies",
-      "source_name": "MEED — UAE",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T23:37:14Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Adnoc Gas has signed a new LNG supply agreement with TotalEnergies, strengthening its commercial order book.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 55,
-      "triage_reason": "Adnoc Gas has signed a new LNG supply agreement with TotalEnergies, strengthening its commercial order book.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Adnoc Gas",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "TotalEnergies",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-007",
-      "headline": "Egyptian climatetech NoorNation secures $1.05 million seed funding",
-      "headline_en": null,
-      "url": "https://www.wamda.com/2026/10/egyptian-climatetech-noornation-secures-1-05-million-seed-funding",
-      "source_name": "Wamda",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T23:37:13Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "NoorNation secured $1.05 million in seed funding.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 55,
-      "triage_reason": "NoorNation secured $1.05 million in seed funding.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NoorNation",
-          "ticker": null,
-          "listing_country": "EG"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-052",
-      "headline": "ReElement Announces $46 Million in Non-Dilutive Federal NMTC Allocation to Support Indiana Critical-Minerals Refining Expansion | AREC Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/AREC/re-element-announces-46-million-in-non-dilutive-federal-nmtc-n6rnxc3xoi4r.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-11-05T13:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "ReElement received a $46 million federal allocation to support a critical-minerals refining expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 52,
-      "triage_reason": "ReElement received a $46 million federal allocation to support a critical-minerals refining expansion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "capex",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ReElement",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-074",
-      "headline": "ANO: Change of Director's Interest Notice - Lev Mizikovsky",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ANO?key=2924-03158905-2A1709082",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-06T00:14:55Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Routine director share transaction notice.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 51,
-      "triage_reason": "Routine director share transaction notice.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 30,
-      "rank_factors": {
-        "materiality": 30,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "insider_transaction",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "insider_transaction"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ANO",
-          "ticker": "ANO",
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-034",
-      "headline": "TKO Announces Launch of Senior Secured Notes Oﬀering | TKO Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/TKO/tko-announces-launch-of-senior-secured-notes-2d3m5i9dhq98.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-11-05T13:25:00Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "TKO is launching a senior secured notes offering to raise capital.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 51,
-      "triage_reason": "TKO is launching a senior secured notes offering to raise capital.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TKO Group Holdings",
-          "ticker": "TKO",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-040",
-      "headline": "Genius Group, FingerMotion and BlueFlare Sign Second Binding Agreement for Up to 100 MW Brooks Corridor HPC Campus Program in Alberta",
-      "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/11/05/3396410/0/en/genius-group-fingermotion-and-blueflare-sign-second-binding-agreement-for-up-to-100-mw-brooks-corridor-hpc-campus-program-in-alberta.html",
-      "source_name": "GlobeNewswire — Press Releases (general)",
-      "input_nature": "company_press_release",
-      "found_at": "2026-11-05T13:05:00Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Genius Group, FingerMotion, and BlueFlare signed a binding agreement for a 100 MW HPC campus project.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 51,
-      "triage_reason": "Genius Group, FingerMotion, and BlueFlare signed a binding agreement for a 100 MW HPC campus project.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 6,
-        "size": -1,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "capex",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Genius Group",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "FingerMotion",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "BlueFlare",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-027",
-      "headline": "Prenetics’ IM8 and Authentic Brands Group Announce 10-Year Exclusive Global Partnership to Create Care Bears by IM8; Authentic to Become Strategic Shareholder in Prenetics",
-      "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/11/05/3396443/0/en/prenetics-im8-and-authentic-brands-group-announce-10-year-exclusive-global-partnership-to-create-care-bears-by-im8-authentic-to-become-strategic-shareholder-in-prenetics.html",
-      "source_name": "GlobeNewswire — News about Public Companies",
-      "input_nature": "company_press_release",
-      "found_at": "2026-11-05T13:30:00Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Prenetics' IM8 signed 10-year exclusive global Care Bears partnership with Authentic Brands Group, which acquired strategic stake; deal value unquantified but franchise scope and ABG's brand portfolio suggest material revenue opportunity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 50,
-      "triage_reason": "Prenetics' IM8 signed 10-year exclusive global Care Bears partnership with Authentic Brands Group, which acquired strategic stake; deal value unquantified but franchise scope and ABG's brand portfolio suggest material revenue opportunity.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 68,
-      "rank_factors": {
-        "materiality": 68,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 2,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Prenetics",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Authentic Brands Group",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -264250,9 +264231,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 151369,
-    "news_picked_today": 90,
-    "news_dropped_today": 486
+    "news_seen_today": 178112,
+    "news_picked_today": 131,
+    "news_dropped_today": 637
   },
   "book_momentum": {
     "live_count": 8,
