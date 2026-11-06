@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-06T01:05:19Z",
+  "generated_at": "2026-11-06T01:12:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20261106-072",
@@ -144,6 +144,252 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-129",
+      "headline": "Macquarie cops $100m APRA penalty, overshadowing upbeat results",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/financial-services/macquarie-cops-100m-capital-slug-in-win-for-banking-rivals-20261106-p61bxi?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T00:34:04Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Macquarie faces a $100 million regulatory penalty from APRA.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Macquarie faces a $100 million regulatory penalty from APRA.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Macquarie",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-146",
+      "headline": "SUVs drive up M&M Q2 net profit by 25%",
+      "headline_en": null,
+      "url": "https://timesofindia.indiatimes.com/business/india-business/suvs-drive-up-mm-q2-net-profit-by-25/articleshow/135589534.cms",
+      "source_name": "The Times of India (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T00:31:51Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Mahindra & Mahindra reported a 25% increase in Q2 net profit driven by SUV sales.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Mahindra & Mahindra reported a 25% increase in Q2 net profit driven by SUV sales.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mahindra & Mahindra",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-147",
+      "headline": "At 12k cr, LIC profit rises 20% in Q2",
+      "headline_en": null,
+      "url": "https://timesofindia.indiatimes.com/business/india-business/at-12k-cr-lic-profit-rises-20-in-q2/articleshow/135589511.cms",
+      "source_name": "The Times of India (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T00:27:47Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "LIC reported a 20% increase in Q2 profit to 12,000 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "LIC reported a 20% increase in Q2 profit to 12,000 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LIC",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-148",
+      "headline": "Bharti Airtel profit up 24% to 10,710cr",
+      "headline_en": null,
+      "url": "https://timesofindia.indiatimes.com/business/india-business/bharti-airtel-profit-up-24-to-10710cr/articleshow/135589499.cms",
+      "source_name": "The Times of India (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T00:25:21Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Bharti Airtel reported a 24% profit increase to 10,710 crore for the quarter.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bharti Airtel reported a 24% profit increase to 10,710 crore for the quarter.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bharti Airtel",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-126",
+      "headline": "Viatris Inc. Reports Third-Quarter 2026 Total Revenues of $3.75 Billion and Raises Full-Year Guidance",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/viatris-inc-reports-third-quarter-2026-total-revenues-375-billion-and-raises-full-year",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T00:21:31Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Viatris reported $3.75 billion in revenue and raised its full-year guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Viatris reported $3.75 billion in revenue and raised its full-year guidance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Viatris Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -345,6 +591,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261106-153",
+      "headline": "Victoria’s $1b gas storage project collapses days after approval",
+      "headline_en": null,
+      "url": "https://www.afr.com/policy/energy-and-climate/victoria-s-1b-plus-gas-storage-project-collapses-days-after-approval-20261106-p61bz6?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T00:29:25Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "A $1 billion gas storage project in Victoria has collapsed, representing a significant loss of planned infrastructure investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "A $1 billion gas storage project in Victoria has collapsed, representing a significant loss of planned infrastructure investment.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261106-064",
       "headline": "The New York Times reportedly in talks to buy Letterboxd for $330 million",
       "headline_en": null,
@@ -438,6 +727,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-130",
+      "headline": "Apple raises US$7.5 billion from investment-grade debt offering",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/telcos-media-tech/apple-raises-us7-5-billion-investment-grade-debt-offering",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T00:24:17Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Apple raised $7.5 billion through an investment-grade debt offering.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Apple raised $7.5 billion through an investment-grade debt offering.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Apple",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -739,6 +1077,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261106-131",
+      "headline": "Airbnb raises revenue growth forecast, fueled by global demand, corporate travel",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/world/article-airbnb-raises-revenue-growth-forecast/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T00:31:46Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Airbnb raised its revenue growth forecast due to strong demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Airbnb raised its revenue growth forecast due to strong demand.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Airbnb",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261106-088",
       "headline": "Cloudflare stock mounts big comeback after fastest sales surge in nearly 4 years",
       "headline_en": null,
@@ -783,6 +1170,56 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-127",
+      "headline": "Gibraltar Industries, Inc. Reports Third Quarter 2026 Results and Adjusts Full-Year Outlook",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/gibraltar-industries-inc-reports-third-quarter-2026-results-and-adjusts-full-year-outlook",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T00:21:31Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Gibraltar Industries reported Q3 results and adjusted its full-year outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Gibraltar Industries reported Q3 results and adjusted its full-year outlook.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Gibraltar Industries, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -935,6 +1372,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261106-142",
+      "headline": "Lantheus Holdings, Inc. Reports Third Quarter 2026 Revenue of $389.9 million",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/lantheus-holdings-inc-reports-third-quarter-2026-revenue-3899-million",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T00:12:28Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Lantheus Holdings reported Q3 2026 revenue of $389.9 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Lantheus Holdings reported Q3 2026 revenue of $389.9 million.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lantheus Holdings",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261106-010",
       "headline": "Singapore's Rently secures $12 million credit facility to expand into UAE",
       "headline_en": null,
@@ -1033,6 +1519,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261106-135",
+      "headline": "Nvidia CEO called in by lawmakers over ties to alleged Chinese spy",
+      "headline_en": null,
+      "url": "https://www.axios.com/2026/11/05/jensen-huang-nvidia-congress-china",
+      "source_name": "Axios",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T23:39:19Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Nvidia CEO summoned by lawmakers regarding potential ties to a Chinese spy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Nvidia CEO summoned by lawmakers regarding potential ties to a Chinese spy.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261106-067",
       "headline": "BREAKING NEWS: Chubu Electric ordered to improve operations after nuclear plant data fraud",
       "headline_en": null,
@@ -1077,6 +1613,153 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-143",
+      "headline": "AI backlash could threaten Anthropic IPO timing, potential investors say",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/us-stocks/news/ai-backlash-could-threaten-anthropic-ipo-timing-potential-investors-say/articleshow/135589533.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T00:32:25Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Potential regulatory backlash against AI is threatening the IPO timeline for Anthropic.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Potential regulatory backlash against AI is threatening the IPO timeline for Anthropic.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-145",
+      "headline": "Mumbai airport clips 12 foreign airlines' wings as Adani pushes redevelopment",
+      "headline_en": null,
+      "url": "https://www.livemint.com/industry/navi-mumbai-adani-airport-international-airlines-11793894827797.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T00:30:43Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Adani Airport Holdings is restricting 12 foreign airlines at Mumbai airport, impacting their operational capacity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Adani Airport Holdings is restricting 12 foreign airlines at Mumbai airport, impacting their operational capacity.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adani Enterprises",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-151",
+      "headline": "Core Scientific to quit Bitcoin mining by year-end as AI business surges",
+      "headline_en": null,
+      "url": "https://cointelegraph.com/news/core-scientific-to-quit-bitcoin-mining-by-year-end-as-ai-business-surges?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source_name": "Cointelegraph",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T00:19:49Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Core Scientific is pivoting its business model by exiting Bitcoin mining to focus on AI infrastructure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "Core Scientific is pivoting its business model by exiting Bitcoin mining to focus on AI infrastructure.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Core Scientific",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1273,697 +1956,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-120",
-      "headline": "Monster Tops Estimates on Growing Global Energy Drink Demand",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-05/monster-tops-estimates-on-growing-global-energy-drink-demand",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T23:30:27Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Monster Beverage beat earnings estimates on growing global energy drink demand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "Monster Beverage beat earnings estimates on growing global energy drink demand.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Monster Beverage Corp",
-          "ticker": "MNST",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-090",
-      "headline": "Hedge Fund VARA Plunges 33% in Brutal October for AI Stocks",
-      "headline_en": null,
-      "url": "https://www.livemint.com/market/hedge-fund-vara-plunges-33-in-brutal-october-for-ai-stocks-11793923146546.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T23:59:06Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Hedge fund VARA plunged 33% in October, signaling significant volatility and losses in the AI sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Hedge fund VARA plunged 33% in October, signaling significant volatility and losses in the AI sector.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "VARA",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-100",
-      "headline": "Democratic wave crushes AI trade, taking Atlassian and Iren with it",
-      "headline_en": null,
-      "url": "https://www.afr.com/technology/atlassian-posts-second-quarterly-profit-as-tech-stock-get-smashed-20261106-p61btp?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T23:46:26Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "A 'Democratic wave' is cited as crushing AI-related trades, specifically impacting Atlassian and Iren.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "A 'Democratic wave' is cited as crushing AI-related trades, specifically impacting Atlassian and Iren.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Atlassian",
-          "ticker": "TEAM",
-          "listing_country": "US"
-        },
-        {
-          "name": "Iris Energy",
-          "ticker": "IREN",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-008",
-      "headline": "DPI Venture Capital closes Nclude Fund at over $112 million",
-      "headline_en": null,
-      "url": "https://www.wamda.com/2026/10/dpi-venture-capital-closes-nclude-fund-112-million",
-      "source_name": "Wamda",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T23:37:13Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "DPI Venture Capital closed a fund at over $112 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "DPI Venture Capital closed a fund at over $112 million.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DPI Venture Capital",
-          "ticker": null,
-          "listing_country": "EG"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-004",
-      "headline": "Egypt's Tanmiya Capital closes $130 million fund backed by EIB, IFC and EBRD",
-      "headline_en": null,
-      "url": "https://www.wamda.com/2026/10/egypts-tanmiya-capital-closes-130-million-fund-backed-eib-ifc-ebrd",
-      "source_name": "Wamda",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T23:37:13Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Tanmiya Capital closed a $130 million fund.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Tanmiya Capital closed a $130 million fund.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tanmiya Capital",
-          "ticker": null,
-          "listing_country": "EG"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-006",
-      "headline": "Oman's Phaze Ventures launches two AI funds targeting over $75 million",
-      "headline_en": null,
-      "url": "https://www.wamda.com/2026/10/omans-phaze-ventures-launches-ai-funds-targeting-75-million",
-      "source_name": "Wamda",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T23:37:13Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Phaze Ventures launched two AI funds targeting over $75 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Phaze Ventures launched two AI funds targeting over $75 million.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 48,
-      "rank_factors": {
-        "materiality": 48,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 22,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Phaze Ventures",
-          "ticker": null,
-          "listing_country": "OM"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-113",
-      "headline": "Qantas Expects $2.63 Billion First-Half Fuel Bill Amid Elevated Oil Prices",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/energy-oil/qantas-expects-2-63-billion-first-half-fuel-bill-amid-elevated-oil-prices-b4657da0?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T23:44:00Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Qantas expects a $2.63 billion fuel bill for the first half due to high oil prices, which could impact its margins.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 77,
-      "triage_reason": "Qantas expects a $2.63 billion fuel bill for the first half due to high oil prices, which could impact its margins.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Qantas",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-083",
-      "headline": "BRII-B (02137): VOLUNTARY ANNOUNCEMENT Presents Late-Breaking Data from Phase 2 ENRICH and ENHANCE Studies at AASLD 2026",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1106/2026110600053.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-05T23:30:00Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Phase 2 clinical trial data from ENRICH and ENHANCE studies presented at AASLD 2026 conference; trial outcomes (efficacy, safety, regulatory signal) not stated in headline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 76,
-      "triage_reason": "Phase 2 clinical trial data from ENRICH and ENHANCE studies presented at AASLD 2026 conference; trial outcomes (efficacy, safety, regulatory signal) not stated in headline.",
-      "region": "CN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 58,
-      "rank_factors": {
-        "materiality": 58,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BRII-B",
-          "ticker": "02137",
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-096",
-      "headline": "Meta, Google, and TikTok sue California AG over teen social media law",
-      "headline_en": null,
-      "url": "https://techcrunch.com/2026/11/05/meta-google-and-tiktok-sue-california-ag-over-teen-social-media-law/",
-      "source_name": "TechCrunch",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T00:01:38Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Major tech firms are suing the California AG over a new social media law, indicating significant legal and regulatory risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 73,
-      "triage_reason": "Major tech firms are suing the California AG over a new social media law, indicating significant legal and regulatory risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Meta",
-          "ticker": "META",
-          "listing_country": "US"
-        },
-        {
-          "name": "Alphabet",
-          "ticker": "GOOGL",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-084",
-      "headline": "DUIBA (01753): CHANGE OF INDEPENDENT NON-EXECUTIVE DIRECTORS AND CHANGE OF COMPOSITION OF BOARD COMMITTEES",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1106/2026110600017.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-05T22:09:00Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "The company announced a change in independent non-executive directors and board committee composition.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 71,
-      "triage_reason": "The company announced a change in independent non-executive directors and board committee composition.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DUIBA",
-          "ticker": "01753",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-091",
-      "headline": "Trai paves way for spectrum assignment to satcom companies",
-      "headline_en": null,
-      "url": "https://timesofindia.indiatimes.com/business/india-business/trai-paves-way-for-spectrum-assignment-to-satcom-companies/articleshow/135589313.cms",
-      "source_name": "The Times of India (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T23:58:38Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "TRAI is paving the way for spectrum assignment to satellite communication companies, a key regulatory milestone for the sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 71,
-      "triage_reason": "TRAI is paving the way for spectrum assignment to satellite communication companies, a key regulatory milestone for the sector.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-077",
-      "headline": "SBZ: Proposed issue of securities - SBZ",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SBZ?key=2924-03158890-2A1709076",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-05T23:42:15Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "SBZ proposes new securities issuance affecting capital structure and potential shareholder dilution, but without disclosed size, terms, or use of proceeds.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "SBZ proposes new securities issuance affecting capital structure and potential shareholder dilution, but without disclosed size, terms, or use of proceeds.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Schoolblazer Group",
-          "ticker": "SBZ",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-039",
-      "headline": "Maris-Tech Announces Preliminary Gross Revenue Forecast For 2026 in Excess of $5,000,000",
-      "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/11/05/3396412/0/en/maris-tech-announces-preliminary-gross-revenue-forecast-for-2026-in-excess-of-5-000-000.html",
-      "source_name": "GlobeNewswire — Press Releases (general)",
-      "input_nature": "company_press_release",
-      "found_at": "2026-11-05T13:10:00Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Maris-Tech provided a quantified revenue forecast for 2026 exceeding $5,000,000.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "Maris-Tech provided a quantified revenue forecast for 2026 exceeding $5,000,000.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "guidance_change",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Maris-Tech",
-          "ticker": "MTEK",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-107",
-      "headline": "Conrad Hotel electrocution deaths: Four staff arrested for negligence",
-      "headline_en": null,
-      "url": "https://www.deccanherald.com/india/karnataka/bengaluru/conrad-hotel-electrocution-deaths-four-staff-arrested-for-negligence-4209405",
-      "source_name": "Deccan Herald",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T23:57:22Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "The arrest of staff following electrocution deaths at a Conrad Hotel creates significant legal and reputational risk for the property operator.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "The arrest of staff following electrocution deaths at a Conrad Hotel creates significant legal and reputational risk for the property operator.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Conrad Hotel",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -264027,9 +264019,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 204847,
-    "news_picked_today": 140,
-    "news_dropped_today": 724
+    "news_seen_today": 218194,
+    "news_picked_today": 170,
+    "news_dropped_today": 862
   },
   "book_momentum": {
     "live_count": 8,
