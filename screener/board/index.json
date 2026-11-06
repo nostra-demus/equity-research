@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-06T13:58:16Z",
+  "generated_at": "2026-11-06T14:03:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20261106-644",
@@ -890,6 +890,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-650",
+      "headline": "CBI Raids Mumbai Premises Linked To Kishore Biyani After Registering ₹904 Crore Fraud Case Against Future Retail",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/mumbai/cbi-raids-mumbai-premises-linked-to-kishore-biyani-after-registering-904-crore-fraud-case-against-future-retail",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T13:14:12Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "CBI registered a ₹904 crore fraud case against Future Retail and raided linked premises.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CBI registered a ₹904 crore fraud case against Future Retail and raided linked premises.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Future Retail",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1952,55 +2001,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-467",
-      "headline": "Fujiyama Power Systems Powers Up Q2 Earnings, Profit Rockets 111% To ₹132.9 Crore As Revenue Zooms 130% To ₹1,306.8 Crore",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/fujiyama-power-systems-powers-up-q2-earnings-profit-rockets-111-to-1329-crore-as-revenue-zooms-130-to-13068-crore",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T06:36:04Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Fujiyama Power Systems reported a 111% profit increase to ₹132.9 crore and a 130% revenue increase to ₹1,306.8 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Fujiyama Power Systems reported a 111% profit increase to ₹132.9 crore and a 130% revenue increase to ₹1,306.8 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Fujiyama Power Systems",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -263840,9 +263840,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2702904,
-    "news_picked_today": 1317,
-    "news_dropped_today": 15603
+    "news_seen_today": 2715553,
+    "news_picked_today": 1324,
+    "news_dropped_today": 15740
   },
   "book_momentum": {
     "live_count": 8,
