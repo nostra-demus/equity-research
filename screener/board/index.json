@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-06T18:04:14Z",
+  "generated_at": "2026-11-06T18:04:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20261106-725",
@@ -222728,6 +222728,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-f5730c4d2977",
+      "idea_version": "IDEAV-d4046ecb00a1432d",
+      "idea_version_started_at": "2026-11-06T18:04:31Z",
+      "ticker": "QGEN",
+      "company": "Qiagen N.V.",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is the subject of a public takeover offer from EQT Private Equity at €46.50 per share, creating an arbitrage opportunity between the current market price and the offer price.",
+      "why_now": "The takeover offer was officially announced on 2026-11-06.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 23,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1b37a0c7257c"
+      ],
+      "primary_source_event_id": "EVT-1b37a0c7257c",
+      "source_headlines": [
+        "Qiagen N.V. Announces Public Takeover Offer from EQT Private Equity at €46.50 Per Share"
+      ],
+      "source_headline": "Qiagen N.V. Announces Public Takeover Offer from EQT Private Equity at €46.50 Per Share",
+      "source_url": "https://www.nasdaq.com/articles/qiagen-nv-announces-public-takeover-offer-eqt-private-equity-eu4650-share",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-06T13:21:18Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-06T18:04:31Z",
+      "updated_at": "2026-11-06T18:04:31Z",
+      "decay_at": "2026-11-08T01:21:18Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-61866d942f2f",
       "idea_version": "IDEAV-2af7736aef1a146b",
       "idea_version_started_at": "2026-11-05T20:09:05Z",
@@ -222864,6 +222935,77 @@
       "surfaced_at": "2026-11-05T13:42:59Z",
       "updated_at": "2026-11-05T13:42:59Z",
       "decay_at": "2026-11-06T21:41:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-4c01358eaa0e",
+      "idea_version": "IDEAV-edb41e9a7a4ca55b",
+      "idea_version_started_at": "2026-11-06T18:04:31Z",
+      "ticker": "01222",
+      "company": "Wang On Group",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company issued a positive profit alert indicating improved earnings performance for the period.",
+      "why_now": "The filing was released on 2026-11-06, providing immediate visibility into better-than-expected financial results.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f4ecfebff8a4"
+      ],
+      "primary_source_event_id": "EVT-f4ecfebff8a4",
+      "source_headlines": [
+        "WANG ON GROUP (01222): INSIDE INFORMATION - POSITIVE PROFIT ALERT"
+      ],
+      "source_headline": "WANG ON GROUP (01222): INSIDE INFORMATION - POSITIVE PROFIT ALERT",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1106/2026110601191.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-06T10:51:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-06T18:04:31Z",
+      "updated_at": "2026-11-06T18:04:31Z",
+      "decay_at": "2026-11-07T22:51:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -224510,76 +224652,6 @@
       "surfaced_at": "2026-11-03T21:03:27Z",
       "updated_at": "2026-11-03T21:03:27Z",
       "decay_at": "2026-11-05T07:50:54Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-5463de12643f",
-      "idea_version": "IDEAV-02d77e26cd39e251",
-      "idea_version_started_at": "2026-11-03T19:40:00Z",
-      "ticker": "UL",
-      "company": "Unilever",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is initiating a 1 billion euro cost-cutting program following the planned spin-off of its food division, which should improve operating margins.",
-      "why_now": "The announcement was made on November 3, 2026, and the restructuring is immediate.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-19a9290506fb"
-      ],
-      "primary_source_event_id": "EVT-19a9290506fb",
-      "source_headlines": [
-        "Unilever to cut €1bn in costs after food spin-off"
-      ],
-      "source_headline": "Unilever to cut €1bn in costs after food spin-off",
-      "source_url": "https://www.ft.com/content/d86c9440-0c50-4879-ae46-81c9649934c0?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-03T17:03:51Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-03T19:40:00Z",
-      "updated_at": "2026-11-03T19:40:00Z",
-      "decay_at": "2026-11-05T05:03:51Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -226517,14 +226589,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 532,
+    "total_count": 531,
     "shown_count": 500,
-    "hidden_count": 32,
+    "hidden_count": 31,
     "side_counts": {
       "long": {
-        "total_count": 274,
+        "total_count": 273,
         "shown_count": 250,
-        "hidden_count": 24
+        "hidden_count": 23
       },
       "short": {
         "total_count": 258,
@@ -226534,12 +226606,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1651,
+      "evicted_count": 1652,
       "oldest_retained_at": "2026-10-10T01:18:28Z",
       "side_counts": {
         "long": {
-          "evicted_count": 1090,
-          "oldest_retained_at": "2026-10-21T23:46:15Z"
+          "evicted_count": 1091,
+          "oldest_retained_at": "2026-10-21T23:53:00Z"
         },
         "short": {
           "evicted_count": 562,
@@ -228913,8 +228985,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-05T05:03:51Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-06T18:04:39Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -263808,8 +263880,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2219,
-    "live_count": 35,
+    "surfaced_total": 2221,
+    "live_count": 37,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,

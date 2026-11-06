@@ -1,9 +1,9 @@
 {
-  "idea_id": "IDEA-5463de12643f",
-  "idea_version": "IDEAV-02d77e26cd39e251",
-  "idea_version_started_at": "2026-11-03T19:40:00Z",
-  "ticker": "UL",
-  "company": "Unilever",
+  "idea_id": "IDEA-f5730c4d2977",
+  "idea_version": "IDEAV-d4046ecb00a1432d",
+  "idea_version_started_at": "2026-11-06T18:04:31Z",
+  "ticker": "QGEN",
+  "company": "Qiagen N.V.",
   "exchange": "NYSE",
   "ticker_verified": true,
   "listing_verified": true,
@@ -11,15 +11,15 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "long",
   "pair_with": null,
-  "reason": "The company is initiating a 1 billion euro cost-cutting program following the planned spin-off of its food division, which should improve operating margins.",
-  "why_now": "The announcement was made on November 3, 2026, and the restructuring is immediate.",
-  "conviction": 75,
+  "reason": "The company is the subject of a public takeover offer from EQT Private Equity at €46.50 per share, creating an arbitrage opportunity between the current market price and the offer price.",
+  "why_now": "The takeover offer was officially announced on 2026-11-06.",
+  "conviction": 85,
   "conviction_basis": "pre_edge_proxy",
-  "trade_score": 67,
+  "trade_score": 60,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 14,
-    "impact": 21,
+    "impact": 23,
     "specificity": 15,
     "timing": 10,
     "expression": 7,
@@ -30,6 +30,7 @@
   "missing_checks": [
     "live liquidity",
     "dated catalyst",
+    "priced-in risk",
     "independent confirmation",
     "live price, liquidity, and consensus"
   ],
@@ -42,31 +43,31 @@
     "basis": "not_enough_outcomes",
     "evidenceIds": []
   },
-  "priced_in": "room",
+  "priced_in": "priced",
   "thesis_type": "company_specific",
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-19a9290506fb"
+    "EVT-1b37a0c7257c"
   ],
-  "primary_source_event_id": "EVT-19a9290506fb",
+  "primary_source_event_id": "EVT-1b37a0c7257c",
   "source_headlines": [
-    "Unilever to cut €1bn in costs after food spin-off"
+    "Qiagen N.V. Announces Public Takeover Offer from EQT Private Equity at €46.50 Per Share"
   ],
-  "source_headline": "Unilever to cut €1bn in costs after food spin-off",
-  "source_url": "https://www.ft.com/content/d86c9440-0c50-4879-ae46-81c9649934c0?syn-25a6b1a6=1",
-  "source_name": "Financial Times",
+  "source_headline": "Qiagen N.V. Announces Public Takeover Offer from EQT Private Equity at €46.50 Per Share",
+  "source_url": "https://www.nasdaq.com/articles/qiagen-nv-announces-public-takeover-offer-eqt-private-equity-eu4650-share",
+  "source_name": "Nasdaq",
   "materiality_max": 100,
-  "newest_source_at": "2026-11-03T17:03:51Z",
+  "newest_source_at": "2026-11-06T13:21:18Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-11-03T19:40:00Z",
-  "updated_at": "2026-11-03T19:40:00Z",
-  "decay_at": "2026-11-05T05:03:51Z",
+  "surfaced_at": "2026-11-06T18:04:31Z",
+  "updated_at": "2026-11-06T18:04:31Z",
+  "decay_at": "2026-11-08T01:21:18Z",
   "status": "live",
   "promoted_signal_id": null
 }
