@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-06T00:15:57Z",
+  "generated_at": "2026-11-06T00:21:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20261106-015",
@@ -242,6 +242,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-039",
+      "headline": "Maris-Tech Announces Preliminary Gross Revenue Forecast For 2026 in Excess of $5,000,000",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/11/05/3396412/0/en/maris-tech-announces-preliminary-gross-revenue-forecast-for-2026-in-excess-of-5-000-000.html",
+      "source_name": "GlobeNewswire — Press Releases (general)",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-05T13:10:00Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Maris-Tech provided a quantified revenue forecast for 2026 exceeding $5,000,000.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 69,
+      "triage_reason": "Maris-Tech provided a quantified revenue forecast for 2026 exceeding $5,000,000.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Maris-Tech",
+          "ticker": "MTEK",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -546,6 +595,164 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261106-034",
+      "headline": "TKO Announces Launch of Senior Secured Notes Oﬀering | TKO Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/TKO/tko-announces-launch-of-senior-secured-notes-2d3m5i9dhq98.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-05T13:25:00Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "TKO is launching a senior secured notes offering to raise capital.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 51,
+      "triage_reason": "TKO is launching a senior secured notes offering to raise capital.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TKO Group Holdings",
+          "ticker": "TKO",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-027",
+      "headline": "Prenetics’ IM8 and Authentic Brands Group Announce 10-Year Exclusive Global Partnership to Create Care Bears by IM8; Authentic to Become Strategic Shareholder in Prenetics",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/11/05/3396443/0/en/prenetics-im8-and-authentic-brands-group-announce-10-year-exclusive-global-partnership-to-create-care-bears-by-im8-authentic-to-become-strategic-shareholder-in-prenetics.html",
+      "source_name": "GlobeNewswire — News about Public Companies",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-05T13:30:00Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Prenetics' IM8 signed 10-year exclusive global Care Bears partnership with Authentic Brands Group, which acquired strategic stake; deal value unquantified but franchise scope and ABG's brand portfolio suggest material revenue opportunity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 50,
+      "triage_reason": "Prenetics' IM8 signed 10-year exclusive global Care Bears partnership with Authentic Brands Group, which acquired strategic stake; deal value unquantified but franchise scope and ABG's brand portfolio suggest material revenue opportunity.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 68,
+      "rank_factors": {
+        "materiality": 68,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 2,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Prenetics",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Authentic Brands Group",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-031",
+      "headline": "Prenetics’ IM8 and Authentic Brands Group Announce 10-Year Exclusive Global Partnership to Create Care Bears by IM8; Authentic to Become Strategic Shareholder in Prenetics | PRE Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/PRE/prenetics-im8-and-authentic-brands-group-announce-10-year-exclusive-2n40jdk6fp6j.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-05T13:30:00Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Prenetics and Authentic Brands Group formed a 10-year partnership, with Authentic becoming a strategic shareholder in Prenetics.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 49,
+      "triage_reason": "Prenetics and Authentic Brands Group formed a 10-year partnership, with Authentic becoming a strategic shareholder in Prenetics.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Prenetics",
+          "ticker": "PRE",
+          "listing_country": "US"
+        },
+        {
+          "name": "Authentic Brands Group",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261106-018",
       "headline": "HCW Biologics Secures up to $10.0 Million in Cash Through Debt Financing | HCWB Stock News",
       "headline_en": null,
@@ -590,6 +797,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-035",
+      "headline": "Current Chemicals Expands U.S. Production of Rare-Earth Fluorides With New Investment From Momentum Global Ventures",
+      "headline_en": null,
+      "url": "http://www.businesswire.com/news/home/20261105393088/en/Current-Chemicals-Expands-U.S.-Production-of-Rare-Earth-Fluorides-With-New-Investment-From-Momentum-Global-Ventures/?feedref=JjAwJuNHiystnCoBq_hl-Ymqj4g6qAlg7edDzhXcztJcgiwDl5F89IquLVWUqfRVgLxDkSKfgoruKb9yWl5as-PbWreMWuYBefATrZ0EPTUKvKXA1G4lfyVQLpVttJwGBSvR87oUDgbHejiywQBpbg==",
+      "source_name": "Business Wire — Funding News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-05T13:14:00Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Current Chemicals is expanding U.S. production capacity for rare-earth fluorides with new investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 48,
+      "triage_reason": "Current Chemicals is expanding U.S. production capacity for rare-earth fluorides with new investment.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Current Chemicals",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -688,6 +944,104 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-030",
+      "headline": "Arkhouse Calls for Decisive Action to Unlock Shareholder Value at People Incorporated | PPLI Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/PPLI/arkhouse-calls-for-decisive-action-to-unlock-shareholder-value-at-p3ww0hyb8a2t.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-05T13:30:00Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Arkhouse is initiating an activist campaign to unlock shareholder value at People Incorporated.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Arkhouse is initiating an activist campaign to unlock shareholder value at People Incorporated.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 2,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "ownership_activist",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "People Incorporated",
+          "ticker": "PPLI",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-028",
+      "headline": "Ondas Plans Significant U.S. Manufacturing Expansion to Scale Low-Cost ULTRA ISR Aircraft Production, Targeting 10 Aircraft per Month by 2028 | ONDS Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/ONDS/ondas-plans-significant-u-s-manufacturing-expansion-to-scale-low-yf6u3ztapff9.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-05T13:30:00Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Ondas plans a significant manufacturing expansion to scale production to 10 aircraft per month by 2028.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Ondas plans a significant manufacturing expansion to scale production to 10 aircraft per month by 2028.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 2,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "capex",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ondas",
+          "ticker": "ONDS",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -840,6 +1194,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261106-032",
+      "headline": "Nuwellis Submits FDA 510(k) to Expand Aquadex SmartFlow® Indication to Include Pediatric Patients Weighing 5 kg and Above | NUWE Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/NUWE/nuwellis-submits-fda-510-k-to-expand-aquadex-smart-flow-indication-kvrlw4xtg1xc.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-05T13:30:00Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "FDA 510(k) submission to expand Aquadex SmartFlow pediatric indication (≥5kg), opening neonatal/pediatric addressable market.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 45,
+      "triage_reason": "FDA 510(k) submission to expand Aquadex SmartFlow pediatric indication (≥5kg), opening neonatal/pediatric addressable market.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 62,
+      "rank_factors": {
+        "materiality": 62,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 2,
+        "materiality_label_floor": 8,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "regulatory",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory",
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nuwellis",
+          "ticker": "NUWE",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261106-013",
       "headline": "Invesco Real Estate Income Trust Inc. Fully Subscribes $97.6 Million DST Offering",
       "headline_en": null,
@@ -881,6 +1285,104 @@
           "name": "Invesco Real Estate Income Trust",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-037",
+      "headline": "GAC exporta 223.000 unidades entre enero y octubre",
+      "headline_en": "GAC exported 223,000 units between January and October",
+      "url": "https://www.prnewswire.com/news-releases/gac-exporta-223-000-unidades-entre-enero-y-octubre-302930766.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-05T13:15:00Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "GAC reported export volume of 223,000 units for the first ten months, indicating strong operational performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 44,
+      "triage_reason": "GAC reported export volume of 223,000 units for the first ten months, indicating strong operational performance.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GAC Group",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-038",
+      "headline": "GAC exportiert von Januar bis Oktober 223.000 Einheiten und stellt damit einen neuen Rekord auf! Stetiger Fortschritt bei der hochwertigen Globalisierung",
+      "headline_en": "GAC exported 223,000 units from January to October, setting a new record! Steady progress in high-quality globalization",
+      "url": "https://www.prnewswire.com/news-releases/gac-exportiert-von-januar-bis-oktober-223-000-einheiten-und-stellt-damit-einen-neuen-rekord-auf-stetiger-fortschritt-bei-der-hochwertigen-globalisierung-302930759.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-05T13:11:00Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "GAC reported record export volume of 223,000 units through October, signaling strong international growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 44,
+      "triage_reason": "GAC reported record export volume of 223,000 units through October, signaling strong international growth.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GAC Group",
+          "ticker": null,
+          "listing_country": "CN"
         }
       ],
       "size_bucket": "large",
@@ -979,6 +1481,55 @@
           "name": "Nordic Fibreboard AS",
           "ticker": null,
           "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-036",
+      "headline": "STAK Energy Signs Long-Term Agreement to Bring North Slope Natural Gas to Market",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/stak-energy-signs-long-term-agreement-to-bring-north-slope-natural-gas-to-market-302930119.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-05T13:15:00Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "STAK Energy signed a long-term agreement to bring natural gas to market, representing a significant commercial milestone.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 42,
+      "triage_reason": "STAK Energy signed a long-term agreement to bring natural gas to market, representing a significant commercial milestone.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "STAK Energy",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "unknown",
@@ -1174,6 +1725,104 @@
         {
           "name": "Prenetics",
           "ticker": "PRE",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-029",
+      "headline": "Aptevo Achieves Key Clinical Development Objective, Significantly Reducing Infusion-Related Reactions with Mipletamig in Frontline AML | APVO Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/APVO/aptevo-achieves-key-clinical-development-objective-significantly-iv41i7mx8x54.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-05T13:30:00Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Aptevo achieved a clinical objective by reducing infusion-related reactions in its Mipletamig AML trial.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 41,
+      "triage_reason": "Aptevo achieved a clinical objective by reducing infusion-related reactions in its Mipletamig AML trial.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Aptevo Therapeutics",
+          "ticker": "APVO",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-033",
+      "headline": "SPARC AI Advances Commercial Expansion Following Successful Overwatch Flight Test | SPAIF Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/SPAIF/sparc-ai-advances-commercial-expansion-following-successful-gimelrz0yjsu.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-05T13:27:00Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "SPARC AI is advancing its commercial expansion following a successful flight test of its Overwatch technology.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 41,
+      "triage_reason": "SPARC AI is advancing its commercial expansion following a successful flight test of its Overwatch technology.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 2,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SPARC AI",
+          "ticker": "SPAIF",
           "listing_country": "US"
         }
       ],
@@ -263540,7 +264189,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4513,
+    "inbox_unconsumed": 4526,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -263549,9 +264198,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 55470,
-    "news_picked_today": 26,
-    "news_dropped_today": 118
+    "news_seen_today": 82862,
+    "news_picked_today": 39,
+    "news_dropped_today": 201
   },
   "book_momentum": {
     "live_count": 8,
