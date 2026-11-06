@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-06T11:48:14Z",
+  "generated_at": "2026-11-06T11:52:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20261106-558",
@@ -539,6 +539,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-581",
+      "headline": "M&M to invest up to ₹1,450 crore in SML Mahindra's proposed rights issue",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/business/mm-to-invest-up-to-rs-1450-crore-in-sml-mahindras-proposed-rights-issue-20029008.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T11:20:59Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Mahindra & Mahindra is investing ₹1,450 crore in a rights issue for its subsidiary, representing a significant capital commitment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Mahindra & Mahindra is investing ₹1,450 crore in a rights issue for its subsidiary, representing a significant capital commitment.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mahindra & Mahindra",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1944,60 +1993,6 @@
           "name": "First Solar",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-396",
-      "headline": "NCLT declares Videocon’s Venugopal Dhoot bankrupt over ₹12,668 crore SBI dues",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/business/nclt-declares-videocons-venugopal-dhoot-bankrupt-over-rupees-12668-crore-state-bank-of-india-dues-20028611.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T04:54:17Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "NCLT declared Videocon bankrupt over ₹12,668 crore in dues to SBI.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "NCLT declared Videocon bankrupt over ₹12,668 crore in dues to SBI.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Videocon",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "State Bank of India",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -263839,9 +263834,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2154173,
-    "news_picked_today": 1126,
-    "news_dropped_today": 13442
+    "news_seen_today": 2179171,
+    "news_picked_today": 1137,
+    "news_dropped_today": 13503
   },
   "book_momentum": {
     "live_count": 8,
