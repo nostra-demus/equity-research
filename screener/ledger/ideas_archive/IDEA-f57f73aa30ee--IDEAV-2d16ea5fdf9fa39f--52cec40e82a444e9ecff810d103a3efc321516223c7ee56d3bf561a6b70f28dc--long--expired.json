@@ -1,28 +1,28 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-10-10T13:14:51Z",
+  "archived_at": "2026-11-05T22:25:37Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-e0fd057ceca0",
-    "idea_version": "IDEAV-9883cb5211945f80",
-    "idea_version_started_at": "2026-10-07T20:55:35Z",
-    "ticker": "ADTX",
-    "company": "Aditxt, Inc.",
-    "exchange": "OTC Markets",
+    "idea_id": "IDEA-f57f73aa30ee",
+    "idea_version": "IDEAV-2d16ea5fdf9fa39f",
+    "idea_version_started_at": "2026-11-02T23:10:25Z",
+    "ticker": "AEHR",
+    "company": "Aehr Test Systems",
+    "exchange": "NASDAQ",
     "ticker_verified": true,
     "listing_verified": true,
     "liquidity_verified": false,
     "listing_verification_source": "yahoo_symbol_directory",
-    "direction": "short",
+    "direction": "long",
     "pair_with": null,
-    "reason": "The company has received a delisting notification from the exchange, signaling severe distress and potential loss of liquidity.",
-    "why_now": "The SEC filing was processed today, October 7, 2026.",
-    "conviction": 80,
+    "reason": "Aehr reported a tripling of revenue driven by a surge in AI-related orders, indicating strong demand for their semiconductor test and burn-in equipment.",
+    "why_now": "The earnings report was released on November 2, 2026, showing immediate operational momentum.",
+    "conviction": 60,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 60,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
-      "evidence": 25,
+      "evidence": 14,
       "impact": 19,
       "specificity": 15,
       "timing": 10,
@@ -35,6 +35,7 @@
       "live liquidity",
       "dated catalyst",
       "priced-in risk",
+      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -47,30 +48,30 @@
       "evidenceIds": []
     },
     "priced_in": "priced",
-    "thesis_type": "balance_sheet_survival",
+    "thesis_type": "company_specific",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-e2c49687f5e4"
+      "EVT-488542adb3a3"
     ],
-    "primary_source_event_id": "EVT-e2c49687f5e4",
+    "primary_source_event_id": "EVT-488542adb3a3",
     "source_headlines": [
-      "25-NSE - Aditxt, Inc. (0001726711) (Subject)"
+      "Aehr Revenue Triples as AI Orders Pile Up: Rapid Earnings Reaction"
     ],
-    "source_headline": "25-NSE - Aditxt, Inc. (0001726711) (Subject)",
-    "source_url": "https://www.sec.gov/Archives/edgar/data/1726711/000135445726000962/0001354457-26-000962-index.htm",
-    "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+    "source_headline": "Aehr Revenue Triples as AI Orders Pile Up: Rapid Earnings Reaction",
+    "source_url": "https://www.nasdaq.com/articles/aehr-revenue-triples-ai-orders-pile-rapid-earnings-reaction",
+    "source_name": "Nasdaq",
     "materiality_max": 100,
-    "newest_source_at": "2026-10-07T13:08:14Z",
+    "newest_source_at": "2026-11-02T22:20:19Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-10-07T20:55:35Z",
-    "updated_at": "2026-10-07T20:55:35Z",
-    "decay_at": "2026-10-09T01:08:14Z",
+    "surfaced_at": "2026-11-02T23:10:25Z",
+    "updated_at": "2026-11-02T23:10:25Z",
+    "decay_at": "2026-11-04T10:20:19Z",
     "status": "live",
     "promoted_signal_id": null
   }

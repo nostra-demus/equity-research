@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-2cfb749c8806",
-  "idea_version": "IDEAV-fa2639c2d1dc9855",
-  "idea_version_started_at": "2026-11-02T23:10:25Z",
+  "idea_version": "IDEAV-12d1f036c42edd2a",
+  "idea_version_started_at": "2026-11-05T15:35:08Z",
   "ticker": "MRVL",
   "company": "Marvell Technology",
   "exchange": "NASDAQ",
@@ -11,15 +11,15 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "pair",
   "pair_with": "LITE",
-  "reason": "Marvell is acquiring Lumentum in an all-stock deal, creating a classic arbitrage opportunity where the acquirer typically faces selling pressure while the target trades toward the offer price.",
-  "why_now": "The acquisition was announced on November 2, 2026, and the market is currently reacting to the deal terms and the significant dilution implied by the $115 billion price tag.",
+  "reason": "Marvell is acquiring Lumentum in an all-stock deal, creating a classic merger arbitrage opportunity where the acquirer typically trades down on dilution risk while the target trades up toward the offer price.",
+  "why_now": "The deal was announced today, November 5, 2026, and is currently live in the market.",
   "conviction": 75,
   "conviction_basis": "pre_edge_proxy",
-  "trade_score": 76,
+  "trade_score": 84,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
-    "evidence": 14,
-    "impact": 23,
+    "evidence": 25,
+    "impact": 20,
     "specificity": 15,
     "timing": 10,
     "expression": 7,
@@ -46,21 +46,19 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-d5d0dcd047f8",
-    "EVT-78cc439f9063",
-    "EVT-807bdfc38eea"
+    "EVT-f6faca8beb67",
+    "EVT-1c9c29543980"
   ],
-  "primary_source_event_id": "EVT-d5d0dcd047f8",
+  "primary_source_event_id": "EVT-f6faca8beb67",
   "source_headlines": [
-    "Lumentum Goes From $1 Billion Spinoff to $115 Billion Takeover",
-    "Stock Market Today, Nov. 2: Marvell Announces $115 Billion All-Stock Acquisition of Lumentum",
-    "Marvell Technology Is Acquiring Lumentum. Why Does the Market Hate the Move?"
+    "Marvell to buy Lumentum in $115 billion all-stock deal",
+    "425 - Lumentum Holdings Inc. (0001633978) (Subject)"
   ],
-  "source_headline": "Lumentum Goes From $1 Billion Spinoff to $115 Billion Takeover",
-  "source_url": "https://www.bloomberg.com/news/articles/2026-11-02/lumentum-goes-from-1-billion-spinoff-to-115-billion-takeover",
-  "source_name": "Bloomberg",
+  "source_headline": "Marvell to buy Lumentum in $115 billion all-stock deal",
+  "source_url": "https://www.tomshardware.com/tech-industry/semiconductors/marvell-to-buy-lumentum-in-usd115-billion-all-stock-deal-combined-company-to-supply-scale-up-and-scale-in-optics-for-ai-data-centers",
+  "source_name": "Tom's Hardware",
   "materiality_max": 100,
-  "newest_source_at": "2026-11-02T22:22:02Z",
+  "newest_source_at": "2026-11-05T13:41:58Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
@@ -68,8 +66,8 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-11-02T23:10:25Z",
-  "updated_at": "2026-11-02T23:10:25Z",
-  "decay_at": "2026-11-04T10:22:02Z",
+  "updated_at": "2026-11-05T15:35:08Z",
+  "decay_at": "2026-11-07T01:41:58Z",
   "status": "live",
   "promoted_signal_id": null
 }
