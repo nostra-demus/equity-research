@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-06T17:52:32Z",
+  "generated_at": "2026-11-06T18:04:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20261106-725",
@@ -1196,6 +1196,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261106-733",
+      "headline": "Brookfield Asset Management Ltd. Reports Third Quarter 2026 Results with $25 Billion Fundraised and $864 Million in Fee-Related Earnings",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/brookfield-asset-management-ltd-reports-third-quarter-2026-results-25-billion-fundraised",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T17:11:39Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Brookfield reported $864 million in fee-related earnings and $25 billion in new fundraising for Q3 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Brookfield reported $864 million in fee-related earnings and $25 billion in new fundraising for Q3 2026.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Brookfield Asset Management",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261106-633",
       "headline": "‎Silver Lake, PIF in talks to acquire Unity Software: Sources",
       "headline_en": null,
@@ -1939,56 +1988,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-611",
-      "headline": "Big Bazaar-Parent Future Retail, Kishore Biyani Under CBI Scanner In Rs 904 Crore Bank Fraud Case",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/india/kishore-biyani-future-retail-under-cbi-scanner-in-rs-904-crore-bank-fraud-case-12293013#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T12:02:06Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Future Retail and founder Kishore Biyani under CBI investigation for ₹904 crore bank fraud, a critical regulatory enforcement event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Future Retail and founder Kishore Biyani under CBI investigation for ₹904 crore bank fraud, a critical regulatory enforcement event.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement",
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Future Retail",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -263829,9 +263828,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3419778,
-    "news_picked_today": 1552,
-    "news_dropped_today": 20576
+    "news_seen_today": 3429507,
+    "news_picked_today": 1575,
+    "news_dropped_today": 20673
   },
   "book_momentum": {
     "live_count": 8,
