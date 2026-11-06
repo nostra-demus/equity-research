@@ -1,29 +1,29 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-10-23T04:16:07Z",
+  "archived_at": "2026-11-06T01:05:07Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-6a677867cd74",
-    "idea_version": "IDEAV-95af84df83052fb4",
-    "idea_version_started_at": "2026-10-20T09:20:11Z",
-    "ticker": "00052",
-    "company": "Fairwood Holdings",
-    "exchange": "HKEX",
+    "idea_id": "IDEA-3d4a4fc75d1b",
+    "idea_version": "IDEAV-5dc8ee51d3a00705",
+    "idea_version_started_at": "2026-11-03T03:42:49Z",
+    "ticker": "ARSHIYA",
+    "company": "Arshiya Limited",
+    "exchange": "NSE",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
-    "direction": "long",
+    "direction": "short",
     "pair_with": null,
-    "reason": "The company issued a positive profit alert, indicating earnings growth that likely exceeds current market expectations.",
-    "why_now": "The filing was released on 2026-10-20.",
-    "conviction": 75,
+    "reason": "The company has entered the Corporate Insolvency Resolution Process, signaling severe financial distress and likely equity wipeout.",
+    "why_now": "The filing was made on 2026-11-03, making this a live insolvency event.",
+    "conviction": 90,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
       "evidence": 25,
-      "impact": 19,
+      "impact": 21,
       "specificity": 7,
       "timing": 10,
       "expression": 0,
@@ -48,30 +48,30 @@
       "evidenceIds": []
     },
     "priced_in": "room",
-    "thesis_type": "company_specific",
+    "thesis_type": "balance_sheet_survival",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-2b17f74d2922"
+      "EVT-86f11fa7affa"
     ],
-    "primary_source_event_id": "EVT-2b17f74d2922",
+    "primary_source_event_id": "EVT-86f11fa7affa",
     "source_headlines": [
-      "FAIRWOOD HOLD (00052): Positive Profit Alert"
+      "Arshiya Limited: Arshiya Limited has informed the Exchange about Corporate Insolvency Resolution Process"
     ],
-    "source_headline": "FAIRWOOD HOLD (00052): Positive Profit Alert",
-    "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1020/2026102000265.pdf",
-    "source_name": "HKEXnews (HK Exchange Filing)",
+    "source_headline": "Arshiya Limited: Arshiya Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+    "source_url": "https://nsearchives.nseindia.com/corporate/ARSHIYA_03112026062629_AL_19th_CoC_Meeting_Uploaded.pdf",
+    "source_name": "BSE / NSE Exchange Filing",
     "materiality_max": 100,
-    "newest_source_at": "2026-10-20T04:05:00Z",
+    "newest_source_at": "2026-11-03T00:56:47Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-10-20T09:20:11Z",
-    "updated_at": "2026-10-20T09:20:11Z",
-    "decay_at": "2026-10-21T16:05:00Z",
+    "surfaced_at": "2026-11-03T03:42:49Z",
+    "updated_at": "2026-11-03T03:42:49Z",
+    "decay_at": "2026-11-04T12:56:47Z",
     "status": "live",
     "promoted_signal_id": null
   }
