@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-06T05:16:59Z",
+  "generated_at": "2026-11-06T05:24:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20261106-072",
@@ -144,6 +144,110 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-400",
+      "headline": "NCLT declares Videocon promoter Venugopal Dhoot bankrupt over ₹12,668 crore dues to SBI",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/india/venugopal-dhoot-videocon-bankruptcy-11793939447110.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T04:55:21Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "NCLT declared Videocon promoter Venugopal Dhoot bankrupt over ₹12,668 crore dues to SBI, signaling acute group solvency distress and governance risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "NCLT declared Videocon promoter Venugopal Dhoot bankrupt over ₹12,668 crore dues to SBI, signaling acute group solvency distress and governance risk.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 7,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Videocon Industries",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-396",
+      "headline": "NCLT declares Videocon’s Venugopal Dhoot bankrupt over ₹12,668 crore SBI dues",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/business/nclt-declares-videocons-venugopal-dhoot-bankrupt-over-rupees-12668-crore-state-bank-of-india-dues-20028611.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T04:54:17Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "NCLT declared Videocon bankrupt over ₹12,668 crore in dues to SBI.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "NCLT declared Videocon bankrupt over ₹12,668 crore in dues to SBI.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Videocon",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "State Bank of India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1690,6 +1794,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261106-403",
+      "headline": "Bharti Airtel shares jump 3% after Q2 net profit rises 31% YoY. What are brokerages saying?",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/bharti-airtel-shares-jump-3-after-q2-net-profit-rises-31-yoy-what-are-brokerages-saying/articleshow/135593688.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T04:26:11Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Bharti Airtel reported a 31% YoY increase in Q2 net profit.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Bharti Airtel reported a 31% YoY increase in Q2 net profit.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bharti Airtel",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-389",
+      "headline": "LIC shares fall 3% Q2 VNB misses estimates. Jefferies cuts target but lists 3 reasons to buy the stock",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/lic-shares-fall-3-q2-vnb-misses-estimates-jefferies-cuts-target-but-lists-3-reasons-to-buy-the-stock/articleshow/135593248.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T04:10:31Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "LIC shares fell 3% following a Q2 miss on Value of New Business (VNB).",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "LIC shares fell 3% following a Q2 miss on Value of New Business (VNB).",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Life Insurance Corporation of India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261106-355",
       "headline": "National Fuel Gas Company Reports Fourth Quarter and Full Year Fiscal 2026 Earnings",
       "headline_en": null,
@@ -1729,209 +1931,6 @@
       "companies": [
         {
           "name": "National Fuel Gas Company",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-376",
-      "headline": "Maris-Tech Ltd. Announces Preliminary Gross Revenue Forecast For 2026 in Excess of $5,000,000",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/maris-tech-ltd-announces-preliminary-gross-revenue-forecast-2026-excess-5000000",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T03:02:14Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Maris-Tech issued a preliminary 2026 revenue forecast exceeding $5,000,000.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Maris-Tech issued a preliminary 2026 revenue forecast exceeding $5,000,000.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Maris-Tech Ltd.",
-          "ticker": null,
-          "listing_country": "IL"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-223",
-      "headline": "AI trade crushed; Macquarie cops $100m fine; Huge Qantas fuel bill set to raise airfares",
-      "headline_en": null,
-      "url": "https://www.afr.com/markets/equity-markets/ai-trade-crushed-macquarie-cops-100m-fine-huge-qantas-fuel-bill-set-to-raise-airfares-20261106-p61c0o?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T00:59:52Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Macquarie faces a $100 million fine, and Qantas faces increased fuel costs likely to impact airfares.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Macquarie faces a $100 million fine, and Qantas faces increased fuel costs likely to impact airfares.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Macquarie Group",
-          "ticker": null,
-          "listing_country": "AU"
-        },
-        {
-          "name": "Qantas",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-092",
-      "headline": "Britannia profit rises 11% to 726cr in Q2",
-      "headline_en": null,
-      "url": "https://timesofindia.indiatimes.com/business/india-business/britannia-profit-rises-11-to-726cr-in-q2/articleshow/135589268.cms",
-      "source_name": "The Times of India (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T23:56:27Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Britannia reported an 11% rise in Q2 profit to 726 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Britannia reported an 11% rise in Q2 profit to 726 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Britannia Industries",
-          "ticker": "BRITANNIA",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-275",
-      "headline": "Cloudflare Stock Surges on Lifted Full-Year Outlook, Third-Quarter Revenue Growth",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/earnings/cloudflare-stock-surges-on-lifted-full-year-outlook-third-quarter-revenue-growth-984186bf?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T22:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Cloudflare raised its full-year outlook and reported strong third-quarter revenue growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Cloudflare raised its full-year outlook and reported strong third-quarter revenue growth.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cloudflare",
           "ticker": null,
           "listing_country": "US"
         }
@@ -263927,9 +263926,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 836834,
-    "news_picked_today": 658,
-    "news_dropped_today": 3974
+    "news_seen_today": 847752,
+    "news_picked_today": 685,
+    "news_dropped_today": 4043
   },
   "book_momentum": {
     "live_count": 8,
