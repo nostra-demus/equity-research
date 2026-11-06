@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-06T06:28:26Z",
+  "generated_at": "2026-11-06T06:37:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20261106-072",
@@ -141,6 +141,55 @@
           "name": "Get Nice Holdings",
           "ticker": "00064",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-452",
+      "headline": "Gyrodyne, LLC Reports Preliminary Net Assets in Liquidation of approximately $10.75 per Share",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/gyrodyne-llc-reports-preliminary-net-assets-liquidation-approximately-1075-share",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T05:58:54Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Gyrodyne announces preliminary net assets in liquidation of approximately $10.75 per share, a survival event for equity holders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Gyrodyne announces preliminary net assets in liquidation of approximately $10.75 per share, a survival event for equity holders.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Gyrodyne LLC",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "small",
@@ -297,6 +346,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-455",
+      "headline": "NCLT Declares Videocon's Venugopal Dhoot Bankrupt Over Rs 12,668 Crore SBI Dues",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/business/nclt-declares-videocons-venugopal-dhoot-bankrupt-over-rs-12-668-crore-sbi-dues-12291089#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T05:10:50Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "NCLT bankruptcy declaration of Videocon's Venugopal Dhoot over ₹12,668 crore SBI dues is a survival event affecting the company's capital structure and equity holders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "NCLT bankruptcy declaration of Videocon's Venugopal Dhoot over ₹12,668 crore SBI dues is a survival event affecting the company's capital structure and equity holders.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 82,
+      "rank_factors": {
+        "materiality": 82,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 3,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Videocon",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1845,105 +1943,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-265",
-      "headline": "CVS Health plans to split pharmacy business from Aetna, Caremark",
-      "headline_en": null,
-      "url": "https://www.fiercehealthcare.com/payers/cvs-reveals-plans-split-two-companies",
-      "source_name": "Fierce Healthcare",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T22:16:42Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "CVS Health (CVS) announces plan to split Caremark pharmacy/PBM business from Aetna insurance, a major capital and operational restructuring affecting tens of billions in enterprise value and business model.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "CVS Health (CVS) announces plan to split Caremark pharmacy/PBM business from Aetna insurance, a major capital and operational restructuring affecting tens of billions in enterprise value and business model.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 82,
-      "rank_factors": {
-        "materiality": 82,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "strategic_review",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CVS Health",
-          "ticker": "CVS",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-381",
-      "headline": "BILIBILI-W (09626): COMPLETION OF THE TENCENT NOTES SUBSCRIPTION AND THE CONCURRENT TENCENT REPURCHASE",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1106/2026110600219.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-06T04:01:00Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Completion of a note subscription and concurrent share repurchase involving Tencent.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Completion of a note subscription and concurrent share repurchase involving Tencent.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions",
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BILIBILI-W",
-          "ticker": "09626",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -263718,9 +263717,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 996187,
-    "news_picked_today": 784,
-    "news_dropped_today": 5744
+    "news_seen_today": 1008576,
+    "news_picked_today": 791,
+    "news_dropped_today": 6145
   },
   "book_momentum": {
     "live_count": 8,
