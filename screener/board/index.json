@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-06T19:22:45Z",
+  "generated_at": "2026-11-06T19:23:21Z",
   "inbox": [
     {
       "inbox_id": "INB-20261106-725",
@@ -221814,6 +221814,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-134411564950",
+      "idea_version": "IDEAV-332275a26d1a6278",
+      "idea_version_started_at": "2026-11-06T19:23:03Z",
+      "ticker": "MRNA",
+      "company": "Moderna",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Moderna reported a Q3 profit and raised its annual revenue growth outlook, signaling better-than-expected commercial execution.",
+      "why_now": "The company issued its updated financial guidance and Q3 results on 2026-11-06.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 72,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-78eaaba253f3",
+        "EVT-92772249e1ac"
+      ],
+      "primary_source_event_id": "EVT-78eaaba253f3",
+      "source_headlines": [
+        "Moderna raises its revenue outlook — but all eyes are on what happens next with its experimental cancer vaccine",
+        "Moderna Turns To Q3 Profit, Revenue Rises 29%; Raises Annual Revenue Growth Outlook"
+      ],
+      "source_headline": "Moderna raises its revenue outlook — but all eyes are on what happens next with its experimental cancer vaccine",
+      "source_url": "https://www.marketwatch.com/story/modernas-stock-jumps-after-biotech-raises-sales-outlook-65363127?mod=mw_rss_topstories",
+      "source_name": "MarketWatch",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-06T14:10:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-06T19:23:03Z",
+      "updated_at": "2026-11-06T19:23:03Z",
+      "decay_at": "2026-11-08T02:10:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-9e168a4e0799",
       "idea_version": "IDEAV-f171ecf4e8e8da71",
       "idea_version_started_at": "2026-11-05T20:09:05Z",
@@ -222931,6 +223002,78 @@
       "surfaced_at": "2026-11-05T13:42:59Z",
       "updated_at": "2026-11-05T13:42:59Z",
       "decay_at": "2026-11-06T21:41:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-4a06f8ed4686",
+      "idea_version": "IDEAV-01354d69d0928dbb",
+      "idea_version_started_at": "2026-11-06T19:23:03Z",
+      "ticker": "01955",
+      "company": "Johnson Holdings",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a profit warning, indicating a material deterioration in earnings performance.",
+      "why_now": "The profit warning was filed on 2026-11-06.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-671c9554ab2f"
+      ],
+      "primary_source_event_id": "EVT-671c9554ab2f",
+      "source_headlines": [
+        "JOHNSON HLDGS (01955): Profit Warning"
+      ],
+      "source_headline": "JOHNSON HLDGS (01955): Profit Warning",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1106/2026110601626.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-06T13:29:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-06T19:23:03Z",
+      "updated_at": "2026-11-06T19:23:03Z",
+      "decay_at": "2026-11-08T01:29:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -225071,76 +225214,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-59a56f18f346",
-      "idea_version": "IDEAV-84729e491d4c6797",
-      "idea_version_started_at": "2026-11-03T21:03:27Z",
-      "ticker": "SUN",
-      "company": "Sunoco LP",
-      "exchange": "TEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported Q3 2026 results and indicated it expects to exceed its previous annual guidance range of $3.5 billion to $3.7 billion in adjusted EBITDA.",
-      "why_now": "The update was released on November 3, 2026, following the Q3 earnings report.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f8757e3ae6eb"
-      ],
-      "primary_source_event_id": "EVT-f8757e3ae6eb",
-      "source_headlines": [
-        "Sunoco LP Reports Third Quarter 2026 Results and Expects to Exceed Guidance Range of $3.5 billion to $3.7 billion"
-      ],
-      "source_headline": "Sunoco LP Reports Third Quarter 2026 Results and Expects to Exceed Guidance Range of $3.5 billion to $3.7 billion",
-      "source_url": "https://www.nasdaq.com/articles/sunoco-lp-reports-third-quarter-2026-results-and-expects-exceed-guidance-range-35-billion",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-03T19:02:12Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-03T21:03:27Z",
-      "updated_at": "2026-11-03T21:03:27Z",
-      "decay_at": "2026-11-05T07:02:12Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-c534f287a00b",
       "idea_version": "IDEAV-f1474c7e4ffcb220",
       "idea_version_started_at": "2026-11-05T06:36:43Z",
@@ -225349,77 +225422,6 @@
       "surfaced_at": "2026-11-03T21:03:27Z",
       "updated_at": "2026-11-03T21:03:27Z",
       "decay_at": "2026-11-05T07:25:02Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-71a8a51c47bd",
-      "idea_version": "IDEAV-88cf28b038f13bf3",
-      "idea_version_started_at": "2026-11-03T19:40:00Z",
-      "ticker": "DOCN",
-      "company": "DigitalOcean Holdings",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company announced a 1 billion dollar at-the-market equity offering, which will cause significant dilution to existing shareholders.",
-      "why_now": "The offering was announced alongside Q3 results on November 3, 2026.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0ffd74dfede5"
-      ],
-      "primary_source_event_id": "EVT-0ffd74dfede5",
-      "source_headlines": [
-        "DigitalOcean Holdings, Inc. Announces $1.0 Billion At-The-Market Offering and Reports Q3 2026 Financial Results"
-      ],
-      "source_headline": "DigitalOcean Holdings, Inc. Announces $1.0 Billion At-The-Market Offering and Reports Q3 2026 Financial Results",
-      "source_url": "https://www.nasdaq.com/articles/digitalocean-holdings-inc-announces-10-billion-market-offering-and-reports-q3-2026",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-03T18:52:36Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-03T19:40:00Z",
-      "updated_at": "2026-11-03T19:40:00Z",
-      "decay_at": "2026-11-05T06:52:36Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -226432,78 +226434,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-faaeb5bb205e",
-      "idea_version": "IDEAV-bc99e1e945b10031",
-      "idea_version_started_at": "2026-11-03T19:40:00Z",
-      "ticker": "LLOYDSME",
-      "company": "Lloyds Metals and Energy",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported an 88.1% jump in net profit to 1,046 crore and a 55.3% revenue increase, signaling strong operational leverage in its mining business.",
-      "why_now": "The Q2 results were released on November 3, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-52f1be95c7bc"
-      ],
-      "primary_source_event_id": "EVT-52f1be95c7bc",
-      "source_headlines": [
-        "Lloyds Metals Q2 results: Net profit jumps 88.1% to ₹1,046 crore, revenue rises 55.3% to ₹5,673 crore"
-      ],
-      "source_headline": "Lloyds Metals Q2 results: Net profit jumps 88.1% to ₹1,046 crore, revenue rises 55.3% to ₹5,673 crore",
-      "source_url": "https://www.cnbctv18.com/market/earnings/lloyds-metals-q2-results-net-profit-jumps-881-per-cent-to-rs-1046-crore-revenue-rises-553-per-cent-to-rs-5673-crore-20026423.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-03T18:18:34Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-03T19:40:00Z",
-      "updated_at": "2026-11-03T19:40:00Z",
-      "decay_at": "2026-11-05T06:18:34Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-9e711acef9ae",
       "idea_version": "IDEAV-6fc5b52a377e3f5e",
       "idea_version_started_at": "2026-11-04T06:42:55Z",
@@ -226585,33 +226515,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 532,
+    "total_count": 529,
     "shown_count": 500,
-    "hidden_count": 32,
+    "hidden_count": 29,
     "side_counts": {
       "long": {
-        "total_count": 274,
+        "total_count": 272,
         "shown_count": 250,
-        "hidden_count": 24
+        "hidden_count": 22
       },
       "short": {
-        "total_count": 258,
+        "total_count": 257,
         "shown_count": 250,
-        "hidden_count": 8
+        "hidden_count": 7
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1652,
-      "oldest_retained_at": "2026-10-10T01:18:28Z",
+      "evicted_count": 1655,
+      "oldest_retained_at": "2026-10-10T03:11:15Z",
       "side_counts": {
         "long": {
-          "evicted_count": 1091,
-          "oldest_retained_at": "2026-10-21T23:53:00Z"
+          "evicted_count": 1093,
+          "oldest_retained_at": "2026-10-22T01:07:21Z"
         },
         "short": {
-          "evicted_count": 562,
-          "oldest_retained_at": "2026-10-10T01:18:28Z"
+          "evicted_count": 563,
+          "oldest_retained_at": "2026-10-10T03:11:15Z"
         }
       }
     },
@@ -228835,8 +228765,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-05T07:02:12Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-06T19:23:14Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -228909,8 +228839,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-05T06:52:36Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-06T19:23:14Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -228984,8 +228914,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-05T06:18:34Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-06T19:23:14Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -263878,8 +263808,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2221,
-    "live_count": 36,
+    "surfaced_total": 2223,
+    "live_count": 38,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,

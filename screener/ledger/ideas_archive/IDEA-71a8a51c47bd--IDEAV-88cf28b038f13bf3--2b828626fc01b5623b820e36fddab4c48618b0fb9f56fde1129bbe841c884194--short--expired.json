@@ -1,28 +1,28 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-10-23T13:11:41Z",
+  "archived_at": "2026-11-06T19:23:14Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-abd218ca6c78",
-    "idea_version": "IDEAV-71e79dc693f22d71",
-    "idea_version_started_at": "2026-10-20T13:59:38Z",
-    "ticker": "RGR",
-    "company": "Sturm Ruger & Co Inc",
+    "idea_id": "IDEA-71a8a51c47bd",
+    "idea_version": "IDEAV-88cf28b038f13bf3",
+    "idea_version_started_at": "2026-11-03T19:40:00Z",
+    "ticker": "DOCN",
+    "company": "DigitalOcean Holdings",
     "exchange": "NYSE",
     "ticker_verified": true,
     "listing_verified": true,
     "liquidity_verified": false,
     "listing_verification_source": "yahoo_symbol_directory",
-    "direction": "long",
+    "direction": "short",
     "pair_with": null,
-    "reason": "Beretta Holding S.A. has filed a tender offer amendment for Sturm Ruger, signaling potential acquisition interest or a control premium event.",
-    "why_now": "The SEC filing was updated on 2026-10-20, making the tender offer status live.",
+    "reason": "The company announced a 1 billion dollar at-the-market equity offering, which will cause significant dilution to existing shareholders.",
+    "why_now": "The offering was announced alongside Q3 results on November 3, 2026.",
     "conviction": 80,
     "conviction_basis": "pre_edge_proxy",
-    "trade_score": 76,
+    "trade_score": 60,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
-      "evidence": 25,
+      "evidence": 14,
       "impact": 19,
       "specificity": 15,
       "timing": 10,
@@ -34,6 +34,8 @@
     "missing_checks": [
       "live liquidity",
       "dated catalyst",
+      "priced-in risk",
+      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -45,33 +47,31 @@
       "basis": "not_enough_outcomes",
       "evidenceIds": []
     },
-    "priced_in": "room",
+    "priced_in": "priced",
     "thesis_type": "company_specific",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-6968ee2dacde",
-      "EVT-a3fe14b33527"
+      "EVT-0ffd74dfede5"
     ],
-    "primary_source_event_id": "EVT-6968ee2dacde",
+    "primary_source_event_id": "EVT-0ffd74dfede5",
     "source_headlines": [
-      "SC TO-T/A - Beretta Holding S.A. (0002086731) (Filed by)",
-      "SC TO-T/A - STURM RUGER & CO INC (0000095029) (Subject)"
+      "DigitalOcean Holdings, Inc. Announces $1.0 Billion At-The-Market Offering and Reports Q3 2026 Financial Results"
     ],
-    "source_headline": "SC TO-T/A - Beretta Holding S.A. (0002086731) (Filed by)",
-    "source_url": "https://www.sec.gov/Archives/edgar/data/2086731/000119380526001383/0001193805-26-001383-index.htm",
-    "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
+    "source_headline": "DigitalOcean Holdings, Inc. Announces $1.0 Billion At-The-Market Offering and Reports Q3 2026 Financial Results",
+    "source_url": "https://www.nasdaq.com/articles/digitalocean-holdings-inc-announces-10-billion-market-offering-and-reports-q3-2026",
+    "source_name": "Nasdaq",
     "materiality_max": 100,
-    "newest_source_at": "2026-10-20T12:51:09Z",
+    "newest_source_at": "2026-11-03T18:52:36Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-10-20T13:59:38Z",
-    "updated_at": "2026-10-20T13:59:38Z",
-    "decay_at": "2026-10-22T00:51:09Z",
+    "surfaced_at": "2026-11-03T19:40:00Z",
+    "updated_at": "2026-11-03T19:40:00Z",
+    "decay_at": "2026-11-05T06:52:36Z",
     "status": "live",
     "promoted_signal_id": null
   }
