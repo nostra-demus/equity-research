@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-06T14:54:18Z",
+  "generated_at": "2026-11-06T15:03:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261106-690",
@@ -142,6 +142,56 @@
           "name": "HAITONG UT",
           "ticker": "01905",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-707",
+      "headline": "LIFETECH SCI (01302): (1) SUBSCRIPTION OF NEW SHARES UNDER GENERAL MANDATE; (2) PROPOSED CHANGE OF DIRECTORS, CHAIRMAN, CHIEF EXECUTIVE OFFICER, CHIEF FINANCIAL OFFICER AND COMPANY SECRETARY OF THE COMPANY; AND (3) CONNECTED TRANSACTION IN RELATION TO CONSULTANCY SERVICES AGREEMENT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1106/2026110601682.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-06T14:05:00Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "LifeTech Scientific proposing simultaneous replacement of entire board, CEO, CFO, and company secretary concurrent with new-share subscription and related-party consultancy agreement; governance-crisis signal and potential distress indicator affecting credibility and capital stru",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "LifeTech Scientific proposing simultaneous replacement of entire board, CEO, CFO, and company secretary concurrent with new-share subscription and related-party consultancy agreement; governance-crisis signal and potential distress indicator affecting credibility and capital stru",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 7,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "management",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "management",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LifeTech Scientific",
+          "ticker": "01302",
+          "listing_country": "HK"
         }
       ],
       "size_bucket": "unknown",
@@ -1928,55 +1978,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-546",
-      "headline": "DraftKings slashes earnings guidance as it bets on new prediction market business",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/5640c74d-24e5-465b-8119-a2595dac7748?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T10:46:20Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "DraftKings slashed earnings guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "DraftKings slashed earnings guidance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DraftKings",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -263675,9 +263676,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2891569,
-    "news_picked_today": 1389,
-    "news_dropped_today": 16491
+    "news_seen_today": 2903947,
+    "news_picked_today": 1399,
+    "news_dropped_today": 16673
   },
   "book_momentum": {
     "live_count": 8,
