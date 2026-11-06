@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-11-06T13:07:29Z",
+  "generated_at": "2026-11-06T13:16:54Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261106-626",
+      "headline": "RITAMIX (01936): JOINT ANNOUNCEMENT - (I) COMPLETION OF THE SALE AND PURCHASE AGREEMENT; (II) UNCONDITIONAL MANDATORY GENERAL CASH OFFER BY SHANGGU SECURITIES LIMITED FOR AND ON BEHALF OF INNOVATION FORGE HOLDINGS LIMITED TO ACQUIRE ALL THE ISSUED VOTING SHARES IN RITAMIX GLOBAL LIMITED (OTHER THAN THOSE ALREADY OWNED OR AGREED TO BE ACQUIRED BY THE PURCHASERS AND PARTIES ACTING IN CONCERT WITH THEM); AND (III) PUBLIC FLOAT SHORTFALL",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1106/2026110601550.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-06T12:48:00Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Completion of sale, unconditional mandatory general cash offer for all remaining shares, and public float shortfall; control transfer and minority forced exit.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Completion of sale, unconditional mandatory general cash offer for all remaining shares, and public float shortfall; control transfer and minority forced exit.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna",
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "RITAMIX GLOBAL LIMITED",
+          "ticker": "01936",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261106-622",
       "headline": "TIANYU SEMI (02658): DISCLOSEABLE TRANSACTION PROPOSED ACQUISITION OF APPROXIMATELY 7% OF THE SHARES IN ZHEJIANG TONY ELECTRONIC CO., LTD.",
@@ -1953,55 +2003,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-445",
-      "headline": "StealthGas Inc. to Acquire LPG Carriers for $254.6 million",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/stealthgas-inc-acquire-lpg-carriers-2546-million",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T05:28:37Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "StealthGas is acquiring assets for $254.6 million, a significant capital deployment and expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "StealthGas is acquiring assets for $254.6 million, a significant capital deployment and expansion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "StealthGas Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -263841,9 +263842,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2509779,
-    "news_picked_today": 1228,
-    "news_dropped_today": 14708
+    "news_seen_today": 2522744,
+    "news_picked_today": 1259,
+    "news_dropped_today": 14941
   },
   "book_momentum": {
     "live_count": 8,
