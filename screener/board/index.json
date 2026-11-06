@@ -1,6 +1,893 @@
 {
-  "generated_at": "2026-11-06T00:00:57Z",
+  "generated_at": "2026-11-06T00:06:04Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261106-015",
+      "headline": "Taziz closes $1.39bn financing for two Ruwais projects",
+      "headline_en": null,
+      "url": "https://www.meed.com/taziz-closes-139bn-financing-for-two-ruwais-projects",
+      "source_name": "MEED — UAE",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T23:37:14Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Taziz has secured $1.39 billion in financing for two major industrial projects in Ruwais.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Taziz has secured $1.39 billion in financing for two major industrial projects in Ruwais.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Taziz",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-010",
+      "headline": "Singapore's Rently secures $12 million credit facility to expand into UAE",
+      "headline_en": null,
+      "url": "https://www.wamda.com/2026/10/singapore-rently-secures-12-million-credit-facility-expand-uae",
+      "source_name": "Wamda",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T23:37:13Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Rently secured a $12 million credit facility for expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Rently secured a $12 million credit facility for expansion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Rently",
+          "ticker": null,
+          "listing_country": "SG"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-008",
+      "headline": "DPI Venture Capital closes Nclude Fund at over $112 million",
+      "headline_en": null,
+      "url": "https://www.wamda.com/2026/10/dpi-venture-capital-closes-nclude-fund-112-million",
+      "source_name": "Wamda",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T23:37:13Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "DPI Venture Capital closed a fund at over $112 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "DPI Venture Capital closed a fund at over $112 million.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DPI Venture Capital",
+          "ticker": null,
+          "listing_country": "EG"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-004",
+      "headline": "Egypt's Tanmiya Capital closes $130 million fund backed by EIB, IFC and EBRD",
+      "headline_en": null,
+      "url": "https://www.wamda.com/2026/10/egypts-tanmiya-capital-closes-130-million-fund-backed-eib-ifc-ebrd",
+      "source_name": "Wamda",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T23:37:13Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Tanmiya Capital closed a $130 million fund.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Tanmiya Capital closed a $130 million fund.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tanmiya Capital",
+          "ticker": null,
+          "listing_country": "EG"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-006",
+      "headline": "Oman's Phaze Ventures launches two AI funds targeting over $75 million",
+      "headline_en": null,
+      "url": "https://www.wamda.com/2026/10/omans-phaze-ventures-launches-ai-funds-targeting-75-million",
+      "source_name": "Wamda",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T23:37:13Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Phaze Ventures launched two AI funds targeting over $75 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Phaze Ventures launched two AI funds targeting over $75 million.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 48,
+      "rank_factors": {
+        "materiality": 48,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 22,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Phaze Ventures",
+          "ticker": null,
+          "listing_country": "OM"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-009",
+      "headline": "Madica secures $6 million to invest in up to 30 African startups",
+      "headline_en": null,
+      "url": "https://www.wamda.com/2026/10/madica-secures-6-million-invest-30-african-startups",
+      "source_name": "Wamda",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T23:37:13Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Madica secured $6 million for startup investments.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 62,
+      "triage_reason": "Madica secured $6 million for startup investments.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Madica",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-014",
+      "headline": "Mantle8 starts natural hydrogen exploration in Ras Al-Khaimah",
+      "headline_en": null,
+      "url": "https://www.meed.com/mantle8-starts-natural-hydrogen-exploration-in-ras-al-khaimah",
+      "source_name": "MEED — UAE",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T23:37:14Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Mantle8 has commenced natural hydrogen exploration in Ras Al-Khaimah, representing an early-stage operational development.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 58,
+      "triage_reason": "Mantle8 has commenced natural hydrogen exploration in Ras Al-Khaimah, representing an early-stage operational development.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mantle8",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-012",
+      "headline": "YouTube allows in-video product sale for viewers in KSA, UAE and Egypt",
+      "headline_en": null,
+      "url": "https://www.wamda.com/2026/10/youtube-allows-video-product-sale-viewers-ksa-uae-egypt",
+      "source_name": "Wamda",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T23:37:13Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "YouTube enabled in-video product sales in KSA, UAE, and Egypt.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 58,
+      "triage_reason": "YouTube enabled in-video product sales in KSA, UAE, and Egypt.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "secondary",
+      "companies": [
+        {
+          "name": "Alphabet",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-017",
+      "headline": "Adnoc Gas seals LNG supply agreement with TotalEnergies",
+      "headline_en": null,
+      "url": "https://www.meed.com/adnoc-gas-seals-lng-supply-agreement-with-totalenergies",
+      "source_name": "MEED — UAE",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T23:37:14Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Adnoc Gas has signed a new LNG supply agreement with TotalEnergies, strengthening its commercial order book.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 55,
+      "triage_reason": "Adnoc Gas has signed a new LNG supply agreement with TotalEnergies, strengthening its commercial order book.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adnoc Gas",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "TotalEnergies",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-007",
+      "headline": "Egyptian climatetech NoorNation secures $1.05 million seed funding",
+      "headline_en": null,
+      "url": "https://www.wamda.com/2026/10/egyptian-climatetech-noornation-secures-1-05-million-seed-funding",
+      "source_name": "Wamda",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T23:37:13Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "NoorNation secured $1.05 million in seed funding.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 55,
+      "triage_reason": "NoorNation secured $1.05 million in seed funding.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NoorNation",
+          "ticker": null,
+          "listing_country": "EG"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-018",
+      "headline": "HCW Biologics Secures up to $10.0 Million in Cash Through Debt Financing | HCWB Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/HCWB/hcw-biologics-secures-up-to-10-0-million-in-cash-through-debt-d8dppgpp8ms6.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-05T13:45:00Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "HCW Biologics secured up to $10 million in debt financing to bolster its cash position.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 48,
+      "triage_reason": "HCW Biologics secured up to $10 million in debt financing to bolster its cash position.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "debt_credit",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HCW Biologics",
+          "ticker": "HCWB",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-001",
+      "headline": "Westfield Specialty's Q3 GWP increases 27% to $1.82bn YTD",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/westfield-specialtys-q3-gwp-increases-27-to-1-82bn-ytd-302930427.html",
+      "source_name": "PR Newswire — Financial Services & Investing",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-05T14:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Q3 gross written premium increased 27% YTD to $1.82bn, a quantified interim revenue metric moving full-year expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Q3 gross written premium increased 27% YTD to $1.82bn, a quantified interim revenue metric moving full-year expectations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Westfield Specialty",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-011",
+      "headline": "Connecticut Innovations Generates Record Breaking $51.4 Million in Venture Proceeds in Q1 FY27",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/connecticut-innovations-generates-record-breaking-51-4-million-in-venture-proceeds-in-q1-fy27--302930185.html",
+      "source_name": "PR Newswire — Financial Services & Investing",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-05T14:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Connecticut Innovations generated $51.4 million in venture proceeds.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Connecticut Innovations generated $51.4 million in venture proceeds.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Connecticut Innovations",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-005",
+      "headline": "BranchOut Food Reaches Record October Production, Equating to an Approximately $30 Million Annualized Revenue Run Rate and Surpassing Estimated Breakeven | BOF Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/BOF/branch-out-food-reaches-record-october-production-equating-to-an-f8isdhorv25x.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-05T14:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "BranchOut Food reported an annualized revenue run rate of $30 million and reached breakeven.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 46,
+      "triage_reason": "BranchOut Food reported an annualized revenue run rate of $30 million and reached breakeven.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BranchOut Food",
+          "ticker": "BOF",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-013",
+      "headline": "Invesco Real Estate Income Trust Inc. Fully Subscribes $97.6 Million DST Offering",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/invesco-real-estate-income-trust-inc-fully-subscribes-97-6-million-dst-offering-302930510.html",
+      "source_name": "PR Newswire — Financial Services & Investing",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-05T14:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Invesco Real Estate Income Trust fully subscribed a $97.6 million offering.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 44,
+      "triage_reason": "Invesco Real Estate Income Trust fully subscribed a $97.6 million offering.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Invesco Real Estate Income Trust",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-002",
+      "headline": "ANNOUNCEMENT OF PUBLIC OFFERING OF SHARES OF NORDIC FIBREBOARD AS",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/11/05/3396498/0/en/announcement-of-public-offering-of-shares-of-nordic-fibreboard-as.html",
+      "source_name": "GlobeNewswire — News about Public Companies",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-05T14:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "IPO announcement for Nordic Fibreboard AS is a confirmed major capital event; headline lacks pricing, size, and timing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 42,
+      "triage_reason": "IPO announcement for Nordic Fibreboard AS is a confirmed major capital event; headline lacks pricing, size, and timing.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nordic Fibreboard AS",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-003",
+      "headline": "BOS Robotics Division Secures $650,000 Order for a Robotic Munitions Packing Line at a New Site of a Leading Israeli Defense Customer | BOSC Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/BOSC/bos-robotics-division-secures-650-000-order-for-a-robotic-munitions-f87hkkqm65fv.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-05T14:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "BOS Robotics secured a $650,000 order for a munitions packing line.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 41,
+      "triage_reason": "BOS Robotics secured a $650,000 order for a munitions packing line.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 2,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BOS",
+          "ticker": "BOSC",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-016",
+      "headline": "MetaVia Announces Statistically Significant 68% Reduction in Liver Fat from DA-1726 Phase 1 Part 3B Interim Data | MTVA Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/MTVA/meta-via-announces-statistically-significant-68-reduction-in-liver-3ba9oz0kwrbi.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-05T13:55:00Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "MetaVia reported positive interim Phase 1 clinical trial data showing a 68% reduction in liver fat for its DA-1726 candidate.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 41,
+      "triage_reason": "MetaVia reported positive interim Phase 1 clinical trial data showing a 68% reduction in liver fat for its DA-1726 candidate.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MetaVia",
+          "ticker": "MTVA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261105-827",
       "headline": "INA: Receipt of further improved proposal from Warburg Pincus [price-sensitive]",
@@ -262261,7 +263148,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4487,
+    "inbox_unconsumed": 4505,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -262270,9 +263157,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 0,
-    "news_picked_today": 0,
-    "news_dropped_today": 0
+    "news_seen_today": 27838,
+    "news_picked_today": 18,
+    "news_dropped_today": 54
   },
   "book_momentum": {
     "live_count": 8,
