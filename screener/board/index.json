@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-06T20:00:41Z",
+  "generated_at": "2026-11-06T20:06:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261106-816",
@@ -1747,6 +1747,61 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261106-851",
+      "headline": "China blocks SoftBank’s $5.4 billion ABB robotics deal: How Beijing is tightening its grip on strategic technologies",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/china-blocks-softbank-s-5-4-billion-abb-robotics-deal-how-beijing-is-tightening-its-grip-on-strategic-technologies-11793977670665.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T15:55:36Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "China blocked SoftBank's $5.4 billion acquisition of ABB's robotics business.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "China blocked SoftBank's $5.4 billion acquisition of ABB's robotics business.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SoftBank",
+          "ticker": null,
+          "listing_country": "JP"
+        },
+        {
+          "name": "ABB",
+          "ticker": null,
+          "listing_country": "CH"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261106-724",
       "headline": "Fox Completes $22 Billion Roku Acquisition, Expanding Streaming Reach",
       "headline_en": null,
@@ -1945,49 +2000,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-660",
-      "headline": "55-year-old sandwich chain operator files Chapter 11 bankruptcy",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/restaurants/schlotzskys-sandwich-chain-operator-files-chapter-11-bankruptcy",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T14:03:00Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "A 55-year-old sandwich chain operator has filed for Chapter 11 bankruptcy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A 55-year-old sandwich chain operator has filed for Chapter 11 bankruptcy.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -263827,9 +263839,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3635019,
-    "news_picked_today": 1780,
-    "news_dropped_today": 23060
+    "news_seen_today": 3651289,
+    "news_picked_today": 1819,
+    "news_dropped_today": 23189
   },
   "book_momentum": {
     "live_count": 8,
