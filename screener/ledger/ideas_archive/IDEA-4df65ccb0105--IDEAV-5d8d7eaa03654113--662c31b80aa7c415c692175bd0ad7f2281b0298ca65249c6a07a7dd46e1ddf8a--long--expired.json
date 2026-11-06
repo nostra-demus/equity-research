@@ -1,0 +1,79 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-11-05T06:02:09Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-4df65ccb0105",
+    "idea_version": "IDEAV-5d8d7eaa03654113",
+    "idea_version_started_at": "2026-11-01T16:55:27Z",
+    "ticker": "KIPCO",
+    "company": "Kuwait Projects Company",
+    "exchange": null,
+    "ticker_verified": false,
+    "listing_verified": false,
+    "liquidity_verified": false,
+    "listing_verification_source": null,
+    "direction": "long",
+    "pair_with": null,
+    "reason": "The company has successfully repaid a $500 million Euro Medium Term Note (EMTN) bond, significantly reducing its debt burden and improving its credit profile.",
+    "why_now": "The repayment was confirmed on November 1, 2024, providing an immediate positive signal regarding the firm's liquidity position.",
+    "conviction": 65,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 45,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 19,
+      "specificity": 7,
+      "timing": 10,
+      "expression": 0,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "watch_only",
+    "missing_checks": [
+      "verified listed ticker",
+      "verified listing",
+      "live liquidity",
+      "dated catalyst",
+      "independent confirmation",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "balance_sheet_survival",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-b4df0fd0644a"
+    ],
+    "primary_source_event_id": "EVT-b4df0fd0644a",
+    "source_headlines": [
+      "KIPCO completes repayment of $500 million EMTN bond"
+    ],
+    "source_headline": "KIPCO completes repayment of $500 million EMTN bond",
+    "source_url": "https://kuwaittimes.com/article/52787/business/kipco-completes-repayment-of-500-million-emtn-bond/",
+    "source_name": "Kuwait Times — Business",
+    "materiality_max": 100,
+    "newest_source_at": "2026-11-01T16:08:00Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-11-01T16:55:27Z",
+    "updated_at": "2026-11-01T16:55:27Z",
+    "decay_at": "2026-11-03T04:08:00Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}
