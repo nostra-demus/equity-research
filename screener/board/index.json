@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-06T18:36:12Z",
+  "generated_at": "2026-11-06T18:44:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20261106-725",
@@ -1196,6 +1196,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261106-742",
+      "headline": "Blend posts smaller Q3 loss, warns of steeper mortgage revenue drop ahead",
+      "headline_en": null,
+      "url": "https://www.housingwire.com/articles/blend-q3-earnings/",
+      "source_name": "HousingWire",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T18:26:46Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Company reported a Q3 loss and provided negative forward-looking revenue guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company reported a Q3 loss and provided negative forward-looking revenue guidance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Blend",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261106-737",
       "headline": "PPL Corporation Announces Third-Quarter 2026 Financial Results and $25 billion Capital Plan",
       "headline_en": null,
@@ -1940,55 +1990,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-650",
-      "headline": "CBI Raids Mumbai Premises Linked To Kishore Biyani After Registering ₹904 Crore Fraud Case Against Future Retail",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/mumbai/cbi-raids-mumbai-premises-linked-to-kishore-biyani-after-registering-904-crore-fraud-case-against-future-retail",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T13:14:12Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "CBI registered a ₹904 crore fraud case against Future Retail and raided linked premises.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "CBI registered a ₹904 crore fraud case against Future Retail and raided linked premises.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Future Retail",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -263903,9 +263904,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3467339,
-    "news_picked_today": 1613,
-    "news_dropped_today": 21331
+    "news_seen_today": 3485633,
+    "news_picked_today": 1632,
+    "news_dropped_today": 21528
   },
   "book_momentum": {
     "live_count": 8,
