@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-06T02:38:51Z",
+  "generated_at": "2026-11-06T02:47:40Z",
   "inbox": [
     {
       "inbox_id": "INB-20261106-072",
@@ -591,6 +591,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261106-258",
+      "headline": "Sony Group lifts FY 2026 net profit outlook on firm demand for game, film",
+      "headline_en": null,
+      "url": "https://mainichi.jp/english/articles/20261105/p2g/00m/0bu/054000c",
+      "source_name": "The Mainichi",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T22:25:12Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Sony Group raises FY 2026 net profit outlook due to strong demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Sony Group raises FY 2026 net profit outlook due to strong demand.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sony Group",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261106-222",
       "headline": "What are the odds of an escalation of the war on Iran in the wake of the US midterms?",
       "headline_en": null,
@@ -911,6 +960,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-265",
+      "headline": "CVS Health plans to split pharmacy business from Aetna, Caremark",
+      "headline_en": null,
+      "url": "https://www.fiercehealthcare.com/payers/cvs-reveals-plans-split-two-companies",
+      "source_name": "Fierce Healthcare",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T22:16:42Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "CVS Health (CVS) announces plan to split Caremark pharmacy/PBM business from Aetna insurance, a major capital and operational restructuring affecting tens of billions in enterprise value and business model.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "CVS Health (CVS) announces plan to split Caremark pharmacy/PBM business from Aetna insurance, a major capital and operational restructuring affecting tens of billions in enterprise value and business model.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 82,
+      "rank_factors": {
+        "materiality": 82,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "strategic_review",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CVS Health",
+          "ticker": "CVS",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1610,6 +1708,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261106-272",
+      "headline": "Turkey's parliament ratifies Mecca defence pact, clearing way for military support to Saudi Arabia",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/turkeys-parliament-ratifies-mecca-defence-pact-clearing-way-military",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T22:09:29Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Turkey's ratification of a defense pact with Saudi Arabia signals a significant geopolitical shift and military escalation potential.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Turkey's ratification of a defense pact with Saudi Arabia signals a significant geopolitical shift and military escalation potential.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261106-220",
       "headline": "Doosan Expands High-End CCL Production in Changshu",
       "headline_en": null,
@@ -1758,20 +1899,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261106-225",
-      "headline": "Portillo's Inc. Reports Third Quarter 2026 Results and Plans Restaurant Closures",
+      "inbox_id": "INB-20261106-264",
+      "headline": "Clover Health boosts outlook amid continued membership growth, financial momentum in Q3",
       "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/portillos-inc-reports-third-quarter-2026-results-and-plans-restaurant-closures",
-      "source_name": "Nasdaq",
+      "url": "https://www.fiercehealthcare.com/payers/clover-health-boosts-outlook-amid-continued-membership-growth-financial-momentum-q3",
+      "source_name": "Fierce Healthcare",
       "input_nature": "news_headline",
-      "found_at": "2026-11-06T01:51:08Z",
+      "found_at": "2026-11-05T22:16:42Z",
       "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Portillo's announces Q3 2026 results alongside planned restaurant closures, which reduce revenue-generating capacity and trigger restructuring charges.",
+      "prelim_note": "Clover Health (CLOV) raises outlook on Q3 membership growth and financial momentum, signaling accelerating profitability trajectory.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Portillo's announces Q3 2026 results alongside planned restaurant closures, which reduce revenue-generating capacity and trigger restructuring charges.",
+      "triage_score": 89,
+      "triage_reason": "Clover Health (CLOV) raises outlook on Q3 membership growth and financial momentum, signaling accelerating profitability trajectory.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 72,
@@ -1779,178 +1920,29 @@
         "materiality": 72,
         "source_tier": 0,
         "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
+        "event": 7,
+        "size": 1,
+        "recency": 3,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
       },
       "event_types": [
-        "restructuring_layoffs",
-        "operations",
-        "earnings_revenue_margin"
+        "guidance_change"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Portillo's Inc.",
-          "ticker": "PTLO",
+          "name": "Clover Health",
+          "ticker": "CLOV",
           "listing_country": "US"
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-248",
-      "headline": "두산, 중국 창수에 하이엔드 CCL 생산 거점 확대",
-      "headline_en": "Doosan, expanding high-end CCL production base in Changshu, China",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=280633",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T00:34:48Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Doosan expanding high-end CCL production base in Changshu, China — a named capacity expansion in an essential electronics substrate material.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Doosan expanding high-end CCL production base in Changshu, China — a named capacity expansion in an essential electronics substrate material.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Doosan",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-068",
-      "headline": "Lawsuit claims Google AI chatbot on school Chromebook helped teen prepare suicide plan",
-      "headline_en": null,
-      "url": "https://thehill.com/policy/technology/6202466-google-gemini-lawsuit-suicide-claim/",
-      "source_name": "The Hill — Homenews",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T22:42:47Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "A lawsuit alleges Google's AI chatbot contributed to a teen's suicide plan.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "A lawsuit alleges Google's AI chatbot contributed to a teen's suicide plan.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Google",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-060",
-      "headline": "ASIASEC PPT (00271): (I) Proposed Share Consolidation; (II) Proposed Change in Board Lot Size; (III) Proposed Rights Issue on the basis of One (1) Rights Share for every One (1) Consolidated Share held on the Record Date on a Non-Underwritten Basis; and (IV) Notice of Extraordinary General Meeting",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1106/2026110600001.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-05T22:02:00Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "AsiaSec Properties is proposing a share consolidation and a rights issue on a non-underwritten basis.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "AsiaSec Properties is proposing a share consolidation and a rights issue on a non-underwritten basis.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AsiaSec Properties",
-          "ticker": "00271",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
