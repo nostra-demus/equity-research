@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-06T12:28:53Z",
+  "generated_at": "2026-11-06T12:34:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20261106-584",
@@ -589,6 +589,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-611",
+      "headline": "Big Bazaar-Parent Future Retail, Kishore Biyani Under CBI Scanner In Rs 904 Crore Bank Fraud Case",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/india/kishore-biyani-future-retail-under-cbi-scanner-in-rs-904-crore-bank-fraud-case-12293013#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T12:02:06Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Future Retail and founder Kishore Biyani under CBI investigation for ₹904 crore bank fraud, a critical regulatory enforcement event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Future Retail and founder Kishore Biyani under CBI investigation for ₹904 crore bank fraud, a critical regulatory enforcement event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Future Retail",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1951,55 +2001,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-446",
-      "headline": "Kartoon Studios Inc. Announces Proposed $300 million IPO of Kartoon Studios Acquisition Corp.",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/kartoon-studios-inc-announces-proposed-300-million-ipo-kartoon-studios-acquisition-corp",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T05:08:21Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Kartoon Studios announced a proposed $300 million IPO for its acquisition vehicle.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Kartoon Studios announced a proposed $300 million IPO for its acquisition vehicle.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kartoon Studios Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -263839,9 +263840,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2341205,
-    "news_picked_today": 1188,
-    "news_dropped_today": 14076
+    "news_seen_today": 2367009,
+    "news_picked_today": 1193,
+    "news_dropped_today": 14119
   },
   "book_momentum": {
     "live_count": 8,
