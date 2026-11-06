@@ -1,6 +1,110 @@
 {
-  "generated_at": "2026-11-06T12:34:08Z",
+  "generated_at": "2026-11-06T12:40:11Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261106-622",
+      "headline": "TIANYU SEMI (02658): DISCLOSEABLE TRANSACTION PROPOSED ACQUISITION OF APPROXIMATELY 7% OF THE SHARES IN ZHEJIANG TONY ELECTRONIC CO., LTD.",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1106/2026110601518.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-06T12:18:00Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Tianyu Semi is acquiring a 7% stake in Zhejiang Tony Electronic Co., Ltd.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tianyu Semi is acquiring a 7% stake in Zhejiang Tony Electronic Co., Ltd.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tianyu Semi",
+          "ticker": "02658",
+          "listing_country": "CN"
+        },
+        {
+          "name": "Zhejiang Tony Electronic Co., Ltd.",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261106-623",
+      "headline": "CHAMPION TECH (00092): THE BOARD'S AND AUDIT COMMITTEE'S REBUTTAL AND OBSERVATIONS TO THE RESIGNATION LETTER OF AUDITOR AND CONTINUED SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1106/2026110601494.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-06T12:08:00Z",
+      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
+      "prelim_note": "Auditor resignation and continued trading suspension indicate severe governance and accounting risks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Auditor resignation and continued trading suspension indicate severe governance and accounting risks.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "accounting_restatement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "executive_exit",
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Champion Tech",
+          "ticker": "00092",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261106-584",
       "headline": "POWERLONG (01238): UPDATE ON THE HOLISTIC SOLUTION (1) NOTICE OF RESTRUCTURING EFFECTIVE DATE AND (2) COMMENCEMENT OF THE VOLUNTARY CONVERSION PERIOD UNDER THE MANDATORY CONVERTIBLE BONDS",
@@ -1898,109 +2002,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-438",
-      "headline": "Videocon's Venugopal Dhoot Declared Bankrupt By NCLT Over SBI's ₹12,668 Crore Claim",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/videocons-venugopal-dhoot-declared-bankrupt-by-nclt-over-sbis-12668-crore-claim",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T05:22:26Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "Venugopal Dhoot of Videocon has been declared bankrupt by the NCLT regarding a claim of 12668 crore rupees from SBI.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Venugopal Dhoot of Videocon has been declared bankrupt by the NCLT regarding a claim of 12668 crore rupees from SBI.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Videocon",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "State Bank of India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261106-455",
-      "headline": "NCLT Declares Videocon's Venugopal Dhoot Bankrupt Over Rs 12,668 Crore SBI Dues",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/business/nclt-declares-videocons-venugopal-dhoot-bankrupt-over-rs-12-668-crore-sbi-dues-12291089#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T05:10:50Z",
-      "sweep_file": "screener/inbox/2026-11-06_sweep.json",
-      "prelim_note": "NCLT bankruptcy declaration of Videocon's Venugopal Dhoot over ₹12,668 crore SBI dues is a survival event affecting the company's capital structure and equity holders.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "NCLT bankruptcy declaration of Videocon's Venugopal Dhoot over ₹12,668 crore SBI dues is a survival event affecting the company's capital structure and equity holders.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 82,
-      "rank_factors": {
-        "materiality": 82,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 3,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Videocon",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -263840,9 +263841,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2367009,
-    "news_picked_today": 1193,
-    "news_dropped_today": 14119
+    "news_seen_today": 2380346,
+    "news_picked_today": 1211,
+    "news_dropped_today": 14173
   },
   "book_momentum": {
     "live_count": 8,
