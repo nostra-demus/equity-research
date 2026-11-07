@@ -70,7 +70,9 @@ def extract_step_10b1_block(md_text):
 
 
 THESIS_WITH_DAT = (
-    "# Thesis\n\n# PART II — CROSS-CUTTING ANALYSIS\n\n"
+    # Part I carries the §16 Decision-line statement so this fixture stays PASS now that check BG is
+    # armed (BG_DATE 2026-10-05 has passed); the AJ fixture was given the same line for the same reason.
+    "# Thesis\n\nDecision line (ticker · venue · currency): TEST · NYSE · USD\n\n# PART II — CROSS-CUTTING ANALYSIS\n\n"
     "SIGN CHECK: bear return is negative, ok.\n\n## Decision Audit Trail\n\n"
     "| Decision Driver | Bull Evidence | Bear Evidence | Which Side Wins? | Why? |\n"
     "|---|---|---|---|---|\n"
