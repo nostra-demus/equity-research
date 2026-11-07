@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-07T01:18:34Z",
+  "generated_at": "2026-11-07T01:24:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20261107-110",
@@ -411,6 +411,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-249",
+      "headline": "DLF Eyes ₹3,750 Crore Investment In Everstone Joint Venture, Real Estate Giant Targets 40% Economic Interest In IREO Companies",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/dlf-eyes-3750-crore-investment-in-everstone-joint-venture-real-estate-giant-targets-40-economic-interest-in-ireo-companies",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T04:33:15Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "DLF is planning a 37.5 billion INR investment into a joint venture to acquire a 40% economic interest in IREO companies.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "DLF is planning a 37.5 billion INR investment into a joint venture to acquire a 40% economic interest in IREO companies.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DLF",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1928,55 +1977,6 @@
         {
           "name": "Mahindra",
           "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-229",
-      "headline": "Angel One Becomes India's Second-Largest Stockbroker With 70 Lakh Active Clients; Q2 Profit Swells 58%",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/angel-one-becomes-indias-second-largest-stockbroker-with-70-lakh-active-clients-q2-profit-swells-58-percent-12291193#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T05:40:09Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Q2 profit swells 58% to reach India's second-largest stockbroker status with 70 lakh active clients, directly affecting revenue, margins, and competitive market share.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Q2 profit swells 58% to reach India's second-largest stockbroker status with 70 lakh active clients, directly affecting revenue, margins, and competitive market share.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Angel One",
-          "ticker": "ANGELONE",
           "listing_country": "IN"
         }
       ],
@@ -266158,9 +266158,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 74156,
-    "news_picked_today": 257,
-    "news_dropped_today": 895
+    "news_seen_today": 78873,
+    "news_picked_today": 271,
+    "news_dropped_today": 953
   },
   "book_momentum": {
     "live_count": 8,
