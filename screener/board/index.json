@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-07T05:13:41Z",
+  "generated_at": "2026-11-07T05:23:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20261107-464",
@@ -1661,6 +1661,110 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261107-609",
+      "headline": "SOCAR Bets $1.65 Billion on U.S. Shale Gas Boom",
+      "headline_en": null,
+      "url": "https://oilprice.com/Latest-Energy-News/World-News/SOCAR-Bets-165-Billion-on-US-Shale-Gas-Boom.html",
+      "source_name": "OilPrice.com",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T09:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "SOCAR is investing $1.65 billion into U.S. shale gas assets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "SOCAR is investing $1.65 billion into U.S. shale gas assets.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SOCAR",
+          "ticker": null,
+          "listing_country": "AZ"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-626",
+      "headline": "Geldinstitut: Commerzbank baut Gewinn vor Übernahme durch Unicredit aus – senkt aber eine wichtige Prognose",
+      "headline_en": "Financial institution: Commerzbank increases profit before takeover by Unicredit – but lowers an important forecast",
+      "url": "https://www.handelsblatt.com/finanzen/banken-versicherungen/banken/commerzbank-geldinstitut-baut-gewinn-vor-uebernahme-durch-unicredit-aus/100266237.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T08:47:19Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Commerzbank reported profit growth but lowered a key guidance metric ahead of a potential Unicredit takeover.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Commerzbank reported profit growth but lowered a key guidance metric ahead of a potential Unicredit takeover.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 7,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Commerzbank",
+          "ticker": null,
+          "listing_country": "DE"
+        },
+        {
+          "name": "Unicredit",
+          "ticker": null,
+          "listing_country": "IT"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261107-030",
       "headline": "삼양식품, 3분기 영업이익 49.9% 급증... 분기 사상 최대 실적 경신",
       "headline_en": "Samyang Foods, Q3 operating profit jumps 49.9%... record quarterly performance",
@@ -1903,104 +2007,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-172",
-      "headline": "Godrej Agrovet Reaps Rich Rewards In September Quarter, Profit Jumps 22% To ₹103 Crore As Revenue Nears ₹3,000 Crore",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/godrej-agrovet-reaps-rich-rewards-in-september-quarter-profit-jumps-22-to-103-crore-as-revenue-nears-3000-crore",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T06:50:46Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Godrej Agrovet reported a 22% profit increase to ₹103 crore and revenue near ₹3,000 crore for the September quarter.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Godrej Agrovet reported a 22% profit increase to ₹103 crore and revenue near ₹3,000 crore for the September quarter.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Godrej Agrovet",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-176",
-      "headline": "Moscow Seizes Japan Tobacco’s Russia Factories",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/japan-urges-russia-to-return-control-of-japan-tobacco-assets-cfe0723e?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T06:47:00Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Russian authorities seized factories belonging to Japan Tobacco, representing a significant asset loss and operational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Russian authorities seized factories belonging to Japan Tobacco, representing a significant asset loss and operational risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Japan Tobacco",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -266097,9 +266103,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 233022,
-    "news_picked_today": 1036,
-    "news_dropped_today": 3428
+    "news_seen_today": 234106,
+    "news_picked_today": 1078,
+    "news_dropped_today": 3578
   },
   "book_momentum": {
     "live_count": 8,
