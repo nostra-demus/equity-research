@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-07T11:56:50Z",
+  "generated_at": "2026-11-07T11:59:03Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261107-696",
+      "headline": "Sejal Glass Limited: Sejal Glass Limited has informed the Exchange regarding a press release dated November 07, 2026, titled \"Press Release 'Sejal Glass Limited Proposes Rs. 40.80 Crore Acquisition of Architectural and Automotive Glass Business.'\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/SEJALLTD_07112026172513_Press_Release_signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-07T11:55:37Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Sejal Glass Limited announced a proposed acquisition of an architectural and automotive glass business for Rs. 40.80 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Sejal Glass Limited announced a proposed acquisition of an architectural and automotive glass business for Rs. 40.80 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sejal Glass Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261107-691",
       "headline": "Capri Global Capital Limited: Capri Global Capital Limited has informed the Exchange about General Updates - Intimation Under Regulations 30 And 51 - Received In-Principal Approval from NSE IFSC Limited for the Proposed Issuance and Allotment of Up To 3,000 Senior, Secured, Rated, Listed, Redeemable, United States Dollar-Denominated Non-Convertible Bonds",
@@ -1936,55 +1985,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-291",
-      "headline": "Google Plans to Spend $17 Billion on Wyoming Data Center",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-05/google-plans-to-spend-17-billion-on-wyoming-data-center",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T19:02:41Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Google announced a $17 billion investment in a new data center, a major capital expenditure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Google announced a $17 billion investment in a new data center, a major capital expenditure.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Google",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -265085,9 +265085,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 262601,
-    "news_picked_today": 1469,
-    "news_dropped_today": 8339
+    "news_seen_today": 262702,
+    "news_picked_today": 1476,
+    "news_dropped_today": 8433
   },
   "book_momentum": {
     "live_count": 8,
