@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-07T02:54:31Z",
+  "generated_at": "2026-11-07T03:00:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20261107-110",
@@ -613,6 +613,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-426",
+      "headline": "Qualcomm Shares Fall Most in Six Months After Weak Profit Forecast",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-11-05/qualcomm-shares-fall-most-in-six-months-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T15:15:50Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Qualcomm shares fell significantly following a weak profit forecast, indicating a negative shift in analyst expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Qualcomm shares fell significantly following a weak profit forecast, indicating a negative shift in analyst expectations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Qualcomm",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1417,6 +1466,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261107-420",
+      "headline": "Titan Q2 profit more than doubles on one-off gain; adjusted PBT growth at 18%",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/titan-q2-profit-more-than-doubles-on-one-off-gain-adjusted-pbt-growth-at-18/article71670744.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T15:22:57Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Titan reported Q2 profit more than doubling with an 18% growth in adjusted PBT, indicating strong operational performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Titan reported Q2 profit more than doubling with an 18% growth in adjusted PBT, indicating strong operational performance.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Titan",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261107-095",
       "headline": "Elanco Shares Jump After Q3 Beat and Outlook Raise",
       "headline_en": null,
@@ -1893,105 +1991,6 @@
           "name": "Modon Properties",
           "ticker": null,
           "listing_country": "AE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-169",
-      "headline": "Hackers paid $15 to drain $2.5bn from Binance in one hit",
-      "headline_en": null,
-      "url": "https://www.moneyweb.co.za/news-fast-news/hackers-paid-15-to-drain-2-5bn-from-binance-in-one-hit/",
-      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T07:00:31Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Binance suffered a major security breach resulting in a $2.5 billion loss.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Binance suffered a major security breach resulting in a $2.5 billion loss.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Binance",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-219",
-      "headline": "Isuzu Motors H1 Profit Rises; Backs FY26 Net Profit View, Lifts Pre-tax Profit Outlook; Shares Drop",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/isuzu-motors-h1-profit-rises-backs-fy26-net-profit-view-lifts-pre-tax-profit-outlook",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T05:53:09Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Isuzu Motors reported H1 profit growth and raised its pre-tax profit outlook for FY26.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Isuzu Motors reported H1 profit growth and raised its pre-tax profit outlook for FY26.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Isuzu Motors",
-          "ticker": null,
-          "listing_country": "JP"
         }
       ],
       "size_bucket": "large",
@@ -266096,9 +266095,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 157146,
-    "news_picked_today": 554,
-    "news_dropped_today": 2014
+    "news_seen_today": 160316,
+    "news_picked_today": 567,
+    "news_dropped_today": 2049
   },
   "book_momentum": {
     "live_count": 8,
