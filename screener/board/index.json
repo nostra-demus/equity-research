@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-07T00:32:34Z",
+  "generated_at": "2026-11-07T00:42:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261107-005",
@@ -247,6 +247,106 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261107-098",
+      "headline": "Acumen Pharmaceuticals, Inc. Announces 90% Workforce Reduction and Terminates Loan Agreement with $23.3 million Payoff",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/acumen-pharmaceuticals-inc-announces-90-workforce-reduction-and-terminates-loan-agreement",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T07:48:42Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Acumen Pharmaceuticals announces 90% workforce cut and terminates loan agreement with $23.3M payoff — a company-level restructuring and solvency action of severe magnitude.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Acumen Pharmaceuticals announces 90% workforce cut and terminates loan agreement with $23.3M payoff — a company-level restructuring and solvency action of severe magnitude.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 76,
+      "rank_factors": {
+        "materiality": 76,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 9,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "restructuring_layoffs",
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Acumen Pharmaceuticals, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-095",
+      "headline": "Elanco Shares Jump After Q3 Beat and Outlook Raise",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-11-06/elanco-shares-jump-after-q3-beat-and-outlook-raise-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T23:30:58Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Elanco beat Q3 earnings and raised FY outlook, a confirmed positive catalyst for investor expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Elanco beat Q3 earnings and raised FY outlook, a confirmed positive catalyst for investor expectations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Elanco Animal Health",
+          "ticker": "ELAN",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261107-060",
       "headline": "Consumption tax cut bill passes Japan's lower house in fast-tracked vote",
       "headline_en": null,
@@ -339,6 +439,57 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261107-086",
+      "headline": "TORM plc Reports Q3 2026 Financial Results, Declares USD 1.35 Dividend, and Raises 2026 Guidance",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/torm-plc-reports-q3-2026-financial-results-declares-usd-135-dividend-and-raises-2026",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T23:11:37Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "TORM plc reported Q3 results, declared a $1.35 dividend, and raised its 2026 guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "TORM plc reported Q3 results, declared a $1.35 dividend, and raised its 2026 guidance.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TORM plc",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261107-036",
       "headline": "Novartis Says Tumors Found in Children Given SMA Gene Therapy",
       "headline_en": null,
@@ -385,6 +536,105 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-082",
+      "headline": "A Berkshire Hathaway Electric Utility Wants a Historic Rate Hike in California",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/energy-oil/a-berkshire-hathaway-electric-utility-wants-a-historic-rate-hike-in-california-b7a0cc70?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T23:33:00Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Berkshire Hathaway's utility subsidiary is seeking a significant rate increase in California, which would impact revenue.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Berkshire Hathaway's utility subsidiary is seeking a significant rate increase in California, which would impact revenue.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Berkshire Hathaway",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-085",
+      "headline": "Ring Energy, Inc. Reports Third Quarter 2026 Results and Updates Guidance",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/ring-energy-inc-reports-third-quarter-2026-results-and-updates-guidance",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T23:22:37Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Ring Energy reported Q3 results and updated its guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Ring Energy reported Q3 results and updated its guidance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ring Energy, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1680,256 +1930,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-069",
-      "headline": "Abu Dhabi DoE, H2G Green target $272.3 million LNG investment to strengthen industrial gas supplies",
-      "headline_en": null,
-      "url": "https://economymiddleeast.com/news/abu-dhabi-doe-h2g-green-target-272-3-million-lng-investment-to-strengthen-industrial-gas-supplies/?utm_source=rss&utm_medium=rss&utm_campaign=abu-dhabi-doe-h2g-green-target-272-3-million-lng-investment-to-strengthen-industrial-gas-supplies",
-      "source_name": "Economy Middle East",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T07:59:10Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Abu Dhabi DoE and H2G Green announced a $272.3 million investment in LNG infrastructure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 76,
-      "triage_reason": "Abu Dhabi DoE and H2G Green announced a $272.3 million investment in LNG infrastructure.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 6,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Abu Dhabi DoE",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "H2G Green",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-014",
-      "headline": "Elgi Equipments Q2 net profit grows 6% to ₹128 crore",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/elgi-equipments-q2-net-profit-grows-6-to-128-crore/article71673516.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T08:57:34Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Elgi Equipments reported a 6% growth in Q2 net profit to ₹128 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 73,
-      "triage_reason": "Elgi Equipments reported a 6% growth in Q2 net profit to ₹128 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Elgi Equipments",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-066",
-      "headline": "Thailand’s inflation accelerates past central bank’s target",
-      "headline_en": null,
-      "url": "https://www.hindustantimes.com/business/thailands-inflation-accelerates-past-central-bank-s-target-101793946968802.html",
-      "source_name": "Hindustan Times (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T08:00:19Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Thailand's inflation rate has exceeded the central bank's target, signaling potential monetary policy tightening.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 73,
-      "triage_reason": "Thailand's inflation rate has exceeded the central bank's target, signaling potential monetary policy tightening.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-078",
-      "headline": "Tencent expands Hy4 inference capacity tenfold as WorkBuddy demand surges",
-      "headline_en": null,
-      "url": "https://technode.com/2026/11/06/tencent-expands-hy4-inference-capacity-tenfold-as-workbuddy-demand-surges/",
-      "source_name": "TechNode",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T07:52:10Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Tencent is expanding inference capacity tenfold to meet surging demand for its AI services.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 70,
-      "triage_reason": "Tencent is expanding inference capacity tenfold to meet surging demand for its AI services.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tencent",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-048",
-      "headline": "Gujarat Energy signs 10-yr LNG deal with ADNOC for up to 4 million tonnes",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/gujarat-energy-signs-10-yr-lng-deal-with-adnoc-for-up-to-4-million-tonnes/article71673515.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T08:31:14Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Gujarat Energy signed a 10-year LNG supply deal with ADNOC for up to 4 million tonnes.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 66,
-      "triage_reason": "Gujarat Energy signed a 10-year LNG supply deal with ADNOC for up to 4 million tonnes.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Gujarat Energy",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "ADNOC",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -224798,76 +224798,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-3bcb0bb1186b",
-      "idea_version": "IDEAV-2948eade7ec446f1",
-      "idea_version_started_at": "2026-11-05T15:35:08Z",
-      "ticker": "TAP",
-      "company": "Molson Coors",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Molson Coors is cutting its outlook citing soft beer demand, which suggests a broader, sustained decline in consumer spending on premium and mainstream beer brands.",
-      "why_now": "The guidance cut was announced today, November 5, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "sector_cycle",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ea47527bc030"
-      ],
-      "primary_source_event_id": "EVT-ea47527bc030",
-      "source_headlines": [
-        "Molson Coors Cuts Outlook, Expects Soft Beer Demand to Continue"
-      ],
-      "source_headline": "Molson Coors Cuts Outlook, Expects Soft Beer Demand to Continue",
-      "source_url": "https://www.wsj.com/business/earnings/molson-coors-cuts-outlook-expects-soft-beer-demand-to-continue-5718eeae?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-05T12:35:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-05T15:35:08Z",
-      "updated_at": "2026-11-05T15:35:08Z",
-      "decay_at": "2026-11-07T00:35:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-8acee086c6b4",
       "idea_version": "IDEAV-f220f3725e8615c1",
       "idea_version_started_at": "2026-11-05T15:35:08Z",
@@ -227072,6 +227002,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-3bcb0bb1186b",
+      "idea_version": "IDEAV-2948eade7ec446f1",
+      "idea_version_started_at": "2026-11-05T15:35:08Z",
+      "ticker": "TAP",
+      "company": "Molson Coors",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Molson Coors is cutting its outlook citing soft beer demand, which suggests a broader, sustained decline in consumer spending on premium and mainstream beer brands.",
+      "why_now": "The guidance cut was announced today, November 5, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "sector_cycle",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ea47527bc030"
+      ],
+      "primary_source_event_id": "EVT-ea47527bc030",
+      "source_headlines": [
+        "Molson Coors Cuts Outlook, Expects Soft Beer Demand to Continue"
+      ],
+      "source_headline": "Molson Coors Cuts Outlook, Expects Soft Beer Demand to Continue",
+      "source_url": "https://www.wsj.com/business/earnings/molson-coors-cuts-outlook-expects-soft-beer-demand-to-continue-5718eeae?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-05T12:35:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-05T15:35:08Z",
+      "updated_at": "2026-11-05T15:35:08Z",
+      "decay_at": "2026-11-07T00:35:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-479c3a6267f3",
       "idea_version": "IDEAV-5ac30ca513e455b9",
       "idea_version_started_at": "2026-11-05T12:54:05Z",
@@ -228799,9 +228799,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 532,
+    "total_count": 533,
     "shown_count": 500,
-    "hidden_count": 32,
+    "hidden_count": 33,
     "side_counts": {
       "long": {
         "total_count": 273,
@@ -228809,9 +228809,9 @@
         "hidden_count": 23
       },
       "short": {
-        "total_count": 259,
+        "total_count": 260,
         "shown_count": 250,
-        "hidden_count": 9
+        "hidden_count": 10
       }
     },
     "retention": {
@@ -228830,6 +228830,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-3bcb0bb1186b",
+        "idea_version": "IDEAV-2948eade7ec446f1",
+        "idea_version_started_at": "2026-11-05T15:35:08Z",
+        "ticker": "TAP",
+        "company": "Molson Coors",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Molson Coors is cutting its outlook citing soft beer demand, which suggests a broader, sustained decline in consumer spending on premium and mainstream beer brands.",
+        "why_now": "The guidance cut was announced today, November 5, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 65,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "sector_cycle",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-ea47527bc030"
+        ],
+        "primary_source_event_id": "EVT-ea47527bc030",
+        "source_headlines": [
+          "Molson Coors Cuts Outlook, Expects Soft Beer Demand to Continue"
+        ],
+        "source_headline": "Molson Coors Cuts Outlook, Expects Soft Beer Demand to Continue",
+        "source_url": "https://www.wsj.com/business/earnings/molson-coors-cuts-outlook-expects-soft-beer-demand-to-continue-5718eeae?mod=pls_whats_news_us_business_f",
+        "source_name": "The Wall Street Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-05T12:35:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-05T15:35:08Z",
+        "updated_at": "2026-11-05T15:35:08Z",
+        "decay_at": "2026-11-07T00:35:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-07T00:35:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-237bc01d6762",
         "idea_version": "IDEAV-74b49b71c098cea1",
@@ -266011,86 +266084,12 @@
         "archived_at": "2026-10-12T10:33:51Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-091e1bf47c6d",
-        "idea_version": "IDEAV-e9f0eba8908b5d6f",
-        "idea_version_started_at": "2026-10-09T23:48:51Z",
-        "ticker": "01203",
-        "company": "GUANGNAN (HOLD)",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "GUANGNAN (HOLD) issued a profit warning, indicating an expected decline in its profitability.",
-        "why_now": "The profit warning was filed today, October 9, 2026, signaling an immediate negative outlook for the company.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-939e94de7057"
-        ],
-        "primary_source_event_id": "EVT-939e94de7057",
-        "source_headlines": [
-          "GUANGNAN (HOLD) (01203): Profit Warning"
-        ],
-        "source_headline": "GUANGNAN (HOLD) (01203): Profit Warning",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1009/2026100900675.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-09T09:49:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-09T12:39:29Z",
-        "updated_at": "2026-10-09T23:48:51Z",
-        "decay_at": "2026-10-10T21:49:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-12T10:33:51Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2231,
-    "live_count": 40,
+    "live_count": 39,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -266109,9 +266108,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 33698,
-    "news_picked_today": 81,
-    "news_dropped_today": 255
+    "news_seen_today": 39229,
+    "news_picked_today": 99,
+    "news_dropped_today": 405
   },
   "book_momentum": {
     "live_count": 8,
