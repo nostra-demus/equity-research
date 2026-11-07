@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-07T01:01:34Z",
+  "generated_at": "2026-11-07T01:09:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20261107-110",
@@ -263,6 +263,56 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-194",
+      "headline": "Iran sends nuclear proposal to US, Asian stock markets plunge and Abu Dhabi-OpenAI deal bears fruit",
+      "headline_en": null,
+      "url": "https://www.thenationalnews.com/podcasts/trending-middle-east/2026/11/06/iran-sends-nuclear-proposal-to-us-asian-stock-markets-plunge-and-abu-dhabi-openai-deal-bears-fruit/",
+      "source_name": "The National — All News",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T06:29:32Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "A combination of geopolitical tension (Iran-US proposal), market volatility (plunging Asian stocks), and a major corporate deal (Abu Dhabi-OpenAI) creates a high-impact news event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A combination of geopolitical tension (Iran-US proposal), market volatility (plunging Asian stocks), and a major corporate deal (Abu Dhabi-OpenAI) creates a high-impact news event.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "macro_sector",
+        "mna"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -987,6 +1037,55 @@
           "name": "Hindalco Industries",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-209",
+      "headline": "Macquarie H1 Net Profit Rises",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/macquarie-h1-net-profit-rises",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T05:59:40Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Macquarie reported an increase in H1 net profit.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Macquarie reported an increase in H1 net profit.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Macquarie Group",
+          "ticker": null,
+          "listing_country": "AU"
         }
       ],
       "size_bucket": "large",
@@ -1881,104 +1980,6 @@
           "name": "Titan Company Limited",
           "ticker": "TITAN",
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-105",
-      "headline": "British Airways owner sees profits hit by soaring jet fuel costs",
-      "headline_en": null,
-      "url": "https://www.standard.co.uk/business/business-news/british-airways-iran-london-heathrow-airport-b1303799.html",
-      "source_name": "The Standard (Evening Standard) — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T07:38:32Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Rising fuel costs are directly impacting the profitability of the airline operator.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "Rising fuel costs are directly impacting the profitability of the airline operator.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "International Consolidated Airlines Group",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-106",
-      "headline": "British Airways owner sees profits hit by soaring jet fuel costs",
-      "headline_en": null,
-      "url": "https://www.independent.co.uk/news/business/international-airlines-group-british-airways-iran-holly-williams-b3080261.html",
-      "source_name": "The Independent — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T07:38:32Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "International Airlines Group reported that rising jet fuel costs are negatively impacting their profitability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "International Airlines Group reported that rising jet fuel costs are negatively impacting their profitability.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "International Airlines Group",
-          "ticker": null,
-          "listing_country": "GB"
         }
       ],
       "size_bucket": "large",
@@ -266159,9 +266160,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 59501,
-    "news_picked_today": 199,
-    "news_dropped_today": 641
+    "news_seen_today": 64530,
+    "news_picked_today": 223,
+    "news_dropped_today": 737
   },
   "book_momentum": {
     "live_count": 8,
