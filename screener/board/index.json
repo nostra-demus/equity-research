@@ -1,6 +1,60 @@
 {
-  "generated_at": "2026-11-07T07:33:02Z",
+  "generated_at": "2026-11-07T07:43:48Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261107-666",
+      "headline": "Akzo Nobel, Axalta Secure EU Approval For $25 Billion Merger Subject To Divestment",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/akzo-nobel-axalta-secure-eu-approval-25-billion-merger-subject-divestment",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-07T07:22:56Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Akzo Nobel and Axalta received EU approval for a $25 billion merger subject to divestments.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Akzo Nobel and Axalta received EU approval for a $25 billion merger subject to divestments.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Akzo Nobel",
+          "ticker": null,
+          "listing_country": "NL"
+        },
+        {
+          "name": "Axalta",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261107-665",
       "headline": "Ousted Paraguayan president placed under house arrest after bank collapse",
@@ -1947,55 +2001,6 @@
           "name": "Unicredit",
           "ticker": null,
           "listing_country": "IT"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-652",
-      "headline": "Hanwha-Backed JV Breaks Ground on Polish Missile Plant, Expanding Local Production",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=280564",
-      "source_name": "Business Korea — All English Articles",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T07:47:06Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Hanwha-backed JV is breaking ground on a new missile production plant in Poland, representing a significant capacity expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Hanwha-backed JV is breaking ground on a new missile production plant in Poland, representing a significant capacity expansion.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hanwha Aerospace",
-          "ticker": null,
-          "listing_country": "KR"
         }
       ],
       "size_bucket": "large",
@@ -265531,9 +265536,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 241545,
-    "news_picked_today": 1325,
-    "news_dropped_today": 4940
+    "news_seen_today": 241793,
+    "news_picked_today": 1326,
+    "news_dropped_today": 5035
   },
   "book_momentum": {
     "live_count": 8,
