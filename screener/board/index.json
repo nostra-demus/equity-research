@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-07T01:53:38Z",
+  "generated_at": "2026-11-07T01:59:40Z",
   "inbox": [
     {
       "inbox_id": "INB-20261107-110",
@@ -1596,6 +1596,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261107-345",
+      "headline": "FTC Claims Amazon Tripled Ad Prices for Black Friday, Prime Day",
+      "headline_en": null,
+      "url": "https://www.wsj.com/tech/ftc-claims-amazon-tripled-ad-prices-for-black-friday-prime-day-ae340913?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T17:42:00Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "The FTC is alleging Amazon manipulated ad prices, creating significant regulatory and legal risk for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "The FTC is alleging Amazon manipulated ad prices, creating significant regulatory and legal risk for the company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amazon",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261107-086",
       "headline": "TORM plc Reports Q3 2026 Financial Results, Declares USD 1.35 Dividend, and Raises 2026 Guidance",
       "headline_en": null,
@@ -1950,49 +2000,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-332",
-      "headline": "Bank of England hikes interest rates for first time since 2023",
-      "headline_en": null,
-      "url": "https://www.standard.co.uk/business/business-news/andrew-bailey-bank-of-england-iran-middle-east-ofgem-b1303741.html",
-      "source_name": "The Standard (Evening Standard) — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T18:00:10Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Bank of England interest rate hike represents a significant shift in monetary policy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Bank of England interest rate hike represents a significant shift in monetary policy.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -266094,9 +266101,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 109255,
-    "news_picked_today": 367,
-    "news_dropped_today": 1337
+    "news_seen_today": 117117,
+    "news_picked_today": 384,
+    "news_dropped_today": 1368
   },
   "book_momentum": {
     "live_count": 8,
