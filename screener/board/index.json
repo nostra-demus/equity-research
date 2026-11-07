@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-07T06:25:06Z",
+  "generated_at": "2026-11-07T06:31:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20261107-464",
@@ -1206,6 +1206,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261107-654",
+      "headline": "Sigma Advanced Systems Powers Ahead With Strong Q2 FY27 Earnings, Profit Jumps 37% To ₹48.60 Crore As ₹3,915 Crore Defence Orders Strengthen Growth Prospects",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/sigma-advanced-systems-powers-ahead-with-strong-q2-fy27-earnings-profit-jumps-37-to-4860-crore-as-3915-crore-defence-orders-strengthen-growth-prospects",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-07T04:31:55Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Sigma Advanced Systems reported a 37% profit jump to ₹48.60 crore and highlighted a strong order book of ₹3,915 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Sigma Advanced Systems reported a 37% profit jump to ₹48.60 crore and highlighted a strong order book of ₹3,915 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sigma Advanced Systems",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261107-452",
       "headline": "Crisis-hit Paraguay impeaches president, replaces him with VP",
       "headline_en": null,
@@ -1953,55 +2002,6 @@
           "name": "Samyang Foods",
           "ticker": null,
           "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-063",
-      "headline": "Mamaearth Parent Honasa Consumer Shines In Q2 FY27, Revenue Soars 36% To ₹731 Crore In Fastest Growth Since Stock Market Debut",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/mamaearth-parent-honasa-consumer-shines-in-q2-fy27-revenue-soars-36-to-731-crore-in-fastest-growth-since-stock-market-debut",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T08:03:33Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Honasa Consumer reported a 36% revenue increase to ₹731 crore in Q2 FY27.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Honasa Consumer reported a 36% revenue increase to ₹731 crore in Q2 FY27.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Honasa Consumer",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
@@ -266101,9 +266101,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 239515,
-    "news_picked_today": 1266,
-    "news_dropped_today": 4024
+    "news_seen_today": 240694,
+    "news_picked_today": 1272,
+    "news_dropped_today": 4306
   },
   "book_momentum": {
     "live_count": 8,
