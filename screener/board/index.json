@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-07T01:40:30Z",
+  "generated_at": "2026-11-07T01:44:40Z",
   "inbox": [
     {
       "inbox_id": "INB-20261107-110",
@@ -457,6 +457,61 @@
           "name": "DLF",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-310",
+      "headline": "Beijing Reportedly Feared Chinese Robot Data Could End Up Training OpenAI’s Models. So It Blocked SoftBank’s $5.4 Billion Purchase Of ABB’s Robotics Unit",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/11/05/beijing-reportedly-feared-chinese-robot-data-could-end-up-training-openais-models-so-it-blocked-softbanks-5-4-billion-purchase-of-abbs-robotics-unit/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T18:42:48Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "China blocked SoftBank's $5.4 billion acquisition of ABB's robotics unit due to data security concerns.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "China blocked SoftBank's $5.4 billion acquisition of ABB's robotics unit due to data security concerns.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SoftBank Group",
+          "ticker": null,
+          "listing_country": "JP"
+        },
+        {
+          "name": "ABB Ltd",
+          "ticker": null,
+          "listing_country": "CH"
         }
       ],
       "size_bucket": "large",
@@ -1192,6 +1247,65 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261107-294",
+      "headline": "Redwire Plunges 21% as Revenue Miss Overshadows Record Margins and Backlog; Intuitive Machines Sinks 15%, Planet Labs Tumbles 12%",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/11/05/redwire-plunges-21-as-revenue-miss-overshadows-record-margins-and-backlog-intuitive-machines-sinks-15-planet-labs-tumbles-12/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T18:57:09Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Redwire reported a 21% stock drop following a revenue miss, with peers Intuitive Machines and Planet Labs also experiencing significant declines.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Redwire reported a 21% stock drop following a revenue miss, with peers Intuitive Machines and Planet Labs also experiencing significant declines.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 5,
+        "size": -1,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Redwire",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Intuitive Machines",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Planet Labs",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261107-060",
       "headline": "Consumption tax cut bill passes Japan's lower house in fast-tracked vote",
       "headline_en": null,
@@ -1876,105 +1990,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-052",
-      "headline": "Musk says Tesla to wind down production of struggling Cybertruck at Texas factory around mid-2027",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/musk-says-tesla-wind-down-production-struggling-cybertruck-texas-factory-around-mid-2027",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T08:26:53Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "CEO Musk announces Tesla will wind down Cybertruck production at Texas factory around mid-2027, signaling demand constraints or capital reallocation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "CEO Musk announces Tesla will wind down Cybertruck production at Texas factory around mid-2027, signaling demand constraints or capital reallocation.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tesla",
-          "ticker": "TSLA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-149",
-      "headline": "Krones Q3 Profit Climbs, Revises Outlook",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/krones-q3-profit-climbs-revises-outlook",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T07:16:19Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Krones reported Q3 profit growth and revised its outlook upward.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Krones reported Q3 profit growth and revised its outlook upward.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Krones",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -223721,77 +223736,6 @@
   "handoffs": [],
   "ideas": [
     {
-      "idea_id": "IDEA-2cfb749c8806",
-      "idea_version": "IDEAV-12d1f036c42edd2a",
-      "idea_version_started_at": "2026-11-05T15:35:08Z",
-      "ticker": "MRVL",
-      "company": "Marvell Technology",
-      "exchange": "NASDAQ",
-      "direction": "pair",
-      "pair_with": "LITE",
-      "reason": "Marvell is acquiring Lumentum in an all-stock deal, creating a classic merger arbitrage opportunity where the acquirer typically trades down on dilution risk while the target trades up toward the offer price.",
-      "why_now": "The deal was announced today, November 5, 2026, and is currently live in the market.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 84,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "pair_trade",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f6faca8beb67",
-        "EVT-1c9c29543980"
-      ],
-      "primary_source_event_id": "EVT-f6faca8beb67",
-      "source_headlines": [
-        "Marvell to buy Lumentum in $115 billion all-stock deal",
-        "425 - Lumentum Holdings Inc. (0001633978) (Subject)"
-      ],
-      "source_headline": "Marvell to buy Lumentum in $115 billion all-stock deal",
-      "source_url": "https://www.tomshardware.com/tech-industry/semiconductors/marvell-to-buy-lumentum-in-usd115-billion-all-stock-deal-combined-company-to-supply-scale-up-and-scale-in-optics-for-ai-data-centers",
-      "source_name": "Tom's Hardware",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-05T13:41:58Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-02T23:10:25Z",
-      "updated_at": "2026-11-05T15:35:08Z",
-      "decay_at": "2026-11-07T01:41:58Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-134411564950",
       "idea_version": "IDEAV-332275a26d1a6278",
       "idea_version_started_at": "2026-11-06T19:23:03Z",
@@ -226272,6 +226216,77 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
+    },
+    {
+      "idea_id": "IDEA-2cfb749c8806",
+      "idea_version": "IDEAV-12d1f036c42edd2a",
+      "idea_version_started_at": "2026-11-05T15:35:08Z",
+      "ticker": "MRVL",
+      "company": "Marvell Technology",
+      "exchange": "NASDAQ",
+      "direction": "pair",
+      "pair_with": "LITE",
+      "reason": "Marvell is acquiring Lumentum in an all-stock deal, creating a classic merger arbitrage opportunity where the acquirer typically trades down on dilution risk while the target trades up toward the offer price.",
+      "why_now": "The deal was announced today, November 5, 2026, and is currently live in the market.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 84,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "pair_trade",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f6faca8beb67",
+        "EVT-1c9c29543980"
+      ],
+      "primary_source_event_id": "EVT-f6faca8beb67",
+      "source_headlines": [
+        "Marvell to buy Lumentum in $115 billion all-stock deal",
+        "425 - Lumentum Holdings Inc. (0001633978) (Subject)"
+      ],
+      "source_headline": "Marvell to buy Lumentum in $115 billion all-stock deal",
+      "source_url": "https://www.tomshardware.com/tech-industry/semiconductors/marvell-to-buy-lumentum-in-usd115-billion-all-stock-deal-combined-company-to-supply-scale-up-and-scale-in-optics-for-ai-data-centers",
+      "source_name": "Tom's Hardware",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-05T13:41:58Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-02T23:10:25Z",
+      "updated_at": "2026-11-05T15:35:08Z",
+      "decay_at": "2026-11-07T01:41:58Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     },
     {
       "idea_id": "IDEA-537238bc1448",
@@ -228844,19 +228859,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 536,
-    "shown_count": 500,
-    "hidden_count": 36,
+    "total_count": 537,
+    "shown_count": 499,
+    "hidden_count": 38,
     "side_counts": {
       "long": {
-        "total_count": 275,
+        "total_count": 276,
         "shown_count": 250,
-        "hidden_count": 25
+        "hidden_count": 26
       },
       "short": {
-        "total_count": 261,
+        "total_count": 262,
         "shown_count": 250,
-        "hidden_count": 11
+        "hidden_count": 12
       }
     },
     "retention": {
@@ -228875,6 +228890,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-2cfb749c8806",
+        "idea_version": "IDEAV-12d1f036c42edd2a",
+        "idea_version_started_at": "2026-11-05T15:35:08Z",
+        "ticker": "MRVL",
+        "company": "Marvell Technology",
+        "exchange": "NASDAQ",
+        "direction": "pair",
+        "pair_with": "LITE",
+        "reason": "Marvell is acquiring Lumentum in an all-stock deal, creating a classic merger arbitrage opportunity where the acquirer typically trades down on dilution risk while the target trades up toward the offer price.",
+        "why_now": "The deal was announced today, November 5, 2026, and is currently live in the market.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 84,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 7,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "pair_trade",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-f6faca8beb67",
+          "EVT-1c9c29543980"
+        ],
+        "primary_source_event_id": "EVT-f6faca8beb67",
+        "source_headlines": [
+          "Marvell to buy Lumentum in $115 billion all-stock deal",
+          "425 - Lumentum Holdings Inc. (0001633978) (Subject)"
+        ],
+        "source_headline": "Marvell to buy Lumentum in $115 billion all-stock deal",
+        "source_url": "https://www.tomshardware.com/tech-industry/semiconductors/marvell-to-buy-lumentum-in-usd115-billion-all-stock-deal-combined-company-to-supply-scale-up-and-scale-in-optics-for-ai-data-centers",
+        "source_name": "Tom's Hardware",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-05T13:41:58Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-02T23:10:25Z",
+        "updated_at": "2026-11-05T15:35:08Z",
+        "decay_at": "2026-11-07T01:41:58Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-07T01:41:58Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-72f69cb2bbac",
         "idea_version": "IDEAV-d29f96655915affa",
@@ -257849,79 +257938,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-9f47945c8197",
-        "idea_version": "IDEAV-7cf660c1f294d288",
-        "idea_version_started_at": "2026-10-24T02:27:44Z",
-        "ticker": "LMT",
-        "company": "Lockheed Martin",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The 10-year contract for 850 F-35 jets provides significant long-term revenue visibility and cash flow stability for the company.",
-        "why_now": "The agreement was finalized on 2026-10-22, securing a massive backlog that underpins future earnings.",
-        "conviction": 80,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 63,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 6,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-c3126388b002"
-        ],
-        "primary_source_event_id": "EVT-c3126388b002",
-        "source_headlines": [
-          "Pentagon, Lockheed agree to 10-year deal for 850 F-35 jets"
-        ],
-        "source_headline": "Pentagon, Lockheed agree to 10-year deal for 850 F-35 jets",
-        "source_url": "https://www.defensenews.com/news/pentagon-congress/2026/10/22/pentagon-lockheed-agree-to-10-year-deal-for-850-f-35-jets/",
-        "source_name": "Defense News",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-22T17:15:33Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-22T23:50:30Z",
-        "updated_at": "2026-10-24T02:27:44Z",
-        "decay_at": "2026-10-24T05:15:33Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-25T21:59:09Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-e8c55fdf66d6",
         "idea_version": "IDEAV-637d4ad89d614eef",
         "idea_version_started_at": "2026-10-23T06:49:05Z",
@@ -266051,89 +266067,12 @@
         "archived_at": "2026-10-13T05:16:49Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-a8fae1eb73f2",
-        "idea_version": "IDEAV-b3287e7154130c0c",
-        "idea_version_started_at": "2026-10-09T13:03:03Z",
-        "ticker": "MTNL",
-        "company": "Mahanagar Telephone Nigam Limited",
-        "exchange": "NSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company has officially disclosed defaults on interest and principal payments to banks, indicating severe liquidity distress and potential insolvency risk.",
-        "why_now": "The default disclosure was filed on 2026-10-09.",
-        "conviction": 85,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-6f19a1eb1856",
-          "EVT-e4921b6ea1ce"
-        ],
-        "primary_source_event_id": "EVT-6f19a1eb1856",
-        "source_headlines": [
-          "Mahanagar Telephone Nigam Limited: COMPLIANCE WITH SEBI MASTER CIRCULAR NO. SEBI/ HO/CFD/PoD2/CIR/P/2023/120 dtd. July 11,2023 DISCLOSURES BY LISTED ENTITIES OF DEFAULTS ON PAYMENT OF INTEREST / REPAYMENT OF PRINCIPAL AMOUNT ON LOANS FROM BANKS / FINANCIAL INSTITUTIONS AND UNLISTED DEBTSECURITIES FOR THE QUARTER ENDED 30.09.2026",
-          "Mahanagar Telephone Nigam Limited: COMPLIANCE WITH REGULATION 30 & 51 OF SEBI (LODR) REGULATIONS, 2015 & SEBICIRCULAR NO SEBI/HO/CFD/CMD1/CIR/P/2019/140 DATED 21.11.2019 INTIMATION OF DEFAULT IN THE PAYMENT OF PRINCIPAL (INSTALMENT) & INTEREST OF BANKS BY MTNL AS ON30.09.2026"
-        ],
-        "source_headline": "Mahanagar Telephone Nigam Limited: COMPLIANCE WITH SEBI MASTER CIRCULAR NO. SEBI/ HO/CFD/PoD2/CIR/P/2023/120 dtd. July 11,2023 DISCLOSURES BY LISTED ENTITIES OF DEFAULTS ON PAYMENT OF INTEREST / REPAYMENT OF PRINCIPAL AMOUNT ON LOANS FROM BANKS / FINANCIAL INSTITUTIONS AND UNLISTED DEBTSECURITIES FOR THE QUARTER ENDED 30.09.2026",
-        "source_url": "https://nsearchives.nseindia.com/corporate/MTNL_09102026164539_SE_SD_QRT_09102026.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-09T11:16:49Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-09T13:03:03Z",
-        "updated_at": "2026-10-09T13:03:03Z",
-        "decay_at": "2026-10-10T23:16:49Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-12T11:48:24Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2231,
-    "live_count": 36,
+    "live_count": 35,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -266152,9 +266091,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 92616,
-    "news_picked_today": 315,
-    "news_dropped_today": 1173
+    "news_seen_today": 101131,
+    "news_picked_today": 340,
+    "news_dropped_today": 1220
   },
   "book_momentum": {
     "live_count": 8,
