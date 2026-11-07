@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-07T22:09:11Z",
+  "generated_at": "2026-11-07T22:14:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261107-714",
@@ -240,6 +240,55 @@
           "name": "Tesla",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-751",
+      "headline": "Toyota hikes profit forecasts on strong demand, weak yen",
+      "headline_en": null,
+      "url": "https://www.qatar-tribune.com/article/263040/business/toyota-hikes-profit-forecasts-on-strong-demand-weak-yen",
+      "source_name": "Qatar Tribune — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-07T21:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Toyota hiked its profit forecasts due to strong demand and a weak yen.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Toyota hiked its profit forecasts due to strong demand and a weak yen.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Toyota",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "mega",
@@ -1943,61 +1992,6 @@
           "name": "DLF",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-310",
-      "headline": "Beijing Reportedly Feared Chinese Robot Data Could End Up Training OpenAI’s Models. So It Blocked SoftBank’s $5.4 Billion Purchase Of ABB’s Robotics Unit",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/11/05/beijing-reportedly-feared-chinese-robot-data-could-end-up-training-openais-models-so-it-blocked-softbanks-5-4-billion-purchase-of-abbs-robotics-unit/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T18:42:48Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "China blocked SoftBank's $5.4 billion acquisition of ABB's robotics unit due to data security concerns.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "China blocked SoftBank's $5.4 billion acquisition of ABB's robotics unit due to data security concerns.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SoftBank Group",
-          "ticker": null,
-          "listing_country": "JP"
-        },
-        {
-          "name": "ABB Ltd",
-          "ticker": null,
-          "listing_country": "CH"
         }
       ],
       "size_bucket": "large",
@@ -225882,78 +225876,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-d4c93052871a",
-      "idea_version": "IDEAV-6424fc28b9c2d568",
-      "idea_version_started_at": "2026-11-06T14:26:20Z",
-      "ticker": "ISP",
-      "company": "Intesa Sanpaolo",
-      "exchange": "BIT",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Intesa is preparing a takeover bid for Monte dei Paschi (BMPS), which typically involves a premium payment that dilutes the acquirer's capital position and creates short-term integration risk.",
-      "why_now": "The takeover bid preparation was reported on 2026-11-06.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "pair_trade",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2b73ada90cd5"
-      ],
-      "primary_source_event_id": "EVT-2b73ada90cd5",
-      "source_headlines": [
-        "Monte dei Paschi Raises Profit Guidance as Intesa Prepares to Launch Takeover Bid"
-      ],
-      "source_headline": "Monte dei Paschi Raises Profit Guidance as Intesa Prepares to Launch Takeover Bid",
-      "source_url": "https://www.wsj.com/business/earnings/monte-dei-paschi-profit-rises-as-intesa-takeover-looms-1551efed?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-06T10:12:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-06T14:26:20Z",
-      "updated_at": "2026-11-06T14:26:20Z",
-      "decay_at": "2026-11-07T22:12:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-420d3d291fde",
       "idea_version": "IDEAV-7322a6f4b55f97e1",
       "idea_version_started_at": "2026-11-07T14:23:56Z",
@@ -227863,6 +227785,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-d4c93052871a",
+      "idea_version": "IDEAV-6424fc28b9c2d568",
+      "idea_version_started_at": "2026-11-06T14:26:20Z",
+      "ticker": "ISP",
+      "company": "Intesa Sanpaolo",
+      "exchange": "BIT",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Intesa is preparing a takeover bid for Monte dei Paschi (BMPS), which typically involves a premium payment that dilutes the acquirer's capital position and creates short-term integration risk.",
+      "why_now": "The takeover bid preparation was reported on 2026-11-06.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "pair_trade",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2b73ada90cd5"
+      ],
+      "primary_source_event_id": "EVT-2b73ada90cd5",
+      "source_headlines": [
+        "Monte dei Paschi Raises Profit Guidance as Intesa Prepares to Launch Takeover Bid"
+      ],
+      "source_headline": "Monte dei Paschi Raises Profit Guidance as Intesa Prepares to Launch Takeover Bid",
+      "source_url": "https://www.wsj.com/business/earnings/monte-dei-paschi-profit-rises-as-intesa-takeover-looms-1551efed?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-06T10:12:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-06T14:26:20Z",
+      "updated_at": "2026-11-06T14:26:20Z",
+      "decay_at": "2026-11-07T22:12:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-84d3d160ac55",
       "idea_version": "IDEAV-62ffd38ea388f230",
       "idea_version_started_at": "2026-11-06T11:47:55Z",
@@ -229239,9 +229233,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 544,
+    "total_count": 545,
     "shown_count": 499,
-    "hidden_count": 45,
+    "hidden_count": 46,
     "side_counts": {
       "long": {
         "total_count": 275,
@@ -229249,9 +229243,9 @@
         "hidden_count": 25
       },
       "short": {
-        "total_count": 270,
+        "total_count": 271,
         "shown_count": 250,
-        "hidden_count": 20
+        "hidden_count": 21
       }
     },
     "retention": {
@@ -229270,6 +229264,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-d4c93052871a",
+        "idea_version": "IDEAV-6424fc28b9c2d568",
+        "idea_version_started_at": "2026-11-06T14:26:20Z",
+        "ticker": "ISP",
+        "company": "Intesa Sanpaolo",
+        "exchange": "BIT",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Intesa is preparing a takeover bid for Monte dei Paschi (BMPS), which typically involves a premium payment that dilutes the acquirer's capital position and creates short-term integration risk.",
+        "why_now": "The takeover bid preparation was reported on 2026-11-06.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "pair_trade",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-2b73ada90cd5"
+        ],
+        "primary_source_event_id": "EVT-2b73ada90cd5",
+        "source_headlines": [
+          "Monte dei Paschi Raises Profit Guidance as Intesa Prepares to Launch Takeover Bid"
+        ],
+        "source_headline": "Monte dei Paschi Raises Profit Guidance as Intesa Prepares to Launch Takeover Bid",
+        "source_url": "https://www.wsj.com/business/earnings/monte-dei-paschi-profit-rises-as-intesa-takeover-looms-1551efed?mod=pls_whats_news_us_business_f",
+        "source_name": "The Wall Street Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-06T10:12:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-06T14:26:20Z",
+        "updated_at": "2026-11-06T14:26:20Z",
+        "decay_at": "2026-11-07T22:12:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-07T22:12:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-199ea06109d6",
         "idea_version": "IDEAV-809acbfb65d1e24f",
@@ -266358,88 +266427,12 @@
         "archived_at": "2026-10-14T01:34:46Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-cb3cb2efdc5e",
-        "idea_version": "IDEAV-692ac25308ae16a1",
-        "idea_version_started_at": "2026-10-11T19:54:08Z",
-        "ticker": "SAUDIA",
-        "company": "Saudi Arabian Airlines",
-        "exchange": null,
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The suspension of operations at King Khalid International Airport (RUH) will lead to immediate revenue loss and increased operational costs due to flight cancellations and diversions.",
-        "why_now": "Operations were halted on October 10, 2026, following an attack, creating immediate near-term disruption.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 7,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-314c093c3d5d",
-          "EVT-439b46e09177"
-        ],
-        "primary_source_event_id": "EVT-314c093c3d5d",
-        "source_headlines": [
-          "Saudi Arabia Suspends Riyadh Airport Operations After Attack",
-          "Saudi Arabia's King Khalid International Airport temporarily halts operations"
-        ],
-        "source_headline": "Saudi Arabia Suspends Riyadh Airport Operations After Attack",
-        "source_url": "https://www.bloomberg.com/news/articles/2026-10-10/saudi-arabia-suspends-operations-at-riyadh-airport-after-attack",
-        "source_name": "Bloomberg",
-        "materiality_max": 96,
-        "newest_source_at": "2026-10-10T16:47:10Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-11T19:54:08Z",
-        "updated_at": "2026-10-11T19:54:08Z",
-        "decay_at": "2026-10-12T04:47:10Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-13T21:10:17Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2256,
-    "live_count": 33,
+    "live_count": 32,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -266458,9 +266451,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 264812,
-    "news_picked_today": 1785,
-    "news_dropped_today": 10186
+    "news_seen_today": 264829,
+    "news_picked_today": 1790,
+    "news_dropped_today": 10198
   },
   "book_momentum": {
     "live_count": 8,
