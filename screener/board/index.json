@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-07T16:43:33Z",
+  "generated_at": "2026-11-07T17:00:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20261107-714",
@@ -194,6 +194,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-719",
+      "headline": "Tata Chemicals Q2 revenue rises 8%, but reports ₹50 crore loss as costs, lower realisations weigh",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/earnings/tata-chemicals-q2-results-revenue-up-8-pc-rs-50-crore-loss-costs-lower-realisations-weigh-20029654.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-07T16:52:07Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Tata Chemicals reported a net loss of ₹50 crore despite an 8% revenue increase, missing expectations due to cost pressures.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tata Chemicals reported a net loss of ₹50 crore despite an 8% revenue increase, missing expectations due to cost pressures.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Chemicals",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1943,55 +1992,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-598",
-      "headline": "Second buyer makes rescue bid for Poundland as retailer faces collapse",
-      "headline_en": null,
-      "url": "https://www.bbc.co.uk/news/articles/c6lykq0kqwn7o?at_medium=RSS&at_campaign=rss",
-      "source_name": "BBC News — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T09:46:32Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "A second buyer has emerged with a rescue bid for Poundland as the retailer faces potential collapse.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A second buyer has emerged with a rescue bid for Poundland as the retailer faces potential collapse.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 1,
-        "recency": 0,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Poundland",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -266088,9 +266088,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 264141,
-    "news_picked_today": 1660,
-    "news_dropped_today": 9640
+    "news_seen_today": 264185,
+    "news_picked_today": 1672,
+    "news_dropped_today": 9672
   },
   "book_momentum": {
     "live_count": 8,
