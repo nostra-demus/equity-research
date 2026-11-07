@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-07T04:54:40Z",
+  "generated_at": "2026-11-07T04:59:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20261107-464",
@@ -1514,6 +1514,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261107-590",
+      "headline": "Rüstung: Deutsch-französischer Panzerdeal steht – Einigung auf Staatsübernahme von KNDS",
+      "headline_en": "Armament: German-French tank deal stands – agreement on state takeover of KNDS",
+      "url": "https://www.handelsblatt.com/politik/deutschland/ruestung-panzerdeal-steht-einigung-auf-staatsuebernahme-von-knds/100267514.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T09:59:47Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "KNDS, a major defense manufacturer, is undergoing a state-led ownership consolidation between Germany and France.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "KNDS, a major defense manufacturer, is undergoing a state-led ownership consolidation between Germany and France.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "KNDS",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261107-030",
       "headline": "삼양식품, 3분기 영업이익 49.9% 급증... 분기 사상 최대 실적 경신",
       "headline_en": "Samyang Foods, Q3 operating profit jumps 49.9%... record quarterly performance",
@@ -1949,55 +1998,6 @@
           "name": "LG Chem",
           "ticker": null,
           "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-395",
-      "headline": "ArcelorMittal reports USD 391 million loss in July-Sept quarter",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/indl-goods/svs/steel/arcelormittal-reports-usd-391-million-loss-in-july-sept-quarter/articleshow/135580228.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T16:23:13Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "ArcelorMittal reported a quantified net loss of USD 391 million for the quarter.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "ArcelorMittal reported a quantified net loss of USD 391 million for the quarter.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ArcelorMittal",
-          "ticker": null,
-          "listing_country": "LU"
         }
       ],
       "size_bucket": "large",
@@ -266097,9 +266097,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 224714,
-    "news_picked_today": 974,
-    "news_dropped_today": 3274
+    "news_seen_today": 227242,
+    "news_picked_today": 992,
+    "news_dropped_today": 3328
   },
   "book_momentum": {
     "live_count": 8,
