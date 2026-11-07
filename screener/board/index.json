@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-11-07T15:09:57Z",
+  "generated_at": "2026-11-07T15:13:25Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261107-714",
+      "headline": "Spandana Sphoorty Financial Limited: Spandana Sphoorty Financial Limited has informed the Exchange about Intimation under Regulations 30 of the SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015 (\"SEBI Listing Regulations\") regarding initiation of Forensic Audit.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/SPANDANA_07112026203939_SE_Intimation.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-07T15:11:42Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Spandana Sphoorty Financial Limited has announced the initiation of a forensic audit, which is a significant red flag regarding corporate governance and financial integrity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Spandana Sphoorty Financial Limited has announced the initiation of a forensic audit, which is a significant red flag regarding corporate governance and financial integrity.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "accounting_restatement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "accounting_restatement",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Spandana Sphoorty Financial Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261107-696",
       "headline": "Sejal Glass Limited: Sejal Glass Limited has informed the Exchange regarding a press release dated November 07, 2026, titled \"Press Release 'Sejal Glass Limited Proposes Rs. 40.80 Crore Acquisition of Architectural and Automotive Glass Business.'\".",
@@ -1941,57 +1991,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-706",
-      "headline": "Mukka Proteins Limited: Mukka Proteins Limited has informed the Exchange regarding a press release dated November 07, 2026, titled \"Mukka Proteins Reports Strong Q2 FY27 PerformanceOman Facility Commences Commercial ProductionU.S. FDA Facility Registration Strengthens Market AccessUSDA NOP Inputs Attestation for Eco Sphere Organic Fertilizer.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/MUKKA_07112026193633_Intimation_of_Press_Release.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-07T14:06:46Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Mukka Proteins reported strong Q2 FY27 results and announced the commencement of commercial production at its Oman facility alongside new US FDA registration.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Mukka Proteins reported strong Q2 FY27 results and announced the commencement of commercial production at its Oman facility alongside new US FDA registration.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capex",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "capex",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mukka Proteins Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -265871,9 +265870,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 263800,
-    "news_picked_today": 1608,
-    "news_dropped_today": 9351
+    "news_seen_today": 263839,
+    "news_picked_today": 1612,
+    "news_dropped_today": 9386
   },
   "book_momentum": {
     "live_count": 8,
