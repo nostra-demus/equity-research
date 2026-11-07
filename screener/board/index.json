@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-07T03:00:31Z",
+  "generated_at": "2026-11-07T03:06:33Z",
   "inbox": [
     {
       "inbox_id": "INB-20261107-110",
@@ -1515,6 +1515,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261107-428",
+      "headline": "Qualcomm Shares Sinks 14% At Open, Set For Worst Day Since 2020",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/qualcomm-shares-sinks-14-at-open-set-for-worst-day-since-2020-12288793#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T15:11:46Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Qualcomm shares dropped 14% following a significant market reaction to earnings or guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Qualcomm shares dropped 14% following a significant market reaction to earnings or guidance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Qualcomm",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261107-095",
       "headline": "Elanco Shares Jump After Q3 Beat and Outlook Raise",
       "headline_en": null,
@@ -1944,56 +1993,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-163",
-      "headline": "Modon secures Dh13.7 billion financing deal to support expansion",
-      "headline_en": null,
-      "url": "https://www.khaleejtimes.com/business/modon-secures-dh137-billion-financing-deal-to-support-expansion",
-      "source_name": "Khaleej Times — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T07:05:34Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Modon secured a Dh13.7 billion financing deal to fund its expansion plans.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Modon secured a Dh13.7 billion financing deal to fund its expansion plans.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Modon Properties",
-          "ticker": null,
-          "listing_country": "AE"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -266095,9 +266094,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 160316,
-    "news_picked_today": 567,
-    "news_dropped_today": 2049
+    "news_seen_today": 163438,
+    "news_picked_today": 590,
+    "news_dropped_today": 2122
   },
   "book_momentum": {
     "live_count": 8,
