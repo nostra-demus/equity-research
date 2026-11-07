@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-07T19:09:38Z",
+  "generated_at": "2026-11-07T19:24:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20261107-714",
@@ -249,6 +249,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261107-741",
+      "headline": "Eli Lilly Just Raised Its 2026 Revenue Forecast by $5.5 Billion. Is the Stock Still a Buy?",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/eli-lilly-just-raised-its-2026-revenue-forecast-55-billion-stock-still-buy",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-07T18:50:00Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Eli Lilly raised its 2026 revenue forecast by $5.5 billion, a significant upward revision to long-term guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Eli Lilly raised its 2026 revenue forecast by $5.5 billion, a significant upward revision to long-term guidance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Eli Lilly",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261107-736",
       "headline": "Houthis claim attacks on Saudi Aramco sites, Riyadh airport and troops",
       "headline_en": null,
@@ -288,55 +337,6 @@
       "companies": [
         {
           "name": "Saudi Aramco",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-735",
-      "headline": "Eli Lilly Just Raised Its 2026 Revenue Forecast by $5.5 Billion. Is the Stock Still a Buy?",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/11/07/eli-lilly-just-raised-its-2026-revenue-forecast-by/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-07T18:30:00Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Eli Lilly raised its 2026 revenue forecast by $5.5 billion, a significant upward revision to long-term financial expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Eli Lilly raised its 2026 revenue forecast by $5.5 billion, a significant upward revision to long-term financial expectations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Eli Lilly",
           "ticker": null,
           "listing_country": null
         }
@@ -266311,9 +266311,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 264537,
-    "news_picked_today": 1738,
-    "news_dropped_today": 9958
+    "news_seen_today": 264565,
+    "news_picked_today": 1743,
+    "news_dropped_today": 9981
   },
   "book_momentum": {
     "live_count": 8,
