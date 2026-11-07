@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-07T07:32:14Z",
+  "generated_at": "2026-11-07T07:33:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20261107-665",
@@ -224656,6 +224656,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-29b3246b56c4",
+      "idea_version": "IDEAV-3ab764c7de7cc890",
+      "idea_version_started_at": "2026-11-07T07:32:32Z",
+      "ticker": "ABNB",
+      "company": "Airbnb",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company raised its revenue forecast, citing a sustained travel boom that is driving higher booking volumes and improved margins.",
+      "why_now": "The guidance increase was announced on 2026-11-06.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 63,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0d467925baff"
+      ],
+      "primary_source_event_id": "EVT-0d467925baff",
+      "source_headlines": [
+        "+++ Business Figures +++: Travel boom boosts Airbnb – revenue forecast raised"
+      ],
+      "source_headline": "+++ Geschäftszahlen +++: Reiseboom beflügelt Airbnb – Umsatzprognose angehoben",
+      "source_url": "https://www.handelsblatt.com/unternehmen/industrie/quartalszahlen-reiseboom-befluegelt-airbnb-umsatzprognose-angehoben/24098412.html",
+      "source_name": "Handelsblatt",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-06T06:38:46Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-07T07:32:32Z",
+      "updated_at": "2026-11-07T07:32:32Z",
+      "decay_at": "2026-11-07T18:38:46Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-f5730c4d2977",
       "idea_version": "IDEAV-d4046ecb00a1432d",
       "idea_version_started_at": "2026-11-06T18:04:31Z",
@@ -224721,6 +224791,151 @@
       "surfaced_at": "2026-11-06T18:04:31Z",
       "updated_at": "2026-11-06T18:04:31Z",
       "decay_at": "2026-11-08T01:21:18Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-1820b9b947cf",
+      "idea_version": "IDEAV-ac64a92345d22d9b",
+      "idea_version_started_at": "2026-11-07T07:32:32Z",
+      "ticker": "RHM",
+      "company": "Rheinmetall",
+      "exchange": "XETRA",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company cut its outlook due to stalled military contracts, signaling a significant deceleration in revenue growth and order book conversion.",
+      "why_now": "The stock plunged 16% on 2026-11-06 following the guidance revision.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f2da32c9822b"
+      ],
+      "primary_source_event_id": "EVT-f2da32c9822b",
+      "source_headlines": [
+        "Rheinmetall shares plunge 16% after outlook cut as military contracts stall"
+      ],
+      "source_headline": "Rheinmetall shares plunge 16% after outlook cut as military contracts stall",
+      "source_url": "https://www.cnbc.com/2026/11/05/rheinmetall-stock-outlook-sales-germany.html",
+      "source_name": "CNBC",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-06T09:05:28Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-05T12:54:05Z",
+      "updated_at": "2026-11-07T07:32:32Z",
+      "decay_at": "2026-11-07T21:05:28Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-f9dfd049b489",
+      "idea_version": "IDEAV-9d3f4796da83623f",
+      "idea_version_started_at": "2026-11-07T07:32:32Z",
+      "ticker": "THERMAX",
+      "company": "Thermax",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company missed Q2 profit estimates by 26%, leading to a sharp sell-off and a downgrade from analysts.",
+      "why_now": "The earnings miss and subsequent 17% share price drop occurred on 2026-11-06.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4282671fa07c"
+      ],
+      "primary_source_event_id": "EVT-4282671fa07c",
+      "source_headlines": [
+        "Thermax Shares Sink 17%, Near 52-Week Low After Q2 Profit Misses Estimates 26%, JM Says 'Sell'"
+      ],
+      "source_headline": "Thermax Shares Sink 17%, Near 52-Week Low After Q2 Profit Misses Estimates 26%, JM Says 'Sell'",
+      "source_url": "https://www.ndtvprofit.com/markets/thermax-share-price-today-sink-17-percent-near-52-week-low-after-q2-earnings-profit-misses-estimates-26-jm-says-sell-sensex-today-12291128#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-06T05:26:01Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-05T19:37:02Z",
+      "updated_at": "2026-11-07T07:32:32Z",
+      "decay_at": "2026-11-07T17:26:01Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -225795,6 +226010,151 @@
       "surfaced_at": "2026-11-05T22:25:32Z",
       "updated_at": "2026-11-05T22:25:32Z",
       "decay_at": "2026-11-07T09:52:54Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-13f962c9cc6f",
+      "idea_version": "IDEAV-ede637399b62f565",
+      "idea_version_started_at": "2026-11-07T07:32:32Z",
+      "ticker": "HINDALCO",
+      "company": "Hindalco Industries",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported a doubling of Q2 profit to ₹5,132 crore, indicating strong operational leverage and margin expansion.",
+      "why_now": "The earnings results were released on 2026-11-06.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1f9c414f88a7"
+      ],
+      "primary_source_event_id": "EVT-1f9c414f88a7",
+      "source_headlines": [
+        "Sensex today | Stock Market Live: Sensex crosses 80,400, Nifty tops 24,800; Hindalco Q2 profit doubles to ₹5,132 crore"
+      ],
+      "source_headline": "Sensex today | Stock Market Live: Sensex crosses 80,400, Nifty tops 24,800; Hindalco Q2 profit doubles to ₹5,132 crore",
+      "source_url": "https://www.thehindubusinessline.com/markets/sensex-nifty50-today-stock-market-live-updates-6-november-2026/article71669668.ece",
+      "source_name": "The Hindu BusinessLine",
+      "materiality_max": 99,
+      "newest_source_at": "2026-11-06T08:58:58Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-07T07:32:32Z",
+      "updated_at": "2026-11-07T07:32:32Z",
+      "decay_at": "2026-11-07T20:58:58Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-e0d687380dd8",
+      "idea_version": "IDEAV-69d093e45abfc0c5",
+      "idea_version_started_at": "2026-11-07T07:32:32Z",
+      "ticker": "DTG",
+      "company": "Daimler Truck",
+      "exchange": "XETRA",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "A 73% rise in profit was driven by a one-time customs refund and strong operational performance, providing a significant boost to net income.",
+      "why_now": "The earnings report was released on 2026-11-06.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9cf70e8350bc"
+      ],
+      "primary_source_event_id": "EVT-9cf70e8350bc",
+      "source_headlines": [
+        "Truck manufacturer: Hundreds of millions in customs refunds – Daimler Truck profit rises by 73 percent"
+      ],
+      "source_headline": "Lkw-Hersteller: Hunderte Millionen Zollzurückzahlung – Gewinn von Daimler Truck steigt um 73 Prozent",
+      "source_url": "https://www.handelsblatt.com/unternehmen/industrie/zoll-rueckzahlungen-gewinn-von-daimler-truck-steigt-um-73-prozent/100267801.html",
+      "source_name": "Handelsblatt",
+      "materiality_max": 99,
+      "newest_source_at": "2026-11-06T08:49:52Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-07T07:32:32Z",
+      "updated_at": "2026-11-07T07:32:32Z",
+      "decay_at": "2026-11-07T20:49:52Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -227002,78 +227362,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-f9dfd049b489",
-      "idea_version": "IDEAV-84e36f2d2fda25d6",
-      "idea_version_started_at": "2026-11-05T19:37:02Z",
-      "ticker": "THERMAX",
-      "company": "Thermax Limited",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Profitability was hit by a 4% decline in net profit due to rising input costs and specific project impairments.",
-      "why_now": "The Q2 results were reported on November 05, 2026, highlighting structural headwinds in cost management that may persist.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5b7b35b8e34d"
-      ],
-      "primary_source_event_id": "EVT-5b7b35b8e34d",
-      "source_headlines": [
-        "Thermax Q2 Results: Net profit falls 4% as higher input costs, project impairment hit profitability"
-      ],
-      "source_headline": "Thermax Q2 Results: Net profit falls 4% as higher input costs, project impairment hit profitability",
-      "source_url": "https://www.cnbctv18.com/market/stocks/thermax-share-price-q2-results-net-profit-falls-4-as-higher-input-costs-project-impairment-hit-profitability-20028317.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-05T15:34:08Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-05T19:37:02Z",
-      "updated_at": "2026-11-05T19:37:02Z",
-      "decay_at": "2026-11-07T03:34:08Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-ffe38f57d5c6",
       "idea_version": "IDEAV-1c86d051ed9df50f",
       "idea_version_started_at": "2026-11-05T15:35:08Z",
@@ -227284,78 +227572,6 @@
       "surfaced_at": "2026-11-05T13:42:59Z",
       "updated_at": "2026-11-05T13:42:59Z",
       "decay_at": "2026-11-06T21:41:54Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-1820b9b947cf",
-      "idea_version": "IDEAV-8d2162532ab48802",
-      "idea_version_started_at": "2026-11-05T12:54:05Z",
-      "ticker": "RHM",
-      "company": "Rheinmetall AG",
-      "exchange": "XETRA",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company lowered its sales forecast due to delays in a major armoured vehicle contract, signaling near-term revenue recognition headwinds.",
-      "why_now": "The guidance cut was announced on 2026-11-05.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-813bd7c1de4d"
-      ],
-      "primary_source_event_id": "EVT-813bd7c1de4d",
-      "source_headlines": [
-        "Rheinmetall cuts sales forecast after delays to armoured vehicle megadeal"
-      ],
-      "source_headline": "Rheinmetall cuts sales forecast after delays to armoured vehicle megadeal",
-      "source_url": "https://www.ft.com/content/4d0c5a48-3ef7-494d-baf8-063ef9edb2e5?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-05T07:35:23Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-05T12:54:05Z",
-      "updated_at": "2026-11-05T12:54:05Z",
-      "decay_at": "2026-11-06T19:35:23Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -228089,9 +228305,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 532,
+    "total_count": 530,
     "shown_count": 499,
-    "hidden_count": 33,
+    "hidden_count": 31,
     "side_counts": {
       "long": {
         "total_count": 269,
@@ -228099,9 +228315,9 @@
         "hidden_count": 19
       },
       "short": {
-        "total_count": 264,
+        "total_count": 262,
         "shown_count": 250,
-        "hidden_count": 14
+        "hidden_count": 12
       }
     },
     "retention": {
@@ -228560,81 +228776,6 @@
         "feedback": null,
         "stale": true,
         "archived_at": "2026-11-07T03:39:14Z",
-        "archive_reason": "expired",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-f9dfd049b489",
-        "idea_version": "IDEAV-84e36f2d2fda25d6",
-        "idea_version_started_at": "2026-11-05T19:37:02Z",
-        "ticker": "THERMAX",
-        "company": "Thermax Limited",
-        "exchange": "NSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Profitability was hit by a 4% decline in net profit due to rising input costs and specific project impairments.",
-        "why_now": "The Q2 results were reported on November 05, 2026, highlighting structural headwinds in cost management that may persist.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-5b7b35b8e34d"
-        ],
-        "primary_source_event_id": "EVT-5b7b35b8e34d",
-        "source_headlines": [
-          "Thermax Q2 Results: Net profit falls 4% as higher input costs, project impairment hit profitability"
-        ],
-        "source_headline": "Thermax Q2 Results: Net profit falls 4% as higher input costs, project impairment hit profitability",
-        "source_url": "https://www.cnbctv18.com/market/stocks/thermax-share-price-q2-results-net-profit-falls-4-as-higher-input-costs-project-impairment-hit-profitability-20028317.htm",
-        "source_name": "CNBC-TV18",
-        "materiality_max": 100,
-        "newest_source_at": "2026-11-05T15:34:08Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-05T19:37:02Z",
-        "updated_at": "2026-11-05T19:37:02Z",
-        "decay_at": "2026-11-07T03:34:08Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-07T03:34:08Z",
         "archive_reason": "expired",
         "audit_only": true
       },
@@ -229374,81 +229515,6 @@
         "feedback": null,
         "stale": true,
         "archived_at": "2026-11-06T19:48:47Z",
-        "archive_reason": "expired",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-1820b9b947cf",
-        "idea_version": "IDEAV-8d2162532ab48802",
-        "idea_version_started_at": "2026-11-05T12:54:05Z",
-        "ticker": "RHM",
-        "company": "Rheinmetall AG",
-        "exchange": "XETRA",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company lowered its sales forecast due to delays in a major armoured vehicle contract, signaling near-term revenue recognition headwinds.",
-        "why_now": "The guidance cut was announced on 2026-11-05.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-813bd7c1de4d"
-        ],
-        "primary_source_event_id": "EVT-813bd7c1de4d",
-        "source_headlines": [
-          "Rheinmetall cuts sales forecast after delays to armoured vehicle megadeal"
-        ],
-        "source_headline": "Rheinmetall cuts sales forecast after delays to armoured vehicle megadeal",
-        "source_url": "https://www.ft.com/content/4d0c5a48-3ef7-494d-baf8-063ef9edb2e5?syn-25a6b1a6=1",
-        "source_name": "Financial Times",
-        "materiality_max": 100,
-        "newest_source_at": "2026-11-05T07:35:23Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-05T12:54:05Z",
-        "updated_at": "2026-11-05T12:54:05Z",
-        "decay_at": "2026-11-06T19:35:23Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-06T19:35:23Z",
         "archive_reason": "expired",
         "audit_only": true
       },
@@ -265291,12 +265357,162 @@
         "archived_at": "2026-10-13T05:16:49Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-03c185c28ffe",
+        "idea_version": "IDEAV-cd0c5691441766a2",
+        "idea_version_started_at": "2026-10-10T07:05:33Z",
+        "ticker": "VLO",
+        "company": "Valero Energy Corporation",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The lifting of sanctions on Russian diesel will flood the global market with supply, significantly compressing refining margins (crack spreads) for Western merchant refiners.",
+        "why_now": "The policy shift was announced on October 10, 2024, creating an immediate bearish outlook for global middle distillate pricing.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 74,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 7,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "policy_conditional",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-9dcb9aab8141",
+          "EVT-574f3b41a213"
+        ],
+        "primary_source_event_id": "EVT-9dcb9aab8141",
+        "source_headlines": [
+          "‘I want to thank President Putin’, Trump says after agreeing to lift sanctions on Russian diesel – as it happened",
+          "President Trump Hails 'Big Deal' With Putin On Russian Diesel Supplies As Zelenskyy Warns Sanctions Relief Could Prolong Ukraine War | Video"
+        ],
+        "source_headline": "‘I want to thank President Putin’, Trump says after agreeing to lift sanctions on Russian diesel – as it happened",
+        "source_url": "https://www.theguardian.com/us-news/live/2026/oct/09/pentagon-fort-hood-livestream-firing-squad-execution-reaction-backlash-pete-hegseth-donald-trump-mussolini-latest-news-updates",
+        "source_name": "The Guardian — World news",
+        "materiality_max": 96,
+        "newest_source_at": "2026-10-10T03:22:37Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-10T07:05:33Z",
+        "updated_at": "2026-10-10T07:05:33Z",
+        "decay_at": "2026-10-11T15:22:37Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-13T05:16:49Z",
+        "archive_reason": "expired_pruned",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-f128adef3e6c",
+        "idea_version": "IDEAV-901173219fedbaa9",
+        "idea_version_started_at": "2026-10-11T03:47:12Z",
+        "ticker": "MTY",
+        "company": "MTY Food Group Inc",
+        "exchange": "TSX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The Q3 profit retreat indicates margin compression or slowing organic growth across its portfolio of restaurant brands, suggesting potential downside to earnings expectations.",
+        "why_now": "The earnings report was released on 2026-10-10, and the market is currently digesting the negative margin trend.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-6ac6f7dd8953"
+        ],
+        "primary_source_event_id": "EVT-6ac6f7dd8953",
+        "source_headlines": [
+          "MTY Food Group Inc Profit Retreats In Q3"
+        ],
+        "source_headline": "MTY Food Group Inc Profit Retreats In Q3",
+        "source_url": "https://www.nasdaq.com/articles/mty-food-group-inc-profit-retreats-q3",
+        "source_name": "Nasdaq",
+        "materiality_max": 98,
+        "newest_source_at": "2026-10-10T02:24:41Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-11T03:47:12Z",
+        "updated_at": "2026-10-11T03:47:12Z",
+        "decay_at": "2026-10-11T14:24:41Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-13T05:16:49Z",
+        "archive_reason": "expired_pruned",
+        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2232,
-    "live_count": 29,
+    "surfaced_total": 2235,
+    "live_count": 34,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
