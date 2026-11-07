@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-07T04:14:39Z",
+  "generated_at": "2026-11-07T04:29:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20261107-464",
@@ -912,6 +912,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261107-549",
+      "headline": "‎Amana Insurance’s accumulated losses reach 54.9% of capital",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1950693",
+      "source_name": "Argaam — Company Disclosures (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T11:55:00Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Amana Insurance's accumulated losses have reached 54.9% of its capital.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Amana Insurance's accumulated losses have reached 54.9% of its capital.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amana Insurance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261107-452",
       "headline": "Crisis-hit Paraguay impeaches president, replaces him with VP",
       "headline_en": null,
@@ -1263,6 +1312,154 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-502",
+      "headline": "Prestige Consumer Healthcare Inc. Reports Q2 Revenue of $336.3 million and Updates Fiscal 2027 Outlook",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/prestige-consumer-healthcare-inc-reports-q2-revenue-3363-million-and-updates-fiscal-2027",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T12:23:36Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Prestige Consumer Healthcare reported Q2 revenue of $336.3 million and updated its fiscal 2027 outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Prestige Consumer Healthcare reported Q2 revenue of $336.3 million and updated its fiscal 2027 outlook.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Prestige Consumer Healthcare Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-525",
+      "headline": "Ambuja Cements Unveils ₹14,500 Crore Expansion Plan, Targets 155 MTPA Capacity By FY30",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/ambuja-cements-unveils-14500-crore-expansion-plan-targets-155-mtpa-capacity-by-fy30",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T12:04:29Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Ambuja Cements announced a major capacity expansion plan of ₹14,500 crore to reach 155 MTPA by FY30.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Ambuja Cements announced a major capacity expansion plan of ₹14,500 crore to reach 155 MTPA by FY30.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ambuja Cements",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-557",
+      "headline": "China Blocks $5.4 Billion SoftBank Robot Deal, Flexing Control Over AI Tech",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/deals/abb-confirms-china-blocked-softbank-deal-for-robotics-unit-cf1d44bf?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T11:50:00Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "China blocked a $5.4 billion SoftBank robot deal, impacting SoftBank's M&A activity and potentially the AI tech sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "China blocked a $5.4 billion SoftBank robot deal, impacting SoftBank's M&A activity and potentially the AI tech sector.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "secondary",
+      "companies": [
+        {
+          "name": "SoftBank Group Corp.",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1801,204 +1998,6 @@
           "name": "Titan",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-428",
-      "headline": "Qualcomm Shares Sinks 14% At Open, Set For Worst Day Since 2020",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/qualcomm-shares-sinks-14-at-open-set-for-worst-day-since-2020-12288793#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T15:11:46Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Qualcomm shares dropped 14% following a significant market reaction to earnings or guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Qualcomm shares dropped 14% following a significant market reaction to earnings or guidance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Qualcomm",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-445",
-      "headline": "CVS Health To Unbundle Pharmacies From Insurance And Health Solutions",
-      "headline_en": null,
-      "url": "https://www.forbes.com/sites/pamdanziger/2026/11/05/cvs-health-to-unbundle-pharmacies-from-insurance-and-health-solutions/",
-      "source_name": "Forbes",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T14:41:03Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "CVS Health is undergoing a major structural change by unbundling its pharmacy business from its insurance and health solutions segments.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "CVS Health is undergoing a major structural change by unbundling its pharmacy business from its insurance and health solutions segments.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "strategic_review",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs",
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CVS Health",
-          "ticker": "CVS",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-495",
-      "headline": "LIC Q2 Profit Jumps 20% To ₹12,076 Crore, Premium Income Rises 16% To ₹1.47 Lakh Crore",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/lic-q2-profit-jumps-20-to-12076-crore-premium-income-rises-16-to-147-lakh-crore",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T12:43:42Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "LIC reported a 20% increase in Q2 profit to ₹12,076 crore and a 16% rise in premium income to ₹1.47 lakh crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "LIC reported a 20% increase in Q2 profit to ₹12,076 crore and a 16% rise in premium income to ₹1.47 lakh crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Life Insurance Corporation of India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-095",
-      "headline": "Elanco Shares Jump After Q3 Beat and Outlook Raise",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-11-06/elanco-shares-jump-after-q3-beat-and-outlook-raise-video",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T23:30:58Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Elanco beat Q3 earnings and raised FY outlook, a confirmed positive catalyst for investor expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Elanco beat Q3 earnings and raised FY outlook, a confirmed positive catalyst for investor expectations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Elanco Animal Health",
-          "ticker": "ELAN",
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -266100,9 +266099,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 207727,
-    "news_picked_today": 782,
-    "news_dropped_today": 2770
+    "news_seen_today": 214264,
+    "news_picked_today": 867,
+    "news_dropped_today": 2949
   },
   "book_momentum": {
     "live_count": 8,
