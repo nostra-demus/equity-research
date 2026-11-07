@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-07T01:44:40Z",
+  "generated_at": "2026-11-07T01:53:38Z",
   "inbox": [
     {
       "inbox_id": "INB-20261107-110",
@@ -1896,100 +1896,103 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261107-082",
-      "headline": "A Berkshire Hathaway Electric Utility Wants a Historic Rate Hike in California",
+      "inbox_id": "INB-20261107-327",
+      "headline": "Dell Sinks 12%, Hewlett Packard Enterprise and Super Micro Tumble 10% as Post-Midterm Sell-Off Hits AI Hardware",
       "headline_en": null,
-      "url": "https://www.wsj.com/business/energy-oil/a-berkshire-hathaway-electric-utility-wants-a-historic-rate-hike-in-california-b7a0cc70?mod=rss_markets_main",
-      "source_name": "The Wall Street Journal",
+      "url": "https://247wallst.com/investing/2026/11/05/dell-sinks-12-hewlett-packard-enterprise-and-super-micro-tumble-10-as-post-midterm-sell-off-hits-ai-hardware/",
+      "source_name": "24/7 Wall St.",
       "input_nature": "news_headline",
-      "found_at": "2026-11-06T23:33:00Z",
+      "found_at": "2026-11-05T18:02:12Z",
       "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Berkshire Hathaway's utility subsidiary is seeking a significant rate increase in California, which would impact revenue.",
+      "prelim_note": "Significant market sell-off in AI hardware sector with double-digit declines for major players Dell, HPE, and Super Micro.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Berkshire Hathaway's utility subsidiary is seeking a significant rate increase in California, which would impact revenue.",
+      "triage_score": 87,
+      "triage_reason": "Significant market sell-off in AI hardware sector with double-digit declines for major players Dell, HPE, and Super Micro.",
       "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 60,
+      "materiality_pre_score": 75,
       "rank_factors": {
-        "materiality": 60,
+        "materiality": 75,
         "source_tier": 0,
-        "scope": 6,
-        "event": 4,
+        "scope": 5,
+        "event": 5,
         "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
+        "recency": 0,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "multi_name",
         "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
       },
       "event_types": [
-        "regulatory"
+        "earnings_revenue_margin"
       ],
-      "issuer_linkage": "primary",
+      "issuer_linkage": "sector",
       "companies": [
         {
-          "name": "Berkshire Hathaway",
+          "name": "Dell Technologies",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Hewlett Packard Enterprise",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Super Micro Computer",
           "ticker": null,
           "listing_country": "US"
         }
       ],
-      "size_bucket": "mega",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261107-085",
-      "headline": "Ring Energy, Inc. Reports Third Quarter 2026 Results and Updates Guidance",
+      "inbox_id": "INB-20261107-332",
+      "headline": "Bank of England hikes interest rates for first time since 2023",
       "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/ring-energy-inc-reports-third-quarter-2026-results-and-updates-guidance",
-      "source_name": "Nasdaq",
+      "url": "https://www.standard.co.uk/business/business-news/andrew-bailey-bank-of-england-iran-middle-east-ofgem-b1303741.html",
+      "source_name": "The Standard (Evening Standard) — Business",
       "input_nature": "news_headline",
-      "found_at": "2026-11-06T23:22:37Z",
+      "found_at": "2026-11-05T18:00:10Z",
       "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Ring Energy reported Q3 results and updated its guidance.",
+      "prelim_note": "Bank of England interest rate hike represents a significant shift in monetary policy.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Ring Energy reported Q3 results and updated its guidance.",
-      "region": "US",
+      "triage_score": 87,
+      "triage_reason": "Bank of England interest rate hike represents a significant shift in monetary policy.",
+      "region": "GB",
       "relevance": "material",
-      "materiality_pre_score": 65,
+      "materiality_pre_score": 85,
       "rank_factors": {
-        "materiality": 65,
+        "materiality": 85,
         "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 5,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "policy",
         "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "small"
+        "event_id": null,
+        "size_bucket": "unknown"
       },
       "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
+        "macro_sector"
       ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ring Energy, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -266091,9 +266094,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 101131,
-    "news_picked_today": 340,
-    "news_dropped_today": 1220
+    "news_seen_today": 109255,
+    "news_picked_today": 367,
+    "news_dropped_today": 1337
   },
   "book_momentum": {
     "live_count": 8,
