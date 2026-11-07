@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-07T01:24:27Z",
+  "generated_at": "2026-11-07T01:30:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20261107-110",
@@ -1008,6 +1008,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261107-268",
+      "headline": "+++ Geschäftszahlen +++: Abschreibungen brocken Autozulieferer Stabilus Verlust ein",
+      "headline_en": "+++ Financial Results +++: Write-offs cause auto supplier Stabilus to report a loss",
+      "url": "https://www.handelsblatt.com/unternehmen/industrie/quartalszahlen-abschreibungen-brocken-autozulieferer-stabilus-verlust-ein/24098412.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T20:07:25Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Stabilus reported a loss driven by significant write-offs, indicating a material negative impact on financial performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Stabilus reported a loss driven by significant write-offs, indicating a material negative impact on financial performance.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Stabilus",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261107-100",
       "headline": "Paraguay’s President Pena impeached over Ueno banking crisis, placed under house arrest",
       "headline_en": null,
@@ -1042,6 +1091,49 @@
       },
       "event_types": [
         "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-267",
+      "headline": "Israeli air strikes target Lebanon’s Nabatieh, Tyre districts",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/israeli-air-strikes-target-lebanons-nabatieh-tyre-districts",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T20:08:04Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Escalation of military conflict in Lebanon represents a significant geopolitical risk event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Escalation of military conflict in Lebanon represents a significant geopolitical risk event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
       ],
       "issuer_linkage": "macro",
       "companies": [],
@@ -1883,104 +1975,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-175",
-      "headline": "Lloyds Banking Group plc Files Underwriting Agreement for $1,250,000,000 and $1,500,000,000 Senior Callable Fixed to Fixed Rate Notes",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/lloyds-banking-group-plc-files-underwriting-agreement-1250000000-and-1500000000-senior",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T06:48:48Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Lloyds Banking Group is issuing $2.75 billion in senior callable notes.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Lloyds Banking Group is issuing $2.75 billion in senior callable notes.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lloyds Banking Group",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-180",
-      "headline": "Mahindra eyes 12,000 EV sales a month, narrows gap with Tata",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/mahindra-eyes-12000-ev-sales-a-month-narrows-gap-with-tata/article71673179.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T06:45:50Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Mahindra targets 12,000 EV sales per month, indicating aggressive market share expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Mahindra targets 12,000 EV sales per month, indicating aggressive market share expansion.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mahindra",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -266158,9 +266152,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 78873,
-    "news_picked_today": 271,
-    "news_dropped_today": 953
+    "news_seen_today": 88067,
+    "news_picked_today": 292,
+    "news_dropped_today": 1028
   },
   "book_momentum": {
     "live_count": 8,
