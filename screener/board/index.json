@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-07T05:04:35Z",
+  "generated_at": "2026-11-07T05:08:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20261107-464",
@@ -1010,6 +1010,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261107-600",
+      "headline": "Rüstungsindustrie: Rheinmetall senkt schon wieder Prognose – Aktie bricht um 17 Prozent ein",
+      "headline_en": "Defense Industry: Rheinmetall lowers forecast again – stock breaks down by 17 percent",
+      "url": "https://www.handelsblatt.com/unternehmen/industrie/ruestungsindustrie-rheinmetall-senkt-erneut-prognose-aktie-bricht-ein/100267059.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T09:47:17Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Rheinmetall lowered its guidance, resulting in a 17% share price decline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Rheinmetall lowered its guidance, resulting in a 17% share price decline.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Rheinmetall",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261107-598",
       "headline": "Second buyer makes rescue bid for Poundland as retailer faces collapse",
       "headline_en": null,
@@ -1952,55 +2001,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-365",
-      "headline": "ONGC Q2 profit rises 57% to ₹15,489 crore on higher crude oil realisations",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/ongc-q2-profit-rises-57-to-15489-crore-on-higher-crude-oil-realisations/article71671364.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T17:23:25Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "ONGC reported a 57% increase in Q2 profit to ₹15,489 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "ONGC reported a 57% increase in Q2 profit to ₹15,489 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ONGC",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -266097,9 +266097,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 228470,
-    "news_picked_today": 1000,
-    "news_dropped_today": 3344
+    "news_seen_today": 230806,
+    "news_picked_today": 1025,
+    "news_dropped_today": 3391
   },
   "book_momentum": {
     "live_count": 8,
