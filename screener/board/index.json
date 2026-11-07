@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-07T20:40:01Z",
+  "generated_at": "2026-11-07T20:43:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20261107-714",
@@ -191,6 +191,56 @@
           "name": "Astron Paper & Board Mill Limited",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-746",
+      "headline": "Treasury Is Cutting MEXC Off From U.S. Banks Over $16 Billion in Illicit Transactions. What Happens to the Crypto Held There?",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/cryptocurrency/2026/11/07/treasury-is-cutting-mexc-off-from-u-s-banks-over-16-billion-in-illicit-transactions-what-happens-to-the-crypto-held-there/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-07T20:21:57Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "The U.S. Treasury is cutting off MEXC from the U.S. banking system due to $16 billion in illicit transactions, effectively barring the exchange from U.S. operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The U.S. Treasury is cutting off MEXC from the U.S. banking system due to $16 billion in illicit transactions, effectively barring the exchange from U.S. operations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MEXC",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -1946,55 +1996,6 @@
       "companies": [
         {
           "name": "Cigna",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-414",
-      "headline": "Edwards bumps up sales forecast on TAVR strength in Q3",
-      "headline_en": null,
-      "url": "https://www.medtechdive.com/news/edwards-bumps-up-sales-forecast-on-tavr-strength-in-q3/873876/",
-      "source_name": "MedTech Dive",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T16:02:26Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Edwards Lifesciences raised its sales forecast following strong Q3 TAVR performance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Edwards Lifesciences raised its sales forecast following strong Q3 TAVR performance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Edwards Lifesciences",
           "ticker": null,
           "listing_country": "US"
         }
@@ -266312,9 +266313,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 264662,
-    "news_picked_today": 1759,
-    "news_dropped_today": 10062
+    "news_seen_today": 264668,
+    "news_picked_today": 1762,
+    "news_dropped_today": 10065
   },
   "book_momentum": {
     "live_count": 8,
