@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-07T07:10:48Z",
+  "generated_at": "2026-11-07T07:11:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20261107-665",
@@ -224727,6 +224727,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-67edac5436ac",
+      "idea_version": "IDEAV-d385ff722e8c54d2",
+      "idea_version_started_at": "2026-11-07T07:11:04Z",
+      "ticker": "IVG",
+      "company": "Iveco Group N.V.",
+      "exchange": "BIT",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Tata Motors has initiated a voluntary tender offer for all common shares of Iveco Group, which typically forces a price convergence toward the offer price.",
+      "why_now": "The tender offer was formally announced via exchange filing on November 7, 2026.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c9050b6b5cca"
+      ],
+      "primary_source_event_id": "EVT-c9050b6b5cca",
+      "source_headlines": [
+        "Tata Motors Limited: Tata Motors Limited has informed the Exchange regarding a press release dated November 07, 2026, titled \"TML CV Holdings B.V., an Indirect Wholly Owned Subsidiary of Tata Motors Limited (formerly TML Commercial Vehicles Limited) ( the Company ) Voluntary Totalitarian Tender Offer for all the common shares of Iveco Group N.V.\"."
+      ],
+      "source_headline": "Tata Motors Limited: Tata Motors Limited has informed the Exchange regarding a press release dated November 07, 2026, titled \"TML CV Holdings B.V., an Indirect Wholly Owned Subsidiary of Tata Motors Limited (formerly TML Commercial Vehicles Limited) ( the Company ) Voluntary Totalitarian Tender Offer for all the common shares of Iveco Group N.V.\".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/TMLCOMMERCIAL_07112026002910_final.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-06T19:00:48Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-07T07:11:04Z",
+      "updated_at": "2026-11-07T07:11:04Z",
+      "decay_at": "2026-11-08T07:00:48Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-a025b73a32d6",
       "idea_version": "IDEAV-04aa45ea0e5e9d2a",
       "idea_version_started_at": "2026-11-06T22:25:06Z",
@@ -226011,146 +226082,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-22b8ed9b7225",
-      "idea_version": "IDEAV-26f247165827bedf",
-      "idea_version_started_at": "2026-11-04T03:58:17Z",
-      "ticker": "DUOL",
-      "company": "Duolingo",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported strong Q3 2026 results with 29% growth in daily active users and raised its full-year guidance, signaling sustained momentum in user engagement and monetization.",
-      "why_now": "The earnings report and guidance hike were released on 2026-11-04.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-725386482f5f"
-      ],
-      "primary_source_event_id": "EVT-725386482f5f",
-      "source_headlines": [
-        "Duolingo Reports Q3 2026 Results with 29% Daily Active User Growth and Raises Full-Year Guidance"
-      ],
-      "source_headline": "Duolingo Reports Q3 2026 Results with 29% Daily Active User Growth and Raises Full-Year Guidance",
-      "source_url": "https://www.nasdaq.com/articles/duolingo-reports-q3-2026-results-29-daily-active-user-growth-and-raises-full-year-guidance",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-04T02:11:01Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-04T03:58:17Z",
-      "updated_at": "2026-11-04T03:58:17Z",
-      "decay_at": "2026-11-05T14:11:01Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-57a726d1a993",
-      "idea_version": "IDEAV-596ed5bad750b043",
-      "idea_version_started_at": "2026-11-04T03:58:17Z",
-      "ticker": "DRH",
-      "company": "DiamondRock Hospitality Company",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported positive Q3 2026 results, raised its full-year guidance, and expanded its portfolio through the acquisition of The Bellmoor Inn & Spa.",
-      "why_now": "The earnings release and acquisition announcement occurred on 2026-11-04.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-929e580cbbaa"
-      ],
-      "primary_source_event_id": "EVT-929e580cbbaa",
-      "source_headlines": [
-        "DiamondRock Hospitality Company Reports Third Quarter 2026 Results, Acquires The Bellmoor Inn & Spa, and Raises 2026 Guidance"
-      ],
-      "source_headline": "DiamondRock Hospitality Company Reports Third Quarter 2026 Results, Acquires The Bellmoor Inn & Spa, and Raises 2026 Guidance",
-      "source_url": "https://www.nasdaq.com/articles/diamondrock-hospitality-company-reports-third-quarter-2026-results-acquires-bellmoor-inn",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-04T01:51:27Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-04T03:58:17Z",
-      "updated_at": "2026-11-04T03:58:17Z",
-      "decay_at": "2026-11-05T13:51:27Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-237bc01d6762",
       "idea_version": "IDEAV-74b49b71c098cea1",
       "idea_version_started_at": "2026-11-05T15:35:08Z",
@@ -226285,216 +226216,6 @@
       "surfaced_at": "2026-11-05T12:54:05Z",
       "updated_at": "2026-11-05T12:54:05Z",
       "decay_at": "2026-11-06T19:48:47Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-abe61d9932f3",
-      "idea_version": "IDEAV-5cbc7c94b5ac81ac",
-      "idea_version_started_at": "2026-11-04T10:33:04Z",
-      "ticker": "OHI",
-      "company": "Omega Healthcare Investors, Inc.",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The REIT reported strong Q3 net income and raised full-year guidance, reflecting stable or improving cash flows from its healthcare facility portfolio.",
-      "why_now": "The guidance raise was announced on 2026-11-04.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-276d0311825b"
-      ],
-      "primary_source_event_id": "EVT-276d0311825b",
-      "source_headlines": [
-        "Omega Healthcare Investors, Inc. Reports Q3 2026 Net income of $87 million and Raises Full Year Guidance"
-      ],
-      "source_headline": "Omega Healthcare Investors, Inc. Reports Q3 2026 Net income of $87 million and Raises Full Year Guidance",
-      "source_url": "https://www.nasdaq.com/articles/omega-healthcare-investors-inc-reports-q3-2026-net-income-87-million-and-raises-full-year",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-04T04:58:46Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-04T10:33:04Z",
-      "updated_at": "2026-11-04T10:33:04Z",
-      "decay_at": "2026-11-05T16:58:46Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-eeaf93a2d564",
-      "idea_version": "IDEAV-6c7dd6f1a7fb03d0",
-      "idea_version_started_at": "2026-11-04T05:56:45Z",
-      "ticker": "JXN",
-      "company": "Jackson Financial Inc.",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company announced a $1 billion increase in its share repurchase authorization alongside strong 3Q26 results, signaling management's confidence in capital return and balance sheet strength.",
-      "why_now": "The announcement was made on 2026-11-04 as part of the 3Q26 earnings release.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a3d9bfdbe3f6"
-      ],
-      "primary_source_event_id": "EVT-a3d9bfdbe3f6",
-      "source_headlines": [
-        "Jackson Financial Inc. Reports 3Q26 Results, Announces $1 billion Share Repurchase Increase and AARP Program Launch"
-      ],
-      "source_headline": "Jackson Financial Inc. Reports 3Q26 Results, Announces $1 billion Share Repurchase Increase and AARP Program Launch",
-      "source_url": "https://www.nasdaq.com/articles/jackson-financial-inc-reports-3q26-results-announces-1-billion-share-repurchase-increase",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-04T04:38:39Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-04T05:56:45Z",
-      "updated_at": "2026-11-04T05:56:45Z",
-      "decay_at": "2026-11-05T16:38:39Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-14d83f2c882e",
-      "idea_version": "IDEAV-1bb68bc40a8aea5e",
-      "idea_version_started_at": "2026-11-04T03:39:00Z",
-      "ticker": "AMD",
-      "company": "Advanced Micro Devices",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Strong Q3 results and positive guidance, driven by data center demand, indicate continued market share gains in high-performance computing.",
-      "why_now": "The earnings report was released on 2026-11-04.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f1801b35fea9"
-      ],
-      "primary_source_event_id": "EVT-f1801b35fea9",
-      "source_headlines": [
-        "AMD shares jump 7% in extended trade after strong Q3 results, guidance, data center bet"
-      ],
-      "source_headline": "AMD shares jump 7% in extended trade after strong Q3 results, guidance, data center bet",
-      "source_url": "https://www.cnbctv18.com/market/amd-q3-results-revenue-eps-beat-q4-guidance-chip-data-center-ai-demand-ceo-lisa-su-outlook-share-price-20026436.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-04T00:01:58Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-04T03:39:00Z",
-      "updated_at": "2026-11-04T03:39:00Z",
-      "decay_at": "2026-11-05T12:01:58Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -226705,146 +226426,6 @@
       "surfaced_at": "2026-11-05T12:54:05Z",
       "updated_at": "2026-11-05T12:54:05Z",
       "decay_at": "2026-11-06T17:38:42Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-2a4b25e53837",
-      "idea_version": "IDEAV-59f8c38a3f28e2e4",
-      "idea_version_started_at": "2026-11-04T03:39:00Z",
-      "ticker": "MTW",
-      "company": "The Manitowoc Company",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported third-quarter results and raised its full-year guidance, signaling improved operational efficiency or demand in its crane manufacturing business.",
-      "why_now": "The guidance hike was announced on 2026-11-04.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c8a4a2f24b9d"
-      ],
-      "primary_source_event_id": "EVT-c8a4a2f24b9d",
-      "source_headlines": [
-        "The Manitowoc Company, Inc. Reports Third-Quarter 2026 Results and Raises Full-Year Guidance"
-      ],
-      "source_headline": "The Manitowoc Company, Inc. Reports Third-Quarter 2026 Results and Raises Full-Year Guidance",
-      "source_url": "https://www.nasdaq.com/articles/manitowoc-company-inc-reports-third-quarter-2026-results-and-raises-full-year-guidance",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-04T00:02:20Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-04T03:39:00Z",
-      "updated_at": "2026-11-04T03:39:00Z",
-      "decay_at": "2026-11-05T12:02:20Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-617337d6962c",
-      "idea_version": "IDEAV-41ce9a2637f1a2a8",
-      "idea_version_started_at": "2026-11-04T03:39:00Z",
-      "ticker": "HZO",
-      "company": "MarineMax, Inc.",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company has cleared all regulatory hurdles for its pending merger, removing a significant overhang and providing a clear path to closing by the end of 2026.",
-      "why_now": "The announcement of final regulatory approval occurred on 2026-11-04.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d061a29c3cf5"
-      ],
-      "primary_source_event_id": "EVT-d061a29c3cf5",
-      "source_headlines": [
-        "MarineMax, Inc. Obtains All Regulatory Approvals for Merger, Expects Closing by End of Calendar Year 2026"
-      ],
-      "source_headline": "MarineMax, Inc. Obtains All Regulatory Approvals for Merger, Expects Closing by End of Calendar Year 2026",
-      "source_url": "https://www.nasdaq.com/articles/marinemax-inc-obtains-all-regulatory-approvals-merger-expects-closing-end-calendar-year",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-04T01:12:20Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-04T03:39:00Z",
-      "updated_at": "2026-11-04T03:39:00Z",
-      "decay_at": "2026-11-05T13:12:20Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -228427,79 +228008,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-acc38c0099af",
-      "idea_version": "IDEAV-2e02b6444305370c",
-      "idea_version_started_at": "2026-11-04T10:33:04Z",
-      "ticker": "UOB",
-      "company": "United Overseas Bank",
-      "exchange": "SGX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The bank missed Q3 earnings forecasts, indicating potential margin compression or higher-than-expected credit costs.",
-      "why_now": "The earnings miss was reported on 2026-11-04.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a363a3ee5ca3"
-      ],
-      "primary_source_event_id": "EVT-a363a3ee5ca3",
-      "source_headlines": [
-        "UOB shares fall over 5% after Q3 earnings miss forecast"
-      ],
-      "source_headline": "UOB shares fall over 5% after Q3 earnings miss forecast",
-      "source_url": "https://www.businesstimes.com.sg/companies-markets/uob-shares-fall-over-5-after-q3-earnings-miss-forecast",
-      "source_name": "The Business Times (Singapore)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-04T01:19:59Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-04T10:33:04Z",
-      "updated_at": "2026-11-04T10:33:04Z",
-      "decay_at": "2026-11-05T13:19:59Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-f805f8ebb5c1",
       "idea_version": "IDEAV-6ed89925b092d632",
       "idea_version_started_at": "2026-11-04T10:33:04Z",
@@ -228569,293 +228077,6 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": true
-    },
-    {
-      "idea_id": "IDEA-f1cc701b7807",
-      "idea_version": "IDEAV-2c6b111e90426c47",
-      "idea_version_started_at": "2026-11-04T06:42:55Z",
-      "ticker": "SUNPHARMA",
-      "company": "Sun Pharmaceutical Industries Limited",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company faces a production halt at a key facility due to quality lapses, which will directly impact revenue and margins for its eye-care product line.",
-      "why_now": "The exchange has officially sought clarification on the production halt as of 2026-11-04, confirming the regulatory risk is active.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8b351767c490"
-      ],
-      "primary_source_event_id": "EVT-8b351767c490",
-      "source_headlines": [
-        "Sun Pharmaceutical Industries Limited: The Exchange has sought clarification from Sun Pharmaceutical Industries Limited with respect to recent news item captioned India orders Sun Pharma to halt eye-care drug production at plant after quality lapses. The response from the Company is attached."
-      ],
-      "source_headline": "Sun Pharmaceutical Industries Limited: The Exchange has sought clarification from Sun Pharmaceutical Industries Limited with respect to recent news item captioned India orders Sun Pharma to halt eye-care drug production at plant after quality lapses. The response from the Company is attached.",
-      "source_url": "https://nsearchives.nseindia.com/corporate/SUNSEC_04112026100317_Reply_to_SEs_-_Rumour_Verification02112026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-04T04:34:11Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-04T06:42:55Z",
-      "updated_at": "2026-11-04T06:42:55Z",
-      "decay_at": "2026-11-05T16:34:11Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-14fa28bd0d8f",
-      "idea_version": "IDEAV-f7f40dcaa7e1ad8f",
-      "idea_version_started_at": "2026-11-04T05:56:45Z",
-      "ticker": "4185",
-      "company": "Mitsui Chemicals",
-      "exchange": "TSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of JSR for over $8.2 billion significantly expands Mitsui's footprint in the high-margin semiconductor materials market, providing a long-term growth engine in photoresists.",
-      "why_now": "The deal was announced on 2026-11-04 and represents a major strategic shift for the company.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d28d1cea192b"
-      ],
-      "primary_source_event_id": "EVT-d28d1cea192b",
-      "source_headlines": [
-        "Mitsui Chemicals to buy Japan chip material maker JSR for over $8.2bn"
-      ],
-      "source_headline": "Mitsui Chemicals to buy Japan chip material maker JSR for over $8.2bn",
-      "source_url": "https://asia.nikkei.com/business/business-deals/mitsui-chemicals-to-buy-japan-chip-material-maker-jsr-for-over-8.2bn2",
-      "source_name": "Nikkei Asia",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-04T04:45:21Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-04T05:56:45Z",
-      "updated_at": "2026-11-04T05:56:45Z",
-      "decay_at": "2026-11-05T16:45:21Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-52433aa40a10",
-      "idea_version": "IDEAV-71fa741cf310bcdc",
-      "idea_version_started_at": "2026-11-04T03:39:00Z",
-      "ticker": "U11",
-      "company": "United Overseas Bank",
-      "exchange": "SGX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The bank missed Q3 earnings expectations, suggesting potential margin compression or higher credit costs in its regional lending portfolio.",
-      "why_now": "The earnings miss was reported on 2026-11-04.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a363a3ee5ca3"
-      ],
-      "primary_source_event_id": "EVT-a363a3ee5ca3",
-      "source_headlines": [
-        "UOB shares fall over 5% after Q3 earnings miss forecast"
-      ],
-      "source_headline": "UOB shares fall over 5% after Q3 earnings miss forecast",
-      "source_url": "https://www.businesstimes.com.sg/companies-markets/uob-shares-fall-over-5-after-q3-earnings-miss-forecast",
-      "source_name": "The Business Times (Singapore)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-04T01:19:59Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-04T03:39:00Z",
-      "updated_at": "2026-11-04T03:39:00Z",
-      "decay_at": "2026-11-05T13:19:59Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-9e711acef9ae",
-      "idea_version": "IDEAV-6fc5b52a377e3f5e",
-      "idea_version_started_at": "2026-11-04T06:42:55Z",
-      "ticker": "DRREDDY",
-      "company": "Dr. Reddy's Laboratories Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company received US regulatory approval for a generic HIV prevention shot, opening a new commercial revenue stream across 120 countries.",
-      "why_now": "The exchange filing on 2026-11-04 confirms the regulatory nod and the company's response to the news.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3d956ff42165"
-      ],
-      "primary_source_event_id": "EVT-3d956ff42165",
-      "source_headlines": [
-        "Dr. Reddy's Laboratories Limited: The Exchange has sought clarification from Dr. Reddy's Laboratories Limited with respect to recent news item captioned Indias Dr Reddys gets US nod for $40 generic HIV prevention shot for 120 poorer countries. The response from the Company is attached."
-      ],
-      "source_headline": "Dr. Reddy's Laboratories Limited: The Exchange has sought clarification from Dr. Reddy's Laboratories Limited with respect to recent news item captioned Indias Dr Reddys gets US nod for $40 generic HIV prevention shot for 120 poorer countries. The response from the Company is attached.",
-      "source_url": "https://nsearchives.nseindia.com/corporate/DRREDDY_04112026113836_SE_intimation_Reg30_Market_Rumour_Verification_NSE_signed.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 97,
-      "newest_source_at": "2026-11-04T06:08:52Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-04T06:42:55Z",
-      "updated_at": "2026-11-04T06:42:55Z",
-      "decay_at": "2026-11-05T18:08:52Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
     }
   ],
   "ideas_archive": {
@@ -228868,33 +228089,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 544,
+    "total_count": 532,
     "shown_count": 499,
-    "hidden_count": 45,
+    "hidden_count": 33,
     "side_counts": {
       "long": {
-        "total_count": 278,
+        "total_count": 269,
         "shown_count": 250,
-        "hidden_count": 28
+        "hidden_count": 19
       },
       "short": {
-        "total_count": 267,
+        "total_count": 264,
         "shown_count": 250,
-        "hidden_count": 17
+        "hidden_count": 14
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1658,
-      "oldest_retained_at": "2026-10-10T03:45:44Z",
+      "evicted_count": 1670,
+      "oldest_retained_at": "2026-10-10T14:05:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 1095,
-          "oldest_retained_at": "2026-10-22T09:09:42Z"
+          "evicted_count": 1104,
+          "oldest_retained_at": "2026-10-22T21:12:54Z"
         },
         "short": {
-          "evicted_count": 564,
-          "oldest_retained_at": "2026-10-10T03:45:44Z"
+          "evicted_count": 567,
+          "oldest_retained_at": "2026-10-10T14:05:00Z"
         }
       }
     },
@@ -231343,8 +230564,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-05T18:08:52Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-07T07:11:08Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -231416,8 +230637,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-05T16:58:46Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-07T07:11:08Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -231491,8 +230712,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-05T16:45:21Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-07T07:11:08Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -231564,8 +230785,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-05T16:38:39Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-07T07:11:08Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -231638,8 +230859,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-05T16:34:11Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-07T07:11:08Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -231711,8 +230932,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-05T14:11:01Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-07T07:11:08Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -231784,8 +231005,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-05T13:51:27Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-07T07:11:08Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -231860,8 +231081,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-05T13:19:59Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-07T07:11:08Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -231936,8 +231157,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-05T13:19:59Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-07T07:11:08Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -232009,8 +231230,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-05T13:12:20Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-07T07:11:08Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -232082,8 +231303,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-05T12:02:20Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-07T07:11:08Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -232155,8 +231376,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-05T12:01:58Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-07T07:11:08Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -266074,8 +265295,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2231,
-    "live_count": 28,
+    "surfaced_total": 2232,
+    "live_count": 29,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,

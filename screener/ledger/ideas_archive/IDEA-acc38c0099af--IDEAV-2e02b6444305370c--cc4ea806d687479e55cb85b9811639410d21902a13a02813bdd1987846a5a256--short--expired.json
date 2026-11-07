@@ -1,29 +1,29 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-10-24T07:02:29Z",
+  "archived_at": "2026-11-07T07:11:08Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-4e64f81182d7",
-    "idea_version": "IDEAV-6d435676e92af205",
-    "idea_version_started_at": "2026-10-21T12:30:01Z",
-    "ticker": "IBE",
-    "company": "Iberdrola",
-    "exchange": "BME",
+    "idea_id": "IDEA-acc38c0099af",
+    "idea_version": "IDEAV-2e02b6444305370c",
+    "idea_version_started_at": "2026-11-04T10:33:04Z",
+    "ticker": "UOB",
+    "company": "United Overseas Bank",
+    "exchange": "SGX",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
-    "direction": "long",
+    "direction": "short",
     "pair_with": null,
-    "reason": "The company raised its profit growth outlook through 2030, signaling improved long-term earnings visibility.",
-    "why_now": "The guidance hike was announced on 2026-10-21.",
-    "conviction": 70,
+    "reason": "The bank missed Q3 earnings forecasts, indicating potential margin compression or higher-than-expected credit costs.",
+    "why_now": "The earnings miss was reported on 2026-11-04.",
+    "conviction": 65,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
       "evidence": 14,
-      "impact": 20,
+      "impact": 19,
       "specificity": 7,
       "timing": 10,
       "expression": 0,
@@ -36,6 +36,7 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
+      "priced-in risk",
       "independent confirmation",
       "live price, liquidity, and consensus"
     ],
@@ -48,31 +49,31 @@
       "basis": "not_enough_outcomes",
       "evidenceIds": []
     },
-    "priced_in": "room",
+    "priced_in": "priced",
     "thesis_type": "company_specific",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-5386c0113cb6"
+      "EVT-a363a3ee5ca3"
     ],
-    "primary_source_event_id": "EVT-5386c0113cb6",
+    "primary_source_event_id": "EVT-a363a3ee5ca3",
     "source_headlines": [
-      "Iberdrola raises outlook again, eyes higher profit growth through 2030"
+      "UOB shares fall over 5% after Q3 earnings miss forecast"
     ],
-    "source_headline": "Iberdrola raises outlook again, eyes higher profit growth through 2030",
-    "source_url": "https://www.reuters.com/business/energy/iberdrola-raises-outlook-again-eyes-higher-profit-growth-through-2030-2026-10-21/",
-    "source_name": "Reuters — Latest (news sitemap)",
+    "source_headline": "UOB shares fall over 5% after Q3 earnings miss forecast",
+    "source_url": "https://www.businesstimes.com.sg/companies-markets/uob-shares-fall-over-5-after-q3-earnings-miss-forecast",
+    "source_name": "The Business Times (Singapore)",
     "materiality_max": 100,
-    "newest_source_at": "2026-10-21T06:24:52Z",
+    "newest_source_at": "2026-11-04T01:19:59Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-10-21T12:30:01Z",
-    "updated_at": "2026-10-21T12:30:01Z",
-    "decay_at": "2026-10-22T18:24:52Z",
+    "surfaced_at": "2026-11-04T10:33:04Z",
+    "updated_at": "2026-11-04T10:33:04Z",
+    "decay_at": "2026-11-05T13:19:59Z",
     "status": "live",
     "promoted_signal_id": null
   }
