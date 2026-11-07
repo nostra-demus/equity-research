@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-07T22:08:19Z",
+  "generated_at": "2026-11-07T22:09:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20261107-714",
@@ -224519,6 +224519,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-be88d1aa5221",
+      "idea_version": "IDEAV-c5cfe32b543bae0a",
+      "idea_version_started_at": "2026-11-07T22:08:49Z",
+      "ticker": "AMR",
+      "company": "Alpha Metallurgical Resources",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company reported a surprise net loss of $9.3 million for Q3 2026, missing expectations in a challenging metallurgical coal environment.",
+      "why_now": "The earnings report was released late on November 6, 2026, impacting the next full trading day.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 63,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2d16cf0d9577"
+      ],
+      "primary_source_event_id": "EVT-2d16cf0d9577",
+      "source_headlines": [
+        "Alpha Metallurgical Resources Reports Third Quarter 2026 Net Loss of $9.3 million and Adjusted EBITDA of $29.4 million"
+      ],
+      "source_headline": "Alpha Metallurgical Resources Reports Third Quarter 2026 Net Loss of $9.3 million and Adjusted EBITDA of $29.4 million",
+      "source_url": "https://www.nasdaq.com/articles/alpha-metallurgical-resources-reports-third-quarter-2026-net-loss-93-million-and-adjusted",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-06T17:38:53Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-07T22:08:49Z",
+      "updated_at": "2026-11-07T22:08:49Z",
+      "decay_at": "2026-11-08T05:38:53Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-f5730c4d2977",
       "idea_version": "IDEAV-d4046ecb00a1432d",
       "idea_version_started_at": "2026-11-06T18:04:31Z",
@@ -224584,6 +224654,78 @@
       "surfaced_at": "2026-11-06T18:04:31Z",
       "updated_at": "2026-11-06T18:04:31Z",
       "decay_at": "2026-11-08T01:21:18Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-83598d432045",
+      "idea_version": "IDEAV-de9a88b080ac4380",
+      "idea_version_started_at": "2026-11-07T22:08:49Z",
+      "ticker": "PREMIERENE",
+      "company": "Premier Energies",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Q2 net profit rose 31% to ₹462.4 crore, demonstrating strong operational leverage in the renewable energy manufacturing sector.",
+      "why_now": "The financial results were published on November 6, 2026.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8869be0a9ba7"
+      ],
+      "primary_source_event_id": "EVT-8869be0a9ba7",
+      "source_headlines": [
+        "Premier Energies Q2 net profit rises 31% to ₹462.4 crore"
+      ],
+      "source_headline": "Premier Energies Q2 net profit rises 31% to ₹462.4 crore",
+      "source_url": "https://www.thehindubusinessline.com/companies/premier-energies-q2-net-profit-rises-31-to-4624-crore/article71673725.ece",
+      "source_name": "The Hindu BusinessLine",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-06T16:30:49Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-07T22:08:49Z",
+      "updated_at": "2026-11-07T22:08:49Z",
+      "decay_at": "2026-11-08T04:30:49Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -227289,77 +227431,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-c534f287a00b",
-      "idea_version": "IDEAV-f1474c7e4ffcb220",
-      "idea_version_started_at": "2026-11-05T06:36:43Z",
-      "ticker": "QCOM",
-      "company": "Qualcomm",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a weak earnings forecast driven by a memory shortage impacting smartphone sales, signaling near-term margin and revenue pressure.",
-      "why_now": "The guidance downgrade was reported on 2026-11-04.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-54c0c98a72de"
-      ],
-      "primary_source_event_id": "EVT-54c0c98a72de",
-      "source_headlines": [
-        "Qualcomm stock drops 6% on weak earnings forecast as memory shortage weighs on smartphone sales"
-      ],
-      "source_headline": "Qualcomm stock drops 6% on weak earnings forecast as memory shortage weighs on smartphone sales",
-      "source_url": "https://www.cnbc.com/2026/11/04/qualcomm-qcom-earnings-report-q4-2026.html",
-      "source_name": "CNBC",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-04T22:03:43Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-05T06:36:43Z",
-      "updated_at": "2026-11-05T06:36:43Z",
-      "decay_at": "2026-11-06T10:03:43Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-199ea06109d6",
       "idea_version": "IDEAV-809acbfb65d1e24f",
       "idea_version_started_at": "2026-11-07T21:50:12Z",
@@ -229168,9 +229239,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 545,
+    "total_count": 544,
     "shown_count": 499,
-    "hidden_count": 46,
+    "hidden_count": 45,
     "side_counts": {
       "long": {
         "total_count": 275,
@@ -229178,23 +229249,23 @@
         "hidden_count": 25
       },
       "short": {
-        "total_count": 271,
+        "total_count": 270,
         "shown_count": 250,
-        "hidden_count": 21
+        "hidden_count": 20
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1677,
-      "oldest_retained_at": "2026-10-10T15:23:33Z",
+      "evicted_count": 1678,
+      "oldest_retained_at": "2026-10-10T15:39:02Z",
       "side_counts": {
         "long": {
           "evicted_count": 1110,
           "oldest_retained_at": "2026-10-23T04:01:30Z"
         },
         "short": {
-          "evicted_count": 568,
-          "oldest_retained_at": "2026-10-10T15:23:33Z"
+          "evicted_count": 569,
+          "oldest_retained_at": "2026-10-10T15:39:02Z"
         }
       }
     },
@@ -232532,8 +232603,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-06T10:03:43Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-07T22:08:57Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -266367,8 +266438,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2254,
-    "live_count": 31,
+    "surfaced_total": 2256,
+    "live_count": 33,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
