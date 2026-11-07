@@ -816,6 +816,12 @@ viol.extend(hc.eval_ak_red_flag_severity_reconciliation(ddte, d, _thesis_text_ak
 # (AI/AK on the two lines above still use `ddte` and guard regenerated content too — same latent
 # rerun asymmetry — but they predate this PR; left unchanged here to keep this diff scoped.)
 viol.extend(hc.eval_aj_decision_audit_trail(_live_date, _thesis_text_ak) or [])
+# check BH — net-cash / net-debt basis label in Part I (CLAUDE.md §15; synthesizer.md Part I item 6). Same
+# shared module and the same `_live_date` rationale as AJ above: it guards `final_thesis.md` prose that a
+# /research:rerun regenerates, so a pre-BH_DATE folder must still be judged on what is about to ship.
+# Defect it closes: INDIAMART_2026-08-14's Part I quoted "~₹31 billion of net cash" (the BROAD figure,
+# liquid funds netted in) with no label, while the strict figure was ₹0.15bn — a ~220x gap in one sentence.
+viol.extend(hc.eval_bh_net_debt_basis_label(_live_date, _thesis_text_ak) or [])
 # AP valuation-summary lever-sidecar integrity (pre-publish; SAME pure core as eval.py check AP, via
 # scripts/valuation_summary_checks.py). valuation_summary.json is §25 DATA that reaches main WITHOUT CI, so
 # a malformed or decision_record-contradicting sidecar would drive the cockpit Playground with levers that

@@ -904,3 +904,84 @@ def eval_ak_red_flag_severity_reconciliation(decision_date, d, thesis, module_te
     # The rating-cap DENIAL check ran earlier (before the `if not declared` return) so it also covers
     # record-level Criticals with no module declaration (Codex r3) — nothing further to add here.
     return det
+
+
+# ── Check BH (net-cash / net-debt basis label in Part I, CLAUDE.md §15) ──
+# §15: "whenever a net-cash / net-debt figure departs from the strict basis ... label the basis inline
+# every time the figure appears (strict / broad / gross-liquidity), and never present an
+# investment-inclusive figure as bare 'net cash' without also showing the strict figure." synthesizer.md
+# Part I item 6 restates it for the headline ("Any net cash / net debt framing ... must state its basis").
+# Nothing opened final_thesis.md to verify it — the same prompt-only gap AI/AJ/AK closed for their rules.
+# It is not hypothetical: INDIAMART_2026-08-14's Part I says "~₹31 billion of net cash" with no label,
+# while its own valuation file shows the broad figure is ₹33,670 mn and the STRICT figure is ₹152 mn —
+# a ~220x basis gap in the one sentence a reader sees. BG_2026-06-01, TMCV_2026-06-07 and UBER_2026-08-06
+# carry the same unlabeled-figure shape. Presence/shape only: whether the label is TRUE is the
+# valuation module's job (price-and-capital-structure); this only stops a bare number reaching the reader.
+BH_DATE = "2026-11-06"  # forward-looking; committed runs predate it → N/A
+_BH_NET = r"\bnet[\s‑-]*(?:cash|debt)\b"
+_BH_MONEY = (r"(?:[$€£¥₹]|\b(?:US\$|USD|EUR|GBP|INR|CNY|RMB|JPY|AED|SAR|Rs\.?)\s?)\s?\d[\d,]*(?:\.\d+)?"
+             r"|\b\d[\d,]*(?:\.\d+)?\s?(?:bn|mn|million|billion|trillion|crore|cr|lakh|[BMK])\b")
+# An amount counts as "the net-cash figure" only when it is attached to the term: the term, then plain
+# connectors, then the amount ("net debt doubled to $9.3 billion") — or the amount, then at most a few
+# filler words, then the term ("₹31 billion of net cash"). "net cash even after $53.8B of new debt" is NOT
+# attached (the amount belongs to something else), which keeps unrelated figures in the same clause out.
+_BH_CONN = (r"(?:[\s,:(~≈=\-—]|\b(?:of|at|to|from|was|is|were|are|be|been|stood|stands|jumped|rose|fell|doubled|"
+            r"tripled|up|down|about|around|roughly|approximately|approx|over|under|nearly|almost|only|just|"
+            r"already|by|c|in|now|currently|presently|totals?|totall?ed|totall?ing|reach(?:es|ed|ing)?|"
+            r"amounts?|amounted|amounting|positions?|came|comes?|coming|sits?|sat|sitting|registered|registers|"
+            r"printed|prints|clocked|remains?|remained|holds?|held|ends?|ended|equals?|equall?ed|swung|grew|"
+            r"climbed|rising|falling|widened|narrowed|ballooned|surged|swelled)\b\.?)*")
+_BH_A = re.compile(_BH_NET + _BH_CONN + "(?:" + _BH_MONEY + ")", re.I)
+_BH_B = re.compile("(?:" + _BH_MONEY + r")(?:\s+(?:of|its|the|a|total|reported|group|consolidated|year-end|"
+                   r"pro[\s-]*forma|(?:post|pre)-\w+))*\s+" + _BH_NET, re.I)
+# A basis label: the §15 words, the "cash & equivalents" definition of strict, an explicit
+# including/excluding-investments clause, or an explicit company-defined figure.
+_BH_BASIS = re.compile(
+    r"\bstrict\b|\bbroad\b|gross[\s-]*liquidity|cash\s*(?:&|and)\s*(?:cash[\s-]*)?equivalents"
+    r"|\b(?:incl|excl)\w*\.?\s+(?:[\w-]+\s+){0,4}?(?:investments?|treasury|securities|deposits|funds)"
+    r"|company[\s-]*defined|(?:company|management)'?s?\s+(?:own\s+)?(?:definition|figure)"
+    r"|as defined by (?:the )?company", re.I)
+_BH_NONSTRICT = re.compile(
+    r"\bbroad\b|gross[\s-]*liquidity|\b(?:incl|including|includes)\w*\.?\s+(?:[\w-]+\s+){0,4}?"
+    r"(?:investments?|treasury|securities|deposits|funds)", re.I)
+
+
+def _part_one(thesis):
+    """Part I ('# PART I — INVESTMENT COMMITTEE DECISION') up to Part II; the text before Part II when
+    there is no explicit Part I heading; the whole document only when neither heading exists."""
+    m = re.search(r"(?ims)^#\s+PART\s+I\b(?!I).*?(?=^#\s+PART\s+II\b|\Z)", thesis)
+    if m: return m.group(0)
+    return re.split(r"(?im)^#\s+PART\s+II\b", thesis)[0]
+
+
+def eval_bh_net_debt_basis_label(decision_date, thesis):
+    """Core of check BH. Returns None (N/A — pre-gate) or a list of violation strings (empty = pass).
+    A sentence in Part I that states a net-cash / net-debt AMOUNT (a currency amount attached to the
+    term) must carry a basis label in the same sentence; and where any such sentence labels its figure
+    broad / gross-liquidity / investment-inclusive, the strict figure must also be named in Part I (§15:
+    never an investment-inclusive number as bare net cash). Ratios ('net debt / EBITDA 1.2x') and
+    unquantified framing ('a net-cash balance sheet') are out of scope. Pure and defensive: no I/O."""
+    if not (isdate(decision_date) and decision_date >= BH_DATE):
+        return None
+    if not isinstance(thesis, str) or not thesis.strip():
+        return []
+    part1 = _part_one(thesis)
+    det, nonstrict, strict_fig = [], False, False
+    for line in part1.splitlines():
+        for seg in re.split(r"(?<=[.!?;])\s+(?=[A-Z*(\[‘\"])", line):
+            if not (_BH_A.search(seg) or _BH_B.search(seg)):
+                continue
+            # §15 requires the STRICT FIGURE alongside an investment-inclusive one — so "strict" only
+            # discharges that duty when it sits in a segment that itself quotes a net-cash/net-debt
+            # AMOUNT (a quantified strict figure), not as a bare token borrowed from "strict leverage".
+            if re.search(r"\bstrict\b", seg, re.I):
+                strict_fig = True
+            if _BH_BASIS.search(seg):
+                nonstrict = nonstrict or bool(_BH_NONSTRICT.search(seg))
+            else:
+                det.append("Part I states a net cash / net debt amount with no basis label "
+                           f"(strict / broad / gross-liquidity, CLAUDE.md §15): {seg.strip()[:160]!r}")
+    if nonstrict and not strict_fig:
+        det.append("Part I labels a net cash / net debt figure broad / gross-liquidity but never names the "
+                   "strict (debt − cash & equivalents) figure alongside it (CLAUDE.md §15)")
+    return det
