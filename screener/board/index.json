@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-07T18:35:38Z",
+  "generated_at": "2026-11-07T18:45:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20261107-714",
@@ -194,6 +194,104 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-736",
+      "headline": "Houthis claim attacks on Saudi Aramco sites, Riyadh airport and troops",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/houthis-claim-attacks-saudi-aramco-sites-riyadh-airport-and-troops",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-07T18:32:34Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Houthi claims of attacks on Saudi Aramco sites represent a major geopolitical and supply shock risk to energy infrastructure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Houthi claims of attacks on Saudi Aramco sites represent a major geopolitical and supply shock risk to energy infrastructure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saudi Aramco",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-735",
+      "headline": "Eli Lilly Just Raised Its 2026 Revenue Forecast by $5.5 Billion. Is the Stock Still a Buy?",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/11/07/eli-lilly-just-raised-its-2026-revenue-forecast-by/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-07T18:30:00Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Eli Lilly raised its 2026 revenue forecast by $5.5 billion, a significant upward revision to long-term financial expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Eli Lilly raised its 2026 revenue forecast by $5.5 billion, a significant upward revision to long-term financial expectations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Eli Lilly",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1901,104 +1999,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-488",
-      "headline": "Papa John’s Trims Outlook Again on Competition, Cautious Diners",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-05/papa-john-s-trims-outlook-again-on-competition-cautious-diners",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T12:56:02Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Papa John's has cut its financial outlook again due to competitive pressures and weak consumer demand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Papa John's has cut its financial outlook again due to competitive pressures and weak consumer demand.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Papa John's",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-549",
-      "headline": "‎Amana Insurance’s accumulated losses reach 54.9% of capital",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1950693",
-      "source_name": "Argaam — Company Disclosures (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T11:55:00Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Amana Insurance's accumulated losses have reached 54.9% of its capital.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Amana Insurance's accumulated losses have reached 54.9% of its capital.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Amana Insurance",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -224377,76 +224377,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-29b3246b56c4",
-      "idea_version": "IDEAV-3ab764c7de7cc890",
-      "idea_version_started_at": "2026-11-07T07:32:32Z",
-      "ticker": "ABNB",
-      "company": "Airbnb",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company raised its revenue forecast, citing a sustained travel boom that is driving higher booking volumes and improved margins.",
-      "why_now": "The guidance increase was announced on 2026-11-06.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 63,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0d467925baff"
-      ],
-      "primary_source_event_id": "EVT-0d467925baff",
-      "source_headlines": [
-        "+++ Business Figures +++: Travel boom boosts Airbnb – revenue forecast raised"
-      ],
-      "source_headline": "+++ Geschäftszahlen +++: Reiseboom beflügelt Airbnb – Umsatzprognose angehoben",
-      "source_url": "https://www.handelsblatt.com/unternehmen/industrie/quartalszahlen-reiseboom-befluegelt-airbnb-umsatzprognose-angehoben/24098412.html",
-      "source_name": "Handelsblatt",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-06T06:38:46Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-07T07:32:32Z",
-      "updated_at": "2026-11-07T07:32:32Z",
-      "decay_at": "2026-11-07T18:38:46Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-f5730c4d2977",
       "idea_version": "IDEAV-d4046ecb00a1432d",
       "idea_version_started_at": "2026-11-06T18:04:31Z",
@@ -227365,6 +227295,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-29b3246b56c4",
+      "idea_version": "IDEAV-3ab764c7de7cc890",
+      "idea_version_started_at": "2026-11-07T07:32:32Z",
+      "ticker": "ABNB",
+      "company": "Airbnb",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company raised its revenue forecast, citing a sustained travel boom that is driving higher booking volumes and improved margins.",
+      "why_now": "The guidance increase was announced on 2026-11-06.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 63,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0d467925baff"
+      ],
+      "primary_source_event_id": "EVT-0d467925baff",
+      "source_headlines": [
+        "+++ Business Figures +++: Travel boom boosts Airbnb – revenue forecast raised"
+      ],
+      "source_headline": "+++ Geschäftszahlen +++: Reiseboom beflügelt Airbnb – Umsatzprognose angehoben",
+      "source_url": "https://www.handelsblatt.com/unternehmen/industrie/quartalszahlen-reiseboom-befluegelt-airbnb-umsatzprognose-angehoben/24098412.html",
+      "source_name": "Handelsblatt",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-06T06:38:46Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-07T07:32:32Z",
+      "updated_at": "2026-11-07T07:32:32Z",
+      "decay_at": "2026-11-07T18:38:46Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-61866d942f2f",
       "idea_version": "IDEAV-2af7736aef1a146b",
       "idea_version_started_at": "2026-11-05T20:09:05Z",
@@ -228955,14 +228955,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 538,
+    "total_count": 539,
     "shown_count": 499,
-    "hidden_count": 39,
+    "hidden_count": 40,
     "side_counts": {
       "long": {
-        "total_count": 272,
+        "total_count": 273,
         "shown_count": 250,
-        "hidden_count": 22
+        "hidden_count": 23
       },
       "short": {
         "total_count": 267,
@@ -228986,6 +228986,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-29b3246b56c4",
+        "idea_version": "IDEAV-3ab764c7de7cc890",
+        "idea_version_started_at": "2026-11-07T07:32:32Z",
+        "ticker": "ABNB",
+        "company": "Airbnb",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company raised its revenue forecast, citing a sustained travel boom that is driving higher booking volumes and improved margins.",
+        "why_now": "The guidance increase was announced on 2026-11-06.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 63,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 6,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-0d467925baff"
+        ],
+        "primary_source_event_id": "EVT-0d467925baff",
+        "source_headlines": [
+          "+++ Business Figures +++: Travel boom boosts Airbnb – revenue forecast raised"
+        ],
+        "source_headline": "+++ Geschäftszahlen +++: Reiseboom beflügelt Airbnb – Umsatzprognose angehoben",
+        "source_url": "https://www.handelsblatt.com/unternehmen/industrie/quartalszahlen-reiseboom-befluegelt-airbnb-umsatzprognose-angehoben/24098412.html",
+        "source_name": "Handelsblatt",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-06T06:38:46Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-07T07:32:32Z",
+        "updated_at": "2026-11-07T07:32:32Z",
+        "decay_at": "2026-11-07T18:38:46Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-07T18:38:46Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-bd666baba5fc",
         "idea_version": "IDEAV-fe610c94607885a1",
@@ -258098,79 +258171,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-ea91630295b2",
-        "idea_version": "IDEAV-cc87b7f54f3b1f90",
-        "idea_version_started_at": "2026-10-23T15:10:57Z",
-        "ticker": "AXP",
-        "company": "American Express",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company raised its profit outlook due to higher-than-expected consumer spending, indicating strong underlying credit and transaction volume.",
-        "why_now": "The guidance upgrade was reported today, October 23, 2026, providing a fresh catalyst for earnings revisions.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 66,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-8a5d0233ddf0"
-        ],
-        "primary_source_event_id": "EVT-8a5d0233ddf0",
-        "source_headlines": [
-          "American Express Raises Profit Outlook on Increased Member Spending"
-        ],
-        "source_headline": "American Express Raises Profit Outlook on Increased Member Spending",
-        "source_url": "https://www.wsj.com/business/earnings/american-express-raises-profit-outlook-on-increased-member-spending-375dac71?mod=pls_whats_news_us_business_f",
-        "source_name": "The Wall Street Journal",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-23T11:24:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-23T15:10:57Z",
-        "updated_at": "2026-10-23T15:10:57Z",
-        "decay_at": "2026-10-24T23:24:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-26T11:54:17Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-f06d57fae0ea",
         "idea_version": "IDEAV-17c03295f74f7c03",
         "idea_version_started_at": "2026-10-24T05:01:36Z",
@@ -266151,7 +266151,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2251,
-    "live_count": 35,
+    "live_count": 34,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -266170,9 +266170,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 264470,
-    "news_picked_today": 1724,
-    "news_dropped_today": 9905
+    "news_seen_today": 264490,
+    "news_picked_today": 1730,
+    "news_dropped_today": 9919
   },
   "book_momentum": {
     "live_count": 8,
