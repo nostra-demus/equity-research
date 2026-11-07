@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-07T17:15:00Z",
+  "generated_at": "2026-11-07T17:25:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20261107-714",
@@ -194,6 +194,61 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-728",
+      "headline": "Why Beijing blocked SoftBank’s $5.4 billion ABB Robotics deal? Setback for Masayoshi Son’s physical AI ambitions",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/why-beijing-blocked-softbank-s-5-4-billion-abb-robotics-deal-setback-for-masayoshi-son-s-physical-ai-ambitions-11794061545591.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-07T17:15:13Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "SoftBank's $5.4 billion acquisition of ABB Robotics was blocked by Chinese regulators, representing a significant strategic setback.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SoftBank's $5.4 billion acquisition of ABB Robotics was blocked by Chinese regulators, representing a significant strategic setback.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SoftBank Group",
+          "ticker": null,
+          "listing_country": "JP"
+        },
+        {
+          "name": "ABB",
+          "ticker": null,
+          "listing_country": "CH"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1940,55 +1995,6 @@
           "name": "EPAM Systems",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-600",
-      "headline": "Rüstungsindustrie: Rheinmetall senkt schon wieder Prognose – Aktie bricht um 17 Prozent ein",
-      "headline_en": "Defense Industry: Rheinmetall lowers forecast again – stock breaks down by 17 percent",
-      "url": "https://www.handelsblatt.com/unternehmen/industrie/ruestungsindustrie-rheinmetall-senkt-erneut-prognose-aktie-bricht-ein/100267059.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T09:47:17Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Rheinmetall lowered its guidance, resulting in a 17% share price decline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Rheinmetall lowered its guidance, resulting in a 17% share price decline.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Rheinmetall",
-          "ticker": null,
-          "listing_country": "DE"
         }
       ],
       "size_bucket": "large",
