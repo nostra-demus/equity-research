@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-07T11:43:50Z",
+  "generated_at": "2026-11-07T11:53:56Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261107-690",
+      "headline": "Astron Paper & Board Mill Limited: Astron Paper & Board Mill Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/ASTRON_07112026171147_Intimation_8th_Oct_2026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-07T11:42:12Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Astron Paper & Board Mill Limited has entered Corporate Insolvency Resolution Process, a formal statutory distress proceeding under India's Insolvency and Bankruptcy Code.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Astron Paper & Board Mill Limited has entered Corporate Insolvency Resolution Process, a formal statutory distress proceeding under India's Insolvency and Bankruptcy Code.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Astron Paper & Board Mill Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261107-689",
       "headline": "Divi's Lab net profit surges 63% to ₹1,127 cr in Q2",
@@ -1948,56 +1997,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-502",
-      "headline": "Prestige Consumer Healthcare Inc. Reports Q2 Revenue of $336.3 million and Updates Fiscal 2027 Outlook",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/prestige-consumer-healthcare-inc-reports-q2-revenue-3363-million-and-updates-fiscal-2027",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T12:23:36Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Prestige Consumer Healthcare reported Q2 revenue of $336.3 million and updated its fiscal 2027 outlook.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Prestige Consumer Healthcare reported Q2 revenue of $336.3 million and updated its fiscal 2027 outlook.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Prestige Consumer Healthcare Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -265098,9 +265097,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 261725,
-    "news_picked_today": 1456,
-    "news_dropped_today": 8148
+    "news_seen_today": 262445,
+    "news_picked_today": 1460,
+    "news_dropped_today": 8192
   },
   "book_momentum": {
     "live_count": 8,
