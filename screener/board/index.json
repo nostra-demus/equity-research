@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-07T00:13:18Z",
+  "generated_at": "2026-11-07T00:18:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261107-005",
@@ -95,6 +95,204 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-032",
+      "headline": "Lkw-Hersteller: Hunderte Millionen Zollzurückzahlung – Gewinn von Daimler Truck steigt um 73 Prozent",
+      "headline_en": "Truck manufacturer: Hundreds of millions in customs refunds – Daimler Truck profit rises by 73 percent",
+      "url": "https://www.handelsblatt.com/unternehmen/industrie/zoll-rueckzahlungen-gewinn-von-daimler-truck-steigt-um-73-prozent/100267801.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T08:49:52Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Daimler Truck profit rose 73% following a large customs duty refund.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Daimler Truck profit rose 73% following a large customs duty refund.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Daimler Truck",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-030",
+      "headline": "삼양식품, 3분기 영업이익 49.9% 급증... 분기 사상 최대 실적 경신",
+      "headline_en": "Samyang Foods, Q3 operating profit jumps 49.9%... record quarterly performance",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=280717",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T08:49:37Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Samyang Foods reported a 49.9% surge in Q3 operating profit, marking a record quarterly performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Samyang Foods reported a 49.9% surge in Q3 operating profit, marking a record quarterly performance.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Samyang Foods",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-044",
+      "headline": "Hindalco Industries Reports Consolidated Net Profit Of ₹7,533 Crore For The September Quarter With Revenue Rising To ₹91,708 Crore",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/hindalco-industries-reports-consolidated-net-profit-of-7533-crore-for-the-september-quarter-with-revenue-rising-to-91708-crore",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T08:34:30Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Hindalco Industries reported a consolidated net profit of ₹7,533 crore and revenue of ₹91,708 crore for the September quarter.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Hindalco Industries reported a consolidated net profit of ₹7,533 crore and revenue of ₹91,708 crore for the September quarter.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hindalco Industries",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-036",
+      "headline": "Novartis Says Tumors Found in Children Given SMA Gene Therapy",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-06/novartis-says-tumors-found-in-children-given-sma-gene-therapy",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T08:42:57Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Novartis discloses tumors in pediatric patients on Zolgensma (SMA gene therapy); triggers potential FDA/EMA investigation, label changes, recalls, or product suspension—material adverse event at mega-cap pharma affecting significant franchise.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Novartis discloses tumors in pediatric patients on Zolgensma (SMA gene therapy); triggers potential FDA/EMA investigation, label changes, recalls, or product suspension—material adverse event at mega-cap pharma affecting significant franchise.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "product",
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Novartis",
+          "ticker": "NVS",
+          "listing_country": "CH"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -198,55 +396,6 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261107-007",
-      "headline": "Sensex today | Stock Market Live: Sensex crosses 80,500, Nifty tops 24,860; Hindalco Q2 profit doubles to ₹5,132 crore",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/markets/sensex-nifty50-today-stock-market-live-updates-6-november-2026/article71669668.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T09:04:35Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Hindalco reported a doubling of Q2 profit to ₹5,132 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "Hindalco reported a doubling of Q2 profit to ₹5,132 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hindalco",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
       "inbox_id": "INB-20261107-017",
       "headline": "Michael Lewis ousted as TFG chair",
       "headline_en": null,
@@ -345,6 +494,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261107-034",
+      "headline": "Chubu Electric given business improvement order over data scandal",
+      "headline_en": null,
+      "url": "https://www.japantimes.co.jp/business/2026/11/06/companies/chubu-electric-business-improvement-order/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T08:44:00Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Chubu Electric received a business improvement order following a data scandal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Chubu Electric received a business improvement order following a data scandal.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Chubu Electric",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-042",
+      "headline": "Ratnamani Metals Q2: Higher freight costs weigh on margins despite 13% revenue growth",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/earnings/ratnamani-metals-q2-higher-freight-costs-weigh-on-margins-despite-revenue-growth-20028868.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T08:35:17Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Ratnamani Metals reported 13% revenue growth but margins were pressured by higher freight costs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Ratnamani Metals reported 13% revenue growth but margins were pressured by higher freight costs.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ratnamani Metals",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261107-013",
       "headline": "US-Iran war: HPCL struggles to secure tankers to transport oil from the Strait of Hormuz | Here's what the chairman said",
       "headline_en": null,
@@ -389,6 +636,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-038",
+      "headline": "Fusion Antibodies announces further contract unlikely to improve cash constraints",
+      "headline_en": null,
+      "url": "https://ukinvestormagazine.co.uk/fusion-antibodies-announces-further-contract-unlikely-to-improve-cash-constraints/",
+      "source_name": "UK Investor Magazine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T08:38:26Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Fusion Antibodies confirmed that a new contract will not resolve its existing cash constraints, signaling ongoing liquidity risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Fusion Antibodies confirmed that a new contract will not resolve its existing cash constraints, signaling ongoing liquidity risk.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Fusion Antibodies",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -529,6 +825,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261107-028",
+      "headline": "Angel One Becomes India's Second-Largest Stockbroker By Active Clients, Adds 2.43 Lakh NSE Investors In October",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/press-release/angel-one-becomes-indias-second-largest-stockbroker-by-active-clients-adds-243-lakh-nse-investors-in-october",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T08:48:46Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Angel One added 2.43 lakh investors in October, becoming the second-largest broker in India by active clients.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 78,
+      "triage_reason": "Angel One added 2.43 lakh investors in October, becoming the second-largest broker in India by active clients.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Angel One",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261107-003",
       "headline": "Japan PM Takaichi Announces Emergency Cybersecurity Package",
       "headline_en": null,
@@ -598,6 +943,93 @@
         "size": 0,
         "recency": 1,
         "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-026",
+      "headline": "BREAKING NEWS: Japan unveils emergency cybersecurity package amid data breach concerns",
+      "headline_en": null,
+      "url": "https://english.kyodonews.net/articles/-/90627",
+      "source_name": "Kyodo News (Japan Wire)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T08:50:00Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Japan is implementing a new emergency cybersecurity package to address data breach risks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 77,
+      "triage_reason": "Japan is implementing a new emergency cybersecurity package to address data breach risks.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "cybersecurity"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-033",
+      "headline": "Greece approves 10% tax on crypto gains and 15% levy on DeFi income",
+      "headline_en": null,
+      "url": "https://www.coindesk.com/policy/2026/11/06/greece-approves-10-tax-on-crypto-gains-and-15-levy-on-defi-income",
+      "source_name": "CoinDesk",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T08:47:42Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Greece introduced a 10% tax on crypto gains and 15% on DeFi income, impacting the local digital asset sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 77,
+      "triage_reason": "Greece introduced a 10% tax on crypto gains and 15% on DeFi income, impacting the local digital asset sector.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 15,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "policy",
@@ -706,6 +1138,98 @@
           "name": "Cue",
           "ticker": null,
           "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-037",
+      "headline": "Oil Drops as Qatar Emir Discusses War De-Escalation With Trump",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-06/oil-declines-on-signs-of-moves-toward-gulf-war-de-escalation",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T08:38:49Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Oil prices are dropping due to potential geopolitical de-escalation in the Middle East, impacting global energy markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 64,
+      "triage_reason": "Oil prices are dropping due to potential geopolitical de-escalation in the Middle East, impacting global energy markets.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 0,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-039",
+      "headline": "SINTX Technologies, Inc. Reports Third Quarter 2026 Revenue of approximately $2.2 million",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/sintx-technologies-inc-reports-third-quarter-2026-revenue-approximately-22-million",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T08:38:34Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "SINTX Technologies reported Q3 2026 revenue of $2.2 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 61,
+      "triage_reason": "SINTX Technologies reported Q3 2026 revenue of $2.2 million.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SINTX Technologies",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "small",
@@ -855,6 +1379,109 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261107-035",
+      "headline": "Hyperliquid Strategies seeks futures registration for perps",
+      "headline_en": null,
+      "url": "https://cointelegraph.com/news/nasdaq-hyperliquid-strategies-futures-broker-license-onchain-perps?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source_name": "Cointelegraph",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T08:42:54Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Private crypto derivatives platform seeks regulatory futures registration; material as a compliance event but Hyperliquid is unlisted and impact on listed equities is indirect.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 56,
+      "triage_reason": "Private crypto derivatives platform seeks regulatory futures registration; material as a compliance event but Hyperliquid is unlisted and impact on listed equities is indirect.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hyperliquid",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-027",
+      "headline": "Rightmove, Scout24 Seek AI Boost Against Subdued Housing Markets",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-06/rightmove-scout24-seek-ai-boost-against-subdued-housing-markets",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T08:49:22Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Rightmove and Scout24 are integrating AI to improve performance in a slow housing market.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 53,
+      "triage_reason": "Rightmove and Scout24 are integrating AI to improve performance in a slow housing market.",
+      "region": "GLOBAL",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "secondary",
+      "companies": [
+        {
+          "name": "Rightmove",
+          "ticker": null,
+          "listing_country": "GB"
+        },
+        {
+          "name": "Scout24",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261107-016",
       "headline": "Nat'l Assembly passes special counsel bill on alleged fabricated indictments",
       "headline_en": null,
@@ -984,21 +1611,21 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261107-019",
-      "headline": "Say what you pay: employers to be forced to put salaries on job ads, says Burnham",
+      "inbox_id": "INB-20261107-029",
+      "headline": "Supreme Court terms vehicular emissions major contributor to air pollution in Delhi-NCR",
       "headline_en": null,
-      "url": "https://www.theguardian.com/law/2026/nov/06/uk-employers-forced-put-salaries-job-adverts-andy-burnham",
-      "source_name": "The Guardian — Business",
+      "url": "https://www.deccanherald.com/india/delhi/supreme-court-terms-vehicular-emissions-major-contributor-to-air-pollution-in-delhi-ncr-4209850",
+      "source_name": "Deccan Herald",
       "input_nature": "news_headline",
-      "found_at": "2026-11-06T08:54:40Z",
+      "found_at": "2026-11-06T08:50:42Z",
       "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Duplicate of item 7 regarding salary disclosure regulation.",
+      "prelim_note": "Supreme Court identifies vehicle emissions as a major pollution contributor, signaling potential future regulatory tightening for the auto sector.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 52,
-      "triage_reason": "Duplicate of item 7 regarding salary disclosure regulation.",
-      "region": "GB",
+      "triage_reason": "Supreme Court identifies vehicle emissions as a major pollution contributor, signaling potential future regulatory tightening for the auto sector.",
+      "region": "IN",
       "relevance": "relevant_non_material",
       "materiality_pre_score": 40,
       "rank_factors": {
@@ -1019,9 +1646,63 @@
       "event_types": [
         "regulatory"
       ],
-      "issuer_linkage": "macro",
+      "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-043",
+      "headline": "ADNOC signs deal to supply up to 4 million tonnes of LNG to India’s Gujarat Energy",
+      "headline_en": null,
+      "url": "https://www.emirates247.com/business/adnoc-signs-deal-to-supply-up-to-4-million-tonnes-of-lng-to-indias-gujarat-energy/7510",
+      "source_name": "Emirates 24|7 — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T08:36:00Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "ADNOC signed a major supply deal for up to 4 million tonnes of LNG to Gujarat Energy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 51,
+      "triage_reason": "ADNOC signed a major supply deal for up to 4 million tonnes of LNG to Gujarat Energy.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 0,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ADNOC",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Gujarat Energy",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1113,34 +1794,77 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261107-024",
-      "headline": "Trump holds phone call with Iran war mediator Qatari Emir",
-      "headline_en": null,
-      "url": "https://www.newarab.com/news/trump-holds-phone-call-iran-war-mediator-qatari-emir",
-      "source_name": "The New Arab",
+      "inbox_id": "INB-20261107-031",
+      "headline": "Cybersicherheit: US-Behörden warnen weltweit vor Angriffen auf Kühlanlagen",
+      "headline_en": "Cybersecurity: US authorities warn globally about attacks on cooling systems",
+      "url": "https://www.handelsblatt.com/politik/international/cyberattacke-us-behoerden-warnenweltweit-vor-angriffen-auf-kuehlanlagen/100267843.html",
+      "source_name": "Handelsblatt",
       "input_nature": "news_headline",
-      "found_at": "2026-11-06T08:53:44Z",
+      "found_at": "2026-11-06T08:50:31Z",
       "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Geopolitical communication involving US and Iran mediator regarding regional conflict.",
+      "prelim_note": "US authorities issued a global warning regarding cyberattacks targeting industrial cooling systems.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 43,
-      "triage_reason": "Geopolitical communication involving US and Iran mediator regarding regional conflict.",
+      "triage_score": 49,
+      "triage_reason": "US authorities issued a global warning regarding cyberattacks targeting industrial cooling systems.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": -26,
+        "event": 4,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "sector",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "cybersecurity"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-040",
+      "headline": "Oil Declines on Signs of Moves Toward Gulf War De-Escalation",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-06/oil-declines-on-signs-of-moves-toward-gulf-war-de-escalation",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T08:38:49Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Oil prices are declining on reports of potential de-escalation in the Gulf, impacting energy sector valuations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 49,
+      "triage_reason": "Oil prices are declining on reports of potential de-escalation in the Gulf, impacting energy sector valuations.",
       "region": "GLOBAL",
       "relevance": "material",
       "materiality_pre_score": 70,
       "rank_factors": {
         "materiality": 70,
         "source_tier": 0,
-        "scope": -43,
+        "scope": -22,
         "event": 0,
         "size": 0,
         "recency": 1,
-        "materiality_label_floor": 15,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "macro",
+        "scope_id": "commodity",
         "source_tier_id": "news",
         "event_id": null,
         "size_bucket": "unknown"
@@ -265321,7 +266045,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4552,
+    "inbox_unconsumed": 4567,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -265330,9 +266054,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 16977,
-    "news_picked_today": 25,
-    "news_dropped_today": 71
+    "news_seen_today": 22572,
+    "news_picked_today": 44,
+    "news_dropped_today": 124
   },
   "book_momentum": {
     "live_count": 8,
