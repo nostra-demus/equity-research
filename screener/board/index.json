@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-07T03:06:33Z",
+  "generated_at": "2026-11-07T03:14:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20261107-110",
@@ -1564,6 +1564,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261107-445",
+      "headline": "CVS Health To Unbundle Pharmacies From Insurance And Health Solutions",
+      "headline_en": null,
+      "url": "https://www.forbes.com/sites/pamdanziger/2026/11/05/cvs-health-to-unbundle-pharmacies-from-insurance-and-health-solutions/",
+      "source_name": "Forbes",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T14:41:03Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "CVS Health is undergoing a major structural change by unbundling its pharmacy business from its insurance and health solutions segments.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "CVS Health is undergoing a major structural change by unbundling its pharmacy business from its insurance and health solutions segments.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "strategic_review",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs",
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CVS Health",
+          "ticker": "CVS",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261107-095",
       "headline": "Elanco Shares Jump After Q3 Beat and Outlook Raise",
       "headline_en": null,
@@ -1810,6 +1860,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261107-440",
+      "headline": "Suzlon targets 10 GW business in Karnataka in 5 years; plans two wind parks, blade plant",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/suzlon-targets-10-gw-business-in-karnataka-in-5-years-plans-two-wind-parks-blade-plant/article71670437.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T14:44:50Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Suzlon targets 10 GW business in Karnataka over 5 years and plans two wind parks and a blade plant.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Suzlon targets 10 GW business in Karnataka over 5 years and plans two wind parks and a blade plant.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Suzlon",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261107-100",
       "headline": "Paraguay’s President Pena impeached over Ueno banking crisis, placed under house arrest",
       "headline_en": null,
@@ -1887,108 +1986,6 @@
       },
       "event_types": [
         "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-294",
-      "headline": "Redwire Plunges 21% as Revenue Miss Overshadows Record Margins and Backlog; Intuitive Machines Sinks 15%, Planet Labs Tumbles 12%",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/11/05/redwire-plunges-21-as-revenue-miss-overshadows-record-margins-and-backlog-intuitive-machines-sinks-15-planet-labs-tumbles-12/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T18:57:09Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Redwire reported a 21% stock drop following a revenue miss, with peers Intuitive Machines and Planet Labs also experiencing significant declines.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Redwire reported a 21% stock drop following a revenue miss, with peers Intuitive Machines and Planet Labs also experiencing significant declines.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 5,
-        "size": -1,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Redwire",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Intuitive Machines",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Planet Labs",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-060",
-      "headline": "Consumption tax cut bill passes Japan's lower house in fast-tracked vote",
-      "headline_en": null,
-      "url": "https://english.kyodonews.net/articles/-/90593",
-      "source_name": "Kyodo News (Japan Wire)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T08:15:00Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "The passage of a consumption tax cut bill in Japan's lower house is a significant fiscal policy shift that could impact national economic growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "The passage of a consumption tax cut bill in Japan's lower house is a significant fiscal policy shift that could impact national economic growth.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
       ],
       "issuer_linkage": "macro",
       "companies": [],
@@ -266094,9 +266091,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 163438,
-    "news_picked_today": 590,
-    "news_dropped_today": 2122
+    "news_seen_today": 169471,
+    "news_picked_today": 615,
+    "news_dropped_today": 2217
   },
   "book_momentum": {
     "live_count": 8,
