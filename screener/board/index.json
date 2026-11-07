@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-07T12:48:27Z",
+  "generated_at": "2026-11-07T12:53:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20261107-696",
@@ -144,6 +144,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-704",
+      "headline": "3M Cut Its Dividend After 64 Years of Raises. Is It Finally a Buy Again?",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/11/07/3m-cut-its-dividend-after-64-years-of-raises-is-it-finally-a-buy-again/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-07T12:47:15Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "3M has cut its dividend after 64 years of consecutive increases, signaling a major shift in capital allocation policy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "3M has cut its dividend after 64 years of consecutive increases, signaling a major shift in capital allocation policy.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "dividend_cut",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "dividend_cut"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "3M",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1941,55 +1990,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-010",
-      "headline": "Sensex today | Stock Market Live: Sensex crosses 80,400, Nifty tops 24,800; Hindalco Q2 profit doubles to ₹5,132 crore",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/markets/sensex-nifty50-today-stock-market-live-updates-6-november-2026/article71669668.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T08:58:58Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Hindalco reported a doubling of Q2 profit to ₹5,132 crore, a significant positive earnings surprise.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Hindalco reported a doubling of Q2 profit to ₹5,132 crore, a significant positive earnings surprise.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hindalco Industries",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -265438,9 +265438,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 263022,
-    "news_picked_today": 1523,
-    "news_dropped_today": 8706
+    "news_seen_today": 263048,
+    "news_picked_today": 1527,
+    "news_dropped_today": 8728
   },
   "book_momentum": {
     "live_count": 8,
