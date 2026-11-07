@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-07T03:58:35Z",
+  "generated_at": "2026-11-07T04:07:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20261107-464",
@@ -809,6 +809,104 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-482",
+      "headline": "Parker Hannifin Boost FY27 Adj. EPS, Sales Growth Outlook; Stock Surges 7.4% - Update",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/parker-hannifin-boost-fy27-adj-eps-sales-growth-outlook-stock-surges-74-update",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T12:59:14Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Parker Hannifin raised its FY27 adjusted EPS and sales growth outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Parker Hannifin raised its FY27 adjusted EPS and sales growth outlook.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Parker Hannifin",
+          "ticker": "PH",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-488",
+      "headline": "Papa John’s Trims Outlook Again on Competition, Cautious Diners",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-05/papa-john-s-trims-outlook-again-on-competition-cautious-diners",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T12:56:02Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Papa John's has cut its financial outlook again due to competitive pressures and weak consumer demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Papa John's has cut its financial outlook again due to competitive pressures and weak consumer demand.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Papa John's",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1901,104 +1999,6 @@
           "name": "Stabilus",
           "ticker": null,
           "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-410",
-      "headline": "PhysicsWallah Q2 net profit more than doubles to nearly ₹144 crore as revenue rises 18%",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/company-results/physicswallah-q2-net-profit-more-than-doubles-to-nearly-rs-144-crore-as-revenue-rises-18-11793893174732.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T16:05:54Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "PhysicsWallah reported a net profit of ₹144 crore, more than doubling year-over-year with 18% revenue growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "PhysicsWallah reported a net profit of ₹144 crore, more than doubling year-over-year with 18% revenue growth.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PhysicsWallah",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-458",
-      "headline": "Glenmark Pharmaceuticals Q2 Profit Plunges 56.7% To ₹264 Crore",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/glenmark-pharmaceuticals-q2-profit-plunges-567-to-264-crore",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T13:42:51Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Glenmark Pharmaceuticals reported a 56.7% plunge in Q2 profit to ₹264 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Glenmark Pharmaceuticals reported a 56.7% plunge in Q2 profit to ₹264 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Glenmark Pharmaceuticals",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
@@ -266102,9 +266102,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 196256,
-    "news_picked_today": 724,
-    "news_dropped_today": 2636
+    "news_seen_today": 203273,
+    "news_picked_today": 757,
+    "news_dropped_today": 2699
   },
   "book_momentum": {
     "live_count": 8,
