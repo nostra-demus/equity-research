@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-07T19:03:38Z",
+  "generated_at": "2026-11-07T19:08:38Z",
   "inbox": [
     {
       "inbox_id": "INB-20261107-714",
@@ -194,6 +194,56 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-737",
+      "headline": "Charter Is Cutting $2 Billion in Costs After Losing Another 233,000 Internet Customers",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/11/07/charter-is-cutting-2-billion-in-costs-after-losing-another-233000-internet-customers/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-07T19:03:44Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Charter Communications announced a $2 billion cost-cutting plan following the loss of 233,000 internet subscribers.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Charter Communications announced a $2 billion cost-cutting plan following the loss of 233,000 internet subscribers.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Charter Communications",
+          "ticker": "CHTR",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1950,55 +2000,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-482",
-      "headline": "Parker Hannifin Boost FY27 Adj. EPS, Sales Growth Outlook; Stock Surges 7.4% - Update",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/parker-hannifin-boost-fy27-adj-eps-sales-growth-outlook-stock-surges-74-update",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T12:59:14Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Parker Hannifin raised its FY27 adjusted EPS and sales growth outlook.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Parker Hannifin raised its FY27 adjusted EPS and sales growth outlook.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Parker Hannifin",
-          "ticker": "PH",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -266240,9 +266241,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 264527,
-    "news_picked_today": 1737,
-    "news_dropped_today": 9949
+    "news_seen_today": 264537,
+    "news_picked_today": 1738,
+    "news_dropped_today": 9958
   },
   "book_momentum": {
     "live_count": 8,
