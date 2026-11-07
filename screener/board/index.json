@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-07T12:43:57Z",
+  "generated_at": "2026-11-07T12:48:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20261107-696",
@@ -144,6 +144,61 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-703",
+      "headline": "SpaceX Board Member Donald Harrison Resigns After 11 Years Amid Reported Tesla Merger Talks",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/spacex-board-member-donald-harrison-resigns-after-11-years-amid-reported-tesla-merger-talks",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-07T12:22:13Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "The resignation of a board member amid reported merger talks between SpaceX and Tesla is a significant governance and strategic event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The resignation of a board member amid reported merger talks between SpaceX and Tesla is a significant governance and strategic event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit",
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Tesla",
+          "ticker": "TSLA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1935,55 +1990,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-032",
-      "headline": "Lkw-Hersteller: Hunderte Millionen Zollzurückzahlung – Gewinn von Daimler Truck steigt um 73 Prozent",
-      "headline_en": "Truck manufacturer: Hundreds of millions in customs refunds – Daimler Truck profit rises by 73 percent",
-      "url": "https://www.handelsblatt.com/unternehmen/industrie/zoll-rueckzahlungen-gewinn-von-daimler-truck-steigt-um-73-prozent/100267801.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T08:49:52Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Daimler Truck profit rose 73% following a large customs duty refund.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Daimler Truck profit rose 73% following a large customs duty refund.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Daimler Truck",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -265432,9 +265438,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 262977,
-    "news_picked_today": 1520,
-    "news_dropped_today": 8664
+    "news_seen_today": 263022,
+    "news_picked_today": 1523,
+    "news_dropped_today": 8706
   },
   "book_momentum": {
     "live_count": 8,
