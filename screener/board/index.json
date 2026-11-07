@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-07T04:59:39Z",
+  "generated_at": "2026-11-07T05:04:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20261107-464",
@@ -1010,6 +1010,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261107-598",
+      "headline": "Second buyer makes rescue bid for Poundland as retailer faces collapse",
+      "headline_en": null,
+      "url": "https://www.bbc.co.uk/news/articles/c6lykq0kqwn7o?at_medium=RSS&at_campaign=rss",
+      "source_name": "BBC News — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T09:46:32Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "A second buyer has emerged with a rescue bid for Poundland as the retailer faces potential collapse.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A second buyer has emerged with a rescue bid for Poundland as the retailer faces potential collapse.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 0,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Poundland",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261107-452",
       "headline": "Crisis-hit Paraguay impeaches president, replaces him with VP",
       "headline_en": null,
@@ -1949,55 +1998,6 @@
           "name": "ONGC",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-369",
-      "headline": "LG Chem Petrochemical Unit Falls into Deficit",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=280620",
-      "source_name": "Business Korea — All English Articles",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T16:44:55Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "LG Chem's petrochemical unit reported a net loss, signaling significant margin pressure in a core business segment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "LG Chem's petrochemical unit reported a net loss, signaling significant margin pressure in a core business segment.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "LG Chem",
-          "ticker": null,
-          "listing_country": "KR"
         }
       ],
       "size_bucket": "large",
@@ -266097,9 +266097,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 227242,
-    "news_picked_today": 992,
-    "news_dropped_today": 3328
+    "news_seen_today": 228470,
+    "news_picked_today": 1000,
+    "news_dropped_today": 3344
   },
   "book_momentum": {
     "live_count": 8,
