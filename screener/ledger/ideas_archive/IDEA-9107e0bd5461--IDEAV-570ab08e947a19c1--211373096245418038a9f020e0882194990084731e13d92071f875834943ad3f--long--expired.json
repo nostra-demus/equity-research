@@ -1,0 +1,79 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-11-07T10:18:59Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-9107e0bd5461",
+    "idea_version": "IDEAV-570ab08e947a19c1",
+    "idea_version_started_at": "2026-11-04T10:56:26Z",
+    "ticker": "NVO",
+    "company": "Novo Nordisk",
+    "exchange": "NYSE",
+    "ticker_verified": true,
+    "listing_verified": true,
+    "liquidity_verified": false,
+    "listing_verification_source": "yahoo_symbol_directory",
+    "direction": "long",
+    "pair_with": null,
+    "reason": "The company reported strong Q3 operating profit growth and raised its 2026 outlook, driven by sustained demand for its obesity drug portfolio.",
+    "why_now": "The guidance hike and Q3 results were released on November 4, 2026.",
+    "conviction": 80,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 60,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 20,
+      "specificity": 15,
+      "timing": 10,
+      "expression": 7,
+      "corroboration": 7,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "needs_data",
+    "missing_checks": [
+      "live liquidity",
+      "dated catalyst",
+      "priced-in risk",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "priced",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-f19cd60f91ac",
+      "EVT-55b464bba6bd"
+    ],
+    "primary_source_event_id": "EVT-f19cd60f91ac",
+    "source_headlines": [
+      "Novo Nordisk Q3 Adj. Operating Profit Increases, Obesity Sales Up 22%; Raises 2026 Outlook",
+      "Novo Nordisk Lifts Guidance as Rollout of Wegovy Weight-Loss Pill Continues"
+    ],
+    "source_headline": "Novo Nordisk Q3 Adj. Operating Profit Increases, Obesity Sales Up 22%; Raises 2026 Outlook",
+    "source_url": "https://www.nasdaq.com/articles/novo-nordisk-q3-adj-operating-profit-increases-obesity-sales-22-raises-2026-outlook",
+    "source_name": "Nasdaq",
+    "materiality_max": 100,
+    "newest_source_at": "2026-11-04T08:41:00Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-11-04T10:56:26Z",
+    "updated_at": "2026-11-04T10:56:26Z",
+    "decay_at": "2026-11-05T20:41:00Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}
