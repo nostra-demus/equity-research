@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-07T22:18:31Z",
+  "generated_at": "2026-11-07T22:29:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20261107-714",
@@ -224302,6 +224302,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-0ac5d784c64f",
+      "idea_version": "IDEAV-38e2672d22607b77",
+      "idea_version_started_at": "2026-11-07T22:29:24Z",
+      "ticker": "TSLA",
+      "company": "Tesla",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The planned wind-down of Cybertruck production by mid-2027 signals a potential failure to achieve expected scale and profitability for a flagship product line.",
+      "why_now": "The announcement on 2026-11-07 sets a clear operational timeline for the phase-out.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-532bdb49b13b"
+      ],
+      "primary_source_event_id": "EVT-532bdb49b13b",
+      "source_headlines": [
+        "Tesla to wind down Cybertruck production in Texas by mid-2027"
+      ],
+      "source_headline": "Tesla to wind down Cybertruck production in Texas by mid-2027",
+      "source_url": "https://www.qatar-tribune.com/article/263007/business/tesla-to-wind-down-cybertruck-production-in-texas-by-mid-2027",
+      "source_name": "Qatar Tribune — Business",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-07T21:30:00Z",
+      "prior_coverage": {
+        "has_run": true,
+        "latest_run": "analyses/TSLA_2026-07-25",
+        "latest_decision": "Short Candidate",
+        "data_pool_present": true
+      },
+      "surfaced_at": "2026-11-07T22:29:24Z",
+      "updated_at": "2026-11-07T22:29:24Z",
+      "decay_at": "2026-11-09T09:30:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-a1e16e363c9a",
       "idea_version": "IDEAV-e7fe2260d11ec589",
       "idea_version_started_at": "2026-11-07T12:54:01Z",
@@ -224583,6 +224653,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-237bc01d6762",
+      "idea_version": "IDEAV-9486b680a81e56c0",
+      "idea_version_started_at": "2026-11-07T22:29:24Z",
+      "ticker": "TM",
+      "company": "Toyota Motor",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company raised profit forecasts due to sustained vehicle demand and the favorable impact of a weak yen on export earnings.",
+      "why_now": "The guidance hike was announced on 2026-11-07.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "fx_rates",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-680f5a18445a"
+      ],
+      "primary_source_event_id": "EVT-680f5a18445a",
+      "source_headlines": [
+        "Toyota hikes profit forecasts on strong demand, weak yen"
+      ],
+      "source_headline": "Toyota hikes profit forecasts on strong demand, weak yen",
+      "source_url": "https://www.qatar-tribune.com/article/263040/business/toyota-hikes-profit-forecasts-on-strong-demand-weak-yen",
+      "source_name": "Qatar Tribune — Business",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-07T21:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-05T12:54:05Z",
+      "updated_at": "2026-11-07T22:29:24Z",
+      "decay_at": "2026-11-09T09:00:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-f5730c4d2977",
       "idea_version": "IDEAV-d4046ecb00a1432d",
       "idea_version_started_at": "2026-11-06T18:04:31Z",
@@ -224648,6 +224789,78 @@
       "surfaced_at": "2026-11-06T18:04:31Z",
       "updated_at": "2026-11-06T18:04:31Z",
       "decay_at": "2026-11-08T01:21:18Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-04ff478f1d78",
+      "idea_version": "IDEAV-b3c870deee36cfb6",
+      "idea_version_started_at": "2026-11-07T22:29:24Z",
+      "ticker": "TTKPRESTIG",
+      "company": "TTK Prestige",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported a 65% surge in Q2 profit to ₹104.4 crore, driven by strong domestic demand for kitchen appliances.",
+      "why_now": "The earnings report was released on 2026-11-06, providing a fresh catalyst for growth momentum.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b06bc41a107d"
+      ],
+      "primary_source_event_id": "EVT-b06bc41a107d",
+      "source_headlines": [
+        "TTK Prestige Q2 profit surges 65% to ₹104.4 crore as domestic sales drive growth"
+      ],
+      "source_headline": "TTK Prestige Q2 profit surges 65% to ₹104.4 crore as domestic sales drive growth",
+      "source_url": "https://www.thehindubusinessline.com/companies/ttk-prestige-q2-profit-surges-65-to-1044-crore-as-domestic-sales-drive-growth/article71675549.ece",
+      "source_name": "The Hindu BusinessLine",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-06T16:39:21Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-07T22:29:24Z",
+      "updated_at": "2026-11-07T22:29:24Z",
+      "decay_at": "2026-11-08T04:39:21Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -226715,76 +226928,6 @@
       "surfaced_at": "2026-11-06T06:28:08Z",
       "updated_at": "2026-11-06T06:28:08Z",
       "decay_at": "2026-11-07T10:02:30Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-237bc01d6762",
-      "idea_version": "IDEAV-74b49b71c098cea1",
-      "idea_version_started_at": "2026-11-05T15:35:08Z",
-      "ticker": "TM",
-      "company": "Toyota Motor Corporation",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Toyota is significantly increasing its share repurchase program to 1.3 trillion yen, providing a strong floor for the stock alongside its latest earnings release.",
-      "why_now": "The announcement was made today, November 5, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-bdd438b08da0"
-      ],
-      "primary_source_event_id": "EVT-bdd438b08da0",
-      "source_headlines": [
-        "Toyota Motor Corporation Amends Share Repurchase Program to 1,300 Billion Yen and Reports FY2027 First Half Results"
-      ],
-      "source_headline": "Toyota Motor Corporation Amends Share Repurchase Program to 1,300 Billion Yen and Reports FY2027 First Half Results",
-      "source_url": "https://www.nasdaq.com/articles/toyota-motor-corporation-amends-share-repurchase-program-1300-billion-yen-and-reports",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-05T11:52:49Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-05T12:54:05Z",
-      "updated_at": "2026-11-05T15:35:08Z",
-      "decay_at": "2026-11-06T23:52:49Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -229233,14 +229376,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 545,
+    "total_count": 544,
     "shown_count": 499,
-    "hidden_count": 46,
+    "hidden_count": 45,
     "side_counts": {
       "long": {
-        "total_count": 275,
+        "total_count": 274,
         "shown_count": 250,
-        "hidden_count": 25
+        "hidden_count": 24
       },
       "short": {
         "total_count": 271,
@@ -231784,79 +231927,6 @@
         "feedback": null,
         "stale": true,
         "archived_at": "2026-11-07T00:35:00Z",
-        "archive_reason": "expired",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-237bc01d6762",
-        "idea_version": "IDEAV-74b49b71c098cea1",
-        "idea_version_started_at": "2026-11-05T15:35:08Z",
-        "ticker": "TM",
-        "company": "Toyota Motor Corporation",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Toyota is significantly increasing its share repurchase program to 1.3 trillion yen, providing a strong floor for the stock alongside its latest earnings release.",
-        "why_now": "The announcement was made today, November 5, 2026.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 66,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-bdd438b08da0"
-        ],
-        "primary_source_event_id": "EVT-bdd438b08da0",
-        "source_headlines": [
-          "Toyota Motor Corporation Amends Share Repurchase Program to 1,300 Billion Yen and Reports FY2027 First Half Results"
-        ],
-        "source_headline": "Toyota Motor Corporation Amends Share Repurchase Program to 1,300 Billion Yen and Reports FY2027 First Half Results",
-        "source_url": "https://www.nasdaq.com/articles/toyota-motor-corporation-amends-share-repurchase-program-1300-billion-yen-and-reports",
-        "source_name": "Nasdaq",
-        "materiality_max": 100,
-        "newest_source_at": "2026-11-05T11:52:49Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-11-05T12:54:05Z",
-        "updated_at": "2026-11-05T15:35:08Z",
-        "decay_at": "2026-11-06T23:52:49Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-06T23:52:49Z",
         "archive_reason": "expired",
         "audit_only": true
       },
@@ -258823,6 +258893,81 @@
         "audit_only": true
       },
       {
+        "idea_id": "IDEA-9330e3eb3a1d",
+        "idea_version": "IDEAV-10ac6f82b998300e",
+        "idea_version_started_at": "2026-10-24T07:02:21Z",
+        "ticker": "EVK",
+        "company": "Evonik Industries AG",
+        "exchange": "ETR",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "A revised takeover offer exceeding eleven billion euros provides a concrete valuation floor and potential for a deal premium.",
+        "why_now": "The news of the increased bid broke on October 23, 2026, creating a live M&A catalyst.",
+        "conviction": 68,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-2766b571dabd"
+        ],
+        "primary_source_event_id": "EVT-2766b571dabd",
+        "source_headlines": [
+          "Evonik: Chemical group increases takeover offer for Evonik to more than eleven billion euros"
+        ],
+        "source_headline": "Evonik: Chemiekonzern erhöht Übernahmeangebot für Evonik auf mehr als elf Milliarden Euro",
+        "source_url": "https://www.handelsblatt.com/unternehmen/industrie/evonik-basf-erhoeht-uebernahmeangebot-auf-mehr-als-elf-milliarden-euro/100264522.html",
+        "source_name": "Handelsblatt",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-23T11:59:07Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-24T07:02:21Z",
+        "updated_at": "2026-10-24T07:02:21Z",
+        "decay_at": "2026-10-24T23:59:07Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-26T12:14:23Z",
+        "archive_reason": "expired_pruned",
+        "audit_only": true
+      },
+      {
         "idea_id": "IDEA-f06d57fae0ea",
         "idea_version": "IDEAV-17c03295f74f7c03",
         "idea_version_started_at": "2026-10-24T05:01:36Z",
@@ -266431,8 +266576,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2256,
-    "live_count": 32,
+    "surfaced_total": 2258,
+    "live_count": 35,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -266451,9 +266596,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 264833,
+    "news_seen_today": 264838,
     "news_picked_today": 1791,
-    "news_dropped_today": 10201
+    "news_dropped_today": 10206
   },
   "book_momentum": {
     "live_count": 8,
