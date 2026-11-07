@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-07T01:59:40Z",
+  "generated_at": "2026-11-07T02:04:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20261107-110",
@@ -520,6 +520,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261107-361",
+      "headline": "Cigna beats the Street with $1.4B in profit, $73.7B in revenue for Q3",
+      "headline_en": null,
+      "url": "https://www.fiercehealthcare.com/payers/cigna-beats-street-14b-profit-737b-revenue-q3",
+      "source_name": "Fierce Healthcare",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T17:18:51Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Cigna reported Q3 profit of $1.4B and revenue of $73.7B, beating market expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Cigna reported Q3 profit of $1.4B and revenue of $73.7B, beating market expectations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cigna",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261107-010",
       "headline": "Sensex today | Stock Market Live: Sensex crosses 80,400, Nifty tops 24,800; Hindalco Q2 profit doubles to ₹5,132 crore",
       "headline_en": null,
@@ -712,6 +761,56 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-356",
+      "headline": "Gildan shares plunge as clothing maker misses estimates, lowers full-year forecast",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/business/article-gildan-results-estimates-full-year-forecast/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T17:28:57Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Gildan missed earnings estimates and lowered its full-year forecast, leading to a sharp share price decline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Gildan missed earnings estimates and lowered its full-year forecast, leading to a sharp share price decline.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Gildan Activewear Inc.",
+          "ticker": "GIL",
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1890,116 +1989,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-036",
-      "headline": "Novartis Says Tumors Found in Children Given SMA Gene Therapy",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-06/novartis-says-tumors-found-in-children-given-sma-gene-therapy",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T08:42:57Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Novartis discloses tumors in pediatric patients on Zolgensma (SMA gene therapy); triggers potential FDA/EMA investigation, label changes, recalls, or product suspension—material adverse event at mega-cap pharma affecting significant franchise.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Novartis discloses tumors in pediatric patients on Zolgensma (SMA gene therapy); triggers potential FDA/EMA investigation, label changes, recalls, or product suspension—material adverse event at mega-cap pharma affecting significant franchise.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "product",
-        "regulatory",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Novartis",
-          "ticker": "NVS",
-          "listing_country": "CH"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-327",
-      "headline": "Dell Sinks 12%, Hewlett Packard Enterprise and Super Micro Tumble 10% as Post-Midterm Sell-Off Hits AI Hardware",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/11/05/dell-sinks-12-hewlett-packard-enterprise-and-super-micro-tumble-10-as-post-midterm-sell-off-hits-ai-hardware/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T18:02:12Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Significant market sell-off in AI hardware sector with double-digit declines for major players Dell, HPE, and Super Micro.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Significant market sell-off in AI hardware sector with double-digit declines for major players Dell, HPE, and Super Micro.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 5,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [
-        {
-          "name": "Dell Technologies",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Hewlett Packard Enterprise",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Super Micro Computer",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -266101,9 +266090,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 117117,
-    "news_picked_today": 384,
-    "news_dropped_today": 1368
+    "news_seen_today": 124841,
+    "news_picked_today": 406,
+    "news_dropped_today": 1418
   },
   "book_momentum": {
     "live_count": 8,
