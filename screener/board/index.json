@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-07T15:18:23Z",
+  "generated_at": "2026-11-07T15:28:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20261107-714",
@@ -194,6 +194,56 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-715",
+      "headline": "Berkshire Hathaway buys back US$9.6-billion of stock as profits declined",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/world/article-berkshire-hathaway-buys-back-us96-billion-of-stock-as-profits-declined/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-07T15:13:22Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Berkshire Hathaway executed a $9.6 billion share buyback despite a decline in profits.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Berkshire Hathaway executed a $9.6 billion share buyback despite a decline in profits.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Berkshire Hathaway",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1939,55 +1989,6 @@
           "name": "Rheinmetall",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-651",
-      "headline": "Rüstungsindustrie: Verzögerungen bei Aufträgen: Rheinmetall senkt Prognose – Aktie bricht ein",
-      "headline_en": "Defense industry: Order delays: Rheinmetall cuts guidance — stock crashes",
-      "url": "https://www.handelsblatt.com/unternehmen/industrie/ruestungsindustrie-verzoegerungen-bei-auftraegen-rheinmetall-senkt-prognose/100267059.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T07:54:05Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Rheinmetall cuts guidance due to order delays, a material profit warning; stock crashes confirm market impact.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Rheinmetall cuts guidance due to order delays, a material profit warning; stock crashes confirm market impact.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 7,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Rheinmetall",
-          "ticker": "RHM",
-          "listing_country": "DE"
         }
       ],
       "size_bucket": "large",
@@ -265870,9 +265871,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 263853,
-    "news_picked_today": 1615,
-    "news_dropped_today": 9397
+    "news_seen_today": 263882,
+    "news_picked_today": 1617,
+    "news_dropped_today": 9424
   },
   "book_momentum": {
     "live_count": 8,
