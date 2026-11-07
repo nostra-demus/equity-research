@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-07T18:45:02Z",
+  "generated_at": "2026-11-07T18:45:57Z",
   "inbox": [
     {
       "inbox_id": "INB-20261107-714",
@@ -223816,6 +223816,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-99a574f2e453",
+      "idea_version": "IDEAV-e78a3f7fab71a803",
+      "idea_version_started_at": "2026-11-07T18:45:39Z",
+      "ticker": "LLY",
+      "company": "Eli Lilly",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company increased its 2026 revenue guidance by $5.5 billion, signaling stronger-than-expected demand for its core pharmaceutical portfolio.",
+      "why_now": "The guidance hike was announced on 2026-11-07, providing an immediate catalyst for earnings revisions.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b38dcd4e3c74"
+      ],
+      "primary_source_event_id": "EVT-b38dcd4e3c74",
+      "source_headlines": [
+        "Eli Lilly Just Raised Its 2026 Revenue Forecast by $5.5 Billion. Is the Stock Still a Buy?"
+      ],
+      "source_headline": "Eli Lilly Just Raised Its 2026 Revenue Forecast by $5.5 Billion. Is the Stock Still a Buy?",
+      "source_url": "https://www.fool.com/investing/2026/11/07/eli-lilly-just-raised-its-2026-revenue-forecast-by/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-07T18:30:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-07T18:45:39Z",
+      "updated_at": "2026-11-07T18:45:39Z",
+      "decay_at": "2026-11-09T06:30:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-50f379c78b21",
       "idea_version": "IDEAV-4626502447b181f1",
       "idea_version_started_at": "2026-11-07T15:09:40Z",
@@ -266150,8 +266220,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2251,
-    "live_count": 34,
+    "surfaced_total": 2252,
+    "live_count": 35,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
