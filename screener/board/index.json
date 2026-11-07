@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-07T02:24:37Z",
+  "generated_at": "2026-11-07T02:33:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20261107-110",
@@ -816,6 +816,66 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261107-385",
+      "headline": "Autoindustrie: Drei Autobauer, vier Gewinnwarnungen: Die Elektrowelle überrollt VW, BMW und Mercedes",
+      "headline_en": "Automotive industry: Three car manufacturers, four profit warnings: The electric wave is rolling over VW, BMW and Mercedes",
+      "url": "https://www.handelsblatt.com/unternehmen/industrie/autobauer-die-elektrowelle-ueberrollt-vw-bmw-und-mercedes/100265334.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T16:30:00Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Four profit warnings across three major German automakers (VW, BMW, Mercedes) indicate a severe sector-wide downturn.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Four profit warnings across three major German automakers (VW, BMW, Mercedes) indicate a severe sector-wide downturn.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 7,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": "DE"
+        },
+        {
+          "name": "BMW",
+          "ticker": null,
+          "listing_country": "DE"
+        },
+        {
+          "name": "Mercedes-Benz",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261107-030",
       "headline": "삼양식품, 3분기 영업이익 49.9% 급증... 분기 사상 최대 실적 경신",
       "headline_en": "Samyang Foods, Q3 operating profit jumps 49.9%... record quarterly performance",
@@ -1210,6 +1270,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261107-369",
+      "headline": "LG Chem Petrochemical Unit Falls into Deficit",
+      "headline_en": null,
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=280620",
+      "source_name": "Business Korea — All English Articles",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T16:44:55Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "LG Chem's petrochemical unit reported a net loss, signaling significant margin pressure in a core business segment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "LG Chem's petrochemical unit reported a net loss, signaling significant margin pressure in a core business segment.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LG Chem",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-395",
+      "headline": "ArcelorMittal reports USD 391 million loss in July-Sept quarter",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/indl-goods/svs/steel/arcelormittal-reports-usd-391-million-loss-in-july-sept-quarter/articleshow/135580228.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T16:23:13Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "ArcelorMittal reported a quantified net loss of USD 391 million for the quarter.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "ArcelorMittal reported a quantified net loss of USD 391 million for the quarter.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ArcelorMittal",
+          "ticker": null,
+          "listing_country": "LU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261107-095",
       "headline": "Elanco Shares Jump After Q3 Beat and Outlook Raise",
       "headline_en": null,
@@ -1304,6 +1462,153 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-410",
+      "headline": "PhysicsWallah Q2 net profit more than doubles to nearly ₹144 crore as revenue rises 18%",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/company-results/physicswallah-q2-net-profit-more-than-doubles-to-nearly-rs-144-crore-as-revenue-rises-18-11793893174732.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T16:05:54Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "PhysicsWallah reported a net profit of ₹144 crore, more than doubling year-over-year with 18% revenue growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "PhysicsWallah reported a net profit of ₹144 crore, more than doubling year-over-year with 18% revenue growth.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PhysicsWallah",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-376",
+      "headline": "Acorn Q3 Profit Rises, Shares Fall",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/acorn-q3-profit-rises-shares-fall",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T16:39:41Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Acorn reported a profit increase but shares fell, indicating market disappointment with the results.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Acorn reported a profit increase but shares fell, indicating market disappointment with the results.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Acorn",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-404",
+      "headline": "‎Almoosa Health: Q3 Loss Driven by Non-Cash Accounting Impact; Core Operations Remain Profitable",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1950748",
+      "source_name": "Argaam — Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T16:16:00Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Almoosa Health reported a Q3 loss, though management claims core operations remain profitable.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Almoosa Health reported a Q3 loss, though management claims core operations remain profitable.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Almoosa Health",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1646,348 +1951,60 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261107-044",
-      "headline": "Hindalco Industries Reports Consolidated Net Profit Of ₹7,533 Crore For The September Quarter With Revenue Rising To ₹91,708 Crore",
+      "inbox_id": "INB-20261107-411",
+      "headline": "SpaceX and Tesla Sink 9% as Texas Election Fallout Threatens Musk’s Data Center Plans; Rocket Lab and AST SpaceMobile Tumble 13%",
       "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/hindalco-industries-reports-consolidated-net-profit-of-7533-crore-for-the-september-quarter-with-revenue-rising-to-91708-crore",
-      "source_name": "Free Press Journal",
+      "url": "https://247wallst.com/investing/2026/11/05/spacex-and-tesla-sink-9-as-texas-election-fallout-threatens-musks-data-center-plans-rocket-lab-and-ast-spacemobile-tumble-13/",
+      "source_name": "24/7 Wall St.",
       "input_nature": "news_headline",
-      "found_at": "2026-11-06T08:34:30Z",
+      "found_at": "2026-11-05T16:08:02Z",
       "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Hindalco Industries reported a consolidated net profit of ₹7,533 crore and revenue of ₹91,708 crore for the September quarter.",
+      "prelim_note": "Tesla and SpaceX are facing a 9% decline amid reports of potential regulatory or political fallout threatening data center plans.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Hindalco Industries reported a consolidated net profit of ₹7,533 crore and revenue of ₹91,708 crore for the September quarter.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hindalco Industries",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-209",
-      "headline": "Macquarie H1 Net Profit Rises",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/macquarie-h1-net-profit-rises",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T05:59:40Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Macquarie reported an increase in H1 net profit.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Macquarie reported an increase in H1 net profit.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Macquarie Group",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-345",
-      "headline": "FTC Claims Amazon Tripled Ad Prices for Black Friday, Prime Day",
-      "headline_en": null,
-      "url": "https://www.wsj.com/tech/ftc-claims-amazon-tripled-ad-prices-for-black-friday-prime-day-ae340913?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T17:42:00Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "The FTC is alleging Amazon manipulated ad prices, creating significant regulatory and legal risk for the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "The FTC is alleging Amazon manipulated ad prices, creating significant regulatory and legal risk for the company.",
+      "triage_score": 91,
+      "triage_reason": "Tesla and SpaceX are facing a 9% decline amid reports of potential regulatory or political fallout threatening data center plans.",
       "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 75,
+      "materiality_pre_score": 80,
       "rank_factors": {
-        "materiality": 75,
+        "materiality": 80,
         "source_tier": 0,
-        "scope": 6,
-        "event": 6,
+        "scope": 2,
+        "event": 2,
         "size": 2,
         "recency": 0,
-        "materiality_label_floor": 0,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "policy",
         "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
+        "event_id": "operations",
         "size_bucket": "mega"
       },
       "event_types": [
-        "litigation_enforcement",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Amazon",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-086",
-      "headline": "TORM plc Reports Q3 2026 Financial Results, Declares USD 1.35 Dividend, and Raises 2026 Guidance",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/torm-plc-reports-q3-2026-financial-results-declares-usd-135-dividend-and-raises-2026",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T23:11:37Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "TORM plc reported Q3 results, declared a $1.35 dividend, and raised its 2026 guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "TORM plc reported Q3 results, declared a $1.35 dividend, and raised its 2026 guidance.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TORM plc",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-168",
-      "headline": "KSB Limited Q3 Sales Rise 19 Percent To Rs 772 Crore, Profit Before Tax Declines To Rs 75 Crore Amid Higher Expenses",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/ksb-limited-q3-sales-rise-19-percent-to-rs-772-crore-profit-before-tax-declines-to-rs-75-crore-amid-higher-expenses",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T07:00:31Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "KSB Limited reported Q3 sales growth of 19% to Rs 772 crore, but profit before tax declined to Rs 75 crore due to higher expenses.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "KSB Limited reported Q3 sales growth of 19% to Rs 772 crore, but profit before tax declined to Rs 75 crore due to higher expenses.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "KSB Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-228",
-      "headline": "Putin seizes Japan Tobacco assets, further straining relations with Japan",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/news/2026/11/06/japan/politics/jt-seize-russia/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T05:42:00Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Russian government seizes Japan Tobacco assets, representing a direct capital loss and operational disruption affecting the primary-listed company's foreign operations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Russian government seizes Japan Tobacco assets, representing a direct capital loss and operational disruption affecting the primary-listed company's foreign operations.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory",
         "operations"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Japan Tobacco",
-          "ticker": "2914",
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-231",
-      "headline": "Sansera Engineering Q2 FY27 Profit Surges 52% To ₹108.6 Crore, Revenue Jumps 32% As Global Business And Aerospace Orders Drive Growth",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/sansera-engineering-q2-fy27-profit-surges-52-to-1086-crore-revenue-jumps-32-as-global-business-and-aerospace-orders-drive-growth",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T05:37:41Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Q2 FY27 profit surges 52% to ₹108.6 crore and revenue jumps 32%, fueled by aerospace orders and global business expansion, directly moving growth and margin trajectory.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Q2 FY27 profit surges 52% to ₹108.6 crore and revenue jumps 32%, fueled by aerospace orders and global business expansion, directly moving growth and margin trajectory.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
+          "name": "Tesla",
+          "ticker": null,
+          "listing_country": "US"
+        },
         {
-          "name": "Sansera Engineering",
-          "ticker": "SANSERA",
-          "listing_country": "IN"
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Rocket Lab",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
-      "size_bucket": "mid",
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -266089,9 +266106,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 139807,
-    "news_picked_today": 439,
-    "news_dropped_today": 1529
+    "news_seen_today": 146828,
+    "news_picked_today": 490,
+    "news_dropped_today": 1694
   },
   "book_momentum": {
     "live_count": 8,
