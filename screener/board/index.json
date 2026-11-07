@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-07T22:03:16Z",
+  "generated_at": "2026-11-07T22:08:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20261107-714",
@@ -194,6 +194,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-747",
+      "headline": "Tesla to wind down Cybertruck production in Texas by mid-2027",
+      "headline_en": null,
+      "url": "https://www.qatar-tribune.com/article/263007/business/tesla-to-wind-down-cybertruck-production-in-texas-by-mid-2027",
+      "source_name": "Qatar Tribune — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-07T21:30:00Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Tesla plans to wind down production of the Cybertruck in Texas by mid-2027, signaling a significant shift in product strategy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tesla plans to wind down production of the Cybertruck in Texas by mid-2027, signaling a significant shift in product strategy.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tesla",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1949,55 +1998,6 @@
           "name": "ABB Ltd",
           "ticker": null,
           "listing_country": "CH"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-361",
-      "headline": "Cigna beats the Street with $1.4B in profit, $73.7B in revenue for Q3",
-      "headline_en": null,
-      "url": "https://www.fiercehealthcare.com/payers/cigna-beats-street-14b-profit-737b-revenue-q3",
-      "source_name": "Fierce Healthcare",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T17:18:51Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Cigna reported Q3 profit of $1.4B and revenue of $73.7B, beating market expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Cigna reported Q3 profit of $1.4B and revenue of $73.7B, beating market expectations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cigna",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -266387,9 +266387,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 264808,
-    "news_picked_today": 1784,
-    "news_dropped_today": 10183
+    "news_seen_today": 264812,
+    "news_picked_today": 1785,
+    "news_dropped_today": 10186
   },
   "book_momentum": {
     "live_count": 8,
