@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-07T05:23:39Z",
+  "generated_at": "2026-11-07T05:30:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20261107-464",
@@ -1108,6 +1108,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261107-642",
+      "headline": "Defense giant Rheinmetall plunges 16% after cutting outlook on stalled military contracts",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/11/05/rheinmetall-stock-outlook-sales-germany.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T08:10:55Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Rheinmetall cut its outlook due to stalled military contracts, resulting in a 16% share price decline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Rheinmetall cut its outlook due to stalled military contracts, resulting in a 16% share price decline.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Rheinmetall",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-651",
+      "headline": "Rüstungsindustrie: Verzögerungen bei Aufträgen: Rheinmetall senkt Prognose – Aktie bricht ein",
+      "headline_en": "Defense industry: Order delays: Rheinmetall cuts guidance — stock crashes",
+      "url": "https://www.handelsblatt.com/unternehmen/industrie/ruestungsindustrie-verzoegerungen-bei-auftraegen-rheinmetall-senkt-prognose/100267059.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T07:54:05Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Rheinmetall cuts guidance due to order delays, a material profit warning; stock crashes confirm market impact.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Rheinmetall cuts guidance due to order delays, a material profit warning; stock crashes confirm market impact.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 7,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Rheinmetall",
+          "ticker": "RHM",
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261107-452",
       "headline": "Crisis-hit Paraguay impeaches president, replaces him with VP",
       "headline_en": null,
@@ -1908,105 +2006,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-122",
-      "headline": "Putin orders seizure of Japan Tobacco’s Russian business",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/5397eabe-5c04-4851-a216-9a269f69682c?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T07:32:38Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Japan Tobacco's Russian business is being seized by the Russian state, representing a total loss of assets in that jurisdiction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Japan Tobacco's Russian business is being seized by the Russian state, representing a total loss of assets in that jurisdiction.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Japan Tobacco",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-139",
-      "headline": "3M India Posts ₹158 Crore Net Profit For September Quarter As Revenue Increases 15 Per Cent To ₹1,452 Crore",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/3m-india-posts-158-crore-net-profit-for-september-quarter-as-revenue-increases-15-per-cent-to-1452-crore",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T07:22:53Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "3M India reported a net profit of ₹158 crore for the September quarter, with revenue increasing 15% to ₹1,452 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "3M India reported a net profit of ₹158 crore for the September quarter, with revenue increasing 15% to ₹1,452 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "3M India",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -266103,9 +266102,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 234106,
-    "news_picked_today": 1078,
-    "news_dropped_today": 3578
+    "news_seen_today": 234998,
+    "news_picked_today": 1114,
+    "news_dropped_today": 3686
   },
   "book_momentum": {
     "live_count": 8,
