@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-07T04:29:35Z",
+  "generated_at": "2026-11-07T04:38:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20261107-464",
@@ -956,6 +956,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-579",
+      "headline": "EPAM Systems Boosts FY26 Outlook - Update",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/epam-systems-boosts-fy26-outlook-update",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-05T11:23:59Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "EPAM Systems updated its FY26 outlook, which directly impacts analyst expectations and valuation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "EPAM Systems updated its FY26 outlook, which directly impacts analyst expectations and valuation.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EPAM Systems",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1949,55 +1998,6 @@
           "name": "ArcelorMittal",
           "ticker": null,
           "listing_country": "LU"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-420",
-      "headline": "Titan Q2 profit more than doubles on one-off gain; adjusted PBT growth at 18%",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/titan-q2-profit-more-than-doubles-on-one-off-gain-adjusted-pbt-growth-at-18/article71670744.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T15:22:57Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Titan reported Q2 profit more than doubling with an 18% growth in adjusted PBT, indicating strong operational performance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Titan reported Q2 profit more than doubling with an 18% growth in adjusted PBT, indicating strong operational performance.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Titan",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -224799,77 +224799,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-61866d942f2f",
-      "idea_version": "IDEAV-2af7736aef1a146b",
-      "idea_version_started_at": "2026-11-05T20:09:05Z",
-      "ticker": "GIL",
-      "company": "Gildan Activewear",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A 25% share price drop following Q3 results and a full-year guidance cut indicates structural margin pressure and weakening demand that is likely to persist.",
-      "why_now": "The earnings release and guidance cut occurred today, November 5, 2026.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-bf3bad858015"
-      ],
-      "primary_source_event_id": "EVT-bf3bad858015",
-      "source_headlines": [
-        "Gildan shares tumble 25% after third-quarter results disappoint; cuts full-year guidance"
-      ],
-      "source_headline": "Gildan shares tumble 25% after third-quarter results disappoint; cuts full-year guidance",
-      "source_url": "https://www.theglobeandmail.com/business/article-gildan-third-quarter-results-full-year-guidance/",
-      "source_name": "The Globe and Mail",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-05T16:31:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-05T20:09:05Z",
-      "updated_at": "2026-11-05T20:09:05Z",
-      "decay_at": "2026-11-07T04:31:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-a025b73a32d6",
       "idea_version": "IDEAV-04aa45ea0e5e9d2a",
       "idea_version_started_at": "2026-11-06T22:25:06Z",
@@ -226995,6 +226924,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-61866d942f2f",
+      "idea_version": "IDEAV-2af7736aef1a146b",
+      "idea_version_started_at": "2026-11-05T20:09:05Z",
+      "ticker": "GIL",
+      "company": "Gildan Activewear",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A 25% share price drop following Q3 results and a full-year guidance cut indicates structural margin pressure and weakening demand that is likely to persist.",
+      "why_now": "The earnings release and guidance cut occurred today, November 5, 2026.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-bf3bad858015"
+      ],
+      "primary_source_event_id": "EVT-bf3bad858015",
+      "source_headlines": [
+        "Gildan shares tumble 25% after third-quarter results disappoint; cuts full-year guidance"
+      ],
+      "source_headline": "Gildan shares tumble 25% after third-quarter results disappoint; cuts full-year guidance",
+      "source_url": "https://www.theglobeandmail.com/business/article-gildan-third-quarter-results-full-year-guidance/",
+      "source_name": "The Globe and Mail",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-05T16:31:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-05T20:09:05Z",
+      "updated_at": "2026-11-05T20:09:05Z",
+      "decay_at": "2026-11-07T04:31:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-be33721eeb33",
       "idea_version": "IDEAV-0850ca6888da3a39",
       "idea_version_started_at": "2026-11-05T13:42:59Z",
@@ -228870,9 +228870,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 541,
+    "total_count": 542,
     "shown_count": 499,
-    "hidden_count": 42,
+    "hidden_count": 43,
     "side_counts": {
       "long": {
         "total_count": 277,
@@ -228880,9 +228880,9 @@
         "hidden_count": 27
       },
       "short": {
-        "total_count": 265,
+        "total_count": 266,
         "shown_count": 250,
-        "hidden_count": 15
+        "hidden_count": 16
       }
     },
     "retention": {
@@ -228901,6 +228901,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-61866d942f2f",
+        "idea_version": "IDEAV-2af7736aef1a146b",
+        "idea_version_started_at": "2026-11-05T20:09:05Z",
+        "ticker": "GIL",
+        "company": "Gildan Activewear",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "A 25% share price drop following Q3 results and a full-year guidance cut indicates structural margin pressure and weakening demand that is likely to persist.",
+        "why_now": "The earnings release and guidance cut occurred today, November 5, 2026.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 60,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-bf3bad858015"
+        ],
+        "primary_source_event_id": "EVT-bf3bad858015",
+        "source_headlines": [
+          "Gildan shares tumble 25% after third-quarter results disappoint; cuts full-year guidance"
+        ],
+        "source_headline": "Gildan shares tumble 25% after third-quarter results disappoint; cuts full-year guidance",
+        "source_url": "https://www.theglobeandmail.com/business/article-gildan-third-quarter-results-full-year-guidance/",
+        "source_name": "The Globe and Mail",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-05T16:31:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-05T20:09:05Z",
+        "updated_at": "2026-11-05T20:09:05Z",
+        "decay_at": "2026-11-07T04:31:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-07T04:31:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-9e168a4e0799",
         "idea_version": "IDEAV-f171ecf4e8e8da71",
@@ -265999,88 +266073,12 @@
         "archived_at": "2026-10-13T05:16:49Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-f128adef3e6c",
-        "idea_version": "IDEAV-901173219fedbaa9",
-        "idea_version_started_at": "2026-10-11T03:47:12Z",
-        "ticker": "MTY",
-        "company": "MTY Food Group Inc",
-        "exchange": "TSX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The Q3 profit retreat indicates margin compression or slowing organic growth across its portfolio of restaurant brands, suggesting potential downside to earnings expectations.",
-        "why_now": "The earnings report was released on 2026-10-10, and the market is currently digesting the negative margin trend.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 18,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-6ac6f7dd8953"
-        ],
-        "primary_source_event_id": "EVT-6ac6f7dd8953",
-        "source_headlines": [
-          "MTY Food Group Inc Profit Retreats In Q3"
-        ],
-        "source_headline": "MTY Food Group Inc Profit Retreats In Q3",
-        "source_url": "https://www.nasdaq.com/articles/mty-food-group-inc-profit-retreats-q3",
-        "source_name": "Nasdaq",
-        "materiality_max": 98,
-        "newest_source_at": "2026-10-10T02:24:41Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-11T03:47:12Z",
-        "updated_at": "2026-10-11T03:47:12Z",
-        "decay_at": "2026-10-11T14:24:41Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-13T05:16:49Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2231,
-    "live_count": 31,
+    "live_count": 30,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -266099,9 +266097,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 214264,
-    "news_picked_today": 867,
-    "news_dropped_today": 2949
+    "news_seen_today": 216179,
+    "news_picked_today": 913,
+    "news_dropped_today": 3095
   },
   "book_momentum": {
     "live_count": 8,
