@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-07T17:28:56Z",
+  "generated_at": "2026-11-07T17:38:33Z",
   "inbox": [
     {
       "inbox_id": "INB-20261107-714",
@@ -191,6 +191,56 @@
           "name": "Astron Paper & Board Mill Limited",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-731",
+      "headline": "U.S. Treasury moves to cut off crypto exchange MEXC over $16 billion in alleged illicit flows",
+      "headline_en": null,
+      "url": "https://www.coindesk.com/business/2026/11/07/u-s-treasury-moves-to-cut-off-crypto-exchange-mexc-over-usd16-billion-in-alleged-illicit-flows",
+      "source_name": "CoinDesk",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-07T17:36:46Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "The U.S. Treasury is taking enforcement action against crypto exchange MEXC regarding $16 billion in alleged illicit flows.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The U.S. Treasury is taking enforcement action against crypto exchange MEXC regarding $16 billion in alleged illicit flows.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MEXC",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -1949,55 +1999,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-579",
-      "headline": "EPAM Systems Boosts FY26 Outlook - Update",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/epam-systems-boosts-fy26-outlook-update",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T11:23:59Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "EPAM Systems updated its FY26 outlook, which directly impacts analyst expectations and valuation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "EPAM Systems updated its FY26 outlook, which directly impacts analyst expectations and valuation.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "EPAM Systems",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -226098,78 +226099,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-bd666baba5fc",
-      "idea_version": "IDEAV-fe610c94607885a1",
-      "idea_version_started_at": "2026-11-07T11:59:19Z",
-      "ticker": "SAFARI",
-      "company": "Safari Industries",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported a 9.1% revenue increase and announced a ₹230 crore expansion plan, indicating strong demand and growth trajectory.",
-      "why_now": "The earnings and expansion plan were announced on 2026-11-06.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e14e0f42cdec"
-      ],
-      "primary_source_event_id": "EVT-e14e0f42cdec",
-      "source_headlines": [
-        "Safari Industries Q2 FY27 Profit At ₹36.93 Crore, Revenue Rises 9.1% As Company Unveils ₹230 Crore Expansion Plan"
-      ],
-      "source_headline": "Safari Industries Q2 FY27 Profit At ₹36.93 Crore, Revenue Rises 9.1% As Company Unveils ₹230 Crore Expansion Plan",
-      "source_url": "https://www.freepressjournal.in/business/safari-industries-q2-fy27-profit-at-3693-crore-revenue-rises-91-as-company-unveils-230-crore-expansion-plan",
-      "source_name": "Free Press Journal",
-      "materiality_max": 99,
-      "newest_source_at": "2026-11-06T05:29:52Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-07T11:59:19Z",
-      "updated_at": "2026-11-07T11:59:19Z",
-      "decay_at": "2026-11-07T17:29:52Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-13f962c9cc6f",
       "idea_version": "IDEAV-ede637399b62f565",
       "idea_version_started_at": "2026-11-07T07:32:32Z",
@@ -228942,6 +228871,78 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": true
+    },
+    {
+      "idea_id": "IDEA-bd666baba5fc",
+      "idea_version": "IDEAV-fe610c94607885a1",
+      "idea_version_started_at": "2026-11-07T11:59:19Z",
+      "ticker": "SAFARI",
+      "company": "Safari Industries",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported a 9.1% revenue increase and announced a ₹230 crore expansion plan, indicating strong demand and growth trajectory.",
+      "why_now": "The earnings and expansion plan were announced on 2026-11-06.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e14e0f42cdec"
+      ],
+      "primary_source_event_id": "EVT-e14e0f42cdec",
+      "source_headlines": [
+        "Safari Industries Q2 FY27 Profit At ₹36.93 Crore, Revenue Rises 9.1% As Company Unveils ₹230 Crore Expansion Plan"
+      ],
+      "source_headline": "Safari Industries Q2 FY27 Profit At ₹36.93 Crore, Revenue Rises 9.1% As Company Unveils ₹230 Crore Expansion Plan",
+      "source_url": "https://www.freepressjournal.in/business/safari-industries-q2-fy27-profit-at-3693-crore-revenue-rises-91-as-company-unveils-230-crore-expansion-plan",
+      "source_name": "Free Press Journal",
+      "materiality_max": 99,
+      "newest_source_at": "2026-11-06T05:29:52Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-07T11:59:19Z",
+      "updated_at": "2026-11-07T11:59:19Z",
+      "decay_at": "2026-11-07T17:29:52Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     }
   ],
   "ideas_archive": {
@@ -228954,14 +228955,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 537,
+    "total_count": 538,
     "shown_count": 499,
-    "hidden_count": 38,
+    "hidden_count": 39,
     "side_counts": {
       "long": {
-        "total_count": 271,
+        "total_count": 272,
         "shown_count": 250,
-        "hidden_count": 21
+        "hidden_count": 22
       },
       "short": {
         "total_count": 267,
@@ -228985,6 +228986,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-bd666baba5fc",
+        "idea_version": "IDEAV-fe610c94607885a1",
+        "idea_version_started_at": "2026-11-07T11:59:19Z",
+        "ticker": "SAFARI",
+        "company": "Safari Industries",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company reported a 9.1% revenue increase and announced a ₹230 crore expansion plan, indicating strong demand and growth trajectory.",
+        "why_now": "The earnings and expansion plan were announced on 2026-11-06.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-e14e0f42cdec"
+        ],
+        "primary_source_event_id": "EVT-e14e0f42cdec",
+        "source_headlines": [
+          "Safari Industries Q2 FY27 Profit At ₹36.93 Crore, Revenue Rises 9.1% As Company Unveils ₹230 Crore Expansion Plan"
+        ],
+        "source_headline": "Safari Industries Q2 FY27 Profit At ₹36.93 Crore, Revenue Rises 9.1% As Company Unveils ₹230 Crore Expansion Plan",
+        "source_url": "https://www.freepressjournal.in/business/safari-industries-q2-fy27-profit-at-3693-crore-revenue-rises-91-as-company-unveils-230-crore-expansion-plan",
+        "source_name": "Free Press Journal",
+        "materiality_max": 99,
+        "newest_source_at": "2026-11-06T05:29:52Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-07T11:59:19Z",
+        "updated_at": "2026-11-07T11:59:19Z",
+        "decay_at": "2026-11-07T17:29:52Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-07T17:29:52Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-171af5eb047a",
         "idea_version": "IDEAV-afa5421a72f05ac8",
@@ -258095,81 +258171,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-85224f632c88",
-        "idea_version": "IDEAV-4e1735d5f9812fdc",
-        "idea_version_started_at": "2026-10-23T15:10:57Z",
-        "ticker": "COFORGE",
-        "company": "Coforge Limited",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company reported strong Q2 results with 56.5% profit growth and raised its FY27 EBIT margin outlook, signaling operational outperformance.",
-        "why_now": "The earnings and guidance upgrade were released today, October 23, 2026.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-b77a7c619188"
-        ],
-        "primary_source_event_id": "EVT-b77a7c619188",
-        "source_headlines": [
-          "Coforge Reports ₹6,170.8 Crore Revenue For Q2, Posts 56.5% PAT Growth, Raises FY27 EBIT Margin Outlook"
-        ],
-        "source_headline": "Coforge Reports ₹6,170.8 Crore Revenue For Q2, Posts 56.5% PAT Growth, Raises FY27 EBIT Margin Outlook",
-        "source_url": "https://www.freepressjournal.in/business/coforge-reports-61708-crore-revenue-for-q2-posts-565-pat-growth-raises-fy27-ebit-margin-outlook",
-        "source_name": "Free Press Journal",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-23T11:17:37Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-23T15:10:57Z",
-        "updated_at": "2026-10-23T15:10:57Z",
-        "decay_at": "2026-10-24T23:17:37Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-26T11:54:17Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-f06d57fae0ea",
         "idea_version": "IDEAV-17c03295f74f7c03",
         "idea_version_started_at": "2026-10-24T05:01:36Z",
@@ -266150,7 +266151,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2251,
-    "live_count": 36,
+    "live_count": 35,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -266169,9 +266170,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 264300,
-    "news_picked_today": 1696,
-    "news_dropped_today": 9763
+    "news_seen_today": 264331,
+    "news_picked_today": 1699,
+    "news_dropped_today": 9791
   },
   "book_momentum": {
     "live_count": 8,
