@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-07T10:10:45Z",
+  "generated_at": "2026-11-07T10:11:43Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261107-689",
+      "headline": "Divi's Lab net profit surges 63% to ₹1,127 cr in Q2",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/divis-lab-net-profit-surges-63-to-1127-cr-in-q2/article71677850.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-07T09:56:49Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Divi's Lab reported a 63% surge in net profit to ₹1,127 crore for Q2.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Divi's Lab reported a 63% surge in net profit to ₹1,127 crore for Q2.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Divi's Lab",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261107-674",
       "headline": "Coca-Cola's Indian Bottling Powerhouse Sets Its Sights On The Stock Market, Hindustan Coca-Cola Holdings Unveils Mega IPO Plans Through Nearly 100 Crore-Share Offer",
@@ -1949,55 +1998,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-525",
-      "headline": "Ambuja Cements Unveils ₹14,500 Crore Expansion Plan, Targets 155 MTPA Capacity By FY30",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/ambuja-cements-unveils-14500-crore-expansion-plan-targets-155-mtpa-capacity-by-fy30",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T12:04:29Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Ambuja Cements announced a major capacity expansion plan of ₹14,500 crore to reach 155 MTPA by FY30.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Ambuja Cements announced a major capacity expansion plan of ₹14,500 crore to reach 155 MTPA by FY30.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ambuja Cements",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -265528,9 +265528,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 258872,
-    "news_picked_today": 1414,
-    "news_dropped_today": 7102
+    "news_seen_today": 258896,
+    "news_picked_today": 1420,
+    "news_dropped_today": 7120
   },
   "book_momentum": {
     "live_count": 8,
