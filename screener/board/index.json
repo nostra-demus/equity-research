@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-07T23:54:48Z",
+  "generated_at": "2026-11-07T23:55:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261107-714",
@@ -223813,16 +223813,16 @@
     },
     {
       "idea_id": "IDEA-0699ba072163",
-      "idea_version": "IDEAV-b2b6b31da6cc5f7e",
-      "idea_version_started_at": "2026-11-07T21:50:12Z",
+      "idea_version": "IDEAV-1b3e2a030f571011",
+      "idea_version_started_at": "2026-11-07T23:54:55Z",
       "ticker": "CHTR",
       "company": "Charter Communications",
       "exchange": "NASDAQ",
       "direction": "short",
       "pair_with": null,
-      "reason": "Charter Communications is cutting $2 billion in costs after losing 233,000 internet customers, signaling operational challenges and potential revenue decline.",
-      "why_now": "The news of cost cutting and customer losses was reported on November 7, 2026, indicating a live negative catalyst.",
-      "conviction": 65,
+      "reason": "The company is facing significant subscriber churn, losing 233,000 internet customers, which necessitates aggressive cost-cutting that may impair long-term growth.",
+      "why_now": "The subscriber loss and cost-cutting plan were reported on November 07, 2026.",
+      "conviction": 70,
       "conviction_basis": "pre_edge_proxy",
       "trade_score": 67,
       "trade_score_basis": "event_driven_v3",
@@ -223874,7 +223874,7 @@
         "data_pool_present": false
       },
       "surfaced_at": "2026-11-07T19:09:18Z",
-      "updated_at": "2026-11-07T21:50:12Z",
+      "updated_at": "2026-11-07T23:54:55Z",
       "decay_at": "2026-11-09T07:03:44Z",
       "status": "live",
       "promoted_signal_id": null,
@@ -223883,15 +223883,15 @@
     },
     {
       "idea_id": "IDEA-99a574f2e453",
-      "idea_version": "IDEAV-35e2faa7eebd5324",
-      "idea_version_started_at": "2026-11-07T21:50:12Z",
+      "idea_version": "IDEAV-b336c4ae6bfa1368",
+      "idea_version_started_at": "2026-11-07T23:54:55Z",
       "ticker": "LLY",
       "company": "Eli Lilly",
       "exchange": "NYSE",
       "direction": "long",
       "pair_with": null,
-      "reason": "Eli Lilly raised its 2026 revenue forecast by $5.5 billion, indicating stronger-than-expected financial performance.",
-      "why_now": "The company's updated guidance was reported on November 7, 2026, providing a fresh positive catalyst.",
+      "reason": "The company raised its 2026 revenue forecast by $5.5 billion, signaling stronger-than-expected demand for its core pharmaceutical portfolio.",
+      "why_now": "The guidance update was released on November 07, 2026.",
       "conviction": 75,
       "conviction_basis": "pre_edge_proxy",
       "trade_score": 67,
@@ -223944,7 +223944,7 @@
         "data_pool_present": false
       },
       "surfaced_at": "2026-11-07T18:45:39Z",
-      "updated_at": "2026-11-07T21:50:12Z",
+      "updated_at": "2026-11-07T23:54:55Z",
       "decay_at": "2026-11-09T06:50:00Z",
       "status": "live",
       "promoted_signal_id": null,
@@ -224795,6 +224795,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-67edac5436ac",
+      "idea_version": "IDEAV-1c53a2113f5f0bf4",
+      "idea_version_started_at": "2026-11-07T23:54:55Z",
+      "ticker": "IVG",
+      "company": "Iveco Group N.V.",
+      "exchange": "BIT",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Tata Motors has initiated a voluntary tender offer for all common shares of Iveco Group, creating a floor for the share price at the offer level.",
+      "why_now": "The tender offer was formally announced on November 07, 2026.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c9050b6b5cca"
+      ],
+      "primary_source_event_id": "EVT-c9050b6b5cca",
+      "source_headlines": [
+        "Tata Motors Limited: Tata Motors Limited has informed the Exchange regarding a press release dated November 07, 2026, titled \"TML CV Holdings B.V., an Indirect Wholly Owned Subsidiary of Tata Motors Limited (formerly TML Commercial Vehicles Limited) ( the Company ) Voluntary Totalitarian Tender Offer for all the common shares of Iveco Group N.V.\"."
+      ],
+      "source_headline": "Tata Motors Limited: Tata Motors Limited has informed the Exchange regarding a press release dated November 07, 2026, titled \"TML CV Holdings B.V., an Indirect Wholly Owned Subsidiary of Tata Motors Limited (formerly TML Commercial Vehicles Limited) ( the Company ) Voluntary Totalitarian Tender Offer for all the common shares of Iveco Group N.V.\".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/TMLCOMMERCIAL_07112026002910_final.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-06T19:00:48Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-07T07:11:04Z",
+      "updated_at": "2026-11-07T23:54:55Z",
+      "decay_at": "2026-11-08T07:00:48Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-04ff478f1d78",
       "idea_version": "IDEAV-b3c870deee36cfb6",
       "idea_version_started_at": "2026-11-07T22:29:24Z",
@@ -224933,77 +225005,6 @@
       "surfaced_at": "2026-11-07T22:08:49Z",
       "updated_at": "2026-11-07T22:08:49Z",
       "decay_at": "2026-11-08T04:30:49Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-67edac5436ac",
-      "idea_version": "IDEAV-fed59f5687f37fad",
-      "idea_version_started_at": "2026-11-07T21:50:12Z",
-      "ticker": "IVG",
-      "company": "Iveco Group N.V.",
-      "exchange": null,
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Iveco Group N.V. is the target of a voluntary totalitarian tender offer by Tata Motors Limited's indirect wholly-owned subsidiary, which could lead to a premium acquisition.",
-      "why_now": "Tata Motors Limited announced the tender offer on November 7, 2026, creating an immediate M&A catalyst.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c9050b6b5cca"
-      ],
-      "primary_source_event_id": "EVT-c9050b6b5cca",
-      "source_headlines": [
-        "Tata Motors Limited: Tata Motors Limited has informed the Exchange regarding a press release dated November 07, 2026, titled \"TML CV Holdings B.V., an Indirect Wholly Owned Subsidiary of Tata Motors Limited (formerly TML Commercial Vehicles Limited) ( the Company ) Voluntary Totalitarian Tender Offer for all the common shares of Iveco Group N.V.\"."
-      ],
-      "source_headline": "Tata Motors Limited: Tata Motors Limited has informed the Exchange regarding a press release dated November 07, 2026, titled \"TML CV Holdings B.V., an Indirect Wholly Owned Subsidiary of Tata Motors Limited (formerly TML Commercial Vehicles Limited) ( the Company ) Voluntary Totalitarian Tender Offer for all the common shares of Iveco Group N.V.\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/TMLCOMMERCIAL_07112026002910_final.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-06T19:00:48Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-07T07:11:04Z",
-      "updated_at": "2026-11-07T21:50:12Z",
-      "decay_at": "2026-11-08T07:00:48Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -229078,77 +229079,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-0da6fcdb33c0",
-      "idea_version": "IDEAV-facebead08d5df8b",
-      "idea_version_started_at": "2026-11-05T06:36:43Z",
-      "ticker": "NEU",
-      "company": "Neuren Pharmaceuticals",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported a 39% increase in Q3 2026 net sales for its primary product, DAYBUE, and subsequently raised its full-year guidance.",
-      "why_now": "The guidance upgrade and sales growth were announced in an exchange filing on 2026-11-04.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ee32f7879c78"
-      ],
-      "primary_source_event_id": "EVT-ee32f7879c78",
-      "source_headlines": [
-        "NEU: Q3 2026 DAYBUE net sales up 39%, full year guidance upgraded [price-sensitive]"
-      ],
-      "source_headline": "NEU: Q3 2026 DAYBUE net sales up 39%, full year guidance upgraded [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NEU?key=2924-03158326-2A1708525",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-04T22:57:35Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-05T06:36:43Z",
-      "updated_at": "2026-11-05T06:36:43Z",
-      "decay_at": "2026-11-06T10:57:35Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-bd666baba5fc",
       "idea_version": "IDEAV-fe610c94607885a1",
       "idea_version_started_at": "2026-11-07T11:59:19Z",
@@ -229376,14 +229306,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 547,
+    "total_count": 546,
     "shown_count": 499,
-    "hidden_count": 48,
+    "hidden_count": 47,
     "side_counts": {
       "long": {
-        "total_count": 275,
+        "total_count": 274,
         "shown_count": 250,
-        "hidden_count": 25
+        "hidden_count": 24
       },
       "short": {
         "total_count": 273,
@@ -229393,12 +229323,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1678,
+      "evicted_count": 1679,
       "oldest_retained_at": "2026-10-10T15:39:02Z",
       "side_counts": {
         "long": {
-          "evicted_count": 1110,
-          "oldest_retained_at": "2026-10-23T04:01:30Z"
+          "evicted_count": 1111,
+          "oldest_retained_at": "2026-10-23T10:23:06Z"
         },
         "short": {
           "evicted_count": 569,
@@ -232890,8 +232820,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-06T10:57:35Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-07T23:55:05Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
