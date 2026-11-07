@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-11-07T08:30:45Z",
+  "generated_at": "2026-11-07T08:45:41Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261107-670",
+      "headline": "Prestige Estates acquires 100% stake in Noida developer Allure Developers for ₹524 crore",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/news/real-estate/prestige-estates-acquires-100-stake-in-noida-developer-allure-developers-for-524-crore/article71677619.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-07T08:00:13Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Prestige Estates acquired Allure Developers for ₹524 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Prestige Estates acquired Allure Developers for ₹524 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Prestige Estates",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-669",
+      "headline": "Divi's Laboratories Q2 Results: Net Profit Jumps 64% To Rs 1,127 Crore, Revenue Rises 35%; Margins Expand",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/divis-laboratories-q2-results-net-profit-jumps-64-to-rs-1-127-crore-revenue-rises-35-margins-expand-12296198#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-07T07:38:56Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Divi's Laboratories reported a 64% jump in net profit to Rs 1,127 crore and 35% revenue growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Divi's Laboratories reported a 64% jump in net profit to Rs 1,127 crore and 35% revenue growth.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Divi's Laboratories",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261107-666",
       "headline": "Akzo Nobel, Axalta Secure EU Approval For $25 Billion Merger Subject To Divestment",
@@ -1900,110 +1998,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-609",
-      "headline": "SOCAR Bets $1.65 Billion on U.S. Shale Gas Boom",
-      "headline_en": null,
-      "url": "https://oilprice.com/Latest-Energy-News/World-News/SOCAR-Bets-165-Billion-on-US-Shale-Gas-Boom.html",
-      "source_name": "OilPrice.com",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T09:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "SOCAR is investing $1.65 billion into U.S. shale gas assets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "SOCAR is investing $1.65 billion into U.S. shale gas assets.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SOCAR",
-          "ticker": null,
-          "listing_country": "AZ"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-626",
-      "headline": "Geldinstitut: Commerzbank baut Gewinn vor Übernahme durch Unicredit aus – senkt aber eine wichtige Prognose",
-      "headline_en": "Financial institution: Commerzbank increases profit before takeover by Unicredit – but lowers an important forecast",
-      "url": "https://www.handelsblatt.com/finanzen/banken-versicherungen/banken/commerzbank-geldinstitut-baut-gewinn-vor-uebernahme-durch-unicredit-aus/100266237.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-05T08:47:19Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Commerzbank reported profit growth but lowered a key guidance metric ahead of a potential Unicredit takeover.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Commerzbank reported profit growth but lowered a key guidance metric ahead of a potential Unicredit takeover.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 7,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Commerzbank",
-          "ticker": null,
-          "listing_country": "DE"
-        },
-        {
-          "name": "Unicredit",
-          "ticker": null,
-          "listing_country": "IT"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -265536,9 +265530,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 248287,
-    "news_picked_today": 1345,
-    "news_dropped_today": 5375
+    "news_seen_today": 251281,
+    "news_picked_today": 1353,
+    "news_dropped_today": 6351
   },
   "book_momentum": {
     "live_count": 8,
