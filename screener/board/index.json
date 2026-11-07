@@ -1,6 +1,49 @@
 {
-  "generated_at": "2026-11-07T06:40:00Z",
+  "generated_at": "2026-11-07T06:45:38Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261107-665",
+      "headline": "Ousted Paraguayan president placed under house arrest after bank collapse",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/world/article-ousted-paraguayan-president-placed-under-house-arrest-after-bank/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-07T04:58:47Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "The collapse of a bank and the house arrest of a former president indicate significant political and financial instability in Paraguay.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The collapse of a bank and the house arrest of a former president indicate significant political and financial instability in Paraguay.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261107-464",
       "headline": "Paraguay President Santiago Peña Ousted & Placed Under House Arrest After Ueno Bank Collapse; Vice President Sworn In As Successor",
@@ -1956,55 +1999,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-030",
-      "headline": "삼양식품, 3분기 영업이익 49.9% 급증... 분기 사상 최대 실적 경신",
-      "headline_en": "Samyang Foods, Q3 operating profit jumps 49.9%... record quarterly performance",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=280717",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T08:49:37Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Samyang Foods reported a 49.9% surge in Q3 operating profit, marking a record quarterly performance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Samyang Foods reported a 49.9% surge in Q3 operating profit, marking a record quarterly performance.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Samyang Foods",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -266101,9 +266095,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 240954,
-    "news_picked_today": 1279,
-    "news_dropped_today": 4419
+    "news_seen_today": 241094,
+    "news_picked_today": 1295,
+    "news_dropped_today": 4543
   },
   "book_momentum": {
     "live_count": 8,
