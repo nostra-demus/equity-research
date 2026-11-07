@@ -1,6 +1,114 @@
 {
-  "generated_at": "2026-11-07T00:42:18Z",
+  "generated_at": "2026-11-07T00:49:24Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261107-110",
+      "headline": "Albertsons, Safeway forced to make major pharmacy changes after $900 million ruling",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/retail/albertsons-safeway-forced-pharmacy-changes-after-opioid-court-ruling-lawsuit-washington",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-07T00:17:00Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Albertsons and Safeway are forced to implement operational changes following a $900 million legal ruling.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Albertsons and Safeway are forced to implement operational changes following a $900 million legal ruling.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Albertsons",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Safeway",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-099",
+      "headline": "OpenAI valued at $1.25 trillion, as rival Anthropic nears its IPO",
+      "headline_en": null,
+      "url": "https://www.theverge.com/ai-artificial-intelligence/1029380/openai-1-25-trillion-investment-valuation",
+      "source_name": "The Verge",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T23:46:18Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "OpenAI valuation update and Anthropic IPO progress are significant market-moving events for the AI sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "OpenAI valuation update and Anthropic IPO progress are significant market-moving events for the AI sector.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261107-005",
       "headline": "Rheinmetall shares plunge 16% after outlook cut as military contracts stall",
@@ -46,6 +154,65 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-101",
+      "headline": "Autoindustrie: Drei Autobauer, vier Gewinnwarnungen: Die Elektrowelle überrollt VW, BMW und Mercedes",
+      "headline_en": "Auto industry: Three carmakers, four profit warnings: The electric wave is rolling over VW, BMW and Mercedes",
+      "url": "https://www.handelsblatt.com/unternehmen/industrie/autobauer-wie-die-elektrowelle-vw-bmw-und-mercedes-ueberrollt/100265334.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T07:47:00Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Four profit warnings across three major German automakers indicate a severe sector-wide downturn in the EV transition.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Four profit warnings across three major German automakers indicate a severe sector-wide downturn in the EV transition.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 7,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": "DE"
+        },
+        {
+          "name": "BMW",
+          "ticker": null,
+          "listing_country": "DE"
+        },
+        {
+          "name": "Mercedes-Benz",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -297,6 +464,105 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261107-122",
+      "headline": "Putin orders seizure of Japan Tobacco’s Russian business",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/5397eabe-5c04-4851-a216-9a269f69682c?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T07:32:38Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Japan Tobacco's Russian business is being seized by the Russian state, representing a total loss of assets in that jurisdiction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Japan Tobacco's Russian business is being seized by the Russian state, representing a total loss of assets in that jurisdiction.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Japan Tobacco",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-139",
+      "headline": "3M India Posts ₹158 Crore Net Profit For September Quarter As Revenue Increases 15 Per Cent To ₹1,452 Crore",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/3m-india-posts-158-crore-net-profit-for-september-quarter-as-revenue-increases-15-per-cent-to-1452-crore",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T07:22:53Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "3M India reported a net profit of ₹158 crore for the September quarter, with revenue increasing 15% to ₹1,452 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "3M India reported a net profit of ₹158 crore for the September quarter, with revenue increasing 15% to ₹1,452 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "3M India",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261107-095",
       "headline": "Elanco Shares Jump After Q3 Beat and Outlook Raise",
       "headline_en": null,
@@ -347,6 +613,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261107-100",
+      "headline": "Paraguay’s President Pena impeached over Ueno banking crisis, placed under house arrest",
+      "headline_en": null,
+      "url": "https://www.scmp.com/news/world/americas/article/3373623/paraguays-president-pena-impeached-over-ueno-banking-crisis-placed-under-house-arrest",
+      "source_name": "South China Morning Post",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T23:41:08Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "The impeachment and house arrest of a head of state creates significant political and economic instability in Paraguay.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "The impeachment and house arrest of a head of state creates significant political and economic instability in Paraguay.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261107-060",
       "headline": "Consumption tax cut bill passes Japan's lower house in fast-tracked vote",
       "headline_en": null,
@@ -385,6 +694,56 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-163",
+      "headline": "Modon secures Dh13.7 billion financing deal to support expansion",
+      "headline_en": null,
+      "url": "https://www.khaleejtimes.com/business/modon-secures-dh137-billion-financing-deal-to-support-expansion",
+      "source_name": "Khaleej Times — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T07:05:34Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Modon secured a Dh13.7 billion financing deal to fund its expansion plans.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Modon secured a Dh13.7 billion financing deal to fund its expansion plans.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Modon Properties",
+          "ticker": null,
+          "listing_country": "AE"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -684,6 +1043,105 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-149",
+      "headline": "Krones Q3 Profit Climbs, Revises Outlook",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/krones-q3-profit-climbs-revises-outlook",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T07:16:19Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Krones reported Q3 profit growth and revised its outlook upward.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Krones reported Q3 profit growth and revised its outlook upward.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Krones",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-157",
+      "headline": "KBS Real Estate Investment Trust III, Inc. Modifies $317.4 million and $137.8 million Debt Facilities",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/kbs-real-estate-investment-trust-iii-inc-modifies-3174-million-and-1378-million-debt",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T07:08:34Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "The REIT modified debt facilities totaling approximately $455 million, affecting its capital structure and liquidity profile.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "The REIT modified debt facilities totaling approximately $455 million, affecting its capital structure and liquidity profile.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "KBS Real Estate Investment Trust III, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1038,6 +1496,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261107-105",
+      "headline": "British Airways owner sees profits hit by soaring jet fuel costs",
+      "headline_en": null,
+      "url": "https://www.standard.co.uk/business/business-news/british-airways-iran-london-heathrow-airport-b1303799.html",
+      "source_name": "The Standard (Evening Standard) — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T07:38:32Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Rising fuel costs are directly impacting the profitability of the airline operator.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "Rising fuel costs are directly impacting the profitability of the airline operator.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "International Consolidated Airlines Group",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261107-106",
+      "headline": "British Airways owner sees profits hit by soaring jet fuel costs",
+      "headline_en": null,
+      "url": "https://www.independent.co.uk/news/business/international-airlines-group-british-airways-iran-holly-williams-b3080261.html",
+      "source_name": "The Independent — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-06T07:38:32Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "International Airlines Group reported that rising jet fuel costs are negatively impacting their profitability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "International Airlines Group reported that rising jet fuel costs are negatively impacting their profitability.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "International Airlines Group",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261107-017",
       "headline": "Michael Lewis ousted as TFG chair",
       "headline_en": null,
@@ -1332,70 +1888,21 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261107-013",
-      "headline": "US-Iran war: HPCL struggles to secure tankers to transport oil from the Strait of Hormuz | Here's what the chairman said",
+      "inbox_id": "INB-20261107-128",
+      "headline": "RAK Ceramics profit jumps 15.5% as UAE building boom and constrained imports lift sales",
       "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/usiran-war-hpcl-struggles-to-secure-tankers-to-transport-oil-from-the-strait-of-hormuz-heres-what-the-chairman-said-11793954343094.html",
-      "source_name": "Mint",
+      "url": "https://www.khaleejtimes.com/business/rak-ceramics-profit-jumps-155-as-uae-building-boom-and-constrained-imports-lift-sales",
+      "source_name": "Khaleej Times — Business",
       "input_nature": "news_headline",
-      "found_at": "2026-11-06T08:56:39Z",
+      "found_at": "2026-11-06T07:29:37Z",
       "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "HPCL is struggling to secure tankers due to geopolitical tensions in the Strait of Hormuz, creating an operational supply risk.",
+      "prelim_note": "RAK Ceramics reported a 15.5% profit jump driven by regional construction demand.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "HPCL is struggling to secure tankers due to geopolitical tensions in the Strait of Hormuz, creating an operational supply risk.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hindustan Petroleum",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-038",
-      "headline": "Fusion Antibodies announces further contract unlikely to improve cash constraints",
-      "headline_en": null,
-      "url": "https://ukinvestormagazine.co.uk/fusion-antibodies-announces-further-contract-unlikely-to-improve-cash-constraints/",
-      "source_name": "UK Investor Magazine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T08:38:26Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Fusion Antibodies confirmed that a new contract will not resolve its existing cash constraints, signaling ongoing liquidity risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Fusion Antibodies confirmed that a new contract will not resolve its existing cash constraints, signaling ongoing liquidity risk.",
-      "region": "GB",
+      "triage_score": 83,
+      "triage_reason": "RAK Ceramics reported a 15.5% profit jump driven by regional construction demand.",
+      "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 65,
       "rank_factors": {
@@ -1403,7 +1910,7 @@
         "source_tier": 0,
         "scope": 6,
         "event": 5,
-        "size": -1,
+        "size": 1,
         "recency": 1,
         "materiality_label_floor": 5,
         "quantified": 0,
@@ -1411,7 +1918,7 @@
         "scope_id": "single_name",
         "source_tier_id": "news",
         "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
+        "size_bucket": "mid"
       },
       "event_types": [
         "earnings_revenue_margin"
@@ -1419,340 +1926,9 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Fusion Antibodies",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-058",
-      "headline": "Fire at Oil India Ltd's intermediate tank farm in Assam's Dibrugarh kills 1",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/fire-at-oil-india-ltds-intermediate-tank-farm-in-assams-dibrugarh-kills-1/article71673422.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T08:12:06Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "A fire at an Oil India Ltd facility resulted in a fatality and operational disruption.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "A fire at an Oil India Ltd facility resulted in a fatality and operational disruption.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Oil India Ltd",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-009",
-      "headline": "Court grants ex-Malaysian PM Najib house arrest after $12m royal pardon",
-      "headline_en": null,
-      "url": "https://www.aljazeera.com/news/2026/11/6/courts-grant-ex-malaysian-pm-najib-house-arrest-after-12m-royal-pardon?traffic_source=rss",
-      "source_name": "Al Jazeera — All news",
-      "input_nature": "geopolitical_event",
-      "found_at": "2026-11-06T09:01:40Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Former Malaysian PM Najib Razak granted house arrest following a $12 million royal pardon.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 79,
-      "triage_reason": "Former Malaysian PM Najib Razak granted house arrest following a $12 million royal pardon.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-021",
-      "headline": "BSNL, Vodafone Idea in talks to explore infrastructure sharing: Sources",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/technology/telecom/bsnl-vodafone-idea-in-talks-to-explore-infrastructure-sharing-sources-20028811.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T08:53:26Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Potential infrastructure sharing deal between BSNL and Vodafone Idea could improve margins.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 79,
-      "triage_reason": "Potential infrastructure sharing deal between BSNL and Vodafone Idea could improve margins.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vodafone Idea",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-045",
-      "headline": "David Jones axes gift cards and refunds, limits returns",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/retail/david-jones-axes-gift-cards-and-refunds-limiting-returns-policy-20261106-p61c61?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T08:31:42Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "David Jones is tightening return policies and removing gift card functionality, indicating potential liquidity or operational stress.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 79,
-      "triage_reason": "David Jones is tightening return policies and removing gift card functionality, indicating potential liquidity or operational stress.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "David Jones",
+          "name": "RAK Ceramics",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-081",
-      "headline": "Lloyds records biggest annual fall in UK house prices in three years",
-      "headline_en": null,
-      "url": "https://www.standard.co.uk/business/money/lloyds-middle-east-david-hollingworth-quilter-bank-of-england-b1303798.html",
-      "source_name": "The Standard (Evening Standard) — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T07:49:36Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Lloyds reported the biggest annual fall in UK house prices in three years, signaling a potential downturn in the housing market.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 79,
-      "triage_reason": "Lloyds reported the biggest annual fall in UK house prices in three years, signaling a potential downturn in the housing market.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lloyds",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-002",
-      "headline": "Nikkei index tumbles below 60,000 in 3rd largest drop on AI regulation worries",
-      "headline_en": null,
-      "url": "https://english.kyodonews.net/articles/-/90583",
-      "source_name": "Kyodo News (Japan Wire)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T09:10:00Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Significant market decline driven by regulatory concerns in the AI sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 78,
-      "triage_reason": "Significant market decline driven by regulatory concerns in the AI sector.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-028",
-      "headline": "Angel One Becomes India's Second-Largest Stockbroker By Active Clients, Adds 2.43 Lakh NSE Investors In October",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/press-release/angel-one-becomes-indias-second-largest-stockbroker-by-active-clients-adds-243-lakh-nse-investors-in-october",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T08:48:46Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Angel One added 2.43 lakh investors in October, becoming the second-largest broker in India by active clients.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 78,
-      "triage_reason": "Angel One added 2.43 lakh investors in October, becoming the second-largest broker in India by active clients.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Angel One",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
@@ -1761,175 +1937,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261107-003",
-      "headline": "Japan PM Takaichi Announces Emergency Cybersecurity Package",
+      "inbox_id": "INB-20261107-153",
+      "headline": "Vardhman Textiles Weaves A Strong Q2 FY27 Performance, Profit Soars 91% To ₹358.76 Crore As Revenue Crosses ₹2,865 Crore",
       "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-06/japan-pm-takaichi-announces-emergency-cybersecurity-package",
-      "source_name": "Bloomberg",
+      "url": "https://www.freepressjournal.in/business/vardhman-textiles-weaves-a-strong-q2-fy27-performance-profit-soars-91-to-35876-crore-as-revenue-crosses-2865-crore",
+      "source_name": "Free Press Journal",
       "input_nature": "news_headline",
-      "found_at": "2026-11-06T09:09:04Z",
+      "found_at": "2026-11-06T07:13:24Z",
       "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Government announcement of a major cybersecurity investment package.",
+      "prelim_note": "Vardhman Textiles reported a 91% profit increase to ₹358.76 crore with revenue exceeding ₹2,865 crore.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 77,
-      "triage_reason": "Government announcement of a major cybersecurity investment package.",
-      "region": "JP",
+      "triage_score": 83,
+      "triage_reason": "Vardhman Textiles reported a 91% profit increase to ₹358.76 crore with revenue exceeding ₹2,865 crore.",
+      "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 70,
       "rank_factors": {
         "materiality": 70,
         "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
         "recency": 1,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "policy",
+        "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
       },
       "event_types": [
-        "regulatory",
-        "macro_sector"
+        "earnings_revenue_margin"
       ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-008",
-      "headline": "BREAKING NEWS: Japan PM Takaichi orders review to revise cybersecurity law",
-      "headline_en": null,
-      "url": "https://english.kyodonews.net/articles/-/90631",
-      "source_name": "Kyodo News (Japan Wire)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T09:03:00Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Japan's PM ordered a review to revise cybersecurity laws, indicating potential regulatory shifts.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 77,
-      "triage_reason": "Japan's PM ordered a review to revise cybersecurity laws, indicating potential regulatory shifts.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vardhman Textiles",
+          "ticker": null,
+          "listing_country": "IN"
+        }
       ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-026",
-      "headline": "BREAKING NEWS: Japan unveils emergency cybersecurity package amid data breach concerns",
-      "headline_en": null,
-      "url": "https://english.kyodonews.net/articles/-/90627",
-      "source_name": "Kyodo News (Japan Wire)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T08:50:00Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Japan is implementing a new emergency cybersecurity package to address data breach risks.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 77,
-      "triage_reason": "Japan is implementing a new emergency cybersecurity package to address data breach risks.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "cybersecurity"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-033",
-      "headline": "Greece approves 10% tax on crypto gains and 15% levy on DeFi income",
-      "headline_en": null,
-      "url": "https://www.coindesk.com/policy/2026/11/06/greece-approves-10-tax-on-crypto-gains-and-15-levy-on-defi-income",
-      "source_name": "CoinDesk",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-06T08:47:42Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Greece introduced a 10% tax on crypto gains and 15% on DeFi income, impacting the local digital asset sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 77,
-      "triage_reason": "Greece introduced a 10% tax on crypto gains and 15% on DeFi income, impacting the local digital asset sector.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -224798,76 +224849,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-8acee086c6b4",
-      "idea_version": "IDEAV-f220f3725e8615c1",
-      "idea_version_started_at": "2026-11-05T15:35:08Z",
-      "ticker": "PZZA",
-      "company": "Papa John's",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is cutting its financial outlook for the second time due to persistent weakness in quarterly sales, signaling structural demand issues in the pizza segment.",
-      "why_now": "The guidance cut was announced today, November 5, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0c55882ba2bb"
-      ],
-      "primary_source_event_id": "EVT-0c55882ba2bb",
-      "source_headlines": [
-        "Papa John’s Cuts Outlook Again as Quarterly Sales Sink"
-      ],
-      "source_headline": "Papa John’s Cuts Outlook Again as Quarterly Sales Sink",
-      "source_url": "https://www.wsj.com/business/retail/papa-johns-cuts-outlook-again-as-quarterly-sales-sink-789ef18c?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-05T12:45:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-05T15:35:08Z",
-      "updated_at": "2026-11-05T15:35:08Z",
-      "decay_at": "2026-11-07T00:45:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-f5730c4d2977",
       "idea_version": "IDEAV-d4046ecb00a1432d",
       "idea_version_started_at": "2026-11-06T18:04:31Z",
@@ -226370,78 +226351,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-ffe38f57d5c6",
-      "idea_version": "IDEAV-1c86d051ed9df50f",
-      "idea_version_started_at": "2026-11-05T15:35:08Z",
-      "ticker": "TITAN",
-      "company": "Titan Company",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Titan reported strong Q2 results with net profit doubling and 24% growth in its core jewellery business, indicating significant market share gains and operational efficiency.",
-      "why_now": "The earnings report was released today, November 5, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0a68cd99d8b1"
-      ],
-      "primary_source_event_id": "EVT-0a68cd99d8b1",
-      "source_headlines": [
-        "Titan shines in Q2 Results 2026; Net profit doubles to ₹2,393 crore, aided by one-time gain; jewellery business up 24%"
-      ],
-      "source_headline": "Titan shines in Q2 Results 2026; Net profit doubles to ₹2,393 crore, aided by one-time gain; jewellery business up 24%",
-      "source_url": "https://www.livemint.com/market/stock-market-news/titan-shines-in-q2-results-2026-net-profit-doubles-to-rs-2-393-crore-aided-by-one-time-gain-jewellery-business-up-24-11793880484831.html",
-      "source_name": "Mint",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-05T12:48:39Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-05T15:35:08Z",
-      "updated_at": "2026-11-05T15:35:08Z",
-      "decay_at": "2026-11-07T00:48:39Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-537238bc1448",
       "idea_version": "IDEAV-17b1069d942ad2c2",
       "idea_version_started_at": "2026-11-05T11:07:34Z",
@@ -227072,6 +226981,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-8acee086c6b4",
+      "idea_version": "IDEAV-f220f3725e8615c1",
+      "idea_version_started_at": "2026-11-05T15:35:08Z",
+      "ticker": "PZZA",
+      "company": "Papa John's",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is cutting its financial outlook for the second time due to persistent weakness in quarterly sales, signaling structural demand issues in the pizza segment.",
+      "why_now": "The guidance cut was announced today, November 5, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0c55882ba2bb"
+      ],
+      "primary_source_event_id": "EVT-0c55882ba2bb",
+      "source_headlines": [
+        "Papa John’s Cuts Outlook Again as Quarterly Sales Sink"
+      ],
+      "source_headline": "Papa John’s Cuts Outlook Again as Quarterly Sales Sink",
+      "source_url": "https://www.wsj.com/business/retail/papa-johns-cuts-outlook-again-as-quarterly-sales-sink-789ef18c?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-05T12:45:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-05T15:35:08Z",
+      "updated_at": "2026-11-05T15:35:08Z",
+      "decay_at": "2026-11-07T00:45:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-479c3a6267f3",
       "idea_version": "IDEAV-5ac30ca513e455b9",
       "idea_version_started_at": "2026-11-05T12:54:05Z",
@@ -227490,6 +227469,78 @@
       "surfaced_at": "2026-11-04T10:56:26Z",
       "updated_at": "2026-11-04T10:56:26Z",
       "decay_at": "2026-11-05T20:41:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-ffe38f57d5c6",
+      "idea_version": "IDEAV-1c86d051ed9df50f",
+      "idea_version_started_at": "2026-11-05T15:35:08Z",
+      "ticker": "TITAN",
+      "company": "Titan Company",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Titan reported strong Q2 results with net profit doubling and 24% growth in its core jewellery business, indicating significant market share gains and operational efficiency.",
+      "why_now": "The earnings report was released today, November 5, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0a68cd99d8b1"
+      ],
+      "primary_source_event_id": "EVT-0a68cd99d8b1",
+      "source_headlines": [
+        "Titan shines in Q2 Results 2026; Net profit doubles to ₹2,393 crore, aided by one-time gain; jewellery business up 24%"
+      ],
+      "source_headline": "Titan shines in Q2 Results 2026; Net profit doubles to ₹2,393 crore, aided by one-time gain; jewellery business up 24%",
+      "source_url": "https://www.livemint.com/market/stock-market-news/titan-shines-in-q2-results-2026-net-profit-doubles-to-rs-2-393-crore-aided-by-one-time-gain-jewellery-business-up-24-11793880484831.html",
+      "source_name": "Mint",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-05T12:48:39Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-05T15:35:08Z",
+      "updated_at": "2026-11-05T15:35:08Z",
+      "decay_at": "2026-11-07T00:48:39Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -228799,19 +228850,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 533,
+    "total_count": 535,
     "shown_count": 500,
-    "hidden_count": 33,
+    "hidden_count": 35,
     "side_counts": {
       "long": {
-        "total_count": 273,
+        "total_count": 274,
         "shown_count": 250,
-        "hidden_count": 23
+        "hidden_count": 24
       },
       "short": {
-        "total_count": 260,
+        "total_count": 261,
         "shown_count": 250,
-        "hidden_count": 10
+        "hidden_count": 11
       }
     },
     "retention": {
@@ -228830,6 +228881,154 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-ffe38f57d5c6",
+        "idea_version": "IDEAV-1c86d051ed9df50f",
+        "idea_version_started_at": "2026-11-05T15:35:08Z",
+        "ticker": "TITAN",
+        "company": "Titan Company",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Titan reported strong Q2 results with net profit doubling and 24% growth in its core jewellery business, indicating significant market share gains and operational efficiency.",
+        "why_now": "The earnings report was released today, November 5, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-0a68cd99d8b1"
+        ],
+        "primary_source_event_id": "EVT-0a68cd99d8b1",
+        "source_headlines": [
+          "Titan shines in Q2 Results 2026; Net profit doubles to ₹2,393 crore, aided by one-time gain; jewellery business up 24%"
+        ],
+        "source_headline": "Titan shines in Q2 Results 2026; Net profit doubles to ₹2,393 crore, aided by one-time gain; jewellery business up 24%",
+        "source_url": "https://www.livemint.com/market/stock-market-news/titan-shines-in-q2-results-2026-net-profit-doubles-to-rs-2-393-crore-aided-by-one-time-gain-jewellery-business-up-24-11793880484831.html",
+        "source_name": "Mint",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-05T12:48:39Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-05T15:35:08Z",
+        "updated_at": "2026-11-05T15:35:08Z",
+        "decay_at": "2026-11-07T00:48:39Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-07T00:48:39Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-8acee086c6b4",
+        "idea_version": "IDEAV-f220f3725e8615c1",
+        "idea_version_started_at": "2026-11-05T15:35:08Z",
+        "ticker": "PZZA",
+        "company": "Papa John's",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company is cutting its financial outlook for the second time due to persistent weakness in quarterly sales, signaling structural demand issues in the pizza segment.",
+        "why_now": "The guidance cut was announced today, November 5, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 65,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-0c55882ba2bb"
+        ],
+        "primary_source_event_id": "EVT-0c55882ba2bb",
+        "source_headlines": [
+          "Papa John’s Cuts Outlook Again as Quarterly Sales Sink"
+        ],
+        "source_headline": "Papa John’s Cuts Outlook Again as Quarterly Sales Sink",
+        "source_url": "https://www.wsj.com/business/retail/papa-johns-cuts-outlook-again-as-quarterly-sales-sink-789ef18c?mod=pls_whats_news_us_business_f",
+        "source_name": "The Wall Street Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-05T12:45:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-05T15:35:08Z",
+        "updated_at": "2026-11-05T15:35:08Z",
+        "decay_at": "2026-11-07T00:45:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-07T00:45:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-3bcb0bb1186b",
         "idea_version": "IDEAV-2948eade7ec446f1",
@@ -257878,81 +258077,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-ae8e36d86cde",
-        "idea_version": "IDEAV-d2714929c5274672",
-        "idea_version_started_at": "2026-10-22T23:50:30Z",
-        "ticker": "8285",
-        "company": "Sling Group",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The announcement of a possible mandatory unconditional cash offer and the resumption of trading typically provides a floor for the stock price near the offer level.",
-        "why_now": "Trading is set to resume following the joint announcement of the sale and purchase agreements on October 22, 2026.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-5c15334cecba"
-        ],
-        "primary_source_event_id": "EVT-5c15334cecba",
-        "source_headlines": [
-          "SLING GROUP (08285): JOINT ANNOUNCEMENT (1) SALE AND PURCHASE AGREEMENTS; (2) POSSIBLE MANDATORY UNCONDITIONAL CASH OFFER BY SANFULL SECURITIES LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR AND/OR PARTIES ACTING IN CONCERT WITH IT); (3) APPOINTMENT OF INDEPENDENT FINANCIAL ADVISER; AND (4) RESUMPTION OF TRADING"
-        ],
-        "source_headline": "SLING GROUP (08285): JOINT ANNOUNCEMENT (1) SALE AND PURCHASE AGREEMENTS; (2) POSSIBLE MANDATORY UNCONDITIONAL CASH OFFER BY SANFULL SECURITIES LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR AND/OR PARTIES ACTING IN CONCERT WITH IT); (3) APPOINTMENT OF INDEPENDENT FINANCIAL ADVISER; AND (4) RESUMPTION OF TRADING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1022/2026102201418.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-22T13:17:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-22T23:50:30Z",
-        "updated_at": "2026-10-22T23:50:30Z",
-        "decay_at": "2026-10-24T01:17:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-25T13:18:52Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-183dfdd7894e",
         "idea_version": "IDEAV-e6b40535ee7c900a",
         "idea_version_started_at": "2026-10-22T23:50:30Z",
@@ -266010,86 +266134,12 @@
         "archived_at": "2026-10-12T11:48:24Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-c67e8a0a9181",
-        "idea_version": "IDEAV-a54ce213521254f1",
-        "idea_version_started_at": "2026-10-10T00:19:59Z",
-        "ticker": "00179",
-        "company": "Johnson Electric Holdings",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company issued a profit warning, signaling deteriorating margins or demand headwinds that will likely lead to downward earnings revisions.",
-        "why_now": "The profit warning was filed on 2026-10-09, making this a live catalyst for immediate repricing.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-cde7390361fd"
-        ],
-        "primary_source_event_id": "EVT-cde7390361fd",
-        "source_headlines": [
-          "JOHNSON ELEC H (00179): Profit Warning"
-        ],
-        "source_headline": "JOHNSON ELEC H (00179): Profit Warning",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1009/2026100900757.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-09T10:16:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-09T13:03:03Z",
-        "updated_at": "2026-10-10T00:19:59Z",
-        "decay_at": "2026-10-10T22:16:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-12T10:33:51Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2231,
-    "live_count": 39,
+    "live_count": 37,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -266108,9 +266158,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 39229,
-    "news_picked_today": 99,
-    "news_dropped_today": 405
+    "news_seen_today": 44483,
+    "news_picked_today": 167,
+    "news_dropped_today": 529
   },
   "book_momentum": {
     "live_count": 8,
