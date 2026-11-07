@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-07T14:06:21Z",
+  "generated_at": "2026-11-07T14:15:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20261107-696",
@@ -1897,6 +1897,57 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261107-706",
+      "headline": "Mukka Proteins Limited: Mukka Proteins Limited has informed the Exchange regarding a press release dated November 07, 2026, titled \"Mukka Proteins Reports Strong Q2 FY27 PerformanceOman Facility Commences Commercial ProductionU.S. FDA Facility Registration Strengthens Market AccessUSDA NOP Inputs Attestation for Eco Sphere Organic Fertilizer.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/MUKKA_07112026193633_Intimation_of_Press_Release.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-07T14:06:46Z",
+      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
+      "prelim_note": "Mukka Proteins reported strong Q2 FY27 results and announced the commencement of commercial production at its Oman facility alongside new US FDA registration.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Mukka Proteins reported strong Q2 FY27 results and announced the commencement of commercial production at its Oman facility alongside new US FDA registration.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capex",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mukka Proteins Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261107-685",
       "headline": "Tata Steel Q2 profit rises 16%, beats estimates on strong India volumes, record auto performance",
       "headline_en": null,
@@ -1941,55 +1992,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261107-654",
-      "headline": "Sigma Advanced Systems Powers Ahead With Strong Q2 FY27 Earnings, Profit Jumps 37% To ₹48.60 Crore As ₹3,915 Crore Defence Orders Strengthen Growth Prospects",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/sigma-advanced-systems-powers-ahead-with-strong-q2-fy27-earnings-profit-jumps-37-to-4860-crore-as-3915-crore-defence-orders-strengthen-growth-prospects",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-07T04:31:55Z",
-      "sweep_file": "screener/inbox/2026-11-07_sweep.json",
-      "prelim_note": "Sigma Advanced Systems reported a 37% profit jump to ₹48.60 crore and highlighted a strong order book of ₹3,915 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Sigma Advanced Systems reported a 37% profit jump to ₹48.60 crore and highlighted a strong order book of ₹3,915 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sigma Advanced Systems",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -265728,9 +265730,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 263466,
-    "news_picked_today": 1564,
-    "news_dropped_today": 9061
+    "news_seen_today": 263576,
+    "news_picked_today": 1575,
+    "news_dropped_today": 9160
   },
   "book_momentum": {
     "live_count": 8,
