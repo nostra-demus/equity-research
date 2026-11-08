@@ -1,0 +1,227 @@
+{
+  "schema_version": "1.0",
+  "ticker": "V",
+  "original_decision_date": "2026-09-23",
+  "review_date": "2026-11-08",
+  "review_window": "30d",
+  "original_decision": "Watchlist",
+  "basket": "Watchlist",
+  "entry_price": 364.15,
+  "tracking_price": null,
+  "review_price": 422.65,
+  "absolute_return_pct": 16.064808,
+  "benchmark_return_pct": null,
+  "sector_return_pct": null,
+  "benchmark_relative_return_pct": null,
+  "sector_relative_return_pct": null,
+  "thesis_status": "at-risk",
+  "forecast_results": [
+    {
+      "prediction": "Visa's FQ4 FY2026 standalone GAAP net revenue is at least $12.09664bn.",
+      "status": "confirmed",
+      "evidence": "Standalone FQ4 net revenue was $12,139m, exceeding $12,096.64m by $42.36m (+0.3502%). Release date 27 October is inside the frozen 20 October-15 November forecast window, although after the scheduled 30-day review date. [Web: Visa FQ4 FY2026 earnings release, SEC Exhibit 99.1, 2026-10-27, Income Statement Summary; Consolidated Statements of Operations; retrieved 2026-11-08; indicative/unverified pending pool ingestion] https://www.sec.gov/Archives/edgar/data/1403161/000140316126000126/q42026earningsrelease.htm",
+      "as_of": "2026-11-08",
+      "forecast_id": "FC-V-FQ4FY26-REVENUE",
+      "original_forecast_index": 0
+    },
+    {
+      "prediction": "Visa's FQ4 FY2026 GAAP-derived EBITDA margin is at least 60.3%.",
+      "status": "confirmed",
+      "evidence": "Standalone FQ4 GAAP-derived EBITDA = revenue $12,139m - operating expense $4,877m + D&A $377m = $7,639m; margin $7,639m / $12,139m = 62.9294%, above the 60.3% threshold by about 263bp. This is GAAP EBIT plus D&A, not company-adjusted EBITDA. [Web: Visa FQ4 FY2026 earnings release, SEC Exhibit 99.1, 2026-10-27, Income Statement Summary; Consolidated Statements of Operations; retrieved 2026-11-08; indicative/unverified pending pool ingestion] https://www.sec.gov/Archives/edgar/data/1403161/000140316126000126/q42026earningsrelease.htm",
+      "as_of": "2026-11-08",
+      "forecast_id": "FC-V-FQ4FY26-EBITDA-MARGIN",
+      "original_forecast_index": 1
+    }
+  ],
+  "catalyst_results": [
+    {
+      "catalyst": "FQ4/FY2026 earnings release",
+      "status": "materialized",
+      "evidence": "Released 27 October; both pinned operating thresholds cleared. [Web: Visa FQ4 FY2026 earnings release, SEC Exhibit 99.1, 2026-10-27, Income Statement Summary; Consolidated Statements of Operations; retrieved 2026-11-08; indicative/unverified pending pool ingestion] https://www.sec.gov/Archives/edgar/data/1403161/000140316126000126/q42026earningsrelease.htm",
+      "as_of": "2026-11-08"
+    }
+  ],
+  "risk_results": [
+    {
+      "risk": "Visa earns the bull-case $36.720bn of NTM vendor EBITDA and the market pays 22.34x, producing $425.88 per share and making the no-position call too cautious.",
+      "status": "pending",
+      "evidence": "The bounded review does not resolve this complete risk. No absence-of-disclosure inference or legal clearance is made. [Frozen decision_record.json, 2026-09-23, killer_risk]",
+      "as_of": "2026-11-08"
+    },
+    {
+      "risk_id": "RF-01",
+      "risk": "The initial 18.9% FQ4 growth comparison used Q3 FY2025 revenue. The audited matched FQ4 FY2025 revenue is $10.724bn, making the $12.09664bn bar 12.8%; the high-bar conclusion is rejected.",
+      "severity": "High",
+      "source_module": "earnings",
+      "original_source": "",
+      "status": "pending",
+      "evidence": "Retain the original severity and qualifiers. This review does not independently resolve the flag. [Frozen decision_record.json, 2026-09-23, red_flags]",
+      "as_of": "2026-11-08"
+    },
+    {
+      "risk_id": "RF-02",
+      "risk": "Q3 client incentives grew 18%, faster than 14% net-revenue growth, and management expects slightly faster incentive growth plus deferred marketing spend in FQ4.",
+      "severity": "High",
+      "source_module": "earnings",
+      "original_source": "",
+      "status": "pending",
+      "evidence": "Retain the original severity and qualifiers. This review does not independently resolve the flag. [Frozen decision_record.json, 2026-09-23, red_flags]",
+      "as_of": "2026-11-08"
+    },
+    {
+      "risk_id": "RF-DISC-002",
+      "risk": "Litigation provisions excluded from non-GAAP results recurred at $906m, $434m, and $2.533bn in FY2023–FY2025; FY2025 adjusted net income was $2.484bn, or 12.4%, above GAAP net income.",
+      "severity": "High",
+      "source_module": "management-governance",
+      "original_source": "",
+      "status": "pending",
+      "evidence": "Retain the original severity and qualifiers. This review does not independently resolve the flag. [Frozen decision_record.json, 2026-09-23, red_flags]",
+      "as_of": "2026-11-08"
+    },
+    {
+      "risk_id": "RF-AUD-007",
+      "risk": "A 2019 SEC order and $50m penalty concerned KPMG, not Visa or a named Visa engagement partner; current audit and ICFR opinions are unqualified.",
+      "severity": "High",
+      "source_module": "management-governance",
+      "original_source": "",
+      "status": "pending",
+      "evidence": "Retain the original severity and qualifiers. This review does not independently resolve the flag. [Frozen decision_record.json, 2026-09-23, red_flags]",
+      "as_of": "2026-11-08"
+    },
+    {
+      "risk_id": "RF-FIN-003",
+      "risk": "Recognized litigation plus estimated gross unrecognized tax benefits total $3.005bn, equal to 8.5% of June 2026 equity, while possible-loss tails remain partly unquantified.",
+      "severity": "High",
+      "source_module": "management-governance",
+      "original_source": "",
+      "status": "pending",
+      "evidence": "Retain the original severity and qualifiers. This review does not independently resolve the flag. [Frozen decision_record.json, 2026-09-23, red_flags]",
+      "as_of": "2026-11-08"
+    },
+    {
+      "risk_id": "RF-REG-001",
+      "risk": "The DOJ debit-network action and European Commission fee inquiry are open and disclosed; timing and the economic remedy range are unquantified.",
+      "severity": "High",
+      "source_module": "management-governance",
+      "original_source": "",
+      "status": "pending",
+      "evidence": "Retain the original severity and qualifiers. This review does not independently resolve the flag. [Frozen decision_record.json, 2026-09-23, red_flags]",
+      "as_of": "2026-11-08"
+    },
+    {
+      "risk_id": "FORENSIC-MOSAIC-RF-EQ-001-RF-OBS-001-RF-DISC-002",
+      "risk": "RF-EQ-001 recent accrual/cash divergence, RF-OBS-001 contingent-liability uncertainty, and RF-DISC-002 recurring adjusted exclusions fire across earnings, balance-sheet-survival, and governance. The components retain their qualifiers: annual cash conversion remains sound, contingent exposure is partly recognized, and no fraud or misstatement is proven.",
+      "severity": "High",
+      "source_module": "cross-module",
+      "original_source": "",
+      "status": "pending",
+      "evidence": "Retain the original severity and qualifiers. This review does not independently resolve the flag. [Frozen decision_record.json, 2026-09-23, red_flags]",
+      "as_of": "2026-11-08"
+    }
+  ],
+  "decision_quality": "not assessable",
+  "error_taxonomy": [],
+  "lessons": [
+    "This is a late review filed on 8 November, not a reconstructed review at the scheduled due date. Outcomes use only sources available by this review; do not compare it to exact 30/90-day forecasts without aligning horizons.",
+    "Absolute return is the underlying share-price change from the frozen anchor, excludes dividends, trading costs and execution lags, and is not a feasible portfolio return. Watchlist names had no paper entry. A positive underlying change is adverse to a simple short; option returns cannot be inferred.",
+    "No source-bound market feed was present in the review worktree. The primary source checkout contained no located post-decision result document in the inspected ticker pool inventories. Public outcomes are review evidence only and do not alter any frozen extraction generation.",
+    "Matched-window benchmark and sector total-return endpoints were not verified. Public searches found index levels, but not all exact anchor endpoints on a consistent total-return basis. Benchmark/sector fields remain null; no alpha, directional skill or annual-return claim is made.",
+    "The original decision, thesis, memo, model and all earlier reviews remain untouched. No paid provider, analytical run, production mutation, trade or memory activation was performed.",
+    "[Web: V New York Stock Exchange USD closing-price page, 2026-11-06, completed regular session; historical row where available; retrieved 2026-11-08; indicative/unverified pending pool ingestion] https://investor.visa.com/stock-information/quote-chart/default.aspx?LanguageId=1",
+    "The frozen record already discloses its stale 17 August price anchor and provisional evidence status. Those known limitations prevent attributing the entire subsequent anchor-to-price change to the 23 September decision. The latest pre-mortem recommends 37, while the frozen post-review confidence is 42; preserve and surface the discrepancy rather than silently rewriting either."
+  ],
+  "module_calibration_notes": {
+    "information_partition": "Original-process observations below rely only on frozen records or prior reviews. Post-decision results are outcome evidence, not should-have-known information.",
+    "process_observation": "The frozen record already discloses its stale 17 August price anchor and provisional evidence status. Those known limitations prevent attributing the entire subsequent anchor-to-price change to the 23 September decision. The latest pre-mortem recommends 37, while the frozen post-review confidence is 42; preserve and surface the discrepancy rather than silently rewriting either.",
+    "outcome_observation": "Both pinned FQ4 operating thresholds cleared, weakening the specific margin-and-revenue caution behind the no-position stance. That is a false-negative risk signal, not a new Buy rating: the original price anchor was stale, the record remains provisional, and current valuation, legal risks and benchmark-relative performance have not been re-underwritten. The late review uses information unavailable at its scheduled 23 October checkpoint.",
+    "calibration": "No confidence haircut, module promotion or skill conclusion is inferred from this small, selected, partly provisional cohort."
+  },
+  "action_now": {
+    "label": "Keep watching",
+    "reason": "Keep the call under review; no positive new evidence and refreshed valuation/risk assessment together justify adding exposure. Both pinned FQ4 operating thresholds cleared, weakening the specific margin-and-revenue caution behind the no-position stance. That is a false-negative risk signal, not a new Buy rating: the original price anchor was stale, the record remains provisional, and current valuation, legal risks and benchmark-relative performance have not been re-underwritten. The late review uses information unavailable at its scheduled 23 October checkpoint."
+  },
+  "confidence_update": {
+    "before": 42.0,
+    "after": null,
+    "change_reason": "Current conviction is not quantifiable from this bounded, incomplete review; do not carry forward the old score as newly validated."
+  },
+  "next_check": {
+    "date": null,
+    "label": "Refresh price and valuation on the named Visa Class A NYSE USD line before discussing entry.",
+    "trigger": "Resolve the provisional verification findings and the pre-mortem confidence discrepancy without rewriting the frozen record."
+  },
+  "learning": {
+    "why_right_or_wrong": "Both pinned FQ4 operating thresholds cleared, weakening the specific margin-and-revenue caution behind the no-position stance. That is a false-negative risk signal, not a new Buy rating: the original price anchor was stale, the record remains provisional, and current valuation, legal risks and benchmark-relative performance have not been re-underwritten. The late review uses information unavailable at its scheduled 23 October checkpoint. Price direction is not a benchmark-adjusted thesis verdict.",
+    "error_source": "",
+    "rule_for_future": "Preserve metric basis, literal triggers and first usable disclosure time; ambiguous or unavailable outcomes remain unscored.",
+    "future_research_check": "Refresh price and valuation on the named Visa Class A NYSE USD line before discussing entry."
+  },
+  "memo_delta": {
+    "summary": "Both pinned FQ4 operating thresholds cleared, weakening the specific margin-and-revenue caution behind the no-position stance. That is a false-negative risk signal, not a new Buy rating: the original price anchor was stale, the record remains provisional, and current valuation, legal risks and benchmark-relative performance have not been re-underwritten. The late review uses information unavailable at its scheduled 23 October checkpoint.",
+    "thesis_delta_verdict": "weakened",
+    "stage_one_comment": "The original Watchlist call is unchanged as a historical record. Both pinned FQ4 operating thresholds cleared, weakening the specific margin-and-revenue caution behind the no-position stance. That is a false-negative risk signal, not a new Buy rating: the original price anchor was stale, the record remains provisional, and current valuation, legal risks and benchmark-relative performance have not been re-underwritten. The late review uses information unavailable at its scheduled 23 October checkpoint. This review was filed on 8 November 2026; the observed share-price endpoint is 6 November. The frozen price anchor and its own date remain visible, so the anchor-to-endpoint move is not presented as a decision-date or fixed-horizon portfolio return. Benchmark and sector total returns were not verified on the same window; no relative skill conclusion is available. Keep watching and obtain the named missing evidence before changing exposure. All new facts are dated public outcome evidence; the original files and evidence generations remain immutable. No forecast deadline is moved to fit the result.",
+    "changed_sections": [
+      {
+        "section": "Catalysts",
+        "original_claim": "The pinned FQ4 net-revenue test is $12.09664bn.",
+        "new_evidence": "Standalone FQ4 net revenue of $12.139bn exceeded the pinned bar by $0.04236bn, or 0.3502%.",
+        "evidence_source": "[Web: Visa FQ4 FY2026 earnings release, SEC Exhibit 99.1, 2026-10-27, Income Statement Summary; Consolidated Statements of Operations; retrieved 2026-11-08; indicative/unverified pending pool ingestion] https://www.sec.gov/Archives/edgar/data/1403161/000140316126000126/q42026earningsrelease.htm",
+        "materiality_score": 80,
+        "impact_direction": "mixed",
+        "impacted_modules": [
+          "earnings",
+          "catalyst"
+        ],
+        "rerun_recommended": false,
+        "rerun_reason": "",
+        "rerun_command": ""
+      },
+      {
+        "section": "Why It Could Fail — Bear Case & the Killer Risk",
+        "original_claim": "Weak margins support the monitor-only stance.",
+        "new_evidence": "Standalone FQ4 GAAP-derived EBITDA is $12,139m - $4,877m + $377m = $7,639m, a 62.9294% margin versus the 60.3% test. This weakens that operating caution without establishing current fair value.",
+        "evidence_source": "[Web: Visa FQ4 FY2026 earnings release, SEC Exhibit 99.1, 2026-10-27, Income Statement Summary; Consolidated Statements of Operations; retrieved 2026-11-08; indicative/unverified pending pool ingestion] https://www.sec.gov/Archives/edgar/data/1403161/000140316126000126/q42026earningsrelease.htm",
+        "materiality_score": 85,
+        "impact_direction": "mixed",
+        "impacted_modules": [
+          "earnings",
+          "valuation"
+        ],
+        "rerun_recommended": true,
+        "rerun_reason": "Reassess the named assumption using the new disclosure in a new authorized evidence snapshot.",
+        "rerun_command": "/research:earnings V"
+      }
+    ],
+    "watch_items": [
+      "Refresh price and valuation on the named Visa Class A NYSE USD line before discussing entry.",
+      "Resolve the provisional verification findings and the pre-mortem confidence discrepancy without rewriting the frozen record.",
+      "Reassess cash conversion and the legal-risk bar using the annual filing.",
+      "Preserve scheduled-checkpoint versus late-review information timestamps."
+    ],
+    "management_questions": [
+      "How much of the FQ4 margin recovery is repeatable?",
+      "How do client incentives and marketing affect FY2027 operating leverage?",
+      "What has changed in the remedy range for the open regulatory matters?"
+    ],
+    "memo_delta_file": "analyses/V_2026-09-23/reviews/2026-11-08_30d_memo_delta.md"
+  },
+  "pre_mortem_check": {
+    "pre_mortem_file": "analyses/V_2026-09-23/pre_mortem_v2.json",
+    "pre_mortem_verdict": "Survives with haircut",
+    "pre_mortem_confidence_haircut": 5.0,
+    "outcome_vs_verdict": "contradicted",
+    "notes": "False comfort under the framework mapping: the latest Survives with haircut report accompanies an at-risk no-position thesis, as both operating thresholds cleared. The full NTM EBITDA/multiple conjunction has not resolved; do not call a missed benchmark-adjusted opportunity proven."
+  },
+  "review_observation": {
+    "scheduled_due_date": "2026-10-23",
+    "days_after_decision": 46,
+    "price_as_of": "2026-11-06",
+    "price_currency": "USD",
+    "price_source": "[Web: V New York Stock Exchange USD closing-price page, 2026-11-06, completed regular session; historical row where available; retrieved 2026-11-08; indicative/unverified pending pool ingestion] https://investor.visa.com/stock-information/quote-chart/default.aspx?LanguageId=1",
+    "price_anchor_as_of": "2026-08-17",
+    "return_basis": "Underlying close-price change from the frozen anchor; dividends/costs excluded; no benchmark-relative inference.",
+    "dependency_cluster": "V",
+    "retrospective_review": true,
+    "provisional_original": true
+  }
+}
