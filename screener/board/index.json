@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-08T08:50:50Z",
+  "generated_at": "2026-11-08T09:03:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20261108-164",
@@ -1279,6 +1279,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261108-176",
+      "headline": "Potentia lays groundwork to exit $550m buyout of Nitro amid AI threat",
+      "headline_en": null,
+      "url": "https://www.afr.com/technology/potentia-lays-groundwork-to-exit-550m-buyout-of-nitro-amid-ai-threat-20261108-p61c0n?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T09:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "Potentia is looking to exit its $550m buyout of Nitro Software due to competitive threats.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Potentia is looking to exit its $550m buyout of Nitro Software due to competitive threats.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nitro Software",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261108-172",
       "headline": "Multi Business Group records 687% jump in 9M-26 net profit",
       "headline_en": null,
@@ -1891,55 +1940,6 @@
           "name": "Time",
           "ticker": null,
           "listing_country": "SA"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-134",
-      "headline": "‎Leen Alkhair breaks ground on agricultural products processing, marketing factory in Riyadh",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1951383",
-      "source_name": "Argaam — Company Disclosures (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T10:31:00Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "Leen Alkhair has broken ground on a new agricultural processing factory in Riyadh, representing a tangible capital investment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Leen Alkhair has broken ground on a new agricultural processing factory in Riyadh, representing a tangible capital investment.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Leen Alkhair",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
