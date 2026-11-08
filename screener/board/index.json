@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-08T09:38:57Z",
+  "generated_at": "2026-11-08T09:48:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20261108-164",
@@ -100,6 +100,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-202",
+      "headline": "Saudi Aramco building in Riyadh struck; US imposes Iran blockade",
+      "headline_en": null,
+      "url": "https://www.newarab.com/news/saudi-aramco-building-riyadh-struck-us-imposes-iran-blockade",
+      "source_name": "The New Arab",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T09:31:01Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "A strike on Saudi Aramco facilities combined with a US-imposed blockade on Iran signals a major escalation in regional conflict and energy supply risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A strike on Saudi Aramco facilities combined with a US-imposed blockade on Iran signals a major escalation in regional conflict and energy supply risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saudi Aramco",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1901,56 +1950,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-091",
-      "headline": "Bridgestone revs up output of massive mining tires on AI-driven demand",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/automobiles/bridgestone-revs-up-output-of-massive-mining-tires-on-ai-driven-demand",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T05:07:32Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "Bridgestone is increasing production capacity for mining tires to meet rising demand, signaling growth in a key industrial segment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Bridgestone is increasing production capacity for mining tires to meet rising demand, signaling growth in a key industrial segment.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bridgestone",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -230326,77 +230325,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-be33721eeb33",
-      "idea_version": "IDEAV-0850ca6888da3a39",
-      "idea_version_started_at": "2026-11-05T13:42:59Z",
-      "ticker": "AMKBY",
-      "company": "A.P. Møller - Mærsk A/S",
-      "exchange": "OTC Markets",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Disappointing earnings and guidance suggest that the recent tailwinds in global container shipping rates are fading faster than anticipated, pressuring margins.",
-      "why_now": "The earnings release and guidance downgrade occurred on November 5, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "sector_cycle",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c11893d946ff"
-      ],
-      "primary_source_event_id": "EVT-c11893d946ff",
-      "source_headlines": [
-        "Maersk Shares Tumble After Earnings, Guidance Disappoint"
-      ],
-      "source_headline": "Maersk Shares Tumble After Earnings, Guidance Disappoint",
-      "source_url": "https://www.wsj.com/business/logistics/maersk-raises-guidance-again-on-higher-freight-rates-and-resilient-demand-12a571b0?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-05T09:41:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-05T13:42:59Z",
-      "updated_at": "2026-11-05T13:42:59Z",
-      "decay_at": "2026-11-06T21:41:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-a025b73a32d6",
       "idea_version": "IDEAV-0bfca11f175bef47",
       "idea_version_started_at": "2026-11-08T00:14:07Z",
@@ -232335,77 +232263,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-c2db97ac8f36",
-      "idea_version": "IDEAV-2f613abcdc9f307e",
-      "idea_version_started_at": "2026-11-05T13:42:59Z",
-      "ticker": "PETRONET",
-      "company": "Petronet LNG Limited",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company faces a Rs. 625 crore claim related to idle LNG ships, which will likely impact short-term cash flow and increase legal uncertainty.",
-      "why_now": "The disclosure of the claim and ongoing negotiations was filed on November 5, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ccc17ed4ac5a"
-      ],
-      "primary_source_event_id": "EVT-ccc17ed4ac5a",
-      "source_headlines": [
-        "Petronet LNG Limited: Petronet LNG Limited has informed the Exchange regarding a press release dated November 03, 2026, titled \"Petronet LNG seeks early recovery of Qatar cargoes.Petronet hit with Rs. 625 cr claim over idle Qatar LNG shipsPetronet in talk with Qatar for delivery of delayed LNG cargoes\"."
-      ],
-      "source_headline": "Petronet LNG Limited: Petronet LNG Limited has informed the Exchange regarding a press release dated November 03, 2026, titled \"Petronet LNG seeks early recovery of Qatar cargoes.Petronet hit with Rs. 625 cr claim over idle Qatar LNG shipsPetronet in talk with Qatar for delivery of delayed LNG cargoes\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/PETRONET_05112026151036_pressrelease03112026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-05T09:41:54Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-05T13:42:59Z",
-      "updated_at": "2026-11-05T13:42:59Z",
-      "decay_at": "2026-11-06T21:41:54Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-bd666baba5fc",
       "idea_version": "IDEAV-fe610c94607885a1",
       "idea_version_started_at": "2026-11-07T11:59:19Z",
@@ -232633,9 +232490,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 554,
+    "total_count": 552,
     "shown_count": 499,
-    "hidden_count": 55,
+    "hidden_count": 53,
     "side_counts": {
       "long": {
         "total_count": 280,
@@ -232643,23 +232500,23 @@
         "hidden_count": 30
       },
       "short": {
-        "total_count": 275,
+        "total_count": 273,
         "shown_count": 250,
-        "hidden_count": 25
+        "hidden_count": 23
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1685,
-      "oldest_retained_at": "2026-10-10T19:57:57Z",
+      "evicted_count": 1687,
+      "oldest_retained_at": "2026-10-10T21:45:05Z",
       "side_counts": {
         "long": {
           "evicted_count": 1116,
           "oldest_retained_at": "2026-10-23T17:33:31Z"
         },
         "short": {
-          "evicted_count": 570,
-          "oldest_retained_at": "2026-10-10T19:57:57Z"
+          "evicted_count": 572,
+          "oldest_retained_at": "2026-10-10T21:45:05Z"
         }
       }
     },
@@ -236589,8 +236446,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-06T21:41:54Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-08T09:48:39Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -236663,8 +236520,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-06T21:41:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-08T09:48:39Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -269835,9 +269692,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1185,
-    "news_picked_today": 275,
-    "news_dropped_today": 910
+    "news_seen_today": 1204,
+    "news_picked_today": 279,
+    "news_dropped_today": 925
   },
   "book_momentum": {
     "live_count": 8,
