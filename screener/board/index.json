@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-11-08T05:29:30Z",
+  "generated_at": "2026-11-08T05:33:23Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261108-114",
+      "headline": "David Jones’ unpaid bills rise to $100m as prospective owners circle",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/retail/david-jones-unpaid-bills-rise-to-100m-as-prospective-owners-circle-20261108-p61ccx?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T05:30:00Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "David Jones faces rising unpaid bills of $100m, indicating significant financial distress while the company is subject to potential ownership changes.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "David Jones faces rising unpaid bills of $100m, indicating significant financial distress while the company is subject to potential ownership changes.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress",
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "David Jones",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261108-097",
       "headline": "Adani Enterprises plans Rs 35,000-40,000 crore annual capex in next two years",
@@ -493,31 +543,31 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261108-106",
+      "inbox_id": "INB-20261108-113",
       "headline": "Neogen Chemicals Limited: Neogen Chemicals Limited has informed the Exchange about Update on Fire Incident - Order for Revocation of earlier Directions issued by GPCB and granting of CC&A Amendment by GPCB.",
       "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/NEOGEN_08112026105520_GPCBorder.pdf",
+      "url": "https://nsearchives.nseindia.com/corporate/NEOGEN_08112026105638_GPCBorder.pdf",
       "source_name": "BSE / NSE Exchange Filing",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-11-08T05:25:29Z",
+      "found_at": "2026-11-08T05:26:46Z",
       "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "Company received regulatory approval to resume operations following a fire incident.",
+      "prelim_note": "Neogen Chemicals received a revocation of previous GPCB directions and a CC&A amendment, allowing for the resumption of operations following a fire incident.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 92,
-      "triage_reason": "Company received regulatory approval to resume operations following a fire incident.",
+      "triage_reason": "Neogen Chemicals received a revocation of previous GPCB directions and a CC&A amendment, allowing for the resumption of operations following a fire incident.",
       "region": "IN",
       "relevance": "material",
-      "materiality_pre_score": 60,
+      "materiality_pre_score": 65,
       "rank_factors": {
-        "materiality": 60,
+        "materiality": 65,
         "source_tier": 8,
         "scope": 6,
         "event": 4,
         "size": -1,
         "recency": 5,
-        "materiality_label_floor": 10,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -526,7 +576,8 @@
         "size_bucket": "small"
       },
       "event_types": [
-        "regulatory"
+        "regulatory",
+        "operations"
       ],
       "issuer_linkage": "primary",
       "companies": [
@@ -1858,49 +1909,6 @@
       "event_types": [
         "regulatory",
         "commercial"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-007",
-      "headline": "Maharashtra FDA Declares Wellness Capsules Spurious After Detecting Undisclosed Erectile Dysfunction Drug",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/mumbai/maharashtra-fda-declares-wellness-capsules-spurious-after-detecting-undisclosed-erectile-dysfunction-drug",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-07T23:40:55Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "The Maharashtra FDA has identified spurious wellness capsules containing undisclosed drugs, posing a regulatory risk to the local pharmaceutical sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "The Maharashtra FDA has identified spurious wellness capsules containing undisclosed drugs, posing a regulatory risk to the local pharmaceutical sector.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
       ],
       "issuer_linkage": "sector",
       "companies": [],
@@ -269146,9 +269154,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 566,
-    "news_picked_today": 130,
-    "news_dropped_today": 436
+    "news_seen_today": 575,
+    "news_picked_today": 132,
+    "news_dropped_today": 443
   },
   "book_momentum": {
     "live_count": 8,
