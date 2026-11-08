@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-08T09:23:18Z",
+  "generated_at": "2026-11-08T09:29:21Z",
   "inbox": [
     {
       "inbox_id": "INB-20261108-164",
@@ -105,31 +105,31 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261108-188",
-      "headline": "Attempted attack on Saudi Aramco building in Riyadh causes minor damage, no casualties",
+      "inbox_id": "INB-20261108-198",
+      "headline": "Saudi Aramco building in Riyadh targeted in attempted attack, minor damage reported",
       "headline_en": null,
-      "url": "https://www.gulf-times.com/article/737743/region/attempted-attack-on-saudi-aramco-building-in-riyadh-causes-minor-damage-no-casualties",
-      "source_name": "Gulf Times — Region",
+      "url": "https://www.arabianbusiness.com/business/energy/saudi-aramco-building-in-riyadh-targeted-in-attempted-attack-minor-damage-reported",
+      "source_name": "Arabian Business",
       "input_nature": "news_headline",
-      "found_at": "2026-11-08T09:06:00Z",
+      "found_at": "2026-11-08T09:23:02Z",
       "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "An attempted attack on a Saudi Aramco building in Riyadh poses a direct security risk to critical infrastructure.",
+      "prelim_note": "An attempted attack on a major energy facility like Saudi Aramco represents a significant geopolitical and operational risk.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "An attempted attack on a Saudi Aramco building in Riyadh poses a direct security risk to critical infrastructure.",
+      "triage_reason": "An attempted attack on a major energy facility like Saudi Aramco represents a significant geopolitical and operational risk.",
       "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 80,
+      "materiality_pre_score": 85,
       "rank_factors": {
-        "materiality": 80,
+        "materiality": 85,
         "source_tier": 0,
         "scope": 6,
         "event": 2,
         "size": 2,
         "recency": 5,
-        "materiality_label_floor": 5,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -1283,6 +1283,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261108-195",
+      "headline": "Zee Learn Limited: Zee Learn Limited has informed the Exchange about change in Management",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/corpaffairs_08112026145115_Upload.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-08T09:22:45Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "Zee Learn Limited has announced a change in management, which is a material corporate governance event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Zee Learn Limited has announced a change in management, which is a material corporate governance event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "management",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Zee Learn Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261108-113",
       "headline": "Neogen Chemicals Limited: Neogen Chemicals Limited has informed the Exchange about Update on Fire Incident - Order for Revocation of earlier Directions issued by GPCB and granting of CC&A Amendment by GPCB.",
       "headline_en": null,
@@ -1899,55 +1948,6 @@
           "name": "Bridgestone",
           "ticker": null,
           "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-089",
-      "headline": "Samsung's Texas chip plant could begin trial runs in December",
-      "headline_en": null,
-      "url": "https://www.koreaherald.com/article/10929626",
-      "source_name": "The Korea Herald — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T04:55:28Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "Samsung is nearing the start of trial operations at its new Texas chip plant, a major capacity expansion project.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Samsung is nearing the start of trial operations at its new Texas chip plant, a major capacity expansion project.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Samsung Electronics",
-          "ticker": null,
-          "listing_country": "KR"
         }
       ],
       "size_bucket": "mega",
@@ -269835,9 +269835,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1154,
-    "news_picked_today": 265,
-    "news_dropped_today": 889
+    "news_seen_today": 1164,
+    "news_picked_today": 270,
+    "news_dropped_today": 894
   },
   "book_momentum": {
     "live_count": 8,
