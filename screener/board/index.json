@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-08T03:28:29Z",
+  "generated_at": "2026-11-08T03:33:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20261108-073",
@@ -375,6 +375,55 @@
       "companies": [
         {
           "name": "Ticketek",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-074",
+      "headline": "Billionaire Smorgon family-backed PE shop deploys $40m in M&A trifecta",
+      "headline_en": null,
+      "url": "https://www.afr.com/street-talk/billionaire-smorgon-family-backed-pe-shop-deploys-40m-in-m-and-a-trifecta-20261108-p61cdk?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T03:31:44Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "A private equity firm backed by the Smorgon family has deployed $40 million across three acquisitions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "A private equity firm backed by the Smorgon family has deployed $40 million across three acquisitions.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Smorgon family office",
           "ticker": null,
           "listing_country": null
         }
@@ -1857,55 +1906,6 @@
       "companies": [
         {
           "name": "Galaxy Surfactants Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-066",
-      "headline": "Oil & Natural Gas Corporation Limited - Ex-Date: 12-Nov-2026",
-      "headline_en": null,
-      "url": "https://www.nseindia.com/companies-listing/corporate-filings-actions",
-      "source_name": "NSE India — Corporate Actions (RSS)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-08T02:41:35Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "Routine ex-dividend date for ONGC.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 59,
-      "triage_reason": "Routine ex-dividend date for ONGC.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Oil & Natural Gas Corporation Limited",
           "ticker": null,
           "listing_country": "IN"
         }
