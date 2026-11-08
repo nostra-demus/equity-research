@@ -968,7 +968,12 @@ def eval_bh_net_debt_basis_label(decision_date, thesis):
     part1 = _part_one(thesis)
     det, nonstrict, strict_fig = [], False, False
     for line in part1.splitlines():
-        for seg in re.split(r"(?<=[.!?;])\s+(?=[A-Z*(\[‘\"])", line):
+        # Split into clauses. A basis label discharges the §15 duty only for a figure in its OWN clause,
+        # so an independent clause after ';' is always its own segment (a borrowed label there — "…; leverage
+        # on a strict basis is 2.1x", "…net cash; its cash and cash equivalents sit offshore" — must NOT
+        # cover the figure). Sentence breaks (. ! ?) still require a following capital/quote so a decimal or
+        # "Inc." is not split; ';' needs no such guard because it always separates independent clauses.
+        for seg in re.split(r"(?<=;)\s*|(?<=[.!?])\s+(?=[A-Z*(\[‘\"])", line):
             if not (_BH_A.search(seg) or _BH_B.search(seg)):
                 continue
             # §15 requires the STRICT FIGURE alongside an investment-inclusive one — so "strict" only

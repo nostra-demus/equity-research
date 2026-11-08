@@ -2397,6 +2397,16 @@ if scope=="selftest":
         # F1: §15 wants the strict FIGURE beside a broad one, not a bare "strict" token borrowed from an
         # unrelated clause ("Strict leverage is 1.0x"). Pre-fix this passed; now it flags (no strict figure).
         ("2026-11-06", _bh_th("Net cash of ₹33.7 bn on the broad basis. Strict leverage is 1.0x."), ["never names the strict"]),
+        # ── Layer-3 (PR #781 self-review) regression cases — a basis label in a DIFFERENT clause must not
+        # discharge the §15 label duty for an unlabelled figure. §15: "label the basis inline every time the
+        # figure appears" — the label must describe the figure, not a borrowed token from a neighbour clause.
+        # FN1: ';' separates the figure from "strict" (which modifies the leverage ratio). Pre-fix: the
+        # segment was one piece (lowercase after ';' blocked the split) and _BH_BASIS matched "strict"
+        # anywhere → silent pass of a bare net-debt figure. Now ';' always splits → the figure clause flags.
+        ("2026-11-06", _bh_th("Net debt reached $9.3 billion; leverage on a strict basis is 2.1x."), ["no basis label"]),
+        # FN2: ';' separates the bare net-cash figure from an unrelated "cash and cash equivalents" clause
+        # (which describes where cash sits, not the net-cash basis). Pre-fix: silent pass. Now flagged.
+        ("2026-11-06", _bh_th("The group carries ~₹31 billion of net cash; its cash and cash equivalents sit largely offshore."), ["no basis label"]),
     ]
     bhbad=0
     for dt_,th_,exp in bhcases:
