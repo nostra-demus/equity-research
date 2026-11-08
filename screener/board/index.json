@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-08T06:25:11Z",
+  "generated_at": "2026-11-08T06:29:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20261108-125",
@@ -1158,6 +1158,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261108-131",
+      "headline": "US believes Nvidia CEO had romantic relationship with alleged Chinese spy",
+      "headline_en": null,
+      "url": "https://www.afr.com/technology/us-believes-nvidia-s-huang-had-romantic-relationship-with-alleged-chinese-spy-20261107-p61ca6?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T06:25:10Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "Allegations of a relationship between a CEO and a foreign intelligence asset pose a significant reputational and potential national security risk to the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Allegations of a relationship between a CEO and a foreign intelligence asset pose a significant reputational and potential national security risk to the company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261108-121",
       "headline": "TIME Entertainment Company announcement regarding the issuance of a preliminary judgment in its favor in the lawsuit filed against Jockey Club of Saudi Arabia",
       "headline_en": null,
@@ -1890,50 +1939,6 @@
           "listing_country": null
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-048",
-      "headline": "Sweet trouble this Diwali: Rs 82 crore worth of food, 1,185 licences come under FSSAI scanner",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/cons-products/food/sweet-trouble-this-diwali-rs-82-crore-worth-of-food-1185-licences-come-under-fssai-scanner/articleshow/135649427.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T01:55:02Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "FSSAI is investigating food safety violations involving Rs 82 crore worth of products, impacting the broader Indian food and beverage sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "FSSAI is investigating food safety violations involving Rs 82 crore worth of products, impacting the broader Indian food and beverage sector.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -226241,76 +226246,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-b20ce3cd0f57",
-      "idea_version": "IDEAV-64086dc66cf21e07",
-      "idea_version_started_at": "2026-11-06T22:25:06Z",
-      "ticker": "BLND",
-      "company": "Blend Labs, Inc.",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Blend reported a smaller Q3 loss but warned of a steeper decline in mortgage revenue ahead, indicating worsening future financial performance.",
-      "why_now": "The company issued a warning about future mortgage revenue decline on November 6, 2026, providing a forward-looking negative catalyst.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8f65c4e48c12"
-      ],
-      "primary_source_event_id": "EVT-8f65c4e48c12",
-      "source_headlines": [
-        "Blend posts smaller Q3 loss, warns of steeper mortgage revenue drop ahead"
-      ],
-      "source_headline": "Blend posts smaller Q3 loss, warns of steeper mortgage revenue drop ahead",
-      "source_url": "https://www.housingwire.com/articles/blend-q3-earnings/",
-      "source_name": "HousingWire",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-06T18:26:46Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-06T22:25:06Z",
-      "updated_at": "2026-11-06T22:25:06Z",
-      "decay_at": "2026-11-08T06:26:46Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-2c2edf02510c",
       "idea_version": "IDEAV-8fec81305d387008",
       "idea_version_started_at": "2026-11-08T03:19:59Z",
@@ -229601,6 +229536,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-b20ce3cd0f57",
+      "idea_version": "IDEAV-64086dc66cf21e07",
+      "idea_version_started_at": "2026-11-06T22:25:06Z",
+      "ticker": "BLND",
+      "company": "Blend Labs, Inc.",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Blend reported a smaller Q3 loss but warned of a steeper decline in mortgage revenue ahead, indicating worsening future financial performance.",
+      "why_now": "The company issued a warning about future mortgage revenue decline on November 6, 2026, providing a forward-looking negative catalyst.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8f65c4e48c12"
+      ],
+      "primary_source_event_id": "EVT-8f65c4e48c12",
+      "source_headlines": [
+        "Blend posts smaller Q3 loss, warns of steeper mortgage revenue drop ahead"
+      ],
+      "source_headline": "Blend posts smaller Q3 loss, warns of steeper mortgage revenue drop ahead",
+      "source_url": "https://www.housingwire.com/articles/blend-q3-earnings/",
+      "source_name": "HousingWire",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-06T18:26:46Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-06T22:25:06Z",
+      "updated_at": "2026-11-06T22:25:06Z",
+      "decay_at": "2026-11-08T06:26:46Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-76874be29f78",
       "idea_version": "IDEAV-fdea07b5d2495fee",
       "idea_version_started_at": "2026-11-06T07:46:04Z",
@@ -232257,9 +232262,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 551,
+    "total_count": 552,
     "shown_count": 499,
-    "hidden_count": 52,
+    "hidden_count": 53,
     "side_counts": {
       "long": {
         "total_count": 278,
@@ -232267,9 +232272,9 @@
         "hidden_count": 28
       },
       "short": {
-        "total_count": 274,
+        "total_count": 275,
         "shown_count": 250,
-        "hidden_count": 24
+        "hidden_count": 25
       }
     },
     "retention": {
@@ -232288,6 +232293,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-b20ce3cd0f57",
+        "idea_version": "IDEAV-64086dc66cf21e07",
+        "idea_version_started_at": "2026-11-06T22:25:06Z",
+        "ticker": "BLND",
+        "company": "Blend Labs, Inc.",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Blend reported a smaller Q3 loss but warned of a steeper decline in mortgage revenue ahead, indicating worsening future financial performance.",
+        "why_now": "The company issued a warning about future mortgage revenue decline on November 6, 2026, providing a forward-looking negative catalyst.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 65,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-8f65c4e48c12"
+        ],
+        "primary_source_event_id": "EVT-8f65c4e48c12",
+        "source_headlines": [
+          "Blend posts smaller Q3 loss, warns of steeper mortgage revenue drop ahead"
+        ],
+        "source_headline": "Blend posts smaller Q3 loss, warns of steeper mortgage revenue drop ahead",
+        "source_url": "https://www.housingwire.com/articles/blend-q3-earnings/",
+        "source_name": "HousingWire",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-06T18:26:46Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-06T22:25:06Z",
+        "updated_at": "2026-11-06T22:25:06Z",
+        "decay_at": "2026-11-08T06:26:46Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-08T06:26:46Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-5d42be3b7a79",
         "idea_version": "IDEAV-c24b2db8c10cec9e",
@@ -269365,87 +269443,12 @@
         "archived_at": "2026-10-15T04:46:03Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-6b3b74b3573e",
-        "idea_version": "IDEAV-2c83a373078e1ddc",
-        "idea_version_started_at": "2026-10-12T01:12:56Z",
-        "ticker": "GQG",
-        "company": "GQG Partners",
-        "exchange": "ASX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "GQG Partners is experiencing significant outflows, indicating a loss of investor confidence and potential pressure on its assets under management and profitability.",
-        "why_now": "The outflows occurred in September and are being reported now, highlighting a current negative trend for the company.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 16,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-39bb4fb05de7"
-        ],
-        "primary_source_event_id": "EVT-39bb4fb05de7",
-        "source_headlines": [
-          "GQG’s Jain fails to stem outflows after $3.3b pulled in September"
-        ],
-        "source_headline": "GQG’s Jain fails to stem outflows after $3.3b pulled in September",
-        "source_url": "https://www.afr.com/markets/equity-markets/gqg-s-jains-fails-to-stem-outflows-after-3-3b-pulled-in-september-20261012-p614od?ref=rss&utm_medium=rss&utm_source=rss_feed",
-        "source_name": "Australian Financial Review",
-        "materiality_max": 84,
-        "newest_source_at": "2026-10-12T00:43:39Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-12T01:12:56Z",
-        "updated_at": "2026-10-12T01:12:56Z",
-        "decay_at": "2026-10-13T12:43:39Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-15T01:06:40Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2277,
-    "live_count": 41,
+    "live_count": 40,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -269464,9 +269467,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 692,
-    "news_picked_today": 157,
-    "news_dropped_today": 535
+    "news_seen_today": 701,
+    "news_picked_today": 160,
+    "news_dropped_today": 541
   },
   "book_momentum": {
     "live_count": 8,
