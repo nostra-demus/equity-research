@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-08T14:15:14Z",
+  "generated_at": "2026-11-08T14:25:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20261108-265",
@@ -141,6 +141,106 @@
           "name": "HX Building Materials",
           "ticker": "06655",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-268",
+      "headline": "Houthis target Aramco’s Riyadh headquarters",
+      "headline_en": null,
+      "url": "https://www.afr.com/politics/federal/houthis-target-aramco-s-riyadh-headquarters-20261109-p61cft?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T14:20:15Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "Houthis targeted Aramco's Riyadh headquarters, indicating a direct attack on a major oil producer's critical infrastructure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Houthis targeted Aramco's Riyadh headquarters, indicating a direct attack on a major oil producer's critical infrastructure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations",
+        "macro_sector"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Aramco",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-266",
+      "headline": "NMC founder B.R. Shetty and former CEO Prasanth Manghat held liable for fraudulent trading",
+      "headline_en": null,
+      "url": "https://www.emirates247.com/business/nmc-founder-br-shetty-and-former-ceo-prasanth-manghat-held-liable-for-fraudulent-trading/7577",
+      "source_name": "Emirates 24|7 — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T14:12:00Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "NMC founder and former CEO held liable for fraudulent trading, indicating potential financial distress and legal action.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "NMC founder and former CEO held liable for fraudulent trading, indicating potential financial distress and legal action.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NMC Health",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -1868,98 +1968,6 @@
           "name": "Alphabet",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-081",
-      "headline": "Houthis say at least 33 killed in Saudi air strike",
-      "headline_en": null,
-      "url": "https://www.bbc.co.uk/news/articles/c65yn1v99ypmo?at_medium=RSS&at_campaign=rss",
-      "source_name": "BBC News — World",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T04:03:12Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "A military strike resulting in 33 deaths represents a significant escalation in regional geopolitical conflict.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "A military strike resulting in 33 deaths represents a significant escalation in regional geopolitical conflict.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-192",
-      "headline": "‎Energy Ministry official: Attempt to target Aramco building in Riyadh",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1951439",
-      "source_name": "Argaam — Main News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T12:15:00Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "Attempted attack on Saudi Aramco building in Riyadh represents a significant geopolitical and security risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Attempted attack on Saudi Aramco building in Riyadh represents a significant geopolitical and security risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Saudi Aramco",
-          "ticker": null,
-          "listing_country": "SA"
         }
       ],
       "size_bucket": "mega",
@@ -229371,77 +229379,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-2cfb749c8806",
-      "idea_version": "IDEAV-12d1f036c42edd2a",
-      "idea_version_started_at": "2026-11-05T15:35:08Z",
-      "ticker": "MRVL",
-      "company": "Marvell Technology",
-      "exchange": "NASDAQ",
-      "direction": "pair",
-      "pair_with": "LITE",
-      "reason": "Marvell is acquiring Lumentum in an all-stock deal, creating a classic merger arbitrage opportunity where the acquirer typically trades down on dilution risk while the target trades up toward the offer price.",
-      "why_now": "The deal was announced today, November 5, 2026, and is currently live in the market.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 84,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "pair_trade",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f6faca8beb67",
-        "EVT-1c9c29543980"
-      ],
-      "primary_source_event_id": "EVT-f6faca8beb67",
-      "source_headlines": [
-        "Marvell to buy Lumentum in $115 billion all-stock deal",
-        "425 - Lumentum Holdings Inc. (0001633978) (Subject)"
-      ],
-      "source_headline": "Marvell to buy Lumentum in $115 billion all-stock deal",
-      "source_url": "https://www.tomshardware.com/tech-industry/semiconductors/marvell-to-buy-lumentum-in-usd115-billion-all-stock-deal-combined-company-to-supply-scale-up-and-scale-in-optics-for-ai-data-centers",
-      "source_name": "Tom's Hardware",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-05T13:41:58Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-02T23:10:25Z",
-      "updated_at": "2026-11-05T15:35:08Z",
-      "decay_at": "2026-11-07T01:41:58Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-134411564950",
       "idea_version": "IDEAV-332275a26d1a6278",
       "idea_version_started_at": "2026-11-06T19:23:03Z",
@@ -232425,77 +232362,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-72f69cb2bbac",
-      "idea_version": "IDEAV-d29f96655915affa",
-      "idea_version_started_at": "2026-11-05T19:37:02Z",
-      "ticker": "BRITANNIA",
-      "company": "Britannia Industries Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported a 16.6% growth in consolidated sales and a 10.8% increase in net profit for the quarter, signaling effective margin management and volume growth.",
-      "why_now": "The official press release was filed on November 05, 2026, providing a fresh catalyst for re-rating based on current quarter performance.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-81f909beb934"
-      ],
-      "primary_source_event_id": "EVT-81f909beb934",
-      "source_headlines": [
-        "Britannia Industries Limited: Britannia Industries Limited has informed the Exchange regarding a press release dated November 05, 2026, titled \"Britannia s Consolidated Sales for the quarter grew 16.6% while Net profit grew 10.8%\"."
-      ],
-      "source_headline": "Britannia Industries Limited: Britannia Industries Limited has informed the Exchange regarding a press release dated November 05, 2026, titled \"Britannia s Consolidated Sales for the quarter grew 16.6% while Net profit grew 10.8%\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/BRITANNIA1_05112026185848_Press_Release_Q2_26-27.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-05T13:30:47Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-05T19:37:02Z",
-      "updated_at": "2026-11-05T19:37:02Z",
-      "decay_at": "2026-11-07T01:30:47Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-eb72517875df",
       "idea_version": "IDEAV-ddde2bdad72499de",
       "idea_version_started_at": "2026-11-05T19:37:02Z",
@@ -232789,39 +232655,39 @@
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 501,
+      "file_count": 500,
       "suppression_count": 1,
       "corrupt_count": 0,
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 548,
+    "total_count": 545,
     "shown_count": 499,
-    "hidden_count": 49,
+    "hidden_count": 46,
     "side_counts": {
       "long": {
-        "total_count": 278,
+        "total_count": 276,
         "shown_count": 250,
-        "hidden_count": 28
+        "hidden_count": 26
       },
       "short": {
-        "total_count": 271,
+        "total_count": 270,
         "shown_count": 250,
-        "hidden_count": 21
+        "hidden_count": 20
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1691,
-      "oldest_retained_at": "2026-10-10T22:16:00Z",
+      "evicted_count": 1694,
+      "oldest_retained_at": "2026-10-10T23:16:49Z",
       "side_counts": {
         "long": {
-          "evicted_count": 1118,
-          "oldest_retained_at": "2026-10-24T01:17:00Z"
+          "evicted_count": 1120,
+          "oldest_retained_at": "2026-10-24T05:15:33Z"
         },
         "short": {
-          "evicted_count": 574,
-          "oldest_retained_at": "2026-10-10T22:16:00Z"
+          "evicted_count": 575,
+          "oldest_retained_at": "2026-10-10T23:16:49Z"
         }
       }
     },
@@ -236306,8 +236172,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-07T01:41:58Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-08T14:24:56Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -236380,8 +236246,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-07T01:30:47Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-08T14:24:56Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -269997,9 +269863,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2010,
-    "news_picked_today": 414,
-    "news_dropped_today": 1592
+    "news_seen_today": 2044,
+    "news_picked_today": 422,
+    "news_dropped_today": 1618
   },
   "book_momentum": {
     "live_count": 8,
