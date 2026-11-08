@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-08T12:06:15Z",
+  "generated_at": "2026-11-08T12:16:16Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261108-252",
+      "headline": "Adani Enterprises Limited: Adani Enterprises Limited has informed the Exchange about completion of acquisition of 100% stake in Vizag Mega Data Center Park Limited by AdaniConneX Private Limited ( ACX ), a joint venture of the Company.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/nishant_joshi_adani_com_08112026173159_AELIntimationofacquisitioncompletion08112026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-08T12:02:09Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "Adani Enterprises completed the acquisition of a 100% stake in Vizag Mega Data Center Park via its joint venture AdaniConneX.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Adani Enterprises completed the acquisition of a 100% stake in Vizag Mega Data Center Park via its joint venture AdaniConneX.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adani Enterprises Limited",
+          "ticker": "ADANIENT",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261108-206",
       "headline": "HX BLDG MAT (06655): DISCLOSEABLE TRANSACTION AND ACQUISITION OF THE TARGET COMPANY",
@@ -1915,55 +1964,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-080",
-      "headline": "China’s Boyu Capital in exclusive talks to buy Nucleus Network",
-      "headline_en": null,
-      "url": "https://www.afr.com/street-talk/china-s-boyu-capital-in-exclusive-talks-to-buy-nucleus-network-20261108-p61cdo?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T04:01:46Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "Boyu Capital is in exclusive talks to acquire Nucleus Network, signaling a significant private equity transaction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Boyu Capital is in exclusive talks to acquire Nucleus Network, signaling a significant private equity transaction.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nucleus Network",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -269994,9 +269994,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1653,
-    "news_picked_today": 363,
-    "news_dropped_today": 1286
+    "news_seen_today": 1690,
+    "news_picked_today": 368,
+    "news_dropped_today": 1318
   },
   "book_momentum": {
     "live_count": 8,
