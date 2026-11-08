@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-08T20:28:40Z",
+  "generated_at": "2026-11-08T20:33:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20261108-273",
@@ -40,6 +40,56 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-277",
+      "headline": "ANZ: ANZ Full Year Results, Dividend Announcement & Appendix 4E [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ANZ?key=2924-03159207-3A706009",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-08T20:30:16Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "ANZ released its full-year financial results and dividend announcement, which are primary price-sensitive disclosures.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "ANZ released its full-year financial results and dividend announcement, which are primary price-sensitive disclosures.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ANZ Group Holdings",
+          "ticker": "ANZ",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1917,55 +1967,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-085",
-      "headline": "Berkshire Hathaway's profit falls 28% as Geico struggles: Warren Buffett's insurance giant under focus",
-      "headline_en": null,
-      "url": "https://timesofindia.indiatimes.com/business/international-business/berkshire-hathaways-profit-falls-28-as-geico-struggles-warren-buffetts-insurance-giant-under-focus/articleshow/135650883.cms",
-      "source_name": "The Times of India (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T04:25:44Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "Berkshire Hathaway reported a 28% decline in profit, highlighting operational challenges in its insurance segment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Berkshire Hathaway reported a 28% decline in profit, highlighting operational challenges in its insurance segment.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Berkshire Hathaway",
-          "ticker": "BRK.A",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -269782,9 +269783,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4213,
-    "news_picked_today": 619,
-    "news_dropped_today": 3010
+    "news_seen_today": 4229,
+    "news_picked_today": 621,
+    "news_dropped_today": 3024
   },
   "book_momentum": {
     "live_count": 8,
