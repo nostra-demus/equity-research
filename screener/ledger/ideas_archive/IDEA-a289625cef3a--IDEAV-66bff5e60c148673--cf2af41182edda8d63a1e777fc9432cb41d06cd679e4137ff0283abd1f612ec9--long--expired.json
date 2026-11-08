@@ -1,28 +1,28 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-10-25T03:28:58Z",
+  "archived_at": "2026-11-08T06:15:28Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-58fbc6c87486",
-    "idea_version": "IDEAV-5fa31bffb4510ca1",
-    "idea_version_started_at": "2026-10-22T23:50:30Z",
-    "ticker": "EWC",
-    "company": "Energy World Corporation",
-    "exchange": "ASX",
+    "idea_id": "IDEA-a289625cef3a",
+    "idea_version": "IDEAV-66bff5e60c148673",
+    "idea_version_started_at": "2026-11-05T12:54:05Z",
+    "ticker": "CBK",
+    "company": "Commerzbank",
+    "exchange": "XETRA",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "long",
     "pair_with": null,
-    "reason": "The delivery of gas turbines and the receipt of $50m, with an additional $265m held in escrow, significantly improves the company's liquidity and project execution status.",
-    "why_now": "The company confirmed the receipt of funds and turbine delivery in a price-sensitive filing on October 22, 2026.",
+    "reason": "Commerzbank reported a 45% rise in quarterly net income, strengthening its position as it faces a potential takeover bid from UniCredit.",
+    "why_now": "The earnings report was released on 2026-11-05, highlighting the bank's operational performance ahead of M&A activity.",
     "conviction": 65,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
-      "evidence": 25,
+      "evidence": 14,
       "impact": 21,
       "specificity": 7,
       "timing": 10,
@@ -36,6 +36,8 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
+      "priced-in risk",
+      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -47,31 +49,31 @@
       "basis": "not_enough_outcomes",
       "evidenceIds": []
     },
-    "priced_in": "room",
-    "thesis_type": "company_specific",
+    "priced_in": "priced",
+    "thesis_type": "pair_trade",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-50d6f50bba38"
+      "EVT-86b0f4df1c44"
     ],
-    "primary_source_event_id": "EVT-50d6f50bba38",
+    "primary_source_event_id": "EVT-86b0f4df1c44",
     "source_headlines": [
-      "EWC: Gas Turbines Delivered $50m Received $265m in Escrow [price-sensitive]"
+      "Commerzbank Quarterly Net Rises 45% Ahead of UniCredit Takeover"
     ],
-    "source_headline": "EWC: Gas Turbines Delivered $50m Received $265m in Escrow [price-sensitive]",
-    "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EWC?key=2924-03151724-2A1705592",
-    "source_name": "ASX (Australia Exchange Filing)",
+    "source_headline": "Commerzbank Quarterly Net Rises 45% Ahead of UniCredit Takeover",
+    "source_url": "https://www.bloomberg.com/news/articles/2026-11-05/commerzbank-quarterly-net-rises-45-ahead-of-unicredit-takeover",
+    "source_name": "Bloomberg",
     "materiality_max": 100,
-    "newest_source_at": "2026-10-22T03:02:41Z",
+    "newest_source_at": "2026-11-05T06:08:30Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-10-22T23:50:30Z",
-    "updated_at": "2026-10-22T23:50:30Z",
-    "decay_at": "2026-10-23T15:02:41Z",
+    "surfaced_at": "2026-11-05T12:54:05Z",
+    "updated_at": "2026-11-05T12:54:05Z",
+    "decay_at": "2026-11-06T18:08:30Z",
     "status": "live",
     "promoted_signal_id": null
   }
