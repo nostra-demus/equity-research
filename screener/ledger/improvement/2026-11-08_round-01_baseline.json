@@ -1,0 +1,71 @@
+{
+  "program": "equity-screening-and-signals",
+  "round": 1,
+  "round_status": "completed_baseline_assessment",
+  "as_of_date": "2026-11-08",
+  "timezone": "Asia/Kolkata",
+  "observed_at": "2026-11-08T09:10:02.749728+00:00",
+  "scope": "Committed repository artifacts only; not a live production or market-data audit.",
+  "baseline_commit": "cc24fe1f819331eec88adf97c52518b8c6688986",
+  "candidate_commit": null,
+  "active_experiment": null,
+  "hypothesis": "Missing outcome evidence in the committed screening ledger prevents testing whether candidate ranking produces investment value; identify the evidence path before changing ranking.",
+  "benchmark": {
+    "id": "screening-committed-baseline-2026-11-08-v1",
+    "sample_definition": "All committed screener/runs artifacts matching existing schema filenames, ledger thesis/candidate projections, integrity reviews, and board index at baseline_commit. Includes explicitly labelled fixtures for structural checks only.",
+    "run_directories": 15,
+    "schema_documents": 65,
+    "schema_passed": 50,
+    "schema_failed": 15,
+    "fixture_thesis_ids": [
+      "THS-SIG-20260610-a3f2c81d-v1"
+    ],
+    "ledger_theses": 10,
+    "conviction_checkpoints": 84,
+    "checkpoints_due_by_as_of": 54,
+    "due_without_resolved_validation": 54,
+    "due_without_resolved_validation_excluding_explicit_fixture_theses": 49,
+    "validation_result_rows": 0,
+    "resolved_validation_rows": 0,
+    "aggregator_min_resolved": 10,
+    "aggregator_sufficient": false,
+    "aggregator_hit_rate": null,
+    "aggregator_brier": null,
+    "candidate_comparison": "Baseline only; no experimental candidate or investment-performance comparison.",
+    "schema_failure_unit": "15 failing artifact documents, including mirrored run/ledger projections; not 15 independent signal failures."
+  },
+  "standing": "baseline established; predictive improvement and annual-return target not yet measurable",
+  "investment_evidence": {
+    "classification": "not yet measurable",
+    "return_horizons": "Quarter, two-quarter, and one-year portfolio outcomes not computed in this pass.",
+    "annual_100_percent_return_target": "Not proven from available data.",
+    "uncertainty": "Committed artifacts may lag owner-private runtime output. Explicit fixture flags are excluded from the non-fixture overdue tally; unlabelled legacy examples are not assumed to be independent prospective forecasts. Schema conformance does not prove source correctness, point-in-time availability, or forecasting skill."
+  },
+  "next": {
+    "round": 2,
+    "action": "Round 2: trace one non-fixture due checkpoint through the existing validator and full-content source handoff, and inspect whether the historical schema failures are rejected at new-publication admission. Distinguish committed-ledger gaps from owner-private runtime output. Preserve evidence caps; do not dispatch paid research or mutate production.",
+    "acceptance_rule": "An exact checkpoint, issuer/listing, due window, original threshold, source-content path, recorded outcome or precise missing-input reason, and one bounded next correction.",
+    "cost_budget": "Built-in search and direct public sources only; no external paid providers or API credits.",
+    "guardrails": [
+      "Preserve original forecasts and thesis artifacts.",
+      "No frontend changes or real trading.",
+      "No ranking/performance claim based on fixtures or missing labels."
+    ]
+  },
+  "dependencies": [
+    "Outcome evidence absent from committed rows is not proof that the live production loop failed. Verify using existing read-only diagnostics.",
+    "Shared extraction/benchmark defects belong to the cockpit lane; hand off concrete evidence before duplicating shared logic."
+  ],
+  "delivery": {
+    "branch": "codex/screening-improvement-baseline",
+    "status": "prepared for protected pull request",
+    "change_kind": "append-only baseline evidence; no runtime or prompt changes",
+    "automation_id": "improve-equity-screening-and-signals",
+    "worktree": "Managed screening-improvement checkout attached to the automation chat."
+  },
+  "provenance": {
+    "input_manifest_sha256": "be1d165e47787d5b2c02d57787e74fc5ef510128b4d432694fa2e274c3b36967",
+    "input_file_count": 92,
+    "method": "Existing validate_screener_json.validate plus integrity anchor checks; strict local NDJSON parsing; existing screener_calibrate.build without calling its writing entry point. Due dates use the first ISO date component <= as_of_date; resolution joins exact checkpoint_id."
+  }
+}
