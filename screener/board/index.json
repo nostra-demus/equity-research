@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-08T02:28:44Z",
+  "generated_at": "2026-11-08T02:29:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20261108-034",
@@ -226530,6 +226530,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-fbac3d69087e",
+      "idea_version": "IDEAV-d87673cf8ca2ed95",
+      "idea_version_started_at": "2026-11-08T02:29:00Z",
+      "ticker": "ALPMY",
+      "company": "Astellas Pharma",
+      "exchange": "OTC Markets",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The resolution of a high-profile detention of an employee in China removes a significant geopolitical overhang and regulatory risk that has weighed on the company's operations in the region.",
+      "why_now": "The release is scheduled for December 2026.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 59,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 13,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-644e04b65cfb"
+      ],
+      "primary_source_event_id": "EVT-644e04b65cfb",
+      "source_headlines": [
+        "Astellas' Japanese employee in Chinese prison to be released in Dec."
+      ],
+      "source_headline": "Astellas' Japanese employee in Chinese prison to be released in Dec.",
+      "source_url": "https://mainichi.jp/english/articles/20261107/p2g/00m/0in/029000c",
+      "source_name": "The Mainichi",
+      "materiality_max": 87,
+      "newest_source_at": "2026-11-08T02:00:10Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-08T02:29:00Z",
+      "updated_at": "2026-11-08T02:29:00Z",
+      "decay_at": "2026-11-09T14:00:10Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-a025b73a32d6",
       "idea_version": "IDEAV-0bfca11f175bef47",
       "idea_version_started_at": "2026-11-08T00:14:07Z",
@@ -227684,6 +227754,79 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-37a5e72c530e",
+      "idea_version": "IDEAV-49d4d2edc49bacec",
+      "idea_version_started_at": "2026-11-08T02:29:00Z",
+      "ticker": "BRK.B",
+      "company": "Berkshire Hathaway",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is actively deploying capital through share buybacks, signaling management's confidence in the intrinsic value of the business despite a 6% decline in Q3 operating profit.",
+      "why_now": "The news of continued buybacks under new CEO Greg Abel was reported on 2026-11-08.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b9308858ea90",
+        "EVT-b6d70e3515b9"
+      ],
+      "primary_source_event_id": "EVT-b9308858ea90",
+      "source_headlines": [
+        "Berkshire ramps up buybacks under new CEO Greg Abel as Q3 operating profit falls 6%",
+        "Berkshire surprised with record buybacks, but pace slowed as the stock rose"
+      ],
+      "source_headline": "Berkshire ramps up buybacks under new CEO Greg Abel as Q3 operating profit falls 6%",
+      "source_url": "https://www.businesstimes.com.sg/companies-markets/berkshire-ramps-buybacks-under-new-ceo-greg-abel-q3-operating-profit-falls-6",
+      "source_name": "The Business Times (Singapore)",
+      "materiality_max": 93,
+      "newest_source_at": "2026-11-08T01:55:15Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-08T02:29:00Z",
+      "updated_at": "2026-11-08T02:29:00Z",
+      "decay_at": "2026-11-09T13:55:15Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-c60431da8fec",
       "idea_version": "IDEAV-c0478129222e7d45",
       "idea_version_started_at": "2026-11-08T01:08:34Z",
@@ -228316,76 +228459,6 @@
       "surfaced_at": "2026-11-05T20:26:24Z",
       "updated_at": "2026-11-05T20:26:24Z",
       "decay_at": "2026-11-07T07:08:13Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-537238bc1448",
-      "idea_version": "IDEAV-17b1069d942ad2c2",
-      "idea_version_started_at": "2026-11-05T11:07:34Z",
-      "ticker": "ROOT",
-      "company": "Root, Inc.",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company achieved a $14 million net income, signaling a significant inflection point in profitability and operational efficiency.",
-      "why_now": "The Q3 2026 earnings results were released on 2026-11-05.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-41d0c6c9462b"
-      ],
-      "primary_source_event_id": "EVT-41d0c6c9462b",
-      "source_headlines": [
-        "Root, Inc. Reports $14 million Net Income and $381 million Revenue for Q3 2026"
-      ],
-      "source_headline": "Root, Inc. Reports $14 million Net Income and $381 million Revenue for Q3 2026",
-      "source_url": "https://www.nasdaq.com/articles/root-inc-reports-14-million-net-income-and-381-million-revenue-q3-2026",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-05T02:28:34Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-05T11:07:34Z",
-      "updated_at": "2026-11-05T11:07:34Z",
-      "decay_at": "2026-11-06T14:28:34Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -231186,14 +231259,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 547,
+    "total_count": 546,
     "shown_count": 499,
-    "hidden_count": 48,
+    "hidden_count": 47,
     "side_counts": {
       "long": {
-        "total_count": 275,
+        "total_count": 274,
         "shown_count": 250,
-        "hidden_count": 25
+        "hidden_count": 24
       },
       "short": {
         "total_count": 273,
@@ -231203,12 +231276,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1680,
+      "evicted_count": 1681,
       "oldest_retained_at": "2026-10-10T15:39:02Z",
       "side_counts": {
         "long": {
-          "evicted_count": 1112,
-          "oldest_retained_at": "2026-10-23T10:46:57Z"
+          "evicted_count": 1113,
+          "oldest_retained_at": "2026-10-23T12:05:00Z"
         },
         "short": {
           "evicted_count": 569,
@@ -234700,8 +234773,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-06T14:28:34Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-08T02:29:09Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -268379,8 +268452,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2259,
-    "live_count": 31,
+    "surfaced_total": 2261,
+    "live_count": 33,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
