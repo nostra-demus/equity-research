@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-08T21:24:57Z",
+  "generated_at": "2026-11-08T23:25:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20261108-273",
@@ -40,6 +40,404 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-336",
+      "headline": "CDA: Acquisition Announcement [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CDA?key=2924-03159493-2A1709486",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-08T22:49:56Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "CDA announced an acquisition, which is a material corporate event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CDA announced an acquisition, which is a material corporate event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CDA",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-335",
+      "headline": "AVD: Resignation of CEO [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AVD?key=2924-03159482-2A1709479",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-08T22:41:46Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "The CEO of AVD has resigned, which is a material event for company leadership and strategy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The CEO of AVD has resigned, which is a material event for company leadership and strategy.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "executive_exit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AVD",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-334",
+      "headline": "SET: Placement and Non-Renounceable Entitlement Offer [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SET?key=2924-03159476-2A1709467",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-08T22:40:11Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "A placement and entitlement offer indicates significant equity dilution for existing shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A placement and entitlement offer indicates significant equity dilution for existing shareholders.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SET",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-331",
+      "headline": "GMG: Acquisition of a 9.9% interest in NEXTDC [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GMG?key=2924-03159407-2A1709388",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-08T22:17:41Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "Goodman Group is acquiring a 9.9% stake in NEXTDC, a significant strategic investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Goodman Group is acquiring a 9.9% stake in NEXTDC, a significant strategic investment.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Goodman Group",
+          "ticker": "GMG",
+          "listing_country": "AU"
+        },
+        {
+          "name": "NEXTDC",
+          "ticker": "NXT",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-319",
+      "headline": "NS1: Appointment of Voluntary Administrators [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NS1?key=2924-03159391-6A1354064",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-08T22:10:46Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "NS1 has appointed voluntary administrators, signaling insolvency.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "NS1 has appointed voluntary administrators, signaling insolvency.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NS1",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-304",
+      "headline": "IGO: Nova Concludes Mining, Beats Production and Cost Guidance [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.IGO?key=2924-03159386-6A1354100",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-08T22:06:26Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "IGO reported beating production and cost guidance for its Nova mining operation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "IGO reported beating production and cost guidance for its Nova mining operation.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IGO",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-305",
+      "headline": "SSM: Acquisition of Programmed and $475m Equity Raise [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SSM?key=2924-03159379-3A706056",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-08T22:04:46Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "SSM announced the acquisition of Programmed and a $475m equity raise.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SSM announced the acquisition of Programmed and a $475m equity raise.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SSM",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-303",
+      "headline": "SXE: Completion of Entire acquisition [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SXE?key=2924-03159266-6A1354035",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-08T21:21:46Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "Southern Cross Electrical Engineering completed an acquisition, which is a material event for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Southern Cross Electrical Engineering completed an acquisition, which is a material event for the company.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Southern Cross Electrical Engineering",
+          "ticker": "SXE",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -237,6 +635,248 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-341",
+      "headline": "Nvidia investigating reports that CEO Jensen Huang was targeted by Chinese intelligence",
+      "headline_en": null,
+      "url": "https://mainichi.jp/english/articles/20261109/p2g/00m/0bu/004000c",
+      "source_name": "The Mainichi",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T23:16:34Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "Reports of a CEO being targeted by foreign intelligence represent a severe operational and security risk for a critical technology company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Reports of a CEO being targeted by foreign intelligence represent a severe operational and security risk for a critical technology company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-340",
+      "headline": "\"I Was Unfaithful to My Wife\": Jensen Huang Admits Affair As Nvidia Board Opens Probe",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/i-was-unfaithful-to-my-wife-jensen-huang-admits-affair-as-nvidia-board-opens-probe-chinese-spy-12301392#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T23:13:08Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "The CEO of a mega-cap company is under board investigation for personal misconduct, posing a significant risk to leadership stability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The CEO of a mega-cap company is under board investigation for personal misconduct, posing a significant risk to leadership stability.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management",
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-338",
+      "headline": "Drone strike on Iraq's Khor Mor gas field cuts power production by 2.8 GW: Ministry",
+      "headline_en": null,
+      "url": "https://gulfnews.com/world/mena/drone-strike-on-iraqs-khor-mor-gas-field-cuts-power-production-by-28-gw-ministry-1.500740627",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T22:56:14Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "A drone strike on Iraq's Khor Mor gas field has cut power production by 2.8 GW, indicating a significant supply disruption with potential economic and geopolitical implications.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A drone strike on Iraq's Khor Mor gas field has cut power production by 2.8 GW, indicating a significant supply disruption with potential economic and geopolitical implications.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations",
+        "macro_sector"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-329",
+      "headline": "Daimler Truck’s profit jumps 73% in Q3",
+      "headline_en": null,
+      "url": "https://www.qatar-tribune.com/article/263277/business/daimler-trucks-profit-jumps-73-in-q3",
+      "source_name": "Qatar Tribune — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T21:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "Daimler Truck reported a 73% jump in Q3 profit, a significant earnings beat.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Daimler Truck reported a 73% jump in Q3 profit, a significant earnings beat.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Daimler Truck",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-302",
+      "headline": "ANZ posts $7.6b cash profit, lifts provisions citing volatile economy",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/financial-services/anz-prints-7-6b-cash-profit-lifts-provisions-citing-volatile-economy-20261109-p61cgm?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T20:52:28Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "ANZ reported a cash profit of $7.6 billion and increased provisions for bad debts, signaling economic caution.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "ANZ reported a cash profit of $7.6 billion and increased provisions for bad debts, signaling economic caution.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ANZ Group",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1330,644 +1970,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-227",
-      "headline": "Arabia Insurance shifts to net losses in Q3, 9M-26 financials",
-      "headline_en": null,
-      "url": "http://english.mubasher.info/news/4698126/Arabia-Insurance-shifts-to-net-losses-in-Q3-9M-26-financials",
-      "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T09:58:07Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "Arabia Insurance reported a shift to net losses in Q3 and 9M-26.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Arabia Insurance reported a shift to net losses in Q3 and 9M-26.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Arabia Insurance",
-          "ticker": null,
-          "listing_country": "SA"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-229",
-      "headline": "Saleh Abdulaziz Al Rashed delivers 47% plunge in 9M-26 net profit",
-      "headline_en": null,
-      "url": "http://english.mubasher.info/news/4698115/Saleh-Abdulaziz-Al-Rashed-delivers-47-plunge-in-9M-26-net-profit",
-      "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T09:42:59Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "Saleh Abdulaziz Al Rashed reported a 47% decline in 9M-26 net profit.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Saleh Abdulaziz Al Rashed reported a 47% decline in 9M-26 net profit.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Saleh Abdulaziz Al Rashed",
-          "ticker": null,
-          "listing_country": "SA"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-230",
-      "headline": "Al Dawaa Medical Services announces 61.5% profit decline in 9M-26",
-      "headline_en": null,
-      "url": "http://english.mubasher.info/news/4698113/Al-Dawaa-Medical-Services-announces-61-5-profit-decline-in-9M-26",
-      "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T09:39:23Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "Al Dawaa Medical Services reported a 61.5% decline in 9M-26 profit.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Al Dawaa Medical Services reported a 61.5% decline in 9M-26 profit.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Al Dawaa Medical Services",
-          "ticker": null,
-          "listing_country": "SA"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-202",
-      "headline": "Saudi Aramco building in Riyadh struck; US imposes Iran blockade",
-      "headline_en": null,
-      "url": "https://www.newarab.com/news/saudi-aramco-building-riyadh-struck-us-imposes-iran-blockade",
-      "source_name": "The New Arab",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T09:31:01Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "A strike on Saudi Aramco facilities combined with a US-imposed blockade on Iran signals a major escalation in regional conflict and energy supply risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A strike on Saudi Aramco facilities combined with a US-imposed blockade on Iran signals a major escalation in regional conflict and energy supply risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Saudi Aramco",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-198",
-      "headline": "Saudi Aramco building in Riyadh targeted in attempted attack, minor damage reported",
-      "headline_en": null,
-      "url": "https://www.arabianbusiness.com/business/energy/saudi-aramco-building-in-riyadh-targeted-in-attempted-attack-minor-damage-reported",
-      "source_name": "Arabian Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T09:23:02Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "An attempted attack on a major energy facility like Saudi Aramco represents a significant geopolitical and operational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "An attempted attack on a major energy facility like Saudi Aramco represents a significant geopolitical and operational risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Saudi Aramco",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-194",
-      "headline": "Aramco Riyadh Office Targeted in Attack, Causing Limited Damage",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-08/aramco-tower-in-riyadh-s-financial-hub-damaged-after-attack",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T08:54:58Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "An attack on a major energy infrastructure facility in Riyadh represents a significant geopolitical and operational risk event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "An attack on a major energy infrastructure facility in Riyadh represents a significant geopolitical and operational risk event.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Saudi Aramco",
-          "ticker": null,
-          "listing_country": "SA"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-165",
-      "headline": "Abu Dhabi court rules BR Shetty, ex-CEO liable in $5.4 billion NMC Health case",
-      "headline_en": null,
-      "url": "https://www.khaleejtimes.com/business/abu-dhabi-court-rules-br-shetty-ex-ceo-liable-in-54-billion-nmc-health-case",
-      "source_name": "Khaleej Times — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T08:21:21Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "An Abu Dhabi court ruled the former CEO of NMC Health liable in a $5.4 billion fraud case.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "An Abu Dhabi court ruled the former CEO of NMC Health liable in a $5.4 billion fraud case.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NMC Health",
-          "ticker": null,
-          "listing_country": "AE"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-168",
-      "headline": "Amwaj International posts 35% decline in H1-26 net profit, unveils accumulated losses",
-      "headline_en": null,
-      "url": "http://english.mubasher.info/news/4698053/Amwaj-International-posts-35-decline-in-H1-26-net-profit-unveils-accumulated-losses",
-      "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T08:16:00Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "The company reported a 35% decline in H1-26 net profit and disclosed accumulated losses, indicating financial distress.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The company reported a 35% decline in H1-26 net profit and disclosed accumulated losses, indicating financial distress.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Amwaj International",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-159",
-      "headline": "Aramco building damaged as Houthis target Riyadh, report says",
-      "headline_en": null,
-      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/aramco-building-damaged-houthis-target-riyadh-report-says",
-      "source_name": "Middle East Eye",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T07:22:18Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "A report of a Houthi attack damaging Saudi Aramco infrastructure represents a significant geopolitical and operational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A report of a Houthi attack damaging Saudi Aramco infrastructure represents a significant geopolitical and operational risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Saudi Aramco",
-          "ticker": null,
-          "listing_country": "SA"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-144",
-      "headline": "Riyadh Cement announces 73.5% leap in Q3-26 net profits",
-      "headline_en": null,
-      "url": "http://english.mubasher.info/news/4697944/Riyadh-Cement-announces-73-5-leap-in-Q3-26-net-profits",
-      "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T06:27:14Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "Riyadh Cement reported a significant 73.5% increase in Q3-26 net profits.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Riyadh Cement reported a significant 73.5% increase in Q3-26 net profits.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Riyadh Cement",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-135",
-      "headline": "Tata Steel Q2 Profit Jumps 16% To ₹3,700 Crore, India Business Powers Growth As Revenue Surges To ₹65,436 Crore",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/tata-steel-q2-profit-jumps-16-to-3700-crore-india-business-powers-growth-as-revenue-surges-to-65436-crore",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T06:10:20Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "Tata Steel reported a 16% jump in Q2 profit to ₹3,700 crore with revenue of ₹65,436 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Tata Steel reported a 16% jump in Q2 profit to ₹3,700 crore with revenue of ₹65,436 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Steel",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-125",
-      "headline": "Adani Enterprises plans ₹40,000 cr annual capex over two years",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/adani-enterprises-plans-35000-40000-cr-annual-capex-in-next-two-years/article71680572.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T06:06:08Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "Adani Enterprises announced a significant capex plan of 40,000 crore INR annually for two years.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Adani Enterprises announced a significant capex plan of 40,000 crore INR annually for two years.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Adani Enterprises",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-114",
-      "headline": "David Jones’ unpaid bills rise to $100m as prospective owners circle",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/retail/david-jones-unpaid-bills-rise-to-100m-as-prospective-owners-circle-20261108-p61ccx?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T05:30:00Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "David Jones faces rising unpaid bills of $100m, indicating significant financial distress while the company is subject to potential ownership changes.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "David Jones faces rising unpaid bills of $100m, indicating significant financial distress while the company is subject to potential ownership changes.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "default_distress",
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "David Jones",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -226625,6 +226627,436 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-3ebd6362248c",
+      "idea_version": "IDEAV-a96588b9cfaca4a3",
+      "idea_version_started_at": "2026-11-08T23:24:25Z",
+      "ticker": "SET",
+      "company": "Set",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The announcement of a placement and non-renounceable entitlement offer indicates significant equity dilution for existing shareholders.",
+      "why_now": "The filing was released on 2026-11-08, and the market typically reacts negatively to dilutive capital raises.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6a69bf403819"
+      ],
+      "primary_source_event_id": "EVT-6a69bf403819",
+      "source_headlines": [
+        "SET: Placement and Non-Renounceable Entitlement Offer [price-sensitive]"
+      ],
+      "source_headline": "SET: Placement and Non-Renounceable Entitlement Offer [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SET?key=2924-03159476-2A1709467",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-08T22:40:11Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-08T23:24:25Z",
+      "updated_at": "2026-11-08T23:24:25Z",
+      "decay_at": "2026-11-10T10:40:11Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-80d8059c8c1e",
+      "idea_version": "IDEAV-d08ff9e70a7989a2",
+      "idea_version_started_at": "2026-11-08T23:24:25Z",
+      "ticker": "AVD",
+      "company": "Avd",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The sudden resignation of a CEO creates a leadership vacuum and typically signals underlying operational or strategic issues.",
+      "why_now": "The resignation was filed on 2026-11-08, creating immediate uncertainty regarding the company's future direction.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-dfd2166384aa"
+      ],
+      "primary_source_event_id": "EVT-dfd2166384aa",
+      "source_headlines": [
+        "AVD: Resignation of CEO [price-sensitive]"
+      ],
+      "source_headline": "AVD: Resignation of CEO [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AVD?key=2924-03159482-2A1709479",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-08T22:41:46Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-08T23:24:25Z",
+      "updated_at": "2026-11-08T23:24:25Z",
+      "decay_at": "2026-11-10T10:41:46Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-1e8235393100",
+      "idea_version": "IDEAV-98686d20857af56d",
+      "idea_version_started_at": "2026-11-08T23:04:22Z",
+      "ticker": "NS1",
+      "company": "NS1",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The appointment of voluntary administrators indicates an immediate insolvency event and total loss of equity value for shareholders.",
+      "why_now": "The filing was made on 2026-11-08, marking the start of the formal insolvency process.",
+      "conviction": 95,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b1deae6144a5"
+      ],
+      "primary_source_event_id": "EVT-b1deae6144a5",
+      "source_headlines": [
+        "NS1: Appointment of Voluntary Administrators [price-sensitive]"
+      ],
+      "source_headline": "NS1: Appointment of Voluntary Administrators [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NS1?key=2924-03159391-6A1354064",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-08T22:10:46Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-08T23:04:22Z",
+      "updated_at": "2026-11-08T23:04:22Z",
+      "decay_at": "2026-11-10T10:10:46Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-83131c32c3ef",
+      "idea_version": "IDEAV-5bf2c7b7cb05bb89",
+      "idea_version_started_at": "2026-11-08T22:39:17Z",
+      "ticker": "NXT",
+      "company": "NEXTDC",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Goodman Group's acquisition of a 9.9% stake in the company serves as a strong signal of institutional confidence in the data center operator's asset value.",
+      "why_now": "The disclosure of the stake acquisition was filed on 2026-11-08.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-867c4037f00d"
+      ],
+      "primary_source_event_id": "EVT-867c4037f00d",
+      "source_headlines": [
+        "GMG: Acquisition of a 9.9% interest in NEXTDC [price-sensitive]"
+      ],
+      "source_headline": "GMG: Acquisition of a 9.9% interest in NEXTDC [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GMG?key=2924-03159407-2A1709388",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-08T22:17:41Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-08T22:39:17Z",
+      "updated_at": "2026-11-08T22:39:17Z",
+      "decay_at": "2026-11-10T10:17:41Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-3013434ee1a7",
+      "idea_version": "IDEAV-94ee174145c0df06",
+      "idea_version_started_at": "2026-11-08T22:12:03Z",
+      "ticker": "IGO",
+      "company": "IGO Limited",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company beat its production and cost guidance for the Nova mine, indicating improved operational efficiency and margin performance.",
+      "why_now": "The production beat was confirmed in an exchange filing on 2026-11-08.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e72eedcb755b"
+      ],
+      "primary_source_event_id": "EVT-e72eedcb755b",
+      "source_headlines": [
+        "IGO: Nova Concludes Mining, Beats Production and Cost Guidance [price-sensitive]"
+      ],
+      "source_headline": "IGO: Nova Concludes Mining, Beats Production and Cost Guidance [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.IGO?key=2924-03159386-6A1354100",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-08T22:06:26Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-08T22:12:03Z",
+      "updated_at": "2026-11-08T22:12:03Z",
+      "decay_at": "2026-11-10T10:06:26Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-8c6763c204a1",
+      "idea_version": "IDEAV-40b86c89cc2011e1",
+      "idea_version_started_at": "2026-11-08T22:12:03Z",
+      "ticker": "ANZ",
+      "company": "ANZ Group Holdings",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The bank reported a $7.6b cash profit but simultaneously increased provisions for bad debts, signaling management's concern regarding the deteriorating economic environment.",
+      "why_now": "The full-year results and provision increase were released on 2026-11-08.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d30c11aab7a2",
+        "EVT-d8cdf8a861e8"
+      ],
+      "primary_source_event_id": "EVT-d30c11aab7a2",
+      "source_headlines": [
+        "ANZ: ANZ Full Year Results, Dividend Announcement & Appendix 4E [price-sensitive]",
+        "ANZ posts $7.6b cash profit, lifts provisions citing volatile economy"
+      ],
+      "source_headline": "ANZ: ANZ Full Year Results, Dividend Announcement & Appendix 4E [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ANZ?key=2924-03159207-3A706009",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-08T20:52:28Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-08T22:12:03Z",
+      "updated_at": "2026-11-08T22:12:03Z",
+      "decay_at": "2026-11-10T08:52:28Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-bd2806fdea87",
       "idea_version": "IDEAV-91276d27436707de",
       "idea_version_started_at": "2026-11-08T20:49:19Z",
@@ -228575,79 +229007,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-6270ed4f3c1c",
-      "idea_version": "IDEAV-49b0da9e940c36fc",
-      "idea_version_started_at": "2026-11-07T12:20:59Z",
-      "ticker": "DIVISLAB",
-      "company": "Divi's Laboratories",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported a 64% surge in net profit and 35% revenue growth in Q2, driven by margin expansion.",
-      "why_now": "The earnings results were released today, November 7, 2026.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8f90679c58d6",
-        "EVT-ba69c45e4501"
-      ],
-      "primary_source_event_id": "EVT-8f90679c58d6",
-      "source_headlines": [
-        "Divi's Laboratories Q2 Results: Net Profit Jumps 64% To Rs 1,127 Crore, Revenue Rises 35%; Margins Expand",
-        "Divi's Lab net profit surges 63% to ₹1,127 cr in Q2"
-      ],
-      "source_headline": "Divi's Laboratories Q2 Results: Net Profit Jumps 64% To Rs 1,127 Crore, Revenue Rises 35%; Margins Expand",
-      "source_url": "https://www.ndtvprofit.com/markets/divis-laboratories-q2-results-net-profit-jumps-64-to-rs-1-127-crore-revenue-rises-35-margins-expand-12296198#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-07T09:56:49Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-07T12:20:59Z",
-      "updated_at": "2026-11-07T12:20:59Z",
-      "decay_at": "2026-11-08T21:56:49Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-ae81043b31fa",
       "idea_version": "IDEAV-b429d3b042d9af5d",
       "idea_version_started_at": "2026-11-07T12:20:59Z",
@@ -230007,76 +230366,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-30b3fc77b9ff",
-      "idea_version": "IDEAV-2c77360196d3d2ed",
-      "idea_version_started_at": "2026-11-06T01:51:41Z",
-      "ticker": "DKNG",
-      "company": "DraftKings",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is lowering its financial outlook due to increased capital expenditure and operational costs associated with expanding into prediction markets.",
-      "why_now": "The guidance cut was reported on November 5, 2026, signaling immediate pressure on margins and valuation.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-46af64ddf7c3"
-      ],
-      "primary_source_event_id": "EVT-46af64ddf7c3",
-      "source_headlines": [
-        "DraftKings Cuts Outlook as It Pours More Money Into Prediction Markets"
-      ],
-      "source_headline": "DraftKings Cuts Outlook as It Pours More Money Into Prediction Markets",
-      "source_url": "https://www.wsj.com/business/earnings/draftkings-cuts-outlook-as-it-pours-more-money-into-prediction-markets-140041b3?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-05T22:21:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-06T01:51:41Z",
-      "updated_at": "2026-11-06T01:51:41Z",
-      "decay_at": "2026-11-07T10:21:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-e98e326677b2",
       "idea_version": "IDEAV-abb05ac154a632b8",
       "idea_version_started_at": "2026-11-07T11:59:19Z",
@@ -230351,76 +230640,6 @@
       "surfaced_at": "2026-11-06T08:05:16Z",
       "updated_at": "2026-11-06T08:05:16Z",
       "decay_at": "2026-11-07T12:25:21Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-b48a56510aeb",
-      "idea_version": "IDEAV-83107bdf4f4af969",
-      "idea_version_started_at": "2026-11-06T06:28:08Z",
-      "ticker": "CPS",
-      "company": "Cooper-Standard Holdings",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company reported Q3 2026 sales of $708.6 million and issued a downward adjustment to its guidance, signaling operational headwinds in its automotive supply business.",
-      "why_now": "The earnings and guidance revision were released on 2026-11-05.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-cab3b2ef239e"
-      ],
-      "primary_source_event_id": "EVT-cab3b2ef239e",
-      "source_headlines": [
-        "Cooper-Standard Holdings Inc. Reports Third Quarter 2026 Sales of $708.6 million and Adjusts Guidance"
-      ],
-      "source_headline": "Cooper-Standard Holdings Inc. Reports Third Quarter 2026 Sales of $708.6 million and Adjusts Guidance",
-      "source_url": "https://www.nasdaq.com/articles/cooper-standard-holdings-inc-reports-third-quarter-2026-sales-7086-million-and-adjusts",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-05T22:02:30Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-06T06:28:08Z",
-      "updated_at": "2026-11-06T06:28:08Z",
-      "decay_at": "2026-11-07T10:02:30Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -231344,6 +231563,79 @@
       "surfaced_at": "2026-11-07T14:06:00Z",
       "updated_at": "2026-11-07T14:06:00Z",
       "decay_at": "2026-11-07T17:26:01Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-6270ed4f3c1c",
+      "idea_version": "IDEAV-49b0da9e940c36fc",
+      "idea_version_started_at": "2026-11-07T12:20:59Z",
+      "ticker": "DIVISLAB",
+      "company": "Divi's Laboratories",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported a 64% surge in net profit and 35% revenue growth in Q2, driven by margin expansion.",
+      "why_now": "The earnings results were released today, November 7, 2026.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8f90679c58d6",
+        "EVT-ba69c45e4501"
+      ],
+      "primary_source_event_id": "EVT-8f90679c58d6",
+      "source_headlines": [
+        "Divi's Laboratories Q2 Results: Net Profit Jumps 64% To Rs 1,127 Crore, Revenue Rises 35%; Margins Expand",
+        "Divi's Lab net profit surges 63% to ₹1,127 cr in Q2"
+      ],
+      "source_headline": "Divi's Laboratories Q2 Results: Net Profit Jumps 64% To Rs 1,127 Crore, Revenue Rises 35%; Margins Expand",
+      "source_url": "https://www.ndtvprofit.com/markets/divis-laboratories-q2-results-net-profit-jumps-64-to-rs-1-127-crore-revenue-rises-35-margins-expand-12296198#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-07T09:56:49Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-07T12:20:59Z",
+      "updated_at": "2026-11-07T12:20:59Z",
+      "decay_at": "2026-11-08T21:56:49Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -232285,77 +232577,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-f9fb9f7caa56",
-      "idea_version": "IDEAV-21c63f60a107b9f4",
-      "idea_version_started_at": "2026-11-05T22:25:32Z",
-      "ticker": "MYX",
-      "company": "Mayne Pharma",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Mayne Pharma's divestiture of its International segment for $55.5m adds cash, improving liquidity and potentially boosting EPS, supporting a long position.",
-      "why_now": "The divestiture was announced on 2026-11-05, providing a fresh catalyst.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8c6fa202610a"
-      ],
-      "primary_source_event_id": "EVT-8c6fa202610a",
-      "source_headlines": [
-        "MYX: Mayne Pharma to divest International segment for $55.5m [price-sensitive]"
-      ],
-      "source_headline": "MYX: Mayne Pharma to divest International segment for $55.5m [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MYX?key=2924-03158746-3A705930",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-05T21:52:54Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-05T22:25:32Z",
-      "updated_at": "2026-11-05T22:25:32Z",
-      "decay_at": "2026-11-07T09:52:54Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-58c269708038",
       "idea_version": "IDEAV-582986ff08955984",
       "idea_version_started_at": "2026-11-07T12:54:01Z",
@@ -232656,9 +232877,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 541,
+    "total_count": 539,
     "shown_count": 499,
-    "hidden_count": 42,
+    "hidden_count": 40,
     "side_counts": {
       "long": {
         "total_count": 276,
@@ -232666,27 +232887,103 @@
         "hidden_count": 26
       },
       "short": {
-        "total_count": 266,
+        "total_count": 264,
         "shown_count": 250,
-        "hidden_count": 16
+        "hidden_count": 14
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1700,
-      "oldest_retained_at": "2026-10-11T14:24:41Z",
+      "evicted_count": 1703,
+      "oldest_retained_at": "2026-10-11T17:03:02Z",
       "side_counts": {
         "long": {
-          "evicted_count": 1122,
-          "oldest_retained_at": "2026-10-24T08:42:28Z"
+          "evicted_count": 1123,
+          "oldest_retained_at": "2026-10-24T15:08:29Z"
         },
         "short": {
-          "evicted_count": 579,
-          "oldest_retained_at": "2026-10-11T14:24:41Z"
+          "evicted_count": 581,
+          "oldest_retained_at": "2026-10-11T17:03:02Z"
         }
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-6270ed4f3c1c",
+        "idea_version": "IDEAV-49b0da9e940c36fc",
+        "idea_version_started_at": "2026-11-07T12:20:59Z",
+        "ticker": "DIVISLAB",
+        "company": "Divi's Laboratories",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company reported a 64% surge in net profit and 35% revenue growth in Q2, driven by margin expansion.",
+        "why_now": "The earnings results were released today, November 7, 2026.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 7,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-8f90679c58d6",
+          "EVT-ba69c45e4501"
+        ],
+        "primary_source_event_id": "EVT-8f90679c58d6",
+        "source_headlines": [
+          "Divi's Laboratories Q2 Results: Net Profit Jumps 64% To Rs 1,127 Crore, Revenue Rises 35%; Margins Expand",
+          "Divi's Lab net profit surges 63% to ₹1,127 cr in Q2"
+        ],
+        "source_headline": "Divi's Laboratories Q2 Results: Net Profit Jumps 64% To Rs 1,127 Crore, Revenue Rises 35%; Margins Expand",
+        "source_url": "https://www.ndtvprofit.com/markets/divis-laboratories-q2-results-net-profit-jumps-64-to-rs-1-127-crore-revenue-rises-35-margins-expand-12296198#publisher=newsstand",
+        "source_name": "NDTV Profit",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-07T09:56:49Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-07T12:20:59Z",
+        "updated_at": "2026-11-07T12:20:59Z",
+        "decay_at": "2026-11-08T21:56:49Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-08T21:56:49Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-58c269708038",
         "idea_version": "IDEAV-582986ff08955984",
@@ -235652,8 +235949,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-07T10:21:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-08T22:39:22Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -235725,8 +236022,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-07T10:02:30Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-08T22:12:11Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -235799,8 +236096,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-07T09:52:54Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-08T22:12:11Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -261339,82 +261636,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-2086a06fc886",
-        "idea_version": "IDEAV-9815baaab800b669",
-        "idea_version_started_at": "2026-10-24T19:18:35Z",
-        "ticker": "LUMAXTECH",
-        "company": "Lumax Auto Technologies",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Lumax Auto Technologies reported a 58% jump in Q2 profit and announced a ₹150 crore investment in a new Manesar electronics plant targeting ₹500 crore in additional revenue.",
-        "why_now": "Q2 results and capex update released on October 24, 2026.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 7,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-e4b19b30bb6e",
-          "EVT-fade7b6b43b0"
-        ],
-        "primary_source_event_id": "EVT-e4b19b30bb6e",
-        "source_headlines": [
-          "Lumax profit jumps 58%, bets ₹150 crore on electronics plant to generate ₹500 crore revenue",
-          "Lumax Auto Q2 results: Profit jumps 58%; new Manesar plant targets ₹500 crore turnover"
-        ],
-        "source_headline": "Lumax profit jumps 58%, bets ₹150 crore on electronics plant to generate ₹500 crore revenue",
-        "source_url": "https://www.thehindubusinessline.com/companies/lumax-profit-jumps-58-bets-150-crore-on-electronics-plant-to-generate-500-crore-revenue/article71619969.ece",
-        "source_name": "The Hindu BusinessLine",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-24T14:08:30Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-24T11:28:14Z",
-        "updated_at": "2026-10-24T19:18:35Z",
-        "decay_at": "2026-10-26T02:08:30Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-27T14:32:31Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-d61317a6133a",
         "idea_version": "IDEAV-3ef99735865d1304",
         "idea_version_started_at": "2026-10-26T00:05:04Z",
@@ -269836,8 +270057,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2297,
-    "live_count": 55,
+    "surfaced_total": 2303,
+    "live_count": 60,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -269856,9 +270077,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4652,
-    "news_picked_today": 675,
-    "news_dropped_today": 3112
+    "news_seen_today": 5077,
+    "news_picked_today": 830,
+    "news_dropped_today": 3382
   },
   "book_momentum": {
     "live_count": 8,
