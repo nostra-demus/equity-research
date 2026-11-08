@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-08T01:33:53Z",
+  "generated_at": "2026-11-08T01:38:20Z",
   "inbox": [
     {
       "inbox_id": "INB-20261108-020",
@@ -189,6 +189,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-033",
+      "headline": "Kakao X's growth outlook takes shape ahead of split",
+      "headline_en": null,
+      "url": "https://www.koreaherald.com/article/10929523",
+      "source_name": "The Korea Herald — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T01:35:59Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "Kakao is preparing for a corporate split, which is a significant structural change affecting the company's valuation and operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Kakao is preparing for a corporate split, which is a significant structural change affecting the company's valuation and operations.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "strategic_review",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kakao",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -267948,7 +267997,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4598,
+    "inbox_unconsumed": 4599,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -267957,9 +268006,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 144,
-    "news_picked_today": 32,
-    "news_dropped_today": 112
+    "news_seen_today": 148,
+    "news_picked_today": 33,
+    "news_dropped_today": 115
   },
   "book_momentum": {
     "live_count": 8,
