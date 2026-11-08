@@ -1,0 +1,293 @@
+{
+  "schema_version": "1.0",
+  "ticker": "SMPL",
+  "original_decision_date": "2026-08-06",
+  "review_date": "2026-11-09",
+  "review_window": "ad-hoc",
+  "original_decision": "Watchlist",
+  "basket": "Watchlist",
+  "entry_price": 11.33,
+  "tracking_price": null,
+  "review_price": 12.05,
+  "absolute_return_pct": 6.35481,
+  "benchmark_return_pct": null,
+  "sector_return_pct": null,
+  "benchmark_relative_return_pct": null,
+  "sector_relative_return_pct": null,
+  "thesis_status": "on-track",
+  "forecast_results": [
+    {
+      "prediction": "SMPL's FQ4 FY2026 print (Oct-23-2026) lands within management's guided range ($322M-$332M net sales / $52M-$57M Adj. EBITDA)",
+      "status": "expired",
+      "evidence": "The original dated inside-range event did not occur: the issuer's FQ4 FY2026 release is dated 27 October 2026, after the unchanged 23 October deadline. For thirteen weeks ended 29 August 2026, sales were USD333.305m and company-defined non-GAAP Adjusted EBITDA USD57.494m (reported USD333305/57494 thousand), above upper bounds by USD1.305m/0.494m. Neither inside-range confirmation nor below-floor falsifier fired. Existing calibrate.py treats an elapsed window without the predicted confirmation as expired (realized0), so retain the narrower thesis falsifier as not triggered; do not convert upside into a bearish investment outcome. No claim that this source alone proves the absence of all earlier preliminary disclosures. Header and financial tables support this source; erroneous ancillary weekday/replay-year text is not used. [Web: Simply Good Foods FQ4 FY2026 earnings release, 2026-10-27, date header/opening; thirteen weeks ended 2026-08-29, Consolidated Statements and company-defined non-GAAP Adjusted EBITDA reconciliation; retrieved/independently checked 2026-11-08; indicative/unverified pending pool ingestion] https://www.thesimplygoodfoodscompany.com/news-releases/news-release-details/simply-good-foods-company-reports-fiscal-fourth-quarter-and-4 The issuer scheduling announcement corroborates the identified results event: [Web: Simply Good Foods FQ4 FY2026 scheduling release, 2026-10-06, date header/opening paragraph, results scheduled for morning 2026-10-27; independently checked 2026-11-08; indicative/unverified pending pool ingestion] https://www.thesimplygoodfoodscompany.com/news-releases/news-release-details/simply-good-foods-report-fourth-quarter-fiscal-year-2026 These are carried, independently verified 8 November public outcome references; no fresh source or pool revalidation is claimed. The official-record corroboration does not exhaustively prove the absence of every earlier preliminary disclosure. Existing expired semantics resolve the failed positive timed event despite the narrower below-floor falsifier not firing; the original range, deadline, probability and triggers are unchanged.",
+      "as_of": "2026-11-09",
+      "forecast_id": "SMPL-FCST-001",
+      "original_forecast_index": 0,
+      "frozen_forecast_reference": {
+        "prediction": "SMPL's FQ4 FY2026 print (Oct-23-2026) lands within management's guided range ($322M-$332M net sales / $52M-$57M Adj. EBITDA)",
+        "probability": 60,
+        "time_window": "By 2026-10-23",
+        "evidence_today": "Guidance matched consensus within 0.5% as of Jul-09-2026; three prior beats but a deliberate under-shipment vs. consumption this quarter [earnings/04_guidance-consensus.md]",
+        "confirmation_trigger": "FQ4 FY2026 earnings release reports net sales and Adjusted EBITDA inside the guided range",
+        "falsification_trigger": "FQ4 FY2026 print reports net sales below $322M or Adjusted EBITDA below $52M",
+        "owner_module": "earnings",
+        "confidence_score": 60,
+        "status": "open",
+        "forecast_type": "earnings_eps",
+        "forecast_id": "SMPL-FCST-001",
+        "window_start": "2026-08-06",
+        "window_end": "2026-10-23",
+        "status_as_of": "2026-08-06",
+        "source_citation": "earnings/04_guidance-consensus.md §3, §6; Estimates Report.xls Guidance tab",
+        "metric": "Net sales and Adjusted EBITDA vs. guided range",
+        "threshold": "$322M-$332M net sales; $52M-$57M Adjusted EBITDA",
+        "causal_steps": [
+          "Deliberate FQ3 under-shipment vs. consumption resets retailer inventories ahead of FQ4",
+          "FQ4 shipments normalize toward consumption levels, landing inside the guided range absent a new shock"
+        ],
+        "stock_bullish_trigger": "Print at or above the guided midpoint with gross margin at or above the guided high",
+        "stock_bearish_trigger": "Print below the guided floor or a repeat of FQ3's pattern (revenue/EBITDA beat, GAAP gross margin miss)"
+      }
+    },
+    {
+      "prediction": "A fourth consecutive-quarter goodwill/intangible impairment occurs in FQ4 FY2026 or FY2027",
+      "status": "still open",
+      "evidence": "The release shows no Q4 impairment, but two clean quarters are required by the frozen falsification trigger; Q1 FY2027 has not been assessed. The $331m full-year charge predates Q4 and is not a new Q4 charge. [Web: Simply Good Foods FQ4 FY2026 earnings release, 2026-10-27, Fourth Quarter Summary; FY2027 Outlook; impairment reconciliation; retrieved 2026-11-08; indicative/unverified pending pool ingestion] https://www.thesimplygoodfoodscompany.com/news-releases/news-release-details/simply-good-foods-company-reports-fiscal-fourth-quarter-and-4",
+      "as_of": "2026-11-08",
+      "forecast_id": "SMPL-FCST-002",
+      "original_forecast_index": 1
+    },
+    {
+      "prediction": "A third material (>$50M), debt-funded acquisition is announced before OWYN's 2-year post-impairment anniversary (mid-2028)",
+      "status": "still open",
+      "evidence": "The acquisition window extends through mid-2028; the reviewed results do not establish the complete acquisition event history.",
+      "as_of": "2026-11-08",
+      "forecast_id": "SMPL-FCST-003",
+      "original_forecast_index": 2
+    },
+    {
+      "prediction": "The September-2026 price increase's net effect (visible in the FQ1 FY2027 print) shows realized net revenue on the affected base within +/-1% of flat (elasticity near management's '1 or higher' fear, not clearly below it)",
+      "status": "still open",
+      "evidence": "The Q1 FY2027 price-elasticity result has not been assessed; guidance is not a realized price-versus-volume result.",
+      "as_of": "2026-11-08",
+      "forecast_id": "SMPL-FCST-004",
+      "original_forecast_index": 3
+    },
+    {
+      "prediction": "SMPL's stock price closes within the $13.76-$17.53 live-triangulating fair-value range (peers/DCF) within 12 months of this run",
+      "status": "not assessable",
+      "evidence": "The at-any-time closing-price forecast runs through 6 August 2027. The endpoint alone cannot establish whether the $13.76-17.53 interval was crossed earlier; a complete dated closing series was not verified.",
+      "as_of": "2026-11-08",
+      "forecast_id": "SMPL-FCST-005",
+      "original_forecast_index": 4
+    }
+  ],
+  "catalyst_results": [
+    {
+      "catalyst": "FQ4 FY2026 results",
+      "status": "materialized",
+      "evidence": "The identified FQ4 FY2026 results event materialized on 27 October, after the unchanged 23 October forecast deadline. The 6 October scheduling release identified the morning of 27 October. The timed inside-range forecast therefore expired without confirmation; no below-floor falsifier fired. [Web: Simply Good Foods FQ4 FY2026 earnings release, 2026-10-27, date header/opening; thirteen weeks ended 2026-08-29, Consolidated Statements and company-defined non-GAAP Adjusted EBITDA reconciliation; retrieved/independently checked 2026-11-08; indicative/unverified pending pool ingestion] https://www.thesimplygoodfoodscompany.com/news-releases/news-release-details/simply-good-foods-company-reports-fiscal-fourth-quarter-and-4 [Web: Simply Good Foods FQ4 FY2026 scheduling release, 2026-10-06, date header/opening paragraph, results scheduled for morning 2026-10-27; independently checked 2026-11-08; indicative/unverified pending pool ingestion] https://www.thesimplygoodfoodscompany.com/news-releases/news-release-details/simply-good-foods-report-fourth-quarter-fiscal-year-2026",
+      "as_of": "2026-11-09"
+    },
+    {
+      "catalyst": "Q1 FY2027 price-elasticity test",
+      "status": "pending",
+      "evidence": "No realized result was verified; an issuer-confirmed report date remains unavailable.",
+      "as_of": "2026-11-08"
+    }
+  ],
+  "risk_results": [
+    {
+      "risk": "A third material, debt-funded acquisition before OWYN stabilizes — exactly the §24 Filter 4 pattern already tripped once (RF-CAP-004, Critical).",
+      "status": "pending",
+      "evidence": "The bounded review does not resolve this complete risk. No absence-of-disclosure inference or legal clearance is made. [Frozen decision_record.json, 2026-08-06, killer_risk]",
+      "as_of": "2026-11-08"
+    },
+    {
+      "risk_id": "RF-CAP-004",
+      "risk": "Serial-acquirer pattern; OWYN acquisition (~$280.2M, debt-funded, Jun-2024) 71% impaired within 24 months, incremental ROIC ~0% before the write-down",
+      "severity": "Critical",
+      "source_module": "management-governance",
+      "original_source": "FY26 Q3 10-Q, Note 4; FY2025 10-K p.43",
+      "status": "pending",
+      "evidence": "Retain the original severity and qualifiers. This review does not independently resolve the flag. [Frozen decision_record.json, 2026-08-06, red_flags]",
+      "as_of": "2026-11-08"
+    },
+    {
+      "risk_id": "RF-DISC-002",
+      "risk": "Recurring 'one-off' non-GAAP add-backs; Adjusted EBITDA excludes a $391.9M impairment pattern recurring across 3 of the last 4 quarters; adjustments 56.3% of GAAP EBITDA in FY2025",
+      "severity": "Critical",
+      "source_module": "management-governance",
+      "original_source": "earnings/06_earnings-quality.md; FY2025 10-K",
+      "status": "pending",
+      "evidence": "Retain the original severity and qualifiers. This review does not independently resolve the flag. [Frozen decision_record.json, 2026-08-06, red_flags]",
+      "as_of": "2026-11-08"
+    },
+    {
+      "risk_id": "RF-MGT-004",
+      "risk": "Turnaround claimed without >=2-3 years of delivered operating inflection; zero years proven",
+      "severity": "High",
+      "source_module": "management-governance",
+      "original_source": "Q2/Q3 FY26 earnings-call transcripts; earnings/04_guidance-consensus.md §6",
+      "status": "pending",
+      "evidence": "Retain the original severity and qualifiers. This review does not independently resolve the flag. [Frozen decision_record.json, 2026-08-06, red_flags]",
+      "as_of": "2026-11-08"
+    },
+    {
+      "risk_id": "RF-MGT-003",
+      "risk": "Annual cash bonus (21-23% of target NEO pay) is 100% size-based, no ROIC/EPS/FCF-per-share/margin component",
+      "severity": "High",
+      "source_module": "management-governance",
+      "original_source": "2026 Annual Meeting Proxy Statement p.44-45",
+      "status": "pending",
+      "evidence": "Retain the original severity and qualifiers. This review does not independently resolve the flag. [Frozen decision_record.json, 2026-08-06, red_flags]",
+      "as_of": "2026-11-08"
+    },
+    {
+      "risk_id": "RF-EQ-001",
+      "risk": "4 of 5 accrual-quality flags triggered — revenue outgrowing CFO, receivables/inventory outgrowing revenue/COGS, capitalized costs rising",
+      "severity": "High",
+      "source_module": "earnings",
+      "original_source": "earnings/06_earnings-quality.md §6",
+      "status": "pending",
+      "evidence": "Retain the original severity and qualifiers. This review does not independently resolve the flag. [Frozen decision_record.json, 2026-08-06, red_flags]",
+      "as_of": "2026-11-08"
+    },
+    {
+      "risk_id": "NONE-01",
+      "risk": "Three senior leadership changes (CEO, CFO's predecessor, Controller/CAO) in a single 12-month window, coincident with the largest-ever non-cash impairment",
+      "severity": "High",
+      "source_module": "management-governance",
+      "original_source": "CIQ Key Developments.rtf; 2026 Annual Meeting Proxy Statement p.60-61",
+      "status": "pending",
+      "evidence": "Retain the original severity and qualifiers. This review does not independently resolve the flag. [Frozen decision_record.json, 2026-08-06, red_flags]",
+      "as_of": "2026-11-08"
+    },
+    {
+      "risk_id": "NONE-04",
+      "risk": "Charter/bylaw stack denies shareholders the right to call a special meeting or act by written consent",
+      "severity": "High",
+      "source_module": "management-governance",
+      "original_source": "Annual Report on Form 10-K_2025, Risk Factors",
+      "status": "pending",
+      "evidence": "Retain the original severity and qualifiers. This review does not independently resolve the flag. [Frozen decision_record.json, 2026-08-06, red_flags]",
+      "as_of": "2026-11-08"
+    }
+  ],
+  "decision_quality": "not assessable",
+  "error_taxonomy": [],
+  "lessons": [
+    "This ad-hoc review is dated 9 November 2026 in Asia/Kolkata. It corrects the 8 November review interpretation using the already-verified issuer outcome evidence; it does not freshly revalidate prices, benchmarks, other forecasts, risks or FY2027 guidance. All unchanged observations retain their 8 November as-of dates. The carried SMPL NasdaqCM USD12.05 close is as of 6 November, not a current 9 November quote; the frozen USD11.33 anchor is as of 4 August. The carried 6.35481% underlying close-price change excludes dividends, costs and execution lags, is not a Watchlist portfolio return, and lacks matched-window benchmark/sector total returns.",
+    "SMPL-FCST-001 is expired under the existing review/calibration semantics: the original 60% positive event was not confirmed within its frozen window. This settles that forecast only; it does not assert that the downside falsifier fired, that Watchlist meant entry, or that the investment thesis failed. [Web: Simply Good Foods FQ4 FY2026 earnings release, 2026-10-27, date header/opening; thirteen weeks ended 2026-08-29, Consolidated Statements and company-defined non-GAAP Adjusted EBITDA reconciliation; retrieved/independently checked 2026-11-08; indicative/unverified pending pool ingestion] https://www.thesimplygoodfoodscompany.com/news-releases/news-release-details/simply-good-foods-company-reports-fiscal-fourth-quarter-and-4 [Web: Simply Good Foods FQ4 FY2026 scheduling release, 2026-10-06, date header/opening paragraph, results scheduled for morning 2026-10-27; independently checked 2026-11-08; indicative/unverified pending pool ingestion] https://www.thesimplygoodfoodscompany.com/news-releases/news-release-details/simply-good-foods-report-fourth-quarter-fiscal-year-2026",
+    "The prior review reported no source-bound market feed in its worktree and no located post-decision result document in the inspected ticker pool inventories. Those are carried 8 November inspection limits, not a new 9 November inventory or generation-binding claim. Public issuer facts remain dated, indicative/unverified pending pool ingestion.",
+    "Matched-window benchmark and sector total returns remain null and unverified from the prior review. No alpha, directional skill, annual-return or new forecast-performance claim is made.",
+    "The at-any-time closing-price forecast remains not assessable: the carried endpoint cannot settle the unverified historical price path. This missing path is distinct from the now-resolved timed earnings event.",
+    "The original decision, thesis, memo, model and earlier review are immutable. This selected correction is not an unseen forecasting test and does not claim global calibration admission, module promotion, automatic memory activation, or a new confidence haircut."
+  ],
+  "module_calibration_notes": {
+    "information_partition": "Process observations use only the frozen decision-time forecast specifications. Post-decision scheduling and results establish outcome resolution; they are not evidence that the original analyst should have known the later schedule or result.",
+    "process_observation": "The original positive inside-range confirmation and downside-only falsifier are not logical complements. Preserve them both: the existing expired status can settle nonconfirmation after the positive event deadline without asserting the bearish falsifier. The original at-any-time stock-price event still requires the dated closing path, not just an endpoint.",
+    "outcome_observation": "The frozen 60% inside-range event by 23 October 2026 expired without confirmation. The issuer scheduled results on 6 October for 27 October, and the 27 October print reported sales of USD333.305m and company-defined non-GAAP Adjusted EBITDA of USD57.494m, above the unchanged USD332m and USD57m upper bounds by USD1.305m and USD0.494m. The below-floor falsifier did not fire; expiry of the positive timed event is separate from an investment loss or thesis downgrade. The Watchlist investment conclusion remains unresolved. Carried 8 November context records adverse FY2027 guidance and a clean Q4 impairment observation; Q1 FY2027 and the two-clean-quarter falsifier remain unassessed. All Critical/High risk flags remain pending, without clearance or severity changes.",
+    "calibration": "The fixed 60% forecast resolves as expired (realized 0 under existing semantics). This is one selected outcome-correctness correction, not a claim of forecasting improvement, aggregate calibration admission or investment skill. No confidence haircut or module promotion is inferred.",
+    "carried_context": "This ad-hoc review is dated 9 November 2026 in Asia/Kolkata. It corrects the 8 November review interpretation using the already-verified issuer outcome evidence; it does not freshly revalidate prices, benchmarks, other forecasts, risks or FY2027 guidance. All unchanged observations retain their 8 November as-of dates. The carried SMPL NasdaqCM USD12.05 close is as of 6 November, not a current 9 November quote; the frozen USD11.33 anchor is as of 4 August. The carried 6.35481% underlying close-price change excludes dividends, costs and execution lags, is not a Watchlist portfolio return, and lacks matched-window benchmark/sector total returns."
+  },
+  "action_now": {
+    "label": "Keep watching",
+    "reason": "The original decision remains Watchlist because this expired inside-range forecast settles only the timed positive event, while the bearish falsifier did not fire and the carried risks and unresolved investment evidence do not support a change in exposure."
+  },
+  "confidence_update": {
+    "before": 30.0,
+    "after": null,
+    "change_reason": "The frozen published decision-time conviction, including the pre-mortem haircut, remains 30.0. Review-time conviction remains null because the carried context and bounded expiry correction do not supply a refreshed investment assessment; no current score is newly validated."
+  },
+  "next_check": {
+    "date": null,
+    "label": "Verify the Q1 FY2027 release date and realized price/volume response.",
+    "trigger": "Test the two-clean-quarter impairment falsification using Q4 FY2026 and Q1 FY2027 filings."
+  },
+  "learning": {
+    "why_right_or_wrong": "The frozen 60% inside-range event by 23 October 2026 expired without confirmation. The issuer scheduled results on 6 October for 27 October, and the 27 October print reported sales of USD333.305m and company-defined non-GAAP Adjusted EBITDA of USD57.494m, above the unchanged USD332m and USD57m upper bounds by USD1.305m and USD0.494m. The below-floor falsifier did not fire; expiry of the positive timed event is separate from an investment loss or thesis downgrade. The investment call remains unresolved; the carried price change is not benchmark-adjusted evidence of thesis skill.",
+    "error_source": "",
+    "rule_for_future": "Keep the frozen positive event, deadline and probability separate from narrower thesis falsifiers. Use existing expired semantics for supported nonconfirmation after the deadline; retain not assessable when required outcome evidence, such as a complete at-any-time price path, is missing. Do not infer investment failure from a failed forecast event.",
+    "future_research_check": "Verify the Q1 FY2027 release date and realized price/volume response."
+  },
+  "memo_delta": {
+    "summary": "SMPL-FCST-001 changes from not assessable to expired: its unchanged 60% inside-range event was not confirmed by 23 October 2026. The identified 27 October results were above both upper bounds, and the below-floor falsifier did not fire. Watchlist, the other four forecast results and all Critical/High risk statuses remain unchanged; other context is carried from the 8 November review.",
+    "thesis_delta_verdict": "unchanged",
+    "stage_one_comment": "The original Watchlist decision remains unchanged. This 9 November 2026 ad-hoc review corrects one outcome classification in the 8 November review. The fixed 60% forecast required an inside-range FQ4 FY2026 print by 23 October. The issuer scheduled the release on 6 October for 27 October; reported sales of USD333.305m and company-defined non-GAAP Adjusted EBITDA of USD57.494m exceeded both upper bounds. The positive timed event expired without confirmation. Its below-floor falsifier did not fire, and this is not an investment-loss or thesis-downgrade finding. The other four forecasts and all Critical/High risk statuses are carried unchanged. The USD12.05 price is the previously observed 6 November close, not a current quote. Its change from the frozen 4 August anchor is not a portfolio return. Matched-window benchmark and sector total returns remain unavailable. Keep watching: Q1 price elasticity, impairment and the full stock-price path still require evidence. No fresh valuation, source-pool revalidation, confidence score or aggregate skill conclusion is supplied.",
+    "changed_sections": [
+      {
+        "section": "8. Catalysts",
+        "original_claim": "The FQ4 FY2026 print is due on 23 October and confirms only inside the guided ranges.",
+        "new_evidence": "The frozen 60% inside-range event by 23 October 2026 expired without confirmation. The issuer scheduled results on 6 October for 27 October, and the 27 October print reported sales of USD333.305m and company-defined non-GAAP Adjusted EBITDA of USD57.494m, above the unchanged USD332m and USD57m upper bounds by USD1.305m and USD0.494m. The below-floor falsifier did not fire; expiry of the positive timed event is separate from an investment loss or thesis downgrade. This supersedes the prior review interpretation that the upside outcome could not be resolved; the original forecast is not rewritten.",
+        "evidence_source": "[Web: Simply Good Foods FQ4 FY2026 earnings release, 2026-10-27, date header/opening; thirteen weeks ended 2026-08-29, Consolidated Statements and company-defined non-GAAP Adjusted EBITDA reconciliation; retrieved/independently checked 2026-11-08; indicative/unverified pending pool ingestion] https://www.thesimplygoodfoodscompany.com/news-releases/news-release-details/simply-good-foods-company-reports-fiscal-fourth-quarter-and-4 [Web: Simply Good Foods FQ4 FY2026 scheduling release, 2026-10-06, date header/opening paragraph, results scheduled for morning 2026-10-27; independently checked 2026-11-08; indicative/unverified pending pool ingestion] https://www.thesimplygoodfoodscompany.com/news-releases/news-release-details/simply-good-foods-report-fourth-quarter-fiscal-year-2026",
+        "materiality_score": 75,
+        "impact_direction": "mixed",
+        "impacted_modules": [
+          "earnings",
+          "catalyst"
+        ],
+        "rerun_recommended": false,
+        "rerun_reason": "",
+        "rerun_command": ""
+      },
+      {
+        "section": "5. Why It Could Fail — Bear Case & The Killer Risk",
+        "original_claim": "Recurring impairment and weak demand require caution.",
+        "new_evidence": "Carried 8 November review context, not a fresh 9 November management forecast or revalidation: no Q4 impairment was reported; the company guided FY2027 sales down 13-17% and adjusted EBITDA down 9-14%. The clean Q4 is counterevidence to the near-term impairment concern, while the wider window and two-clean-quarter requirement remain unresolved.",
+        "evidence_source": "[Web: Simply Good Foods FQ4 FY2026 earnings release, 2026-10-27, Fourth Quarter Summary; FY2027 Outlook; impairment reconciliation; retrieved 2026-11-08; indicative/unverified pending pool ingestion] https://www.thesimplygoodfoodscompany.com/news-releases/news-release-details/simply-good-foods-company-reports-fiscal-fourth-quarter-and-4",
+        "materiality_score": 75,
+        "impact_direction": "mixed",
+        "impacted_modules": [
+          "earnings",
+          "management-governance"
+        ],
+        "rerun_recommended": true,
+        "rerun_reason": "Carry the prior recommendation only: reassess the named earnings assumptions in a separate authorized evidence snapshot; no rerun is performed by this correction.",
+        "rerun_command": "/research:earnings SMPL"
+      }
+    ],
+    "watch_items": [
+      "Verify the Q1 FY2027 release date and realized price/volume response.",
+      "Test the two-clean-quarter impairment falsification using Q4 FY2026 and Q1 FY2027 filings.",
+      "Preserve the fixed forecast and old review; apply the existing expired semantics to the timed event without changing the original range, probability, deadline or below-floor falsifier.",
+      "Verify the full closing-price path before resolving the at-any-time valuation-range forecast."
+    ],
+    "management_questions": [
+      "What price, volume and distribution assumptions drive the FY2027 sales decline?",
+      "How much margin recovery remains after brand reinvestment?",
+      "What impairment headroom remains by brand after the clean Q4?"
+    ],
+    "memo_delta_file": "analyses/SMPL_2026-08-06/reviews/2026-11-09_ad-hoc_memo_delta.md"
+  },
+  "pre_mortem_check": {
+    "pre_mortem_file": "analyses/SMPL_2026-08-06/pre_mortem.json",
+    "pre_mortem_verdict": "Survives with haircut",
+    "pre_mortem_confidence_haircut": 10.0,
+    "outcome_vs_verdict": "too_early",
+    "notes": "The pre-mortem named another impairment as the near-term killer. Q4 was clean, but the required Q1 observation and the wider FY2027 window remain unresolved; this cannot vindicate or contradict the whole pre-mortem."
+  },
+  "review_observation": {
+    "scheduled_due_date": null,
+    "days_after_decision": 95,
+    "price_as_of": "2026-11-06",
+    "price_currency": "USD",
+    "price_source": "[Web: SMPL NasdaqCM USD closing-price page, 2026-11-06, completed regular session; historical row where available; retrieved 2026-11-08; indicative/unverified pending pool ingestion] https://stockanalysis.com/stocks/smpl/history/",
+    "price_anchor_as_of": "2026-08-04",
+    "return_basis": "Underlying close-price change from the frozen anchor; dividends/costs excluded; no benchmark-relative inference.",
+    "dependency_cluster": "SMPL",
+    "retrospective_review": true,
+    "provisional_original": false,
+    "review_date_timezone": "Asia/Kolkata",
+    "review_date_basis": "2026-11-09 Asia/Kolkata; ad-hoc append-only interpretation correction, not an exact 90-day review or a fresh market snapshot.",
+    "prior_review_file": "analyses/SMPL_2026-08-06/reviews/2026-11-08_90d_decision_review.json",
+    "prior_review_date": "2026-11-08",
+    "prior_review_window": "90d",
+    "prior_review_scheduled_due_date": "2026-11-04",
+    "carried_context_as_of": "2026-11-08",
+    "carried_observations_revalidated": false,
+    "carried_context_note": "This ad-hoc review is dated 9 November 2026 in Asia/Kolkata. It corrects the 8 November review interpretation using the already-verified issuer outcome evidence; it does not freshly revalidate prices, benchmarks, other forecasts, risks or FY2027 guidance. All unchanged observations retain their 8 November as-of dates. The carried SMPL NasdaqCM USD12.05 close is as of 6 November, not a current 9 November quote; the frozen USD11.33 anchor is as of 4 August. The carried 6.35481% underlying close-price change excludes dividends, costs and execution lags, is not a Watchlist portfolio return, and lacks matched-window benchmark/sector total returns.",
+    "correction_scope": "Only SMPL-FCST-001 outcome classification and all dependent explanatory prose are corrected. Other forecast rows and all risk rows retain their prior as-of dates and qualifiers verbatim.",
+    "source_limit": "Official issuer scheduling/results evidence was independently inspected on 2026-11-08 in the registered accepted proposal/review. This artifact carries that evidence and its limitations; public evidence remains indicative/unverified pending pool ingestion. No frozen pool binding or exhaustive absence-of-earlier-disclosure attestation is claimed."
+  }
+}
