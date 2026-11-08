@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-08T12:29:28Z",
+  "generated_at": "2026-11-08T12:33:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20261108-252",
@@ -144,6 +144,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-258",
+      "headline": "NMC fraud: BR Shetty, ex-CEO could repay nearly Dh20 billion after Abu Dhabi ruling",
+      "headline_en": null,
+      "url": "https://gulfnews.com/business/markets/nmc-fraud-br-shetty-ex-ceo-could-repay-nearly-dh20-billion-after-abu-dhabi-ruling-1.500740328",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T12:16:37Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "A court ruling orders the former CEO of NMC Health to pay nearly Dh20 billion in damages.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A court ruling orders the former CEO of NMC Health to pay nearly Dh20 billion in damages.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NMC Health",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1906,61 +1955,6 @@
           "name": "Saudi Aramco",
           "ticker": null,
           "listing_country": "SA"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-087",
-      "headline": "SoftBank, ABB consider China carve-out to salvage robotics deal",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/business/2026/11/08/companies/softbank-abb-china-carve-out/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T03:23:00Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "SoftBank and ABB are considering a carve-out for a robotics deal due to regulatory hurdles, signaling a potential failure or restructuring of a major transaction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "SoftBank and ABB are considering a carve-out for a robotics deal due to regulatory hurdles, signaling a potential failure or restructuring of a major transaction.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna",
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SoftBank Group",
-          "ticker": null,
-          "listing_country": "JP"
-        },
-        {
-          "name": "ABB",
-          "ticker": null,
-          "listing_country": "CH"
         }
       ],
       "size_bucket": "mega",
@@ -270210,9 +270204,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1727,
-    "news_picked_today": 373,
-    "news_dropped_today": 1350
+    "news_seen_today": 1751,
+    "news_picked_today": 374,
+    "news_dropped_today": 1373
   },
   "book_momentum": {
     "live_count": 8,
