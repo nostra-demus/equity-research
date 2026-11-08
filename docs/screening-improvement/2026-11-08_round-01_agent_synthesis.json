@@ -1,0 +1,166 @@
+{
+  "program": "equity-screening-and-signals",
+  "round": 1,
+  "kind": "append-only specialist synthesis and next-experiment registration",
+  "observed_at": "2026-11-08T09:21:57.620299+00:00",
+  "baseline_commit": "cc24fe1f819331eec88adf97c52518b8c6688986",
+  "original_baseline": "screener/ledger/improvement/2026-11-08_round-01_baseline.json",
+  "specialist_evidence": "screener/ledger/improvement/runs/2026-11-08_round-01_specialist_findings.json",
+  "coordinator_read_all_reports": true,
+  "baseline_recheck": {
+    "listed_input_hashes": 92,
+    "schema_passed": 50,
+    "schema_documents": 65,
+    "failing_documents": 15,
+    "distinct_failing_contents": 9,
+    "due_checkpoints": 54,
+    "due_excluding_explicit_fixture_theses": 49,
+    "validation_result_rows": 0,
+    "conclusion": "Original numerical and recorded-provenance claims reproduced. The listed manifest is not a complete executable dependency closure; the repository SHA pins omitted imports."
+  },
+  "clarification": {
+    "supersedes": "The original baseline next.action wording that describes an unflagged thesis as non-fixture.",
+    "checkpoint_id": "CHK-dd716589-01",
+    "classification": "fixture-indicated/authenticity-unverified; not proven prospective",
+    "source_evidence": [
+      "screener/ledger/theses/THS-SIG-20260612-dd716589-v1.json:19",
+      "screener/ledger/theses/THS-SIG-20260612-dd716589-v1.json:31",
+      "screener/ledger/theses/THS-SIG-20260612-dd716589-v1.json:593"
+    ],
+    "reason": "Source URL contains /fixture-lng-force-majeure/ and thesis creation precedes its input timestamp. These are provenance concerns, not authority to rewrite the original.",
+    "tally_qualifier": "49 means due rows excluding explicitly labelled fixture theses; it does not mean 49 verified genuine or independent prospective forecasts.",
+    "outcome_test": "Retain the full compound frozen falsifier: restart announcement AND JKM below $12 within ten trading days. Price alone cannot resolve it."
+  },
+  "finding_dispositions": [
+    {
+      "finding": "Shared new-publication gate does not enforce existing screener schemas.",
+      "disposition": "accepted for a bounded correctness correction",
+      "evidence": "source_quality report: existing schema rejects a synthetic 16-hex event ID while shared records gate returns PASS with zero records checked; supervisor can project malformed artifacts.",
+      "qualifier": "Local code/reproduction evidence only; no live production incident or investment loss was established. Current canonical producer emits 12 hex; do not widen the schema."
+    },
+    {
+      "finding": "Zero committed validation rows proves production dispatch failure.",
+      "disposition": "rejected",
+      "reason": "Live enablement, provenance holds, admission/budget, publication status and owner-private output were not inspected. Successful unresolved judgments should still leave rows, so missing sources alone is also unproven."
+    },
+    {
+      "finding": "All unflagged checkpoints are genuine prospective observations.",
+      "disposition": "rejected",
+      "reason": "Explicit fixture metadata is not an authenticity test; keep suspicious historical cases out of prospective credit until positively verified."
+    },
+    {
+      "finding": "Run a provenance-eligibility classification across ten ledger theses.",
+      "disposition": "retained as the next evidence-audit backlog item, not a second active candidate",
+      "reason": "Useful for measurement; the directly reproduced shared correctness gap takes priority. Preserve the broad eligible reference and rejected/abstained cases."
+    },
+    {
+      "finding": "Use existing specialists and one coordinator with independent challenge.",
+      "disposition": "accepted and saved in the active 45-minute automation",
+      "reason": "Reuses the manifest-discovered program and deterministic tools; avoids separate schedules and competing agent frameworks."
+    }
+  ],
+  "coordinated_protocol": [
+    "Coordinator resumes the latest append-only checkpoint, verifies current baseline/candidate SHAs and existing PR delivery, and selects one decision bottleneck. Keep one active experiment; a 45-minute tick need not start new work.",
+    "Reuse manifest-discovered existing analytical roles. Assign bounded read-only questions to at most two complementary specialists plus one independent challenger within available concurrency. Each gets frozen inputs, owned output path, allowed sources, budget and a concrete completion criterion. Avoid paid dispatch and production mutation.",
+    "Source/meaning work reuses screener-event-statement, screener-world-change, screener-novelty and relevant evidence tools; exposure/ranking work reuses screener-beneficiary-map, screener-market-implied and candidate-surfacing only after its routing prerequisites; outcome work reuses screener-checkpoint-validator and the existing deterministic calibrator/rescorer contracts.",
+    "Independent challenge reuses screener-thesis-red-team and integrity rules. It checks source authenticity, qualifier retention, point-in-time availability, numerical basis, counterevidence, likely false positives and missed opportunities; it may cap/reject but never raises conviction or rewrites a locked record.",
+    "Coordinator reads each complete report, records every material finding as accepted, rejected with evidence, or blocked, and resolves contradictory facts by source hierarchy rather than majority vote. One implementation owner makes one coherent candidate only after preregistration.",
+    "Preregister sample IDs, exact forecast horizons, matching variables, primary metric, acceptance rule, cost budget and critical guardrails before seeing outcome labels. Baseline and candidate use identical frozen inputs, lags, universe, policy and costs; preserve all variants including failed ones.",
+    "Immediate correctness fixes use deterministic regressions and admissible positive controls. Historical LLM replays remain development evidence once viewed. Predictive claims need untouched historical out-of-sample or prospective shadow outcomes with all eligible selected/rejected/abstained cases registered.",
+    "Admit, reject, or hold in shadow only on the preregistered rule. Preserve small-N refusals and human/spending gates. Deliver accepted code through the protected PR workflow and standing authorized merge path; inspect automatic deployment read-only where relevant. Append evidence, disposition, delivery and one next action.",
+    "If two consecutive ticks add no evidence to one obstacle, narrow or change method, or record that dependency blocked and continue independent work. Do not multiply active candidates while waiting for review or outcome labels."
+  ],
+  "existing_roles": {
+    "discovery_and_orchestration": [
+      ".claude/agents/screener/SWARM.md",
+      "frameworks/screener/SCREENER_PIPELINE.md",
+      "frameworks/MODULE_PIPELINE.md"
+    ],
+    "source_and_semantics": [
+      ".claude/agents/screener/thesis-structure/01_event-statement.md",
+      ".claude/agents/screener/thesis-structure/02_world-change.md",
+      ".claude/agents/screener/signal-gate/02_novelty-context.md"
+    ],
+    "exposure_and_ranking": [
+      ".claude/agents/screener/thesis-structure/03_beneficiary-map.md",
+      ".claude/agents/screener/edge-definition/02_market-implied.md",
+      ".claude/agents/screener/candidate-surfacing/02_expression-ranking.md"
+    ],
+    "independent_challenge": [
+      ".claude/agents/screener/thesis-integrity/01_adversarial-attack.md",
+      ".claude/agents/screener/thesis-integrity/99_thesis-integrity-synthesis.md"
+    ],
+    "outcomes": [
+      ".claude/agents/screener/conviction/20_checkpoint-validator.md",
+      ".claude/commands/screener/validate.md",
+      "scripts/screener_rescore.py",
+      "scripts/screener_calibrate.py",
+      "scripts/provider_calibration.py"
+    ],
+    "feedback": [
+      ".claude/commands/screener/tune.md",
+      "scripts/screener_feedback_tune.py"
+    ]
+  },
+  "preserved_floors_and_gates": {
+    "global_resolved_checks": 10,
+    "provider_brier_min_rows": 10,
+    "provider_brier_min_distinct_theses": 5,
+    "provider_directional_min_rows": 10,
+    "provider_edge_proxy_min_exact_horizon_cohort": 5,
+    "feedback_min_total": 20,
+    "feedback_min_per_category": 8,
+    "feedback_directional_consistency": 0.7,
+    "feedback_max_step_points": 3,
+    "feedback_min_score_changing_holdout": 5,
+    "cautions": [
+      "The existing selected-minus-discarded edge score is explicitly a proxy, not realized investment return.",
+      "Eligible rejected, low-ranked and abstained cases must remain in the registered denominator so refusing everything cannot manufacture precision.",
+      "Use exact predeclared one-quarter, two-quarter and one-year windows, absolute/market/sector returns, costs, losses, drawdown and concentration. Calibration floors do not prove economic significance or independence.",
+      "The feedback-tuning command is recommend-only and prohibits writing live rank weights automatically; preserve that human gate."
+    ]
+  },
+  "registered_experiment": {
+    "id": "screening-new-publication-schema-admission-v1",
+    "classification": "correctness, not predictive improvement",
+    "status": "registered; implementation and candidate evaluation have not started",
+    "candidate_commit": null,
+    "decision_improved": "Whether structurally malformed new screening evidence can enter canonical ranking/monitoring state.",
+    "hypothesis": "Reusing existing manifest-resolved schema validation at the shared publication boundary blocks malformed changed/new screening bytes before durable projection while preserving valid publications and immutable history.",
+    "owner": "Shared cockpit publication boundary. Check for an active owner; hand off this concrete evidence if owned. If unowned, make the smallest correction in the existing implementation, not a screening-only parallel gate.",
+    "primary_metric": "Number of schema-invalid new synthetic artifacts admitted past the publication boundary; acceptance is zero on the fixed regression matrix.",
+    "fixed_sample": [
+      "Valid synthetic complete signal publication",
+      "New signal event_id with 16 hex rather than the existing 12-hex contract",
+      "New signal_payload typed commodity string replaced by null",
+      "New thesis missing_reason or override_justification string replaced by null",
+      "New thesis world_changes shortened below its existing schema minimum",
+      "New candidate news-impact string fields replaced by null",
+      "Existing valid early-stop/terminal behavior without unnecessary downstream artifacts",
+      "Unchanged immutable historical bytes retained without rewriting or prospective-performance credit"
+    ],
+    "comparison": "Baseline and candidate use identical pinned synthetic artifacts, schema bytes, simulated supported provider identities and local filesystem topology. No paid analytical dispatch. Record every case result and exact candidate SHA.",
+    "acceptance_rule": "Every malformed changed/new positive-control defect is rejected before ledger/checkpoint/board mutation, snapshot sealing or Git publication; all valid controls and legitimate early stops pass; unchanged history is preserved; both provider adapters share the same behavior; refusal remains visible and recoverable; relevant local/staging and required CI checks pass.",
+    "cost_budget": "Deterministic local/staging regressions only; reuse prepared dependencies and the mandated heavy-build queue. No paid providers, API credits, production validators or new full data generation.",
+    "risk_guardrails": [
+      "Resolve schemas through discovered manifest declarations with canonical path containment.",
+      "Reuse the existing Python validator and shared publication seam; avoid a central artifact-name registry.",
+      "Do not relax schemas to accommodate old malformed data or fabricate missing string values.",
+      "Preserve exact frozen-byte/provenance binding, provider parity, valid early stops, immutability and bounded recovery.",
+      "Schema conformance never proves authenticity, point-in-time knowledge, independence or investment performance.",
+      "Keep live ranking-weight tuning recommend-only and preserve human/spending gates."
+    ],
+    "investment_horizon": "Not applicable to correctness tests; quarter/two-quarter/year investment outcomes remain unmeasured."
+  },
+  "next_action": "Deliver the append-only baseline/specialist assessment through PR 782, then implement the one registered shared-boundary correction if no active shared owner is handling it. Do not re-run a full audit or start another active experiment while waiting for delivery.",
+  "delivery": {
+    "pull_request": "https://github.com/nostra-demus/equity-research/pull/782",
+    "status_at_recording": "open; required CI pending; bot review unavailable due its reported usage limit; local coordinator and three specialist investigations completed",
+    "application_change": false
+  },
+  "limitations": [
+    "No production access, paid dispatch, real trade or predictive claim.",
+    "No schema-admission repair has been implemented in this artifact.",
+    "Perfection and 100% annual returns are not established."
+  ]
+}

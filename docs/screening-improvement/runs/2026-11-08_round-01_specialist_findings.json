@@ -1,0 +1,325 @@
+{
+  "source_quality": {
+    "report_sha256": "d491015e1153b832d1fa0c7efb3908a7bf4f21da6ab57ff2fe13183baf7374c6",
+    "findings": {
+      "agent": "screening_source_quality",
+      "scope": "Read-only local source and publication-admission investigation. No live production verification, investment performance measurement, tracked edits, commits, full builds, paid calls, or provider launches.",
+      "code_commit": "340606df42f7488f36a3b1c6633daa01969bf53d",
+      "finding": "New screener publication lacks an enforced structural-schema boundary, although the existing schema validator rejects the observed failure classes.",
+      "evidence": [
+        {
+          "path": "ui/server/src/launcher.ts",
+          "line": 8075,
+          "fact": "Publication checks declared terminal artifact existence, regular-file identity, and freshness."
+        },
+        {
+          "path": "ui/server/src/launcher.ts",
+          "line": 8105,
+          "fact": "Signal projection parses its thesis and validates only the thesis-id shape plus integrity-review verdict/routing; no thesis, signal-payload, or candidates JSON-schema call is present."
+        },
+        {
+          "path": "ui/server/src/launcher.ts",
+          "line": 8125,
+          "fact": "Terminal capability is consumed, ledger is written/stamped, and checkpoint/board projection follows without that structural gate."
+        },
+        {
+          "path": "ui/server/test/execution-provenance-supervisor.test.ts",
+          "line": 1425,
+          "fact": "Existing supervisor fixture uses only meta.thesis_id, score, and decision; supervisePublication stamp accepts it at line 1440. This establishes provenance behavior, not structural correctness."
+        },
+        {
+          "path": "scripts/decision_publication_gate.py",
+          "line": 48,
+          "fact": "Shared gate selects only analyses/<RUN>/decision_record.json; new screener JSON is outside the selected path family."
+        },
+        {
+          "path": "scripts/validate_screener_json.py",
+          "line": 259,
+          "fact": "CI fixture selection names one old screener fixture for intake, payload, thesis and candidates, plus board; it does not discover every screener run. Integrity reviews are additionally discovered."
+        },
+        {
+          "path": "scripts/update_board_index.py",
+          "line": 1033,
+          "fact": "Candidate/thesis projections read JSON without structural-schema checks."
+        },
+        {
+          "path": "ui/server/src/news/normalize.ts",
+          "line": 16,
+          "fact": "Current canonical eventIdFor generates exactly 12 hex digits. The observed 16-digit historical payload is not evidence that the current producer needs a wider schema."
+        }
+      ],
+      "reproductions": {
+        "synthetic_new_publication": "synthetic-publication-gap.json records existing schema rejection but shared records gate exit 0 with zero records checked.",
+        "historical_read_only_board": "read-only-projection-evidence.json records five schema-invalid ledger theses present in in-memory board output; three provisional entries carry 7, 7 and 6 candidates. The invalid 16-hex payload event also exists in the events ledger and board projection."
+      },
+      "bounded_correction": {
+        "hypothesis": "Enforcing existing manifest-resolved schemas on exact changed/new publication bytes before durable projection or sealing prevents structurally malformed screening evidence from entering new canonical ranking state.",
+        "reuse": [
+          "scripts/validate_screener_json.py validate(schema_path, doc_path) or its CLI schema/doc pairs.",
+          "scripts/decision_publication_gate.py records snapshot interface, immutable unchanged-HEAD handling, and both supervisor/committer callers.",
+          "ui/server/src/launcher.ts assertNewDecisionRecordsPublishable (line 7164) is the existing pre-seal Python-gate seam."
+        ],
+        "manifest_contract": {
+          "path": ".claude/agents/screener/SWARM.md",
+          "decision_artifacts": [
+            "thesis_record.json"
+          ],
+          "decision_artifacts_line": 12,
+          "schemas_root": "frameworks/screener",
+          "schemas_root_line": 17,
+          "runtime_parser": "ui/server/src/swarms.ts:102,128,132 maps decisionArtifacts and schemasRoot."
+        },
+        "discovery": "Resolve root JSON schemas through the discovered swarm schema root and artifact basename convention or an explicit per-manifest declaration; no central screener artifact list or duplicate JSON-schema implementation. Define versioned integrity review resolution deliberately. Existing schemasRoot is parsed as a string without canonical path validation, so containment validation is required before it becomes an executable boundary.",
+        "regression": "For both provider identities, use valid synthetic signal artifacts then mutate event_id to 16 hex, a typed string to null, and a world_changes array to one row. The existing schema validator must reject each applicable new snapshot; the shared publication gate and supervisor must reject before any ledger/checkpoint/board write, snapshot seal, Git operation, or paid automatic retry. Valid new/terminal-stop samples pass. Immutable old bytes are preserved and are not regraded into rewritten history.",
+        "interface_caution": "The direct committer --check interface currently receives only a record file and assumes research validation; manifest schema routing needs the original publication path explicitly retained rather than inferred from a temporary filename.",
+        "owner": "Shared cockpit publication boundary owns implementation; screening signal-gate and thesis/candidate synthesizers own producer conformance. Hand off this concrete shared correction rather than creating a second admission path."
+      },
+      "qualifiers": [
+        "A board projection of a historical invalid record proves local projection admission, not a new live-production incident or an erroneous investment outcome.",
+        "The one-world-change historical record is watchlist_no_source already. Its structural nonconformance is not evidence that the world-change business gate promoted it.",
+        "Optional null strings are structural defects, not automatically material evidence or economic-mechanism failures.",
+        "Schema validity never establishes source authenticity, original full-content availability, point-in-time knowledge, independence, or investment skill. A separate provenance/authenticity cohort gate must quarantine fixtures and synthetic source URLs before prospective-performance admission.",
+        "Keep early-stop semantics, immutable records, runtime provenance, provider parity, and bounded recoverable refusal. Do not widen schema patterns to admit historical malformed data or replace missing facts with invented strings."
+      ]
+    },
+    "synthetic_reproduction": {
+      "method": "Direct existing records gate on an exact synthetic new-publication snapshot; no Git/index writes, no committer, no provider calls.",
+      "existing_schema_errors": [
+        "event_id — 'EVT-0123456789abcdef' does not match pattern '^EVT-[a-f0-9]{12}$'"
+      ],
+      "existing_shared_publication_gate_exit_code": 0,
+      "existing_shared_publication_gate_stdout": "DECISION-PUBLICATION-GATE: PASS — 0 new terminal decision record(s) validated\n",
+      "expected_regression": "A schema-invalid new screener snapshot must be refused before sealing or committing; the present gate returns PASS with zero records checked."
+    }
+  },
+  "outcomes": {
+    "report_sha256": "c6c5f67463f09411ef43887cd9770689840550c439f5b659f6517aebd226eaa9",
+    "findings": {
+      "investigation": "Read-only conviction/outcome-recording path trace",
+      "observed_checkout_sha": "340606df42f7488f36a3b1c6633daa01969bf53d",
+      "checkpoint_id": "CHK-dd716589-01",
+      "thesis_id": "THS-SIG-20260612-dd716589-v1",
+      "frozen_test": {
+        "threshold": 12.0,
+        "operator_hint": "lt",
+        "due_at": "2026-08-15",
+        "authoritative_falsification_sentence": "QatarEnergy publicly announces that Trains 4 and 6 at Ras Laffan have resumed cargo loadings — confirmed by a QatarEnergy corporate announcement or an on-list newswire (Bloomberg, Reuters, or Argus Media) — and JKM front-month spot falls back below $12.00/MMBtu within 10 trading days of that announcement, confirming the market has priced in the supply restoration.",
+        "basis": "Compound event + price condition; the scalar threshold alone does not resolve this checkpoint."
+      },
+      "eligibility_warning": {
+        "source_url": "https://www.reuters.com/business/energy/fixture-lng-force-majeure/",
+        "created_at": "2026-06-12T00:00:00Z",
+        "source_input_datetime": "2026-06-12T13:39:48.480Z",
+        "classification": "Suspect legacy/example, not proven prospective. Explicit fixture metadata is absent but source URL contains fixture; created_at precedes input_datetime. Do not count this as independent live investment evidence without provenance adjudication.",
+        "evidence": "screener/ledger/theses/THS-SIG-20260612-dd716589-v1.json:5,17,19"
+      },
+      "committed_rows": {
+        "validation_result_total": 0,
+        "this_thesis_seed_events": 1
+      },
+      "path_trace": [
+        {
+          "stage": "Dispatch",
+          "evidence": "ui/server/src/conviction-dispatch.ts:32,105,145,176,201",
+          "finding": "Runtime requires CONVICTION_LOOP_ENABLED=1; selects earliest due unresolved non-archived checkpoint per thesis; enforces trusted author-provider/profile, configured tracked launcher, concurrent and daily caps. Disabled/provider/admission/cap holds each have distinguishable code/log paths."
+        },
+        {
+          "stage": "Service configuration",
+          "evidence": "scripts/ops/com.nostradamus.engine.plist:24-30; scripts/ops/README.md:248-253",
+          "finding": "Reviewed service template explicitly enables the conviction flag. Code default-off therefore does not prove the installed service is off. Actual runtime was not inspected."
+        },
+        {
+          "stage": "Tracked admission",
+          "evidence": "ui/server/src/server.ts:8350-8358; ui/server/src/launcher.ts:5540-5547,5796-5801",
+          "finding": "Dispatcher reuses launch(kind=conviction) with exact thesis/checkpoint IDs and author profile. Run root is screener/ledger/conviction/runs/<checkpoint_id>; writes include calendar, append-only ledger, that thesis state, and board."
+        },
+        {
+          "stage": "Source judgment",
+          "evidence": ".claude/commands/screener/validate.md:10-26; .claude/agents/screener/conviction/20_checkpoint-validator.md:17-48",
+          "finding": "Existing validator reads the frozen full falsification sentence over parsed hints; fetches actual approved sources, units, period and dates; returns judgment without writes. A kill requires two independent approved sources; absent value is unresolved."
+        },
+        {
+          "stage": "Persistence",
+          "evidence": ".claude/commands/screener/validate.md:28-57,71-75; scripts/screener_rescore.py:167-219,222-235,289-340,460-467",
+          "finding": "Deterministic rescorer uses repository mutation lease, immutable observation keys and replay. It parks a one-source breach and discards on a two-source breach. It appends validation_result and conviction_event before projecting state/calendar. Unresolved is still recorded; zero rows is not itself a source-insufficiency diagnosis."
+        },
+        {
+          "stage": "Calibration",
+          "evidence": "scripts/screener_calibrate.py:142-148,230-245,317-332; ui/server/src/launcher.ts:8387-8395",
+          "finding": "Aggregator consumes only local conviction.ndjson validation_result rows, excludes unresolved, retains null metrics below N=10. Publication invokes deterministic calibration; a refresh failure is a visible warning after safely committed review, not grounds to rerun paid work."
+        }
+      ],
+      "available_read_only_diagnostics": [
+        {
+          "question": "Did a run actually launch or fail?",
+          "read": "GET /api/activity?kind=conviction&q=CHK-dd716589-01 (paginate/time-bound as necessary)",
+          "evidence": "ui/server/src/server.ts:945-966; ui/server/src/activity-log.ts:7-10,22-60; ui/server/src/config.ts:52-57",
+          "limitation": "Persistent audit is owner-private gitignored STATE_DIR; committed rows cannot reveal it. No API call performed."
+        },
+        {
+          "question": "Was publication incomplete?",
+          "read": "GET /api/runs/<runId> for status, publicationPhase, runRoot and exact profile after activity identifies a run",
+          "evidence": "ui/server/src/server.ts:1999-2034",
+          "limitation": "Run snapshots are current runtime state; no request performed."
+        },
+        {
+          "question": "Do runtime thesis outcome rows differ from checkout?",
+          "read": "GET /api/screener/thesis/THS-SIG-20260612-dd716589-v1; compare conviction.events/checkpoints/state against exact IDs and provenance",
+          "evidence": "ui/server/src/server.ts:6894-6908; ui/server/src/screener.ts:218-242",
+          "limitation": "Reader silently maps missing/unreadable files to empty arrays, so an empty API response alone cannot distinguish absent from malformed files. Strict underlying file reads or logs are needed."
+        },
+        {
+          "question": "Was dispatch disabled, capped or profile-held?",
+          "read": "Reviewed startup/conviction log messages and owner-private STATE_DIR/conviction-dispatch.json daily counter, using established runbook access only",
+          "evidence": "ui/server/src/conviction-dispatch.ts:90-102,145-170,201-211",
+          "limitation": "No dedicated conviction health endpoint found in inspected paths; do not dump process environment or secrets, change flags, restart, or launch paid validators."
+        }
+      ],
+      "recommended_next_action": {
+        "action": "Adjudicate original source provenance and information-availability timing before selecting a prospective benchmark. Keep CHK-dd716589-01 only as a legacy structural regression unless its fixture-looking source and chronology are resolved. For one proven genuine case, make the existing read-only activity/thesis comparison and classify dispatch hold, unresolved judgment, publication failure or checkout lag.",
+        "acceptance_rule": "One exact case with source publication/first-usable time no later than frozen registration, original full threshold and horizon retained, exact run/checkpoint join, and either a recorded evidence-backed judgment or precise missing-input/hold reason. No new probability/return metric from this trace.",
+        "owning_components": [
+          "screener-checkpoint-validator judgment role",
+          ".claude/commands/screener/validate.md orchestration",
+          "scripts/screener_rescore.py deterministic state",
+          "ui/server/src/conviction-dispatch.ts tracked dispatch"
+        ]
+      },
+      "limits": [
+        "No live/production access, paid source, external LLM, validator launch, flag change, build, trade, tracked-file edit, commit or PR performed.",
+        "No claim is made that the production loop failed or that the data proves predictive skill.",
+        "No issuer or tradable line is selected by the checkpoint: it is a macro LNG thesis. Ticker-level portfolio outcomes need a separately frozen candidate expression and entry convention."
+      ]
+    }
+  },
+  "independent_challenge": {
+    "report_sha256": "e8761b55f7c6206b2dbe613924e309923bac66eaace6bd4eb5d0fce4b4e0a1fc",
+    "findings": {
+      "role": "independent_challenge",
+      "scope": "Read-only independent review of the saved baseline and coordinated improvement protocol; no market or production audit.",
+      "baseline_verification": {
+        "baseline_commit": "cc24fe1f819331eec88adf97c52518b8c6688986",
+        "baseline_git_object_hashes_verified": 92,
+        "input_manifest_digest_verified": true,
+        "schema_documents_repeated": 65,
+        "schema_passed": 50,
+        "schema_failed_documents": 15,
+        "distinct_failed_document_contents": 9,
+        "schema_error_occurrences": 23,
+        "checkpoint_rows": 84,
+        "unique_checkpoint_ids": 84,
+        "due_rows": 54,
+        "due_rows_explicit_fixture_thesis": 5,
+        "due_rows_excluding_explicit_fixture_thesis": 49,
+        "validation_result_rows": 0,
+        "numerical_or_recorded_hash_errors": []
+      },
+      "actionable_findings": [
+        {
+          "severity": "medium",
+          "finding": "The next action calls the selected checkpoint non-fixture, but absence of an explicit fixture flag is not authenticity evidence. The selected dd716589 source URL contains fixture-lng-force-majeure in intake, thesis metadata and source packet. Treat authenticity as unresolved/fixture-indicated until verified; do not retroactively count it as a genuine prospective forecast.",
+          "evidence": [
+            "screener/ledger/improvement/2026-11-08_round-01_baseline.json:46",
+            "screener/ledger/theses/THS-SIG-20260612-dd716589-v1.json:19",
+            "screener/ledger/theses/THS-SIG-20260612-dd716589-v1.json:31",
+            "screener/ledger/theses/THS-SIG-20260612-dd716589-v1.json:593"
+          ],
+          "correction": "Append a clarification to the next progress artifact; preserve original baseline and thesis bytes. Continue using the exact 49 tally label excluding explicitly labelled fixture theses, never abbreviate it to 49 real forecasts. Add an authenticity/admission gate before investment-performance credit or paid dispatch."
+        },
+        {
+          "severity": "low",
+          "finding": "The listed-input manifest verifies all 92 recorded files, not a complete executable dependency closure. For example, the existing calibrator imports scripts/provider_calibration.py, which is not listed in the manifest. The baseline Git commit pins that source anyway, so current reproducibility is intact.",
+          "evidence": [
+            "scripts/screener_calibrate.py:44",
+            "scripts/provider_calibration.py:17"
+          ],
+          "correction": "When describing provenance, say 92 listed input files plus the pinned repository SHA; if code is exported out of Git in future, include executable dependencies and runtime versions."
+        }
+      ],
+      "protocol": [
+        "Coordinator resumes the latest append-only checkpoint, verifies current baseline/candidate SHAs and existing PR delivery, and selects one decision bottleneck. Keep one active experiment; a 45-minute tick need not start new work.",
+        "Reuse manifest-discovered existing analytical roles. Assign bounded read-only questions to at most two complementary specialists plus one independent challenger within available concurrency. Each gets frozen inputs, owned output path, allowed sources, budget and a concrete completion criterion. Avoid paid dispatch and production mutation.",
+        "Source/meaning work reuses screener-event-statement, screener-world-change, screener-novelty and relevant evidence tools; exposure/ranking work reuses screener-beneficiary-map, screener-market-implied and candidate-surfacing only after its routing prerequisites; outcome work reuses screener-checkpoint-validator and the existing deterministic calibrator/rescorer contracts.",
+        "Independent challenge reuses screener-thesis-red-team and integrity rules. It checks source authenticity, qualifier retention, point-in-time availability, numerical basis, counterevidence, likely false positives and missed opportunities; it may cap/reject but never raises conviction or rewrites a locked record.",
+        "Coordinator reads each complete report, records every material finding as accepted, rejected with evidence, or blocked, and resolves contradictory facts by source hierarchy rather than majority vote. One implementation owner makes one coherent candidate only after preregistration.",
+        "Preregister sample IDs, exact forecast horizons, matching variables, primary metric, acceptance rule, cost budget and critical guardrails before seeing outcome labels. Baseline and candidate use identical frozen inputs, lags, universe, policy and costs; preserve all variants including failed ones.",
+        "Immediate correctness fixes use deterministic regressions and admissible positive controls. Historical LLM replays remain development evidence once viewed. Predictive claims need untouched historical out-of-sample or prospective shadow outcomes with all eligible selected/rejected/abstained cases registered.",
+        "Admit, reject, or hold in shadow only on the preregistered rule. Preserve small-N refusals and human/spending gates. Deliver accepted code through the protected PR workflow and standing authorized merge path; inspect automatic deployment read-only where relevant. Append evidence, disposition, delivery and one next action.",
+        "If two consecutive ticks add no evidence to one obstacle, narrow or change method, or record that dependency blocked and continue independent work. Do not multiply active candidates while waiting for review or outcome labels."
+      ],
+      "existing_role_references": {
+        "discovery_and_orchestration": [
+          ".claude/agents/screener/SWARM.md",
+          "frameworks/screener/SCREENER_PIPELINE.md",
+          "frameworks/MODULE_PIPELINE.md"
+        ],
+        "source_and_semantics": [
+          ".claude/agents/screener/thesis-structure/01_event-statement.md",
+          ".claude/agents/screener/thesis-structure/02_world-change.md",
+          ".claude/agents/screener/signal-gate/02_novelty-context.md"
+        ],
+        "exposure_and_ranking": [
+          ".claude/agents/screener/thesis-structure/03_beneficiary-map.md",
+          ".claude/agents/screener/edge-definition/02_market-implied.md",
+          ".claude/agents/screener/candidate-surfacing/02_expression-ranking.md"
+        ],
+        "independent_challenge": [
+          ".claude/agents/screener/thesis-integrity/01_adversarial-attack.md",
+          ".claude/agents/screener/thesis-integrity/99_thesis-integrity-synthesis.md"
+        ],
+        "outcomes": [
+          ".claude/agents/screener/conviction/20_checkpoint-validator.md",
+          ".claude/commands/screener/validate.md",
+          "scripts/screener_rescore.py",
+          "scripts/screener_calibrate.py",
+          "scripts/provider_calibration.py"
+        ],
+        "feedback": [
+          ".claude/commands/screener/tune.md",
+          "scripts/screener_feedback_tune.py"
+        ]
+      },
+      "floors_and_measurement": {
+        "global_resolved_checks": 10,
+        "provider_brier_min_rows": 10,
+        "provider_brier_min_distinct_theses": 5,
+        "provider_directional_min_rows": 10,
+        "provider_edge_proxy_min_exact_horizon_cohort": 5,
+        "feedback_min_total": 20,
+        "feedback_min_per_category": 8,
+        "feedback_directional_consistency": 0.7,
+        "feedback_max_step_points": 3,
+        "feedback_min_score_changing_holdout": 5,
+        "cautions": [
+          "The existing selected-minus-discarded edge score is explicitly a proxy, not realized investment return.",
+          "Eligible rejected, low-ranked and abstained cases must remain in the registered denominator so refusing everything cannot manufacture precision.",
+          "Use exact predeclared one-quarter, two-quarter and one-year windows, absolute/market/sector returns, costs, losses, drawdown and concentration. Calibration floors do not prove economic significance or independence.",
+          "The feedback-tuning command is recommend-only and prohibits writing live rank weights automatically; preserve that human gate."
+        ]
+      },
+      "next_experiment": {
+        "id": "screening-provenance-admission-audit-v1",
+        "classification": "Correctness/evidence audit, not predictive improvement",
+        "decision": "Which existing records are eligible for prospective performance credit and meaningful checkpoint source verification?",
+        "hypothesis": "Requiring affirmative provenance instead of absence of fixture flags will identify ambiguous or fixture-indicated records without deleting or relabelling the frozen originals.",
+        "sample": "Freeze all 10 ledger thesis IDs plus their linked run intakes and source packets at the baseline commit; preserve the 15-run universe inventory as the wider reference.",
+        "primary_metric": "Fraction of 10 ledger theses with an explicit authenticity and evaluation-eligibility disposition supported by cited local/runtime/source evidence.",
+        "acceptance_rule": "10/10 accounted for; explicit fixtures and fixture-indicated/unverified records receive no prospective-performance credit; genuine positive controls may pass only on affirmative source/receipt evidence; unresolved cases remain labelled, never silently dropped. Original records and ranking remain unchanged.",
+        "comparison": "Existing implicit-flag-only selection versus the predeclared disposition on the same frozen IDs; report counts, exclusion reasons and uncertainty. Do not call reduced eligibility better investment performance.",
+        "cost_budget": "One bounded lightweight local audit; at most 10 direct free/public source reads if needed; no external paid providers, model API credits, production validator launches, large builds or dependency installs.",
+        "risk_guardrails": [
+          "URL fixture markers are suspicion, not proof of synthetic origin; inspect provenance before definitive classification.",
+          "No retrospective claim of prospective skill.",
+          "Do not change original forecasts, live weights, ranking universe, risk limits or paper execution assumptions.",
+          "Do not require every historical label to mature before fixing a demonstrated source/admission correctness defect."
+        ],
+        "next_action": "Append the dd716589 authenticity clarification, then build the provenance/eligibility disposition from existing intake and runtime evidence before selecting a genuine checkpoint for outcome evaluation."
+      },
+      "limitations": [
+        "No production or current-market source was inspected.",
+        "The 49 count excludes one explicitly labelled fixture thesis; it does not establish 49 real independent prospective forecasts.",
+        "No code was changed or experiment accepted. No claim of perfection or 100% annual returns is supported."
+      ]
+    }
+  }
+}

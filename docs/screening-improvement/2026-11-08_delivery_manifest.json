@@ -1,0 +1,36 @@
+{
+  "kind": "append-only artifact-location correction",
+  "recorded_at": "2026-11-08T09:35:28.113920+00:00",
+  "prior_commit": "c47a1184fe2372f65b0a4395cc0be756dcb1272f",
+  "reason": "Program audit notes belong to engineering documentation. The required Phase 0 catalogue coverage check correctly rejects unknown research-data store paths; legacy-memory discovery did not ingest these notes. No catalogue, memory adapter, test, runtime or schema is changed.",
+  "path_map": {
+    "screener/ledger/improvement/2026-11-08_round-01_agent_synthesis.json": {
+      "current_path": "docs/screening-improvement/2026-11-08_round-01_agent_synthesis.json",
+      "sha256": "10731bd55ef1a10edcc1e34543572aac54d33a23860b331b3d52841e5a9746ce"
+    },
+    "screener/ledger/improvement/2026-11-08_round-01_baseline.json": {
+      "current_path": "docs/screening-improvement/2026-11-08_round-01_baseline.json",
+      "sha256": "ce5c13a2bd1821b5739cd98c3b65b9a4d0ae7311465ac84954617ec1d884b3fc"
+    },
+    "screener/ledger/improvement/runs/2026-11-08_round-01_evidence.json": {
+      "current_path": "docs/screening-improvement/runs/2026-11-08_round-01_evidence.json",
+      "sha256": "6c4d2460775e2f632926c94cff6401b026956555e7b872934e3e8240f8ba0835"
+    },
+    "screener/ledger/improvement/runs/2026-11-08_round-01_specialist_findings.json": {
+      "current_path": "docs/screening-improvement/runs/2026-11-08_round-01_specialist_findings.json",
+      "sha256": "a59002bfee3780e5e86d1858949128996e5feff32e8048f4fdb816501129ed50"
+    }
+  },
+  "preservation": "All four original evidence files moved byte-for-byte. Embedded references to their former paths are historical locators at prior_commit; resolve them through path_map for current files. Original reports and numerical input hashes remain unchanged.",
+  "program_checkpoint": "docs/screening-improvement/2026-11-08_round-01_agent_synthesis.json",
+  "delivery": {
+    "pull_request": "https://github.com/nostra-demus/equity-research/pull/782",
+    "status": "relocated after actual catalogue integration failure; full required CI will rerun"
+  },
+  "additional_evidence_checkpoint": {
+    "path": ".cache/screening-improvement/agents/outcomes/eligibility-audit-summary.json",
+    "full_evidence": ".cache/screening-improvement/agents/outcomes/eligibility-audit.json",
+    "scope": "Independent local-only continuation while delivery waited; 10/10 frozen thesis IDs accounted for, 46 Git-object hashes checked; 1 explicit fixture, 1 fixture-indicated/authenticity-unverified, 8 with prospective eligibility not established from inspected local evidence; no new experiment or performance claim.",
+    "next": "Verify one unflagged official-source case against retained immutable receipt and original source bytes; absence of a local fixture flag is insufficient."
+  }
+}
