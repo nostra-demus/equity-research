@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-08T12:17:16Z",
+  "generated_at": "2026-11-08T12:29:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20261108-252",
@@ -100,6 +100,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261108-257",
+      "headline": "Riyadh financial district targeted, Aramco skyscraper damaged",
+      "headline_en": null,
+      "url": "https://www.koreaherald.com/article/10929808",
+      "source_name": "The Korea Herald — All News",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T12:25:42Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "A physical attack on Saudi Aramco infrastructure represents a significant geopolitical escalation and operational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A physical attack on Saudi Aramco infrastructure represents a significant geopolitical escalation and operational risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saudi Aramco",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-256",
+      "headline": "Saudi Aramco office in Riyadh damaged in latest Houthi strikes",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/eeadc13e-b915-4591-ab85-54db81030996?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T12:16:02Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "A physical attack on Saudi Aramco infrastructure represents a significant geopolitical escalation and operational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A physical attack on Saudi Aramco infrastructure represents a significant geopolitical escalation and operational risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saudi Aramco",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261108-250",
       "headline": "Anthropic Buys Power for AI Data Centres in $3.4B Deal, FT Says",
       "headline_en": null,
@@ -174,55 +272,6 @@
         "size": 2,
         "recency": 5,
         "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Saudi Aramco",
-          "ticker": null,
-          "listing_country": "SA"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-238",
-      "headline": "Saudi Aramco building in Riyadh damaged in attempted attack",
-      "headline_en": null,
-      "url": "https://www.scmp.com/news/world/middle-east/article/3373700/saudi-aramco-building-riyadh-damaged-attempted-attack",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T11:34:24Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "An attempted attack damaged a Saudi Aramco building in Riyadh, representing a significant geopolitical and operational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "An attempted attack damaged a Saudi Aramco building in Riyadh, representing a significant geopolitical and operational risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -1915,55 +1964,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-138",
-      "headline": "JTL INDUSTRIES LIMITED: JTL INDUSTRIES LIMITED has informed the Exchange regarding a press release dated November 08, 2026, titled \"JTL Industries advances Maharashtra facility expansion with hot trial of Pickling Line and Cold Trial of GP Line\".",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/JTLIND_08112026122203_PressReleaseJTL08112026Signed.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-08T06:53:08Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "JTL Industries announced progress on its Maharashtra facility expansion with the start of trials for new production lines.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "JTL Industries announced progress on its Maharashtra facility expansion with the start of trials for new production lines.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capex",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "JTL Industries Ltd",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -270210,9 +270210,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1690,
-    "news_picked_today": 368,
-    "news_dropped_today": 1318
+    "news_seen_today": 1727,
+    "news_picked_today": 373,
+    "news_dropped_today": 1350
   },
   "book_momentum": {
     "live_count": 8,
