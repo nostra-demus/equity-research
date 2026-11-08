@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-08T10:14:55Z",
+  "generated_at": "2026-11-08T10:24:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20261108-206",
@@ -149,6 +149,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-213",
+      "headline": "Limited damage to Aramco facility after attack attempt, no casualties : Saudi Energy Ministry",
+      "headline_en": null,
+      "url": "https://www.gulf-times.com/article/737748/region/limited-damage-to-aramco-facility-after-attack-attempt-no-casualties-saudi-energy-ministry",
+      "source_name": "Gulf Times — Region",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T10:16:00Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "An attack attempt on an Aramco facility represents a significant geopolitical and operational risk to global energy infrastructure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "An attack attempt on an Aramco facility represents a significant geopolitical and operational risk to global energy infrastructure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saudi Aramco",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1898,56 +1947,6 @@
       ],
       "issuer_linkage": "primary",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-018",
-      "headline": "Silver Lake appoints crisis, debt specialists to Ticketek board",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/media-and-marketing/silver-lake-appoints-crisis-debt-specialists-to-ticketek-board-20261108-p61bgh?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T01:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "The appointment of debt and crisis specialists to the Ticketek board suggests significant financial distress or restructuring needs at the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "The appointment of debt and crisis specialists to the Ticketek board suggests significant financial distress or restructuring needs at the company.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress",
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ticketek",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -269618,9 +269617,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1266,
-    "news_picked_today": 291,
-    "news_dropped_today": 975
+    "news_seen_today": 1299,
+    "news_picked_today": 298,
+    "news_dropped_today": 1001
   },
   "book_momentum": {
     "live_count": 8,
