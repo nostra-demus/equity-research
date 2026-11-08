@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-08T01:28:53Z",
+  "generated_at": "2026-11-08T01:29:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20261108-020",
@@ -226996,78 +226996,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-4a06f8ed4686",
-      "idea_version": "IDEAV-01354d69d0928dbb",
-      "idea_version_started_at": "2026-11-06T19:23:03Z",
-      "ticker": "01955",
-      "company": "Johnson Holdings",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning, indicating a material deterioration in earnings performance.",
-      "why_now": "The profit warning was filed on 2026-11-06.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-671c9554ab2f"
-      ],
-      "primary_source_event_id": "EVT-671c9554ab2f",
-      "source_headlines": [
-        "JOHNSON HLDGS (01955): Profit Warning"
-      ],
-      "source_headline": "JOHNSON HLDGS (01955): Profit Warning",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1106/2026110601626.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-06T13:29:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-06T19:23:03Z",
-      "updated_at": "2026-11-06T19:23:03Z",
-      "decay_at": "2026-11-08T01:29:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-420d3d291fde",
       "idea_version": "IDEAV-7322a6f4b55f97e1",
       "idea_version_started_at": "2026-11-07T14:23:56Z",
@@ -229124,6 +229052,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-4a06f8ed4686",
+      "idea_version": "IDEAV-01354d69d0928dbb",
+      "idea_version_started_at": "2026-11-06T19:23:03Z",
+      "ticker": "01955",
+      "company": "Johnson Holdings",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a profit warning, indicating a material deterioration in earnings performance.",
+      "why_now": "The profit warning was filed on 2026-11-06.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-671c9554ab2f"
+      ],
+      "primary_source_event_id": "EVT-671c9554ab2f",
+      "source_headlines": [
+        "JOHNSON HLDGS (01955): Profit Warning"
+      ],
+      "source_headline": "JOHNSON HLDGS (01955): Profit Warning",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1106/2026110601626.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-06T13:29:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-06T19:23:03Z",
+      "updated_at": "2026-11-06T19:23:03Z",
+      "decay_at": "2026-11-08T01:29:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-4c01358eaa0e",
       "idea_version": "IDEAV-edb41e9a7a4ca55b",
       "idea_version_started_at": "2026-11-06T18:04:31Z",
@@ -230571,9 +230571,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 545,
+    "total_count": 546,
     "shown_count": 499,
-    "hidden_count": 46,
+    "hidden_count": 47,
     "side_counts": {
       "long": {
         "total_count": 274,
@@ -230581,9 +230581,9 @@
         "hidden_count": 24
       },
       "short": {
-        "total_count": 272,
+        "total_count": 273,
         "shown_count": 250,
-        "hidden_count": 22
+        "hidden_count": 23
       }
     },
     "retention": {
@@ -230602,6 +230602,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-4a06f8ed4686",
+        "idea_version": "IDEAV-01354d69d0928dbb",
+        "idea_version_started_at": "2026-11-06T19:23:03Z",
+        "ticker": "01955",
+        "company": "Johnson Holdings",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company issued a profit warning, indicating a material deterioration in earnings performance.",
+        "why_now": "The profit warning was filed on 2026-11-06.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-671c9554ab2f"
+        ],
+        "primary_source_event_id": "EVT-671c9554ab2f",
+        "source_headlines": [
+          "JOHNSON HLDGS (01955): Profit Warning"
+        ],
+        "source_headline": "JOHNSON HLDGS (01955): Profit Warning",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1106/2026110601626.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-06T13:29:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-06T19:23:03Z",
+        "updated_at": "2026-11-06T19:23:03Z",
+        "decay_at": "2026-11-08T01:29:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-08T01:29:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-f5730c4d2977",
         "idea_version": "IDEAV-d4046ecb00a1432d",
@@ -267686,88 +267761,12 @@
         "archived_at": "2026-10-15T01:06:40Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-a87e2e15a1c1",
-        "idea_version": "IDEAV-5fd55a3088253688",
-        "idea_version_started_at": "2026-10-11T09:12:22Z",
-        "ticker": "DMART",
-        "company": "Avenue Supermarts",
-        "exchange": "NSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "A 13.7% quarter-over-quarter decline in net profit despite a 4.5% revenue increase signals significant margin compression and operational inefficiency.",
-        "why_now": "The Q2 FY27 results were released on 2026-10-11.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-cd7fbd10f3bd"
-        ],
-        "primary_source_event_id": "EVT-cd7fbd10f3bd",
-        "source_headlines": [
-          "DMart Q2 FY27 Results: Net Profit Falls 13.7% QoQ To ₹743 Crore; Revenue Rises 4.5%"
-        ],
-        "source_headline": "DMart Q2 FY27 Results: Net Profit Falls 13.7% QoQ To ₹743 Crore; Revenue Rises 4.5%",
-        "source_url": "https://www.freepressjournal.in/business/dmart-q2-fy27-results-net-profit-falls-137-qoq-to-743-crore-revenue-rises-45",
-        "source_name": "Free Press Journal",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-11T04:21:13Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-11T09:12:22Z",
-        "updated_at": "2026-10-11T09:12:22Z",
-        "decay_at": "2026-10-12T16:21:13Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-14T04:53:57Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2259,
-    "live_count": 33,
+    "live_count": 32,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
