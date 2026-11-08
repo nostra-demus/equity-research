@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-08T07:25:44Z",
+  "generated_at": "2026-11-08T07:28:18Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261108-159",
+      "headline": "Aramco building damaged as Houthis target Riyadh, report says",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/aramco-building-damaged-houthis-target-riyadh-report-says",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T07:22:18Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "A report of a Houthi attack damaging Saudi Aramco infrastructure represents a significant geopolitical and operational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A report of a Houthi attack damaging Saudi Aramco infrastructure represents a significant geopolitical and operational risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saudi Aramco",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261108-144",
       "headline": "Riyadh Cement announces 73.5% leap in Q3-26 net profits",
@@ -1165,6 +1214,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261108-158",
+      "headline": "PEP, Brookfield-owned Intellihub dips into water metering with new buy",
+      "headline_en": null,
+      "url": "https://www.afr.com/street-talk/pep-brookfield-owned-intellihub-dips-into-water-metering-with-new-buy-20261108-p61cde?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T07:24:51Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "Intellihub, owned by PEP and Brookfield, is expanding into the water metering market through an acquisition.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Intellihub, owned by PEP and Brookfield, is expanding into the water metering market through an acquisition.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Intellihub",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261108-091",
       "headline": "Bridgestone revs up output of massive mining tires on AI-driven demand",
       "headline_en": null,
@@ -1839,105 +1937,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-019",
-      "headline": "Putin orders seizure of more Japan Tobacco assets in Russia",
-      "headline_en": null,
-      "url": "https://mainichi.jp/english/articles/20261107/p2g/00m/0in/025000c",
-      "source_name": "The Mainichi",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T01:00:10Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "The Russian government's seizure of Japan Tobacco assets represents a material loss of assets and operational risk for the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "The Russian government's seizure of Japan Tobacco assets represents a material loss of assets and operational risk for the company.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Japan Tobacco",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-156",
-      "headline": "‎Zoujaj expects 1.73% increase in cost of revenue following electricity tariff adjustment",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1951400",
-      "source_name": "Argaam — Main News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T10:20:00Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "Zoujaj expects a 1.73% increase in cost of revenue due to electricity tariff adjustments.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Zoujaj expects a 1.73% increase in cost of revenue due to electricity tariff adjustments.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Zoujaj",
-          "ticker": null,
-          "listing_country": "SA"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -269751,9 +269750,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 842,
-    "news_picked_today": 191,
-    "news_dropped_today": 651
+    "news_seen_today": 849,
+    "news_picked_today": 193,
+    "news_dropped_today": 656
   },
   "book_momentum": {
     "live_count": 8,
