@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-08T02:33:32Z",
+  "generated_at": "2026-11-08T02:43:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261108-034",
@@ -1756,6 +1756,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261108-051",
+      "headline": "US launches task force to disrupt Iran’s land-based supply routes",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/2026/11/8/us-launches-task-force-to-disrupt-irans-land-based-supply-routes?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-11-08T02:34:04Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "The launch of a US task force to disrupt Iranian supply routes represents a significant geopolitical escalation in the Middle East with potential impacts on regional stability and energy markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "The launch of a US task force to disrupt Iranian supply routes represents a significant geopolitical escalation in the Middle East with potential impacts on regional stability and energy markets.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261108-035",
       "headline": "US military fires at cargo ship in Gulf of Oman",
       "headline_en": null,
@@ -1824,49 +1867,6 @@
         "size": 0,
         "recency": 5,
         "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-032",
-      "headline": "Task Force Iron Gate: US expands Iran blockade, tightens squeeeze, as Tehran lifts missile limits. Is another war looming?",
-      "headline_en": null,
-      "url": "https://gulfnews.com/world/mena/task-force-iron-gate-us-expands-iran-blockade-tightens-squeeeze-as-tehran-lifts-missile-limits-is-another-war-looming-1.500739838",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T01:09:00Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "The expansion of a blockade and the lifting of missile limits by Iran signal a major geopolitical escalation and increased risk of conflict.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "The expansion of a blockade and the lifting of missile limits by Iran signal a major geopolitical escalation and increased risk of conflict.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "macro",
@@ -227473,77 +227473,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-89ae39c7d833",
-      "idea_version": "IDEAV-f0f68e729880d19c",
-      "idea_version_started_at": "2026-11-06T20:30:17Z",
-      "ticker": "02223",
-      "company": "Casablanca Group",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is disposing of a subsidiary and simultaneously declaring a special dividend, signaling a return of capital to shareholders.",
-      "why_now": "The filing was released on 2026-11-06.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3e14a6077a33"
-      ],
-      "primary_source_event_id": "EVT-3e14a6077a33",
-      "source_headlines": [
-        "CASABLANCA (02223): (1) MAJOR AND CONNECTED TRANSACTION IN RELATION TO DISPOSAL OF A SUBSIDIARY AND RENEWAL OF LEASE AGREEMENTS; AND (2) DECLARATION OF SPECIAL DIVIDEND"
-      ],
-      "source_headline": "CASABLANCA (02223): (1) MAJOR AND CONNECTED TRANSACTION IN RELATION TO DISPOSAL OF A SUBSIDIARY AND RENEWAL OF LEASE AGREEMENTS; AND (2) DECLARATION OF SPECIAL DIVIDEND",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1106/2026110601752.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-06T14:38:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-06T20:30:17Z",
-      "updated_at": "2026-11-06T20:30:17Z",
-      "decay_at": "2026-11-08T02:38:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-420d3d291fde",
       "idea_version": "IDEAV-7322a6f4b55f97e1",
       "idea_version_started_at": "2026-11-07T14:23:56Z",
@@ -229674,6 +229603,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-89ae39c7d833",
+      "idea_version": "IDEAV-f0f68e729880d19c",
+      "idea_version_started_at": "2026-11-06T20:30:17Z",
+      "ticker": "02223",
+      "company": "Casablanca Group",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is disposing of a subsidiary and simultaneously declaring a special dividend, signaling a return of capital to shareholders.",
+      "why_now": "The filing was released on 2026-11-06.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3e14a6077a33"
+      ],
+      "primary_source_event_id": "EVT-3e14a6077a33",
+      "source_headlines": [
+        "CASABLANCA (02223): (1) MAJOR AND CONNECTED TRANSACTION IN RELATION TO DISPOSAL OF A SUBSIDIARY AND RENEWAL OF LEASE AGREEMENTS; AND (2) DECLARATION OF SPECIAL DIVIDEND"
+      ],
+      "source_headline": "CASABLANCA (02223): (1) MAJOR AND CONNECTED TRANSACTION IN RELATION TO DISPOSAL OF A SUBSIDIARY AND RENEWAL OF LEASE AGREEMENTS; AND (2) DECLARATION OF SPECIAL DIVIDEND",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1106/2026110601752.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-06T14:38:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-06T20:30:17Z",
+      "updated_at": "2026-11-06T20:30:17Z",
+      "decay_at": "2026-11-08T02:38:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-c8978df6808e",
       "idea_version": "IDEAV-a5ed1126b7a855b9",
       "idea_version_started_at": "2026-11-06T20:30:17Z",
@@ -231265,14 +231265,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 547,
+    "total_count": 548,
     "shown_count": 499,
-    "hidden_count": 48,
+    "hidden_count": 49,
     "side_counts": {
       "long": {
-        "total_count": 275,
+        "total_count": 276,
         "shown_count": 250,
-        "hidden_count": 25
+        "hidden_count": 26
       },
       "short": {
         "total_count": 273,
@@ -231296,6 +231296,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-89ae39c7d833",
+        "idea_version": "IDEAV-f0f68e729880d19c",
+        "idea_version_started_at": "2026-11-06T20:30:17Z",
+        "ticker": "02223",
+        "company": "Casablanca Group",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company is disposing of a subsidiary and simultaneously declaring a special dividend, signaling a return of capital to shareholders.",
+        "why_now": "The filing was released on 2026-11-06.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-3e14a6077a33"
+        ],
+        "primary_source_event_id": "EVT-3e14a6077a33",
+        "source_headlines": [
+          "CASABLANCA (02223): (1) MAJOR AND CONNECTED TRANSACTION IN RELATION TO DISPOSAL OF A SUBSIDIARY AND RENEWAL OF LEASE AGREEMENTS; AND (2) DECLARATION OF SPECIAL DIVIDEND"
+        ],
+        "source_headline": "CASABLANCA (02223): (1) MAJOR AND CONNECTED TRANSACTION IN RELATION TO DISPOSAL OF A SUBSIDIARY AND RENEWAL OF LEASE AGREEMENTS; AND (2) DECLARATION OF SPECIAL DIVIDEND",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1106/2026110601752.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-06T14:38:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-06T20:30:17Z",
+        "updated_at": "2026-11-06T20:30:17Z",
+        "decay_at": "2026-11-08T02:38:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-08T02:38:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-c8978df6808e",
         "idea_version": "IDEAV-a5ed1126b7a855b9",
@@ -260408,81 +260482,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-e0e4d2fdf192",
-        "idea_version": "IDEAV-814e9d4e77a84337",
-        "idea_version_started_at": "2026-10-23T21:01:21Z",
-        "ticker": "BPCL",
-        "company": "Bharat Petroleum Corporation Ltd",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company reported a significant earnings turnaround with a Q2 profit of Rs 4,993 crore compared to a prior loss, driven by a rebound in EBITDA.",
-        "why_now": "The earnings were released on 2026-10-23, providing a fresh catalyst for a valuation re-rating.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-a005c2a23f5e"
-        ],
-        "primary_source_event_id": "EVT-a005c2a23f5e",
-        "source_headlines": [
-          "BPCL Q2 Results: Profit Swings To Rs 4,993 Crore From Loss, EBITDA Rebounds"
-        ],
-        "source_headline": "BPCL Q2 Results: Profit Swings To Rs 4,993 Crore From Loss, EBITDA Rebounds",
-        "source_url": "https://www.ndtvprofit.com/markets/bpcl-q2-results-profit-swings-to-rs-4-993-crore-from-loss-ebitda-rebounds-12227587#publisher=newsstand",
-        "source_name": "NDTV Profit",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-23T18:06:33Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-23T21:01:21Z",
-        "updated_at": "2026-10-23T21:01:21Z",
-        "decay_at": "2026-10-25T06:06:33Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-26T21:49:01Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-114b61823f33",
         "idea_version": "IDEAV-61395174fb35a932",
         "idea_version_started_at": "2026-10-24T02:27:44Z",
@@ -268459,7 +268458,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2261,
-    "live_count": 32,
+    "live_count": 31,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -268478,9 +268477,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 236,
-    "news_picked_today": 50,
-    "news_dropped_today": 186
+    "news_seen_today": 244,
+    "news_picked_today": 51,
+    "news_dropped_today": 193
   },
   "book_momentum": {
     "live_count": 8,
