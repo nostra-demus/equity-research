@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-08T20:54:34Z",
+  "generated_at": "2026-11-08T20:58:40Z",
   "inbox": [
     {
       "inbox_id": "INB-20261108-273",
@@ -336,6 +336,56 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-278",
+      "headline": "NMC fraud unveiled: How BR Shetty and ex-CEO hid billions in loans",
+      "headline_en": null,
+      "url": "https://gulfnews.com/business/banking/nmc-fraud-unveiled-how-br-shetty-and-ex-ceo-hid-billions-in-loans-1.500740486",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T20:01:00Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "The headline reports that NMC Health's founder and ex-CEO hid billions in loans, indicating a major fraud and accounting issue.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The headline reports that NMC Health's founder and ex-CEO hid billions in loans, indicating a major fraud and accounting issue.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "accounting_restatement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NMC Health",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1918,55 +1968,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-115",
-      "headline": "Tata Chemicals Slips Into ₹50 Crore Loss In Q2, Rising Energy Costs & Weak Soda Ash Prices Hit Earnings",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/tata-chemicals-slips-into-50-crore-loss-in-q2-rising-energy-costs-weak-soda-ash-prices-hit-earnings",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T05:03:19Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "Tata Chemicals reported a net loss of ₹50 crore for Q2 due to rising energy costs and weak soda ash prices.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Tata Chemicals reported a net loss of ₹50 crore for Q2 due to rising energy costs and weak soda ash prices.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Chemicals",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -269855,9 +269856,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4270,
-    "news_picked_today": 636,
-    "news_dropped_today": 3050
+    "news_seen_today": 4281,
+    "news_picked_today": 640,
+    "news_dropped_today": 3057
   },
   "book_momentum": {
     "live_count": 8,
