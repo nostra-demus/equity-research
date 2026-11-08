@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-08T09:58:31Z",
+  "generated_at": "2026-11-08T10:04:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20261108-164",
@@ -1233,6 +1233,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261108-205",
+      "headline": "Tata Steel shares jump 3% after Q2 profit rises 16% YoY. Should you buy, sell or hold?",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/tata-steel-shares-jump-3-after-q2-profit-rises-16-yoy-should-you-buy-sell-or-hold/articleshow/135656157.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T09:46:25Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "Tata Steel reported a 16% year-over-year increase in Q2 profit.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Tata Steel reported a 16% year-over-year increase in Q2 profit.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Steel",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261108-146",
       "headline": "British tech darling Paragraf sued over claims it 'duped' investors in £30m takeover",
       "headline_en": null,
@@ -1901,55 +1950,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-158",
-      "headline": "PEP, Brookfield-owned Intellihub dips into water metering with new buy",
-      "headline_en": null,
-      "url": "https://www.afr.com/street-talk/pep-brookfield-owned-intellihub-dips-into-water-metering-with-new-buy-20261108-p61cde?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T07:24:51Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "Intellihub, owned by PEP and Brookfield, is expanding into the water metering market through an acquisition.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Intellihub, owned by PEP and Brookfield, is expanding into the water metering market through an acquisition.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Intellihub",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
