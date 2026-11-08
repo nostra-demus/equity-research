@@ -1,29 +1,29 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-10-12T03:58:22Z",
+  "archived_at": "2026-11-08T03:20:10Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-89fdf8aeee80",
-    "idea_version": "IDEAV-1537695a7dfdb124",
-    "idea_version_started_at": "2026-10-09T09:10:35Z",
-    "ticker": "VEDL",
-    "company": "Vedanta Ltd",
-    "exchange": "NSE",
+    "idea_id": "IDEA-dc65d089bf37",
+    "idea_version": "IDEAV-8cd29da9f3a9834b",
+    "idea_version_started_at": "2026-11-05T11:07:34Z",
+    "ticker": "BMWYY",
+    "company": "BMW",
+    "exchange": "OTC",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "short",
     "pair_with": null,
-    "reason": "The company has significantly reduced its dividend payout to ₹5 from ₹34 in the prior year, signaling potential liquidity constraints or a shift in capital allocation priorities.",
-    "why_now": "The dividend cut was reported on 2026-10-09, marking a fundamental change in the company's cash return policy.",
-    "conviction": 75,
+    "reason": "A second profit warning in a single year indicates structural margin pressure and weakening demand that is likely to persist.",
+    "why_now": "The profit warning was reported on 2026-11-05.",
+    "conviction": 70,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
       "evidence": 14,
-      "impact": 19,
+      "impact": 21,
       "specificity": 7,
       "timing": 10,
       "expression": 0,
@@ -53,26 +53,26 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-ae86933eaab9"
+      "EVT-1502c8698051"
     ],
-    "primary_source_event_id": "EVT-ae86933eaab9",
+    "primary_source_event_id": "EVT-1502c8698051",
     "source_headlines": [
-      "₹5 dividend vs ₹34 last year: Why Vedanta's dividend payout story has fundamentally changed?"
+      "BMW's second profit warning of the year hit harder than the first"
     ],
-    "source_headline": "₹5 dividend vs ₹34 last year: Why Vedanta's dividend payout story has fundamentally changed?",
-    "source_url": "https://www.livemint.com/market/stock-market-news/5-dividend-vs-34-last-year-why-vedantas-dividend-payout-story-has-fundamentally-changed-11791514735703.html",
-    "source_name": "Mint",
-    "materiality_max": 93,
-    "newest_source_at": "2026-10-09T03:39:02Z",
+    "source_headline": "BMW's second profit warning of the year hit harder than the first",
+    "source_url": "https://www.thestreet.com/automotive/bmws-second-profit-warning-of-the-year-hit-harder-than-the-first",
+    "source_name": "TheStreet",
+    "materiality_max": 100,
+    "newest_source_at": "2026-11-05T03:07:00Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-10-09T09:10:35Z",
-    "updated_at": "2026-10-09T09:10:35Z",
-    "decay_at": "2026-10-10T15:39:02Z",
+    "surfaced_at": "2026-11-03T19:40:00Z",
+    "updated_at": "2026-11-05T11:07:34Z",
+    "decay_at": "2026-11-06T15:07:00Z",
     "status": "live",
     "promoted_signal_id": null
   }
