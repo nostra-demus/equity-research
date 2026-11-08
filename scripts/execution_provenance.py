@@ -385,9 +385,37 @@ def _record_timestamp(record: dict[str, Any], path: Path) -> datetime:
     return parsed.astimezone(timezone.utc)
 
 
-def _terminal_record_patterns(repo: Path) -> tuple[str, ...]:
-    """Mirror SWARM.md terminal-artifact discovery without importing the TypeScript server."""
-    patterns = {"analyses/*/decision_record.json"}  # synthetic research default manifest
+def read_program_bytes(repo: Path, relative: str, directory: bool = False) -> bytes:
+    """Read contained trusted program bytes without following any path-component symlink."""
+    if (not isinstance(relative, str) or not relative or relative.startswith("/") or "\\" in relative
+            or any(part in {"", ".", ".."} for part in relative.split("/"))):
+        raise ProvenanceError("program path must be canonical and repository-relative")
+    descriptor = os.open(str(repo), os.O_RDONLY | os.O_DIRECTORY)
+    try:
+        parts = relative.split("/")
+        for index, part in enumerate(parts):
+            flags = os.O_RDONLY | os.O_NOFOLLOW
+            if index < len(parts) - 1 or directory:
+                flags |= os.O_DIRECTORY
+            following = os.open(part, flags, dir_fd=descriptor)
+            os.close(descriptor)
+            descriptor = following
+        expected = stat.S_ISDIR if directory else stat.S_ISREG
+        if not expected(os.fstat(descriptor).st_mode):
+            raise ProvenanceError(f"program path is not a regular {'directory' if directory else 'file'}: {relative}")
+        if directory:
+            return b""
+        with os.fdopen(os.dup(descriptor), "rb") as handle:
+            return handle.read()
+    except OSError as error:
+        raise ProvenanceError(f"program path is unreadable or linked: {relative}: {error.strerror}") from error
+    finally:
+        os.close(descriptor)
+
+
+def discover_swarm_contracts(repo: Path) -> tuple[dict[str, Any], ...]:
+    """Read the trusted SWARM.md publication contracts once for provenance and admission."""
+    contracts: list[dict[str, Any]] = []
     manifests = sorted((repo / ".claude" / "agents").glob("*/SWARM.md"))
     ids: set[str] = set()
 
@@ -403,6 +431,7 @@ def _terminal_record_patterns(repo: Path) -> tuple[str, ...]:
             raise ProvenanceError(f"swarm manifest has no front matter: {label}")
         lines = sections[1].splitlines()
         values: dict[str, Any] = {}
+        seen_keys: set[str] = set()
         index = 0
         while index < len(lines):
             line = lines[index]
@@ -411,16 +440,26 @@ def _terminal_record_patterns(repo: Path) -> tuple[str, ...]:
                 continue
             key, raw = line.split(":", 1)
             key, raw = key.strip(), raw.strip()
+            if key in seen_keys:
+                raise ProvenanceError(f"swarm manifest has duplicate frontmatter key {key!r}: {label}")
+            seen_keys.add(key)
             if raw.startswith("["):
                 import ast
+                if not raw.endswith("]"):
+                    raise ProvenanceError(f"swarm manifest has malformed inline list {key!r}: {label}")
                 try:
                     parsed = ast.literal_eval(raw)
                 except (SyntaxError, ValueError):
-                    inner = raw[1:-1].strip() if raw.endswith("]") else ""
+                    inner = raw[1:-1].strip()
                     if not inner:
                         parsed = []
                     else:
-                        parsed = [scalar(item) for item in inner.split(",")]
+                        # Existing manifests permit simple unquoted YAML arrays such as
+                        # [decision_record.json]. Reject malformed syntax rather than turn it into [].
+                        items = [item.strip() for item in inner.split(",")]
+                        if any(not item or any(char in item for char in "[]{}\"'") for item in items):
+                            raise ProvenanceError(f"swarm manifest has malformed inline list {key!r}: {label}")
+                        parsed = items
                 values[key] = parsed
             elif raw:
                 values[key] = scalar(raw.split(" #", 1)[0])
@@ -440,7 +479,10 @@ def _terminal_record_patterns(repo: Path) -> tuple[str, ...]:
 
     for manifest in manifests:
         label = manifest.relative_to(repo)
-        data = frontmatter(manifest.read_text(encoding="utf-8"), label)
+        try:
+            data = frontmatter(read_program_bytes(repo, str(label)).decode("utf-8"), label)
+        except UnicodeError as error:
+            raise ProvenanceError(f"swarm manifest is not UTF-8: {label}") from error
         swarm_id = data.get("id") or manifest.parent.name
         if not isinstance(swarm_id, str) or not swarm_id or swarm_id == "research" or swarm_id in ids:
             raise ProvenanceError(f"swarm manifest has duplicate/reserved id: {label}")
@@ -461,19 +503,32 @@ def _terminal_record_patterns(repo: Path) -> tuple[str, ...]:
         artifacts = data.get("decision_artifacts", [])
         if not isinstance(artifacts, list) or (artifacts and any(not isinstance(item, str) for item in artifacts)):
             raise ProvenanceError(f"swarm manifest has malformed decision_artifacts: {label}")
-        run_glob = template.replace(marker, "*")
         for artifact in artifacts:
             if (Path(artifact).is_absolute() or ".." in Path(artifact).parts or "\\" in artifact
                     or not artifact.endswith(".json")):
                 raise ProvenanceError(f"swarm manifest has unsafe decision artifact: {label}")
-            patterns.add(f"{run_glob}/{artifact}")
-            # Content-addressed swarms may retain immutable terminal copies under decisions/<id>/.
-            patterns.add(f"{run_glob}/decisions/*/{artifact}")
         ledger_root = data.get("ledger_root")
         if ledger_root:
             if Path(ledger_root).is_absolute() or ".." in Path(ledger_root).parts or "\\" in ledger_root:
                 raise ProvenanceError(f"swarm manifest has unsafe ledger_root: {label}")
-            patterns.add(f"{ledger_root}/theses/*.json")
+        contracts.append({**data, "id": swarm_id, "run_root_template": template,
+                          "runs_root": runs_root, "placeholder": placeholder,
+                          "run_glob": template.replace(marker, "*"),
+                          "decision_artifacts": artifacts, "manifest": str(label)})
+    return tuple(contracts)
+
+
+def _terminal_record_patterns(repo: Path) -> tuple[str, ...]:
+    """Mirror SWARM.md terminal-artifact discovery without importing the TypeScript server."""
+    patterns = {"analyses/*/decision_record.json"}  # synthetic research default manifest
+    for contract in discover_swarm_contracts(repo):
+        run_glob = contract["run_glob"]
+        for artifact in contract["decision_artifacts"]:
+            patterns.add(f"{run_glob}/{artifact}")
+            # Content-addressed swarms may retain immutable terminal copies under decisions/<id>/.
+            patterns.add(f"{run_glob}/decisions/*/{artifact}")
+        if contract.get("ledger_root"):
+            patterns.add(f"{contract['ledger_root']}/theses/*.json")
     return tuple(sorted(patterns))
 
 

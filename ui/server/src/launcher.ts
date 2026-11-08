@@ -52,6 +52,7 @@ import {
   appendExecutionAttempt, artifactIsFresh, attestParitySnapshotAtPublication,
   canonicalManifestJsonl, canonicalManifestPath, decisionArtifacts,
   EXECUTION_PROVENANCE_RECEIPT, receiptPath, recordAdmittedProviderSelection, recordProviderInterruptionAuthority,
+  parsePublicationSchemaContract, readPublicationSchemaContract,
   protectedInterruptedExecutionLineage, readProviderInterruptionAuthority, recordRecoveredPublicationAuthority, releaseExecutionEpochAfterPublication,
   releaseParityRegistration, resolveParityBindingPath, supersedeIncompleteDecisionAuthorAttempt, writeExecutionReceipt,
 } from './execution-provenance'
@@ -7179,6 +7180,107 @@ function assertNewDecisionRecordsPublishable(entries: Array<{ path: string; snap
   }
 }
 
+type SignalLedgerProjection = {
+  relative: string
+  absolute: string
+  value: Record<string, unknown>
+  sources: Array<{ path: string; sha256: string }>
+}
+
+/** Judge newly authored swarm outputs before they can mutate any shared publication store. The trusted
+ * Python contract supplies the paths and schema bindings; TS supplies attempt freshness and exact bytes.
+ * The later snapshot/index gate rechecks those publication bytes, rather than trusting this precheck. */
+async function assertFreshSwarmSchemasPublishable(run: RunState, ledger: SignalLedgerProjection | null): Promise<() => void> {
+  if (!run.runRoot) return () => {}
+  const swarm = swarmById(run.swarmId)
+  if (!swarm) throw new Error('cockpit publication has no trusted swarm manifest')
+  if (!swarm.schemasRoot) return () => {}
+  const args = [path.join(REPO_ROOT, 'scripts', 'decision_publication_gate.py'), '--repo', REPO_ROOT]
+  let contract: ReturnType<typeof parsePublicationSchemaContract>
+  try {
+    const result = await execa('python3', [...args, '--schema-contract', run.runRoot], {
+      cwd: REPO_ROOT, reject: true, timeout: 20_000, maxBuffer: 1024 * 1024,
+    })
+    contract = parsePublicationSchemaContract(result.stdout, run.runRoot, swarm.id)
+  } catch (error: any) {
+    const detail = (String(error?.stderr ?? '').trim() || String(error?.message || error).trim()).slice(0, 1000)
+    throw new Error(`cockpit publication schema contract could not be verified before mutation: ${detail}`)
+  }
+  if (!contract.declared) return () => {} // known legacy contracts retain their existing, stronger publication checks
+  const selected: Array<{ path: string; absolute: string; bytes: Buffer; sha256: string }> = []
+  for (const item of contract.artifacts) {
+    const relative = item.relative
+    const absolute = path.join(REPO_ROOT, item.path)
+    if (!fs.existsSync(absolute) || !artifactIsFresh(run, relative)) continue
+    const before = assertRegularArtifact(absolute, 'fresh schema-bearing publication artifact')
+    if (before.size > MAX_PUBLICATION_SNAPSHOT_FILE_BYTES) {
+      throw new Error(`fresh schema-bearing publication artifact exceeds the snapshot size limit: ${item.path}`)
+    }
+    const bytes = fs.readFileSync(absolute)
+    const after = assertRegularArtifact(absolute, 'fresh schema-bearing publication artifact')
+    if (before.dev !== after.dev || before.ino !== after.ino || before.size !== after.size
+        || before.mtimeMs !== after.mtimeMs) throw new Error(`publication artifact changed before schema validation: ${item.path}`)
+    selected.push({ path: item.path, absolute, bytes, sha256: `sha256:${createHash('sha256').update(bytes).digest('hex')}` })
+  }
+  if (ledger) {
+    const thesis = selected.find((item) => item.path === ledger.sources[0]?.path)
+    if (!thesis || thesis.sha256 !== ledger.sources[0]?.sha256) {
+      throw new Error('proposed ledger source changed or is not a fresh schema-mapped artifact')
+    }
+  }
+  const verifyUnchanged = () => {
+    // Re-establish the whole authoritative selection after the asynchronous check. Hashing only the
+    // original v2 review would miss a new v3 rejection; checking only known literals would miss a new
+    // mapped stage. A changed selection is refused, never retried or silently carried forward.
+    const current = readPublicationSchemaContract(run)
+    if (!current || !isDeepStrictEqual(current, contract)) throw new Error('publication schema artifact contract or selection changed before mutation')
+    const fresh = current.artifacts.filter((item) => {
+      const absolute = path.join(REPO_ROOT, item.path)
+      return fs.existsSync(absolute) && artifactIsFresh(run, item.relative)
+    }).map((item) => {
+      const absolute = path.join(REPO_ROOT, item.path)
+      assertRegularArtifact(absolute, 'schema-validated publication source')
+      return { path: item.path, sha256: fileSha256(absolute) }
+    })
+    if (!isDeepStrictEqual(fresh, selected.map(({ path: relative, sha256 }) => ({ path: relative, sha256 })))) {
+      throw new Error('fresh schema-bearing publication artifacts changed before mutation')
+    }
+    for (const source of ledger?.sources ?? []) {
+      const absolute = path.join(REPO_ROOT, source.path)
+      assertRegularArtifact(absolute, 'schema-validated ledger source')
+      if (fileSha256(absolute) !== source.sha256) throw new Error(`schema-validated ledger source changed before mutation: ${source.path}`)
+    }
+  }
+  if (!selected.length && !ledger) return verifyUnchanged // a valid early stop need not produce a fresh thesis
+  fs.mkdirSync(STATE_DIR, { recursive: true, mode: 0o700 })
+  const directory = fs.mkdtempSync(path.join(STATE_DIR, 'publication-schema-'))
+  fs.chmodSync(directory, 0o700)
+  try {
+    const entries = selected.map((item, index) => {
+      const snapshot = path.join(directory, String(index))
+      fs.writeFileSync(snapshot, item.bytes, { flag: 'wx', mode: 0o600 })
+      return { path: item.path, snapshot }
+    })
+    if (ledger) {
+      const snapshot = path.join(directory, String(entries.length))
+      fs.writeFileSync(snapshot, `${JSON.stringify(ledger.value, null, 2)}\n`, { flag: 'wx', mode: 0o600 })
+      entries.push({ path: ledger.relative, snapshot })
+    }
+    try {
+      await execa('python3', [...args, '--schema-records'], {
+        cwd: REPO_ROOT, input: entries.flatMap((entry) => [entry.path, entry.snapshot]).join('\0'),
+        reject: true, timeout: 20_000, maxBuffer: 1024 * 1024,
+      })
+    } catch (error: any) {
+      const detail = (String(error?.stderr ?? '').trim() || String(error?.message || error).trim()).slice(0, 1000)
+      throw new Error(`cockpit publication schema validation refused before mutation: ${detail}`)
+    }
+    return verifyUnchanged
+  } finally {
+    fs.rmSync(directory, { recursive: true, force: true })
+  }
+}
+
 function createPublicationSnapshot(run: RunState, pathspecs: string[], requiredPaths: string[]): {
   manifest: string; directory: string; paths: string[]
   entries: Array<{ path: string; snapshot: string; sha256: string }>
@@ -7960,7 +8062,9 @@ function supervisorWriteJsonAtomic(absolute: string, value: unknown, label: stri
   }
 }
 
-function expectedLedgerIntegrityReview(run: RunState): Record<string, unknown> | null {
+function expectedLedgerIntegrityReview(run: RunState): {
+  value: Record<string, unknown>; source: { path: string; sha256: string }
+} | null {
   const root = path.join(REPO_ROOT, run.runRoot!)
   let names: string[] = []
   try { names = fs.readdirSync(root).filter((name) => /^thesis_integrity_review(?:_v[0-9]+)?\.json$/.test(name)) } catch { return null }
@@ -7969,7 +8073,8 @@ function expectedLedgerIntegrityReview(run: RunState): Record<string, unknown> |
   const name = names.sort((a, b) => version(a) - version(b)).at(-1)!
   const absolute = path.join(root, name)
   assertRegularArtifact(absolute, 'screener integrity review')
-  const review = readJsonObject(absolute, 'screener integrity review')
+  const bytes = fs.readFileSync(absolute)
+  const review = readJsonObjectFromText(bytes.toString('utf8'), 'screener integrity review')
   const routes: Record<string, string> = {
     'Survives': 'Proceed',
     'Survives with haircut': 'Proceed',
@@ -7980,12 +8085,16 @@ function expectedLedgerIntegrityReview(run: RunState): Record<string, unknown> |
   if (!routes[verdict] || review.routing !== routes[verdict]) {
     throw new Error('screener integrity review has an invalid verdict/routing pair')
   }
+  const relative = path.relative(REPO_ROOT, absolute).split(path.sep).join('/')
   return {
-    verdict,
-    routing: review.routing,
-    reviewed_at: typeof review.reviewed_at === 'string' ? review.reviewed_at : '',
-    review_file: path.relative(REPO_ROOT, absolute).split(path.sep).join('/'),
-    edge_score_haircut_note: typeof review.edge_score_haircut_note === 'string' ? review.edge_score_haircut_note : '',
+    value: {
+      verdict,
+      routing: review.routing,
+      reviewed_at: typeof review.reviewed_at === 'string' ? review.reviewed_at : '',
+      review_file: relative,
+      edge_score_haircut_note: typeof review.edge_score_haircut_note === 'string' ? review.edge_score_haircut_note : '',
+    },
+    source: { path: relative, sha256: `sha256:${createHash('sha256').update(bytes).digest('hex')}` },
   }
 }
 
@@ -8071,7 +8180,7 @@ export async function supervisePublication(
   const artifacts: string[] = []
   const supervisorAuthoredHashes: Record<string, string> = {}
   let signalProjection: { thesisId: string; seedCheckpoints: boolean } | null = null
-  let signalLedger: { relative: string; absolute: string; value: Record<string, unknown> } | null = null
+  let signalLedger: SignalLedgerProjection | null = null
   for (const relative of decisionArtifacts(run)) {
     const absolute = path.join(REPO_ROOT, run.runRoot!, relative)
     const exists = fs.existsSync(absolute)
@@ -8104,15 +8213,23 @@ export async function supervisePublication(
   // actual ledger write happens only after every child-supplied path/artifact has passed validation.
   if (run.kind === 'signal' && artifacts.length) {
     const runThesis = path.join(REPO_ROOT, artifacts[0])
-    const record = JSON.parse(fs.readFileSync(runThesis, 'utf8'))
+    const thesisBytes = fs.readFileSync(runThesis)
+    const record = JSON.parse(thesisBytes.toString('utf8'))
     const thesisId = typeof record?.meta?.thesis_id === 'string' ? record.meta.thesis_id : ''
     if (!/^THS-SIG-[0-9]{8}-[a-f0-9]{8}-v[0-9]+$/.test(thesisId)) throw new Error('fresh screener thesis has an invalid thesis id')
     const ledgerRelative = `screener/ledger/theses/${thesisId}.json`
     const ledgerAbsolute = path.join(REPO_ROOT, ledgerRelative)
-    const expectedIntegrity = expectedLedgerIntegrityReview(run)
+    const integrity = expectedLedgerIntegrityReview(run)
+    const expectedIntegrity = integrity?.value ?? null
     const ledger = JSON.parse(JSON.stringify(withoutLedgerOnlyFields(record)))
     if (expectedIntegrity) ledger.integrity_review = expectedIntegrity
-    signalLedger = { relative: ledgerRelative, absolute: ledgerAbsolute, value: ledger }
+    signalLedger = {
+      relative: ledgerRelative, absolute: ledgerAbsolute, value: ledger,
+      sources: [
+        { path: artifacts[0], sha256: `sha256:${createHash('sha256').update(thesisBytes).digest('hex')}` },
+        ...(integrity ? [integrity.source] : []),
+      ],
+    }
     signalProjection = {
       thesisId,
       seedCheckpoints: ['provisional', 'full_machine'].includes(String(record?.meta?.status || ''))
@@ -8120,7 +8237,19 @@ export async function supervisePublication(
     }
   }
 
+  const verifySchemaSelection = await assertFreshSwarmSchemasPublishable(run, signalLedger)
+  run.publicationTransportVerify?.()
+  if (run.endedAt !== undefined || !run.publicationToken || token !== run.publicationToken
+      || (run.publicationPhase ?? 'open') !== currentPhase) {
+    throw new Error('publication capability or phase changed during schema validation')
+  }
   if (phase === 'commit' || parityCanary) assertResearchAuditPublication(run)
+  verifySchemaSelection()
+  if (signalLedger && !isDeepStrictEqual(
+    expectedLedgerIntegrityReview(run)?.value ?? null, signalLedger.value.integrity_review ?? null,
+  )) {
+    throw new Error('authoritative ledger integrity review changed before mutation')
+  }
 
   // From this point onward the supervisor mutates/stamps durable bytes. Validation failures above remain
   // retryable; once mutation begins, the terminal capability is deliberately consumed fail-closed.

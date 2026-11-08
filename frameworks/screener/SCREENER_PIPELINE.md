@@ -72,3 +72,45 @@ It rebuilds `screener/board/index.json` deterministically from the ledger + run 
 
 - Same as MODULE_PIPELINE.md: no hardcoded agent names; new `NN_*.md` files with `layer:` frontmatter are picked up automatically; the pipeline writes only inside `<RUN_ROOT>/<MODULE>/` (plus the run-root JSON artifacts its syntheses own and the ledger/board updates listed above).
 - A terminal routing is reported as a completed pipeline with that routing — never as a failure.
+
+## Publication schema admission
+
+The supervisor and `scripts/commit-run.sh` use the same trusted publication contract from `SWARM.md`.
+`schemas_root` names a canonical, contained, non-symlink repository directory. A schema-bearing manifest
+also declares `publication_schemas`, a list of strings in either form:
+
+```yaml
+publication_schemas:
+  - "run:signal_payload.json=signal_payload.schema.json"
+  - "run:thesis_integrity_review_v*.json=thesis_integrity_review.schema.json"
+  - "ledger:theses/*.json=thesis_record.schema.json"
+  - "ledger:conviction/conviction_state/*.json=conviction.schema.json"
+```
+
+The left path is relative to the declared run root or ledger root. Wildcards match within one path
+component; version globs describe only existing files. The right path is relative to `schemas_root`.
+Payload fields never choose schemas. Missing declarations on a schema-bearing manifest, missing or
+ambiguous schemas, traversal, symlinked program paths, and external schema references fail closed.
+The canonical dependency-free checker supports the schemas' internal references. An explicit
+`publication_schemas: []` delegates to an existing stronger swarm-specific validator; it is not schema
+approval. The commodity archive path declares this delegation and retains all its own checks.
+
+Before a tracked attempt starts, the supervisor records baselines for the declared run artifacts. Before
+its first durable publication mutation, it selects only artifacts authored by that attempt and validates
+their frozen bytes, including any proposed ledger projection, through
+`decision_publication_gate.py --schema-records`. An explicit preflight accepts no empty or unmapped list.
+A valid early stop need not have a fresh thesis; a stale retained thesis is preserved and does not become
+fresh merely because the command stopped early.
+
+The supervisor rechecks exact snapshot bytes before sealing a publication receipt. `commit-run.sh`
+rechecks the exact Git-index blobs using the same resolver. Changed schema-bearing artifacts cannot bypass
+the first check by changing later, and unchanged malformed history is never regraded. Shared derived boards
+are not schema-admission targets: their historical entries remain subject to the separate existing review
+and repair procedures. Every future swarm opts in through trusted manifest metadata rather than a central
+swarm-name or artifact-name registry.
+
+`conviction.schema.json` covers the individual derived state leaves written by
+`screener_emit_checkpoints.py` and `screener_rescore.py`; newly changed leaves are included in exact
+snapshot/index validation. The row definitions for checkpoints, validations, and conviction events remain
+with those deterministic transaction writers. This admission gate does not retrovalidate whole NDJSON
+histories or claim that snapshot validation alone proves every earlier projection write was schema-checked.

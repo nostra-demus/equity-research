@@ -74,6 +74,14 @@ const decisionFixture = (fields: Record<string, unknown>): string => JSON.string
   decision_date: '2099-01-01', data_needs_schema_version: '2.0', data_needs: [], ...fields,
 }) + '\n'
 
+// Reuse the canonical complete screener fixtures: publication tests must satisfy the real schemas,
+// rather than keeping a minimal fake thesis and weakening admission to accommodate it.
+function screenerFixture(name: 'intake' | 'signal_payload' | 'thesis_record' | 'thesis_integrity_review' | 'candidates', signalId: string): any {
+  const fixtureId = 'SIG-20260610-a3f2c81d'
+  return JSON.parse(fs.readFileSync(path.join(REPO_ROOT, 'screener', 'runs', fixtureId, `${name}.json`), 'utf8')
+    .replaceAll(fixtureId, signalId))
+}
+
 const root = `analyses/ZZPROVSUP_${Date.now()}`
 const absolute = path.join(REPO_ROOT, root)
 const extraCleanup: string[] = []
@@ -1422,9 +1430,12 @@ try {
   })
   signal.publicationToken = 'signal-supervisor-capability'
   beginExecutionAttempt(signal)
-  const thesis = { meta: { thesis_id: thesisId }, score: 73, decision: 'WATCH' }
+  const thesis = screenerFixture('thesis_record', signalId)
+  fs.writeFileSync(path.join(signalAbsolute, 'intake.json'), `${JSON.stringify(screenerFixture('intake', signalId))}\n`)
+  fs.writeFileSync(path.join(signalAbsolute, 'signal_payload.json'), `${JSON.stringify(screenerFixture('signal_payload', signalId))}\n`)
   fs.writeFileSync(path.join(signalAbsolute, 'thesis_record.json'), `${JSON.stringify(thesis)}\n`)
   const review = {
+    ...screenerFixture('thesis_integrity_review', signalId),
     verdict: 'Survives with haircut', routing: 'Proceed', reviewed_at: '2099-01-01T00:00:00Z',
     edge_score_haircut_note: 'fixture deterministic haircut',
   }
@@ -1446,6 +1457,148 @@ try {
   finishRun(signal, 'done')
   fs.rmSync(signalAbsolute, { recursive: true, force: true })
   fs.rmSync(ledgerAbsolute, { force: true })
+
+  const schemaSignal = (provider: 'claude' | 'codex', retainHistory = false) => {
+    const id = `SIG-20990102-${randomUUID().replaceAll('-', '').slice(0, 8)}`
+    const relative = `screener/runs/${id}`
+    const directory = path.join(REPO_ROOT, relative)
+    const ledger = path.join(REPO_ROOT, 'screener', 'ledger', 'theses', `THS-${id}-v1.json`)
+    extraCleanup.push(directory, ledger)
+    fs.mkdirSync(directory, { recursive: true })
+    if (retainHistory) {
+      fs.writeFileSync(path.join(directory, 'thesis_record.json'), '{"retained_legacy_thesis":true}\n')
+      fs.writeFileSync(path.join(directory, 'signal_payload.json'), '{"retained_legacy_payload":true}\n')
+    }
+    const selectedProfile = provider === 'claude' ? profile
+      : { key: 'codex:test', parentModel: 'gpt-test', parentReasoning: 'max' }
+    const live = createRun({
+      kind: 'signal', ticker: id, subjectId: id, swarmId: 'screener', unit: 'signal', provider,
+      executionProfile: selectedProfile, profileKey: selectedProfile.key,
+      model: selectedProfile.parentModel, reasoningLevel: selectedProfile.parentReasoning,
+      prompt: '', user: 'test', userVia: 'local', runRoot: relative, willCommitToMain: true,
+      writeTargetsAbs: [directory, ledger], coveredModules: [], readDepsAbs: [],
+      closeWatcher: undefined, expected: new Map(),
+    })
+    live.publicationToken = `schema-capability-${id}`
+    beginExecutionAttempt(live)
+    return { id, relative, directory, ledger, live }
+  }
+  for (const provider of ['claude', 'codex'] as const) {
+    for (const withThesis of [false, true]) {
+      const fixture = schemaSignal(provider)
+      try {
+        const payload = screenerFixture('signal_payload', fixture.id)
+        payload.event_id = `EVT-${'a'.repeat(16)}`
+        const payloadPath = path.join(fixture.directory, 'signal_payload.json')
+        fs.writeFileSync(payloadPath, `${JSON.stringify(payload)}\n`)
+        const thesisPath = path.join(fixture.directory, 'thesis_record.json')
+        if (withThesis) fs.writeFileSync(thesisPath, `${JSON.stringify(screenerFixture('thesis_record', fixture.id))}\n`)
+        const thesisBefore = withThesis ? fs.readFileSync(thesisPath) : null
+        await assert.rejects(supervisePublication(fixture.live.runId, fixture.live.publicationToken!, { phase: 'stamp' }),
+          /schema validation refused before mutation:.*signal_payload\.json/s,
+          `${provider}: every fresh mapped stage is checked, even beside a valid terminal thesis`)
+        assert.equal(fixture.live.publicationRequested, undefined, 'schema refusal occurs before publication mutation is requested')
+        assert.equal(fixture.live.publicationPhase, undefined, 'the retryable terminal phase remains open')
+        assert.equal(fs.existsSync(fixture.ledger), false, 'invalid stage bytes never reach the shared ledger')
+        assert.equal(fs.existsSync(path.join(fixture.directory, EXECUTION_RECEIPT_NAME)), false,
+          'a rejected schema cannot produce a publication receipt')
+        if (thesisBefore) assert.deepEqual(fs.readFileSync(thesisPath), thesisBefore,
+          'no provenance stamp may alter the thesis before all new stage schemas pass')
+        payload.event_id = `EVT-${'a'.repeat(12)}`
+        fs.writeFileSync(payloadPath, `${JSON.stringify(payload)}\n`)
+        const recovered = await supervisePublication(fixture.live.runId, fixture.live.publicationToken!, { phase: 'stamp' })
+        assert.equal(recovered.ok, true, 'the same capability can recover after the invalid output is corrected')
+        assert.equal(fs.existsSync(fixture.ledger), withThesis, 'only a fresh valid thesis gets a ledger projection')
+      } finally { finishRun(fixture.live, 'done') }
+    }
+
+    const retained = schemaSignal(provider, true)
+    try {
+      const thesisPath = path.join(retained.directory, 'thesis_record.json')
+      const payloadPath = path.join(retained.directory, 'signal_payload.json')
+      const oldThesis = fs.readFileSync(thesisPath)
+      const oldPayload = fs.readFileSync(payloadPath)
+      assert.equal(artifactIsFresh(retained.live, 'signal_payload.json'), false,
+        'the schema-bearing stage baseline includes unchanged retained history')
+      fs.writeFileSync(path.join(retained.directory, 'intake.json'), `${JSON.stringify(screenerFixture('intake', retained.id))}\n`)
+      const stopped = await supervisePublication(retained.live.runId, retained.live.publicationToken!, { phase: 'stamp' })
+      assert.deepEqual(stopped.artifacts, [], 'a valid early stop needs no fresh thesis or ledger')
+      assert.deepEqual(fs.readFileSync(thesisPath), oldThesis)
+      assert.deepEqual(fs.readFileSync(payloadPath), oldPayload, 'old malformed stage bytes are preserved rather than regraded')
+      assert.equal(fs.existsSync(retained.ledger), false)
+
+      fs.writeFileSync(payloadPath, `${JSON.stringify(screenerFixture('signal_payload', retained.id))}\n`)
+      fs.writeFileSync(path.join(retained.directory, 'thesis_integrity_review_v2.json'),
+        `${JSON.stringify(screenerFixture('thesis_integrity_review', retained.id))}\n`)
+      retained.live.providerAttemptId = randomUUID()
+      beginExecutionAttempt(retained.live)
+      assert.equal(artifactIsFresh(retained.live, 'signal_payload.json'), true,
+        'automatic continuation preserves the original stage baseline')
+      assert.equal(artifactIsFresh(retained.live, 'thesis_integrity_review_v2.json'), true,
+        'a newly created versioned mapped artifact stays fresh through automatic continuation')
+      assert.equal(artifactIsFresh(retained.live, 'thesis_record.json'), false,
+        'automatic continuation does not promote an unchanged retained thesis to newly authored output')
+    } finally { finishRun(retained.live, 'done') }
+
+    // A real subprocess boundary makes the race deterministic: the shim runs the canonical validator,
+    // then changes a source before its successful response reaches the supervisor. Old source hashes
+    // alone miss a newly authoritative v3 review and a newly produced mapped stage.
+    for (const race of ['discovery-latest-review', 'latest-review', 'replacement', 'new-stage'] as const) {
+      const fixture = schemaSignal(provider)
+      const previousPath = process.env.PATH
+      try {
+        const payload = screenerFixture('signal_payload', fixture.id)
+        const thesisPath = path.join(fixture.directory, 'thesis_record.json')
+        fs.writeFileSync(thesisPath, `${JSON.stringify(screenerFixture('thesis_record', fixture.id))}\n`)
+        fs.writeFileSync(path.join(fixture.directory, 'signal_payload.json'), `${JSON.stringify(payload)}\n`)
+        const original = fs.readFileSync(thesisPath)
+        let target: string
+        let replacement: any
+        if (race === 'latest-review' || race === 'discovery-latest-review') {
+          const review = { ...screenerFixture('thesis_integrity_review', fixture.id), verdict: 'Survives', routing: 'Proceed' }
+          fs.writeFileSync(path.join(fixture.directory, 'thesis_integrity_review_v2.json'), `${JSON.stringify(review)}\n`)
+          target = path.join(fixture.directory, 'thesis_integrity_review_v3.json')
+          replacement = { ...review, verdict: 'Thesis broken', routing: 'watchlist_integrity_broken' }
+        } else if (race === 'replacement') {
+          target = path.join(fixture.directory, 'signal_payload.json')
+          replacement = { ...payload, event_id: `EVT-${'a'.repeat(16)}` }
+        } else {
+          target = path.join(fixture.directory, 'candidates.json')
+          replacement = screenerFixture('candidates', fixture.id)
+        }
+        const python = spawnSync('python3', ['-c', 'import sys; print(sys.executable)'], { encoding: 'utf8' })
+        assert.equal(python.status, 0, python.stderr)
+        const realPython = python.stdout.trim()
+        const bins = path.join(REPO_ROOT, '.cache', 'test-output')
+        fs.mkdirSync(bins, { recursive: true })
+        const bin = fs.mkdtempSync(path.join(bins, 'publication-schema-bin-'))
+        extraCleanup.push(bin)
+        const mutation = `pathlib.Path(${JSON.stringify(target)}).write_text(${JSON.stringify(`${JSON.stringify(replacement)}\n`)})`
+        fs.writeFileSync(path.join(bin, 'python3'), `#!${realPython}\n`
+          + 'import pathlib, subprocess, sys\n'
+          + (race === 'discovery-latest-review'
+            ? `if "--schema-contract" in sys.argv and not pathlib.Path(${JSON.stringify(target)}).exists():\n    ${mutation}\n` : '')
+          + `result = subprocess.run([${JSON.stringify(realPython)}, *sys.argv[1:]], input=sys.stdin.buffer.read(), capture_output=True)\n`
+          + (race !== 'discovery-latest-review'
+            ? `if result.returncode == 0 and "--schema-records" in sys.argv:\n    ${mutation}\n` : '')
+          + 'sys.stdout.buffer.write(result.stdout)\nsys.stderr.buffer.write(result.stderr)\nsys.exit(result.returncode)\n',
+        { mode: 0o700 })
+        process.env.PATH = `${bin}${path.delimiter}${previousPath || ''}`
+        await assert.rejects(supervisePublication(fixture.live.runId, fixture.live.publicationToken!, { phase: 'stamp' }),
+          /changed before mutation/,
+          `${provider}: ${race} while the validator is running must not publish the earlier selection`)
+        assert.equal(fixture.live.publicationRequested, undefined)
+        assert.equal(fixture.live.publicationPhase, undefined)
+        assert.equal(fs.existsSync(fixture.ledger), false, 'the race cannot create a ledger or seed checkpoints')
+        assert.equal(fs.existsSync(path.join(fixture.directory, EXECUTION_RECEIPT_NAME)), false)
+        assert.deepEqual(fs.readFileSync(thesisPath), original, 'the race cannot stamp provenance into the thesis')
+      } finally {
+        if (previousPath === undefined) delete process.env.PATH
+        else process.env.PATH = previousPath
+        finishRun(fixture.live, 'done')
+      }
+    }
+  }
 
   // A child may request only an incidental in-scope file. The supervisor must force every terminal
   // artifact and its receipt into the exact commit and verify those committed blobs before completion.
