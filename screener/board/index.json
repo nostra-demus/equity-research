@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-08T03:38:57Z",
+  "generated_at": "2026-11-08T03:48:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20261108-075",
@@ -1389,6 +1389,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261108-078",
+      "headline": "Pakistan's Hormuz agreement with Iran faces test after LNG tanker attack",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/spotlight/iran-tensions/iran-war/pakistan-s-hormuz-agreement-with-iran-faces-test-after-lng-tanker-attack",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T03:47:31Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "An attack on an LNG tanker in the Strait of Hormuz threatens energy supply chains and regional stability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "An attack on an LNG tanker in the Strait of Hormuz threatens energy supply chains and regional stability.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261108-060",
       "headline": "Iran Strait Of Hormuz Tensions Escalate As Explosions Rock Qeshm Island, 2 Oil Tankers Reportedly Damaged By Mines",
       "headline_en": null,
@@ -1851,55 +1894,6 @@
       "companies": [
         {
           "name": "ADF Foods Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-065",
-      "headline": "NBCC (INDIA) LIMITED - Ex-Date: 11-Nov-2026",
-      "headline_en": null,
-      "url": "https://www.nseindia.com/companies-listing/corporate-filings-actions",
-      "source_name": "NSE India — Corporate Actions (RSS)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-08T02:41:35Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "Routine ex-dividend date for NBCC (India).",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 59,
-      "triage_reason": "Routine ex-dividend date for NBCC (India).",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NBCC (INDIA) LIMITED",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -268858,9 +268852,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 354,
-    "news_picked_today": 82,
-    "news_dropped_today": 272
+    "news_seen_today": 363,
+    "news_picked_today": 84,
+    "news_dropped_today": 279
   },
   "book_momentum": {
     "live_count": 8,
