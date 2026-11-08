@@ -100,6 +100,8 @@ function screenerFixture(name: 'intake' | 'signal_payload' | 'thesis_record' | '
 async function isolatedSchemaAcceptance(): Promise<void> {
   const outputs = path.join(REPO_ROOT, '.cache', 'test-output')
   fs.mkdirSync(outputs, { recursive: true })
+  // Intentionally retain this ignored checkout-local fixture on pass and failure: its acceptance
+  // report, frozen packets and real Git evidence must remain available for inspection.
   const fixtureRoot = fs.mkdtempSync(path.join(outputs, 'publication-schema-acceptance-'))
   const copy = (relative: string) => {
     const target = path.join(fixtureRoot, relative)
@@ -293,7 +295,7 @@ async function schemaAcceptanceChild(): Promise<void> {
         const stages = complete(id)
         const write = () => {
           for (const [name, value] of Object.entries(stages))
-            fs.writeFileSync(path.join(directory, `${name}.json`), `${JSON.stringify(value)}\n`)
+            fs.writeFileSync(path.join(directory, `${name}.json`), `${JSON.stringify(value, null, 2)}\n`)
         }
         test.mutate?.(stages)
         write()
@@ -401,6 +403,9 @@ async function schemaAcceptanceChild(): Promise<void> {
               for (const name of required) assert.ok(row.snapshot_paths.includes(name), `complete snapshot includes ${name}`)
               const checkpoints = fs.readFileSync(path.join(REPO_ROOT, 'screener/ledger/conviction/checkpoints.ndjson'), 'utf8')
                 .trim().split('\n').map(line => JSON.parse(line))
+              for (const [index, checkpoint] of checkpoints.entries())
+                assert.ok(checkpoint !== null && typeof checkpoint === 'object' && !Array.isArray(checkpoint),
+                  `checkpoint row ${index + 1} must be a non-null object`)
               assert.ok(checkpoints.some(checkpoint => checkpoint.thesis_id === thesisId))
               const conviction = JSON.parse(fs.readFileSync(path.join(REPO_ROOT, 'screener/ledger/conviction/conviction_state', `${thesisId}.json`), 'utf8'))
               assert.equal(conviction.thesis_id, thesisId)
