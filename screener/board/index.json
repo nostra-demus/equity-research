@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-08T09:29:21Z",
+  "generated_at": "2026-11-08T10:33:25Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261108-206",
+      "headline": "HX BLDG MAT (06655): DISCLOSEABLE TRANSACTION AND ACQUISITION OF THE TARGET COMPANY",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1108/2026110800003.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-08T10:05:00Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "HX Building Materials announced a discloseable transaction involving the acquisition of a target company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "HX Building Materials announced a discloseable transaction involving the acquisition of a target company.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HX Building Materials",
+          "ticker": "06655",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261108-164",
       "headline": "‎Retal hits record low since listing",
@@ -105,6 +154,398 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261108-217",
+      "headline": "Red Sea International’s net losses deepen in Q3, 9M-26 results",
+      "headline_en": null,
+      "url": "http://english.mubasher.info/news/4698147/Red-Sea-International-s-net-losses-deepen-in-Q3-9M-26-results",
+      "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T10:25:35Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "Red Sea International reported deepening net losses for Q3 and 9M-26.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Red Sea International reported deepening net losses for Q3 and 9M-26.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Red Sea International",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-213",
+      "headline": "Limited damage to Aramco facility after attack attempt, no casualties : Saudi Energy Ministry",
+      "headline_en": null,
+      "url": "https://www.gulf-times.com/article/737748/region/limited-damage-to-aramco-facility-after-attack-attempt-no-casualties-saudi-energy-ministry",
+      "source_name": "Gulf Times — Region",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T10:16:00Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "An attack attempt on an Aramco facility represents a significant geopolitical and operational risk to global energy infrastructure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "An attack attempt on an Aramco facility represents a significant geopolitical and operational risk to global energy infrastructure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saudi Aramco",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-226",
+      "headline": "Tawuniya generates SAR 911.5m net profit in 9M-26 amid 74% growth in Q3",
+      "headline_en": null,
+      "url": "http://english.mubasher.info/news/4698135/Tawuniya-generates-SAR-911-5m-net-profit-in-9M-26-amid-74-growth-in-Q3",
+      "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T10:06:23Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "Tawuniya reported a net profit of SAR 911.5 million for 9M-26 with 74% growth in Q3.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tawuniya reported a net profit of SAR 911.5 million for 9M-26 with 74% growth in Q3.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tawuniya",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-227",
+      "headline": "Arabia Insurance shifts to net losses in Q3, 9M-26 financials",
+      "headline_en": null,
+      "url": "http://english.mubasher.info/news/4698126/Arabia-Insurance-shifts-to-net-losses-in-Q3-9M-26-financials",
+      "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T09:58:07Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "Arabia Insurance reported a shift to net losses in Q3 and 9M-26.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Arabia Insurance reported a shift to net losses in Q3 and 9M-26.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Arabia Insurance",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-229",
+      "headline": "Saleh Abdulaziz Al Rashed delivers 47% plunge in 9M-26 net profit",
+      "headline_en": null,
+      "url": "http://english.mubasher.info/news/4698115/Saleh-Abdulaziz-Al-Rashed-delivers-47-plunge-in-9M-26-net-profit",
+      "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T09:42:59Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "Saleh Abdulaziz Al Rashed reported a 47% decline in 9M-26 net profit.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Saleh Abdulaziz Al Rashed reported a 47% decline in 9M-26 net profit.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saleh Abdulaziz Al Rashed",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-230",
+      "headline": "Al Dawaa Medical Services announces 61.5% profit decline in 9M-26",
+      "headline_en": null,
+      "url": "http://english.mubasher.info/news/4698113/Al-Dawaa-Medical-Services-announces-61-5-profit-decline-in-9M-26",
+      "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T09:39:23Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "Al Dawaa Medical Services reported a 61.5% decline in 9M-26 profit.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Al Dawaa Medical Services reported a 61.5% decline in 9M-26 profit.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Al Dawaa Medical Services",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-203",
+      "headline": "Aramco Tower in Riyadh’s financial hub damaged after attack",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/news/world/aramco-tower-in-riyadhs-financial-hub-damaged-after-attack/article71680816.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T09:31:57Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "An attack on a major corporate facility in a key financial hub represents a significant operational and geopolitical risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "An attack on a major corporate facility in a key financial hub represents a significant operational and geopolitical risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saudi Aramco",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-202",
+      "headline": "Saudi Aramco building in Riyadh struck; US imposes Iran blockade",
+      "headline_en": null,
+      "url": "https://www.newarab.com/news/saudi-aramco-building-riyadh-struck-us-imposes-iran-blockade",
+      "source_name": "The New Arab",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T09:31:01Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "A strike on Saudi Aramco facilities combined with a US-imposed blockade on Iran signals a major escalation in regional conflict and energy supply risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A strike on Saudi Aramco facilities combined with a US-imposed blockade on Iran signals a major escalation in regional conflict and energy supply risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saudi Aramco",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261108-198",
       "headline": "Saudi Aramco building in Riyadh targeted in attempted attack, minor damage reported",
       "headline_en": null,
@@ -146,55 +587,6 @@
           "name": "Saudi Aramco",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-179",
-      "headline": "Aramco Tower in Riyadh’s Financial Hub Damaged After Attack",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-08/aramco-tower-in-riyadh-s-financial-hub-damaged-after-attack",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T08:54:58Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "A physical attack on a major asset of a critical global energy producer represents a significant geopolitical and operational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A physical attack on a major asset of a critical global energy producer represents a significant geopolitical and operational risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Saudi Aramco",
-          "ticker": null,
-          "listing_country": "SA"
         }
       ],
       "size_bucket": "mega",
@@ -982,6 +1374,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261108-216",
+      "headline": "Saudi Aramco tower damaged after Houthi missile attacks on Riyadh",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/news/saudi-aramco-tower-damaged-after-houthi-missile-attacks-riyadh",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T10:26:45Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "A missile attack on Saudi Aramco infrastructure in Riyadh highlights heightened regional security risks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "A missile attack on Saudi Aramco infrastructure in Riyadh highlights heightened regional security risks.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saudi Aramco",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261108-193",
       "headline": "Saudi Aramco building in Riyadh damaged by falling debris in attempted attack, ministry says",
       "headline_en": null,
@@ -1179,6 +1620,105 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-214",
+      "headline": "FEG HOLDINGS (01413): (1) REMOVAL OF EXECUTIVE DIRECTORS AND INDEPENDENT NON-EXECUTIVE DIRECTOR; (2) RE-DESIGNATION OF CO-CHAIRPERSON AS CHAIRMAN OF THE BOARD; AND (3) CHANGE IN COMPOSITION OF THE NOMINATION COMMITTEE",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1108/2026110800021.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-08T10:22:00Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "The removal of multiple executive and independent directors indicates significant governance instability at FEG Holdings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "The removal of multiple executive and independent directors indicates significant governance instability at FEG Holdings.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "executive_exit",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "management",
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FEG Holdings",
+          "ticker": "01413",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-205",
+      "headline": "Tata Steel shares jump 3% after Q2 profit rises 16% YoY. Should you buy, sell or hold?",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/tata-steel-shares-jump-3-after-q2-profit-rises-16-yoy-should-you-buy-sell-or-hold/articleshow/135656157.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T09:46:25Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "Tata Steel reported a 16% year-over-year increase in Q2 profit.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Tata Steel reported a 16% year-over-year increase in Q2 profit.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Steel",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1424,530 +1964,6 @@
           "name": "Nvidia",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-021",
-      "headline": "'You lost war and election': Iran's Rezaei warns US of 'devastating response'",
-      "headline_en": null,
-      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/you-lost-war-and-election-irans-rezaei-warns-us-devastating-response",
-      "source_name": "Middle East Eye",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T01:07:13Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "Geopolitical escalation between Iran and the US poses risks to regional stability and global energy markets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Geopolitical escalation between Iran and the US poses risks to regional stability and global energy markets.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-153",
-      "headline": "Out for delivery! Logistics giant UPS zeros in on Riverside-owned biz",
-      "headline_en": null,
-      "url": "https://www.afr.com/street-talk/out-for-delivery-logistics-giant-ups-zeros-in-on-riverside-owned-biz-20261108-p61cee?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T07:22:06Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "UPS is reportedly in talks to acquire a business owned by Riverside.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "UPS is reportedly in talks to acquire a business owned by Riverside.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "UPS",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-176",
-      "headline": "Potentia lays groundwork to exit $550m buyout of Nitro amid AI threat",
-      "headline_en": null,
-      "url": "https://www.afr.com/technology/potentia-lays-groundwork-to-exit-550m-buyout-of-nitro-amid-ai-threat-20261108-p61c0n?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T09:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "Potentia is looking to exit its $550m buyout of Nitro Software due to competitive threats.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Potentia is looking to exit its $550m buyout of Nitro Software due to competitive threats.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nitro Software",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-172",
-      "headline": "Multi Business Group records 687% jump in 9M-26 net profit",
-      "headline_en": null,
-      "url": "http://english.mubasher.info/news/4698044/Multi-Business-Group-records-687-jump-in-9M-26-net-profit",
-      "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T08:09:01Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "The company reported a 687% jump in 9M-26 net profit, a significant financial performance update.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "The company reported a 687% jump in 9M-26 net profit, a significant financial performance update.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Multi Business Group",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-123",
-      "headline": "Announcement from Saudi Industrial Development Company \"SIDC\" regarding the latest developments in connection with the signing of non-binding memorandum of understanding with Sudom Investment Company and Mohammed A. ALSwailm Holding Company to consider acquisition of the entire share capital of the Industrial Production Services Company.",
-      "headline_en": null,
-      "url": "http://english.mubasher.info/news/4697884/Announcement-from-Saudi-Industrial-Development-Company-SIDC-regarding-the-latest-developments-in-connection-with-the-signing-of-non-binding-memorandum-of-understanding-with-Sudom-Investment-Company-",
-      "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T05:24:59Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "SIDC is considering the acquisition of the entire share capital of Industrial Production Services Company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "SIDC is considering the acquisition of the entire share capital of Industrial Production Services Company.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Saudi Industrial Development Company",
-          "ticker": null,
-          "listing_country": "SA"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-082",
-      "headline": "Smorgon family-backed PE shop deploys $40m in M&A trifecta",
-      "headline_en": null,
-      "url": "https://www.afr.com/street-talk/billionaire-smorgon-family-backed-pe-shop-deploys-40m-in-m-and-a-trifecta-20261108-p61cdk?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T03:31:44Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "A private equity firm has deployed $40 million across three acquisitions, indicating active capital deployment in the sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "A private equity firm has deployed $40 million across three acquisitions, indicating active capital deployment in the sector.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-047",
-      "headline": "Paraguay's pro-Israel former president taken into custody over banking crisis",
-      "headline_en": null,
-      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/paraguays-pro-israel-former-president-taken-custody-over-banking-crisis",
-      "source_name": "Middle East Eye",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T02:03:50Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "A former president of Paraguay has been taken into custody in connection with a banking crisis.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "A former president of Paraguay has been taken into custody in connection with a banking crisis.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-018",
-      "headline": "Silver Lake appoints crisis, debt specialists to Ticketek board",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/media-and-marketing/silver-lake-appoints-crisis-debt-specialists-to-ticketek-board-20261108-p61bgh?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T01:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "The appointment of debt and crisis specialists to the Ticketek board suggests significant financial distress or restructuring needs at the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "The appointment of debt and crisis specialists to the Ticketek board suggests significant financial distress or restructuring needs at the company.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress",
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ticketek",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-160",
-      "headline": "Indian Oil plans to buy its own oil, LPG ships as freight costs surge 4 times",
-      "headline_en": null,
-      "url": "https://timesofindia.indiatimes.com/business/india-business/indian-oil-plans-to-buy-its-own-oil-lpg-ships-as-freight-costs-surge-4-times/articleshow/135653667.cms",
-      "source_name": "The Times of India (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T07:26:52Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "Indian Oil plans to acquire its own shipping fleet to mitigate a 4x surge in freight costs, impacting capital allocation and operational strategy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Indian Oil plans to acquire its own shipping fleet to mitigate a 4x surge in freight costs, impacting capital allocation and operational strategy.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Indian Oil Corporation",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-158",
-      "headline": "PEP, Brookfield-owned Intellihub dips into water metering with new buy",
-      "headline_en": null,
-      "url": "https://www.afr.com/street-talk/pep-brookfield-owned-intellihub-dips-into-water-metering-with-new-buy-20261108-p61cde?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T07:24:51Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "Intellihub, owned by PEP and Brookfield, is expanding into the water metering market through an acquisition.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Intellihub, owned by PEP and Brookfield, is expanding into the water metering market through an acquisition.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Intellihub",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-091",
-      "headline": "Bridgestone revs up output of massive mining tires on AI-driven demand",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/automobiles/bridgestone-revs-up-output-of-massive-mining-tires-on-ai-driven-demand",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T05:07:32Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "Bridgestone is increasing production capacity for mining tires to meet rising demand, signaling growth in a key industrial segment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Bridgestone is increasing production capacity for mining tires to meet rising demand, signaling growth in a key industrial segment.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bridgestone",
-          "ticker": null,
-          "listing_country": "JP"
         }
       ],
       "size_bucket": "mega",
@@ -226468,6 +226484,79 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-86d9ffa1d53a",
+      "idea_version": "IDEAV-1ea24c592d5143cc",
+      "idea_version_started_at": "2026-11-08T10:26:04Z",
+      "ticker": "2222.SR",
+      "company": "Saudi Aramco",
+      "exchange": "TADAWUL",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Limited damage to an Aramco facility after an attack attempt suggests operational resilience and minimal impact on production or revenue.",
+      "why_now": "The event occurred on November 8, 2026, providing an immediate catalyst for reassessment.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-05709bba1ee1"
+      ],
+      "primary_source_event_id": "EVT-05709bba1ee1",
+      "source_headlines": [
+        "Limited damage to Aramco facility after attack attempt, no casualties : Saudi Energy Ministry"
+      ],
+      "source_headline": "Limited damage to Aramco facility after attack attempt, no casualties : Saudi Energy Ministry",
+      "source_url": "https://www.gulf-times.com/article/737748/region/limited-damage-to-aramco-facility-after-attack-attempt-no-casualties-saudi-energy-ministry",
+      "source_name": "Gulf Times — Region",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-08T10:16:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-08T10:26:04Z",
+      "updated_at": "2026-11-08T10:26:04Z",
+      "decay_at": "2026-11-09T22:16:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-179ccea893b9",
       "idea_version": "IDEAV-d2e3c86535106aeb",
       "idea_version_started_at": "2026-11-08T08:08:50Z",
@@ -230326,77 +230415,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-be33721eeb33",
-      "idea_version": "IDEAV-0850ca6888da3a39",
-      "idea_version_started_at": "2026-11-05T13:42:59Z",
-      "ticker": "AMKBY",
-      "company": "A.P. Møller - Mærsk A/S",
-      "exchange": "OTC Markets",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Disappointing earnings and guidance suggest that the recent tailwinds in global container shipping rates are fading faster than anticipated, pressuring margins.",
-      "why_now": "The earnings release and guidance downgrade occurred on November 5, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "sector_cycle",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c11893d946ff"
-      ],
-      "primary_source_event_id": "EVT-c11893d946ff",
-      "source_headlines": [
-        "Maersk Shares Tumble After Earnings, Guidance Disappoint"
-      ],
-      "source_headline": "Maersk Shares Tumble After Earnings, Guidance Disappoint",
-      "source_url": "https://www.wsj.com/business/logistics/maersk-raises-guidance-again-on-higher-freight-rates-and-resilient-demand-12a571b0?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-05T09:41:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-05T13:42:59Z",
-      "updated_at": "2026-11-05T13:42:59Z",
-      "decay_at": "2026-11-06T21:41:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-a025b73a32d6",
       "idea_version": "IDEAV-0bfca11f175bef47",
       "idea_version_started_at": "2026-11-08T00:14:07Z",
@@ -232262,150 +232280,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-3495b6682569",
-      "idea_version": "IDEAV-7b3a0c67fe4f72f7",
-      "idea_version_started_at": "2026-11-05T13:42:59Z",
-      "ticker": "ADANIPORTS",
-      "company": "Adani Ports and Special Economic Zone Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of Evos B.V. for $2.9 billion significantly expands the company's footprint in European liquid bulk storage, diversifying its revenue base beyond Indian port operations.",
-      "why_now": "The deal was officially announced via exchange filing on November 5, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8b1bdc786f47",
-        "EVT-d17d20214db5"
-      ],
-      "primary_source_event_id": "EVT-8b1bdc786f47",
-      "source_headlines": [
-        "Adani Ports and Special Economic Zone Limited: Adani Ports and Special Economic Zone Limited has informed the Exchange about Disclosure under Regulation 30 of the SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015 ( SEBI Listing Regulations ), regarding an agreement to acquire 100% stake in Evos B.V.",
-        "Adani Ports to Buy Europe’s Evos in Deal Valued at $2.9 Billion"
-      ],
-      "source_headline": "Adani Ports and Special Economic Zone Limited: Adani Ports and Special Economic Zone Limited has informed the Exchange about Disclosure under Regulation 30 of the SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015 ( SEBI Listing Regulations ), regarding an agreement to acquire 100% stake in Evos B.V.",
-      "source_url": "https://nsearchives.nseindia.com/corporate/rkbhagia_05112026150844_APSEZSEIntimation.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-05T10:00:47Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-05T13:42:59Z",
-      "updated_at": "2026-11-05T13:42:59Z",
-      "decay_at": "2026-11-06T22:00:47Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-c2db97ac8f36",
-      "idea_version": "IDEAV-2f613abcdc9f307e",
-      "idea_version_started_at": "2026-11-05T13:42:59Z",
-      "ticker": "PETRONET",
-      "company": "Petronet LNG Limited",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company faces a Rs. 625 crore claim related to idle LNG ships, which will likely impact short-term cash flow and increase legal uncertainty.",
-      "why_now": "The disclosure of the claim and ongoing negotiations was filed on November 5, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ccc17ed4ac5a"
-      ],
-      "primary_source_event_id": "EVT-ccc17ed4ac5a",
-      "source_headlines": [
-        "Petronet LNG Limited: Petronet LNG Limited has informed the Exchange regarding a press release dated November 03, 2026, titled \"Petronet LNG seeks early recovery of Qatar cargoes.Petronet hit with Rs. 625 cr claim over idle Qatar LNG shipsPetronet in talk with Qatar for delivery of delayed LNG cargoes\"."
-      ],
-      "source_headline": "Petronet LNG Limited: Petronet LNG Limited has informed the Exchange regarding a press release dated November 03, 2026, titled \"Petronet LNG seeks early recovery of Qatar cargoes.Petronet hit with Rs. 625 cr claim over idle Qatar LNG shipsPetronet in talk with Qatar for delivery of delayed LNG cargoes\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/PETRONET_05112026151036_pressrelease03112026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-05T09:41:54Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-05T13:42:59Z",
-      "updated_at": "2026-11-05T13:42:59Z",
-      "decay_at": "2026-11-06T21:41:54Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-bd666baba5fc",
       "idea_version": "IDEAV-fe610c94607885a1",
       "idea_version_started_at": "2026-11-07T11:59:19Z",
@@ -232633,33 +232507,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 554,
+    "total_count": 551,
     "shown_count": 499,
-    "hidden_count": 55,
+    "hidden_count": 52,
     "side_counts": {
       "long": {
-        "total_count": 280,
+        "total_count": 279,
         "shown_count": 250,
-        "hidden_count": 30
+        "hidden_count": 29
       },
       "short": {
-        "total_count": 275,
+        "total_count": 273,
         "shown_count": 250,
-        "hidden_count": 25
+        "hidden_count": 23
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1685,
-      "oldest_retained_at": "2026-10-10T19:57:57Z",
+      "evicted_count": 1688,
+      "oldest_retained_at": "2026-10-10T21:45:05Z",
       "side_counts": {
         "long": {
-          "evicted_count": 1116,
-          "oldest_retained_at": "2026-10-23T17:33:31Z"
+          "evicted_count": 1117,
+          "oldest_retained_at": "2026-10-23T19:08:26Z"
         },
         "short": {
-          "evicted_count": 570,
-          "oldest_retained_at": "2026-10-10T19:57:57Z"
+          "evicted_count": 572,
+          "oldest_retained_at": "2026-10-10T21:45:05Z"
         }
       }
     },
@@ -236515,8 +236389,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-06T22:00:47Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-08T10:05:26Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -236589,8 +236463,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-06T21:41:54Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-08T09:48:39Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -236663,8 +236537,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-06T21:41:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-08T09:48:39Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -269815,8 +269689,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2283,
-    "live_count": 43,
+    "surfaced_total": 2284,
+    "live_count": 44,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -269835,9 +269709,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1164,
-    "news_picked_today": 270,
-    "news_dropped_today": 894
+    "news_seen_today": 1344,
+    "news_picked_today": 318,
+    "news_dropped_today": 1026
   },
   "book_momentum": {
     "live_count": 8,
