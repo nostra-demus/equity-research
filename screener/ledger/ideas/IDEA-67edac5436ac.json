@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-67edac5436ac",
-  "idea_version": "IDEAV-d385ff722e8c54d2",
-  "idea_version_started_at": "2026-11-07T07:11:04Z",
+  "idea_version": "IDEAV-1c53a2113f5f0bf4",
+  "idea_version_started_at": "2026-11-07T23:54:55Z",
   "ticker": "IVG",
   "company": "Iveco Group N.V.",
   "exchange": "BIT",
@@ -11,9 +11,9 @@
   "listing_verification_source": null,
   "direction": "long",
   "pair_with": null,
-  "reason": "Tata Motors has initiated a voluntary tender offer for all common shares of Iveco Group, which typically forces a price convergence toward the offer price.",
-  "why_now": "The tender offer was formally announced via exchange filing on November 7, 2026.",
-  "conviction": 80,
+  "reason": "Tata Motors has initiated a voluntary tender offer for all common shares of Iveco Group, creating a floor for the share price at the offer level.",
+  "why_now": "The tender offer was formally announced on November 07, 2026.",
+  "conviction": 85,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "event_driven_v3",
@@ -21,7 +21,7 @@
     "evidence": 25,
     "impact": 21,
     "specificity": 7,
-    "timing": 10,
+    "timing": 6,
     "expression": 0,
     "corroboration": 0,
     "learning_adjustment": 0
@@ -32,6 +32,7 @@
     "verified listing",
     "live liquidity",
     "dated catalyst",
+    "priced-in risk",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -43,7 +44,7 @@
     "basis": "not_enough_outcomes",
     "evidenceIds": []
   },
-  "priced_in": "room",
+  "priced_in": "priced",
   "thesis_type": "company_specific",
   "origin_type": "wire",
   "source_themes": [],
@@ -66,7 +67,7 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-11-07T07:11:04Z",
-  "updated_at": "2026-11-07T07:11:04Z",
+  "updated_at": "2026-11-07T23:54:55Z",
   "decay_at": "2026-11-08T07:00:48Z",
   "status": "live",
   "promoted_signal_id": null
