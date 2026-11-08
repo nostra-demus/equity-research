@@ -1785,6 +1785,217 @@ def test_manifest_schema_publication_uses_frozen_and_staged_bytes():
               refused_state.returncode == 1 and b"conviction" in refused_state.stderr, repr(refused_state.stderr))
 
 
+def test_manifest_schema_publication_acceptance_matrix():
+    """One-field schema counterexamples use complete, real frozen/index publication packets.
+
+    This is synthetic admission evidence, not an end-to-end provider/derived-store run. The TS
+    supervisor tests exercise that earlier lifecycle; deterministic conviction writers' own earlier
+    writes remain outside the guard proved here.
+    """
+    cache = Path(REPO_ROOT, ".cache", "publication-schema-tests")
+    cache.mkdir(parents=True, exist_ok=True)
+    evidence = Path(tempfile.mkdtemp(prefix="acceptance-matrix-", dir=cache))
+    baseline_revision = "d4c67db2c132307d2eeaab58ec52c3c2ab1dc468"
+    candidate_revision = "42b37db9d1da5bf9893031be65162c5f354686a3"
+    names = ("intake", "signal_payload", "candidates", "thesis_record", "thesis_integrity_review")
+    run_root = "screener/runs/SIG-20260610-a3f2c81d"
+    documents = {name: json.loads(Path(REPO_ROOT, run_root, name + ".json").read_text()) for name in names}
+    for candidate in documents["candidates"]["candidates"]:
+        candidate["news_impact"] = {
+            "applicable": False, "mode": "not_applicable", "missing_reason": None,
+            "recurrence": "not_applicable",
+            "event_quantification": "Synthetic schema acceptance fixture; no economic estimate.",
+            "delta_value": "Not assessed in this synthetic schema fixture.",
+            "implied_move_pct": None, "observed_move_pct": None, "gap_read": "not_applicable",
+            "caveats": "Synthetic correctness control; no investment evidence.", "sources": [],
+        }
+    missing_reasons = (
+        "M0_6_1.analyst_rating_distribution.missing_reason",
+        "M0_6_1.estimate_dispersion.missing_reason",
+        "M0_6_2.estimate_dispersion.missing_reason",
+        "M0_6_2.estimate_revision_trajectory.missing_reason",
+        "M0_6_2.implied_scenario_from_multiple.missing_reason",
+        "M0_6_2.options_implied_move.missing_reason",
+        "M0_6_2.short_interest_positioning.missing_reason",
+    )
+    cases = [
+        ("valid12-complete", None, (), None),
+        ("invalid16-event-id", "signal_payload", ("event_id",), "EVT-0123456789abcdef"),
+        ("null-signal-entities-commodity", "signal_payload", ("entities", "commodity"), None),
+        *[("null-thesis-" + field.replace(".", "-"), "thesis_record", tuple(field.split(".")), None)
+          for field in (*missing_reasons, "M0_6_6.override_justification")],
+        ("short-thesis-M0_2-world_changes", "thesis_record", ("M0_2", "world_changes"),
+         documents["thesis_record"]["M0_2"]["world_changes"][:1]),
+        *[(f"null-candidate-{index}-news_impact-{field}", "candidates",
+           ("candidates", index, "news_impact", field), None)
+          for index in range(len(documents["candidates"]["candidates"]))
+          for field in ("event_quantification", "delta_value", "caveats")],
+    ]
+    ledger_path = "screener/ledger/theses/" + documents["candidates"]["thesis_id"] + ".json"
+
+    def packet(values):
+        files = {f"{run_root}/{name}.json": (json.dumps(values[name], indent=2) + "\n").encode() for name in names}
+        files[ledger_path] = files[f"{run_root}/thesis_record.json"]
+        return files
+
+    def digest(payload):
+        return "sha256:" + hashlib.sha256(payload).hexdigest()
+
+    def outcome(result):
+        return {"returncode": result.returncode,
+                "stdout": result.stdout.decode() if isinstance(result.stdout, bytes) else result.stdout,
+                "stderr": result.stderr.decode() if isinstance(result.stderr, bytes) else result.stderr}
+
+    # Report source identity without making a shallow CI checkout depend on retained Git history.
+    source_paths = ["scripts/decision_publication_gate.py", "scripts/execution_provenance.py",
+                    "scripts/validate_screener_json.py", "scripts/commit-run.sh",
+                    ".claude/agents/screener/SWARM.md",
+                    *[f"frameworks/screener/{name}.schema.json" for name in names]]
+    identities = {}
+    for relative in source_paths:
+        current = Path(REPO_ROOT, relative).read_bytes()
+        historical = subprocess.run(["git", "show", f"{candidate_revision}:{relative}"],
+                                    cwd=REPO_ROOT, capture_output=True)
+        identities[relative] = {"current_sha256": digest(current),
+                                "runtime_candidate_sha256": digest(historical.stdout) if historical.returncode == 0 else None,
+                                "matches_runtime_candidate": current == historical.stdout if historical.returncode == 0 else None}
+    baseline = subprocess.run(["git", "show", f"{baseline_revision}:scripts/decision_publication_gate.py"],
+                              cwd=REPO_ROOT, capture_output=True)
+    baseline_gate = evidence / "baseline_decision_publication_gate.py"
+    if baseline.returncode == 0:
+        baseline_gate.write_bytes(baseline.stdout)
+    report = {
+        "experiment": "screening-new-publication-schema-admission-v1", "supplement": "explicit-acceptance-matrix",
+        "classification": "Synthetic schema correctness; no investment-performance evidence.",
+        "baseline_revision": baseline_revision, "runtime_candidate_revision": candidate_revision,
+        "test_checkout_head": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=REPO_ROOT).decode().strip(),
+        "test_source_sha256": digest(Path(__file__).read_bytes()),
+        "baseline_gate_sha256": digest(baseline.stdout) if baseline.returncode == 0 else None,
+        "source_identity": identities,
+        "boundary": "Real shared frozen-byte CLI and real commit-run.sh protected-index admission in isolated Git repositories.",
+        "limits": ["Protected stores are retained synthetic sentinels, not outputs of a complete provider lifecycle.",
+                   "No provider, checkpoint producer, board builder, or receipt signer is simulated by this Python test.",
+                   "Deterministic conviction producers' own earlier-write prewrite enforcement remains unresolved."],
+        "positive_nullable_fields": [f"candidates.candidates[{index}].news_impact.missing_reason"
+                                     for index in range(len(documents["candidates"]["candidates"]))],
+        "cases": [],
+    }
+    first_failure = len(_fails)
+    with tempfile.TemporaryDirectory(prefix="acceptance-repo-", dir=cache) as tmp:
+        _, agent, env = setup_stale_local_main_scenario(tmp)
+        manifest = Path(agent, ".claude/agents/screener/SWARM.md")
+        manifest.parent.mkdir(parents=True)
+        manifest.write_bytes(Path(REPO_ROOT, ".claude/agents/screener/SWARM.md").read_bytes())
+        schema_root = Path(agent, "frameworks/screener")
+        schema_root.mkdir(parents=True)
+        for source in Path(REPO_ROOT, "frameworks/screener").glob("*.schema.json"):
+            shutil.copy2(source, schema_root / source.name)
+        schema_env = dict(no_push_env(env), PYTHONPATH=os.path.join(REPO_ROOT, "scripts"))
+        protected_paths = (
+            "screener/ledger/theses/THS-ACCEPTANCE-EXISTING-v1.json",
+            "screener/ledger/conviction/checkpoints.ndjson",
+            "screener/ledger/conviction/conviction_state/THS-ACCEPTANCE-EXISTING-v1.json",
+            "screener/board/index.json", f"{run_root}/execution_provenance.receipt.json",
+        )
+        for relative in protected_paths:
+            write_text(agent, relative, '{"synthetic_retained_sentinel":true}\n')
+        run(["git", "add", *protected_paths], cwd=agent, env=env)
+        run(["git", "commit", "-qm", "fixture: retained publication stores"], cwd=agent, env=env)
+
+        def retained_state():
+            return {
+                "head": run(["git", "rev-parse", "HEAD"], cwd=agent, env=env).stdout.strip(),
+                "stores": {relative: digest(Path(agent, relative).read_bytes()) for relative in protected_paths},
+                "proposed_ledger": digest(Path(agent, ledger_path).read_bytes()) if Path(agent, ledger_path).exists() else None,
+                "worktree": {f"{run_root}/{name}.json": digest(Path(agent, run_root, name + ".json").read_bytes()) for name in names},
+            }
+
+        valid_packet = packet(documents)
+        _, _, control_pairs = make_protected_snapshot(evidence, "positive-preflight", valid_packet)
+        control_fresh = run_gate(["--repo", agent, "--schema-records"], control_pairs, env=schema_env)
+        control_frozen = run_gate(["--repo", agent, "--records"], control_pairs, env=schema_env)
+        check("validate the complete canonical positive packet before constructing any counterexample",
+              control_fresh.returncode == control_frozen.returncode == 0
+              and b"6 declared schema artifact(s) validated" in control_fresh.stdout
+              and b"6 declared schema artifact(s) validated" in control_frozen.stdout,
+              repr(control_fresh.stderr + control_frozen.stderr))
+        report["positive_preflight"] = {"fresh_schema_gate": outcome(control_fresh), "frozen_gate": outcome(control_frozen)}
+        # Run all refusals before publishing the valid control, so every packet is a NEW publication.
+        for case_id, name, field_path, value in [*cases[1:], cases[0]]:
+            values = json.loads(json.dumps(documents))
+            if name:
+                parent = values[name]
+                for key in field_path[:-1]:
+                    parent = parent[key]
+                parent[field_path[-1]] = value
+            files = packet(values)
+            snapshot, paths, pairs = make_protected_snapshot(evidence, case_id, files)
+            # The negative's mutable substitutes are valid. The positive's mutable signal is invalid.
+            for relative, payload in valid_packet.items():
+                if relative != ledger_path:
+                    Path(agent, relative).parent.mkdir(parents=True, exist_ok=True)
+                    Path(agent, relative).write_bytes(payload)
+            if name is None:
+                mutable = dict(documents["signal_payload"], event_id="EVT-0123456789abcdef")
+                write_json(agent, f"{run_root}/signal_payload.json", mutable)
+            before = retained_state()
+            fresh = run_gate(["--repo", agent, "--schema-records"], pairs, env=schema_env)
+            frozen = run_gate(["--repo", agent, "--records"], pairs, env=schema_env)
+            after_frozen = retained_state()
+            historical = None
+            if baseline.returncode == 0:
+                historical = subprocess.run(["python3", str(baseline_gate), "--repo", agent, "--records"],
+                                            input=pairs, capture_output=True, env=schema_env)
+                check(f"{case_id}: matched baseline ignores the same six screener artifacts",
+                      historical.returncode == 0 and b"0 new terminal decision record(s) validated" in historical.stdout,
+                      repr(historical.stderr))
+            published = run(["bash", COMMIT_RUN, "test: " + case_id, "--", *paths], cwd=agent,
+                            env=dict(schema_env, NOSTRA_SUPERVISOR_SNAPSHOT_MANIFEST=snapshot), check_rc=False)
+            after_index = retained_state()
+            if name:
+                token = str(field_path[-1]).encode()
+                check(f"{case_id}: exact frozen packet rejects one schema field despite valid mutable substitutes",
+                      fresh.returncode == frozen.returncode == 1
+                      and token in fresh.stderr and token in frozen.stderr, repr(fresh.stderr + frozen.stderr))
+                check(f"{case_id}: exact protected index refuses without any commit",
+                      published.returncode == 5 and "COMMIT_SHA=" not in published.stdout
+                      and token.decode() in published.stderr, published.stderr)
+                check(f"{case_id}: HEAD, ledger, checkpoint, conviction, board, receipt and mutable bytes remain unchanged",
+                      before == after_frozen == after_index, repr((before, after_frozen, after_index)))
+            else:
+                check("valid12-complete: all five canonical artifacts and proposed thesis pass with permitted candidate nulls",
+                      fresh.returncode == frozen.returncode == 0
+                      and b"6 declared schema artifact(s) validated" in fresh.stdout
+                      and b"6 declared schema artifact(s) validated" in frozen.stdout, repr(fresh.stderr + frozen.stderr))
+                committed = {relative: subprocess.check_output(["git", "show", f"HEAD:{relative}"], cwd=agent)
+                             for relative in paths} if published.returncode == 0 else {}
+                check("valid12-complete: every committed index byte equals the frozen packet despite invalid mutable signal",
+                      published.returncode == 0 and "COMMIT_SHA=" in published.stdout and committed == files,
+                      published.stderr)
+                check("valid12-complete: read-only gates and final admission preserve all retained stores and mutable bytes",
+                      before == after_frozen and before["head"] != after_index["head"]
+                      and before["stores"] == after_index["stores"]
+                      and before["worktree"] == after_index["worktree"]
+                      and after_index["proposed_ledger"] is None, repr(after_index))
+            row = {
+                "case_id": case_id, "source_document": name, "field_path": list(field_path),
+                "source_field": name + "." + ".".join(map(str, field_path)) if name else None,
+                "mutated_value": value, "thesis_replicated_to_ledger": name == "thesis_record",
+                "payload_sha256": {relative: digest(payload) for relative, payload in files.items()},
+                "schema_sha256": {relative: identities[f"frameworks/screener/{artifact}.schema.json"]["current_sha256"]
+                                  for relative, artifact in [(f"{run_root}/{artifact}.json", artifact) for artifact in names]
+                                  + [(ledger_path, "thesis_record")]},
+                "snapshot_manifest": snapshot, "before": before, "after_frozen": after_frozen,
+                "after_index": after_index, "fresh_schema_gate": outcome(fresh), "frozen_gate": outcome(frozen),
+                "index_publication": outcome(published), "matched_baseline_gate": outcome(historical) if historical else None,
+            }
+            report["cases"].append(row)
+    report["failures"] = _fails[first_failure:]
+    report_path = evidence / "report.json"
+    report_path.write_text(json.dumps(report, indent=2) + "\n")
+    print(f"  evidence: {report_path}")
+
+
 def test_manifest_schema_contract_is_generic_and_fails_closed():
     cache = Path(REPO_ROOT, ".cache", "publication-schema-tests")
     cache.mkdir(parents=True, exist_ok=True)
@@ -1913,6 +2124,7 @@ if __name__ == "__main__":
     test_preseal_decision_gate_reaches_commit_runs_verdict_on_the_same_frozen_bytes()
     test_preseal_decision_gate_fails_closed()
     test_manifest_schema_publication_uses_frozen_and_staged_bytes()
+    test_manifest_schema_publication_acceptance_matrix()
     test_manifest_schema_contract_is_generic_and_fails_closed()
     test_cockpit_publication_delegates_to_supervisor_and_never_trusts_child_manifest()
     test_supervisor_snapshot_stages_fixed_bytes_not_mutable_worktree()
