@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-08T04:28:29Z",
+  "generated_at": "2026-11-08T04:33:29Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261108-085",
+      "headline": "Berkshire Hathaway's profit falls 28% as Geico struggles: Warren Buffett's insurance giant under focus",
+      "headline_en": null,
+      "url": "https://timesofindia.indiatimes.com/business/international-business/berkshire-hathaways-profit-falls-28-as-geico-struggles-warren-buffetts-insurance-giant-under-focus/articleshow/135650883.cms",
+      "source_name": "The Times of India (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T04:25:44Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "Berkshire Hathaway reported a 28% decline in profit, highlighting operational challenges in its insurance segment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Berkshire Hathaway reported a 28% decline in profit, highlighting operational challenges in its insurance segment.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Berkshire Hathaway",
+          "ticker": "BRK.A",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261108-075",
       "headline": "NMC Healthcare founder BR Shetty held liable for $5.4 billion fraud in Abu Dhabi - All you need to know about the case",
@@ -1848,49 +1897,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-077",
-      "headline": "Ramayana Box Office Collection Day 3: Ranbir Kapoor's Film Records Its Highest Single-Day Collection Of ₹69.80 Crore, Sees 45% Jump",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/entertainment/ramayana-box-office-collection-day-3-ranbir-kapoors-film-records-its-highest-single-day-collection-of-6980-crore-sees-45-jump",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T03:12:20Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "The film Ramayana recorded a single-day collection of ₹69.80 crore, indicating strong box office performance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 61,
-      "triage_reason": "The film Ramayana recorded a single-day collection of ₹69.80 crore, indicating strong box office performance.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -227119,78 +227125,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-83598d432045",
-      "idea_version": "IDEAV-de9a88b080ac4380",
-      "idea_version_started_at": "2026-11-07T22:08:49Z",
-      "ticker": "PREMIERENE",
-      "company": "Premier Energies",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Q2 net profit rose 31% to ₹462.4 crore, demonstrating strong operational leverage in the renewable energy manufacturing sector.",
-      "why_now": "The financial results were published on November 6, 2026.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8869be0a9ba7"
-      ],
-      "primary_source_event_id": "EVT-8869be0a9ba7",
-      "source_headlines": [
-        "Premier Energies Q2 net profit rises 31% to ₹462.4 crore"
-      ],
-      "source_headline": "Premier Energies Q2 net profit rises 31% to ₹462.4 crore",
-      "source_url": "https://www.thehindubusinessline.com/companies/premier-energies-q2-net-profit-rises-31-to-4624-crore/article71673725.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-06T16:30:49Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-07T22:08:49Z",
-      "updated_at": "2026-11-07T22:08:49Z",
-      "decay_at": "2026-11-08T04:30:49Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-3a5e2b5bb8c5",
       "idea_version": "IDEAV-b7bc8b7cc7fc63f9",
       "idea_version_started_at": "2026-11-07T17:00:20Z",
@@ -229683,6 +229617,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-83598d432045",
+      "idea_version": "IDEAV-de9a88b080ac4380",
+      "idea_version_started_at": "2026-11-07T22:08:49Z",
+      "ticker": "PREMIERENE",
+      "company": "Premier Energies",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Q2 net profit rose 31% to ₹462.4 crore, demonstrating strong operational leverage in the renewable energy manufacturing sector.",
+      "why_now": "The financial results were published on November 6, 2026.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8869be0a9ba7"
+      ],
+      "primary_source_event_id": "EVT-8869be0a9ba7",
+      "source_headlines": [
+        "Premier Energies Q2 net profit rises 31% to ₹462.4 crore"
+      ],
+      "source_headline": "Premier Energies Q2 net profit rises 31% to ₹462.4 crore",
+      "source_url": "https://www.thehindubusinessline.com/companies/premier-energies-q2-net-profit-rises-31-to-4624-crore/article71673725.ece",
+      "source_name": "The Hindu BusinessLine",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-06T16:30:49Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-07T22:08:49Z",
+      "updated_at": "2026-11-07T22:08:49Z",
+      "decay_at": "2026-11-08T04:30:49Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-0d002e1a2ba4",
       "idea_version": "IDEAV-ef69c2e633c8213e",
       "idea_version_started_at": "2026-11-07T21:50:12Z",
@@ -231705,14 +231711,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 548,
+    "total_count": 549,
     "shown_count": 499,
-    "hidden_count": 49,
+    "hidden_count": 50,
     "side_counts": {
       "long": {
-        "total_count": 276,
+        "total_count": 277,
         "shown_count": 250,
-        "hidden_count": 26
+        "hidden_count": 27
       },
       "short": {
         "total_count": 273,
@@ -231736,6 +231742,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-83598d432045",
+        "idea_version": "IDEAV-de9a88b080ac4380",
+        "idea_version_started_at": "2026-11-07T22:08:49Z",
+        "ticker": "PREMIERENE",
+        "company": "Premier Energies",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Q2 net profit rose 31% to ₹462.4 crore, demonstrating strong operational leverage in the renewable energy manufacturing sector.",
+        "why_now": "The financial results were published on November 6, 2026.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-8869be0a9ba7"
+        ],
+        "primary_source_event_id": "EVT-8869be0a9ba7",
+        "source_headlines": [
+          "Premier Energies Q2 net profit rises 31% to ₹462.4 crore"
+        ],
+        "source_headline": "Premier Energies Q2 net profit rises 31% to ₹462.4 crore",
+        "source_url": "https://www.thehindubusinessline.com/companies/premier-energies-q2-net-profit-rises-31-to-4624-crore/article71673725.ece",
+        "source_name": "The Hindu BusinessLine",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-06T16:30:49Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-07T22:08:49Z",
+        "updated_at": "2026-11-07T22:08:49Z",
+        "decay_at": "2026-11-08T04:30:49Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-08T04:30:49Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-c6c88bb7ea3e",
         "idea_version": "IDEAV-c57e0ba0c487a383",
@@ -260623,81 +260704,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-9e336b525ce4",
-        "idea_version": "IDEAV-e86b781b7fac59bf",
-        "idea_version_started_at": "2026-10-24T08:09:01Z",
-        "ticker": "ADANIPOWER",
-        "company": "Adani Power",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company reported a 142% surge in profit driven by increased power demand during a period of weak rains.",
-        "why_now": "The earnings results were released on 2026-10-24, confirming strong operational momentum.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-aaf9abcc6391"
-        ],
-        "primary_source_event_id": "EVT-aaf9abcc6391",
-        "source_headlines": [
-          "Adani Power profit surges 142% on strong demand amid weak rains"
-        ],
-        "source_headline": "Adani Power profit surges 142% on strong demand amid weak rains",
-        "source_url": "https://economictimes.indiatimes.com/markets/stocks/earnings/adani-power-profit-surges-142-on-strong-demand-amid-weak-rains/articleshow/135161231.cms",
-        "source_name": "The Economic Times",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-24T03:47:21Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-24T05:01:36Z",
-        "updated_at": "2026-10-24T08:09:01Z",
-        "decay_at": "2026-10-25T15:47:21Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-27T04:19:45Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-729dc15a63ea",
         "idea_version": "IDEAV-a0ba900cc90c8962",
         "idea_version_started_at": "2026-10-24T07:26:27Z",
@@ -268895,7 +268901,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2268,
-    "live_count": 37,
+    "live_count": 36,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -268914,9 +268920,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 430,
-    "news_picked_today": 101,
-    "news_dropped_today": 329
+    "news_seen_today": 439,
+    "news_picked_today": 102,
+    "news_dropped_today": 337
   },
   "book_momentum": {
     "live_count": 8,
