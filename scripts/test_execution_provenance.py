@@ -76,6 +76,36 @@ block_values:
                 with self.assertRaises(ProvenanceError):
                     discover_swarm_contracts(root)
 
+    def test_auxiliary_contracts_are_explicit_flat_metadata(self):
+        cache = Path(__file__).resolve().parents[1] / ".cache/publication-schema-tests"
+        cache.mkdir(parents=True, exist_ok=True)
+        with tempfile.TemporaryDirectory(prefix="auxiliary-metadata-", dir=cache) as temporary:
+            root = Path(temporary)
+            manifest = root / ".claude/agents/future/SWARM.md"
+            manifest.parent.mkdir(parents=True)
+            base = "---\nid: future\nunit: display-identity\nrun_root_template: future/runs/{SIG_ID}\n"
+            declaration = 'publication_auxiliary_roots: ["audit=future/checks/AUD-*"] # exact contract\n'
+            manifest.write_text(base + declaration + "---\n")
+            contract, = discover_swarm_contracts(root)
+            self.assertEqual(contract["unit"], "display-identity")
+            self.assertEqual(contract["publication_auxiliary_roots"], [
+                {"kind": "audit", "pattern": "future/checks/AUD-*"},
+            ])
+            for malformed in (
+                "publication_auxiliary_roots: [",
+                "publication_auxiliary_roots: [] # inline\n  - audit=future/checks/*",
+                "publication_auxiliary_roots: []\npublication_auxiliary_roots: []",
+                "publication_auxiliary_roots:\n  nested: audit=future/checks/*",
+                "publication_auxiliary_roots:\n  - audit=future/checks/*\n  ignored: value",
+                "publication_auxiliary_roots:",
+                "publication_auxiliary_roots: [1]",
+                "publication_auxiliary_roots: [audit=../escape]",
+                "publication_auxiliary_roots: [audit=future/checks/*, audit=future/checks/*]",
+            ):
+                manifest.write_text(base + malformed + "\n---\n")
+                with self.subTest(declaration=malformed), self.assertRaises(ProvenanceError):
+                    discover_swarm_contracts(root)
+
     def test_single_provider_projection_and_stamp(self):
         rows = [
             attempt("a1", "codex", "gpt-5.6-terra", "xhigh", profile_key="codex-profile"),

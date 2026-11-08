@@ -31,6 +31,8 @@ boards are intentionally not declared: a new publication never regrades unchange
 ``--schema-contract`` describes run artifacts for the supervisor's freshness selection, and
 ``--schema-records`` judges every explicitly supplied pair before any durable mutation, without a
 HEAD exemption. The later ``--records``/staged gate retains its unchanged-history exemption.
+Declared auxiliary execution roots require trusted parent/kind/display-unit context; canonical roots
+always retain their schema contract regardless of that execution kind.
 
 Exit codes. Callers refuse on ANY non-zero exit: an unjudged record is exactly what must not be
 committed or sealed, so the distinctions below are for the reader of a log, not for control flow.
@@ -86,15 +88,38 @@ def pattern_regex(pattern: str) -> re.Pattern:
     return re.compile("^" + re.escape(pattern).replace(r"\*", "[^/]*").replace(r"\?", "[^/]") + "$")
 
 
-def schema_bindings(repo: pathlib.Path) -> list[dict]:
-    """Resolve only trusted manifest mappings; payloads never select their own schema."""
+def existing_root_directories(repo: pathlib.Path, relative: str, pattern: bool = False) -> None:
+    """Refuse linked/non-directory ancestors even when the requested leaf does not exist yet."""
+    parts = canonical_relative(relative, "run root").split("/")
+    for index, part in enumerate(parts):
+        if pattern and any(character in part for character in "*?"):
+            break
+        prefix = "/".join(parts[:index + 1])
+        try:
+            os.lstat(repo / prefix)
+        except FileNotFoundError:
+            break
+        except OSError as error:
+            raise GateError(f"run root ancestor is unreadable: {prefix}: {error}") from error
+        read_beneath(repo, prefix, directory=True)
+
+
+def swarm_contracts(repo: pathlib.Path) -> tuple[dict, ...]:
     try:
-        contracts = discover_swarm_contracts(repo)
+        return discover_swarm_contracts(repo)
     except (OSError, ValueError, ProvenanceError) as error:
         raise GateError(f"cannot discover publication contracts: {error}") from error
+
+
+def schema_bindings(repo: pathlib.Path, contracts: tuple[dict, ...] | None = None) -> list[dict]:
+    """Resolve only trusted manifest mappings; payloads never select their own schema."""
+    if contracts is None:
+        contracts = swarm_contracts(repo)
     bindings = []
     patterns = set()
     for contract in contracts:
+        for auxiliary in contract["publication_auxiliary_roots"]:
+            existing_root_directories(repo, auxiliary["pattern"], pattern=True)
         mappings = contract.get("publication_schemas")
         if mappings is None and not contract.get("schemas_root"):
             continue
@@ -156,18 +181,41 @@ def binding_for(relative: bytes, bindings: list[dict]) -> dict | None:
     return matches[0] if matches else None
 
 
-def schema_contract(repo: pathlib.Path, run_root: str) -> dict:
-    canonical_relative(run_root, "run root")
-    if os.path.lexists(repo / run_root):
-        read_beneath(repo, run_root, directory=True)
-    bindings = schema_bindings(repo)
-    contracts = {row["id"]: row for row in discover_swarm_contracts(repo)
-                 if pattern_regex(row["run_glob"]).fullmatch(run_root)}
-    if not contracts and is_terminal_decision_path(os.fsencode(run_root + "/decision_record.json")):
-        return {"swarm_id": "research", "run_root": run_root, "declared": False, "artifacts": []}
-    if len(contracts) != 1:
+def schema_contract(repo: pathlib.Path, run_root: str, owner: str | None = None,
+                    kind: str | None = None, unit: str | None = None) -> dict:
+    context = (owner, kind, unit)
+    if any(value is not None for value in context) and not all(
+        isinstance(value, str) and value.strip() == value and value for value in context
+    ):
+        raise GateError("schema contract context requires owner, kind, and unit together")
+    existing_root_directories(repo, run_root)
+    contracts = swarm_contracts(repo)
+    bindings = schema_bindings(repo, contracts)
+    canonical = [row for row in contracts if pattern_regex(row["run_glob"]).fullmatch(run_root)]
+    research = not canonical and is_terminal_decision_path(os.fsencode(run_root + "/decision_record.json"))
+    if not canonical and not research:
+        # Only trusted exact execution context can select a declared auxiliary root. An arbitrary
+        # unknown root remains an error, and canonical roots always take precedence over this branch.
+        parents = [row for row in contracts if row["id"] == owner]
+        if len(parents) != 1 or unit != parents[0].get("unit"):
+            raise GateError(f"expected exactly one declared schema contract for run root: {run_root}")
+        auxiliary = [row for row in parents[0]["publication_auxiliary_roots"]
+                     if row["kind"] == kind and pattern_regex(row["pattern"]).fullmatch(run_root)]
+        if len(auxiliary) != 1:
+            raise GateError(f"expected exactly one declared auxiliary kind/root contract: {run_root}")
+        return {"swarm_id": owner, "run_root": run_root, "classification": "auxiliary",
+                "declared": False, "artifacts": []}
+    if research:
+        if owner is not None and owner != "research":
+            raise GateError(f"schema contract owner does not match canonical run root: {run_root}")
+        return {"swarm_id": "research", "run_root": run_root, "classification": "canonical",
+                "declared": False, "artifacts": []}
+    if len(canonical) != 1:
         raise GateError(f"expected exactly one declared schema contract for run root: {run_root}")
-    contract = next(iter(contracts.values()))
+    contract = canonical[0]
+    if owner is not None and (owner != contract["id"]
+                              or (contract.get("unit") is not None and unit != contract["unit"])):
+        raise GateError(f"schema contract context does not match canonical run root: {run_root}")
     artifacts = {}
     for row in bindings:
         if row["contract"]["id"] != contract["id"] or row["scope"] != "run":
@@ -184,6 +232,7 @@ def schema_contract(repo: pathlib.Path, run_root: str) -> dict:
                 raise GateError(f"unmapped publication schema artifact: {path}")
             artifacts[path] = {"path": path, "relative": path[len(run_root) + 1:]}
     return {"swarm_id": contract["id"], "run_root": run_root,
+            "classification": "canonical",
             "declared": bool(contract.get("publication_schemas")),
             "artifacts": [artifacts[path] for path in sorted(artifacts)]}
 
@@ -346,6 +395,9 @@ def parse_args() -> argparse.Namespace:
     )
     mode.add_argument("--check", metavar="RECORD", help="judge one decision record's bytes")
     mode.add_argument("--schema-contract", metavar="RUN_ROOT", help="describe trusted schema-bearing run artifacts as JSON")
+    parser.add_argument("--schema-swarm", help="trusted parent swarm for an execution-scoped schema contract")
+    parser.add_argument("--schema-kind", help="trusted execution kind; supplied with --schema-swarm and --schema-unit")
+    parser.add_argument("--schema-unit", help="trusted manifest display unit, never a primary/auxiliary kind discriminator")
     mode.add_argument("--schema-records", action="store_true", help="validate every explicitly supplied mapped (path, bytes file) pair before durable mutation")
     mode.add_argument(
         "--records", action="store_true",
@@ -362,6 +414,10 @@ def main() -> int:
     args = parse_args()
     repo = pathlib.Path(args.repo).resolve()
     try:
+        if args.schema_contract is None and any(
+            value is not None for value in (args.schema_swarm, args.schema_kind, args.schema_unit)
+        ):
+            raise GateError("schema execution context is only valid with --schema-contract")
         if args.select:
             sys.stdout.buffer.write(select(sys.stdin.buffer.read(), repo))
             sys.stdout.buffer.flush()
@@ -369,7 +425,8 @@ def main() -> int:
         if args.check is not None:
             return check(repo, args.check, args.publication_path)
         if args.schema_contract is not None:
-            print(json.dumps(schema_contract(repo, args.schema_contract)))
+            print(json.dumps(schema_contract(repo, args.schema_contract, args.schema_swarm,
+                                             args.schema_kind, args.schema_unit)))
             return 0
         return records(repo, sys.stdin.buffer.read(), schema_only=args.schema_records)
     except GateError as error:

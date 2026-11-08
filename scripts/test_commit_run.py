@@ -1795,8 +1795,10 @@ def test_manifest_schema_publication_acceptance_matrix():
     cache = Path(REPO_ROOT, ".cache", "publication-schema-tests")
     cache.mkdir(parents=True, exist_ok=True)
     evidence = Path(tempfile.mkdtemp(prefix="acceptance-matrix-", dir=cache))
+    first_failure = len(_fails)
     baseline_revision = "d4c67db2c132307d2eeaab58ec52c3c2ab1dc468"
-    candidate_revision = "42b37db9d1da5bf9893031be65162c5f354686a3"
+    delivered_revision = "42b37db9d1da5bf9893031be65162c5f354686a3"
+    candidate_revision = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=REPO_ROOT).decode().strip()
     names = ("intake", "signal_payload", "candidates", "thesis_record", "thesis_integrity_review")
     run_root = "screener/runs/SIG-20260610-a3f2c81d"
     documents = {name: json.loads(Path(REPO_ROOT, run_root, name + ".json").read_text()) for name in names}
@@ -1854,21 +1856,25 @@ def test_manifest_schema_publication_acceptance_matrix():
     identities = {}
     for relative in source_paths:
         current = Path(REPO_ROOT, relative).read_bytes()
-        historical = subprocess.run(["git", "show", f"{candidate_revision}:{relative}"],
+        historical = subprocess.run(["git", "show", f"{delivered_revision}:{relative}"],
                                     cwd=REPO_ROOT, capture_output=True)
         identities[relative] = {"current_sha256": digest(current),
-                                "runtime_candidate_sha256": digest(historical.stdout) if historical.returncode == 0 else None,
-                                "matches_runtime_candidate": current == historical.stdout if historical.returncode == 0 else None}
+                                "delivered_reference_sha256": digest(historical.stdout) if historical.returncode == 0 else None,
+                                "matches_delivered_reference": current == historical.stdout if historical.returncode == 0 else None}
     baseline = subprocess.run(["git", "show", f"{baseline_revision}:scripts/decision_publication_gate.py"],
                               cwd=REPO_ROOT, capture_output=True)
     baseline_gate = evidence / "baseline_decision_publication_gate.py"
     if baseline.returncode == 0:
+        check("the matched d4 baseline uses its pinned exact gate script",
+              hashlib.sha256(baseline.stdout).hexdigest() == "5323ecfb95e01c23eb59993c23518e995c2900ceabdff357fc1c2721446f8d38")
         baseline_gate.write_bytes(baseline.stdout)
     report = {
         "experiment": "screening-new-publication-schema-admission-v1", "supplement": "explicit-acceptance-matrix",
         "classification": "Synthetic schema correctness; no investment-performance evidence.",
         "baseline_revision": baseline_revision, "runtime_candidate_revision": candidate_revision,
-        "test_checkout_head": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=REPO_ROOT).decode().strip(),
+        "candidate_program_bytes": "Exact working-tree program hashes below; HEAD alone does not identify uncommitted source.",
+        "delivered_reference_revision": delivered_revision,
+        "test_checkout_head": candidate_revision,
         "test_source_sha256": digest(Path(__file__).read_bytes()),
         "baseline_gate_sha256": digest(baseline.stdout) if baseline.returncode == 0 else None,
         "source_identity": identities,
@@ -1880,7 +1886,6 @@ def test_manifest_schema_publication_acceptance_matrix():
                                      for index in range(len(documents["candidates"]["candidates"]))],
         "cases": [],
     }
-    first_failure = len(_fails)
     with tempfile.TemporaryDirectory(prefix="acceptance-repo-", dir=cache) as tmp:
         _, agent, env = setup_stale_local_main_scenario(tmp)
         manifest = Path(agent, ".claude/agents/screener/SWARM.md")
@@ -2085,6 +2090,116 @@ def test_manifest_schema_contract_is_generic_and_fails_closed():
               and b"UTF-8" not in linked_manifest.stderr, repr(linked_manifest.stderr))
 
 
+def test_manifest_auxiliary_roots_require_exact_context():
+    cache = Path(REPO_ROOT, ".cache", "publication-schema-tests")
+    cache.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(prefix="auxiliary-contracts-", dir=cache) as tmp:
+        root = Path(tmp)
+        schema = root / "frameworks/future/verdict.schema.json"
+        schema.parent.mkdir(parents=True)
+        schema.write_text('{"type":"object","required":["answer"],"properties":{"answer":{"const":"ok"}}}')
+        manifest = root / ".claude/agents/future/SWARM.md"
+        manifest.parent.mkdir(parents=True)
+        base = ("---\nid: future\nunit: issuer\nruns_root: future/runs\n"
+                "run_root_template: future/runs/{ID}/current\nplaceholder: ID\n"
+                "schemas_root: frameworks/future\npublication_schemas:\n"
+                "  - run:verdict.json=verdict.schema.json\npublication_auxiliary_roots:\n"
+                "  - audit=future/audits/AUD-*\n  - audit=future/runs/*/current\n---\n")
+        manifest.write_text(base)
+        canonical = "future/runs/subject/current"
+        auxiliary = "future/audits/AUD-one"
+        context = ["--schema-swarm", "future", "--schema-kind", "audit", "--schema-unit", "issuer"]
+
+        def resolve(relative, supplied=context):
+            return run_gate(["--repo", str(root), "--schema-contract", relative, *supplied])
+
+        accepted = resolve(auxiliary)
+        check("a future auxiliary kind shares its parent's display unit without requiring a canonical run root",
+              accepted.returncode == 0 and json.loads(accepted.stdout) == {
+                  "swarm_id": "future", "run_root": auxiliary, "classification": "auxiliary",
+                  "declared": False, "artifacts": [],
+              }, repr(accepted.stderr))
+        primary = resolve(canonical)
+        check("canonical-root precedence keeps schema artifacts even with a spoofed auxiliary kind",
+              primary.returncode == 0 and json.loads(primary.stdout)["classification"] == "canonical"
+              and json.loads(primary.stdout)["declared"] is True
+              and [row["relative"] for row in json.loads(primary.stdout)["artifacts"]] == ["verdict.json"],
+              repr(primary.stderr))
+        frozen = root / "frozen.json"
+        frozen.write_text('{"answer":"malformed"}')
+        pairs = os.fsencode(canonical + "/verdict.json") + b"\0" + os.fsencode(frozen)
+        check("a canonical artifact remains rejected after auxiliary-kind classification was requested",
+              run_gate(["--repo", str(root), "--schema-records"], pairs).returncode == 1)
+        for label, relative, supplied in [
+            ("raw auxiliary without context", auxiliary, []),
+            ("primary kind at an auxiliary root", auxiliary, [*context[:3], "signal", *context[4:]]),
+            ("wrong parent owner", auxiliary, ["--schema-swarm", "other", *context[2:]]),
+            ("wrong display unit", auxiliary, [*context[:-1], "different"]),
+            ("canonical owner mismatch", canonical, ["--schema-swarm", "other", *context[2:]]),
+            ("canonical display unit mismatch", canonical, [*context[:-1], "different"]),
+            ("unknown auxiliary root", "future/unknown/AUD-one", context),
+            ("incomplete owner context", auxiliary, context[:2]),
+            ("incomplete unit context", auxiliary, context[:4]),
+            ("traversing requested root", "future/audits/../AUD-one", context),
+        ]:
+            refused = resolve(relative, supplied)
+            check(f"auxiliary classification refuses {label}", refused.returncode == 2, repr(refused.stderr))
+        for label, body in [
+            ("scalar", base.replace("publication_auxiliary_roots:\n  - audit=future/audits/AUD-*", "publication_auxiliary_roots: false")),
+            ("malformed inline", base.replace("publication_auxiliary_roots:\n  - audit=future/audits/AUD-*", "publication_auxiliary_roots: [")),
+            ("mixed inline/block", base.replace("publication_auxiliary_roots:", "publication_auxiliary_roots: [] # explicit list")),
+            ("null block", base.replace("  - audit=future/audits/AUD-*\n  - audit=future/runs/*/current\n", "")),
+            ("traversal", base.replace("future/audits/AUD-*", "future/../audits/AUD-*")),
+            ("absolute", base.replace("future/audits/AUD-*", "/future/audits/AUD-*")),
+            ("unresolved placeholder", base.replace("AUD-*", "{AUD_ID}")),
+            ("missing unit", base.replace("unit: issuer\n", "")),
+            ("duplicate declaration", base.replace("---\n", "---\n", 1).replace("  - audit=future/audits/AUD-*", "  - audit=future/audits/AUD-*\n  - audit=future/audits/AUD-*")),
+            ("ambiguous matching roots", base.replace("  - audit=future/audits/AUD-*", "  - audit=future/audits/AUD-*\n  - audit=future/audits/*")),
+        ]:
+            manifest.write_text(body)
+            refused = resolve(auxiliary)
+            check(f"declared {label} auxiliary contract fails closed", refused.returncode == 2, repr(refused.stderr))
+        manifest.write_text(base)
+        actual = root / "future/retained"
+        actual.mkdir(parents=True)
+        linked = root / "future/audits"
+        linked.symlink_to(actual, target_is_directory=True)
+        refused = resolve(auxiliary)
+        check("an absent auxiliary leaf beneath a linked declared ancestor is refused",
+              refused.returncode == 2 and b"linked" in refused.stderr, repr(refused.stderr))
+        linked.unlink()
+        manifest.write_text(base.replace("future/audits/AUD-*", "future/audits/*/leaf"))
+        linked.parent.joinpath("audits").mkdir()
+        linked = root / "future/audits/AUD-linked"
+        linked.symlink_to(actual, target_is_directory=True)
+        refused = resolve("future/audits/AUD-linked/leaf")
+        check("a missing leaf below a linked wildcard-matched ancestor cannot bypass containment",
+              refused.returncode == 2 and b"linked" in refused.stderr, repr(refused.stderr))
+        canonical_link = root / "future/runs"
+        canonical_link.symlink_to(actual, target_is_directory=True)
+        refused = resolve(canonical)
+        check("a missing canonical root below a linked parent is refused too",
+              refused.returncode == 2 and b"linked" in refused.stderr, repr(refused.stderr))
+
+        # Use the real manifest's source-proven auxiliary tuples, without running any producer.
+        for kind, relative in [("conviction", "screener/ledger/conviction/runs/CHK-a3f2c81d-01"),
+                               ("sweep", "screener/inbox"), ("handoff", "screener/ledger")]:
+            result = run_gate(["--repo", REPO_ROOT, "--schema-contract", relative,
+                               "--schema-swarm", "screener", "--schema-kind", kind, "--schema-unit", "signal"])
+            check(f"the real manifest admits only its declared {kind} execution root",
+                  result.returncode == 0 and json.loads(result.stdout)["classification"] == "auxiliary",
+                  repr(result.stderr))
+        state_path = "screener/ledger/conviction/conviction_state/THS-SIG-20260610-a3f2c81d-v1.json"
+        frozen.write_text(json.dumps({"thesis_id": "THS-SIG-20260610-a3f2c81d-v1", "state": "watching",
+                                      "edge_locked": 10, "edge_score_live": 10, "conviction": 101,
+                                      "validated": False, "updated_at": "2026-06-10T05:40:00Z"}))
+        selected = run_gate(["--repo", REPO_ROOT, "--select"], os.fsencode(state_path) + b"\0")
+        checked = run_gate(["--repo", REPO_ROOT, "--check", str(frozen), "--publication-path", state_path])
+        check("auxiliary classification never disables exact-index conviction-state leaf selection or validation",
+              selected.returncode == 0 and selected.stdout == os.fsencode(state_path) + b"\0"
+              and checked.returncode == 1 and b"conviction" in checked.stderr, repr(checked.stderr))
+
+
 if __name__ == "__main__":
     print("== test_commit_run.py ==")
     test_fast_forward_push_from_non_main_branch_with_stale_local_main()
@@ -2126,6 +2241,7 @@ if __name__ == "__main__":
     test_manifest_schema_publication_uses_frozen_and_staged_bytes()
     test_manifest_schema_publication_acceptance_matrix()
     test_manifest_schema_contract_is_generic_and_fails_closed()
+    test_manifest_auxiliary_roots_require_exact_context()
     test_cockpit_publication_delegates_to_supervisor_and_never_trusts_child_manifest()
     test_supervisor_snapshot_stages_fixed_bytes_not_mutable_worktree()
     if _fails:

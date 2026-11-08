@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-08T12:06:15Z",
+  "generated_at": "2026-11-08T12:49:33Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261108-252",
+      "headline": "Adani Enterprises Limited: Adani Enterprises Limited has informed the Exchange about completion of acquisition of 100% stake in Vizag Mega Data Center Park Limited by AdaniConneX Private Limited ( ACX ), a joint venture of the Company.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/nishant_joshi_adani_com_08112026173159_AELIntimationofacquisitioncompletion08112026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-08T12:02:09Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "Adani Enterprises completed the acquisition of a 100% stake in Vizag Mega Data Center Park via its joint venture AdaniConneX.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Adani Enterprises completed the acquisition of a 100% stake in Vizag Mega Data Center Park via its joint venture AdaniConneX.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adani Enterprises Limited",
+          "ticker": "ADANIENT",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261108-206",
       "headline": "HX BLDG MAT (06655): DISCLOSEABLE TRANSACTION AND ACQUISITION OF THE TARGET COMPANY",
@@ -51,21 +100,21 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261108-250",
-      "headline": "Anthropic Buys Power for AI Data Centres in $3.4B Deal, FT Says",
+      "inbox_id": "INB-20261108-261",
+      "headline": "Anthropic Buys Power For AI Data Centres In $3.4 Billion Deal: Report",
       "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-08/anthropic-buys-power-for-ai-data-centres-in-3-4b-deal-ft-says",
-      "source_name": "Bloomberg",
+      "url": "https://www.ndtvprofit.com/business/anthropic-buys-power-for-ai-data-centres-in-3-4-billion-deal-report-12300389#publisher=newsstand",
+      "source_name": "NDTV Profit",
       "input_nature": "news_headline",
-      "found_at": "2026-11-08T11:48:21Z",
+      "found_at": "2026-11-08T12:33:26Z",
       "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "Anthropic is committing to a $3.4B power purchase agreement for AI data centers.",
+      "prelim_note": "Anthropic is reportedly investing $3.4 billion in power infrastructure for AI data centers.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Anthropic is committing to a $3.4B power purchase agreement for AI data centers.",
-      "region": "US",
+      "triage_reason": "Anthropic is reportedly investing $3.4 billion in power infrastructure for AI data centers.",
+      "region": "GLOBAL",
       "relevance": "material",
       "materiality_pre_score": 80,
       "rank_factors": {
@@ -73,7 +122,7 @@
         "source_tier": 0,
         "scope": 6,
         "event": 6,
-        "size": 2,
+        "size": 0,
         "recency": 5,
         "materiality_label_floor": 5,
         "quantified": 0,
@@ -81,7 +130,7 @@
         "scope_id": "single_name",
         "source_tier_id": "news",
         "event_id": "capex",
-        "size_bucket": "large"
+        "size_bucket": "unknown"
       },
       "event_types": [
         "capex"
@@ -94,26 +143,26 @@
           "listing_country": null
         }
       ],
-      "size_bucket": "large",
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261108-251",
-      "headline": "Aramco skyscraper damaged as Riyadh targeted by Houthi missiles",
+      "inbox_id": "INB-20261108-257",
+      "headline": "Riyadh financial district targeted, Aramco skyscraper damaged",
       "headline_en": null,
-      "url": "https://www.newarab.com/news/aramco-skyscraper-damaged-riyadh-targeted-houthi-missiles",
-      "source_name": "The New Arab",
+      "url": "https://www.koreaherald.com/article/10929808",
+      "source_name": "The Korea Herald — All News",
       "input_nature": "news_headline",
-      "found_at": "2026-11-08T11:39:44Z",
+      "found_at": "2026-11-08T12:25:42Z",
       "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "A missile attack on a major facility of a critical global energy producer represents a significant geopolitical and operational risk.",
+      "prelim_note": "A physical attack on Saudi Aramco infrastructure represents a significant geopolitical escalation and operational risk.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "A missile attack on a major facility of a critical global energy producer represents a significant geopolitical and operational risk.",
+      "triage_reason": "A physical attack on Saudi Aramco infrastructure represents a significant geopolitical escalation and operational risk.",
       "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 85,
@@ -149,20 +198,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261108-238",
-      "headline": "Saudi Aramco building in Riyadh damaged in attempted attack",
+      "inbox_id": "INB-20261108-258",
+      "headline": "NMC fraud: BR Shetty, ex-CEO could repay nearly Dh20 billion after Abu Dhabi ruling",
       "headline_en": null,
-      "url": "https://www.scmp.com/news/world/middle-east/article/3373700/saudi-aramco-building-riyadh-damaged-attempted-attack",
-      "source_name": "South China Morning Post",
+      "url": "https://gulfnews.com/business/markets/nmc-fraud-br-shetty-ex-ceo-could-repay-nearly-dh20-billion-after-abu-dhabi-ruling-1.500740328",
+      "source_name": "Gulf News",
       "input_nature": "news_headline",
-      "found_at": "2026-11-08T11:34:24Z",
+      "found_at": "2026-11-08T12:16:37Z",
       "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "An attempted attack damaged a Saudi Aramco building in Riyadh, representing a significant geopolitical and operational risk.",
+      "prelim_note": "A court ruling orders the former CEO of NMC Health to pay nearly Dh20 billion in damages.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "An attempted attack damaged a Saudi Aramco building in Riyadh, representing a significant geopolitical and operational risk.",
+      "triage_reason": "A court ruling orders the former CEO of NMC Health to pay nearly Dh20 billion in damages.",
       "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 75,
@@ -170,10 +219,108 @@
         "materiality": 75,
         "source_tier": 0,
         "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NMC Health",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-256",
+      "headline": "Saudi Aramco office in Riyadh damaged in latest Houthi strikes",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/eeadc13e-b915-4591-ab85-54db81030996?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T12:16:02Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "A physical attack on Saudi Aramco infrastructure represents a significant geopolitical escalation and operational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A physical attack on Saudi Aramco infrastructure represents a significant geopolitical escalation and operational risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
         "event": 2,
         "size": 2,
         "recency": 5,
-        "materiality_label_floor": 10,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saudi Aramco",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-251",
+      "headline": "Aramco skyscraper damaged as Riyadh targeted by Houthi missiles",
+      "headline_en": null,
+      "url": "https://www.newarab.com/news/aramco-skyscraper-damaged-riyadh-targeted-houthi-missiles",
+      "source_name": "The New Arab",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T11:39:44Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "A missile attack on a major facility of a critical global energy producer represents a significant geopolitical and operational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A missile attack on a major facility of a critical global energy producer represents a significant geopolitical and operational risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -1811,159 +1958,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-087",
-      "headline": "SoftBank, ABB consider China carve-out to salvage robotics deal",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/business/2026/11/08/companies/softbank-abb-china-carve-out/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T03:23:00Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "SoftBank and ABB are considering a carve-out for a robotics deal due to regulatory hurdles, signaling a potential failure or restructuring of a major transaction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "SoftBank and ABB are considering a carve-out for a robotics deal due to regulatory hurdles, signaling a potential failure or restructuring of a major transaction.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna",
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SoftBank Group",
-          "ticker": null,
-          "listing_country": "JP"
-        },
-        {
-          "name": "ABB",
-          "ticker": null,
-          "listing_country": "CH"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-138",
-      "headline": "JTL INDUSTRIES LIMITED: JTL INDUSTRIES LIMITED has informed the Exchange regarding a press release dated November 08, 2026, titled \"JTL Industries advances Maharashtra facility expansion with hot trial of Pickling Line and Cold Trial of GP Line\".",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/JTLIND_08112026122203_PressReleaseJTL08112026Signed.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-08T06:53:08Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "JTL Industries announced progress on its Maharashtra facility expansion with the start of trials for new production lines.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "JTL Industries announced progress on its Maharashtra facility expansion with the start of trials for new production lines.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capex",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "JTL Industries Ltd",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-080",
-      "headline": "China’s Boyu Capital in exclusive talks to buy Nucleus Network",
-      "headline_en": null,
-      "url": "https://www.afr.com/street-talk/china-s-boyu-capital-in-exclusive-talks-to-buy-nucleus-network-20261108-p61cdo?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T04:01:46Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "Boyu Capital is in exclusive talks to acquire Nucleus Network, signaling a significant private equity transaction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Boyu Capital is in exclusive talks to acquire Nucleus Network, signaling a significant private equity transaction.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nucleus Network",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -226481,6 +226475,222 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-192883ff2edc",
+      "idea_version": "IDEAV-48b3b583ba5d295e",
+      "idea_version_started_at": "2026-11-08T12:16:39Z",
+      "ticker": "2120.SR",
+      "company": "Sipchem",
+      "exchange": "TADAWUL",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Sipchem's shares have fallen to a 52-week low, suggesting severe negative market sentiment or financial performance.",
+      "why_now": "The stock reached a 52-week low on November 8, 2026, indicating current weakness.",
+      "conviction": 45,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-786bfe54e422"
+      ],
+      "primary_source_event_id": "EVT-786bfe54e422",
+      "source_headlines": [
+        "‎Sipchem, Makkah Construction fall to 52-week lows"
+      ],
+      "source_headline": "‎Sipchem, Makkah Construction fall to 52-week lows",
+      "source_url": "https://www.argaam.com/en/article/articledetail/id/1951421",
+      "source_name": "Argaam — Main News (English)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-08T11:13:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-08T12:16:39Z",
+      "updated_at": "2026-11-08T12:16:39Z",
+      "decay_at": "2026-11-09T23:13:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-4082622936c6",
+      "idea_version": "IDEAV-8883132600f56aa9",
+      "idea_version_started_at": "2026-11-08T12:16:39Z",
+      "ticker": "2130.SR",
+      "company": "Makkah Construction",
+      "exchange": "TADAWUL",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Makkah Construction's shares have fallen to a 52-week low, indicating significant negative pressure.",
+      "why_now": "The stock reached a 52-week low on November 8, 2026, reflecting current market concerns.",
+      "conviction": 45,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-786bfe54e422"
+      ],
+      "primary_source_event_id": "EVT-786bfe54e422",
+      "source_headlines": [
+        "‎Sipchem, Makkah Construction fall to 52-week lows"
+      ],
+      "source_headline": "‎Sipchem, Makkah Construction fall to 52-week lows",
+      "source_url": "https://www.argaam.com/en/article/articledetail/id/1951421",
+      "source_name": "Argaam — Main News (English)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-08T11:13:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-08T12:16:39Z",
+      "updated_at": "2026-11-08T12:16:39Z",
+      "decay_at": "2026-11-09T23:13:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-c93c2c70004d",
+      "idea_version": "IDEAV-1df4b804ced3eb6b",
+      "idea_version_started_at": "2026-11-08T12:16:39Z",
+      "ticker": "2110.SR",
+      "company": "Retal",
+      "exchange": "TADAWUL",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Retal's stock has fallen to a record low since its listing, indicating significant financial distress.",
+      "why_now": "The stock hit a record low on November 8, 2026, signaling immediate pressure.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-17c3b96a8efd"
+      ],
+      "primary_source_event_id": "EVT-17c3b96a8efd",
+      "source_headlines": [
+        "‎Retal hits record low since listing"
+      ],
+      "source_headline": "‎Retal hits record low since listing",
+      "source_url": "https://www.argaam.com/en/article/articledetail/id/1951422",
+      "source_name": "Argaam — Main News (English)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-08T11:15:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-08T12:16:39Z",
+      "updated_at": "2026-11-08T12:16:39Z",
+      "decay_at": "2026-11-09T23:15:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-08a3d0b58d80",
       "idea_version": "IDEAV-4589f5ab64491b37",
       "idea_version_started_at": "2026-11-08T11:04:45Z",
@@ -230278,146 +230488,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-3bcb0bb1186b",
-      "idea_version": "IDEAV-2948eade7ec446f1",
-      "idea_version_started_at": "2026-11-05T15:35:08Z",
-      "ticker": "TAP",
-      "company": "Molson Coors",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Molson Coors is cutting its outlook citing soft beer demand, which suggests a broader, sustained decline in consumer spending on premium and mainstream beer brands.",
-      "why_now": "The guidance cut was announced today, November 5, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "sector_cycle",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ea47527bc030"
-      ],
-      "primary_source_event_id": "EVT-ea47527bc030",
-      "source_headlines": [
-        "Molson Coors Cuts Outlook, Expects Soft Beer Demand to Continue"
-      ],
-      "source_headline": "Molson Coors Cuts Outlook, Expects Soft Beer Demand to Continue",
-      "source_url": "https://www.wsj.com/business/earnings/molson-coors-cuts-outlook-expects-soft-beer-demand-to-continue-5718eeae?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-05T12:35:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-05T15:35:08Z",
-      "updated_at": "2026-11-05T15:35:08Z",
-      "decay_at": "2026-11-07T00:35:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-8acee086c6b4",
-      "idea_version": "IDEAV-f220f3725e8615c1",
-      "idea_version_started_at": "2026-11-05T15:35:08Z",
-      "ticker": "PZZA",
-      "company": "Papa John's",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is cutting its financial outlook for the second time due to persistent weakness in quarterly sales, signaling structural demand issues in the pizza segment.",
-      "why_now": "The guidance cut was announced today, November 5, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0c55882ba2bb"
-      ],
-      "primary_source_event_id": "EVT-0c55882ba2bb",
-      "source_headlines": [
-        "Papa John’s Cuts Outlook Again as Quarterly Sales Sink"
-      ],
-      "source_headline": "Papa John’s Cuts Outlook Again as Quarterly Sales Sink",
-      "source_url": "https://www.wsj.com/business/retail/papa-johns-cuts-outlook-again-as-quarterly-sales-sink-789ef18c?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-05T12:45:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-05T15:35:08Z",
-      "updated_at": "2026-11-05T15:35:08Z",
-      "decay_at": "2026-11-07T00:45:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-be88d1aa5221",
       "idea_version": "IDEAV-c5cfe32b543bae0a",
       "idea_version_started_at": "2026-11-07T22:08:49Z",
@@ -232493,78 +232563,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-ffe38f57d5c6",
-      "idea_version": "IDEAV-1c86d051ed9df50f",
-      "idea_version_started_at": "2026-11-05T15:35:08Z",
-      "ticker": "TITAN",
-      "company": "Titan Company",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Titan reported strong Q2 results with net profit doubling and 24% growth in its core jewellery business, indicating significant market share gains and operational efficiency.",
-      "why_now": "The earnings report was released today, November 5, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0a68cd99d8b1"
-      ],
-      "primary_source_event_id": "EVT-0a68cd99d8b1",
-      "source_headlines": [
-        "Titan shines in Q2 Results 2026; Net profit doubles to ₹2,393 crore, aided by one-time gain; jewellery business up 24%"
-      ],
-      "source_headline": "Titan shines in Q2 Results 2026; Net profit doubles to ₹2,393 crore, aided by one-time gain; jewellery business up 24%",
-      "source_url": "https://www.livemint.com/market/stock-market-news/titan-shines-in-q2-results-2026-net-profit-doubles-to-rs-2-393-crore-aided-by-one-time-gain-jewellery-business-up-24-11793880484831.html",
-      "source_name": "Mint",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-05T12:48:39Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-05T15:35:08Z",
-      "updated_at": "2026-11-05T15:35:08Z",
-      "decay_at": "2026-11-07T00:48:39Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-bd666baba5fc",
       "idea_version": "IDEAV-fe610c94607885a1",
       "idea_version_started_at": "2026-11-07T11:59:19Z",
@@ -232792,33 +232790,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 551,
+    "total_count": 548,
     "shown_count": 499,
-    "hidden_count": 52,
+    "hidden_count": 49,
     "side_counts": {
       "long": {
-        "total_count": 279,
+        "total_count": 278,
         "shown_count": 250,
-        "hidden_count": 29
+        "hidden_count": 28
       },
       "short": {
-        "total_count": 273,
+        "total_count": 271,
         "shown_count": 250,
-        "hidden_count": 23
+        "hidden_count": 21
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1688,
-      "oldest_retained_at": "2026-10-10T21:45:05Z",
+      "evicted_count": 1691,
+      "oldest_retained_at": "2026-10-10T22:16:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 1117,
-          "oldest_retained_at": "2026-10-23T19:08:26Z"
+          "evicted_count": 1118,
+          "oldest_retained_at": "2026-10-24T01:17:00Z"
         },
         "short": {
-          "evicted_count": 572,
-          "oldest_retained_at": "2026-10-10T21:45:05Z"
+          "evicted_count": 574,
+          "oldest_retained_at": "2026-10-10T22:16:00Z"
         }
       }
     },
@@ -236452,8 +236450,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-07T00:48:39Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-08T12:49:17Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -236525,8 +236523,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-07T00:45:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-08T12:49:17Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -236598,8 +236596,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-07T00:35:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-08T12:49:17Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -269974,8 +269972,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2288,
-    "live_count": 48,
+    "surfaced_total": 2291,
+    "live_count": 51,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -269994,9 +269992,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1653,
-    "news_picked_today": 363,
-    "news_dropped_today": 1286
+    "news_seen_today": 1805,
+    "news_picked_today": 381,
+    "news_dropped_today": 1420
   },
   "book_momentum": {
     "live_count": 8,

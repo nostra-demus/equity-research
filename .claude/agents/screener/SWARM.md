@@ -24,6 +24,12 @@ publication_schemas:
   - "run:thesis_integrity_review_v*.json=thesis_integrity_review.schema.json"
   - "ledger:theses/*.json=thesis_record.schema.json"
   - "ledger:conviction/conviction_state/*.json=conviction.schema.json"
+# Existing launcher entrypoints outside the canonical signal root. These have no signal-stage packet;
+# changed ledger artifacts still pass the independent frozen/index schema gate.
+publication_auxiliary_roots:
+  - "conviction=screener/ledger/conviction/runs/CHK-????????-??"
+  - "sweep=screener/inbox"
+  - "handoff=screener/ledger"
 calibrator: scripts/screener_calibrate.py
 calibration_root: screener/ledger/conviction
 decision_memory: equity_calls

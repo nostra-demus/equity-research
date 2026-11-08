@@ -12,10 +12,11 @@ import { REPO_ROOT, STATE_DIR } from '../src/config'
 import {
   EXECUTION_PROVENANCE_RECEIPT as EXECUTION_RECEIPT_NAME, artifactIsFresh, beginExecutionAttempt, canonicalManifestPath, executionEpochAttemptCount,
   projectionLineageRows, readLastProviderSelection, readProviderInterruptionAuthority, readProviderPreSpawnFailureAuthority,
+  readPublicationSchemaContract,
   recordAdmittedProviderSelection, releaseExecutionEpochAfterPublication,
   sealProviderPreSpawnFailureAuthority,
 } from '../src/execution-provenance'
-import { createRun, finishRun } from '../src/registry'
+import { createRun, finishRun, type RunState } from '../src/registry'
 import { writeRunMarker } from '../src/outputs'
 import {
   __setPostReviewCalibration, __setPublicationAuthoritySealer, __setSupersededPublicationProbe,
@@ -120,6 +121,15 @@ async function isolatedSchemaAcceptance(): Promise<void> {
   copy('scripts/append-ndjson.sh')
   copy('scripts/commit-run.sh')
   copy('.claude/agents/screener/SWARM.md')
+  const futureManifest = path.join(fixtureRoot, '.claude', 'agents', 'schema-future', 'SWARM.md')
+  fs.mkdirSync(path.dirname(futureManifest), { recursive: true })
+  fs.writeFileSync(futureManifest, [
+    '---', 'id: schema-future', 'unit: signal', 'run_root_template: screener/future-runs/{SIG_ID}',
+    'placeholder: SIG_ID', 'runs_root: screener/future-runs', 'decision_artifacts: [signal_payload.json]',
+    'schemas_root: frameworks/screener', 'publication_schemas:',
+    '  - "run:signal_payload.json=signal_payload.schema.json"', 'publication_auxiliary_roots:',
+    '  - "review=screener/future-reviews/REV-*"', '---', '',
+  ].join('\n'))
   copy('frameworks/memory/phase0/catalogue.json')
   for (const name of fs.readdirSync(path.join(REPO_ROOT, 'frameworks', 'screener')))
     if (name.endsWith('.schema.json')) copy(`frameworks/screener/${name}`)
@@ -188,7 +198,8 @@ async function isolatedSchemaAcceptance(): Promise<void> {
   assert.ok(report, `acceptance report is missing or invalid; retained fixture: ${fixtureRoot}`)
   assert.equal(report.complete, true)
   assert.equal(report.cases.length, 48, 'the shared 24-case matrix runs for both simulated providers')
-  console.log(`PASS: isolated schema acceptance (48 provider cases); report=${fixtureRoot}/.cache/acceptance.json`)
+  assert.equal(report.compatibility_cases.length, 16, 'both providers exercise all eight root/context compatibility cases')
+  console.log(`PASS: isolated schema acceptance (48 schema + 16 compatibility provider cases); report=${fixtureRoot}/.cache/acceptance.json`)
 }
 
 async function schemaAcceptanceChild(): Promise<void> {
@@ -258,14 +269,19 @@ async function schemaAcceptanceChild(): Promise<void> {
     complete: false, source_checkout_head: process.env.ENGINE_SCHEMA_ACCEPTANCE_SOURCE_SHA,
     source_checkout_head_scope: 'Checkout HEAD identity only; exact executing test bytes (including any uncommitted supplement) identified separately.',
     test_source: { path: testSourcePath, sha256: hash(fs.readFileSync(testSourcePath)) },
+    runtime_source_hashes: Object.fromEntries(['execution-provenance.ts', 'launcher.ts'].map(name => [
+      `ui/server/src/${name}`, hash(fs.readFileSync(path.resolve(path.dirname(testSourcePath), '../src', name))),
+    ])),
     fixture_program_hashes: { ...hashes(path.join(REPO_ROOT, 'scripts')),
       ...hashes(path.join(REPO_ROOT, '.claude')), ...hashes(path.join(REPO_ROOT, 'frameworks')) },
     scope: [
       'Both providers are simulated identities; no provider/model is invoked.',
       'Real schema gate, provenance stamper, checkpoint/board builders and frozen snapshot admission execute.',
       'Valid controls hand the exact supervisor snapshot to real commit-run with no push/remote/credentials and use the default HEAD/blob verifier.',
+      'Compatibility cases exercise direct begin/stamp with authoritative owner/kind/display-unit/root classification under both providers.',
+      'Canonical-first admission assumes the trusted schema-bearing owner context. The preexisting schema-free-owner early return remains; low-level callers and nonpublishing admin parity retain their owner/root contracts.',
       'No-mutation assertions begin at supervisor invocation; earlier deterministic-writer own-prewrite validation remains untested.',
-    ], cases: [] as any[],
+    ], cases: [] as any[], compatibility_cases: [] as any[],
   }
   const reportPath = path.join(REPO_ROOT, '.cache', 'acceptance.json')
   fs.mkdirSync(path.dirname(reportPath), { recursive: true })
@@ -419,6 +435,108 @@ async function schemaAcceptanceChild(): Promise<void> {
                 completed: live.publicationCompleted, checkpoint_rows: checkpoints.filter(checkpoint => checkpoint.thesis_id === thesisId).length }
             } finally {
               __setSupervisorCommitter(committer)
+            }
+          }
+          row.passed = true
+        } finally { finishRun(live, 'done') }
+      }
+    }
+    for (const provider of ['claude', 'codex'] as const) {
+      const selectedProfile = provider === 'claude'
+        ? { key: 'claude:sonnet:default', parentModel: 'sonnet', parentReasoning: 'default' }
+        : { key: 'codex:test', parentModel: 'gpt-test', parentReasoning: 'max' }
+      for (const test of [
+        { id: 'conviction-actual-root', kind: 'conviction', swarm: 'screener', root: 'checkpoint', action: 'auxiliary' },
+        { id: 'canonical-five-artifact-baselines', kind: 'signal', swarm: 'screener', root: 'canonical', action: 'canonical' },
+        { id: 'spoof-conviction-canonical-invalid16', kind: 'conviction', swarm: 'screener', root: 'canonical', action: 'invalid' },
+        { id: 'primary-kind-on-checkpoint-root', kind: 'signal', swarm: 'screener', root: 'checkpoint', action: 'refuse' },
+        { id: 'unknown-conviction-root', kind: 'conviction', swarm: 'screener', root: 'unknown', action: 'refuse' },
+        { id: 'future-registered-auxiliary-root', kind: 'review', swarm: 'schema-future', root: 'future-review', action: 'auxiliary' },
+        { id: 'future-primary-kind-on-auxiliary-root', kind: 'signal', swarm: 'schema-future', root: 'future-review', action: 'refuse' },
+        { id: 'future-canonical-spoof-invalid16', kind: 'review', swarm: 'schema-future', root: 'canonical', action: 'invalid' },
+      ] as const) {
+        const suffix = randomUUID().replaceAll('-', '').slice(0, 8)
+        const signalId = `SIG-20990104-${suffix}`
+        const relative = test.root === 'checkpoint' ? `screener/ledger/conviction/runs/CHK-${suffix}-01`
+          : test.root === 'unknown' ? `screener/ledger/conviction/unknown/CHK-${suffix}-01`
+            : test.root === 'future-review' ? `screener/future-reviews/REV-${suffix}`
+              : `${test.swarm === 'screener' ? 'screener/runs' : 'screener/future-runs'}/${signalId}`
+        const directory = path.join(REPO_ROOT, relative)
+        fs.mkdirSync(directory, { recursive: true })
+        const stages = complete(signalId)
+        if (test.root === 'canonical') {
+          for (const [name, value] of Object.entries(stages))
+            fs.writeFileSync(path.join(directory, `${name}.json`), `${JSON.stringify(value, null, 2)}\n`)
+        }
+        const live = createRun({
+          kind: test.kind as RunState['kind'], swarmId: test.swarm, unit: 'signal',
+          ticker: test.root === 'checkpoint' ? `THS-${signalId}-v1::CHK-${suffix}-01` : signalId,
+          provider, executionProfile: selectedProfile, profileKey: selectedProfile.key,
+          model: selectedProfile.parentModel, reasoningLevel: selectedProfile.parentReasoning,
+          prompt: '', user: 'test', userVia: 'local', runRoot: relative, willCommitToMain: true,
+          writeTargetsAbs: [directory], coveredModules: [], readDepsAbs: [], closeWatcher: undefined, expected: new Map(),
+        })
+        const token = `schema-compatibility-${suffix}`
+        live.publicationToken = token
+        const row: any = { provider, case_id: test.id, kind: live.kind, unit: live.unit,
+          swarm_id: live.swarmId, run_root: relative }
+        report.compatibility_cases.push(row)
+        try {
+          if (test.action === 'refuse') {
+            const stateBefore = hashes(STATE_DIR)
+            assert.throws(() => beginExecutionAttempt(live), /publication schema contract could not be verified/,
+              `${provider}/${test.id}: an unregistered kind/root cannot reach provider dispatch`)
+            assert.equal(live.currentExecutionAttempts, undefined)
+            assert.equal(live.publicationBaselines, undefined)
+            assert.deepEqual(hashes(STATE_DIR), stateBefore)
+            await assert.rejects(supervisePublication(live.runId, token, { phase: 'stamp' }),
+              /schema contract could not be verified before mutation/,
+              'terminal preflight applies the same authoritative root/context classification')
+            assert.equal(live.publicationRequested, undefined)
+            assert.equal(live.publicationPhase, undefined)
+            row.refused_at = ['beginExecutionAttempt', 'supervisePublication']
+          } else {
+            beginExecutionAttempt(live)
+            const contract = readPublicationSchemaContract(live)!
+            row.contract = contract
+            row.baselines = live.publicationBaselines
+            if (test.action === 'auxiliary') {
+              assert.equal(contract.classification, 'auxiliary')
+              assert.equal(contract.declared, false)
+              assert.deepEqual(contract.artifacts, [])
+              assert.deepEqual(live.publicationBaselines, {})
+              const stopped = await supervisePublication(live.runId, token, { phase: 'stamp' })
+              assert.deepEqual(stopped.artifacts, [])
+              assert.equal(stopped.ok, true, 'the legitimate production auxiliary tuple begins and stamps')
+            } else {
+              assert.equal(contract.classification, 'canonical')
+              assert.equal(contract.declared, true)
+              const expected = test.swarm === 'screener' ? Object.keys(stages).map(name => `${name}.json`) : ['signal_payload.json']
+              assert.deepEqual(Object.keys(live.publicationBaselines!).sort(), expected.sort())
+              for (const name of expected) {
+                assert.equal(live.publicationBaselines![name], hash(fs.readFileSync(path.join(directory, name))).replace(/^sha256:/, ''))
+                assert.equal(artifactIsFresh(live, name), false, 'canonical pre-spawn baselines retain all mapped stage identities')
+              }
+              if (test.action === 'invalid') {
+                stages.signal_payload.event_id = `EVT-${'a'.repeat(16)}`
+                const payloadPath = path.join(directory, 'signal_payload.json')
+                fs.writeFileSync(payloadPath, `${JSON.stringify(stages.signal_payload, null, 2)}\n`)
+                const before = { run: hashes(directory), ledger: hashes(path.join(REPO_ROOT, 'screener', 'ledger')),
+                  board: hashes(path.join(REPO_ROOT, 'screener', 'board')), state: hashes(STATE_DIR) }
+                await assert.rejects(supervisePublication(live.runId, token, { phase: 'stamp' }),
+                  /schema validation refused before mutation:.*signal_payload\.json/s,
+                  'canonical roots remain schema-gated when supplied an auxiliary kind')
+                assert.deepEqual({ run: hashes(directory), ledger: hashes(path.join(REPO_ROOT, 'screener', 'ledger')),
+                  board: hashes(path.join(REPO_ROOT, 'screener', 'board')), state: hashes(STATE_DIR) }, before)
+                assert.equal(live.publicationRequested, undefined)
+                assert.equal(live.publicationPhase, undefined)
+                row.refused_invalid16 = true
+                stages.signal_payload.event_id = `EVT-${'a'.repeat(12)}`
+                fs.writeFileSync(payloadPath, `${JSON.stringify(stages.signal_payload, null, 2)}\n`)
+              }
+              const stopped = await supervisePublication(live.runId, token, { phase: 'stamp' })
+              assert.equal(stopped.ok, true)
+              assert.deepEqual(stopped.artifacts, [], 'retained canonical history is not promoted to a fresh terminal thesis')
             }
           }
           row.passed = true

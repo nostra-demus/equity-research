@@ -482,6 +482,7 @@ export function decisionArtifacts(run: RunState): string[] {
 export interface PublicationSchemaContract {
   swarm_id: string
   run_root: string
+  classification: 'canonical' | 'auxiliary'
   declared: boolean
   artifacts: Array<{ path: string; relative: string }>
 }
@@ -490,7 +491,9 @@ export interface PublicationSchemaContract {
 export function parsePublicationSchemaContract(raw: string, runRoot: string, swarmId: string): PublicationSchemaContract {
   const value = JSON.parse(raw) as PublicationSchemaContract
   if (!value || value.run_root !== runRoot || value.swarm_id !== swarmId
+      || !['canonical', 'auxiliary'].includes(value.classification)
       || typeof value.declared !== 'boolean' || !Array.isArray(value.artifacts)
+      || (value.classification === 'auxiliary' && value.declared)
       || (!value.declared && value.artifacts.length)) {
     throw new Error('publication schema contract returned an invalid artifact list')
   }
@@ -508,7 +511,14 @@ export function parsePublicationSchemaContract(raw: string, runRoot: string, swa
   return value
 }
 
-export function readPublicationSchemaContract(run: Pick<RunState, 'runRoot' | 'swarmId'>): PublicationSchemaContract | null {
+/** The shared resolver owns canonical/auxiliary applicability; both pre-spawn and terminal callers
+ * provide the same trusted parent context, never a TS kind allowlist or inferred root exemption. */
+export function publicationSchemaContractArgs(run: Pick<RunState, 'runRoot' | 'swarmId' | 'kind' | 'unit'>): string[] {
+  if (!run.runRoot) throw new Error('publication schema contract requires a run root')
+  return ['--schema-contract', run.runRoot, '--schema-swarm', run.swarmId, '--schema-kind', run.kind, '--schema-unit', run.unit]
+}
+
+export function readPublicationSchemaContract(run: Pick<RunState, 'runRoot' | 'swarmId' | 'kind' | 'unit'>): PublicationSchemaContract | null {
   if (!run.runRoot) return null
   const swarm = swarmById(run.swarmId)
   if (!swarm) throw new Error('execution attempt has no trusted swarm manifest')
@@ -516,7 +526,7 @@ export function readPublicationSchemaContract(run: Pick<RunState, 'runRoot' | 's
   try {
     const raw = execFileSync('python3', [
       path.join(REPO_ROOT, 'scripts', 'decision_publication_gate.py'), '--repo', REPO_ROOT,
-      '--schema-contract', run.runRoot,
+      ...publicationSchemaContractArgs(run),
     ], { cwd: REPO_ROOT, encoding: 'utf8', stdio: ['pipe', 'pipe', 'pipe'], timeout: 20_000, maxBuffer: 1024 * 1024 })
     return parsePublicationSchemaContract(raw, run.runRoot, swarm.id)
   } catch (error: any) {
@@ -747,6 +757,7 @@ function trustedLineage(run: RunState): Array<Record<string, unknown>> {
 /** Register canonical rows and freshness baselines immediately before spawn. No child-visible file is read. */
 export function beginExecutionAttempt(run: RunState): void {
   if (!run.runRoot) throw new Error(`Run ${run.runId} has no run root for execution provenance.`)
+  const schemaArtifacts = readPublicationSchemaContract(run)?.artifacts.map((item) => item.relative) ?? []
   run.parityPrelaunchBinding = parityPrelaunchBinding(run) ?? undefined
   const epoch = run.provenanceEpoch || run.chainId || run.runId
   run.provenanceEpoch = epoch
@@ -786,7 +797,6 @@ export function beginExecutionAttempt(run: RunState): void {
   })
   const priorBaselines = run.publicationBaselines
   const baselines: Record<string, string | null> = {}
-  const schemaArtifacts = readPublicationSchemaContract(run)?.artifacts.map((item) => item.relative) ?? []
   for (const relative of new Set([...decisionArtifacts(run), ...schemaArtifacts])) {
     // Automatic processes belong to one admitted logical run. Preserve the first process's pre-spawn
     // bytes so a decision it authored stays fresh when a later process performs publication only.

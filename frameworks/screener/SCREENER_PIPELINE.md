@@ -95,6 +95,28 @@ The canonical dependency-free checker supports the schemas' internal references.
 `publication_schemas: []` delegates to an existing stronger swarm-specific validator; it is not schema
 approval. The commodity archive path declares this delegation and retains all its own checks.
 
+An existing auxiliary command may use a different execution root from the canonical signal template.
+`publication_auxiliary_roots` explicitly binds each such execution kind to its root pattern:
+
+```yaml
+publication_auxiliary_roots:
+  - "conviction=screener/ledger/conviction/runs/CHK-????????-??"
+  - "sweep=screener/inbox"
+  - "handoff=screener/ledger"
+```
+
+The supervisor supplies its admitted parent swarm, execution kind, and display unit through
+`--schema-swarm`, `--schema-kind`, and `--schema-unit` alongside `--schema-contract`. All three are
+required together. The unit must match the owning manifest's `unit`; it does not classify the execution
+kind (a conviction run still has the signal display unit). The shared resolver always classifies a
+canonical template root first, including when an auxiliary kind is supplied. Only a unique explicit
+auxiliary kind/root match returns `classification: auxiliary`, `declared: false`, and no run-stage
+artifacts. Canonical roots return `classification: canonical`. Unknown, mismatched, ambiguous, malformed,
+or linked roots fail closed, including a missing leaf beneath an existing linked ancestor. A raw
+`--schema-contract` call without parent context never grants auxiliary status. This classification
+does not affect `--records`, `--select`, or `--check`: new or changed mapped ledger leaves, including
+conviction-state leaves, still receive their exact frozen/index validation.
+
 Before a tracked attempt starts, the supervisor records baselines for the declared run artifacts. Before
 its first durable publication mutation, it selects only artifacts authored by that attempt and validates
 their frozen bytes, including any proposed ledger projection, through
