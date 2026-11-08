@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-08T14:15:14Z",
+  "generated_at": "2026-11-08T14:21:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20261108-265",
@@ -141,6 +141,56 @@
           "name": "HX Building Materials",
           "ticker": "06655",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-266",
+      "headline": "NMC founder B.R. Shetty and former CEO Prasanth Manghat held liable for fraudulent trading",
+      "headline_en": null,
+      "url": "https://www.emirates247.com/business/nmc-founder-br-shetty-and-former-ceo-prasanth-manghat-held-liable-for-fraudulent-trading/7577",
+      "source_name": "Emirates 24|7 — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T14:12:00Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "NMC founder and former CEO held liable for fraudulent trading, indicating potential financial distress and legal action.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "NMC founder and former CEO held liable for fraudulent trading, indicating potential financial distress and legal action.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NMC Health",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -1914,55 +1964,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-192",
-      "headline": "‎Energy Ministry official: Attempt to target Aramco building in Riyadh",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1951439",
-      "source_name": "Argaam — Main News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T12:15:00Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "Attempted attack on Saudi Aramco building in Riyadh represents a significant geopolitical and security risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Attempted attack on Saudi Aramco building in Riyadh represents a significant geopolitical and security risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Saudi Aramco",
-          "ticker": null,
-          "listing_country": "SA"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -269997,9 +269998,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2010,
-    "news_picked_today": 414,
-    "news_dropped_today": 1592
+    "news_seen_today": 2027,
+    "news_picked_today": 419,
+    "news_dropped_today": 1604
   },
   "book_momentum": {
     "live_count": 8,
