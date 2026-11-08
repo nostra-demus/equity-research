@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-08T09:38:57Z",
+  "generated_at": "2026-11-08T09:48:22Z",
   "inbox": [
     {
       "inbox_id": "INB-20261108-164",
@@ -100,6 +100,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-202",
+      "headline": "Saudi Aramco building in Riyadh struck; US imposes Iran blockade",
+      "headline_en": null,
+      "url": "https://www.newarab.com/news/saudi-aramco-building-riyadh-struck-us-imposes-iran-blockade",
+      "source_name": "The New Arab",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T09:31:01Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "A strike on Saudi Aramco facilities combined with a US-imposed blockade on Iran signals a major escalation in regional conflict and energy supply risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A strike on Saudi Aramco facilities combined with a US-imposed blockade on Iran signals a major escalation in regional conflict and energy supply risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saudi Aramco",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1901,56 +1950,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-091",
-      "headline": "Bridgestone revs up output of massive mining tires on AI-driven demand",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/automobiles/bridgestone-revs-up-output-of-massive-mining-tires-on-ai-driven-demand",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T05:07:32Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "Bridgestone is increasing production capacity for mining tires to meet rising demand, signaling growth in a key industrial segment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Bridgestone is increasing production capacity for mining tires to meet rising demand, signaling growth in a key industrial segment.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bridgestone",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -269835,9 +269834,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1185,
-    "news_picked_today": 275,
-    "news_dropped_today": 910
+    "news_seen_today": 1204,
+    "news_picked_today": 279,
+    "news_dropped_today": 925
   },
   "book_momentum": {
     "live_count": 8,
