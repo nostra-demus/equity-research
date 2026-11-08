@@ -2200,6 +2200,163 @@ def test_manifest_auxiliary_roots_require_exact_context():
               and checked.returncode == 1 and b"conviction" in checked.stderr, repr(checked.stderr))
 
 
+def test_inprocess_schema_admission_uses_consumed_bytes_before_any_write():
+    import decision_publication_gate as gate
+    from unittest.mock import patch
+
+    cache = Path(REPO_ROOT, ".cache", "publication-schema-tests")
+    cache.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(prefix="consumed-admission-", dir=cache) as tmp:
+        _, agent, env = setup_stale_local_main_scenario(tmp)
+        repo = Path(agent)
+        manifest = repo / ".claude/agents/future/SWARM.md"
+        manifest.parent.mkdir(parents=True)
+        manifest.write_text("---\nid: future\nunit: issuer\nruns_root: future/runs\n"
+                            "run_root_template: future/runs/{ID}\nplaceholder: ID\n"
+                            "ledger_root: future/ledger\nschemas_root: frameworks/future\npublication_schemas:\n"
+                            "  - run:input.json=verdict.schema.json\n"
+                            "  - ledger:states/*.json=verdict.schema.json\n---\n")
+        schema = repo / "frameworks/future/verdict.schema.json"
+        schema.parent.mkdir(parents=True)
+        schema_bytes = b'{"type":"object","required":["answer"],"properties":{"answer":{"const":"ok"}}}'
+        schema.write_bytes(schema_bytes)
+        relative = "future/runs/subject/input.json"
+        output = "future/ledger/states/subject.json"
+        valid, invalid = b'{"answer":"ok"}\n', b'{"answer":null}\n'
+        source = repo / relative
+        source.parent.mkdir(parents=True)
+        source.write_bytes(valid)
+
+        def refuses(name, consumed, proposed=(), token="", target_repo=repo):
+            try:
+                gate.admit_schema_records(target_repo, consumed, proposed=proposed)
+            except gate.GateError as error:
+                check(name, token in str(error), str(error))
+            else:
+                check(name, False, "returned approval instead of GateError")
+
+        head = run(["git", "rev-parse", "HEAD"], cwd=agent, env=env).stdout
+        counts = gate.admit_schema_records(repo, [(relative, valid)], proposed=[(output, valid)])
+        check("the shared callable judges changed consumed bytes and strict proposed bytes without writing them",
+              counts == {"checked_inputs": 1, "unchanged_inputs": 0, "checked_outputs": 1}
+              and not (repo / output).exists() and source.read_bytes() == valid
+              and run(["git", "rev-parse", "HEAD"], cwd=agent, env=env).stdout == head)
+        source.write_bytes(invalid)
+        refuses("consumed bytes cannot be replaced by a later live substitute", [(relative, valid)], token="changed")
+        refuses("invalid actual consumed input is not masked by a valid proposed state",
+                [(relative, invalid)], [(output, valid)], "consumed input")
+        run(["git", "add", relative], cwd=agent, env=env)
+        run(["git", "commit", "-qm", "fixture: immutable malformed history"], cwd=agent, env=env)
+        counts = gate.admit_schema_records(repo, [(relative, invalid)], proposed=[(output, valid)])
+        check("HEAD-identical malformed input is preserved while a new recovery image is still checked",
+              counts == {"checked_inputs": 0, "unchanged_inputs": 1, "checked_outputs": 1})
+        refuses("a proposed recovery image never inherits its input's historical exemption",
+                [(relative, invalid)], [(relative, invalid)], "proposed output")
+        (repo / output).parent.mkdir(parents=True)
+        (repo / output).write_bytes(invalid)
+        run(["git", "add", output], cwd=agent, env=env)
+        run(["git", "commit", "-qm", "fixture: old state image"], cwd=agent, env=env)
+        refuses("a HEAD-identical invalid planned state is strict even with no consumed inputs",
+                [], [(output, invalid)], "proposed output")
+        (repo / output).write_bytes(valid)
+        counts = gate.admit_schema_records(repo, [(output, valid)], proposed=[(output, valid)])
+        check("one state may be both an old consumed input and a planned output",
+              counts == {"checked_inputs": 1, "unchanged_inputs": 0, "checked_outputs": 1})
+        source.chmod(0o755)
+        run(["git", "add", relative], cwd=agent, env=env)
+        run(["git", "commit", "-qm", "fixture: non-publication file mode"], cwd=agent, env=env)
+        refuses("executable HEAD bytes do not receive the regular100644 history exemption",
+                [(relative, invalid)], token="consumed input")
+        source.chmod(0o644)
+        source.write_bytes(valid)
+        for label, consumed, proposed, token in [
+            ("empty", [], [], "requires"),
+            ("unmapped input", [("future/runs/subject/unknown.json", valid)], [], "no declared"),
+            ("unmapped output", [(relative, valid)], [("future/ledger/unknown.json", valid)], "no declared"),
+            ("non-bytes input", [(relative, {"answer": "ok"})], [], "exact bytes"),
+            ("duplicate input", [(relative, valid), (relative, valid)], [], "duplicate"),
+            ("duplicate output", [(relative, valid)], [(output, valid), (output, valid)], "duplicate"),
+            ("empty proposed bytes", [(relative, valid)], [(output, b"")], "cannot judge"),
+            ("malformed pair", [(relative,)], [], "pair"),
+            ("traversal", [("future/../escape.json", valid)], [], "canonical"),
+        ]:
+            refuses(f"explicit {label} cannot count as schema approval", consumed, proposed, token)
+        source.unlink()
+        refuses("a consumed source that disappeared cannot be approved", [(relative, valid)], token="unreadable")
+        source.write_bytes(valid)
+        retained = source.with_suffix(".retained")
+        source.rename(retained)
+        source.symlink_to(retained)
+        refuses("linked consumed input is refused even when its bytes match", [(relative, valid)], token="linked")
+        source.unlink()
+        retained.rename(source)
+        state_dir = (repo / output).parent
+        retained_dir = state_dir.with_name("retained")
+        state_dir.rename(retained_dir)
+        state_dir.symlink_to(retained_dir, target_is_directory=True)
+        refuses("a missing proposed leaf below a linked parent is refused", [(relative, valid)],
+                [("future/ledger/states/new.json", valid)], "linked")
+        state_dir.unlink()
+        retained_dir.rename(state_dir)
+        linked_output = state_dir / "linked.json"
+        linked_output.symlink_to(source)
+        refuses("an existing linked proposed target is refused", [(relative, valid)],
+                [("future/ledger/states/linked.json", valid)], "linked")
+        linked_output.unlink()
+        original_validate = gate.validate_schema_document
+
+        def changed_source(binding, document):
+            errors = original_validate(binding, document)
+            source.write_bytes(invalid)
+            return errors
+
+        with patch.object(gate, "validate_schema_document", side_effect=changed_source):
+            refuses("source mutation during validation is refused by the final exact-byte recheck",
+                    [(relative, valid)], [(output, valid)], "changed")
+        source.write_bytes(valid)
+
+        def changed_history_source(binding, document):
+            errors = original_validate(binding, document)
+            (repo / output).write_bytes(valid)
+            return errors
+
+        (repo / output).write_bytes(invalid)  # this regular100644 image is identical to its committed HEAD
+        with patch.object(gate, "validate_schema_document", side_effect=changed_history_source):
+            refuses("history-exempt input is still rechecked after proposed-output validation",
+                    [(output, invalid)], [(relative, valid)], "changed")
+        (repo / output).write_bytes(valid)
+
+        def changed_contract(binding, document):
+            errors = original_validate(binding, document)
+            schema.write_bytes(b'{"type":"object"}')
+            return errors
+
+        with patch.object(gate, "validate_schema_document", side_effect=changed_contract):
+            refuses("schema program mutation during validation cannot authorize a write",
+                    [(relative, valid)], [(output, valid)], "contract changed")
+        schema.write_bytes(schema_bytes)
+        changed = []
+
+        def changed_head(binding, document):
+            errors = original_validate(binding, document)
+            if not changed:
+                changed.append(True)
+                write_text(agent, "future/head-marker.txt", "new isolated HEAD\n")
+                run(["git", "add", "future/head-marker.txt"], cwd=agent, env=env)
+                run(["git", "commit", "-qm", "fixture: concurrent HEAD advance"], cwd=agent, env=env)
+            return errors
+
+        with patch.object(gate, "validate_schema_document", side_effect=changed_head):
+            refuses("a HEAD advance cannot change history semantics halfway through admission",
+                    [(relative, valid)], [(output, valid)], "HEAD changed")
+        schema.rename(schema.with_suffix(".retained"))
+        refuses("a missing declared schema fails visibly before any write", [(relative, valid)], token="unreadable")
+        schema.with_suffix(".retained").rename(schema)
+        unborn = Path(tmp) / "unborn"
+        run(["git", "init", "-q", "-b", "codex/unborn", str(unborn)], cwd=tmp, env=env)
+        refuses("a Git checkout without HEAD cannot grant proposed-output approval", [], [(output, valid)], target_repo=unborn)
+
+
 if __name__ == "__main__":
     print("== test_commit_run.py ==")
     test_fast_forward_push_from_non_main_branch_with_stale_local_main()
@@ -2242,6 +2399,7 @@ if __name__ == "__main__":
     test_manifest_schema_publication_acceptance_matrix()
     test_manifest_schema_contract_is_generic_and_fails_closed()
     test_manifest_auxiliary_roots_require_exact_context()
+    test_inprocess_schema_admission_uses_consumed_bytes_before_any_write()
     test_cockpit_publication_delegates_to_supervisor_and_never_trusts_child_manifest()
     test_supervisor_snapshot_stages_fixed_bytes_not_mutable_worktree()
     if _fails:

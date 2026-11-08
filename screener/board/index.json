@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-08T13:09:15Z",
+  "generated_at": "2026-11-08T13:50:21Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261108-265",
+      "headline": "Auri Grow India Limited: Auri Grow India Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/GODHA_08112026185248_2nd_CoC_Outcome_-_Auri_Grow_India_Limited_NSE.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-08T13:23:03Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "Auri Grow India Limited has entered the Corporate Insolvency Resolution Process, indicating a formal insolvency event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Auri Grow India Limited has entered the Corporate Insolvency Resolution Process, indicating a formal insolvency event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Auri Grow India Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261108-252",
       "headline": "Adani Enterprises Limited: Adani Enterprises Limited has informed the Exchange about completion of acquisition of 100% stake in Vizag Mega Data Center Park Limited by AdaniConneX Private Limited ( ACX ), a joint venture of the Company.",
@@ -95,6 +144,60 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-264",
+      "headline": "China to enter Brazil’s cement market as Huaxin agrees to buy CSN Cimentos",
+      "headline_en": null,
+      "url": "https://www.scmp.com/business/companies/article/3373706/china-enter-brazils-cement-market-huaxin-agrees-buy-csn-cimentos",
+      "source_name": "South China Morning Post",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T13:19:11Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "Huaxin Cement has agreed to acquire CSN Cimentos, representing a significant cross-border M&A transaction in the cement sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Huaxin Cement has agreed to acquire CSN Cimentos, representing a significant cross-border M&A transaction in the cement sector.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Huaxin Cement",
+          "ticker": null,
+          "listing_country": "CN"
+        },
+        {
+          "name": "CSN Cimentos",
+          "ticker": null,
+          "listing_country": "BR"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1860,104 +1963,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-216",
-      "headline": "Saudi Aramco tower damaged after Houthi missile attacks on Riyadh",
-      "headline_en": null,
-      "url": "https://www.middleeasteye.net/news/saudi-aramco-tower-damaged-after-houthi-missile-attacks-riyadh",
-      "source_name": "Middle East Eye",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T10:26:45Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "A missile attack on Saudi Aramco infrastructure in Riyadh highlights heightened regional security risks.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "A missile attack on Saudi Aramco infrastructure in Riyadh highlights heightened regional security risks.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Saudi Aramco",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-232",
-      "headline": "Divi's Labs shares jump 8% to fresh 52-week high after Q2 profit soars 64% YoY. What brokerages say after bumper results?",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/divis-labs-shares-jump-8-to-fresh-52-week-high-after-q2-profit-soars-64-yoy-what-brokerages-say-after-bumper-results/articleshow/135656659.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T10:13:24Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "Divi's Labs reported a 64% YoY profit increase, driving an 8% share price move.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Divi's Labs reported a 64% YoY profit increase, driving an 8% share price move.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Divi's Laboratories",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -269992,9 +269997,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1863,
-    "news_picked_today": 393,
-    "news_dropped_today": 1466
+    "news_seen_today": 1964,
+    "news_picked_today": 406,
+    "news_dropped_today": 1554
   },
   "book_momentum": {
     "live_count": 8,

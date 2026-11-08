@@ -6,7 +6,6 @@ process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
 import assert from 'node:assert/strict'
 import { execFileSync } from 'node:child_process'
 import fs from 'node:fs'
-import os from 'node:os'
 import path from 'node:path'
 import { REPO_ROOT } from '../src/config'
 import { markInboxConsumed, readInboxHumanActions, setDismissed } from '../src/news/inbox-actions'
@@ -25,7 +24,11 @@ async function check(name: string, fn: () => void | Promise<void>) {
   }
 }
 
-const tmp = () => fs.mkdtempSync(path.join(os.tmpdir(), 'scract-'))
+const tmp = () => {
+  const outputs = path.join(REPO_ROOT, '.cache', 'test-output')
+  fs.mkdirSync(outputs, { recursive: true })
+  return fs.mkdtempSync(path.join(outputs, 'scract-'))
+}
 
 function mkRepo(): string {
   const root = tmp()
@@ -227,15 +230,41 @@ await check('thesis move: override appended (engine status captured); engine the
 
 await check('python board builder: effective_status + override + staleness applied; engine status untouched', async () => {
   const root = mkRepo()
+  const signal = 'SIG-20260612-aabbccdd'
+  const thesisId = `THS-${signal}-v1`
+  const thesisFile = path.join(root, 'screener', 'ledger', 'theses', `${thesisId}.json`)
+  const original = 'SIG-20260610-a3f2c81d'
+  const thesis = JSON.parse(fs.readFileSync(path.join(REPO_ROOT, 'screener', 'runs', original, 'thesis_record.json'), 'utf8')
+    .replaceAll(original, signal))
+  thesis.meta.status = 'watchlist_no_edge'
+  fs.rmSync(path.join(root, 'screener/ledger/theses/THS-SIG-20260612-test-v1.json'))
+  fs.writeFileSync(thesisFile, JSON.stringify(thesis, null, 2))
   // stage the real script into the skeleton (it roots itself from __file__)
   fs.mkdirSync(path.join(root, 'scripts'), { recursive: true })
   fs.copyFileSync(path.join(REPO_ROOT, 'scripts', 'update_board_index.py'), path.join(root, 'scripts', 'update_board_index.py'))
   fs.copyFileSync(path.join(REPO_ROOT, 'scripts', 'canonical_json.py'), path.join(root, 'scripts', 'canonical_json.py'))
   fs.copyFileSync(path.join(REPO_ROOT, 'scripts', 'recover_idea_board_history.py'), path.join(root, 'scripts', 'recover_idea_board_history.py'))
-  await moveThesis('THS-SIG-20260612-test-v1', 'full_machine', 'promote it', 'tester@x', root)
-  execFileSync('python3', [path.join(root, 'scripts', 'update_board_index.py')], { cwd: root, stdio: 'ignore' })
+  fs.copyFileSync(path.join(REPO_ROOT, 'scripts', 'repo_mutation.py'), path.join(root, 'scripts', 'repo_mutation.py'))
+  const manifest = path.join(root, '.claude', 'agents', 'screener', 'SWARM.md')
+  fs.mkdirSync(path.dirname(manifest), { recursive: true })
+  fs.copyFileSync(path.join(REPO_ROOT, '.claude/agents/screener/SWARM.md'), manifest)
+  const schemas = path.join(root, 'frameworks', 'screener')
+  fs.mkdirSync(schemas, { recursive: true })
+  for (const name of fs.readdirSync(path.join(REPO_ROOT, 'frameworks/screener')))
+    if (name.endsWith('.schema.json')) fs.copyFileSync(path.join(REPO_ROOT, 'frameworks/screener', name), path.join(schemas, name))
+  fs.writeFileSync(path.join(root, '.gitignore'), '.cache/\n__pycache__/\n')
+  execFileSync('git', ['init', '-q', '-b', 'codex/board-actions-fixture'], { cwd: root })
+  execFileSync('git', ['add', '.'], { cwd: root })
+  execFileSync('git', ['-c', 'user.name=Fixture', '-c', 'user.email=fixture@example.invalid',
+    '-c', 'commit.gpgsign=false', '-c', 'core.hooksPath=/dev/null', 'commit', '-qm', 'canonical board fixture'], { cwd: root })
+  const temporary = path.join(root, '.cache', 'tmp')
+  fs.mkdirSync(temporary, { recursive: true })
+  const python = { cwd: root, stdio: 'ignore' as const,
+    env: { ...process.env, PYTHONPATH: path.join(REPO_ROOT, 'scripts'), PYTHONDONTWRITEBYTECODE: '1', TMPDIR: temporary } }
+  await moveThesis(thesisId, 'full_machine', 'promote it', 'tester@x', root)
+  execFileSync('python3', [path.join(root, 'scripts', 'update_board_index.py')], python)
   const board = JSON.parse(fs.readFileSync(path.join(root, 'screener/board/index.json'), 'utf8'))
-  const t = board.theses.find((x: any) => x.thesis_id === 'THS-SIG-20260612-test-v1')
+  const t = board.theses.find((x: any) => x.thesis_id === thesisId)
   assert.equal(t.status, 'watchlist_no_edge') // the engine's verdict, untouched and visible
   assert.equal(t.effective_status, 'full_machine') // where the human put it
   assert.equal(t.override.moved_by, 'tester@x')
@@ -244,17 +273,17 @@ await check('python board builder: effective_status + override + staleness appli
   assert.equal(board.counts.watchlist, 0)
   // dismissed rows leave the unconsumed count
   setDismissed(root, 'INB-20260612-001', true, 'tester@x')
-  execFileSync('python3', [path.join(root, 'scripts', 'update_board_index.py')], { cwd: root, stdio: 'ignore' })
+  execFileSync('python3', [path.join(root, 'scripts', 'update_board_index.py')], python)
   const board2 = JSON.parse(fs.readFileSync(path.join(root, 'screener/board/index.json'), 'utf8'))
   assert.equal(board2.counts.inbox_unconsumed, 1)
   // staleness: the engine re-runs and changes its mind AFTER the move
-  const tf = path.join(root, 'screener/ledger/theses/THS-SIG-20260612-test-v1.json')
+  const tf = thesisFile
   const doc = JSON.parse(fs.readFileSync(tf, 'utf8'))
   doc.meta.status = 'provisional'
   fs.writeFileSync(tf, JSON.stringify(doc, null, 2))
-  execFileSync('python3', [path.join(root, 'scripts', 'update_board_index.py')], { cwd: root, stdio: 'ignore' })
+  execFileSync('python3', [path.join(root, 'scripts', 'update_board_index.py')], python)
   const board3 = JSON.parse(fs.readFileSync(path.join(root, 'screener/board/index.json'), 'utf8'))
-  const t3 = board3.theses.find((x: any) => x.thesis_id === 'THS-SIG-20260612-test-v1')
+  const t3 = board3.theses.find((x: any) => x.thesis_id === thesisId)
   assert.equal(t3.override_stale, true) // surfaced, never silently resolved
   assert.equal(t3.effective_status, 'full_machine') // the human move still holds
 })

@@ -29,7 +29,9 @@ import json
 import os
 import sys
 from datetime import datetime, timedelta, timezone
+from pathlib import Path
 
+from decision_publication_gate import admit_schema_records, read_beneath
 from repo_mutation import append_ndjson, atomic_write_json, atomic_write_text, repository_mutation
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -179,11 +181,16 @@ def run_locked(a, mutation) -> int:
     if not os.path.exists(rec_path):
         print(f"no thesis record {tid}", file=sys.stderr)
         return 2
-    rec = json.load(open(rec_path, encoding="utf-8"))
+    rec_bytes = read_beneath(Path(REPO), Path(rec_path).relative_to(Path(REPO)).as_posix())
+    rec = json.loads(rec_bytes)
     if not os.path.exists(state_path):
         print(f"no conviction_state for {tid} — run screener_emit_checkpoints.py first", file=sys.stderr)
         return 2
-    state = json.load(open(state_path, encoding="utf-8"))
+    state_bytes = read_beneath(Path(REPO), Path(state_path).relative_to(Path(REPO)).as_posix())
+    state = json.loads(state_bytes)
+    consumed = [(Path(filename).relative_to(Path(REPO)).as_posix(), payload)
+                for filename, payload in ((rec_path, rec_bytes), (state_path, state_bytes))]
+    state_relative = Path(state_path).relative_to(Path(REPO)).as_posix()
 
     cps = [c for c in read_ndjson(CHECKPOINTS) if c.get("thesis_id") == tid]
     cp = next((c for c in cps if c.get("checkpoint_id") == cid), None)
@@ -268,7 +275,11 @@ def run_locked(a, mutation) -> int:
         if a.dry_run:
             print(f"  {tid}  retry would restore projection {latest['event_key']} (dry run — nothing written)")
             return 0
-        atomic_write_json(state_path, journal_projection(latest, tid))
+        projection = journal_projection(latest, tid)
+        admit_schema_records(Path(REPO), consumed, proposed=[
+            (state_relative, (json.dumps(projection, indent=2, ensure_ascii=False) + "\n").encode()),
+        ])
+        atomic_write_json(state_path, projection)
         publish_resolved_checkpoints(resolved_from_ledger)
         print(f"  {tid}  recovered idempotently from {latest['event_key']}")
         return 0
@@ -461,6 +472,9 @@ def run_locked(a, mutation) -> int:
         print("  (dry run — nothing written)")
         return 0
 
+    admit_schema_records(Path(REPO), consumed, proposed=[
+        (state_relative, (json.dumps(snap, indent=2, ensure_ascii=False) + "\n").encode()),
+    ])
     append_ndjson(mutation, APPEND, TICKS, vr, "vr_key", vr["vr_key"])
     append_ndjson(mutation, APPEND, TICKS, event, "event_key", event["event_key"])
     atomic_write_json(state_path, snap)

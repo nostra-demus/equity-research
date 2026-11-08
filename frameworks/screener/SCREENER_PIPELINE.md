@@ -136,3 +136,16 @@ swarm-name or artifact-name registry.
 snapshot/index validation. The row definitions for checkpoints, validations, and conviction events remain
 with those deterministic transaction writers. This admission gate does not retrovalidate whole NDJSON
 histories or claim that snapshot validation alone proves every earlier projection write was schema-checked.
+
+The standalone deterministic writers additionally use the same gate's `admit_schema_records` callable
+inside their repository mutation transaction, from source reading through the first write. They supply
+the exact mapped bytes they actually consumed, retaining the regular HEAD-identical input exemption;
+an exempt historical input is not a new schema approval. Planned new conviction-state images are checked
+strictly, including images recovered from the journal. The seeder plans and judges the entire selected
+batch before appending any checkpoint or event, including terminal archive and recovery paths. The
+rescorer judges both normal and retry projections before their writes. The board builder judges its
+actually consumed mapped inputs before opening its output file, without regrading its historical output
+rows or treating unmapped candidate/NDJSON stores as checked. Explicit empty or unmapped callable pairs
+fail closed; a board build consuming no mapped inputs reports that limited check as not applicable.
+Consumed bytes, schema bindings and HEAD must remain unchanged through admission, while the mutation
+lease remains held through publication. Exact snapshot/index checks still run afterward independently.
