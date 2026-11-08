@@ -1,25 +1,25 @@
 {
-  "idea_id": "IDEA-c534f287a00b",
-  "idea_version": "IDEAV-f1474c7e4ffcb220",
-  "idea_version_started_at": "2026-11-05T06:36:43Z",
-  "ticker": "QCOM",
-  "company": "Qualcomm",
-  "exchange": "NASDAQ",
+  "idea_id": "IDEA-99a574f2e453",
+  "idea_version": "IDEAV-b336c4ae6bfa1368",
+  "idea_version_started_at": "2026-11-07T23:54:55Z",
+  "ticker": "LLY",
+  "company": "Eli Lilly",
+  "exchange": "NYSE",
   "ticker_verified": true,
   "listing_verified": true,
   "liquidity_verified": false,
   "listing_verification_source": "yahoo_symbol_directory",
-  "direction": "short",
+  "direction": "long",
   "pair_with": null,
-  "reason": "The company issued a weak earnings forecast driven by a memory shortage impacting smartphone sales, signaling near-term margin and revenue pressure.",
-  "why_now": "The guidance downgrade was reported on 2026-11-04.",
+  "reason": "The company raised its 2026 revenue forecast by $5.5 billion, signaling stronger-than-expected demand for its core pharmaceutical portfolio.",
+  "why_now": "The guidance update was released on November 07, 2026.",
   "conviction": 75,
   "conviction_basis": "pre_edge_proxy",
-  "trade_score": 60,
+  "trade_score": 67,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 14,
-    "impact": 19,
+    "impact": 21,
     "specificity": 15,
     "timing": 10,
     "expression": 7,
@@ -30,7 +30,6 @@
   "missing_checks": [
     "live liquidity",
     "dated catalyst",
-    "priced-in risk",
     "independent confirmation",
     "live price, liquidity, and consensus"
   ],
@@ -43,31 +42,31 @@
     "basis": "not_enough_outcomes",
     "evidenceIds": []
   },
-  "priced_in": "priced",
+  "priced_in": "room",
   "thesis_type": "company_specific",
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-54c0c98a72de"
+    "EVT-33b1b17dfdc9"
   ],
-  "primary_source_event_id": "EVT-54c0c98a72de",
+  "primary_source_event_id": "EVT-33b1b17dfdc9",
   "source_headlines": [
-    "Qualcomm stock drops 6% on weak earnings forecast as memory shortage weighs on smartphone sales"
+    "Eli Lilly Just Raised Its 2026 Revenue Forecast by $5.5 Billion. Is the Stock Still a Buy?"
   ],
-  "source_headline": "Qualcomm stock drops 6% on weak earnings forecast as memory shortage weighs on smartphone sales",
-  "source_url": "https://www.cnbc.com/2026/11/04/qualcomm-qcom-earnings-report-q4-2026.html",
-  "source_name": "CNBC",
+  "source_headline": "Eli Lilly Just Raised Its 2026 Revenue Forecast by $5.5 Billion. Is the Stock Still a Buy?",
+  "source_url": "https://www.nasdaq.com/articles/eli-lilly-just-raised-its-2026-revenue-forecast-55-billion-stock-still-buy",
+  "source_name": "Nasdaq",
   "materiality_max": 100,
-  "newest_source_at": "2026-11-04T22:03:43Z",
+  "newest_source_at": "2026-11-07T18:50:00Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-11-05T06:36:43Z",
-  "updated_at": "2026-11-05T06:36:43Z",
-  "decay_at": "2026-11-06T10:03:43Z",
+  "surfaced_at": "2026-11-07T18:45:39Z",
+  "updated_at": "2026-11-07T23:54:55Z",
+  "decay_at": "2026-11-09T06:50:00Z",
   "status": "live",
   "promoted_signal_id": null
 }

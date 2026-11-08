@@ -1,9 +1,9 @@
 {
   "idea_id": "IDEA-237bc01d6762",
-  "idea_version": "IDEAV-74b49b71c098cea1",
-  "idea_version_started_at": "2026-11-05T15:35:08Z",
+  "idea_version": "IDEAV-9486b680a81e56c0",
+  "idea_version_started_at": "2026-11-07T22:29:24Z",
   "ticker": "TM",
-  "company": "Toyota Motor Corporation",
+  "company": "Toyota Motor",
   "exchange": "NYSE",
   "ticker_verified": true,
   "listing_verified": true,
@@ -11,11 +11,11 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "long",
   "pair_with": null,
-  "reason": "Toyota is significantly increasing its share repurchase program to 1.3 trillion yen, providing a strong floor for the stock alongside its latest earnings release.",
-  "why_now": "The announcement was made today, November 5, 2026.",
+  "reason": "The company raised profit forecasts due to sustained vehicle demand and the favorable impact of a weak yen on export earnings.",
+  "why_now": "The guidance hike was announced on 2026-11-07.",
   "conviction": 70,
   "conviction_basis": "pre_edge_proxy",
-  "trade_score": 66,
+  "trade_score": 60,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 14,
@@ -30,6 +30,7 @@
   "missing_checks": [
     "live liquidity",
     "dated catalyst",
+    "priced-in risk",
     "independent confirmation",
     "live price, liquidity, and consensus"
   ],
@@ -42,22 +43,22 @@
     "basis": "not_enough_outcomes",
     "evidenceIds": []
   },
-  "priced_in": "room",
-  "thesis_type": "company_specific",
+  "priced_in": "priced",
+  "thesis_type": "fx_rates",
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-bdd438b08da0"
+    "EVT-680f5a18445a"
   ],
-  "primary_source_event_id": "EVT-bdd438b08da0",
+  "primary_source_event_id": "EVT-680f5a18445a",
   "source_headlines": [
-    "Toyota Motor Corporation Amends Share Repurchase Program to 1,300 Billion Yen and Reports FY2027 First Half Results"
+    "Toyota hikes profit forecasts on strong demand, weak yen"
   ],
-  "source_headline": "Toyota Motor Corporation Amends Share Repurchase Program to 1,300 Billion Yen and Reports FY2027 First Half Results",
-  "source_url": "https://www.nasdaq.com/articles/toyota-motor-corporation-amends-share-repurchase-program-1300-billion-yen-and-reports",
-  "source_name": "Nasdaq",
+  "source_headline": "Toyota hikes profit forecasts on strong demand, weak yen",
+  "source_url": "https://www.qatar-tribune.com/article/263040/business/toyota-hikes-profit-forecasts-on-strong-demand-weak-yen",
+  "source_name": "Qatar Tribune — Business",
   "materiality_max": 100,
-  "newest_source_at": "2026-11-05T11:52:49Z",
+  "newest_source_at": "2026-11-07T21:00:00Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
@@ -65,8 +66,8 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-11-05T12:54:05Z",
-  "updated_at": "2026-11-05T15:35:08Z",
-  "decay_at": "2026-11-06T23:52:49Z",
+  "updated_at": "2026-11-07T22:29:24Z",
+  "decay_at": "2026-11-09T09:00:00Z",
   "status": "live",
   "promoted_signal_id": null
 }
