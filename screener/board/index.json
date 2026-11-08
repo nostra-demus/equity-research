@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-08T09:53:49Z",
+  "generated_at": "2026-11-08T09:58:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20261108-164",
@@ -105,6 +105,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261108-203",
+      "headline": "Aramco Tower in Riyadh’s financial hub damaged after attack",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/news/world/aramco-tower-in-riyadhs-financial-hub-damaged-after-attack/article71680816.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T09:31:57Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "An attack on a major corporate facility in a key financial hub represents a significant operational and geopolitical risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "An attack on a major corporate facility in a key financial hub represents a significant operational and geopolitical risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saudi Aramco",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261108-202",
       "headline": "Saudi Aramco building in Riyadh struck; US imposes Iran blockade",
       "headline_en": null,
@@ -195,55 +244,6 @@
           "name": "Saudi Aramco",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-179",
-      "headline": "Aramco Tower in Riyadh’s Financial Hub Damaged After Attack",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-08/aramco-tower-in-riyadh-s-financial-hub-damaged-after-attack",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T08:54:58Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "A physical attack on a major asset of a critical global energy producer represents a significant geopolitical and operational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A physical attack on a major asset of a critical global energy producer represents a significant geopolitical and operational risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Saudi Aramco",
-          "ticker": null,
-          "listing_country": "SA"
         }
       ],
       "size_bucket": "mega",
@@ -269692,9 +269692,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1222,
-    "news_picked_today": 283,
-    "news_dropped_today": 939
+    "news_seen_today": 1230,
+    "news_picked_today": 286,
+    "news_dropped_today": 944
   },
   "book_momentum": {
     "live_count": 8,
