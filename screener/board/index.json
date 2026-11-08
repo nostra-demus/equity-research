@@ -1,6 +1,49 @@
 {
-  "generated_at": "2026-11-08T15:20:18Z",
+  "generated_at": "2026-11-08T15:31:42Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261108-273",
+      "headline": "Crystalline Silicon Photovoltaic Cells, Whether or Not Assembled Into Modules, From the Lao People's Democratic Republic: Amended Final Determination of Sales at Less Than Fair Value; Crystalline Silicon Photovoltaic Cells, Whether or Not Assembled Into Modules, From India, Indonesia, and the Lao People's Democratic Republic: Antidumping Duty Orders",
+      "headline_en": null,
+      "url": "https://www.federalregister.gov/documents/2026/11/09/2026-22825/crystalline-silicon-photovoltaic-cells-whether-or-not-assembled-into-modules-from-the-lao-peoples",
+      "source_name": "Federal Register — Latest Documents",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-09T05:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "The US has issued amended final determinations and antidumping duty orders on crystalline silicon photovoltaic cells from India, Indonesia, and Lao People's Democratic Republic, which will impact solar panel imports.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The US has issued amended final determinations and antidumping duty orders on crystalline silicon photovoltaic cells from India, Indonesia, and Lao People's Democratic Republic, which will impact solar panel imports.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261108-265",
       "headline": "Auri Grow India Limited: Auri Grow India Limited has informed the Exchange about Corporate Insolvency Resolution Process",
@@ -1919,55 +1962,6 @@
           "name": "Saudi Aramco",
           "ticker": null,
           "listing_country": "SA"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-034",
-      "headline": "Alphabet's $15 Billion Investment in Malaysia Data Centers Shows That Midterm Results Won't Stop the AI Boom",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/alphabets-15-billion-investment-malaysia-data-centers-shows-midterm-results-wont-stop-ai",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T01:20:00Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "Alphabet is committing $15 billion to data center infrastructure in Malaysia, representing a major capital expenditure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Alphabet is committing $15 billion to data center infrastructure in Malaysia, representing a major capital expenditure.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Alphabet",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "mega",
