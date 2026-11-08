@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-08T09:09:45Z",
+  "generated_at": "2026-11-08T09:14:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20261108-164",
@@ -100,6 +100,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-188",
+      "headline": "Attempted attack on Saudi Aramco building in Riyadh causes minor damage, no casualties",
+      "headline_en": null,
+      "url": "https://www.gulf-times.com/article/737743/region/attempted-attack-on-saudi-aramco-building-in-riyadh-causes-minor-damage-no-casualties",
+      "source_name": "Gulf Times — Region",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T09:06:00Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "An attempted attack on a Saudi Aramco building in Riyadh poses a direct security risk to critical infrastructure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "An attempted attack on a Saudi Aramco building in Riyadh poses a direct security risk to critical infrastructure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saudi Aramco",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1889,55 +1938,6 @@
       "companies": [
         {
           "name": "Kia",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-033",
-      "headline": "Kakao X's growth outlook takes shape ahead of split",
-      "headline_en": null,
-      "url": "https://www.koreaherald.com/article/10929523",
-      "source_name": "The Korea Herald — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T01:35:59Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "Kakao is preparing for a corporate split, which is a significant structural change affecting the company's valuation and operations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Kakao is preparing for a corporate split, which is a significant structural change affecting the company's valuation and operations.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "strategic_review",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kakao",
           "ticker": null,
           "listing_country": "KR"
         }
@@ -269827,9 +269827,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1097,
-    "news_picked_today": 247,
-    "news_dropped_today": 850
+    "news_seen_today": 1120,
+    "news_picked_today": 257,
+    "news_dropped_today": 863
   },
   "book_momentum": {
     "live_count": 8,
