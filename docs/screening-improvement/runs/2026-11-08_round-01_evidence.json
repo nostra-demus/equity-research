@@ -1,0 +1,1341 @@
+{
+  "summary": {
+    "program": "equity-screening-and-signals",
+    "round": 1,
+    "round_status": "completed_baseline_assessment",
+    "as_of_date": "2026-11-08",
+    "timezone": "Asia/Kolkata",
+    "observed_at": "2026-11-08T09:10:02.749728+00:00",
+    "scope": "Committed repository artifacts only; not a live production or market-data audit.",
+    "baseline_commit": "cc24fe1f819331eec88adf97c52518b8c6688986",
+    "candidate_commit": null,
+    "active_experiment": null,
+    "hypothesis": "Missing outcome evidence in the committed screening ledger prevents testing whether candidate ranking produces investment value; identify the evidence path before changing ranking.",
+    "benchmark": {
+      "id": "screening-committed-baseline-2026-11-08-v1",
+      "sample_definition": "All committed screener/runs artifacts matching existing schema filenames, ledger thesis/candidate projections, integrity reviews, and board index at baseline_commit. Includes explicitly labelled fixtures for structural checks only.",
+      "run_directories": 15,
+      "schema_documents": 65,
+      "schema_passed": 50,
+      "schema_failed": 15,
+      "fixture_thesis_ids": [
+        "THS-SIG-20260610-a3f2c81d-v1"
+      ],
+      "ledger_theses": 10,
+      "conviction_checkpoints": 84,
+      "checkpoints_due_by_as_of": 54,
+      "due_without_resolved_validation": 54,
+      "due_without_resolved_validation_excluding_explicit_fixture_theses": 49,
+      "validation_result_rows": 0,
+      "resolved_validation_rows": 0,
+      "aggregator_min_resolved": 10,
+      "aggregator_sufficient": false,
+      "aggregator_hit_rate": null,
+      "aggregator_brier": null,
+      "candidate_comparison": "Baseline only; no experimental candidate or investment-performance comparison.",
+      "schema_failure_unit": "15 failing artifact documents, including mirrored run/ledger projections; not 15 independent signal failures."
+    },
+    "standing": "baseline established; predictive improvement and annual-return target not yet measurable",
+    "investment_evidence": {
+      "classification": "not yet measurable",
+      "return_horizons": "Quarter, two-quarter, and one-year portfolio outcomes not computed in this pass.",
+      "annual_100_percent_return_target": "Not proven from available data.",
+      "uncertainty": "Committed artifacts may lag owner-private runtime output. Explicit fixture flags are excluded from the non-fixture overdue tally; unlabelled legacy examples are not assumed to be independent prospective forecasts. Schema conformance does not prove source correctness, point-in-time availability, or forecasting skill."
+    },
+    "next": {
+      "round": 2,
+      "action": "Round 2: trace one non-fixture due checkpoint through the existing validator and full-content source handoff, and inspect whether the historical schema failures are rejected at new-publication admission. Distinguish committed-ledger gaps from owner-private runtime output. Preserve evidence caps; do not dispatch paid research or mutate production.",
+      "acceptance_rule": "An exact checkpoint, issuer/listing, due window, original threshold, source-content path, recorded outcome or precise missing-input reason, and one bounded next correction.",
+      "cost_budget": "Built-in search and direct public sources only; no external paid providers or API credits.",
+      "guardrails": [
+        "Preserve original forecasts and thesis artifacts.",
+        "No frontend changes or real trading.",
+        "No ranking/performance claim based on fixtures or missing labels."
+      ]
+    },
+    "dependencies": [
+      "Outcome evidence absent from committed rows is not proof that the live production loop failed. Verify using existing read-only diagnostics.",
+      "Shared extraction/benchmark defects belong to the cockpit lane; hand off concrete evidence before duplicating shared logic."
+    ],
+    "delivery": {
+      "branch": "codex/screening-improvement-baseline",
+      "status": "prepared for protected pull request",
+      "change_kind": "append-only baseline evidence; no runtime or prompt changes",
+      "automation_id": "improve-equity-screening-and-signals",
+      "worktree": "Managed screening-improvement checkout attached to the automation chat."
+    },
+    "provenance": {
+      "input_manifest_sha256": "be1d165e47787d5b2c02d57787e74fc5ef510128b4d432694fa2e274c3b36967",
+      "input_file_count": 92,
+      "method": "Existing validate_screener_json.validate plus integrity anchor checks; strict local NDJSON parsing; existing screener_calibrate.build without calling its writing entry point. Due dates use the first ISO date component <= as_of_date; resolution joins exact checkpoint_id."
+    }
+  },
+  "schema_results": [
+    {
+      "artifact": "screener/runs/SIG-20260610-a3f2c81d/intake.json",
+      "schema": "frameworks/screener/intake.schema.json",
+      "errors": []
+    },
+    {
+      "artifact": "screener/runs/SIG-20260612-dd716589/intake.json",
+      "schema": "frameworks/screener/intake.schema.json",
+      "errors": []
+    },
+    {
+      "artifact": "screener/runs/SIG-20260613-4bbcdeae/intake.json",
+      "schema": "frameworks/screener/intake.schema.json",
+      "errors": []
+    },
+    {
+      "artifact": "screener/runs/SIG-20260615-71775d0a/intake.json",
+      "schema": "frameworks/screener/intake.schema.json",
+      "errors": []
+    },
+    {
+      "artifact": "screener/runs/SIG-20260616-8930aad4/intake.json",
+      "schema": "frameworks/screener/intake.schema.json",
+      "errors": []
+    },
+    {
+      "artifact": "screener/runs/SIG-20260616-eae0b41e/intake.json",
+      "schema": "frameworks/screener/intake.schema.json",
+      "errors": []
+    },
+    {
+      "artifact": "screener/runs/SIG-20260619-755ea4d0/intake.json",
+      "schema": "frameworks/screener/intake.schema.json",
+      "errors": []
+    },
+    {
+      "artifact": "screener/runs/SIG-20260620-e420a56a/intake.json",
+      "schema": "frameworks/screener/intake.schema.json",
+      "errors": []
+    },
+    {
+      "artifact": "screener/runs/SIG-20260628-2c8cfc21/intake.json",
+      "schema": "frameworks/screener/intake.schema.json",
+      "errors": []
+    },
+    {
+      "artifact": "screener/runs/SIG-20260628-af776402/intake.json",
+      "schema": "frameworks/screener/intake.schema.json",
+      "errors": []
+    },
+    {
+      "artifact": "screener/runs/SIG-20260709-c7ac1278/intake.json",
+      "schema": "frameworks/screener/intake.schema.json",
+      "errors": []
+    },
+    {
+      "artifact": "screener/runs/SIG-20260711-b55e8917/intake.json",
+      "schema": "frameworks/screener/intake.schema.json",
+      "errors": []
+    },
+    {
+      "artifact": "screener/runs/SIG-20260716-070c5069/intake.json",
+      "schema": "frameworks/screener/intake.schema.json",
+      "errors": []
+    },
+    {
+      "artifact": "screener/runs/SIG-20260716-1f0ddd45/intake.json",
+      "schema": "frameworks/screener/intake.schema.json",
+      "errors": []
+    },
+    {
+      "artifact": "screener/runs/SIG-20260804-da21208a/intake.json",
+      "schema": "frameworks/screener/intake.schema.json",
+      "errors": []
+    },
+    {
+      "artifact": "screener/runs/SIG-20260610-a3f2c81d/signal_payload.json",
+      "schema": "frameworks/screener/signal_payload.schema.json",
+      "errors": []
+    },
+    {
+      "artifact": "screener/runs/SIG-20260612-dd716589/signal_payload.json",
+      "schema": "frameworks/screener/signal_payload.schema.json",
+      "errors": []
+    },
+    {
+      "artifact": "screener/runs/SIG-20260613-4bbcdeae/signal_payload.json",
+      "schema": "frameworks/screener/signal_payload.schema.json",
+      "errors": []
+    },
+    {
+      "artifact": "screener/runs/SIG-20260615-71775d0a/signal_payload.json",
+      "schema": "frameworks/screener/signal_payload.schema.json",
+      "errors": []
+    },
+    {
+      "artifact": "screener/runs/SIG-20260616-8930aad4/signal_payload.json",
+      "schema": "frameworks/screener/signal_payload.schema.json",
+      "errors": []
+    },
+    {
+      "artifact": "screener/runs/SIG-20260616-eae0b41e/signal_payload.json",
+      "schema": "frameworks/screener/signal_payload.schema.json",
+      "errors": []
+    },
+    {
+      "artifact": "screener/runs/SIG-20260619-755ea4d0/signal_payload.json",
+      "schema": "frameworks/screener/signal_payload.schema.json",
+      "errors": [
+        "event_id — 'EVT-64fc2697662937d0' does not match pattern '^EVT-[a-f0-9]{12}$'"
+      ]
+    },
+    {
+      "artifact": "screener/runs/SIG-20260620-e420a56a/signal_payload.json",
+      "schema": "frameworks/screener/signal_payload.schema.json",
+      "errors": []
+    },
+    {
+      "artifact": "screener/runs/SIG-20260628-2c8cfc21/signal_payload.json",
+      "schema": "frameworks/screener/signal_payload.schema.json",
+      "errors": []
+    },
+    {
+      "artifact": "screener/runs/SIG-20260628-af776402/signal_payload.json",
+      "schema": "frameworks/screener/signal_payload.schema.json",
+      "errors": []
+    },
+    {
+      "artifact": "screener/runs/SIG-20260709-c7ac1278/signal_payload.json",
+      "schema": "frameworks/screener/signal_payload.schema.json",
+      "errors": [
+        "entities.commodity — expected type string, got NoneType"
+      ]
+    },
+    {
+      "artifact": "screener/runs/SIG-20260711-b55e8917/signal_payload.json",
+      "schema": "frameworks/screener/signal_payload.schema.json",
+      "errors": [
+        "entities.commodity — expected type string, got NoneType"
+      ]
+    },
+    {
+      "artifact": "screener/runs/SIG-20260716-070c5069/signal_payload.json",
+      "schema": "frameworks/screener/signal_payload.schema.json",
+      "errors": []
+    },
+    {
+      "artifact": "screener/runs/SIG-20260716-1f0ddd45/signal_payload.json",
+      "schema": "frameworks/screener/signal_payload.schema.json",
+      "errors": []
+    },
+    {
+      "artifact": "screener/runs/SIG-20260804-da21208a/signal_payload.json",
+      "schema": "frameworks/screener/signal_payload.schema.json",
+      "errors": []
+    },
+    {
+      "artifact": "screener/runs/SIG-20260610-a3f2c81d/thesis_record.json",
+      "schema": "frameworks/screener/thesis_record.schema.json",
+      "errors": []
+    },
+    {
+      "artifact": "screener/runs/SIG-20260612-dd716589/thesis_record.json",
+      "schema": "frameworks/screener/thesis_record.schema.json",
+      "errors": [
+        "M0_6_2.estimate_revision_trajectory.missing_reason — expected type string, got NoneType",
+        "M0_6_2.implied_scenario_from_multiple.missing_reason — expected type string, got NoneType",
+        "M0_6_6.override_justification — expected type string, got NoneType"
+      ]
+    },
+    {
+      "artifact": "screener/runs/SIG-20260613-4bbcdeae/thesis_record.json",
+      "schema": "frameworks/screener/thesis_record.schema.json",
+      "errors": [
+        "M0_6_6.override_justification — expected type string, got NoneType"
+      ]
+    },
+    {
+      "artifact": "screener/runs/SIG-20260615-71775d0a/thesis_record.json",
+      "schema": "frameworks/screener/thesis_record.schema.json",
+      "errors": []
+    },
+    {
+      "artifact": "screener/runs/SIG-20260616-8930aad4/thesis_record.json",
+      "schema": "frameworks/screener/thesis_record.schema.json",
+      "errors": []
+    },
+    {
+      "artifact": "screener/runs/SIG-20260620-e420a56a/thesis_record.json",
+      "schema": "frameworks/screener/thesis_record.schema.json",
+      "errors": [
+        "M0_6_6.override_justification — expected type string, got NoneType"
+      ]
+    },
+    {
+      "artifact": "screener/runs/SIG-20260628-2c8cfc21/thesis_record.json",
+      "schema": "frameworks/screener/thesis_record.schema.json",
+      "errors": [
+        "M0_6_6.override_justification — expected type string, got NoneType"
+      ]
+    },
+    {
+      "artifact": "screener/runs/SIG-20260628-af776402/thesis_record.json",
+      "schema": "frameworks/screener/thesis_record.schema.json",
+      "errors": [
+        "M0_2.world_changes — fewer than minItems 2"
+      ]
+    },
+    {
+      "artifact": "screener/runs/SIG-20260711-b55e8917/thesis_record.json",
+      "schema": "frameworks/screener/thesis_record.schema.json",
+      "errors": []
+    },
+    {
+      "artifact": "screener/runs/SIG-20260804-da21208a/thesis_record.json",
+      "schema": "frameworks/screener/thesis_record.schema.json",
+      "errors": []
+    },
+    {
+      "artifact": "screener/runs/SIG-20260610-a3f2c81d/candidates.json",
+      "schema": "frameworks/screener/candidates.schema.json",
+      "errors": []
+    },
+    {
+      "artifact": "screener/runs/SIG-20260612-dd716589/candidates.json",
+      "schema": "frameworks/screener/candidates.schema.json",
+      "errors": []
+    },
+    {
+      "artifact": "screener/runs/SIG-20260613-4bbcdeae/candidates.json",
+      "schema": "frameworks/screener/candidates.schema.json",
+      "errors": []
+    },
+    {
+      "artifact": "screener/runs/SIG-20260615-71775d0a/candidates.json",
+      "schema": "frameworks/screener/candidates.schema.json",
+      "errors": []
+    },
+    {
+      "artifact": "screener/runs/SIG-20260620-e420a56a/candidates.json",
+      "schema": "frameworks/screener/candidates.schema.json",
+      "errors": []
+    },
+    {
+      "artifact": "screener/runs/SIG-20260711-b55e8917/candidates.json",
+      "schema": "frameworks/screener/candidates.schema.json",
+      "errors": [
+        "candidates[3].news_impact.event_quantification — expected type string, got NoneType",
+        "candidates[3].news_impact.delta_value — expected type string, got NoneType",
+        "candidates[3].news_impact.caveats — expected type string, got NoneType"
+      ]
+    },
+    {
+      "artifact": "screener/ledger/theses/THS-SIG-20260610-a3f2c81d-v1.json",
+      "schema": "frameworks/screener/thesis_record.schema.json",
+      "errors": []
+    },
+    {
+      "artifact": "screener/ledger/theses/THS-SIG-20260612-dd716589-v1.json",
+      "schema": "frameworks/screener/thesis_record.schema.json",
+      "errors": [
+        "M0_6_2.estimate_revision_trajectory.missing_reason — expected type string, got NoneType",
+        "M0_6_2.implied_scenario_from_multiple.missing_reason — expected type string, got NoneType",
+        "M0_6_6.override_justification — expected type string, got NoneType"
+      ]
+    },
+    {
+      "artifact": "screener/ledger/theses/THS-SIG-20260613-4bbcdeae-v1.json",
+      "schema": "frameworks/screener/thesis_record.schema.json",
+      "errors": [
+        "M0_6_6.override_justification — expected type string, got NoneType"
+      ]
+    },
+    {
+      "artifact": "screener/ledger/theses/THS-SIG-20260615-71775d0a-v1.json",
+      "schema": "frameworks/screener/thesis_record.schema.json",
+      "errors": []
+    },
+    {
+      "artifact": "screener/ledger/theses/THS-SIG-20260616-8930aad4-v1.json",
+      "schema": "frameworks/screener/thesis_record.schema.json",
+      "errors": []
+    },
+    {
+      "artifact": "screener/ledger/theses/THS-SIG-20260620-e420a56a-v1.json",
+      "schema": "frameworks/screener/thesis_record.schema.json",
+      "errors": [
+        "M0_6_6.override_justification — expected type string, got NoneType"
+      ]
+    },
+    {
+      "artifact": "screener/ledger/theses/THS-SIG-20260628-2c8cfc21-v1.json",
+      "schema": "frameworks/screener/thesis_record.schema.json",
+      "errors": [
+        "M0_6_6.override_justification — expected type string, got NoneType"
+      ]
+    },
+    {
+      "artifact": "screener/ledger/theses/THS-SIG-20260628-af776402-v1.json",
+      "schema": "frameworks/screener/thesis_record.schema.json",
+      "errors": [
+        "M0_2.world_changes — fewer than minItems 2"
+      ]
+    },
+    {
+      "artifact": "screener/ledger/theses/THS-SIG-20260711-b55e8917-v1.json",
+      "schema": "frameworks/screener/thesis_record.schema.json",
+      "errors": []
+    },
+    {
+      "artifact": "screener/ledger/theses/THS-SIG-20260804-da21208a-v1.json",
+      "schema": "frameworks/screener/thesis_record.schema.json",
+      "errors": []
+    },
+    {
+      "artifact": "screener/ledger/candidates/THS-SIG-20260610-a3f2c81d-v1.json",
+      "schema": "frameworks/screener/candidates.schema.json",
+      "errors": []
+    },
+    {
+      "artifact": "screener/ledger/candidates/THS-SIG-20260612-dd716589-v1.json",
+      "schema": "frameworks/screener/candidates.schema.json",
+      "errors": []
+    },
+    {
+      "artifact": "screener/ledger/candidates/THS-SIG-20260613-4bbcdeae-v1.json",
+      "schema": "frameworks/screener/candidates.schema.json",
+      "errors": []
+    },
+    {
+      "artifact": "screener/ledger/candidates/THS-SIG-20260615-71775d0a-v1.json",
+      "schema": "frameworks/screener/candidates.schema.json",
+      "errors": []
+    },
+    {
+      "artifact": "screener/ledger/candidates/THS-SIG-20260620-e420a56a-v1.json",
+      "schema": "frameworks/screener/candidates.schema.json",
+      "errors": []
+    },
+    {
+      "artifact": "screener/ledger/candidates/THS-SIG-20260711-b55e8917-v1.json",
+      "schema": "frameworks/screener/candidates.schema.json",
+      "errors": [
+        "candidates[3].news_impact.event_quantification — expected type string, got NoneType",
+        "candidates[3].news_impact.delta_value — expected type string, got NoneType",
+        "candidates[3].news_impact.caveats — expected type string, got NoneType"
+      ]
+    },
+    {
+      "artifact": "screener/board/index.json",
+      "schema": "frameworks/screener/board_index.schema.json",
+      "errors": []
+    },
+    {
+      "artifact": "screener/runs/SIG-20260610-a3f2c81d/thesis_integrity_review.json",
+      "schema": "frameworks/screener/thesis_integrity_review.schema.json",
+      "errors": []
+    },
+    {
+      "artifact": "screener/runs/SIG-20260804-da21208a/thesis_integrity_review.json",
+      "schema": "frameworks/screener/thesis_integrity_review.schema.json",
+      "errors": []
+    }
+  ],
+  "unresolved_due_checkpoints": [
+    {
+      "checkpoint_id": "CHK-a3f2c81d-01",
+      "thesis_id": "THS-SIG-20260610-a3f2c81d-v1",
+      "due_at": "2026-08-15",
+      "kind": "kill_metric",
+      "explicit_fixture": true
+    },
+    {
+      "checkpoint_id": "CHK-a3f2c81d-02",
+      "thesis_id": "THS-SIG-20260610-a3f2c81d-v1",
+      "due_at": "2026-08-15",
+      "kind": "secondary_metric",
+      "explicit_fixture": true
+    },
+    {
+      "checkpoint_id": "CHK-a3f2c81d-03",
+      "thesis_id": "THS-SIG-20260610-a3f2c81d-v1",
+      "due_at": "2026-08-15",
+      "kind": "secondary_falsifier",
+      "explicit_fixture": true
+    },
+    {
+      "checkpoint_id": "CHK-a3f2c81d-04",
+      "thesis_id": "THS-SIG-20260610-a3f2c81d-v1",
+      "due_at": "2026-08-15",
+      "kind": "secondary_falsifier",
+      "explicit_fixture": true
+    },
+    {
+      "checkpoint_id": "CHK-a3f2c81d-06",
+      "thesis_id": "THS-SIG-20260610-a3f2c81d-v1",
+      "due_at": "2026-07-31",
+      "kind": "secondary_trigger",
+      "explicit_fixture": true
+    },
+    {
+      "checkpoint_id": "CHK-dd716589-01",
+      "thesis_id": "THS-SIG-20260612-dd716589-v1",
+      "due_at": "2026-08-15",
+      "kind": "kill_metric",
+      "explicit_fixture": false
+    },
+    {
+      "checkpoint_id": "CHK-dd716589-02",
+      "thesis_id": "THS-SIG-20260612-dd716589-v1",
+      "due_at": "2026-08-15",
+      "kind": "secondary_metric",
+      "explicit_fixture": false
+    },
+    {
+      "checkpoint_id": "CHK-dd716589-03",
+      "thesis_id": "THS-SIG-20260612-dd716589-v1",
+      "due_at": "2026-08-15",
+      "kind": "secondary_falsifier",
+      "explicit_fixture": false
+    },
+    {
+      "checkpoint_id": "CHK-dd716589-04",
+      "thesis_id": "THS-SIG-20260612-dd716589-v1",
+      "due_at": "2026-08-15",
+      "kind": "secondary_falsifier",
+      "explicit_fixture": false
+    },
+    {
+      "checkpoint_id": "CHK-dd716589-05",
+      "thesis_id": "THS-SIG-20260612-dd716589-v1",
+      "due_at": "2026-08-15",
+      "kind": "secondary_falsifier",
+      "explicit_fixture": false
+    },
+    {
+      "checkpoint_id": "CHK-dd716589-06",
+      "thesis_id": "THS-SIG-20260612-dd716589-v1",
+      "due_at": "2026-08-22",
+      "kind": "convergence_trigger",
+      "explicit_fixture": false
+    },
+    {
+      "checkpoint_id": "CHK-dd716589-07",
+      "thesis_id": "THS-SIG-20260612-dd716589-v1",
+      "due_at": "2026-08-15",
+      "kind": "secondary_trigger",
+      "explicit_fixture": false
+    },
+    {
+      "checkpoint_id": "CHK-dd716589-12",
+      "thesis_id": "THS-SIG-20260612-dd716589-v1",
+      "due_at": "2026-09-10",
+      "kind": "expiry",
+      "explicit_fixture": false
+    },
+    {
+      "checkpoint_id": "CHK-4bbcdeae-01",
+      "thesis_id": "THS-SIG-20260613-4bbcdeae-v1",
+      "due_at": "2026-09-14",
+      "kind": "kill_metric",
+      "explicit_fixture": false
+    },
+    {
+      "checkpoint_id": "CHK-4bbcdeae-02",
+      "thesis_id": "THS-SIG-20260613-4bbcdeae-v1",
+      "due_at": "2026-09-14",
+      "kind": "secondary_metric",
+      "explicit_fixture": false
+    },
+    {
+      "checkpoint_id": "CHK-4bbcdeae-03",
+      "thesis_id": "THS-SIG-20260613-4bbcdeae-v1",
+      "due_at": "2026-09-14",
+      "kind": "secondary_falsifier",
+      "explicit_fixture": false
+    },
+    {
+      "checkpoint_id": "CHK-4bbcdeae-04",
+      "thesis_id": "THS-SIG-20260613-4bbcdeae-v1",
+      "due_at": "2026-09-14",
+      "kind": "secondary_falsifier",
+      "explicit_fixture": false
+    },
+    {
+      "checkpoint_id": "CHK-4bbcdeae-05",
+      "thesis_id": "THS-SIG-20260613-4bbcdeae-v1",
+      "due_at": "2026-09-14",
+      "kind": "secondary_falsifier",
+      "explicit_fixture": false
+    },
+    {
+      "checkpoint_id": "CHK-4bbcdeae-06",
+      "thesis_id": "THS-SIG-20260613-4bbcdeae-v1",
+      "due_at": "2026-07-23",
+      "kind": "convergence_trigger",
+      "explicit_fixture": false
+    },
+    {
+      "checkpoint_id": "CHK-4bbcdeae-07",
+      "thesis_id": "THS-SIG-20260613-4bbcdeae-v1",
+      "due_at": "2026-07-22",
+      "kind": "secondary_trigger",
+      "explicit_fixture": false
+    },
+    {
+      "checkpoint_id": "CHK-4bbcdeae-08",
+      "thesis_id": "THS-SIG-20260613-4bbcdeae-v1",
+      "due_at": "2026-07-31",
+      "kind": "secondary_trigger",
+      "explicit_fixture": false
+    },
+    {
+      "checkpoint_id": "CHK-4bbcdeae-09",
+      "thesis_id": "THS-SIG-20260613-4bbcdeae-v1",
+      "due_at": "2026-07-22",
+      "kind": "secondary_trigger",
+      "explicit_fixture": false
+    },
+    {
+      "checkpoint_id": "CHK-4bbcdeae-11",
+      "thesis_id": "THS-SIG-20260613-4bbcdeae-v1",
+      "due_at": "2026-09-14",
+      "kind": "expiry",
+      "explicit_fixture": false
+    },
+    {
+      "checkpoint_id": "CHK-71775d0a-01",
+      "thesis_id": "THS-SIG-20260615-71775d0a-v1",
+      "due_at": "2026-09-07",
+      "kind": "kill_metric",
+      "explicit_fixture": false
+    },
+    {
+      "checkpoint_id": "CHK-71775d0a-02",
+      "thesis_id": "THS-SIG-20260615-71775d0a-v1",
+      "due_at": "2026-09-07",
+      "kind": "secondary_metric",
+      "explicit_fixture": false
+    },
+    {
+      "checkpoint_id": "CHK-71775d0a-03",
+      "thesis_id": "THS-SIG-20260615-71775d0a-v1",
+      "due_at": "2026-09-07",
+      "kind": "secondary_falsifier",
+      "explicit_fixture": false
+    },
+    {
+      "checkpoint_id": "CHK-71775d0a-04",
+      "thesis_id": "THS-SIG-20260615-71775d0a-v1",
+      "due_at": "2026-09-07",
+      "kind": "secondary_falsifier",
+      "explicit_fixture": false
+    },
+    {
+      "checkpoint_id": "CHK-71775d0a-05",
+      "thesis_id": "THS-SIG-20260615-71775d0a-v1",
+      "due_at": "2026-09-07",
+      "kind": "secondary_falsifier",
+      "explicit_fixture": false
+    },
+    {
+      "checkpoint_id": "CHK-71775d0a-06",
+      "thesis_id": "THS-SIG-20260615-71775d0a-v1",
+      "due_at": "2026-08-09",
+      "kind": "convergence_trigger",
+      "explicit_fixture": false
+    },
+    {
+      "checkpoint_id": "CHK-71775d0a-07",
+      "thesis_id": "THS-SIG-20260615-71775d0a-v1",
+      "due_at": "2026-06-29",
+      "kind": "secondary_trigger",
+      "explicit_fixture": false
+    },
+    {
+      "checkpoint_id": "CHK-71775d0a-09",
+      "thesis_id": "THS-SIG-20260615-71775d0a-v1",
+      "due_at": "2026-08-09",
+      "kind": "secondary_trigger",
+      "explicit_fixture": false
+    },
+    {
+      "checkpoint_id": "CHK-71775d0a-11",
+      "thesis_id": "THS-SIG-20260615-71775d0a-v1",
+      "due_at": "2026-09-13",
+      "kind": "expiry",
+      "explicit_fixture": false
+    },
+    {
+      "checkpoint_id": "CHK-8930aad4-01",
+      "thesis_id": "THS-SIG-20260616-8930aad4-v1",
+      "due_at": "2026-07-31",
+      "kind": "kill_metric",
+      "explicit_fixture": false
+    },
+    {
+      "checkpoint_id": "CHK-8930aad4-02",
+      "thesis_id": "THS-SIG-20260616-8930aad4-v1",
+      "due_at": "2026-07-31",
+      "kind": "secondary_metric",
+      "explicit_fixture": false
+    },
+    {
+      "checkpoint_id": "CHK-8930aad4-03",
+      "thesis_id": "THS-SIG-20260616-8930aad4-v1",
+      "due_at": "2026-07-31",
+      "kind": "secondary_falsifier",
+      "explicit_fixture": false
+    },
+    {
+      "checkpoint_id": "CHK-8930aad4-04",
+      "thesis_id": "THS-SIG-20260616-8930aad4-v1",
+      "due_at": "2026-07-31",
+      "kind": "secondary_falsifier",
+      "explicit_fixture": false
+    },
+    {
+      "checkpoint_id": "CHK-8930aad4-05",
+      "thesis_id": "THS-SIG-20260616-8930aad4-v1",
+      "due_at": "2026-07-31",
+      "kind": "secondary_falsifier",
+      "explicit_fixture": false
+    },
+    {
+      "checkpoint_id": "CHK-8930aad4-06",
+      "thesis_id": "THS-SIG-20260616-8930aad4-v1",
+      "due_at": "2026-06-16",
+      "kind": "convergence_trigger",
+      "explicit_fixture": false
+    },
+    {
+      "checkpoint_id": "CHK-8930aad4-07",
+      "thesis_id": "THS-SIG-20260616-8930aad4-v1",
+      "due_at": "2026-07-11",
+      "kind": "secondary_trigger",
+      "explicit_fixture": false
+    },
+    {
+      "checkpoint_id": "CHK-8930aad4-11",
+      "thesis_id": "THS-SIG-20260616-8930aad4-v1",
+      "due_at": "2026-09-14",
+      "kind": "expiry",
+      "explicit_fixture": false
+    },
+    {
+      "checkpoint_id": "CHK-2c8cfc21-01",
+      "thesis_id": "THS-SIG-20260628-2c8cfc21-v1",
+      "due_at": "2026-09-30",
+      "kind": "kill_metric",
+      "explicit_fixture": false
+    },
+    {
+      "checkpoint_id": "CHK-2c8cfc21-02",
+      "thesis_id": "THS-SIG-20260628-2c8cfc21-v1",
+      "due_at": "2026-09-30",
+      "kind": "secondary_metric",
+      "explicit_fixture": false
+    },
+    {
+      "checkpoint_id": "CHK-2c8cfc21-03",
+      "thesis_id": "THS-SIG-20260628-2c8cfc21-v1",
+      "due_at": "2026-09-30",
+      "kind": "secondary_falsifier",
+      "explicit_fixture": false
+    },
+    {
+      "checkpoint_id": "CHK-2c8cfc21-04",
+      "thesis_id": "THS-SIG-20260628-2c8cfc21-v1",
+      "due_at": "2026-09-30",
+      "kind": "secondary_falsifier",
+      "explicit_fixture": false
+    },
+    {
+      "checkpoint_id": "CHK-2c8cfc21-05",
+      "thesis_id": "THS-SIG-20260628-2c8cfc21-v1",
+      "due_at": "2026-09-30",
+      "kind": "secondary_falsifier",
+      "explicit_fixture": false
+    },
+    {
+      "checkpoint_id": "CHK-2c8cfc21-06",
+      "thesis_id": "THS-SIG-20260628-2c8cfc21-v1",
+      "due_at": "2026-06-17",
+      "kind": "convergence_trigger",
+      "explicit_fixture": false
+    },
+    {
+      "checkpoint_id": "CHK-2c8cfc21-10",
+      "thesis_id": "THS-SIG-20260628-2c8cfc21-v1",
+      "due_at": "2026-09-30",
+      "kind": "expiry",
+      "explicit_fixture": false
+    },
+    {
+      "checkpoint_id": "CHK-b55e8917-01",
+      "thesis_id": "THS-SIG-20260711-b55e8917-v1",
+      "due_at": "2026-10-31",
+      "kind": "kill_metric",
+      "explicit_fixture": false
+    },
+    {
+      "checkpoint_id": "CHK-b55e8917-02",
+      "thesis_id": "THS-SIG-20260711-b55e8917-v1",
+      "due_at": "2026-10-31",
+      "kind": "secondary_metric",
+      "explicit_fixture": false
+    },
+    {
+      "checkpoint_id": "CHK-b55e8917-03",
+      "thesis_id": "THS-SIG-20260711-b55e8917-v1",
+      "due_at": "2026-10-31",
+      "kind": "secondary_falsifier",
+      "explicit_fixture": false
+    },
+    {
+      "checkpoint_id": "CHK-b55e8917-04",
+      "thesis_id": "THS-SIG-20260711-b55e8917-v1",
+      "due_at": "2026-10-31",
+      "kind": "secondary_falsifier",
+      "explicit_fixture": false
+    },
+    {
+      "checkpoint_id": "CHK-b55e8917-05",
+      "thesis_id": "THS-SIG-20260711-b55e8917-v1",
+      "due_at": "2026-10-31",
+      "kind": "secondary_falsifier",
+      "explicit_fixture": false
+    },
+    {
+      "checkpoint_id": "CHK-b55e8917-06",
+      "thesis_id": "THS-SIG-20260711-b55e8917-v1",
+      "due_at": "2026-07-29",
+      "kind": "convergence_trigger",
+      "explicit_fixture": false
+    },
+    {
+      "checkpoint_id": "CHK-b55e8917-11",
+      "thesis_id": "THS-SIG-20260711-b55e8917-v1",
+      "due_at": "2026-10-31",
+      "kind": "expiry",
+      "explicit_fixture": false
+    }
+  ],
+  "input_manifest": [
+    {
+      "path": ".claude/agents/screener/SWARM.md",
+      "sha256": "3cea88fe5f6f184b2ad272118233b9eb57947d8673bb77b02ff641058bf25bf1"
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "d5ad69ffce63a38e688d87bd0c870b844675e0156af351a5ff402a5bab08c046"
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "sha256": "2a841760af8455b00cf4259356a9761c8438e9c94c7d02da873884b609ec2f38"
+    },
+    {
+      "path": "frameworks/DECISION_LEDGER.md",
+      "sha256": "111f2ef86a2013259fc5759fd144b70b3e679ce5fa8a4d58d5a5ed3a6102cfe5"
+    },
+    {
+      "path": "frameworks/EXTERNAL_DATA.md",
+      "sha256": "9395328d1bd306de59d4a0abfb86d69400813fede05267e751dfa090239ebfe4"
+    },
+    {
+      "path": "frameworks/MODULE_PIPELINE.md",
+      "sha256": "e4213348e94bf21d5b39e970cdf8257e4fc408b370d6f4e1ee935d9c9c1d27ff"
+    },
+    {
+      "path": "frameworks/SECTOR_OVERLAYS.md",
+      "sha256": "52f6b43b01be86e5a98e078c8f1e60bbabe123ee75529c367e53929c06446f0d"
+    },
+    {
+      "path": "frameworks/screener/CONVICTION_LOOP.md",
+      "sha256": "a645b1f26c841653e6dd5446b5908c07c718a4c853733ae63ac4291201967a8c"
+    },
+    {
+      "path": "frameworks/screener/SCREENER_PIPELINE.md",
+      "sha256": "c566ce41d4b2fcaa8534aa447f57dd8d96a1eb5669bcb261c5bd7090de2cf298"
+    },
+    {
+      "path": "frameworks/screener/board_index.schema.json",
+      "sha256": "bb45f440664ea9901a51a9321e78e2c0092c2f4a6b1b763e4a33f7e51254a104"
+    },
+    {
+      "path": "frameworks/screener/candidates.schema.json",
+      "sha256": "44e4a46c45b44ada815130f76b62cbb96a047de04475cd359e3283e8c170ab14"
+    },
+    {
+      "path": "frameworks/screener/intake.schema.json",
+      "sha256": "0744e48138328583b1fa0e1bc11b55ee657092b310f2b91e9277cc3f8bb51fb5"
+    },
+    {
+      "path": "frameworks/screener/signal_payload.schema.json",
+      "sha256": "9753911a68a1f685bfb672afbc09b05476229f8e45d996c5908565e4266a43a1"
+    },
+    {
+      "path": "frameworks/screener/thesis_integrity_review.schema.json",
+      "sha256": "efe7ba221df3c806942bf33f40a3386a7108bd3e9463a0736cb443fb1daeafab"
+    },
+    {
+      "path": "frameworks/screener/thesis_record.schema.json",
+      "sha256": "83216d889143b1539461479b729d78f61d4c49f5adbaa77e8207f83d96180c25"
+    },
+    {
+      "path": "screener/board/index.json",
+      "sha256": "ced887e2696b09c58309979fa370da826e4597b03ad6a1f41dab55e591e33e7c"
+    },
+    {
+      "path": "screener/ledger/candidates/THS-SIG-20260610-a3f2c81d-v1.json",
+      "sha256": "957a03557800136ac62ae4a0732dd63e5e34978e071ac05e8edaa1152154ffff"
+    },
+    {
+      "path": "screener/ledger/candidates/THS-SIG-20260612-dd716589-v1.json",
+      "sha256": "1210f459115b6d559a5d90bfcd94db00853733ddb27c2b99ed17ae09a5baaf44"
+    },
+    {
+      "path": "screener/ledger/candidates/THS-SIG-20260613-4bbcdeae-v1.json",
+      "sha256": "5b9a65341c92cfd8e94b304c33ecee113e8fbe91b0e8e56cbd155b695ea2485c"
+    },
+    {
+      "path": "screener/ledger/candidates/THS-SIG-20260615-71775d0a-v1.json",
+      "sha256": "8ebbcb8bd1c85760af2cb79becd4b65fb38c6cf0afc017d801798eeb9cd3903e"
+    },
+    {
+      "path": "screener/ledger/candidates/THS-SIG-20260620-e420a56a-v1.json",
+      "sha256": "bf390290fae414c29f7e304193babae1b6ff69324af18dd890b0a78443974b76"
+    },
+    {
+      "path": "screener/ledger/candidates/THS-SIG-20260711-b55e8917-v1.json",
+      "sha256": "f1812b6c01d85265a996ee992a9c73d160077899278bad206c7e7045ace9a66a"
+    },
+    {
+      "path": "screener/ledger/conviction/checkpoints.ndjson",
+      "sha256": "cae725fddf65920e237984ce765ad45d19519a04496e0987f8fe5440d950f73f"
+    },
+    {
+      "path": "screener/ledger/conviction/conviction.ndjson",
+      "sha256": "f72a065be2d6aca771a3540a6dafcb7c86f4e02894f3c452aa3c473a5adc3387"
+    },
+    {
+      "path": "screener/ledger/conviction/conviction_state/THS-SIG-20260610-a3f2c81d-v1.json",
+      "sha256": "13c9ed1a9b1445b52777573f3606758b36dabcc69f26c232b5ae1eefbebf41d3"
+    },
+    {
+      "path": "screener/ledger/conviction/conviction_state/THS-SIG-20260612-dd716589-v1.json",
+      "sha256": "a09c942fe6e9d54bed468f802018e908c5373a360efe167ca1b184a32bdcbd46"
+    },
+    {
+      "path": "screener/ledger/conviction/conviction_state/THS-SIG-20260613-4bbcdeae-v1.json",
+      "sha256": "c4b5c38dca5ff15ab2f739c22564830d24b897835e90e084463480d858ecd2fd"
+    },
+    {
+      "path": "screener/ledger/conviction/conviction_state/THS-SIG-20260615-71775d0a-v1.json",
+      "sha256": "3a8eaf6e242c6582b79bbdabe1e6f639940b4c8dd4db3aa6da737728dde1c0c4"
+    },
+    {
+      "path": "screener/ledger/conviction/conviction_state/THS-SIG-20260616-8930aad4-v1.json",
+      "sha256": "1cf7cdcf5261eee850e016f6607a0cd4a4d208bfbd5b6188ef9a59f729c97e97"
+    },
+    {
+      "path": "screener/ledger/conviction/conviction_state/THS-SIG-20260620-e420a56a-v1.json",
+      "sha256": "3eb355bcc942c39986f49951ac6767eb47f838760c630e424e679ab3f97725b8"
+    },
+    {
+      "path": "screener/ledger/conviction/conviction_state/THS-SIG-20260628-2c8cfc21-v1.json",
+      "sha256": "95867b209664474a4c353f36845f4800c7b1bc84175b55f26d19cf7c73fb9742"
+    },
+    {
+      "path": "screener/ledger/conviction/conviction_state/THS-SIG-20260711-b55e8917-v1.json",
+      "sha256": "e702383ccd0b474c48c243073dec6f00ca20597b017ce34900d03ec030279979"
+    },
+    {
+      "path": "screener/ledger/theses/THS-SIG-20260610-a3f2c81d-v1.json",
+      "sha256": "c9fe0575a8bcbc03e6274319ebdabbe2e0cf872fa335a747905ccb5d09183b1e"
+    },
+    {
+      "path": "screener/ledger/theses/THS-SIG-20260612-dd716589-v1.json",
+      "sha256": "46d5d63e077e9947592081345a13c778b76687276dff3295c5ad3a1da20c58ea"
+    },
+    {
+      "path": "screener/ledger/theses/THS-SIG-20260613-4bbcdeae-v1.json",
+      "sha256": "7d085a22aa40f4aadb1d3c48e5981c1b3e97ab5384189c8ddf3aa4ab91059fd1"
+    },
+    {
+      "path": "screener/ledger/theses/THS-SIG-20260615-71775d0a-v1.json",
+      "sha256": "c2efe64f0894d389e542dfe22ee43257d190d1ea569e879b2fe8c8eeafb2457e"
+    },
+    {
+      "path": "screener/ledger/theses/THS-SIG-20260616-8930aad4-v1.json",
+      "sha256": "b5c1ae3afdca5694b264b3a77af7905a1a034432ef177ea849736ca0f7981947"
+    },
+    {
+      "path": "screener/ledger/theses/THS-SIG-20260620-e420a56a-v1.json",
+      "sha256": "6bf3fd31725870e7e0e0facb174ce939750bf983f5139edb1864302635d73ccc"
+    },
+    {
+      "path": "screener/ledger/theses/THS-SIG-20260628-2c8cfc21-v1.json",
+      "sha256": "2b52baacb2311bcd73fef40786c3fd2c8fa78900a8c537dcf856e93d57223d70"
+    },
+    {
+      "path": "screener/ledger/theses/THS-SIG-20260628-af776402-v1.json",
+      "sha256": "27a57d1adfb3dd56ca337a9eed9a832ab1251dca3ebdf1c0ee43229e82257aee"
+    },
+    {
+      "path": "screener/ledger/theses/THS-SIG-20260711-b55e8917-v1.json",
+      "sha256": "53da4e65c3d6a538e0bc03708ff2bc14858c27b0bc2499b393c1b8a25dde4681"
+    },
+    {
+      "path": "screener/ledger/theses/THS-SIG-20260804-da21208a-v1.json",
+      "sha256": "aa78de84f53ce767148c292d96472845220109c798aad7cd0ddb4d69d3b7dc0c"
+    },
+    {
+      "path": "screener/runs/SIG-20260610-a3f2c81d/candidates.json",
+      "sha256": "957a03557800136ac62ae4a0732dd63e5e34978e071ac05e8edaa1152154ffff"
+    },
+    {
+      "path": "screener/runs/SIG-20260610-a3f2c81d/intake.json",
+      "sha256": "646cb9c42efadb2158f4364547f37f165dc82205c6b4a1e06ac6e2dcc5d396aa"
+    },
+    {
+      "path": "screener/runs/SIG-20260610-a3f2c81d/signal_payload.json",
+      "sha256": "73ecbd11c5ab1beb46262f0d1fb11d660c2d1cac9c4d02b8272cac26dbc280e4"
+    },
+    {
+      "path": "screener/runs/SIG-20260610-a3f2c81d/thesis_integrity_review.json",
+      "sha256": "606586d0e9b6a15719c3a9c04b50afd349a7181d2f0f85e3e7f7fe83c4ab1da7"
+    },
+    {
+      "path": "screener/runs/SIG-20260610-a3f2c81d/thesis_record.json",
+      "sha256": "c9fe0575a8bcbc03e6274319ebdabbe2e0cf872fa335a747905ccb5d09183b1e"
+    },
+    {
+      "path": "screener/runs/SIG-20260612-dd716589/candidates.json",
+      "sha256": "1210f459115b6d559a5d90bfcd94db00853733ddb27c2b99ed17ae09a5baaf44"
+    },
+    {
+      "path": "screener/runs/SIG-20260612-dd716589/intake.json",
+      "sha256": "b8bf75aeaabd671e1354b73f1b084c784583d4569333d3e4f4032e6fe9bfd66f"
+    },
+    {
+      "path": "screener/runs/SIG-20260612-dd716589/signal_payload.json",
+      "sha256": "dfc593c78218c0dcbb9c64be5586490507278e631c358e1e27740dc7dfa4c584"
+    },
+    {
+      "path": "screener/runs/SIG-20260612-dd716589/thesis_record.json",
+      "sha256": "46d5d63e077e9947592081345a13c778b76687276dff3295c5ad3a1da20c58ea"
+    },
+    {
+      "path": "screener/runs/SIG-20260613-4bbcdeae/candidates.json",
+      "sha256": "5b9a65341c92cfd8e94b304c33ecee113e8fbe91b0e8e56cbd155b695ea2485c"
+    },
+    {
+      "path": "screener/runs/SIG-20260613-4bbcdeae/intake.json",
+      "sha256": "e06c10612fd462b015294cee88c0bd30112b3cd1f1f4ad4e34631dd8220c2381"
+    },
+    {
+      "path": "screener/runs/SIG-20260613-4bbcdeae/signal_payload.json",
+      "sha256": "39470d4f1ecd5813516dfbe11a03b09f295ad23920555a2f5ab19d85344434d1"
+    },
+    {
+      "path": "screener/runs/SIG-20260613-4bbcdeae/thesis_record.json",
+      "sha256": "7d085a22aa40f4aadb1d3c48e5981c1b3e97ab5384189c8ddf3aa4ab91059fd1"
+    },
+    {
+      "path": "screener/runs/SIG-20260615-71775d0a/candidates.json",
+      "sha256": "8ebbcb8bd1c85760af2cb79becd4b65fb38c6cf0afc017d801798eeb9cd3903e"
+    },
+    {
+      "path": "screener/runs/SIG-20260615-71775d0a/intake.json",
+      "sha256": "90b4cd45b2479ab0df1c07c194417e01cbc449087c5ec7e0fa6775bfd0d3db24"
+    },
+    {
+      "path": "screener/runs/SIG-20260615-71775d0a/signal_payload.json",
+      "sha256": "ca1cbbdc0e5c4365061a3c3438d54aa24f96a8c0e2d3878153624daed4ac0ea4"
+    },
+    {
+      "path": "screener/runs/SIG-20260615-71775d0a/thesis_record.json",
+      "sha256": "c2efe64f0894d389e542dfe22ee43257d190d1ea569e879b2fe8c8eeafb2457e"
+    },
+    {
+      "path": "screener/runs/SIG-20260616-8930aad4/intake.json",
+      "sha256": "b5ac457ea22c793f69e14f052694fdee9a02894a2f67f02b6190d791f9951899"
+    },
+    {
+      "path": "screener/runs/SIG-20260616-8930aad4/signal_payload.json",
+      "sha256": "d4dc26a0082c58eae9c0e85c64b483ac89c13f758802ae49031479c5ab5bb075"
+    },
+    {
+      "path": "screener/runs/SIG-20260616-8930aad4/thesis_record.json",
+      "sha256": "b5c1ae3afdca5694b264b3a77af7905a1a034432ef177ea849736ca0f7981947"
+    },
+    {
+      "path": "screener/runs/SIG-20260616-eae0b41e/intake.json",
+      "sha256": "57d8a5ab3c82eb2f500af1bab2bc03fa9ceb3d7a10aafafd15c24df382bce3aa"
+    },
+    {
+      "path": "screener/runs/SIG-20260616-eae0b41e/signal_payload.json",
+      "sha256": "8002a97522f66a116b1a60d7d51cb7b7f5a2bc6e47715109c674dfe22d4957e1"
+    },
+    {
+      "path": "screener/runs/SIG-20260619-755ea4d0/intake.json",
+      "sha256": "bd754b177747899c50c4a267edfbfa23d8a0f88bebf76a6b7987022cf4dc8cde"
+    },
+    {
+      "path": "screener/runs/SIG-20260619-755ea4d0/signal_payload.json",
+      "sha256": "ab24113b6e72ab7905edeae5c6902226e7709b4d02fd99fb21b23f6b24d17341"
+    },
+    {
+      "path": "screener/runs/SIG-20260620-e420a56a/candidates.json",
+      "sha256": "bf390290fae414c29f7e304193babae1b6ff69324af18dd890b0a78443974b76"
+    },
+    {
+      "path": "screener/runs/SIG-20260620-e420a56a/intake.json",
+      "sha256": "e83c453e966a8b0e6526d1d62cbc5a7a1ddd938f15c7f1efa84c2378fa2e3b6b"
+    },
+    {
+      "path": "screener/runs/SIG-20260620-e420a56a/signal_payload.json",
+      "sha256": "fc06b9b070d9ca5663b3e1bde92938c96e1ca350cd94e3a583eb938e39b005bd"
+    },
+    {
+      "path": "screener/runs/SIG-20260620-e420a56a/thesis_record.json",
+      "sha256": "6bf3fd31725870e7e0e0facb174ce939750bf983f5139edb1864302635d73ccc"
+    },
+    {
+      "path": "screener/runs/SIG-20260628-2c8cfc21/intake.json",
+      "sha256": "a96bb3e7cee7dcbe2f14abcf9bd0b452f67f9d37ba5aa6435ef36679be7e8bc4"
+    },
+    {
+      "path": "screener/runs/SIG-20260628-2c8cfc21/signal_payload.json",
+      "sha256": "afe02eb8d8db5f5596612055c809da52266b3d9a7e48f7bb59be68a7c1883bd9"
+    },
+    {
+      "path": "screener/runs/SIG-20260628-2c8cfc21/thesis_record.json",
+      "sha256": "2b52baacb2311bcd73fef40786c3fd2c8fa78900a8c537dcf856e93d57223d70"
+    },
+    {
+      "path": "screener/runs/SIG-20260628-af776402/intake.json",
+      "sha256": "e0de592d9bc6c6bd079ad2f3fe4f921780ae044ea77dacc02c23cb8f3700927e"
+    },
+    {
+      "path": "screener/runs/SIG-20260628-af776402/signal_payload.json",
+      "sha256": "832bb82550d2ccff584e172e5a7b160c986166c5d986fb96eae1872b50cd125d"
+    },
+    {
+      "path": "screener/runs/SIG-20260628-af776402/thesis_record.json",
+      "sha256": "27a57d1adfb3dd56ca337a9eed9a832ab1251dca3ebdf1c0ee43229e82257aee"
+    },
+    {
+      "path": "screener/runs/SIG-20260709-c7ac1278/intake.json",
+      "sha256": "23e27ca74ac742264de49895be96a998b8c9f497731ecb897c0b015181904e40"
+    },
+    {
+      "path": "screener/runs/SIG-20260709-c7ac1278/signal_payload.json",
+      "sha256": "0faad03780472c85492ac37012ce39f14a932e312d7f883c6c071eeb4194a086"
+    },
+    {
+      "path": "screener/runs/SIG-20260711-b55e8917/candidates.json",
+      "sha256": "f1812b6c01d85265a996ee992a9c73d160077899278bad206c7e7045ace9a66a"
+    },
+    {
+      "path": "screener/runs/SIG-20260711-b55e8917/intake.json",
+      "sha256": "0fce89983165dbf9b9c134a8eb626a9803b5a8047b7d36ed0c43b0bf09df8c52"
+    },
+    {
+      "path": "screener/runs/SIG-20260711-b55e8917/signal_payload.json",
+      "sha256": "6ee5c56432eb87ea1c2ac62348c322747497da1987fa38d693b2ef6ffa87885e"
+    },
+    {
+      "path": "screener/runs/SIG-20260711-b55e8917/thesis_record.json",
+      "sha256": "53da4e65c3d6a538e0bc03708ff2bc14858c27b0bc2499b393c1b8a25dde4681"
+    },
+    {
+      "path": "screener/runs/SIG-20260716-070c5069/intake.json",
+      "sha256": "f2174b4abacbabb8a19bce415fb3fde375463cab8b8f506a2b88ce37ab50f496"
+    },
+    {
+      "path": "screener/runs/SIG-20260716-070c5069/signal_payload.json",
+      "sha256": "64b17caa292ab8f6dd5475734e154cdf76ebd3cb2cc1b60f3b7a6a11d40a59d4"
+    },
+    {
+      "path": "screener/runs/SIG-20260716-1f0ddd45/intake.json",
+      "sha256": "1ff31f6be56a0724a3578aa22c80ba01f561229857848b3d5dbad86584e32bb1"
+    },
+    {
+      "path": "screener/runs/SIG-20260716-1f0ddd45/signal_payload.json",
+      "sha256": "ce620b8d3215c6d31f8cf30ea283b99fe8606a8dce455abeddd65a66fb467417"
+    },
+    {
+      "path": "screener/runs/SIG-20260804-da21208a/intake.json",
+      "sha256": "24b80061a3c6a60addac2d8598ec891efd6759faf8b6eedd07146352d44f64e1"
+    },
+    {
+      "path": "screener/runs/SIG-20260804-da21208a/signal_payload.json",
+      "sha256": "bfc5e9d111dcc6d8d01753cfeedf1f0098e7e51f71bd6caafac90279722b17fa"
+    },
+    {
+      "path": "screener/runs/SIG-20260804-da21208a/thesis_integrity_review.json",
+      "sha256": "ab9088d3f753ccc70b405eec34833b9fd437e0fa8aa3b11002961fd080ffa7d0"
+    },
+    {
+      "path": "screener/runs/SIG-20260804-da21208a/thesis_record.json",
+      "sha256": "7fe537399b8ffde02e0d9c1a14630f06ab8b0c9abd4f8c651fe947e2f8d3ef97"
+    },
+    {
+      "path": "scripts/screener_calibrate.py",
+      "sha256": "da4450c1057d1c42790dfe9057fd0d5dbb1b760c9c75c0859174b34f8aa3c5d6"
+    },
+    {
+      "path": "scripts/validate_screener_json.py",
+      "sha256": "f058324398787134abb29da7bd6b06819c851005d832789e2823f1764c2799cb"
+    }
+  ],
+  "existing_calibration": {
+    "generated_at": "2026-11-08T09:10:02Z",
+    "provider_calibration_schema_version": "1.0",
+    "n_theses": 8,
+    "n_checkpoints": 84,
+    "n_resolved": 0,
+    "min_resolved_for_calibration": 10,
+    "sufficient": false,
+    "hit_rate": null,
+    "brier": null,
+    "n_resolved_with_prob": 0,
+    "median_days_lock_to_confirm": null,
+    "selected_minus_discarded_edge": null,
+    "error_taxonomy_distribution": {},
+    "false_discard_rate": null,
+    "by_edge_band": {},
+    "n_integrity_reviewed": 1,
+    "n_integrity_terminal": 1,
+    "integrity_gate_distribution": {
+      "Thesis broken": 1
+    },
+    "integrity_gate_hit_rate": null,
+    "integrity_gate_note": "1 of 1 reviewed theses have a terminal latest integrity verdict (watchlist_integrity_downgrade / _broken); the rest routed Proceed ({'Thesis broken': 1}). This is gate ACTIVITY, not accuracy — integrity_gate_hit_rate stays null because judging whether a terminal verdict was the right call needs a later outcome-check against the thesis's own claims, which no review mechanism provides yet (a terminal verdict stops the pipeline before candidate-surfacing, so unlike a live conviction discard there is no ticker-level checkpoint to ever resolve).",
+    "calibration_by_provider": {
+      "unknown_legacy": {
+        "forecast_author_calibration": {
+          "status": "insufficient",
+          "n": 0,
+          "n_subjects": 0,
+          "floor": {
+            "n": 10,
+            "distinct_subjects": 5
+          },
+          "brier": null,
+          "score_type": null
+        },
+        "pipeline_directional": {
+          "status": "insufficient",
+          "n": 0,
+          "k_hits": 0,
+          "floor": {
+            "n": 10
+          },
+          "hit_rate": null
+        },
+        "pipeline_basket_outcomes": {
+          "selected": {
+            "current_state": {
+              "status": "available",
+              "n": 8,
+              "floor": {
+                "n": 5,
+                "matched_horizon_required": true
+              },
+              "value_metric": "edge_score_live_proxy_not_realized_return",
+              "mean_value": 63.375
+            }
+          }
+        },
+        "error_taxonomy_distribution": {},
+        "attribution_policy": "Forecast/Brier rows follow decision_author; directional/headline and basket outcomes follow the whole-pipeline execution cohort. Mixed, partial, and legacy cohorts are never reassigned."
+      }
+    },
+    "calibration_by_execution_profile": {
+      "unknown_legacy": {
+        "forecast_author_calibration": {
+          "status": "insufficient",
+          "n": 0,
+          "n_subjects": 0,
+          "floor": {
+            "n": 10,
+            "distinct_subjects": 5
+          },
+          "brier": null,
+          "score_type": null
+        },
+        "pipeline_directional": {
+          "status": "insufficient",
+          "n": 0,
+          "k_hits": 0,
+          "floor": {
+            "n": 10
+          },
+          "hit_rate": null
+        },
+        "pipeline_basket_outcomes": {
+          "selected": {
+            "current_state": {
+              "status": "available",
+              "n": 8,
+              "floor": {
+                "n": 5,
+                "matched_horizon_required": true
+              },
+              "value_metric": "edge_score_live_proxy_not_realized_return",
+              "mean_value": 63.375
+            }
+          }
+        },
+        "error_taxonomy_distribution": {},
+        "attribution_policy": "Forecast/Brier rows follow decision_author; directional/headline and basket outcomes follow the whole-pipeline execution cohort. Mixed, partial, and legacy cohorts are never reassigned."
+      }
+    },
+    "provider_comparison": {
+      "status": "withheld",
+      "policy": "No blended provider hit rate. Each recorded cohort is reported separately. A metric is comparable only when Claude and Codex independently clear its floor at a matched horizon. No automated superiority ranking or provider-specific confidence haircut is produced.",
+      "forecast_calibration": {
+        "comparison_ready": false,
+        "claude": {
+          "status": "insufficient",
+          "n": 0,
+          "brier": null,
+          "hit_rate": null
+        },
+        "codex": {
+          "status": "insufficient",
+          "n": 0,
+          "brier": null,
+          "hit_rate": null
+        }
+      },
+      "directional_hit_rate": {
+        "comparison_ready": false,
+        "claude": {
+          "status": "insufficient",
+          "n": 0,
+          "brier": null,
+          "hit_rate": null
+        },
+        "codex": {
+          "status": "insufficient",
+          "n": 0,
+          "brier": null,
+          "hit_rate": null
+        }
+      },
+      "matched_basket_horizons_ready": [],
+      "excluded_from_recorded_head_to_head": [
+        "unknown_legacy"
+      ],
+      "ranking": null,
+      "reason": "Claude and Codex have not both independently cleared any applicable metric floor; provider ranking and provider-specific confidence haircuts are refused."
+    },
+    "operational_aggregate_label": "Global production-system aggregate across all execution cohorts. It preserves historical continuity but cannot establish that Claude or Codex is calibrated or better.",
+    "verdict": "Insufficient resolved history — 0 of 10 resolved checks needed before a track record means anything. 84 proof points are scheduled across 8 ideas; the record fills in as they hit their dates. (Refusing to quote a hit-rate or Brier on thin data, §11.)",
+    "legacy_provider_sensitivity": {
+      "legacy_inferred_claude": 0,
+      "unknown_legacy": 10,
+      "policy": "legacy_inferred_claude requires a separately verified pre_rollout_cockpit_history proof. Age or missing provenance alone remains unknown_legacy. Both cohorts are sensitivity-only and excluded from recorded Claude-versus-Codex comparisons."
+    },
+    "n_discards": 0,
+    "n_restored": 0
+  }
+}
