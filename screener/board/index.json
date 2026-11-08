@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-08T01:49:05Z",
+  "generated_at": "2026-11-08T01:58:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20261108-034",
@@ -42,6 +42,56 @@
         {
           "name": "Alphabet",
           "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-037",
+      "headline": "Berkshire ramps up buybacks under new CEO Greg Abel as Q3 operating profit falls 6%",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/berkshire-ramps-buybacks-under-new-ceo-greg-abel-q3-operating-profit-falls-6",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T01:53:39Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "Berkshire Hathaway reported a 6% decline in Q3 operating profit while increasing share buybacks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Berkshire Hathaway reported a 6% decline in Q3 operating profit while increasing share buybacks.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Berkshire Hathaway",
+          "ticker": "BRK.B",
           "listing_country": "US"
         }
       ],
@@ -1523,6 +1573,47 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-038",
+      "headline": "What the Democratic sweep means for Trump's tariffs and AI",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/video/what-the-democratic-sweep-means-for-trump-s-tariffs-and-ai",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T01:57:30Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "not material",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 42,
+      "triage_reason": "not material",
+      "region": "JP",
+      "relevance": "irrelevant",
+      "materiality_pre_score": 35,
+      "rank_factors": {
+        "materiality": 35,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -268083,7 +268174,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4601,
+    "inbox_unconsumed": 4603,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -268092,9 +268183,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 164,
-    "news_picked_today": 36,
-    "news_dropped_today": 128
+    "news_seen_today": 171,
+    "news_picked_today": 38,
+    "news_dropped_today": 133
   },
   "book_momentum": {
     "live_count": 8,
