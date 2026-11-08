@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-08T22:20:39Z",
+  "generated_at": "2026-11-08T22:24:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20261108-273",
@@ -40,6 +40,60 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-331",
+      "headline": "GMG: Acquisition of a 9.9% interest in NEXTDC [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GMG?key=2924-03159407-2A1709388",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-08T22:17:41Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "Goodman Group is acquiring a 9.9% stake in NEXTDC, a significant strategic investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Goodman Group is acquiring a 9.9% stake in NEXTDC, a significant strategic investment.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Goodman Group",
+          "ticker": "GMG",
+          "listing_country": "AU"
+        },
+        {
+          "name": "NEXTDC",
+          "ticker": "NXT",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1919,55 +1973,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-165",
-      "headline": "Abu Dhabi court rules BR Shetty, ex-CEO liable in $5.4 billion NMC Health case",
-      "headline_en": null,
-      "url": "https://www.khaleejtimes.com/business/abu-dhabi-court-rules-br-shetty-ex-ceo-liable-in-54-billion-nmc-health-case",
-      "source_name": "Khaleej Times — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T08:21:21Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "An Abu Dhabi court ruled the former CEO of NMC Health liable in a $5.4 billion fraud case.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "An Abu Dhabi court ruled the former CEO of NMC Health liable in a $5.4 billion fraud case.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NMC Health",
-          "ticker": null,
-          "listing_country": "AE"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -269860,9 +269865,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4894,
-    "news_picked_today": 761,
-    "news_dropped_today": 3268
+    "news_seen_today": 4922,
+    "news_picked_today": 773,
+    "news_dropped_today": 3284
   },
   "book_momentum": {
     "live_count": 8,
