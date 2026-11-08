@@ -1820,12 +1820,17 @@ def test_manifest_schema_contract_is_generic_and_fails_closed():
         missing_declaration = "\n".join(line for line in base.splitlines()
                                         if not line.startswith(("publication_schemas:", "  - run:"))) + "\n"
         malformed_inline = missing_declaration.replace("schemas_root: frameworks/future", "schemas_root: frameworks/future\npublication_schemas: [")
+        mixed_declaration = missing_declaration.replace(
+            "schemas_root: frameworks/future",
+            "schemas_root: frameworks/future\npublication_schemas: [] # inline declaration\n  - run:verdict.json=verdict.schema.json",
+        )
         duplicate_key = base[:-4] + "publication_schemas: []\n---\n"
         for label, body in [
             ("traversal", base.replace("schemas_root: frameworks/future", "schemas_root: frameworks/../future")),
             ("missing schema", base.replace("=verdict.schema.json", "=missing.schema.json")),
             ("missing declaration", missing_declaration),
             ("malformed inline declaration", malformed_inline),
+            ("mixed inline/block declaration", mixed_declaration),
             ("duplicate frontmatter key", duplicate_key),
             ("duplicate mapping", base.replace("---\n", "---\n", 1).replace("  - run:review", "  - run:verdict.json=verdict.schema.json\n  - run:review")),
         ]:

@@ -1578,7 +1578,8 @@ try {
           + 'import pathlib, subprocess, sys\n'
           + (race === 'discovery-latest-review'
             ? `if "--schema-contract" in sys.argv and not pathlib.Path(${JSON.stringify(target)}).exists():\n    ${mutation}\n` : '')
-          + `result = subprocess.run([${JSON.stringify(realPython)}, *sys.argv[1:]], input=sys.stdin.buffer.read(), capture_output=True)\n`
+          + 'incoming = sys.stdin.buffer.read() if "--schema-records" in sys.argv else b""\n'
+          + `result = subprocess.run([${JSON.stringify(realPython)}, *sys.argv[1:]], input=incoming, capture_output=True)\n`
           + (race !== 'discovery-latest-review'
             ? `if result.returncode == 0 and "--schema-records" in sys.argv:\n    ${mutation}\n` : '')
           + 'sys.stdout.buffer.write(result.stdout)\nsys.stderr.buffer.write(result.stderr)\nsys.exit(result.returncode)\n',

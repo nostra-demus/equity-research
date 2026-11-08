@@ -17,6 +17,7 @@ from execution_provenance import (  # noqa: E402
     append_attempt,
     audit_repository,
     discover_artifacts,
+    discover_swarm_contracts,
     project,
     prior_projections,
     read_manifest,
@@ -41,6 +42,40 @@ def attempt(attempt_id: str, provider: str, model: str, reasoning: str, **extra)
 
 
 class ExecutionProvenanceTest(unittest.TestCase):
+    def test_swarm_comments_preserve_inline_lists_and_quoted_hashes(self):
+        cache = Path(__file__).resolve().parents[1] / ".cache/publication-schema-tests"
+        cache.mkdir(parents=True, exist_ok=True)
+        with tempfile.TemporaryDirectory(prefix="manifest-comments-", dir=cache) as temporary:
+            root = Path(temporary)
+            manifest = root / ".claude/agents/future/SWARM.md"
+            manifest.parent.mkdir(parents=True)
+            manifest.write_text('''---
+id: future # canonical identity
+label: "Issuer # channel" # display comment
+note: 'Literal # value' # another comment
+bare_note: isn't quoted # outside comment
+run_root_template: future/runs/{SIG_ID}
+decision_artifacts: [decision_record.json] # default
+publication_schemas: ["run:quoted # artifact.json=verdict.schema.json"] # contract comment
+block_values:
+  - "value # retained" # block item comment
+---
+''')
+            contract, = discover_swarm_contracts(root)
+            self.assertEqual(contract["manifest"], ".claude/agents/future/SWARM.md")
+            self.assertEqual(contract["decision_artifacts"], ["decision_record.json"])
+            self.assertEqual(contract["publication_schemas"], ["run:quoted # artifact.json=verdict.schema.json"])
+            self.assertEqual(contract["label"], "Issuer # channel")
+            self.assertEqual(contract["note"], "Literal # value")
+            self.assertEqual(contract["bare_note"], "isn't quoted")
+            self.assertEqual(contract["block_values"], ["value # retained"])
+            for malformed in ("publication_schemas: [ # no closing bracket",
+                              "publication_schemas: [] # first declaration\npublication_schemas: [] # duplicate",
+                              "publication_schemas: [] # inline opt-out\n  # child comment\n# outer comment\n  - run:signal_payload.json=signal_payload.schema.json"):
+                manifest.write_text("---\nid: future\nrun_root_template: future/runs/{SIG_ID}\n" + malformed + "\n---\n")
+                with self.assertRaises(ProvenanceError):
+                    discover_swarm_contracts(root)
+
     def test_single_provider_projection_and_stamp(self):
         rows = [
             attempt("a1", "codex", "gpt-5.6-terra", "xhigh", profile_key="codex-profile"),

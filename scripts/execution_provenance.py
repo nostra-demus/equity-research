@@ -425,6 +425,29 @@ def discover_swarm_contracts(repo: Path) -> tuple[dict[str, Any], ...]:
             return text[1:-1]
         return text
 
+    def without_comment(value: str) -> str:
+        """Strip YAML trailing comments while preserving quoted hashes and escaped quotes."""
+        quote: str | None = None
+        index = 0
+        while index < len(value):
+            character = value[index]
+            if quote is not None:
+                if quote == '"' and character == "\\":
+                    index += 2
+                    continue
+                if character == quote:
+                    if quote == "'" and value[index:index + 2] == "''":
+                        index += 2
+                        continue
+                    quote = None
+            elif character in {"'", '"'} and (index == 0 or value[index - 1].isspace()
+                                               or value[index - 1] in "[,:"):
+                quote = character
+            elif character == "#" and (index == 0 or value[index - 1].isspace()):
+                return value[:index].rstrip()
+            index += 1
+        return value.rstrip()
+
     def frontmatter(text: str, label: Path) -> dict[str, Any]:
         sections = text.split("---", 2)
         if len(sections) < 3:
@@ -439,7 +462,7 @@ def discover_swarm_contracts(repo: Path) -> tuple[dict[str, Any], ...]:
                 index += 1
                 continue
             key, raw = line.split(":", 1)
-            key, raw = key.strip(), raw.strip()
+            key, raw = key.strip(), without_comment(raw).strip()
             if key in seen_keys:
                 raise ProvenanceError(f"swarm manifest has duplicate frontmatter key {key!r}: {label}")
             seen_keys.add(key)
@@ -461,15 +484,29 @@ def discover_swarm_contracts(repo: Path) -> tuple[dict[str, Any], ...]:
                             raise ProvenanceError(f"swarm manifest has malformed inline list {key!r}: {label}")
                         parsed = items
                 values[key] = parsed
+                if key == "publication_schemas":
+                    # An inline declaration is complete. Silently ignoring a following block row
+                    # could turn a malformed intended schema contract into an explicit [] delegation.
+                    cursor = index + 1
+                    while cursor < len(lines):
+                        following = lines[cursor]
+                        if not without_comment(following).strip():
+                            cursor += 1
+                            continue
+                        if following[0].isspace():
+                            raise ProvenanceError(
+                                f"swarm manifest has mixed inline/block publication_schemas: {label}"
+                            )
+                        break
             elif raw:
-                values[key] = scalar(raw.split(" #", 1)[0])
+                values[key] = scalar(raw)
             else:
                 items: list[str] = []
                 cursor = index + 1
                 while cursor < len(lines) and (not lines[cursor] or lines[cursor][0].isspace()):
                     stripped = lines[cursor].strip()
                     if stripped.startswith("-"):
-                        items.append(scalar(stripped[1:].strip().split(" #", 1)[0]))
+                        items.append(scalar(without_comment(stripped[1:]).strip()))
                     cursor += 1
                 if items:
                     values[key] = items
@@ -480,7 +517,7 @@ def discover_swarm_contracts(repo: Path) -> tuple[dict[str, Any], ...]:
     for manifest in manifests:
         label = manifest.relative_to(repo)
         try:
-            data = frontmatter(read_program_bytes(repo, str(label)).decode("utf-8"), label)
+            data = frontmatter(read_program_bytes(repo, label.as_posix()).decode("utf-8"), label)
         except UnicodeError as error:
             raise ProvenanceError(f"swarm manifest is not UTF-8: {label}") from error
         swarm_id = data.get("id") or manifest.parent.name
@@ -514,7 +551,7 @@ def discover_swarm_contracts(repo: Path) -> tuple[dict[str, Any], ...]:
         contracts.append({**data, "id": swarm_id, "run_root_template": template,
                           "runs_root": runs_root, "placeholder": placeholder,
                           "run_glob": template.replace(marker, "*"),
-                          "decision_artifacts": artifacts, "manifest": str(label)})
+                          "decision_artifacts": artifacts, "manifest": label.as_posix()})
     return tuple(contracts)
 
 

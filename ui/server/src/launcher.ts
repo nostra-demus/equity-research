@@ -7242,7 +7242,7 @@ async function assertFreshSwarmSchemasPublishable(run: RunState, ledger: SignalL
       assertRegularArtifact(absolute, 'schema-validated publication source')
       return { path: item.path, sha256: fileSha256(absolute) }
     })
-    if (!isDeepStrictEqual(fresh, selected.map(({ path: relative, sha256 }) => ({ path: relative, sha256 })))) {
+    if (!isDeepStrictEqual(fresh, selected.map((item) => ({ path: item.path, sha256: item.sha256 })))) {
       throw new Error('fresh schema-bearing publication artifacts changed before mutation')
     }
     for (const source of ledger?.sources ?? []) {
