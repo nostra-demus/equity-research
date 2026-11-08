@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-08T02:09:01Z",
+  "generated_at": "2026-11-08T02:13:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20261108-034",
@@ -627,6 +627,50 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-048",
+      "headline": "Sweet trouble this Diwali: Rs 82 crore worth of food, 1,185 licences come under FSSAI scanner",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/cons-products/food/sweet-trouble-this-diwali-rs-82-crore-worth-of-food-1185-licences-come-under-fssai-scanner/articleshow/135649427.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T01:55:02Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "FSSAI is investigating food safety violations involving Rs 82 crore worth of products, impacting the broader Indian food and beverage sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "FSSAI is investigating food safety violations involving Rs 82 crore worth of products, impacting the broader Indian food and beverage sector.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1818,55 +1862,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-015",
-      "headline": "Elektros, Inc. (OTC:ELEK) Celebrates Moishe Mana's $1.1 Billion Wynwood Milestone - a Landmark Moment for Miami | ELEK Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/ELEK/elektros-inc-otc-elek-celebrates-moishe-mana-s-1-1-billion-wynwood-6166t90uda49.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-11-08T00:47:00Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "Elektros, Inc. is associating itself with a $1.1 billion real estate development milestone in Miami.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 44,
-      "triage_reason": "Elektros, Inc. is associating itself with a $1.1 billion real estate development milestone in Miami.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Elektros, Inc.",
-          "ticker": "ELEK",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -225611,77 +225606,6 @@
   "handoffs": [],
   "ideas": [
     {
-      "idea_id": "IDEA-134411564950",
-      "idea_version": "IDEAV-332275a26d1a6278",
-      "idea_version_started_at": "2026-11-06T19:23:03Z",
-      "ticker": "MRNA",
-      "company": "Moderna",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Moderna reported a Q3 profit and raised its annual revenue growth outlook, signaling better-than-expected commercial execution.",
-      "why_now": "The company issued its updated financial guidance and Q3 results on 2026-11-06.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 72,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-78eaaba253f3",
-        "EVT-92772249e1ac"
-      ],
-      "primary_source_event_id": "EVT-78eaaba253f3",
-      "source_headlines": [
-        "Moderna raises its revenue outlook — but all eyes are on what happens next with its experimental cancer vaccine",
-        "Moderna Turns To Q3 Profit, Revenue Rises 29%; Raises Annual Revenue Growth Outlook"
-      ],
-      "source_headline": "Moderna raises its revenue outlook — but all eyes are on what happens next with its experimental cancer vaccine",
-      "source_url": "https://www.marketwatch.com/story/modernas-stock-jumps-after-biotech-raises-sales-outlook-65363127?mod=mw_rss_topstories",
-      "source_name": "MarketWatch",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-06T14:10:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-06T19:23:03Z",
-      "updated_at": "2026-11-06T19:23:03Z",
-      "decay_at": "2026-11-08T02:10:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-0699ba072163",
       "idea_version": "IDEAV-1b3e2a030f571011",
       "idea_version_started_at": "2026-11-07T23:54:55Z",
@@ -227959,6 +227883,77 @@
       "surfaced_at": "2026-11-02T23:10:25Z",
       "updated_at": "2026-11-05T15:35:08Z",
       "decay_at": "2026-11-07T01:41:58Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-134411564950",
+      "idea_version": "IDEAV-332275a26d1a6278",
+      "idea_version_started_at": "2026-11-06T19:23:03Z",
+      "ticker": "MRNA",
+      "company": "Moderna",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Moderna reported a Q3 profit and raised its annual revenue growth outlook, signaling better-than-expected commercial execution.",
+      "why_now": "The company issued its updated financial guidance and Q3 results on 2026-11-06.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 72,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-78eaaba253f3",
+        "EVT-92772249e1ac"
+      ],
+      "primary_source_event_id": "EVT-78eaaba253f3",
+      "source_headlines": [
+        "Moderna raises its revenue outlook — but all eyes are on what happens next with its experimental cancer vaccine",
+        "Moderna Turns To Q3 Profit, Revenue Rises 29%; Raises Annual Revenue Growth Outlook"
+      ],
+      "source_headline": "Moderna raises its revenue outlook — but all eyes are on what happens next with its experimental cancer vaccine",
+      "source_url": "https://www.marketwatch.com/story/modernas-stock-jumps-after-biotech-raises-sales-outlook-65363127?mod=mw_rss_topstories",
+      "source_name": "MarketWatch",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-06T14:10:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-06T19:23:03Z",
+      "updated_at": "2026-11-06T19:23:03Z",
+      "decay_at": "2026-11-08T02:10:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -231179,14 +231174,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 546,
+    "total_count": 547,
     "shown_count": 499,
-    "hidden_count": 47,
+    "hidden_count": 48,
     "side_counts": {
       "long": {
-        "total_count": 274,
+        "total_count": 275,
         "shown_count": 250,
-        "hidden_count": 24
+        "hidden_count": 25
       },
       "short": {
         "total_count": 273,
@@ -231210,6 +231205,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-134411564950",
+        "idea_version": "IDEAV-332275a26d1a6278",
+        "idea_version_started_at": "2026-11-06T19:23:03Z",
+        "ticker": "MRNA",
+        "company": "Moderna",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Moderna reported a Q3 profit and raised its annual revenue growth outlook, signaling better-than-expected commercial execution.",
+        "why_now": "The company issued its updated financial guidance and Q3 results on 2026-11-06.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 72,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 7,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-78eaaba253f3",
+          "EVT-92772249e1ac"
+        ],
+        "primary_source_event_id": "EVT-78eaaba253f3",
+        "source_headlines": [
+          "Moderna raises its revenue outlook — but all eyes are on what happens next with its experimental cancer vaccine",
+          "Moderna Turns To Q3 Profit, Revenue Rises 29%; Raises Annual Revenue Growth Outlook"
+        ],
+        "source_headline": "Moderna raises its revenue outlook — but all eyes are on what happens next with its experimental cancer vaccine",
+        "source_url": "https://www.marketwatch.com/story/modernas-stock-jumps-after-biotech-raises-sales-outlook-65363127?mod=mw_rss_topstories",
+        "source_name": "MarketWatch",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-06T14:10:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-06T19:23:03Z",
+        "updated_at": "2026-11-06T19:23:03Z",
+        "decay_at": "2026-11-08T02:10:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-08T02:10:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-4a06f8ed4686",
         "idea_version": "IDEAV-01354d69d0928dbb",
@@ -260472,81 +260541,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-3828821b5170",
-        "idea_version": "IDEAV-cb8ba3fd1059d701",
-        "idea_version_started_at": "2026-10-24T00:28:47Z",
-        "ticker": "OFSS",
-        "company": "Oracle Financial Services Software",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company reported a 29% increase in net profit and 7% revenue growth for Q2, signaling strong demand for its banking software solutions.",
-        "why_now": "The earnings results were released on 2026-10-23.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-0eafa1ab61d6"
-        ],
-        "primary_source_event_id": "EVT-0eafa1ab61d6",
-        "source_headlines": [
-          "Oracle Financial Services Software Q2 net profit rises 29% to ₹702 crore, revenue up 7%"
-        ],
-        "source_headline": "Oracle Financial Services Software Q2 net profit rises 29% to ₹702 crore, revenue up 7%",
-        "source_url": "https://www.cnbctv18.com/business/companies/oracle-financial-services-software-q2-net-profit-rises-29pc-to-rs702-crore-revenue-up-7pc-20018361.htm",
-        "source_name": "CNBC-TV18",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-23T15:57:53Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-24T00:28:47Z",
-        "updated_at": "2026-10-24T00:28:47Z",
-        "decay_at": "2026-10-25T03:57:53Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-26T17:25:46Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-4f148c222ff7",
         "idea_version": "IDEAV-aaecc0073d363567",
         "idea_version_started_at": "2026-10-23T20:01:12Z",
@@ -268374,7 +268368,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2259,
-    "live_count": 32,
+    "live_count": 31,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -268393,9 +268387,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 194,
-    "news_picked_today": 47,
-    "news_dropped_today": 147
+    "news_seen_today": 204,
+    "news_picked_today": 48,
+    "news_dropped_today": 156
   },
   "book_momentum": {
     "live_count": 8,
