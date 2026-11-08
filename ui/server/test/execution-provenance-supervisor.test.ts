@@ -7,6 +7,7 @@ import os from 'node:os'
 import path from 'node:path'
 import { isDeepStrictEqual } from 'node:util'
 import { fileURLToPath } from 'node:url'
+import { gzipSync } from 'node:zlib'
 import { REPO_ROOT, STATE_DIR } from '../src/config'
 import {
   EXECUTION_PROVENANCE_RECEIPT as EXECUTION_RECEIPT_NAME, artifactIsFresh, beginExecutionAttempt, canonicalManifestPath, executionEpochAttemptCount,
@@ -150,8 +151,39 @@ async function isolatedSchemaAcceptance(): Promise<void> {
     child.once('error', reject)
     child.once('exit', resolve)
   })
+  const reportPath = path.join(fixtureRoot, '.cache', 'acceptance.json')
+  let report: any
+  if (fs.existsSync(reportPath)) {
+    const bytes = fs.readFileSync(reportPath)
+    const compressed = gzipSync(bytes, { level: 9 })
+    // Keep CI evidence bounded, lossless and recoverable even after a partial child failure. The report
+    // contains synthetic case metadata/hashes and helper verdicts, never credentials or environment dumps.
+    assert.ok(bytes.length <= 16 * 1024 * 1024 && compressed.length <= 256 * 1024,
+      `acceptance export exceeds its explicit size limit; full local report retained at ${reportPath}`)
+    try { report = JSON.parse(bytes.toString('utf8')) } catch { /* export exact partial bytes before failing below */ }
+    const digest = `sha256:${createHash('sha256').update(bytes).digest('hex')}`
+    const encoded = compressed.toString('base64')
+    const chunks = encoded.match(/.{1,8192}/g)!
+    const metadata = {
+      encoding: 'gzip+base64', sha256: digest, uncompressed_bytes: bytes.length,
+      gzip_bytes: compressed.length, chunks: chunks.length, source_revision: source.stdout.trim(),
+      test_source_sha256: report?.test_source?.sha256, complete: report?.complete === true,
+      json_valid: report !== undefined,
+    }
+    const envelope = [
+      `PUBLICATION_SCHEMA_ACCEPTANCE_EXPORT_BEGIN ${JSON.stringify(metadata)}`,
+      ...chunks.map((chunk, index) => `PUBLICATION_SCHEMA_ACCEPTANCE_EXPORT_CHUNK ${index + 1}/${chunks.length} ${chunk}`),
+      `PUBLICATION_SCHEMA_ACCEPTANCE_EXPORT_END ${JSON.stringify({ sha256: digest, chunks: chunks.length })}`,
+      '',
+    ].join('\n')
+    // Await the write: focused mode exits immediately after this function, and console buffering could
+    // otherwise truncate a large evidence envelope when stdout is a CI pipe.
+    await new Promise<void>((resolve, reject) => process.stdout.write(envelope, error => error ? reject(error) : resolve()))
+  } else {
+    console.log(`PUBLICATION_SCHEMA_ACCEPTANCE_EXPORT_MISSING ${JSON.stringify({ source_revision: source.stdout.trim(), child_status: status })}`)
+  }
   assert.equal(status, 0, `isolated schema acceptance failed; retained fixture: ${fixtureRoot}`)
-  const report = JSON.parse(fs.readFileSync(path.join(fixtureRoot, '.cache', 'acceptance.json'), 'utf8'))
+  assert.ok(report, `acceptance report is missing or invalid; retained fixture: ${fixtureRoot}`)
   assert.equal(report.complete, true)
   assert.equal(report.cases.length, 48, 'the shared 24-case matrix runs for both simulated providers')
   console.log(`PASS: isolated schema acceptance (48 provider cases); report=${fixtureRoot}/.cache/acceptance.json`)
