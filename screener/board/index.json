@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-08T21:46:23Z",
+  "generated_at": "2026-11-08T21:50:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20261108-273",
@@ -40,6 +40,55 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-303",
+      "headline": "SXE: Completion of Entire acquisition [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SXE?key=2924-03159266-6A1354035",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-08T21:21:46Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "Southern Cross Electrical Engineering completed an acquisition, which is a material event for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Southern Cross Electrical Engineering completed an acquisition, which is a material event for the company.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Southern Cross Electrical Engineering",
+          "ticker": "SXE",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1913,55 +1962,6 @@
       "companies": [
         {
           "name": "Tata Steel",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-125",
-      "headline": "Adani Enterprises plans ₹40,000 cr annual capex over two years",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/adani-enterprises-plans-35000-40000-cr-annual-capex-in-next-two-years/article71680572.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T06:06:08Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "Adani Enterprises announced a significant capex plan of 40,000 crore INR annually for two years.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Adani Enterprises announced a significant capex plan of 40,000 crore INR annually for two years.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Adani Enterprises",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -269855,9 +269855,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4731,
-    "news_picked_today": 705,
-    "news_dropped_today": 3161
+    "news_seen_today": 4765,
+    "news_picked_today": 717,
+    "news_dropped_today": 3183
   },
   "book_momentum": {
     "live_count": 8,
