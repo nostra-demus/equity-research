@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-08T05:08:38Z",
+  "generated_at": "2026-11-08T05:13:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20261108-085",
@@ -767,6 +767,47 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-095",
+      "headline": "Drone attack on Colombian army base kills three soldiers and wounds 16",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/2026/11/8/drone-attack-on-colombian-army-base-kills-three-soldiers-and-wounds-16?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-11-08T04:56:37Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "Drone attack on Colombian army base kills three soldiers and wounds 16 — a military escalation with direct human casualties. Even though no listed company is named, this is a clear conflict escalation that moves markets and risk sentiment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Drone attack on Colombian army base kills three soldiers and wounds 16 — a military escalation with direct human casualties. Even though no listed company is named, this is a clear conflict escalation that moves markets and risk sentiment.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": -2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "unknown",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [],
+      "issuer_linkage": "secondary",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1867,55 +1908,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-005",
-      "headline": "Energy Transfer Just Raised Its Distribution for the 20th Straight Quarter. Here's How Much $10,000 Invested Pays Annually.",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/11/07/energy-transfer-just-raised-its-distribution-for-t/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "Energy Transfer continues its track record of dividend growth, signaling financial stability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "Energy Transfer continues its track record of dividend growth, signaling financial stability.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Energy Transfer",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -226011,76 +226003,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-65f4ff924ce7",
-      "idea_version": "IDEAV-7d629aea956b968b",
-      "idea_version_started_at": "2026-11-06T20:30:17Z",
-      "ticker": "BAM",
-      "company": "Brookfield Asset Management",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported strong Q3 2026 results with $25 billion in fundraising and $864 million in fee-related earnings, demonstrating sustained growth in assets under management.",
-      "why_now": "Results were reported on 2026-11-06.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d462f40fb2b2"
-      ],
-      "primary_source_event_id": "EVT-d462f40fb2b2",
-      "source_headlines": [
-        "Brookfield Asset Management Ltd. Reports Third Quarter 2026 Results with $25 Billion Fundraised and $864 Million in Fee-Related Earnings"
-      ],
-      "source_headline": "Brookfield Asset Management Ltd. Reports Third Quarter 2026 Results with $25 Billion Fundraised and $864 Million in Fee-Related Earnings",
-      "source_url": "https://www.nasdaq.com/articles/brookfield-asset-management-ltd-reports-third-quarter-2026-results-25-billion-fundraised",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-06T17:11:39Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-06T20:30:17Z",
-      "updated_at": "2026-11-06T20:30:17Z",
-      "decay_at": "2026-11-08T05:11:39Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-e98e326677b2",
       "idea_version": "IDEAV-abb05ac154a632b8",
       "idea_version_started_at": "2026-11-07T11:59:19Z",
@@ -228441,6 +228363,76 @@
       "surfaced_at": "2026-11-03T21:03:27Z",
       "updated_at": "2026-11-05T20:09:05Z",
       "decay_at": "2026-11-07T04:09:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-65f4ff924ce7",
+      "idea_version": "IDEAV-7d629aea956b968b",
+      "idea_version_started_at": "2026-11-06T20:30:17Z",
+      "ticker": "BAM",
+      "company": "Brookfield Asset Management",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported strong Q3 2026 results with $25 billion in fundraising and $864 million in fee-related earnings, demonstrating sustained growth in assets under management.",
+      "why_now": "Results were reported on 2026-11-06.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d462f40fb2b2"
+      ],
+      "primary_source_event_id": "EVT-d462f40fb2b2",
+      "source_headlines": [
+        "Brookfield Asset Management Ltd. Reports Third Quarter 2026 Results with $25 Billion Fundraised and $864 Million in Fee-Related Earnings"
+      ],
+      "source_headline": "Brookfield Asset Management Ltd. Reports Third Quarter 2026 Results with $25 Billion Fundraised and $864 Million in Fee-Related Earnings",
+      "source_url": "https://www.nasdaq.com/articles/brookfield-asset-management-ltd-reports-third-quarter-2026-results-25-billion-fundraised",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-06T17:11:39Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-06T20:30:17Z",
+      "updated_at": "2026-11-06T20:30:17Z",
+      "decay_at": "2026-11-08T05:11:39Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -231806,14 +231798,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 550,
+    "total_count": 551,
     "shown_count": 499,
-    "hidden_count": 51,
+    "hidden_count": 52,
     "side_counts": {
       "long": {
-        "total_count": 278,
+        "total_count": 279,
         "shown_count": 250,
-        "hidden_count": 28
+        "hidden_count": 29
       },
       "short": {
         "total_count": 273,
@@ -231837,6 +231829,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-65f4ff924ce7",
+        "idea_version": "IDEAV-7d629aea956b968b",
+        "idea_version_started_at": "2026-11-06T20:30:17Z",
+        "ticker": "BAM",
+        "company": "Brookfield Asset Management",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company reported strong Q3 2026 results with $25 billion in fundraising and $864 million in fee-related earnings, demonstrating sustained growth in assets under management.",
+        "why_now": "Results were reported on 2026-11-06.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 67,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-d462f40fb2b2"
+        ],
+        "primary_source_event_id": "EVT-d462f40fb2b2",
+        "source_headlines": [
+          "Brookfield Asset Management Ltd. Reports Third Quarter 2026 Results with $25 Billion Fundraised and $864 Million in Fee-Related Earnings"
+        ],
+        "source_headline": "Brookfield Asset Management Ltd. Reports Third Quarter 2026 Results with $25 Billion Fundraised and $864 Million in Fee-Related Earnings",
+        "source_url": "https://www.nasdaq.com/articles/brookfield-asset-management-ltd-reports-third-quarter-2026-results-25-billion-fundraised",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-06T17:11:39Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-06T20:30:17Z",
+        "updated_at": "2026-11-06T20:30:17Z",
+        "decay_at": "2026-11-08T05:11:39Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-08T05:11:39Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-04ff478f1d78",
         "idea_version": "IDEAV-b3c870deee36cfb6",
@@ -260649,81 +260714,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-71b9d8d7d868",
-        "idea_version": "IDEAV-b359861aeac48342",
-        "idea_version_started_at": "2026-10-24T09:25:22Z",
-        "ticker": "MCG",
-        "company": "Mobico Group",
-        "exchange": "LSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company is in active takeover talks for a £282m deal, which typically provides a floor and potential premium for shareholders.",
-        "why_now": "The news of the takeover talks emerged on 2026-10-24.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-12e4c0a9e4ef"
-        ],
-        "primary_source_event_id": "EVT-12e4c0a9e4ef",
-        "source_headlines": [
-          "National Express owner in talks over £282m takeover deal"
-        ],
-        "source_headline": "National Express owner in talks over £282m takeover deal",
-        "source_url": "https://www.independent.co.uk/news/business/national-express-coach-takeover-mobico-shares-adl-b3072615.html",
-        "source_name": "The Independent — Business",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-24T08:32:16Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-24T09:25:22Z",
-        "updated_at": "2026-10-24T09:25:22Z",
-        "decay_at": "2026-10-25T20:32:16Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-27T11:08:11Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-1a14a4d0e043",
         "idea_version": "IDEAV-67adc80b1f029a5c",
         "idea_version_started_at": "2026-10-24T08:09:01Z",
@@ -268997,7 +268987,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2269,
-    "live_count": 36,
+    "live_count": 35,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -269016,9 +269006,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 518,
-    "news_picked_today": 111,
-    "news_dropped_today": 407
+    "news_seen_today": 522,
+    "news_picked_today": 112,
+    "news_dropped_today": 410
   },
   "book_momentum": {
     "live_count": 8,
