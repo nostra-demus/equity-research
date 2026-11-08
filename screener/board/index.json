@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-08T10:33:25Z",
+  "generated_at": "2026-11-08T10:43:21Z",
   "inbox": [
     {
       "inbox_id": "INB-20261108-206",
@@ -1423,6 +1423,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261108-232",
+      "headline": "Divi's Labs shares jump 8% to fresh 52-week high after Q2 profit soars 64% YoY. What brokerages say after bumper results?",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/divis-labs-shares-jump-8-to-fresh-52-week-high-after-q2-profit-soars-64-yoy-what-brokerages-say-after-bumper-results/articleshow/135656659.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T10:13:24Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "Divi's Labs reported a 64% YoY profit increase, driving an 8% share price move.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Divi's Labs reported a 64% YoY profit increase, driving an 8% share price move.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Divi's Laboratories",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261108-193",
       "headline": "Saudi Aramco building in Riyadh damaged by falling debris in attempted attack, ministry says",
       "headline_en": null,
@@ -1917,56 +1966,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-025",
-      "headline": "China recruited Singapore-based executive to spy on Nvidia CEO Jensen Huang: US intelligence",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/telcos-media-tech/china-recruited-singapore-based-executive-spy-nvidia-ceo-jensen-huang-us-intelligence",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T01:20:03Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "Allegations of industrial espionage targeting a key executive at Nvidia represent a significant operational and security risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Allegations of industrial espionage targeting a key executive at Nvidia represent a significant operational and security risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -269709,9 +269708,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1344,
-    "news_picked_today": 318,
-    "news_dropped_today": 1026
+    "news_seen_today": 1375,
+    "news_picked_today": 322,
+    "news_dropped_today": 1053
   },
   "book_momentum": {
     "live_count": 8,
