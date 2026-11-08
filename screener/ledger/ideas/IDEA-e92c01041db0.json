@@ -1,0 +1,78 @@
+{
+  "idea_id": "IDEA-e92c01041db0",
+  "idea_version": "IDEAV-d1c23f58c02c8f96",
+  "idea_version_started_at": "2026-11-08T04:38:46Z",
+  "ticker": "2222",
+  "company": "Saudi Aramco",
+  "exchange": "TADAWUL",
+  "ticker_verified": false,
+  "listing_verified": false,
+  "liquidity_verified": false,
+  "listing_verification_source": null,
+  "direction": "short",
+  "pair_with": null,
+  "reason": "Escalating regional conflict involving mine attacks on tankers and Houthi strikes targeting Aramco infrastructure directly threatens production and export security.",
+  "why_now": "Multiple reports on November 8, 2026, confirm active kinetic attacks on oil tankers and infrastructure in the Strait of Hormuz.",
+  "conviction": 60,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 45,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 23,
+    "specificity": 7,
+    "timing": 10,
+    "expression": 0,
+    "corroboration": 10,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "watch_only",
+  "missing_checks": [
+    "verified listed ticker",
+    "verified listing",
+    "live liquidity",
+    "dated catalyst",
+    "price and market expectations",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "unknown",
+  "thesis_type": "macro_conditional",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-d3b8ac1bddd4",
+    "EVT-0666f08b9c26",
+    "EVT-53a5afea211b"
+  ],
+  "primary_source_event_id": "EVT-d3b8ac1bddd4",
+  "source_headlines": [
+    "Gulf On Edge: Blasts Hit Iran's Hormuz Coast, US Disables Cargo Ship As Houthis Target Aramco",
+    "Iran Strait Of Hormuz Tensions Escalate As Explosions Rock Qeshm Island, 2 Oil Tankers Reportedly Damaged By Mines",
+    "Pakistan's Hormuz agreement with Iran faces test after LNG tanker attack"
+  ],
+  "source_headline": "Gulf On Edge: Blasts Hit Iran's Hormuz Coast, US Disables Cargo Ship As Houthis Target Aramco",
+  "source_url": "https://www.ndtvprofit.com/world/gulf-on-edge-blasts-hit-irans-hormuz-coast-us-disables-cargo-ship-as-houthis-target-aramco-12298879#publisher=newsstand",
+  "source_name": "NDTV Profit",
+  "materiality_max": 100,
+  "newest_source_at": "2026-11-08T03:47:31Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-11-08T04:38:46Z",
+  "updated_at": "2026-11-08T04:38:46Z",
+  "decay_at": "2026-11-09T15:47:31Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
