@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-08T23:25:00Z",
+  "generated_at": "2026-11-08T23:44:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20261108-273",
@@ -40,6 +40,56 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-344",
+      "headline": "PLA: $50 Million Equity Raise and DFC Financing Term Sheet [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PLA?key=2924-03159534-2A1709489",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-08T23:36:21Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "Platina Resources announced a $50 million equity raise and DFC financing term sheet.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Platina Resources announced a $50 million equity raise and DFC financing term sheet.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions",
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Platina Resources",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -635,6 +685,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-347",
+      "headline": "Shopify just hit its numbers, and that was the problem",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/investing/shopify-just-hit-its-numbers-and-that-was-the-problem",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T23:37:00Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "Shopify reported earnings that failed to satisfy market expectations despite hitting headline numbers, leading to a negative market reaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Shopify reported earnings that failed to satisfy market expectations despite hitting headline numbers, leading to a negative market reaction.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shopify",
+          "ticker": "SHOP",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1872,104 +1971,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-213",
-      "headline": "Limited damage to Aramco facility after attack attempt, no casualties : Saudi Energy Ministry",
-      "headline_en": null,
-      "url": "https://www.gulf-times.com/article/737748/region/limited-damage-to-aramco-facility-after-attack-attempt-no-casualties-saudi-energy-ministry",
-      "source_name": "Gulf Times — Region",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T10:16:00Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "An attack attempt on an Aramco facility represents a significant geopolitical and operational risk to global energy infrastructure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "An attack attempt on an Aramco facility represents a significant geopolitical and operational risk to global energy infrastructure.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Saudi Aramco",
-          "ticker": null,
-          "listing_country": "SA"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-226",
-      "headline": "Tawuniya generates SAR 911.5m net profit in 9M-26 amid 74% growth in Q3",
-      "headline_en": null,
-      "url": "http://english.mubasher.info/news/4698135/Tawuniya-generates-SAR-911-5m-net-profit-in-9M-26-amid-74-growth-in-Q3",
-      "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T10:06:23Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "Tawuniya reported a net profit of SAR 911.5 million for 9M-26 with 74% growth in Q3.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Tawuniya reported a net profit of SAR 911.5 million for 9M-26 with 74% growth in Q3.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tawuniya",
-          "ticker": null,
-          "listing_country": "SA"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -226416,6 +226417,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-c3fce5a7fa01",
+      "idea_version": "IDEAV-1ad56b20f02a4ed6",
+      "idea_version_started_at": "2026-11-08T23:44:25Z",
+      "ticker": "SHOP",
+      "company": "Shopify",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company met earnings expectations but the market reaction suggests underlying concerns regarding growth sustainability or margin quality.",
+      "why_now": "The earnings report was released on 2026-11-08, and the negative price action following the release indicates a potential shift in investor sentiment.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-154d8abe7837"
+      ],
+      "primary_source_event_id": "EVT-154d8abe7837",
+      "source_headlines": [
+        "Shopify just hit its numbers, and that was the problem"
+      ],
+      "source_headline": "Shopify just hit its numbers, and that was the problem",
+      "source_url": "https://www.thestreet.com/investing/shopify-just-hit-its-numbers-and-that-was-the-problem",
+      "source_name": "TheStreet",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-08T23:37:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-08T23:44:25Z",
+      "updated_at": "2026-11-08T23:44:25Z",
+      "decay_at": "2026-11-10T11:37:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-237bc01d6762",
       "idea_version": "IDEAV-9486b680a81e56c0",
       "idea_version_started_at": "2026-11-07T22:29:24Z",
@@ -229007,77 +229079,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-ae81043b31fa",
-      "idea_version": "IDEAV-b429d3b042d9af5d",
-      "idea_version_started_at": "2026-11-07T12:20:59Z",
-      "ticker": "ASTRONPAPER",
-      "company": "Astron Paper & Board Mill Limited",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company has entered the Corporate Insolvency Resolution Process, signaling severe financial distress and potential equity wipeout.",
-      "why_now": "The exchange filing confirming the insolvency process was released today, November 7, 2026.",
-      "conviction": 90,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-45798bbc814d"
-      ],
-      "primary_source_event_id": "EVT-45798bbc814d",
-      "source_headlines": [
-        "Astron Paper & Board Mill Limited: Astron Paper & Board Mill Limited has informed the Exchange about Corporate Insolvency Resolution Process"
-      ],
-      "source_headline": "Astron Paper & Board Mill Limited: Astron Paper & Board Mill Limited has informed the Exchange about Corporate Insolvency Resolution Process",
-      "source_url": "https://nsearchives.nseindia.com/corporate/ASTRON_07112026171147_Intimation_8th_Oct_2026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-07T11:42:12Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-07T12:20:59Z",
-      "updated_at": "2026-11-07T12:20:59Z",
-      "decay_at": "2026-11-08T23:42:12Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-420d3d291fde",
       "idea_version": "IDEAV-7322a6f4b55f97e1",
       "idea_version_started_at": "2026-11-07T14:23:56Z",
@@ -231642,6 +231643,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-ae81043b31fa",
+      "idea_version": "IDEAV-b429d3b042d9af5d",
+      "idea_version_started_at": "2026-11-07T12:20:59Z",
+      "ticker": "ASTRONPAPER",
+      "company": "Astron Paper & Board Mill Limited",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company has entered the Corporate Insolvency Resolution Process, signaling severe financial distress and potential equity wipeout.",
+      "why_now": "The exchange filing confirming the insolvency process was released today, November 7, 2026.",
+      "conviction": 90,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-45798bbc814d"
+      ],
+      "primary_source_event_id": "EVT-45798bbc814d",
+      "source_headlines": [
+        "Astron Paper & Board Mill Limited: Astron Paper & Board Mill Limited has informed the Exchange about Corporate Insolvency Resolution Process"
+      ],
+      "source_headline": "Astron Paper & Board Mill Limited: Astron Paper & Board Mill Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+      "source_url": "https://nsearchives.nseindia.com/corporate/ASTRON_07112026171147_Intimation_8th_Oct_2026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-07T11:42:12Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-07T12:20:59Z",
+      "updated_at": "2026-11-07T12:20:59Z",
+      "decay_at": "2026-11-08T23:42:12Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-083c9caae543",
       "idea_version": "IDEAV-0f0112c7bb3d2895",
       "idea_version_started_at": "2026-11-07T10:18:55Z",
@@ -232505,78 +232577,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-1ab96d880872",
-      "idea_version": "IDEAV-829ba67687d59c43",
-      "idea_version_started_at": "2026-11-06T01:05:02Z",
-      "ticker": "ABB",
-      "company": "ABB",
-      "exchange": "SIX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The collapse of the $5.4 billion acquisition by SoftBank removes the uncertainty and potential integration risks associated with the deal, allowing the company to retain its robotics division.",
-      "why_now": "The deal was officially blocked by Chinese regulators as reported on November 5, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-12d946997b06"
-      ],
-      "primary_source_event_id": "EVT-12d946997b06",
-      "source_headlines": [
-        "China blocks SoftBank's $5.4bn deal for ABB robotics division"
-      ],
-      "source_headline": "China blocks SoftBank's $5.4bn deal for ABB robotics division",
-      "source_url": "https://asia.nikkei.com/business/business-deals/china-blocks-softbank-s-5.4bn-deal-for-abb-robotics-division",
-      "source_name": "Nikkei Asia",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-05T23:36:54Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-06T01:05:02Z",
-      "updated_at": "2026-11-06T01:05:02Z",
-      "decay_at": "2026-11-07T11:36:54Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-58c269708038",
       "idea_version": "IDEAV-582986ff08955984",
       "idea_version_started_at": "2026-11-07T12:54:01Z",
@@ -232882,24 +232882,24 @@
     "hidden_count": 40,
     "side_counts": {
       "long": {
-        "total_count": 276,
+        "total_count": 275,
         "shown_count": 250,
-        "hidden_count": 26
+        "hidden_count": 25
       },
       "short": {
-        "total_count": 264,
+        "total_count": 265,
         "shown_count": 250,
-        "hidden_count": 14
+        "hidden_count": 15
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1703,
+      "evicted_count": 1704,
       "oldest_retained_at": "2026-10-11T17:03:02Z",
       "side_counts": {
         "long": {
-          "evicted_count": 1123,
-          "oldest_retained_at": "2026-10-24T15:08:29Z"
+          "evicted_count": 1124,
+          "oldest_retained_at": "2026-10-24T15:39:17Z"
         },
         "short": {
           "evicted_count": 581,
@@ -232908,6 +232908,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-ae81043b31fa",
+        "idea_version": "IDEAV-b429d3b042d9af5d",
+        "idea_version_started_at": "2026-11-07T12:20:59Z",
+        "ticker": "ASTRONPAPER",
+        "company": "Astron Paper & Board Mill Limited",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company has entered the Corporate Insolvency Resolution Process, signaling severe financial distress and potential equity wipeout.",
+        "why_now": "The exchange filing confirming the insolvency process was released today, November 7, 2026.",
+        "conviction": 90,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-45798bbc814d"
+        ],
+        "primary_source_event_id": "EVT-45798bbc814d",
+        "source_headlines": [
+          "Astron Paper & Board Mill Limited: Astron Paper & Board Mill Limited has informed the Exchange about Corporate Insolvency Resolution Process"
+        ],
+        "source_headline": "Astron Paper & Board Mill Limited: Astron Paper & Board Mill Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+        "source_url": "https://nsearchives.nseindia.com/corporate/ASTRON_07112026171147_Intimation_8th_Oct_2026.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-07T11:42:12Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-07T12:20:59Z",
+        "updated_at": "2026-11-07T12:20:59Z",
+        "decay_at": "2026-11-08T23:42:12Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-08T23:42:12Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-6270ed4f3c1c",
         "idea_version": "IDEAV-49b0da9e940c36fc",
@@ -235876,8 +235950,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-07T11:36:54Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-08T23:44:30Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -269978,86 +270052,11 @@
         "archived_at": "2026-10-15T08:42:04Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-1aeb23b16c7e",
-        "idea_version": "IDEAV-cb2c73fb1a174ba3",
-        "idea_version_started_at": "2026-10-12T03:38:04Z",
-        "ticker": "OV8",
-        "company": "Sheng Siong",
-        "exchange": "SGX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Maybank downgraded the stock and cut its target price due to deteriorating outlook, which typically triggers institutional selling.",
-        "why_now": "The downgrade was reported on 2026-10-12, and the stock has already begun to react with a 3% decline.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 14,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-4095a883cb91"
-        ],
-        "primary_source_event_id": "EVT-4095a883cb91",
-        "source_headlines": [
-          "Sheng Siong shares fall 3% after Maybank downgrade, target price cut"
-        ],
-        "source_headline": "Sheng Siong shares fall 3% after Maybank downgrade, target price cut",
-        "source_url": "https://www.businesstimes.com.sg/companies-markets/sheng-siong-shares-fall-3-after-maybank-downgrade-target-price-cut",
-        "source_name": "The Business Times (Singapore)",
-        "materiality_max": 95,
-        "newest_source_at": "2026-10-12T02:59:40Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-12T03:38:04Z",
-        "updated_at": "2026-10-12T03:38:04Z",
-        "decay_at": "2026-10-13T14:59:40Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-15T04:46:03Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2303,
+    "surfaced_total": 2304,
     "live_count": 60,
     "promoted_total": 0,
     "machine_confirmed": 0,
@@ -270077,9 +270076,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5077,
-    "news_picked_today": 830,
-    "news_dropped_today": 3382
+    "news_seen_today": 5114,
+    "news_picked_today": 839,
+    "news_dropped_today": 3410
   },
   "book_momentum": {
     "live_count": 8,
