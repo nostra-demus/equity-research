@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-08T05:23:18Z",
+  "generated_at": "2026-11-08T05:28:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20261108-097",
@@ -488,6 +488,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-106",
+      "headline": "Neogen Chemicals Limited: Neogen Chemicals Limited has informed the Exchange about Update on Fire Incident - Order for Revocation of earlier Directions issued by GPCB and granting of CC&A Amendment by GPCB.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/NEOGEN_08112026105520_GPCBorder.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-08T05:25:29Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "Company received regulatory approval to resume operations following a fire incident.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Company received regulatory approval to resume operations following a fire incident.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Neogen Chemicals Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1256,6 +1305,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261108-112",
+      "headline": "Naseej International Trading Co. Announces Board's Recommendation to Decrease the Company's Capital",
+      "headline_en": null,
+      "url": "http://english.mubasher.info/news/4697847/Naseej-International-Trading-Co-Announces-Board-s-Recommendation-to-Decrease-the-Company-s-Capital",
+      "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T05:05:41Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "Board recommended a capital decrease for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Board recommended a capital decrease for the company.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Naseej International Trading Co.",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261108-042",
       "headline": "Binance hack exposes crypto risk – disappearing money",
       "headline_en": null,
@@ -1547,6 +1645,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261108-111",
+      "headline": "ADES Secures Multi-Year Contracts for Two Standard Jackup Rigs with ONGC in India, Reinforcing its Long-Term Presence in this Market",
+      "headline_en": null,
+      "url": "http://english.mubasher.info/news/4697845/ADES-Secures-Multi-Year-Contracts-for-Two-Standard-Jackup-Rigs-with-ONGC-in-India-Reinforcing-its-Long-Term-Presence-in-this-Market",
+      "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T05:06:37Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "Company secured multi-year contracts for two jackup rigs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "Company secured multi-year contracts for two jackup rigs.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ADES",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261108-026",
       "headline": "Fed policymakers consider rate hike after strong jobs report",
       "headline_en": null,
@@ -1756,151 +1903,6 @@
         "regulatory"
       ],
       "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-084",
-      "headline": "Japan's ruling party zeroes in on ex-PM, others over tax cut bill walkouts",
-      "headline_en": null,
-      "url": "https://english.kyodonews.net/articles/-/90726",
-      "source_name": "Kyodo News (Japan Wire)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T03:18:00Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "Political instability involving the ruling party and former leadership over tax legislation creates regulatory and policy uncertainty in Japan.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "Political instability involving the ruling party and former leadership over tax legislation creates regulatory and policy uncertainty in Japan.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-079",
-      "headline": "DBS, OCBC, UOB shares drop after Q3 results; SATS hit by work pass concerns: Markets this week",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/global-tech-fallout-after-us-democrats-victory-dbs-ocbc-oub-shares-drop-markets-this-week",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T04:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "Major Singaporean banks saw share price declines following Q3 earnings reports, indicating sector-wide pressure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 77,
-      "triage_reason": "Major Singaporean banks saw share price declines following Q3 earnings reports, indicating sector-wide pressure.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [
-        {
-          "name": "DBS Group",
-          "ticker": null,
-          "listing_country": "SG"
-        },
-        {
-          "name": "OCBC Bank",
-          "ticker": null,
-          "listing_country": "SG"
-        },
-        {
-          "name": "UOB",
-          "ticker": null,
-          "listing_country": "SG"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-008",
-      "headline": "Old Pension Scheme For 99,000 MP Teachers? High Court Ruling Brings Fresh Hope As Government's Seniority Dispute Remains Pending In Supreme Court",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/bhopal/old-pension-scheme-for-99000-mp-teachers-high-court-ruling-brings-fresh-hope-as-governments-seniority-dispute-remains-pending-in-supreme-court",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-07T23:30:00Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "A court ruling regarding the pension scheme for 99,000 teachers creates potential fiscal liability for the state government.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 77,
-      "triage_reason": "A court ruling regarding the pension scheme for 99,000 teachers creates potential fiscal liability for the state government.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -269001,9 +269003,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 542,
-    "news_picked_today": 115,
-    "news_dropped_today": 427
+    "news_seen_today": 566,
+    "news_picked_today": 130,
+    "news_dropped_today": 436
   },
   "book_momentum": {
     "live_count": 8,
