@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-08T10:48:19Z",
+  "generated_at": "2026-11-08T10:58:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20261108-206",
@@ -149,6 +149,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-235",
+      "headline": "Saudi Arabia intercepts missiles as Aramco building in Riyadh damaged, other Mideast news",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/news/world/saudi-arabia-intercepts-missiles-as-aramco-building-in-riyadh-damaged-other-mideast-news/article71680852.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T10:45:31Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "Military escalation involving missile interception and damage to critical energy infrastructure (Aramco) poses a significant supply shock risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Military escalation involving missile interception and damage to critical energy infrastructure (Aramco) poses a significant supply shock risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saudi Aramco",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1911,56 +1960,6 @@
       "companies": [
         {
           "name": "Zee Learn Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-113",
-      "headline": "Neogen Chemicals Limited: Neogen Chemicals Limited has informed the Exchange about Update on Fire Incident - Order for Revocation of earlier Directions issued by GPCB and granting of CC&A Amendment by GPCB.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/NEOGEN_08112026105638_GPCBorder.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-08T05:26:46Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "Neogen Chemicals received a revocation of previous GPCB directions and a CC&A amendment, allowing for the resumption of operations following a fire incident.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Neogen Chemicals received a revocation of previous GPCB directions and a CC&A amendment, allowing for the resumption of operations following a fire incident.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "regulatory",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Neogen Chemicals Limited",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -269780,9 +269779,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1400,
-    "news_picked_today": 327,
-    "news_dropped_today": 1073
+    "news_seen_today": 1422,
+    "news_picked_today": 332,
+    "news_dropped_today": 1090
   },
   "book_momentum": {
     "live_count": 8,
