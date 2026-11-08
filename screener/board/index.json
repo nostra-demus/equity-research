@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-08T01:26:11Z",
+  "generated_at": "2026-11-08T01:28:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20261108-020",
@@ -244,6 +244,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261108-028",
+      "headline": "US calls for coordinated action against N. Korean cyber threats following Binance hack",
+      "headline_en": null,
+      "url": "https://www.koreaherald.com/article/10929518",
+      "source_name": "The Korea Herald — All News",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T01:26:08Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "Binance is linked to a cyber threat incident involving North Korea, increasing regulatory and operational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Binance is linked to a cyber threat incident involving North Korea, increasing regulatory and operational risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "cybersecurity",
+        "regulatory"
+      ],
+      "issuer_linkage": "secondary",
+      "companies": [
+        {
+          "name": "Binance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261108-023",
       "headline": "In the shadow of cheap Chinese EVs, ARB’s off-road empire stumbles",
       "headline_en": null,
@@ -338,6 +388,49 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-026",
+      "headline": "Fed policymakers consider rate hike after strong jobs report",
+      "headline_en": null,
+      "url": "https://www.koreaherald.com/article/10929514",
+      "source_name": "The Korea Herald — All News",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T01:24:06Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "Fed policymakers considering rate hikes due to a strong jobs report signals potential tightening of monetary policy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "Fed policymakers considering rate hikes due to a strong jobs report signals potential tightening of monetary policy.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -620,6 +713,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-027",
+      "headline": "Volkswagen Virtus facelift teased! A new 8-speed automatic could be its biggest surprise",
+      "headline_en": null,
+      "url": "https://www.businesstoday.in/latest/photo/volkswagen-virtus-facelift-teased-a-new-8-speed-automatic-could-be-its-biggest-surprise-566160-2026-11-08?utm_source=rssfeed",
+      "source_name": "Business Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T01:15:03Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "Volkswagen is teasing a facelift for the Virtus model, which may impact sales performance in the Indian market.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 58,
+      "triage_reason": "Volkswagen is teasing a facelift for the Virtus model, which may impact sales performance in the Indian market.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -267635,7 +267777,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4591,
+    "inbox_unconsumed": 4594,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -267644,9 +267786,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 115,
-    "news_picked_today": 25,
-    "news_dropped_today": 90
+    "news_seen_today": 134,
+    "news_picked_today": 28,
+    "news_dropped_today": 106
   },
   "book_momentum": {
     "live_count": 8,
