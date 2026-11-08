@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-08T02:43:18Z",
+  "generated_at": "2026-11-08T02:53:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20261108-034",
@@ -282,6 +282,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-054",
+      "headline": "Kia expected to meet annual sales target for 1st time in 12 yrs: industry data",
+      "headline_en": null,
+      "url": "https://en.yna.co.kr/view/AEN20261108001100320",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T02:49:47Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "Kia is projected to meet its annual sales target for the first time in 12 years, signaling strong operational performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Kia is projected to meet its annual sales target for the first time in 12 years, signaling strong operational performance.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kia",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1621,6 +1670,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261108-053",
+      "headline": "Indore-Dhar Rail Connectivity Gets Major Boost! Railways Plans Early Inauguration Of Tihi-Dhar Section After Successful Safety Inspection And Speed Trial",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/indore/indore-dhar-rail-connectivity-gets-major-boost-railways-plans-early-inauguration-of-tihi-dhar-section-after-successful-safety-inspection-and-speed-trial",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T02:30:00Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "The inauguration of the Tihi-Dhar rail section represents a capacity expansion for regional infrastructure in India.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 55,
+      "triage_reason": "The inauguration of the Tihi-Dhar rail section represents a capacity expansion for regional infrastructure in India.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": -26,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "sector",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [
+        {
+          "name": "Indian Railways",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261108-006",
       "headline": "‘Godzilla Minus Zero’ Is No. 1 All-Time Foreign-Language Opening Weekend",
       "headline_en": null,
@@ -1713,6 +1811,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261108-052",
+      "headline": "GRAP 3 vehicle rules in Delhi: With AQI turning severe on Diwali, here is what is allowed and what is banned on roads",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/india/grap-3-vehicle-rules-in-delhi-with-aqi-turning-severe-on-diwali-here-is-what-is-allowed-and-what-is-banned-on-roads-11794101922880.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T02:48:30Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "Delhi's GRAP 3 vehicle restrictions impact local logistics and commuting, but are a recurring seasonal regulatory event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 51,
+      "triage_reason": "Delhi's GRAP 3 vehicle restrictions impact local logistics and commuting, but are a recurring seasonal regulatory event.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261108-030",
       "headline": "Mint Explainer: Will Sebi’s new rules on currency derivatives help the falling rupee?",
       "headline_en": null,
@@ -1747,135 +1888,6 @@
       },
       "event_types": [
         "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-051",
-      "headline": "US launches task force to disrupt Iran’s land-based supply routes",
-      "headline_en": null,
-      "url": "https://www.aljazeera.com/news/2026/11/8/us-launches-task-force-to-disrupt-irans-land-based-supply-routes?traffic_source=rss",
-      "source_name": "Al Jazeera — All news",
-      "input_nature": "geopolitical_event",
-      "found_at": "2026-11-08T02:34:04Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "The launch of a US task force to disrupt Iranian supply routes represents a significant geopolitical escalation in the Middle East with potential impacts on regional stability and energy markets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "The launch of a US task force to disrupt Iranian supply routes represents a significant geopolitical escalation in the Middle East with potential impacts on regional stability and energy markets.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-035",
-      "headline": "US military fires at cargo ship in Gulf of Oman",
-      "headline_en": null,
-      "url": "https://thehill.com/policy/defense/6206359-us-military-disables-oman-vessel/",
-      "source_name": "The Hill — Homenews",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T01:45:13Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "Military engagement in the Gulf of Oman poses a significant risk to regional shipping and energy supply chains.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "Military engagement in the Gulf of Oman poses a significant risk to regional shipping and energy supply chains.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-031",
-      "headline": "US releases video of strike on cargo ship in Gulf of Oman amid Iran blockade enforcement",
-      "headline_en": null,
-      "url": "https://gulfnews.com/world/mena/us-strikes-cargo-ship-in-gulf-of-oman-amid-iran-blockade-enforcement-1.500739942",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T01:09:43Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "A military strike on a cargo ship in the Gulf of Oman represents a significant escalation in regional geopolitical risk and potential supply chain disruption.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "A military strike on a cargo ship in the Gulf of Oman represents a significant escalation in regional geopolitical risk and potential supply chain disruption.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
       ],
       "issuer_linkage": "macro",
       "companies": [],
@@ -268477,9 +268489,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 244,
-    "news_picked_today": 51,
-    "news_dropped_today": 193
+    "news_seen_today": 265,
+    "news_picked_today": 54,
+    "news_dropped_today": 211
   },
   "book_momentum": {
     "live_count": 8,
