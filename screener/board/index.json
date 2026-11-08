@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-08T01:08:56Z",
+  "generated_at": "2026-11-08T01:25:26Z",
   "inbox": [
     {
       "inbox_id": "INB-20261108-020",
@@ -41,6 +41,56 @@
       "companies": [
         {
           "name": "Alphabet",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-025",
+      "headline": "China recruited Singapore-based executive to spy on Nvidia CEO Jensen Huang: US intelligence",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/telcos-media-tech/china-recruited-singapore-based-executive-spy-nvidia-ceo-jensen-huang-us-intelligence",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T01:20:03Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "Allegations of industrial espionage targeting a key executive at Nvidia represent a significant operational and security risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Allegations of industrial espionage targeting a key executive at Nvidia represent a significant operational and security risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
           "ticker": null,
           "listing_country": "US"
         }
@@ -225794,77 +225844,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-f5730c4d2977",
-      "idea_version": "IDEAV-d4046ecb00a1432d",
-      "idea_version_started_at": "2026-11-06T18:04:31Z",
-      "ticker": "QGEN",
-      "company": "Qiagen N.V.",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is the subject of a public takeover offer from EQT Private Equity at €46.50 per share, creating an arbitrage opportunity between the current market price and the offer price.",
-      "why_now": "The takeover offer was officially announced on 2026-11-06.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 23,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1b37a0c7257c"
-      ],
-      "primary_source_event_id": "EVT-1b37a0c7257c",
-      "source_headlines": [
-        "Qiagen N.V. Announces Public Takeover Offer from EQT Private Equity at €46.50 Per Share"
-      ],
-      "source_headline": "Qiagen N.V. Announces Public Takeover Offer from EQT Private Equity at €46.50 Per Share",
-      "source_url": "https://www.nasdaq.com/articles/qiagen-nv-announces-public-takeover-offer-eqt-private-equity-eu4650-share",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-06T13:21:18Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-06T18:04:31Z",
-      "updated_at": "2026-11-06T18:04:31Z",
-      "decay_at": "2026-11-08T01:21:18Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-a025b73a32d6",
       "idea_version": "IDEAV-0bfca11f175bef47",
       "idea_version_started_at": "2026-11-08T00:14:07Z",
@@ -228358,6 +228337,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-f5730c4d2977",
+      "idea_version": "IDEAV-d4046ecb00a1432d",
+      "idea_version_started_at": "2026-11-06T18:04:31Z",
+      "ticker": "QGEN",
+      "company": "Qiagen N.V.",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is the subject of a public takeover offer from EQT Private Equity at €46.50 per share, creating an arbitrage opportunity between the current market price and the offer price.",
+      "why_now": "The takeover offer was officially announced on 2026-11-06.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 23,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1b37a0c7257c"
+      ],
+      "primary_source_event_id": "EVT-1b37a0c7257c",
+      "source_headlines": [
+        "Qiagen N.V. Announces Public Takeover Offer from EQT Private Equity at €46.50 Per Share"
+      ],
+      "source_headline": "Qiagen N.V. Announces Public Takeover Offer from EQT Private Equity at €46.50 Per Share",
+      "source_url": "https://www.nasdaq.com/articles/qiagen-nv-announces-public-takeover-offer-eqt-private-equity-eu4650-share",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-06T13:21:18Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-06T18:04:31Z",
+      "updated_at": "2026-11-06T18:04:31Z",
+      "decay_at": "2026-11-08T01:21:18Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-61866d942f2f",
       "idea_version": "IDEAV-2af7736aef1a146b",
       "idea_version_started_at": "2026-11-05T20:09:05Z",
@@ -230379,14 +230429,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 544,
+    "total_count": 545,
     "shown_count": 499,
-    "hidden_count": 45,
+    "hidden_count": 46,
     "side_counts": {
       "long": {
-        "total_count": 273,
+        "total_count": 274,
         "shown_count": 250,
-        "hidden_count": 23
+        "hidden_count": 24
       },
       "short": {
         "total_count": 272,
@@ -230410,6 +230460,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-f5730c4d2977",
+        "idea_version": "IDEAV-d4046ecb00a1432d",
+        "idea_version_started_at": "2026-11-06T18:04:31Z",
+        "ticker": "QGEN",
+        "company": "Qiagen N.V.",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company is the subject of a public takeover offer from EQT Private Equity at €46.50 per share, creating an arbitrage opportunity between the current market price and the offer price.",
+        "why_now": "The takeover offer was officially announced on 2026-11-06.",
+        "conviction": 85,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 60,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 23,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-1b37a0c7257c"
+        ],
+        "primary_source_event_id": "EVT-1b37a0c7257c",
+        "source_headlines": [
+          "Qiagen N.V. Announces Public Takeover Offer from EQT Private Equity at €46.50 Per Share"
+        ],
+        "source_headline": "Qiagen N.V. Announces Public Takeover Offer from EQT Private Equity at €46.50 Per Share",
+        "source_url": "https://www.nasdaq.com/articles/qiagen-nv-announces-public-takeover-offer-eqt-private-equity-eu4650-share",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-06T13:21:18Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-06T18:04:31Z",
+        "updated_at": "2026-11-06T18:04:31Z",
+        "decay_at": "2026-11-08T01:21:18Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-08T01:21:18Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-0d002e1a2ba4",
         "idea_version": "IDEAV-ef69c2e633c8213e",
@@ -259746,81 +259870,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-aba1e604fd86",
-        "idea_version": "IDEAV-7a1f0bfcc76955f4",
-        "idea_version_started_at": "2026-10-23T18:41:34Z",
-        "ticker": "SHRIRAMFIN",
-        "company": "Shriram Finance",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company reported a 59% increase in Q2 net profit to ₹3,684 crore and declared an interim dividend, reflecting strong underlying credit demand and operational efficiency.",
-        "why_now": "The earnings were released on October 23, 2026, providing a fresh catalyst for a re-rating of the stock.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 18,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-3eb3cbd220c4"
-        ],
-        "primary_source_event_id": "EVT-3eb3cbd220c4",
-        "source_headlines": [
-          "Shriram Finance Q2 Net Profit Rises 59 Per Cent To ₹3,684 Crore; Board Approves ₹6.50 Interim Dividend"
-        ],
-        "source_headline": "Shriram Finance Q2 Net Profit Rises 59 Per Cent To ₹3,684 Crore; Board Approves ₹6.50 Interim Dividend",
-        "source_url": "https://www.freepressjournal.in/business/shriram-finance-q2-net-profit-rises-59-per-cent-to-3684-crore-board-approves-650-interim-dividend",
-        "source_name": "Free Press Journal",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-23T13:41:47Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-23T18:41:34Z",
-        "updated_at": "2026-10-23T18:41:34Z",
-        "decay_at": "2026-10-25T01:41:47Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-26T13:59:13Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-fc93f470f6d7",
         "idea_version": "IDEAV-db4336a31f698ae9",
         "idea_version_started_at": "2026-10-23T18:41:34Z",
@@ -267576,7 +267625,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2259,
-    "live_count": 34,
+    "live_count": 33,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -267586,7 +267635,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4590,
+    "inbox_unconsumed": 4591,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -267595,9 +267644,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 96,
-    "news_picked_today": 24,
-    "news_dropped_today": 72
+    "news_seen_today": 115,
+    "news_picked_today": 25,
+    "news_dropped_today": 90
   },
   "book_momentum": {
     "live_count": 8,
