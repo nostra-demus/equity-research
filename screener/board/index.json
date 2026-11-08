@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-08T02:29:22Z",
+  "generated_at": "2026-11-08T02:33:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20261108-034",
@@ -1100,6 +1100,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261108-050",
+      "headline": "BREAKING NEWS: Tokaido Shinkansen bullet trains resume normal operation after quake",
+      "headline_en": null,
+      "url": "https://english.kyodonews.net/articles/-/90723",
+      "source_name": "Kyodo News (Japan Wire)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T02:11:11Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "The resumption of normal operations on the Tokaido Shinkansen after a seismic event mitigates operational disruption for Central Japan Railway Company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 65,
+      "triage_reason": "The resumption of normal operations on the Tokaido Shinkansen after a seismic event mitigates operational disruption for Central Japan Railway Company.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Central Japan Railway Company",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261108-045",
       "headline": "LG Electronics secures industry-first top safety certification for automotive module",
       "headline_en": null,
@@ -1818,49 +1867,6 @@
         "size": 0,
         "recency": 5,
         "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-014",
-      "headline": "Centcom sets up 'Task Force Iron Gate' to disrupt Iran’s weapons transfers",
-      "headline_en": null,
-      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/centcom-sets-task-force-iron-gate-disrupt-irans-weapons-transfers",
-      "source_name": "Middle East Eye",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T00:44:51Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "The establishment of a specific military task force to disrupt Iranian weapons transfers represents a significant escalation in geopolitical risk in the Middle East.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "The establishment of a specific military task force to disrupt Iranian weapons transfers represents a significant escalation in geopolitical risk in the Middle East.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "macro",
@@ -227538,78 +227544,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-c8978df6808e",
-      "idea_version": "IDEAV-a5ed1126b7a855b9",
-      "idea_version_started_at": "2026-11-06T20:30:17Z",
-      "ticker": "01905",
-      "company": "Haitong Unitrust International Financial Leasing",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is the subject of a voluntary cash partial offer for both domestic and H shares, which typically provides a floor and potential premium for shareholders.",
-      "why_now": "The irrevocable undertaking was announced on 2026-11-06.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d770a783a585"
-      ],
-      "primary_source_event_id": "EVT-d770a783a585",
-      "source_headlines": [
-        "HAITONG UT (01905): JOINT ANNOUNCEMENT - IRREVOCABLE UNDERTAKING IN RELATION TO THE (1) PRE-CONDITIONAL VOLUNTARY CASH PARTIAL OFFER BY THE DOMESTIC SHARE OFFEROR TO ACQUIRE 1,244,831,880 DOMESTIC SHARES IN THE ISSUED SHARE CAPITAL OF THE COMPANY; AND (2) PRE-CONDITIONAL VOLUNTARY CASH PARTIAL OFFER BY THE JOINT FINANCIAL ADVISER ON BEHALF OF THE H SHARE OFFEROR TO ACQUIRE 2,955,171,120 H SHARES IN THE ISSUED SHARE CAPITAL OF THE COMPANY"
-      ],
-      "source_headline": "HAITONG UT (01905): JOINT ANNOUNCEMENT - IRREVOCABLE UNDERTAKING IN RELATION TO THE (1) PRE-CONDITIONAL VOLUNTARY CASH PARTIAL OFFER BY THE DOMESTIC SHARE OFFEROR TO ACQUIRE 1,244,831,880 DOMESTIC SHARES IN THE ISSUED SHARE CAPITAL OF THE COMPANY; AND (2) PRE-CONDITIONAL VOLUNTARY CASH PARTIAL OFFER BY THE JOINT FINANCIAL ADVISER ON BEHALF OF THE H SHARE OFFEROR TO ACQUIRE 2,955,171,120 H SHARES IN THE ISSUED SHARE CAPITAL OF THE COMPANY",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1106/2026110601728.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-06T14:30:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-06T20:30:17Z",
-      "updated_at": "2026-11-06T20:30:17Z",
-      "decay_at": "2026-11-08T02:30:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-420d3d291fde",
       "idea_version": "IDEAV-7322a6f4b55f97e1",
       "idea_version_started_at": "2026-11-07T14:23:56Z",
@@ -229740,6 +229674,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-c8978df6808e",
+      "idea_version": "IDEAV-a5ed1126b7a855b9",
+      "idea_version_started_at": "2026-11-06T20:30:17Z",
+      "ticker": "01905",
+      "company": "Haitong Unitrust International Financial Leasing",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is the subject of a voluntary cash partial offer for both domestic and H shares, which typically provides a floor and potential premium for shareholders.",
+      "why_now": "The irrevocable undertaking was announced on 2026-11-06.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d770a783a585"
+      ],
+      "primary_source_event_id": "EVT-d770a783a585",
+      "source_headlines": [
+        "HAITONG UT (01905): JOINT ANNOUNCEMENT - IRREVOCABLE UNDERTAKING IN RELATION TO THE (1) PRE-CONDITIONAL VOLUNTARY CASH PARTIAL OFFER BY THE DOMESTIC SHARE OFFEROR TO ACQUIRE 1,244,831,880 DOMESTIC SHARES IN THE ISSUED SHARE CAPITAL OF THE COMPANY; AND (2) PRE-CONDITIONAL VOLUNTARY CASH PARTIAL OFFER BY THE JOINT FINANCIAL ADVISER ON BEHALF OF THE H SHARE OFFEROR TO ACQUIRE 2,955,171,120 H SHARES IN THE ISSUED SHARE CAPITAL OF THE COMPANY"
+      ],
+      "source_headline": "HAITONG UT (01905): JOINT ANNOUNCEMENT - IRREVOCABLE UNDERTAKING IN RELATION TO THE (1) PRE-CONDITIONAL VOLUNTARY CASH PARTIAL OFFER BY THE DOMESTIC SHARE OFFEROR TO ACQUIRE 1,244,831,880 DOMESTIC SHARES IN THE ISSUED SHARE CAPITAL OF THE COMPANY; AND (2) PRE-CONDITIONAL VOLUNTARY CASH PARTIAL OFFER BY THE JOINT FINANCIAL ADVISER ON BEHALF OF THE H SHARE OFFEROR TO ACQUIRE 2,955,171,120 H SHARES IN THE ISSUED SHARE CAPITAL OF THE COMPANY",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1106/2026110601728.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-06T14:30:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-06T20:30:17Z",
+      "updated_at": "2026-11-06T20:30:17Z",
+      "decay_at": "2026-11-08T02:30:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-4a06f8ed4686",
       "idea_version": "IDEAV-01354d69d0928dbb",
       "idea_version_started_at": "2026-11-06T19:23:03Z",
@@ -231259,14 +231265,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 546,
+    "total_count": 547,
     "shown_count": 499,
-    "hidden_count": 47,
+    "hidden_count": 48,
     "side_counts": {
       "long": {
-        "total_count": 274,
+        "total_count": 275,
         "shown_count": 250,
-        "hidden_count": 24
+        "hidden_count": 25
       },
       "short": {
         "total_count": 273,
@@ -231290,6 +231296,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-c8978df6808e",
+        "idea_version": "IDEAV-a5ed1126b7a855b9",
+        "idea_version_started_at": "2026-11-06T20:30:17Z",
+        "ticker": "01905",
+        "company": "Haitong Unitrust International Financial Leasing",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company is the subject of a voluntary cash partial offer for both domestic and H shares, which typically provides a floor and potential premium for shareholders.",
+        "why_now": "The irrevocable undertaking was announced on 2026-11-06.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-d770a783a585"
+        ],
+        "primary_source_event_id": "EVT-d770a783a585",
+        "source_headlines": [
+          "HAITONG UT (01905): JOINT ANNOUNCEMENT - IRREVOCABLE UNDERTAKING IN RELATION TO THE (1) PRE-CONDITIONAL VOLUNTARY CASH PARTIAL OFFER BY THE DOMESTIC SHARE OFFEROR TO ACQUIRE 1,244,831,880 DOMESTIC SHARES IN THE ISSUED SHARE CAPITAL OF THE COMPANY; AND (2) PRE-CONDITIONAL VOLUNTARY CASH PARTIAL OFFER BY THE JOINT FINANCIAL ADVISER ON BEHALF OF THE H SHARE OFFEROR TO ACQUIRE 2,955,171,120 H SHARES IN THE ISSUED SHARE CAPITAL OF THE COMPANY"
+        ],
+        "source_headline": "HAITONG UT (01905): JOINT ANNOUNCEMENT - IRREVOCABLE UNDERTAKING IN RELATION TO THE (1) PRE-CONDITIONAL VOLUNTARY CASH PARTIAL OFFER BY THE DOMESTIC SHARE OFFEROR TO ACQUIRE 1,244,831,880 DOMESTIC SHARES IN THE ISSUED SHARE CAPITAL OF THE COMPANY; AND (2) PRE-CONDITIONAL VOLUNTARY CASH PARTIAL OFFER BY THE JOINT FINANCIAL ADVISER ON BEHALF OF THE H SHARE OFFEROR TO ACQUIRE 2,955,171,120 H SHARES IN THE ISSUED SHARE CAPITAL OF THE COMPANY",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1106/2026110601728.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-06T14:30:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-06T20:30:17Z",
+        "updated_at": "2026-11-06T20:30:17Z",
+        "decay_at": "2026-11-08T02:30:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-08T02:30:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-134411564950",
         "idea_version": "IDEAV-332275a26d1a6278",
@@ -260476,81 +260557,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-af4308e96a78",
-        "idea_version": "IDEAV-a824af70ecdc0ee6",
-        "idea_version_started_at": "2026-10-24T00:28:47Z",
-        "ticker": "JSWSTEEL",
-        "company": "JSW Steel",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Net profit tripled in Q2 driven by higher production volumes and improved price realization per ton.",
-        "why_now": "The earnings results were released on 2026-10-23.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-53d823fa7245"
-        ],
-        "primary_source_event_id": "EVT-53d823fa7245",
-        "source_headlines": [
-          "JSW Steel Q2 net up three-fold on higher volumes, better realisation"
-        ],
-        "source_headline": "JSW Steel Q2 net up three-fold on higher volumes, better realisation",
-        "source_url": "https://www.thehindubusinessline.com/companies/jsw-steel-q2-net-up-three-fold-on-higher-volumes-better-realisation/article71616006.ece",
-        "source_name": "The Hindu BusinessLine",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-23T16:16:03Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-23T13:11:36Z",
-        "updated_at": "2026-10-24T00:28:47Z",
-        "decay_at": "2026-10-25T04:16:03Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-26T17:25:46Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-bb5c4c4db82f",
         "idea_version": "IDEAV-d44106710eb07365",
         "idea_version_started_at": "2026-10-24T00:28:47Z",
@@ -268453,7 +268459,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2261,
-    "live_count": 33,
+    "live_count": 32,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -268472,9 +268478,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 229,
-    "news_picked_today": 49,
-    "news_dropped_today": 180
+    "news_seen_today": 236,
+    "news_picked_today": 50,
+    "news_dropped_today": 186
   },
   "book_momentum": {
     "live_count": 8,
