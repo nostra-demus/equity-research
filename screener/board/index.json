@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-08T09:18:17Z",
+  "generated_at": "2026-11-08T09:23:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261108-164",
@@ -168,6 +168,55 @@
       "launched_signal_id": null,
       "triage_score": 100,
       "triage_reason": "A physical attack on a major asset of a critical global energy producer represents a significant geopolitical and operational risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saudi Aramco",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-194",
+      "headline": "Aramco Riyadh Office Targeted in Attack, Causing Limited Damage",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-08/aramco-tower-in-riyadh-s-financial-hub-damaged-after-attack",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T08:54:58Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "An attack on a major energy infrastructure facility in Riyadh represents a significant geopolitical and operational risk event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "An attack on a major energy infrastructure facility in Riyadh represents a significant geopolitical and operational risk event.",
       "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 85,
@@ -1902,55 +1951,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-177",
-      "headline": "ITV figures due amid probes into broadcaster’s £1.6bn deal with Sky",
-      "headline_en": null,
-      "url": "https://www.standard.co.uk/business/business-news/itv-lisa-nandy-sky-aj-bell-ofcom-b1304006.html",
-      "source_name": "The Standard (Evening Standard) — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T09:00:39Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "ITV faces ongoing regulatory probes related to a significant £1.6bn deal, creating potential legal and reputational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "ITV faces ongoing regulatory probes related to a significant £1.6bn deal, creating potential legal and reputational risk.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ITV",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -269835,9 +269835,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1139,
-    "news_picked_today": 263,
-    "news_dropped_today": 876
+    "news_seen_today": 1154,
+    "news_picked_today": 265,
+    "news_dropped_today": 889
   },
   "book_momentum": {
     "live_count": 8,
