@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-08T05:33:23Z",
+  "generated_at": "2026-11-08T05:38:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20261108-114",
@@ -91,6 +91,55 @@
       "companies": [
         {
           "name": "Adani Enterprises",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-115",
+      "headline": "Tata Chemicals Slips Into ₹50 Crore Loss In Q2, Rising Energy Costs & Weak Soda Ash Prices Hit Earnings",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/tata-chemicals-slips-into-50-crore-loss-in-q2-rising-energy-costs-weak-soda-ash-prices-hit-earnings",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T05:03:19Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "Tata Chemicals reported a net loss of ₹50 crore for Q2 due to rising energy costs and weak soda ash prices.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tata Chemicals reported a net loss of ₹50 crore for Q2 due to rising energy costs and weak soda ash prices.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Chemicals",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -1867,50 +1916,6 @@
         "regulatory"
       ],
       "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-058",
-      "headline": "New policy unlocks New Zealand beauty's China offline market",
-      "headline_en": null,
-      "url": "https://news.cgtn.com/news/2026-11-08/New-policy-unlocks-New-Zealand-beauty-s-China-offline-market-1RSKpNEmy3e/p.html?UTM_Source=cgtn&UTM_Medium=rss&UTM_Campaign=Business",
-      "source_name": "CGTN Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T02:48:19Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "New regulatory policy changes in China facilitate market access for New Zealand beauty products, potentially increasing export revenue for the sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "New regulatory policy changes in China facilitate market access for New Zealand beauty products, potentially increasing export revenue for the sector.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "commercial"
-      ],
-      "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -269154,9 +269159,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 575,
-    "news_picked_today": 132,
-    "news_dropped_today": 443
+    "news_seen_today": 592,
+    "news_picked_today": 134,
+    "news_dropped_today": 458
   },
   "book_momentum": {
     "live_count": 8,
