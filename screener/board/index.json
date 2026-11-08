@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-08T21:24:57Z",
+  "generated_at": "2026-11-08T21:45:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20261108-273",
@@ -237,6 +237,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-302",
+      "headline": "ANZ posts $7.6b cash profit, lifts provisions citing volatile economy",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/financial-services/anz-prints-7-6b-cash-profit-lifts-provisions-citing-volatile-economy-20261109-p61cgm?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T20:52:28Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "ANZ reported a cash profit of $7.6 billion and increased provisions for bad debts, signaling economic caution.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "ANZ reported a cash profit of $7.6 billion and increased provisions for bad debts, signaling economic caution.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ANZ Group",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1918,56 +1967,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-114",
-      "headline": "David Jones’ unpaid bills rise to $100m as prospective owners circle",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/retail/david-jones-unpaid-bills-rise-to-100m-as-prospective-owners-circle-20261108-p61ccx?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T05:30:00Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "David Jones faces rising unpaid bills of $100m, indicating significant financial distress while the company is subject to potential ownership changes.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "David Jones faces rising unpaid bills of $100m, indicating significant financial distress while the company is subject to potential ownership changes.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "default_distress",
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "David Jones",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -269856,9 +269855,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4652,
-    "news_picked_today": 675,
-    "news_dropped_today": 3112
+    "news_seen_today": 4731,
+    "news_picked_today": 705,
+    "news_dropped_today": 3161
   },
   "book_momentum": {
     "live_count": 8,
