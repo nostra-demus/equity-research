@@ -2,7 +2,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import fg from 'fast-glob'
 import matter from 'gray-matter'
-import { AGENTS_DIR } from './config'
+import { AGENTS_DIR, REPO_ROOT } from './config'
 import type { SwarmManifest, SwarmRoutingContract, SwarmWireDecl } from './types'
 
 // Swarm discovery (CLAUDE.md §26 "Swarms"): a swarm is `.claude/agents/<swarm>/` carrying a
@@ -17,6 +17,26 @@ function canonicalRepoPath(value: string): string | null {
   const normalized = path.posix.normalize(value)
   if (normalized !== value || normalized === '.' || normalized === '..' || normalized.startsWith('../')) return null
   return normalized.replace(/\/$/, '')
+}
+
+// A schema root is reviewed program input, never an arbitrary file-read capability. Unlike data pools,
+// schemas have no sanctioned external projection: every component must be a real directory inside the
+// checkout. The Python publication resolver independently enforces this same boundary when it reads
+// the manifest, including on frozen/index publication paths that do not use this server discovery.
+function canonicalSchemaRoot(value: string): string | null {
+  const safe = canonicalRepoPath(value)
+  if (!safe) return null
+  try {
+    let current = REPO_ROOT
+    for (const part of safe.split('/')) {
+      current = path.join(current, part)
+      const stat = fs.lstatSync(current)
+      if (stat.isSymbolicLink() || !stat.isDirectory()) return null
+    }
+    const root = fs.realpathSync(REPO_ROOT)
+    if (!fs.realpathSync(current).startsWith(`${root}${path.sep}`)) return null
+    return safe
+  } catch { return null }
 }
 
 // A declared decision artifact is a JSON file below the concrete run root. Reject the whole manifest
@@ -101,6 +121,11 @@ function parseManifest(file: string): SwarmManifest | null {
   if (!safeRunsRoot || !safeTemplate || safeTemplate === safeRunsRoot || !safeTemplate.startsWith(`${safeRunsRoot}/`)) return null
   const decisionArtifacts = parseDecisionArtifacts(data.decision_artifacts)
   if (decisionArtifacts === null) return null
+  const schemasRoot = str(data.schemas_root)
+  if ((data.schemas_root !== undefined && !schemasRoot)
+      || (data.publication_schemas !== undefined && !schemasRoot)) return null
+  const safeSchemasRoot = schemasRoot ? canonicalSchemaRoot(schemasRoot) : undefined
+  if (schemasRoot && !safeSchemasRoot) return null
   const reviewCommand = str(data.review_command)
   const calibrator = str(data.calibrator)
   if (reviewCommand && !/^[a-z0-9-]{1,80}$/.test(reviewCommand)) return null
@@ -129,7 +154,7 @@ function parseManifest(file: string): SwarmManifest | null {
     ledgerRoot: str(data.ledger_root) || undefined,
     boardIndex: str(data.board_index) || undefined,
     inboxRoot: str(data.inbox_root) || undefined,
-    schemasRoot: str(data.schemas_root) || undefined,
+    schemasRoot: safeSchemasRoot || undefined,
     reviewCommand: reviewCommand || undefined,
     calibrator: safeCalibrator || undefined,
     calibrationRoot: safeCalibrationRoot || undefined,
