@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-08T23:10:00Z",
+  "generated_at": "2026-11-08T23:14:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20261108-273",
@@ -635,6 +635,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-339",
+      "headline": "Nvidia CEO Jensen Huang admits affair with alleged Chinese spy, board to investigate",
+      "headline_en": null,
+      "url": "https://www.datacenterdynamics.com/en/news/nvidia-ceo-jensen-huang-admits-affair-with-alleged-chinese-spy-board-to-investigate/",
+      "source_name": "DataCenterDynamics",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T23:12:23Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "The CEO of a major company is under investigation for a serious personal conduct issue involving national security risks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The CEO of a major company is under investigation for a serious personal conduct issue involving national security risks.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1914,55 +1963,6 @@
       "companies": [
         {
           "name": "Arabia Insurance",
-          "ticker": null,
-          "listing_country": "SA"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-229",
-      "headline": "Saleh Abdulaziz Al Rashed delivers 47% plunge in 9M-26 net profit",
-      "headline_en": null,
-      "url": "http://english.mubasher.info/news/4698115/Saleh-Abdulaziz-Al-Rashed-delivers-47-plunge-in-9M-26-net-profit",
-      "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T09:42:59Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "Saleh Abdulaziz Al Rashed reported a 47% decline in 9M-26 net profit.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Saleh Abdulaziz Al Rashed reported a 47% decline in 9M-26 net profit.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Saleh Abdulaziz Al Rashed",
           "ticker": null,
           "listing_country": "SA"
         }
@@ -269933,9 +269933,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5051,
-    "news_picked_today": 823,
-    "news_dropped_today": 3363
+    "news_seen_today": 5059,
+    "news_picked_today": 825,
+    "news_dropped_today": 3369
   },
   "book_momentum": {
     "live_count": 8,
