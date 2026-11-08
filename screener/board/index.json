@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-08T05:19:27Z",
+  "generated_at": "2026-11-08T05:23:18Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261108-097",
+      "headline": "Adani Enterprises plans Rs 35,000-40,000 crore annual capex in next two years",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/news/company/corporate-trends/adani-enterprises-plans-rs-35000-40000-crore-annual-capex-in-next-two-years/articleshow/135651827.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T05:09:07Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "Adani Enterprises announced a significant annual capital expenditure plan of Rs 35,000-40,000 crore for the next two years.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Adani Enterprises announced a significant annual capital expenditure plan of Rs 35,000-40,000 crore for the next two years.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adani Enterprises",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261108-085",
       "headline": "Berkshire Hathaway's profit falls 28% as Geico struggles: Warren Buffett's insurance giant under focus",
@@ -1108,6 +1157,50 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261108-096",
+      "headline": "US task force targets Iran’s land, Caspian routes for weapons and sanctioned goods",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/international/us-task-force-targets-irans-land-caspian-routes-weapons-and-sanctioned-goods",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T05:21:11Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "US task force targeting Iranian supply routes increases geopolitical risk and potential for further sanctions on trade corridors.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "US task force targeting Iranian supply routes increases geopolitical risk and potential for further sanctions on trade corridors.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261108-049",
       "headline": "Costa Rica shell entity and unauthorised foreign transactions - what ED raids at CoinDCX and Delta Exchange found",
       "headline_en": null,
@@ -1810,104 +1903,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-039",
-      "headline": "Berkshire surprised with record buybacks, but pace slowed as the stock rose",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/berkshire-surprised-with-record-buybacks-but-pace-slowed-as-the-stock-rose-11794102777738.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T01:55:15Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "Berkshire Hathaway reported record buybacks, though the pace of repurchases has slowed as the stock price increased.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 73,
-      "triage_reason": "Berkshire Hathaway reported record buybacks, though the pace of repurchases has slowed as the stock price increased.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Berkshire Hathaway",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-076",
-      "headline": "Muthoot Microfin raises IT spending by 40% amid AI-driven cyber threats, changing rural demand",
-      "headline_en": null,
-      "url": "https://www.livemint.com/news/muthoot-microfin-sadaf-sayeed-cybersecurity-artificial-intelligence-ai-cyberattacks-it-spending-rural-consumption-11793939610361.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T03:31:14Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "Muthoot Microfin is increasing IT spending by 40% to address cybersecurity and changing demand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "Muthoot Microfin is increasing IT spending by 40% to address cybersecurity and changing demand.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Muthoot Microfin",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -269006,9 +269001,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 530,
-    "news_picked_today": 113,
-    "news_dropped_today": 417
+    "news_seen_today": 542,
+    "news_picked_today": 115,
+    "news_dropped_today": 427
   },
   "book_momentum": {
     "live_count": 8,
