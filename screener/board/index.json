@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-08T06:50:15Z",
+  "generated_at": "2026-11-08T06:58:27Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261108-144",
+      "headline": "Riyadh Cement announces 73.5% leap in Q3-26 net profits",
+      "headline_en": null,
+      "url": "http://english.mubasher.info/news/4697944/Riyadh-Cement-announces-73-5-leap-in-Q3-26-net-profits",
+      "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T06:27:14Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "Riyadh Cement reported a significant 73.5% increase in Q3-26 net profits.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Riyadh Cement reported a significant 73.5% increase in Q3-26 net profits.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Riyadh Cement",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261108-135",
       "headline": "Tata Steel Q2 Profit Jumps 16% To ₹3,700 Crore, India Business Powers Growth As Revenue Surges To ₹65,436 Crore",
@@ -537,6 +586,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-138",
+      "headline": "JTL INDUSTRIES LIMITED: JTL INDUSTRIES LIMITED has informed the Exchange regarding a press release dated November 08, 2026, titled \"JTL Industries advances Maharashtra facility expansion with hot trial of Pickling Line and Cold Trial of GP Line\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/JTLIND_08112026122203_PressReleaseJTL08112026Signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-08T06:53:08Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "JTL Industries announced progress on its Maharashtra facility expansion with the start of trials for new production lines.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "JTL Industries announced progress on its Maharashtra facility expansion with the start of trials for new production lines.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "JTL Industries Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1256,6 +1354,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261108-140",
+      "headline": "Empty offices, ties to blacklisted firms: Inside the Chinese companies the US cleared for Nvidia chips",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/telcos-media-tech/empty-offices-ties-blacklisted-firms-inside-chinese-companies-us-cleared-nvidia-chips",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T06:48:09Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "US regulatory scrutiny of Chinese firms linked to Nvidia supply chains creates potential operational and compliance risks for the semiconductor sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "US regulatory scrutiny of Chinese firms linked to Nvidia supply chains creates potential operational and compliance risks for the semiconductor sector.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "secondary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261108-131",
       "headline": "US believes Nvidia CEO had romantic relationship with alleged Chinese spy",
       "headline_en": null,
@@ -1551,6 +1698,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261108-143",
+      "headline": "‎Time wins SAR 873,540 preliminary ruling against Jockey Club",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1951389",
+      "source_name": "Argaam — Company Disclosures (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T10:49:00Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "Time won a preliminary legal ruling for SAR 873,540, providing a minor positive financial impact.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Time won a preliminary legal ruling for SAR 873,540, providing a minor positive financial impact.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 25,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Time",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261108-096",
       "headline": "US task force targets Iran’s land, Caspian routes for weapons and sanctioned goods",
       "headline_en": null,
@@ -1743,203 +1939,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-112",
-      "headline": "Naseej International Trading Co. Announces Board's Recommendation to Decrease the Company's Capital",
-      "headline_en": null,
-      "url": "http://english.mubasher.info/news/4697847/Naseej-International-Trading-Co-Announces-Board-s-Recommendation-to-Decrease-the-Company-s-Capital",
-      "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T05:05:41Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "Board recommended a capital decrease for the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Board recommended a capital decrease for the company.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Naseej International Trading Co.",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-042",
-      "headline": "Binance hack exposes crypto risk – disappearing money",
-      "headline_en": null,
-      "url": "https://www.moneyweb.co.za/moneyweb-crypto/binance-hack-exposes-crypto-risk-disappearing-money/",
-      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T02:00:26Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "A Binance hack has resulted in the loss of user funds, highlighting operational and security risks.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "A Binance hack has resulted in the loss of user funds, highlighting operational and security risks.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Binance",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-028",
-      "headline": "US calls for coordinated action against N. Korean cyber threats following Binance hack",
-      "headline_en": null,
-      "url": "https://www.koreaherald.com/article/10929518",
-      "source_name": "The Korea Herald — All News",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T01:26:08Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "Binance is linked to a cyber threat incident involving North Korea, increasing regulatory and operational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Binance is linked to a cyber threat incident involving North Korea, increasing regulatory and operational risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "cybersecurity",
-        "regulatory"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [
-        {
-          "name": "Binance",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-023",
-      "headline": "In the shadow of cheap Chinese EVs, ARB’s off-road empire stumbles",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/transport/in-the-shadow-of-cheap-chinese-evs-arb-s-off-road-empire-stumbles-20261108-p61907?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T01:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "ARB Corporation is facing competitive headwinds from Chinese EV imports impacting its core off-road business.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "ARB Corporation is facing competitive headwinds from Chinese EV imports impacting its core off-road business.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ARB Corporation",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -269467,9 +269466,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 748,
-    "news_picked_today": 167,
-    "news_dropped_today": 581
+    "news_seen_today": 786,
+    "news_picked_today": 176,
+    "news_dropped_today": 610
   },
   "book_momentum": {
     "live_count": 8,
