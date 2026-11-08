@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-08T00:50:58Z",
+  "generated_at": "2026-11-08T00:53:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20261108-007",
@@ -543,6 +543,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-015",
+      "headline": "Elektros, Inc. (OTC:ELEK) Celebrates Moishe Mana's $1.1 Billion Wynwood Milestone - a Landmark Moment for Miami | ELEK Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/ELEK/elektros-inc-otc-elek-celebrates-moishe-mana-s-1-1-billion-wynwood-6166t90uda49.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-08T00:47:00Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "Elektros, Inc. is associating itself with a $1.1 billion real estate development milestone in Miami.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 44,
+      "triage_reason": "Elektros, Inc. is associating itself with a $1.1 billion real estate development milestone in Miami.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Elektros, Inc.",
+          "ticker": "ELEK",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -267030,7 +267079,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4580,
+    "inbox_unconsumed": 4581,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -267039,9 +267088,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 57,
-    "news_picked_today": 14,
-    "news_dropped_today": 43
+    "news_seen_today": 71,
+    "news_picked_today": 15,
+    "news_dropped_today": 56
   },
   "book_momentum": {
     "live_count": 8,
