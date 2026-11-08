@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-08T06:29:55Z",
+  "generated_at": "2026-11-08T06:34:57Z",
   "inbox": [
     {
       "inbox_id": "INB-20261108-125",
@@ -1158,6 +1158,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261108-134",
+      "headline": "‎Leen Alkhair breaks ground on agricultural products processing, marketing factory in Riyadh",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1951383",
+      "source_name": "Argaam — Company Disclosures (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T10:31:00Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "Leen Alkhair has broken ground on a new agricultural processing factory in Riyadh, representing a tangible capital investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Leen Alkhair has broken ground on a new agricultural processing factory in Riyadh, representing a tangible capital investment.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Leen Alkhair",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261108-131",
       "headline": "US believes Nvidia CEO had romantic relationship with alleged Chinese spy",
       "headline_en": null,
@@ -1886,55 +1935,6 @@
       "companies": [
         {
           "name": "SpaceX",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-086",
-      "headline": "Mumbai Court Denies Anticipatory Bail To 82-Year-Old CA In ₹2,575 Crore Foreign Remittance Fraud Case",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/mumbai-court-denies-anticipatory-bail-to-82-year-old-ca-in-2575-crore-foreign-remittance-fraud-case",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T04:16:36Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "A chartered accountant has been denied bail in a significant 25.75 billion rupee fraud case, indicating serious legal risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "A chartered accountant has been denied bail in a significant 25.75 billion rupee fraud case, indicating serious legal risk.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Unknown",
           "ticker": null,
           "listing_country": null
         }
@@ -269467,9 +269467,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 701,
-    "news_picked_today": 160,
-    "news_dropped_today": 541
+    "news_seen_today": 712,
+    "news_picked_today": 163,
+    "news_dropped_today": 549
   },
   "book_momentum": {
     "live_count": 8,
