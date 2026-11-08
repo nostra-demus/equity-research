@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-08T03:58:54Z",
+  "generated_at": "2026-11-08T04:03:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20261108-075",
@@ -193,6 +193,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261108-080",
+      "headline": "China’s Boyu Capital in exclusive talks to buy Nucleus Network",
+      "headline_en": null,
+      "url": "https://www.afr.com/street-talk/china-s-boyu-capital-in-exclusive-talks-to-buy-nucleus-network-20261108-p61cdo?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T04:01:46Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "Boyu Capital is in exclusive talks to acquire Nucleus Network, signaling a significant private equity transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Boyu Capital is in exclusive talks to acquire Nucleus Network, signaling a significant private equity transaction.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nucleus Network",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1199,6 +1248,65 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261108-079",
+      "headline": "DBS, OCBC, UOB shares drop after Q3 results; SATS hit by work pass concerns: Markets this week",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/global-tech-fallout-after-us-democrats-victory-dbs-ocbc-oub-shares-drop-markets-this-week",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T04:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
+      "prelim_note": "Major Singaporean banks saw share price declines following Q3 earnings reports, indicating sector-wide pressure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 77,
+      "triage_reason": "Major Singaporean banks saw share price declines following Q3 earnings reports, indicating sector-wide pressure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [
+        {
+          "name": "DBS Group",
+          "ticker": null,
+          "listing_country": "SG"
+        },
+        {
+          "name": "OCBC Bank",
+          "ticker": null,
+          "listing_country": "SG"
+        },
+        {
+          "name": "UOB",
+          "ticker": null,
+          "listing_country": "SG"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261108-008",
       "headline": "Old Pension Scheme For 99,000 MP Teachers? High Court Ruling Brings Fresh Hope As Government's Seniority Dispute Remains Pending In Supreme Court",
       "headline_en": null,
@@ -1801,104 +1909,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-064",
-      "headline": "Navneet Education Limited - Ex-Date: 11-Nov-2026",
-      "headline_en": null,
-      "url": "https://www.nseindia.com/companies-listing/corporate-filings-actions",
-      "source_name": "NSE India — Corporate Actions (RSS)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-08T02:41:35Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "Routine ex-dividend date for Navneet Education.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 59,
-      "triage_reason": "Routine ex-dividend date for Navneet Education.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Navneet Education Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261108-070",
-      "headline": "ADF Foods Limited - Ex-Date: 11-Nov-2026",
-      "headline_en": null,
-      "url": "https://www.nseindia.com/companies-listing/corporate-filings-actions",
-      "source_name": "NSE India — Corporate Actions (RSS)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-08T02:41:35Z",
-      "sweep_file": "screener/inbox/2026-11-08_sweep.json",
-      "prelim_note": "Routine ex-dividend date for ADF Foods.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 59,
-      "triage_reason": "Routine ex-dividend date for ADF Foods.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ADF Foods Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -226134,76 +226144,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-c6c88bb7ea3e",
-      "idea_version": "IDEAV-c57e0ba0c487a383",
-      "idea_version_started_at": "2026-11-06T22:25:06Z",
-      "ticker": "ACI",
-      "company": "Albertsons Companies, Inc.",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Albertsons has been ordered to pay $900 million in a Washington state opioid case, which will directly impact its cash flow and profitability.",
-      "why_now": "The order to pay $900 million was issued on November 6, 2026, creating an immediate financial liability.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7497d559c1da"
-      ],
-      "primary_source_event_id": "EVT-7497d559c1da",
-      "source_headlines": [
-        "Albertsons ordered to pay $900M in Washington state opioid case"
-      ],
-      "source_headline": "Albertsons ordered to pay $900M in Washington state opioid case",
-      "source_url": "https://www.grocerydive.com/news/albertsons-washington-state-opioid-case-grocery/873958/",
-      "source_name": "Grocery Dive",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-06T16:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-06T22:25:06Z",
-      "updated_at": "2026-11-06T22:25:06Z",
-      "decay_at": "2026-11-08T04:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-0ac5d784c64f",
       "idea_version": "IDEAV-38e2672d22607b77",
       "idea_version_started_at": "2026-11-07T22:29:24Z",
@@ -228842,6 +228782,76 @@
       "surfaced_at": "2026-11-05T20:26:24Z",
       "updated_at": "2026-11-05T20:26:24Z",
       "decay_at": "2026-11-07T07:08:13Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-c6c88bb7ea3e",
+      "idea_version": "IDEAV-c57e0ba0c487a383",
+      "idea_version_started_at": "2026-11-06T22:25:06Z",
+      "ticker": "ACI",
+      "company": "Albertsons Companies, Inc.",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Albertsons has been ordered to pay $900 million in a Washington state opioid case, which will directly impact its cash flow and profitability.",
+      "why_now": "The order to pay $900 million was issued on November 6, 2026, creating an immediate financial liability.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7497d559c1da"
+      ],
+      "primary_source_event_id": "EVT-7497d559c1da",
+      "source_headlines": [
+        "Albertsons ordered to pay $900M in Washington state opioid case"
+      ],
+      "source_headline": "Albertsons ordered to pay $900M in Washington state opioid case",
+      "source_url": "https://www.grocerydive.com/news/albertsons-washington-state-opioid-case-grocery/873958/",
+      "source_name": "Grocery Dive",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-06T16:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-06T22:25:06Z",
+      "updated_at": "2026-11-06T22:25:06Z",
+      "decay_at": "2026-11-08T04:00:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -231713,9 +231723,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 547,
+    "total_count": 548,
     "shown_count": 499,
-    "hidden_count": 48,
+    "hidden_count": 49,
     "side_counts": {
       "long": {
         "total_count": 276,
@@ -231723,9 +231733,9 @@
         "hidden_count": 26
       },
       "short": {
-        "total_count": 272,
+        "total_count": 273,
         "shown_count": 250,
-        "hidden_count": 22
+        "hidden_count": 23
       }
     },
     "retention": {
@@ -231744,6 +231754,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-c6c88bb7ea3e",
+        "idea_version": "IDEAV-c57e0ba0c487a383",
+        "idea_version_started_at": "2026-11-06T22:25:06Z",
+        "ticker": "ACI",
+        "company": "Albertsons Companies, Inc.",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Albertsons has been ordered to pay $900 million in a Washington state opioid case, which will directly impact its cash flow and profitability.",
+        "why_now": "The order to pay $900 million was issued on November 6, 2026, creating an immediate financial liability.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 66,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-7497d559c1da"
+        ],
+        "primary_source_event_id": "EVT-7497d559c1da",
+        "source_headlines": [
+          "Albertsons ordered to pay $900M in Washington state opioid case"
+        ],
+        "source_headline": "Albertsons ordered to pay $900M in Washington state opioid case",
+        "source_url": "https://www.grocerydive.com/news/albertsons-washington-state-opioid-case-grocery/873958/",
+        "source_name": "Grocery Dive",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-06T16:00:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-06T22:25:06Z",
+        "updated_at": "2026-11-06T22:25:06Z",
+        "decay_at": "2026-11-08T04:00:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-08T04:00:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-89ae39c7d833",
         "idea_version": "IDEAV-f0f68e729880d19c",
@@ -268825,88 +268908,12 @@
         "archived_at": "2026-10-15T01:06:40Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-7b08e8c1482d",
-        "idea_version": "IDEAV-cf76d562cf92c0da",
-        "idea_version_started_at": "2026-10-12T01:12:56Z",
-        "ticker": "HDFCLIFE",
-        "company": "HDFC Life Insurance Company",
-        "exchange": "NSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Insurers are facing muted growth and claims pressure due to looming regulatory changes, which could negatively impact profitability and business expansion.",
-        "why_now": "Regulatory changes are on the horizon, creating near-term uncertainty and potential headwinds for the insurance sector.",
-        "conviction": 45,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 44,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 13,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "sector_cycle",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-cef5050e3be4"
-        ],
-        "primary_source_event_id": "EVT-cef5050e3be4",
-        "source_headlines": [
-          "Insurers face muted growth, claims pressure as regulatory changes loom"
-        ],
-        "source_headline": "Insurers face muted growth, claims pressure as regulatory changes loom",
-        "source_url": "https://www.livemint.com/industry/insurers-face-muted-growth-claims-pressure-as-regulatory-changes-loom-11791702672212.html",
-        "source_name": "Mint",
-        "materiality_max": 61,
-        "newest_source_at": "2026-10-12T00:20:34Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-12T01:12:56Z",
-        "updated_at": "2026-10-12T01:12:56Z",
-        "decay_at": "2026-10-13T12:20:34Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-15T01:06:40Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2268,
-    "live_count": 38,
+    "live_count": 37,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -268925,9 +268932,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 377,
-    "news_picked_today": 86,
-    "news_dropped_today": 291
+    "news_seen_today": 393,
+    "news_picked_today": 90,
+    "news_dropped_today": 303
   },
   "book_momentum": {
     "live_count": 8,
