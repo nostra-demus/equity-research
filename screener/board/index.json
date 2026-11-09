@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T18:56:01Z",
+  "generated_at": "2026-11-09T19:02:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-419",
@@ -994,6 +994,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261109-463",
+      "headline": "Compass Therapeutics, Inc. Reports 2026 Third Quarter Financial Results and Net loss of $27.2 million",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/compass-therapeutics-inc-reports-2026-third-quarter-financial-results-and-net-loss-272",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T18:22:10Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "The company reported a net loss of $27.2 million for the quarter.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company reported a net loss of $27.2 million for the quarter.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Compass Therapeutics, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261109-453",
       "headline": "Nvidia shares tumble over investigation into Huang's affair with alleged Chinese spy",
       "headline_en": null,
@@ -1930,55 +1979,6 @@
       "event_types": [
         "management",
         "macro_sector"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-397",
-      "headline": "Nvidia’’s value tumbles by $330bn after ‘honeytrap’ investigation launched, as China denies spying claims – business live",
-      "headline_en": null,
-      "url": "https://www.theguardian.com/business/live/2026/nov/09/nvidia-jensen-huang-scandal-investigation-ai-industry-tech-stocks-recovery-slump-latest-news-updates",
-      "source_name": "The Guardian — Economics",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T14:37:22Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Nvidia faces a massive $330 billion market value decline following reports of a probe and geopolitical tensions.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia faces a massive $330 billion market value decline following reports of a probe and geopolitical tensions.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
       ],
       "issuer_linkage": "primary",
       "companies": [
@@ -231776,79 +231776,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-8f95394b7ca7",
-      "idea_version": "IDEAV-7f672114a2025634",
-      "idea_version_started_at": "2026-11-08T07:25:21Z",
-      "ticker": "PARAGRAF",
-      "company": "Paragraf",
-      "exchange": null,
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Paragraf is being sued over claims of duping investors in a £30 million takeover, indicating potential financial and legal liabilities.",
-      "why_now": "The lawsuit was reported today, presenting an immediate legal challenge.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0d58759e2755"
-      ],
-      "primary_source_event_id": "EVT-0d58759e2755",
-      "source_headlines": [
-        "British tech darling Paragraf sued over claims it 'duped' investors in £30m takeover"
-      ],
-      "source_headline": "British tech darling Paragraf sued over claims it 'duped' investors in £30m takeover",
-      "source_url": "https://www.thisismoney.co.uk/money/markets/article-16273829/British-tech-darling-Paragraf-sued-claims-duped-investors-30m-takeover.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
-      "source_name": "This is Money (Daily Mail) — Markets",
-      "materiality_max": 93,
-      "newest_source_at": "2026-11-08T07:01:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-08T07:25:21Z",
-      "updated_at": "2026-11-08T07:25:21Z",
-      "decay_at": "2026-11-09T19:01:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-24c2f9751ec7",
       "idea_version": "IDEAV-b1e925a9043aca93",
       "idea_version_started_at": "2026-11-09T03:31:35Z",
@@ -234277,6 +234204,79 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-8f95394b7ca7",
+      "idea_version": "IDEAV-7f672114a2025634",
+      "idea_version_started_at": "2026-11-08T07:25:21Z",
+      "ticker": "PARAGRAF",
+      "company": "Paragraf",
+      "exchange": null,
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Paragraf is being sued over claims of duping investors in a £30 million takeover, indicating potential financial and legal liabilities.",
+      "why_now": "The lawsuit was reported today, presenting an immediate legal challenge.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0d58759e2755"
+      ],
+      "primary_source_event_id": "EVT-0d58759e2755",
+      "source_headlines": [
+        "British tech darling Paragraf sued over claims it 'duped' investors in £30m takeover"
+      ],
+      "source_headline": "British tech darling Paragraf sued over claims it 'duped' investors in £30m takeover",
+      "source_url": "https://www.thisismoney.co.uk/money/markets/article-16273829/British-tech-darling-Paragraf-sued-claims-duped-investors-30m-takeover.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
+      "source_name": "This is Money (Daily Mail) — Markets",
+      "materiality_max": 93,
+      "newest_source_at": "2026-11-08T07:01:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-08T07:25:21Z",
+      "updated_at": "2026-11-08T07:25:21Z",
+      "decay_at": "2026-11-09T19:01:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-37a5e72c530e",
       "idea_version": "IDEAV-49d4d2edc49bacec",
       "idea_version_started_at": "2026-11-08T02:29:00Z",
@@ -235009,9 +235009,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 541,
+    "total_count": 542,
     "shown_count": 499,
-    "hidden_count": 42,
+    "hidden_count": 43,
     "side_counts": {
       "long": {
         "total_count": 279,
@@ -235019,9 +235019,9 @@
         "hidden_count": 29
       },
       "short": {
-        "total_count": 263,
+        "total_count": 264,
         "shown_count": 250,
-        "hidden_count": 13
+        "hidden_count": 14
       }
     },
     "retention": {
@@ -235040,6 +235040,82 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-8f95394b7ca7",
+        "idea_version": "IDEAV-7f672114a2025634",
+        "idea_version_started_at": "2026-11-08T07:25:21Z",
+        "ticker": "PARAGRAF",
+        "company": "Paragraf",
+        "exchange": null,
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Paragraf is being sued over claims of duping investors in a £30 million takeover, indicating potential financial and legal liabilities.",
+        "why_now": "The lawsuit was reported today, presenting an immediate legal challenge.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 15,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-0d58759e2755"
+        ],
+        "primary_source_event_id": "EVT-0d58759e2755",
+        "source_headlines": [
+          "British tech darling Paragraf sued over claims it 'duped' investors in £30m takeover"
+        ],
+        "source_headline": "British tech darling Paragraf sued over claims it 'duped' investors in £30m takeover",
+        "source_url": "https://www.thisismoney.co.uk/money/markets/article-16273829/British-tech-darling-Paragraf-sued-claims-duped-investors-30m-takeover.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
+        "source_name": "This is Money (Daily Mail) — Markets",
+        "materiality_max": 93,
+        "newest_source_at": "2026-11-08T07:01:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-08T07:25:21Z",
+        "updated_at": "2026-11-08T07:25:21Z",
+        "decay_at": "2026-11-09T19:01:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-09T19:01:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-14770c0627c1",
         "idea_version": "IDEAV-643d72cad2915728",
@@ -272110,87 +272186,12 @@
         "archived_at": "2026-10-16T04:22:13Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-d7d2cfd9508b",
-        "idea_version": "IDEAV-ce45777e44bf7303",
-        "idea_version_started_at": "2026-10-13T14:10:50Z",
-        "ticker": "FNT",
-        "company": "Future Enterprises",
-        "exchange": "NSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Bank of India declared its Rs 575 crore exposure to Future Enterprises as fraud, indicating severe financial distress.",
-        "why_now": "The declaration of fraud by Bank of India on October 13, 2026, is a fresh negative catalyst.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-2e77c80432e7"
-        ],
-        "primary_source_event_id": "EVT-2e77c80432e7",
-        "source_headlines": [
-          "Bank of India declares Rs 575 crore exposure to Future Enterprises as fraud"
-        ],
-        "source_headline": "Bank of India declares Rs 575 crore exposure to Future Enterprises as fraud",
-        "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/bank-of-india-declares-rs-575-crore-exposure-to-future-enterprises-as-fraud/articleshow/134905834.cms",
-        "source_name": "The Economic Times",
-        "materiality_max": 94,
-        "newest_source_at": "2026-10-13T01:42:34Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-13T14:10:50Z",
-        "updated_at": "2026-10-13T14:10:50Z",
-        "decay_at": "2026-10-14T13:42:34Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-16T04:22:13Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2339,
-    "live_count": 60,
+    "live_count": 59,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -272209,9 +272210,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3600347,
-    "news_picked_today": 1150,
-    "news_dropped_today": 9512
+    "news_seen_today": 3641646,
+    "news_picked_today": 1156,
+    "news_dropped_today": 9554
   },
   "book_momentum": {
     "live_count": 8,
