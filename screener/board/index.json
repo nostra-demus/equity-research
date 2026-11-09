@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T07:06:55Z",
+  "generated_at": "2026-11-09T07:08:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-273",
@@ -1886,110 +1886,93 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261109-165",
-      "headline": "Shyam Metalics and Energy Limited: Shyam Metalics And Energy Limited has informed the Exchange regarding a press release dated November 09, 2026, titled \"Shyam Metalics Reaffirms Credit Ratings of CRISIL AA+/Stable and CRISIL A1+ ; Bank Debt Ratings Enhanced to ₹4,500 Crore.\".",
+      "inbox_id": "INB-20261109-278",
+      "headline": "[TSE]Revocation of Initial Listing Approval (REIT): KDX Kolet REIT,Inc.",
       "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/SHYAMMETL_09112026085719_SMELPressRelease09112026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
+      "url": "https://www.jpx.co.jp/english/news/1021/20261109-12.html",
+      "source_name": "Japan Exchange Group (JPX) — Market News",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-11-09T03:27:31Z",
+      "found_at": "2026-11-09T07:00:00Z",
       "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "CRISIL reaffirmed Shyam Metalics' ratings at AA+/Stable and A1+ while enhancing bank debt ratings to 4,500 crore rupees.",
+      "prelim_note": "KDX Kolet REIT had its initial listing approval revoked by the Tokyo Stock Exchange.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "CRISIL reaffirmed Shyam Metalics' ratings at AA+/Stable and A1+ while enhancing bank debt ratings to 4,500 crore rupees.",
-      "region": "IN",
+      "triage_score": 98,
+      "triage_reason": "KDX Kolet REIT had its initial listing approval revoked by the Tokyo Stock Exchange.",
+      "region": "JP",
       "relevance": "material",
-      "materiality_pre_score": 55,
+      "materiality_pre_score": 75,
       "rank_factors": {
-        "materiality": 55,
+        "materiality": 75,
         "source_tier": 8,
         "scope": 6,
-        "event": 7,
-        "size": 1,
+        "event": 4,
+        "size": 0,
         "recency": 5,
-        "materiality_label_floor": 15,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "mid"
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
       },
       "event_types": [
-        "credit_rating_upgrade",
-        "debt_credit"
+        "regulatory"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Shyam Metalics and Energy Limited",
-          "ticker": "SHYAMMETL",
-          "listing_country": "IN"
+          "name": "KDX Kolet REIT, Inc.",
+          "ticker": null,
+          "listing_country": "JP"
         }
       ],
-      "size_bucket": "mid",
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261109-277",
-      "headline": "Goodman, Digital Realty Jointly Acquire 9.9% Stake In Australian NEXTDC",
+      "inbox_id": "INB-20261109-280",
+      "headline": "Iraq’s Khor Mor gas field suspends output after drone attack, operator says",
       "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/goodman-digital-realty-jointly-acquire-99-stake-australian-nextdc",
-      "source_name": "Nasdaq",
+      "url": "https://www.businesstimes.com.sg/international/iraqs-khor-mor-gas-field-suspends-output-after-drone-attack-operator-says",
+      "source_name": "The Business Times (Singapore)",
       "input_nature": "news_headline",
-      "found_at": "2026-11-09T06:37:34Z",
+      "found_at": "2026-11-09T06:49:54Z",
       "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Goodman and Digital Realty acquired a 9.9% stake in NEXTDC, indicating a strategic investment in data center infrastructure.",
+      "prelim_note": "The Khor Mor gas field suspended output following a drone attack, creating a supply shock.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Goodman and Digital Realty acquired a 9.9% stake in NEXTDC, indicating a strategic investment in data center infrastructure.",
+      "triage_score": 98,
+      "triage_reason": "The Khor Mor gas field suspended output following a drone attack, creating a supply shock.",
       "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 60,
+      "materiality_pre_score": 80,
       "rank_factors": {
-        "materiality": 60,
+        "materiality": 80,
         "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
         "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
+        "materiality_label_floor": 5,
+        "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "multi_name",
+        "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
+        "event_id": "operations",
+        "size_bucket": "unknown"
       },
       "event_types": [
-        "mna"
+        "operations"
       ],
       "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Goodman Group",
-          "ticker": null,
-          "listing_country": "AU"
-        },
-        {
-          "name": "Digital Realty",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "NEXTDC",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "large",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -272283,9 +272266,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 131607,
-    "news_picked_today": 406,
-    "news_dropped_today": 4592
+    "news_seen_today": 134478,
+    "news_picked_today": 411,
+    "news_dropped_today": 4611
   },
   "book_momentum": {
     "live_count": 8,
