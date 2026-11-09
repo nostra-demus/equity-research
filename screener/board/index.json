@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T18:23:03Z",
+  "generated_at": "2026-11-09T18:27:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-419",
@@ -995,6 +995,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261109-456",
+      "headline": "£292bn wiped off value of Nvidia as it launches probe into boss Jensen Huang's affair with 'Chinese spy'",
+      "headline_en": null,
+      "url": "https://www.thisismoney.co.uk/money/markets/article-16277867/200bn-wiped-value-Nvidia-launches-probe-boss-Jensen-Huangs-affair-Chinese-spy.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
+      "source_name": "This is Money (Daily Mail) — Markets",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T18:10:21Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Nvidia faces a significant market value decline of 292 billion pounds amid a probe into the CEO's personal conduct.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia faces a significant market value decline of 292 billion pounds amid a probe into the CEO's personal conduct.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261109-451",
       "headline": "Boeing Cuts 5% of Commercial Workforce Amid Factory Ramp Delays",
       "headline_en": null,
@@ -1943,61 +1992,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-321",
-      "headline": "Korean FTC Slaps Coupang, Baemin with Record Fine",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=280841",
-      "source_name": "Business Korea — All English Articles",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T13:57:52Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "The Korean FTC imposed a record fine on Coupang and Baemin for unfair business practices.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The Korean FTC imposed a record fine on Coupang and Baemin for unfair business practices.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Coupang",
-          "ticker": null,
-          "listing_country": "KR"
-        },
-        {
-          "name": "Baemin",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -230218,78 +230212,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-781d6df95373",
-      "idea_version": "IDEAV-587780df73f348c0",
-      "idea_version_started_at": "2026-11-08T16:29:22Z",
-      "ticker": "3003.SR",
-      "company": "Riyadh Cement Company",
-      "exchange": "Tadawul",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Riyadh Cement announced a 73.5% increase in Q3-26 net profits, indicating strong operational performance and demand for its products.",
-      "why_now": "The company reported its Q3-26 earnings on November 8, 2026, providing a fresh catalyst for the stock.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6cc48472a33f"
-      ],
-      "primary_source_event_id": "EVT-6cc48472a33f",
-      "source_headlines": [
-        "Riyadh Cement announces 73.5% leap in Q3-26 net profits"
-      ],
-      "source_headline": "Riyadh Cement announces 73.5% leap in Q3-26 net profits",
-      "source_url": "http://english.mubasher.info/news/4697944/Riyadh-Cement-announces-73-5-leap-in-Q3-26-net-profits",
-      "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-08T06:27:14Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-08T16:29:22Z",
-      "updated_at": "2026-11-08T16:29:22Z",
-      "decay_at": "2026-11-09T18:27:14Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-192883ff2edc",
       "idea_version": "IDEAV-48b3b583ba5d295e",
       "idea_version_started_at": "2026-11-08T12:16:39Z",
@@ -231005,150 +230927,6 @@
       "surfaced_at": "2026-11-08T03:58:35Z",
       "updated_at": "2026-11-08T08:08:50Z",
       "decay_at": "2026-11-09T19:22:18Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-f973c4b619c7",
-      "idea_version": "IDEAV-32b9c87a117f7800",
-      "idea_version_started_at": "2026-11-08T07:43:23Z",
-      "ticker": "3030",
-      "company": "Riyadh Cement",
-      "exchange": "Tadawul",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company delivered a 73.5% increase in Q3 net profits, signaling strong operational efficiency and pricing power in the Saudi construction market.",
-      "why_now": "The Q3-26 earnings announcement was released on November 8, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6cc48472a33f"
-      ],
-      "primary_source_event_id": "EVT-6cc48472a33f",
-      "source_headlines": [
-        "Riyadh Cement announces 73.5% leap in Q3-26 net profits"
-      ],
-      "source_headline": "Riyadh Cement announces 73.5% leap in Q3-26 net profits",
-      "source_url": "http://english.mubasher.info/news/4697944/Riyadh-Cement-announces-73-5-leap-in-Q3-26-net-profits",
-      "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-08T06:27:14Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-08T07:43:23Z",
-      "updated_at": "2026-11-08T07:43:23Z",
-      "decay_at": "2026-11-09T18:27:14Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-b1271a8cff39",
-      "idea_version": "IDEAV-5100fcc237a9fee2",
-      "idea_version_started_at": "2026-11-08T06:58:45Z",
-      "ticker": "3010",
-      "company": "Riyadh Cement",
-      "exchange": "TSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported a massive 73.5% year-over-year leap in Q3-26 net profits, indicating significant margin expansion or volume growth in the Saudi construction sector.",
-      "why_now": "Q3 earnings announcement on November 8, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6cc48472a33f"
-      ],
-      "primary_source_event_id": "EVT-6cc48472a33f",
-      "source_headlines": [
-        "Riyadh Cement announces 73.5% leap in Q3-26 net profits"
-      ],
-      "source_headline": "Riyadh Cement announces 73.5% leap in Q3-26 net profits",
-      "source_url": "http://english.mubasher.info/news/4697944/Riyadh-Cement-announces-73-5-leap-in-Q3-26-net-profits",
-      "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-08T06:27:14Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-08T06:58:45Z",
-      "updated_at": "2026-11-08T06:58:45Z",
-      "decay_at": "2026-11-09T18:27:14Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -232921,6 +232699,150 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-781d6df95373",
+      "idea_version": "IDEAV-587780df73f348c0",
+      "idea_version_started_at": "2026-11-08T16:29:22Z",
+      "ticker": "3003.SR",
+      "company": "Riyadh Cement Company",
+      "exchange": "Tadawul",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Riyadh Cement announced a 73.5% increase in Q3-26 net profits, indicating strong operational performance and demand for its products.",
+      "why_now": "The company reported its Q3-26 earnings on November 8, 2026, providing a fresh catalyst for the stock.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6cc48472a33f"
+      ],
+      "primary_source_event_id": "EVT-6cc48472a33f",
+      "source_headlines": [
+        "Riyadh Cement announces 73.5% leap in Q3-26 net profits"
+      ],
+      "source_headline": "Riyadh Cement announces 73.5% leap in Q3-26 net profits",
+      "source_url": "http://english.mubasher.info/news/4697944/Riyadh-Cement-announces-73-5-leap-in-Q3-26-net-profits",
+      "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-08T06:27:14Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-08T16:29:22Z",
+      "updated_at": "2026-11-08T16:29:22Z",
+      "decay_at": "2026-11-09T18:27:14Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-f973c4b619c7",
+      "idea_version": "IDEAV-32b9c87a117f7800",
+      "idea_version_started_at": "2026-11-08T07:43:23Z",
+      "ticker": "3030",
+      "company": "Riyadh Cement",
+      "exchange": "Tadawul",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company delivered a 73.5% increase in Q3 net profits, signaling strong operational efficiency and pricing power in the Saudi construction market.",
+      "why_now": "The Q3-26 earnings announcement was released on November 8, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6cc48472a33f"
+      ],
+      "primary_source_event_id": "EVT-6cc48472a33f",
+      "source_headlines": [
+        "Riyadh Cement announces 73.5% leap in Q3-26 net profits"
+      ],
+      "source_headline": "Riyadh Cement announces 73.5% leap in Q3-26 net profits",
+      "source_url": "http://english.mubasher.info/news/4697944/Riyadh-Cement-announces-73-5-leap-in-Q3-26-net-profits",
+      "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-08T06:27:14Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-08T07:43:23Z",
+      "updated_at": "2026-11-08T07:43:23Z",
+      "decay_at": "2026-11-09T18:27:14Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-c4243ebb3cd3",
       "idea_version": "IDEAV-6fe6bef7f4f26a1d",
       "idea_version_started_at": "2026-11-08T07:25:21Z",
@@ -233060,6 +232982,78 @@
       "surfaced_at": "2026-11-07T12:20:59Z",
       "updated_at": "2026-11-08T06:58:45Z",
       "decay_at": "2026-11-09T18:10:20Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-b1271a8cff39",
+      "idea_version": "IDEAV-5100fcc237a9fee2",
+      "idea_version_started_at": "2026-11-08T06:58:45Z",
+      "ticker": "3010",
+      "company": "Riyadh Cement",
+      "exchange": "TSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported a massive 73.5% year-over-year leap in Q3-26 net profits, indicating significant margin expansion or volume growth in the Saudi construction sector.",
+      "why_now": "Q3 earnings announcement on November 8, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6cc48472a33f"
+      ],
+      "primary_source_event_id": "EVT-6cc48472a33f",
+      "source_headlines": [
+        "Riyadh Cement announces 73.5% leap in Q3-26 net profits"
+      ],
+      "source_headline": "Riyadh Cement announces 73.5% leap in Q3-26 net profits",
+      "source_url": "http://english.mubasher.info/news/4697944/Riyadh-Cement-announces-73-5-leap-in-Q3-26-net-profits",
+      "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-08T06:27:14Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-08T06:58:45Z",
+      "updated_at": "2026-11-08T06:58:45Z",
+      "decay_at": "2026-11-09T18:27:14Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -234880,14 +234874,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 542,
+    "total_count": 545,
     "shown_count": 499,
-    "hidden_count": 43,
+    "hidden_count": 46,
     "side_counts": {
       "long": {
-        "total_count": 278,
+        "total_count": 281,
         "shown_count": 250,
-        "hidden_count": 28
+        "hidden_count": 31
       },
       "short": {
         "total_count": 265,
@@ -234911,6 +234905,231 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-781d6df95373",
+        "idea_version": "IDEAV-587780df73f348c0",
+        "idea_version_started_at": "2026-11-08T16:29:22Z",
+        "ticker": "3003.SR",
+        "company": "Riyadh Cement Company",
+        "exchange": "Tadawul",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Riyadh Cement announced a 73.5% increase in Q3-26 net profits, indicating strong operational performance and demand for its products.",
+        "why_now": "The company reported its Q3-26 earnings on November 8, 2026, providing a fresh catalyst for the stock.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-6cc48472a33f"
+        ],
+        "primary_source_event_id": "EVT-6cc48472a33f",
+        "source_headlines": [
+          "Riyadh Cement announces 73.5% leap in Q3-26 net profits"
+        ],
+        "source_headline": "Riyadh Cement announces 73.5% leap in Q3-26 net profits",
+        "source_url": "http://english.mubasher.info/news/4697944/Riyadh-Cement-announces-73-5-leap-in-Q3-26-net-profits",
+        "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-08T06:27:14Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-08T16:29:22Z",
+        "updated_at": "2026-11-08T16:29:22Z",
+        "decay_at": "2026-11-09T18:27:14Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-09T18:27:14Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-b1271a8cff39",
+        "idea_version": "IDEAV-5100fcc237a9fee2",
+        "idea_version_started_at": "2026-11-08T06:58:45Z",
+        "ticker": "3010",
+        "company": "Riyadh Cement",
+        "exchange": "TSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company reported a massive 73.5% year-over-year leap in Q3-26 net profits, indicating significant margin expansion or volume growth in the Saudi construction sector.",
+        "why_now": "Q3 earnings announcement on November 8, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-6cc48472a33f"
+        ],
+        "primary_source_event_id": "EVT-6cc48472a33f",
+        "source_headlines": [
+          "Riyadh Cement announces 73.5% leap in Q3-26 net profits"
+        ],
+        "source_headline": "Riyadh Cement announces 73.5% leap in Q3-26 net profits",
+        "source_url": "http://english.mubasher.info/news/4697944/Riyadh-Cement-announces-73-5-leap-in-Q3-26-net-profits",
+        "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-08T06:27:14Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-08T06:58:45Z",
+        "updated_at": "2026-11-08T06:58:45Z",
+        "decay_at": "2026-11-09T18:27:14Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-09T18:27:14Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-f973c4b619c7",
+        "idea_version": "IDEAV-32b9c87a117f7800",
+        "idea_version_started_at": "2026-11-08T07:43:23Z",
+        "ticker": "3030",
+        "company": "Riyadh Cement",
+        "exchange": "Tadawul",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company delivered a 73.5% increase in Q3 net profits, signaling strong operational efficiency and pricing power in the Saudi construction market.",
+        "why_now": "The Q3-26 earnings announcement was released on November 8, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-6cc48472a33f"
+        ],
+        "primary_source_event_id": "EVT-6cc48472a33f",
+        "source_headlines": [
+          "Riyadh Cement announces 73.5% leap in Q3-26 net profits"
+        ],
+        "source_headline": "Riyadh Cement announces 73.5% leap in Q3-26 net profits",
+        "source_url": "http://english.mubasher.info/news/4697944/Riyadh-Cement-announces-73-5-leap-in-Q3-26-net-profits",
+        "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-08T06:27:14Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-08T07:43:23Z",
+        "updated_at": "2026-11-08T07:43:23Z",
+        "decay_at": "2026-11-09T18:27:14Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-09T18:27:14Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-b1a3845bf6c7",
         "idea_version": "IDEAV-584f5450c4f6bfa7",
@@ -262970,233 +263189,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-035d29edfe11",
-        "idea_version": "IDEAV-43b4e4f366a81dab",
-        "idea_version_started_at": "2026-10-26T00:29:16Z",
-        "ticker": "VFQS",
-        "company": "Vodafone Qatar",
-        "exchange": "QE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "A 23.7% increase in nine-month profit to QR611 million indicates strong operational leverage and market share growth in the Qatari telecommunications sector.",
-        "why_now": "The financial results were reported on 2026-10-25.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-58623c60c77c"
-        ],
-        "primary_source_event_id": "EVT-58623c60c77c",
-        "source_headlines": [
-          "Vodafone Qatar nine month profit jumps 23.7% to QR611 mn"
-        ],
-        "source_headline": "Vodafone Qatar nine month profit jumps 23.7% to QR611 mn",
-        "source_url": "https://www.qatar-tribune.com/article/261017/business/vodafone-qatar-nine-month-profit-jumps-237-to-qr611-mn",
-        "source_name": "Qatar Tribune — Business",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-25T21:29:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-26T00:29:16Z",
-        "updated_at": "2026-10-26T00:29:16Z",
-        "decay_at": "2026-10-27T09:29:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-29T02:54:23Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-0e26a0f66836",
-        "idea_version": "IDEAV-e5a80daf29ca00af",
-        "idea_version_started_at": "2026-10-26T00:05:04Z",
-        "ticker": "HBOS",
-        "company": "Hugo Boss",
-        "exchange": "XETRA",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Frasers Group has acquired a majority stake in the company, which typically triggers a premium valuation or strategic restructuring.",
-        "why_now": "The acquisition was reported on October 25, 2026.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-9c6958323139"
-        ],
-        "primary_source_event_id": "EVT-9c6958323139",
-        "source_headlines": [
-          "Takeover: Sports retailer Frasers acquires majority stake in Hugo Boss"
-        ],
-        "source_headline": "Übernahme: Sportartikel-Händler Frasers übernimmt Mehrheit bei Hugo Boss",
-        "source_url": "https://www.handelsblatt.com/unternehmen/handel-konsumgueter/uebernahme-sportartikel-haendler-frasers-uebernimmt-mehrheit-bei-hugo-boss/100264800.html",
-        "source_name": "Handelsblatt",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-25T15:03:21Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-26T00:05:04Z",
-        "updated_at": "2026-10-26T00:05:04Z",
-        "decay_at": "2026-10-27T03:03:21Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-28T18:19:18Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-035d450b2a01",
-        "idea_version": "IDEAV-3eee045818ea4e17",
-        "idea_version_started_at": "2026-10-25T13:48:58Z",
-        "ticker": "SENCO",
-        "company": "Senco Gold",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The acquisition of a 68% stake in August Jewellery for Rs 68 crore allows Senco Gold to expand its retail footprint and consolidate market share in the competitive Indian jewelry sector.",
-        "why_now": "The acquisition was officially announced on 2026-10-25, providing an immediate catalyst for growth expectations.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-333a25b151ef"
-        ],
-        "primary_source_event_id": "EVT-333a25b151ef",
-        "source_headlines": [
-          "Senco Gold to acquire 68 per cent stake in August Jewellery for Rs 68 crore"
-        ],
-        "source_headline": "Senco Gold to acquire 68 per cent stake in August Jewellery for Rs 68 crore",
-        "source_url": "https://economictimes.indiatimes.com/industry/cons-products/fashion-/-cosmetics-/-jewellery/senco-gold-to-acquire-68-per-cent-stake-in-august-jewellery-for-rs-68-crore/articleshow/135192268.cms",
-        "source_name": "The Economic Times",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-25T13:36:28Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-25T13:48:58Z",
-        "updated_at": "2026-10-25T13:48:58Z",
-        "decay_at": "2026-10-27T01:36:28Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-28T18:19:18Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-b0586fbde26d",
         "idea_version": "IDEAV-136afe44a600f92f",
         "idea_version_started_at": "2026-10-25T12:38:57Z",
@@ -272061,7 +272053,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2334,
-    "live_count": 57,
+    "live_count": 54,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -272080,9 +272072,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3435055,
-    "news_picked_today": 1120,
-    "news_dropped_today": 9230
+    "news_seen_today": 3455705,
+    "news_picked_today": 1124,
+    "news_dropped_today": 9250
   },
   "book_momentum": {
     "live_count": 8,
