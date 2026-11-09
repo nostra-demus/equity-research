@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T18:06:14Z",
+  "generated_at": "2026-11-09T18:09:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-419",
@@ -940,6 +940,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-451",
+      "headline": "Boeing Cuts 5% of Commercial Workforce Amid Factory Ramp Delays",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-09/boeing-cuts-5-of-commercial-workforce-amid-factory-ramp-delays",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T17:53:22Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Boeing is cutting 5% of its commercial workforce due to ongoing factory delays, signaling significant operational distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Boeing is cutting 5% of its commercial workforce due to ongoing factory delays, signaling significant operational distress.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Boeing",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1946,55 +1995,6 @@
           "name": "Baemin",
           "ticker": null,
           "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-388",
-      "headline": "Tilray Raises Its Guidance for the Year. Is the Stock Finally Headed on the Right Track?",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/tilray-raises-its-guidance-year-stock-finally-headed-right-track",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T13:46:02Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Tilray raised its financial guidance for the year.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Tilray raised its financial guidance for the year.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tilray",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -272079,9 +272079,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3311484,
-    "news_picked_today": 1097,
-    "news_dropped_today": 9109
+    "news_seen_today": 3342276,
+    "news_picked_today": 1100,
+    "news_dropped_today": 9130
   },
   "book_momentum": {
     "live_count": 8,
