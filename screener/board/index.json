@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-09T07:59:30Z",
+  "generated_at": "2026-11-09T08:05:37Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261109-299",
+      "headline": "Moneyboxx Finance Limited: Moneyboxx Finance Limited has informed the Exchange regarding a press release dated November 09, 2026, titled \"Moneyboxx Finance Q2 FY27: Pre-Provision Opera􀆟ng Profit Up 79% YoY and 4xQoQ; Monthly Disbursements Double to Over ₹50 Crore in October\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/MONEYBOXX_09112026125610_PR.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-09T07:26:22Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Company reported a 79% YoY increase in pre-provision operating profit and monthly disbursements exceeding ₹50 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company reported a 79% YoY increase in pre-provision operating profit and monthly disbursements exceeding ₹50 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Moneyboxx Finance Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261109-286",
       "headline": "[TSE]Decision on Delisting:Nippon Souken Co.,Ltd.",
@@ -1941,49 +1990,6 @@
         "size": 0,
         "recency": 5,
         "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-150",
-      "headline": "Trump doubles down on choice to start war on Iran",
-      "headline_en": null,
-      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/trump-doubles-down-choice-start-war-iran",
-      "source_name": "Middle East Eye",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T03:02:04Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Escalation of rhetoric regarding potential war with Iran is a major geopolitical risk factor.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Escalation of rhetoric regarding potential war with Iran is a major geopolitical risk factor.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "geopolitical",
@@ -272290,9 +272296,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 244326,
-    "news_picked_today": 457,
-    "news_dropped_today": 4901
+    "news_seen_today": 251594,
+    "news_picked_today": 465,
+    "news_dropped_today": 5709
   },
   "book_momentum": {
     "live_count": 8,
