@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T04:46:38Z",
+  "generated_at": "2026-11-09T04:50:26Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-172",
@@ -149,6 +149,57 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-203",
+      "headline": "'No excuse for what I did': Nvidia CEO Jensen Huang admits to affair with suspected Chinese spy; firm launches probe",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/world/us/no-excuse-for-what-i-did-nvidia-ceo-jensen-huang-admits-to-affair-with-suspected-chinese-spy-firm-launches-probe-4212369",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T04:27:16Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Nvidia CEO Jensen Huang admits to an affair with a suspected spy, triggering an internal probe and significant reputational/security risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia CEO Jensen Huang admits to an affair with a suspected spy, triggering an internal probe and significant reputational/security risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 88,
+      "rank_factors": {
+        "materiality": 88,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management",
+        "executive_exit",
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia Corporation",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1908,55 +1959,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-066",
-      "headline": "Applebee’s and IHOP parent closes 208 restaurants",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/restaurants/applebees-and-ihop-parent-closes-208-restaurants",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T01:17:00Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Dine Brands is closing 208 restaurants, representing a significant reduction in its physical footprint.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Dine Brands is closing 208 restaurants, representing a significant reduction in its physical footprint.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dine Brands Global",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -272116,9 +272118,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1318,
-    "news_picked_today": 248,
-    "news_dropped_today": 1070
+    "news_seen_today": 2068,
+    "news_picked_today": 251,
+    "news_dropped_today": 1235
   },
   "book_momentum": {
     "live_count": 8,
