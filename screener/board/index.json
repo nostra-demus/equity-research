@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T01:59:48Z",
+  "generated_at": "2026-11-09T02:03:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-069",
@@ -679,6 +679,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-100",
+      "headline": "농심, '녹산 수출공장'…전 세계 10명 중 7명 라면공급",
+      "headline_en": "Nongshim, 'Noksan Export Factory'... supplying ramen to 7 out of 10 people worldwide",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=280768",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T01:30:00Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Nongshim is expanding its Noksan export factory to increase global production capacity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Nongshim is expanding its Noksan export factory to increase global production capacity.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nongshim",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1851,77 +1900,28 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261109-035",
-      "headline": "KAR: Becoming a substantial holder",
+      "inbox_id": "INB-20261109-092",
+      "headline": "M&M bets on SUV growth, EV expansion and global aerospace orders to drive earnings",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.KAR?key=2924-03159556-3A706109",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-09T00:33:42Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "A new substantial holder disclosure indicates a change in ownership structure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 70,
-      "triage_reason": "A new substantial holder disclosure indicates a change in ownership structure.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "KAR",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-061",
-      "headline": "Federal Home Loan Mortgage Corporation - Preferred Stock Price Target Decreased by 51.65% to $6.34",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/federal-home-loan-mortgage-corporation-preferred-stock-price-target-decreased-5165-634",
-      "source_name": "Nasdaq",
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/mm-bets-on-suv-growth-ev-expansion-and-global-aerospace-orders-to-drive-earnings/articleshow/135667943.cms",
+      "source_name": "The Economic Times",
       "input_nature": "news_headline",
-      "found_at": "2026-11-09T00:52:49Z",
+      "found_at": "2026-11-09T01:17:08Z",
       "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Preferred stock price target for Federal Home Loan Mortgage Corporation decreased by 51.65%.",
+      "prelim_note": "Mahindra & Mahindra is focusing on SUV growth and EV expansion to drive future earnings.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 70,
-      "triage_reason": "Preferred stock price target for Federal Home Loan Mortgage Corporation decreased by 51.65%.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 50,
+      "triage_score": 74,
+      "triage_reason": "Mahindra & Mahindra is focusing on SUV growth and EV expansion to drive future earnings.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
       "rank_factors": {
-        "materiality": 50,
+        "materiality": 55,
         "source_tier": 0,
         "scope": 6,
-        "event": 7,
+        "event": 6,
         "size": 2,
         "recency": 5,
         "materiality_label_floor": 0,
@@ -1929,18 +1929,19 @@
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "guidance_change",
+        "event_id": "capex",
         "size_bucket": "large"
       },
       "event_types": [
-        "guidance_change"
+        "capex",
+        "earnings_revenue_margin"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Federal Home Loan Mortgage Corporation",
+          "name": "Mahindra & Mahindra",
           "ticker": null,
-          "listing_country": "US"
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -271814,9 +271815,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 472,
-    "news_picked_today": 98,
-    "news_dropped_today": 374
+    "news_seen_today": 514,
+    "news_picked_today": 107,
+    "news_dropped_today": 407
   },
   "book_momentum": {
     "live_count": 8,
