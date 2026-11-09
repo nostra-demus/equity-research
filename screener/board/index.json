@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T00:40:13Z",
+  "generated_at": "2026-11-09T00:43:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-034",
@@ -38,6 +38,49 @@
         "regulatory"
       ],
       "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-040",
+      "headline": "Hacked records show 400,000 Russians killed in war on Ukraine",
+      "headline_en": null,
+      "url": "https://www.japantimes.co.jp/news/2026/11/09/world/hacked-russians-killed-ukraine/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T00:40:00Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "The report of 400,000 casualties in the Russia-Ukraine war represents a significant escalation in the human and geopolitical cost of the conflict, impacting global risk sentiment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "The report of 400,000 casualties in the Russia-Ukraine war represents a significant escalation in the human and geopolitical cost of the conflict, impacting global risk sentiment.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -89,6 +132,65 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-039",
+      "headline": "NXT: Response to Statement by Goodman Group & Digital Realty [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NXT?key=2924-03159557-2A1709518",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-09T00:41:22Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "NextDC is responding to a public statement from Goodman Group and Digital Realty, indicating potential M&A or strategic interest.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "NextDC is responding to a public statement from Goodman Group and Digital Realty, indicating potential M&A or strategic interest.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "strategic_review",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NextDC",
+          "ticker": "NXT",
+          "listing_country": "AU"
+        },
+        {
+          "name": "Goodman Group",
+          "ticker": "GMG",
+          "listing_country": "AU"
+        },
+        {
+          "name": "Digital Realty",
+          "ticker": "DLR",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1018,6 +1120,60 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-041",
+      "headline": "Hyundai Motor's HTWO teams up with Air Liquide to expand hydrogen mobility in China",
+      "headline_en": null,
+      "url": "https://en.yna.co.kr/view/AEN20261109001800320",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T00:36:17Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Hyundai Motor is expanding its hydrogen mobility footprint in China through a partnership with Air Liquide.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 62,
+      "triage_reason": "Hyundai Motor is expanding its hydrogen mobility footprint in China through a partnership with Air Liquide.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hyundai Motor",
+          "ticker": null,
+          "listing_country": "KR"
+        },
+        {
+          "name": "Air Liquide",
+          "ticker": null,
+          "listing_country": "FR"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -271567,7 +271723,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4644,
+    "inbox_unconsumed": 4647,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -271576,9 +271732,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 174,
-    "news_picked_today": 38,
-    "news_dropped_today": 136
+    "news_seen_today": 179,
+    "news_picked_today": 41,
+    "news_dropped_today": 138
   },
   "book_momentum": {
     "live_count": 8,
