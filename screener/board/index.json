@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T04:40:37Z",
+  "generated_at": "2026-11-09T04:46:38Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-172",
@@ -1518,6 +1518,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261109-200",
+      "headline": "Pearl Global maintains margin guidance above 10% as growth momentum continues",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/earnings/pearl-global-share-price-q2-results-growth-outlook-fy27-bangladesh-operations-alpha-article-20030071.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T04:40:14Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Pearl Global reaffirmed its margin guidance of over 10%, signaling operational stability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Pearl Global reaffirmed its margin guidance of over 10%, signaling operational stability.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pearl Global Industries",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261109-186",
       "headline": "Türk Telekomünikasyon Anonim Sirketi - Depositary Receipt Consensus Price Target Lowered by 35.04% to $3.28",
       "headline_en": null,
@@ -1905,56 +1954,6 @@
           "name": "Dine Brands Global",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-164",
-      "headline": "Hanwha M&S President Launches Second Tender Offer, Investing 27 Billion Won",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=280802",
-      "source_name": "Business Korea — All English Articles",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T06:59:34Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Hanwha M&S President launched a second tender offer with an investment of 27 billion won.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Hanwha M&S President launched a second tender offer with an investment of 27 billion won.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna",
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hanwha M&S",
-          "ticker": null,
-          "listing_country": "KR"
         }
       ],
       "size_bucket": "mid",
@@ -272117,9 +272116,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1089,
-    "news_picked_today": 244,
-    "news_dropped_today": 845
+    "news_seen_today": 1318,
+    "news_picked_today": 248,
+    "news_dropped_today": 1070
   },
   "book_momentum": {
     "live_count": 8,
