@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T17:33:55Z",
+  "generated_at": "2026-11-09T17:39:26Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-419",
@@ -891,6 +891,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-444",
+      "headline": "Japan's Mitsui Chemicals to buy chip materials maker JSR for $11.6bn",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/business-deals/japan-s-mitsui-chemicals-to-buy-chip-materials-maker-jsr-for-11.6bn",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T17:35:07Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Mitsui Chemicals announced the acquisition of JSR for $11.6bn.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Mitsui Chemicals announced the acquisition of JSR for $11.6bn.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mitsui Chemicals",
+          "ticker": null,
+          "listing_country": "JP"
+        },
+        {
+          "name": "JSR",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1956,55 +2010,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-370",
-      "headline": "Whirlpool India Q2 Earnings Disappoint As Net Profit Drops 40% Despite Double-Digit Revenue Growth",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/whirlpool-india-q2-earnings-disappoint-as-net-profit-drops-40-despite-double-digit-revenue-growth",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T12:52:51Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Whirlpool India reported a 40% drop in net profit for Q2, missing expectations despite revenue growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Whirlpool India reported a 40% drop in net profit for Q2, missing expectations despite revenue growth.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Whirlpool India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -272087,9 +272092,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3107799,
-    "news_picked_today": 1066,
-    "news_dropped_today": 8852
+    "news_seen_today": 3118006,
+    "news_picked_today": 1076,
+    "news_dropped_today": 8938
   },
   "book_momentum": {
     "live_count": 8,
