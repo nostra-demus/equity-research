@@ -1,0 +1,77 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-11-09T17:16:31Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-65f4ff924ce7",
+    "idea_version": "IDEAV-7d629aea956b968b",
+    "idea_version_started_at": "2026-11-06T20:30:17Z",
+    "ticker": "BAM",
+    "company": "Brookfield Asset Management",
+    "exchange": "NYSE",
+    "ticker_verified": true,
+    "listing_verified": true,
+    "liquidity_verified": false,
+    "listing_verification_source": "yahoo_symbol_directory",
+    "direction": "long",
+    "pair_with": null,
+    "reason": "The company reported strong Q3 2026 results with $25 billion in fundraising and $864 million in fee-related earnings, demonstrating sustained growth in assets under management.",
+    "why_now": "Results were reported on 2026-11-06.",
+    "conviction": 70,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 67,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 21,
+      "specificity": 15,
+      "timing": 10,
+      "expression": 7,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "needs_data",
+    "missing_checks": [
+      "live liquidity",
+      "dated catalyst",
+      "independent confirmation",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-d462f40fb2b2"
+    ],
+    "primary_source_event_id": "EVT-d462f40fb2b2",
+    "source_headlines": [
+      "Brookfield Asset Management Ltd. Reports Third Quarter 2026 Results with $25 Billion Fundraised and $864 Million in Fee-Related Earnings"
+    ],
+    "source_headline": "Brookfield Asset Management Ltd. Reports Third Quarter 2026 Results with $25 Billion Fundraised and $864 Million in Fee-Related Earnings",
+    "source_url": "https://www.nasdaq.com/articles/brookfield-asset-management-ltd-reports-third-quarter-2026-results-25-billion-fundraised",
+    "source_name": "Nasdaq",
+    "materiality_max": 100,
+    "newest_source_at": "2026-11-06T17:11:39Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-11-06T20:30:17Z",
+    "updated_at": "2026-11-06T20:30:17Z",
+    "decay_at": "2026-11-08T05:11:39Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}
