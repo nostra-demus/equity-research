@@ -1,0 +1,73 @@
+{
+  "idea_id": "IDEA-568ff94c6eb6",
+  "idea_version": "IDEAV-0e775b23b8ba4c9c",
+  "idea_version_started_at": "2026-11-09T19:22:55Z",
+  "ticker": "PLCE",
+  "company": "Children's Place",
+  "exchange": "NASDAQ",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "short",
+  "pair_with": null,
+  "reason": "The company has filed for bankruptcy and is initiating an asset sale, which typically results in equity holders being wiped out or receiving minimal recovery.",
+  "why_now": "The bankruptcy filing was announced on 2026-11-09.",
+  "conviction": 85,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 60,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 21,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 7,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "priced-in risk",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "priced",
+  "thesis_type": "balance_sheet_survival",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-6f6ed8f78dac"
+  ],
+  "primary_source_event_id": "EVT-6f6ed8f78dac",
+  "source_headlines": [
+    "Kids clothing company Children's Place files for bankruptcy, plans to sell assets"
+  ],
+  "source_headline": "Kids clothing company Children's Place files for bankruptcy, plans to sell assets",
+  "source_url": "https://www.cbc.ca/news/business/childrens-place-bankruptcy-sale-9.7414753?cmp=rss",
+  "source_name": "CBC — Business",
+  "materiality_max": 100,
+  "newest_source_at": "2026-11-09T15:21:29Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-11-09T19:22:55Z",
+  "updated_at": "2026-11-09T19:22:55Z",
+  "decay_at": "2026-11-11T03:21:29Z",
+  "status": "live",
+  "promoted_signal_id": null
+}

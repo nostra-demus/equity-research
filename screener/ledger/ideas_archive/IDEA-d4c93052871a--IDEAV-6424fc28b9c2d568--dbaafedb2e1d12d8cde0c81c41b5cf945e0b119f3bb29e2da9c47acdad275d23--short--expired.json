@@ -1,0 +1,79 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-11-09T12:08:04Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-d4c93052871a",
+    "idea_version": "IDEAV-6424fc28b9c2d568",
+    "idea_version_started_at": "2026-11-06T14:26:20Z",
+    "ticker": "ISP",
+    "company": "Intesa Sanpaolo",
+    "exchange": "BIT",
+    "ticker_verified": false,
+    "listing_verified": false,
+    "liquidity_verified": false,
+    "listing_verification_source": null,
+    "direction": "short",
+    "pair_with": null,
+    "reason": "Intesa is preparing a takeover bid for Monte dei Paschi (BMPS), which typically involves a premium payment that dilutes the acquirer's capital position and creates short-term integration risk.",
+    "why_now": "The takeover bid preparation was reported on 2026-11-06.",
+    "conviction": 65,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 45,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 21,
+      "specificity": 7,
+      "timing": 10,
+      "expression": 0,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "watch_only",
+    "missing_checks": [
+      "verified listed ticker",
+      "verified listing",
+      "live liquidity",
+      "dated catalyst",
+      "independent confirmation",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "pair_trade",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-2b73ada90cd5"
+    ],
+    "primary_source_event_id": "EVT-2b73ada90cd5",
+    "source_headlines": [
+      "Monte dei Paschi Raises Profit Guidance as Intesa Prepares to Launch Takeover Bid"
+    ],
+    "source_headline": "Monte dei Paschi Raises Profit Guidance as Intesa Prepares to Launch Takeover Bid",
+    "source_url": "https://www.wsj.com/business/earnings/monte-dei-paschi-profit-rises-as-intesa-takeover-looms-1551efed?mod=pls_whats_news_us_business_f",
+    "source_name": "The Wall Street Journal",
+    "materiality_max": 100,
+    "newest_source_at": "2026-11-06T10:12:00Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-11-06T14:26:20Z",
+    "updated_at": "2026-11-06T14:26:20Z",
+    "decay_at": "2026-11-07T22:12:00Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}
