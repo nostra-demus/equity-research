@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-09T01:25:52Z",
+  "generated_at": "2026-11-09T01:28:43Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261109-069",
+      "headline": "MAT: Adjournment of Second Creditors Meeting - Matsa Subsidiaries [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MAT?key=2924-03159585-6A1354161",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-09T01:22:17Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "The adjournment of a creditors' meeting for Matsa Resources subsidiaries indicates ongoing financial distress and potential insolvency proceedings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The adjournment of a creditors' meeting for Matsa Resources subsidiaries indicates ongoing financial distress and potential insolvency proceedings.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Matsa Resources",
+          "ticker": "MAT",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261109-065",
       "headline": "Nvidia launches investigation into CEO over affair with alleged Chinese spy; Donald Trump calls Jensen Huang ‘honorable’",
@@ -1902,55 +1951,6 @@
           "name": "Kingboard Laminates Holdings Limited",
           "ticker": null,
           "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-064",
-      "headline": "Costamare Inc. - Preferred Stock Price Target Increased by 12.02% to $41.07",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/costamare-inc-preferred-stock-price-target-increased-1202-4107",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T00:41:17Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Preferred stock price target for Costamare Inc. increased by 12.02%.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 64,
-      "triage_reason": "Preferred stock price target for Costamare Inc. increased by 12.02%.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Costamare Inc.",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "mid",
@@ -271753,9 +271753,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 358,
-    "news_picked_today": 74,
-    "news_dropped_today": 284
+    "news_seen_today": 367,
+    "news_picked_today": 76,
+    "news_dropped_today": 291
   },
   "book_momentum": {
     "live_count": 8,
