@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T06:57:48Z",
+  "generated_at": "2026-11-09T07:00:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-273",
@@ -297,6 +297,56 @@
         },
         {
           "name": "Banco BPM",
+          "ticker": null,
+          "listing_country": "IT"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-276",
+      "headline": "UniCredit Q3 Results Up, Lifts FY26 View; Plans Commerzbank's New Governance In Q1",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/unicredit-q3-results-lifts-fy26-view-plans-commerzbanks-new-governance-q1",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T06:44:44Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "UniCredit reported Q3 results and raised its FY26 guidance while signaling progress on Commerzbank integration.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "UniCredit reported Q3 results and raised its FY26 guidance while signaling progress on Commerzbank integration.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "UniCredit",
           "ticker": null,
           "listing_country": "IT"
         }
@@ -1886,86 +1936,37 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261109-229",
-      "headline": "Huang's Affair Engulfs Nvidia in Chinese Spying Probe",
+      "inbox_id": "INB-20261109-277",
+      "headline": "Goodman, Digital Realty Jointly Acquire 9.9% Stake In Australian NEXTDC",
       "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-11-09/the-china-show-11-09-2026-video",
-      "source_name": "Bloomberg",
+      "url": "https://www.nasdaq.com/articles/goodman-digital-realty-jointly-acquire-99-stake-australian-nextdc",
+      "source_name": "Nasdaq",
       "input_nature": "news_headline",
-      "found_at": "2026-11-09T04:56:59Z",
+      "found_at": "2026-11-09T06:37:34Z",
       "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Nvidia is facing a Chinese spying probe linked to the CEO, posing significant regulatory and operational risk.",
+      "prelim_note": "Goodman and Digital Realty acquired a 9.9% stake in NEXTDC, indicating a strategic investment in data center infrastructure.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 97,
-      "triage_reason": "Nvidia is facing a Chinese spying probe linked to the CEO, posing significant regulatory and operational risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-231",
-      "headline": "USM: Kalgoorlie Gold Project - Sale and Portfolio Update",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.USM?key=2924-03159654-6A1354177",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-09T05:34:48Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "USM announced the sale of its Kalgoorlie Gold Project, a significant asset disposal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "USM announced the sale of its Kalgoorlie Gold Project, a significant asset disposal.",
+      "triage_reason": "Goodman and Digital Realty acquired a 9.9% stake in NEXTDC, indicating a strategic investment in data center infrastructure.",
       "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 60,
       "rank_factors": {
         "materiality": 60,
-        "source_tier": 8,
+        "source_tier": 0,
         "scope": 5,
         "event": 9,
-        "size": -1,
+        "size": 2,
         "recency": 5,
         "materiality_label_floor": 10,
-        "quantified": 0,
+        "quantified": 6,
         "boost_weight": 1,
         "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
+        "source_tier_id": "news",
         "event_id": "mna",
-        "size_bucket": "small"
+        "size_bucket": "large"
       },
       "event_types": [
         "mna"
@@ -1973,12 +1974,22 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "USM",
-          "ticker": "USM",
+          "name": "Goodman Group",
+          "ticker": null,
+          "listing_country": "AU"
+        },
+        {
+          "name": "Digital Realty",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "NEXTDC",
+          "ticker": null,
           "listing_country": "AU"
         }
       ],
-      "size_bucket": "small",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -272275,9 +272286,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 108947,
-    "news_picked_today": 400,
-    "news_dropped_today": 4526
+    "news_seen_today": 117413,
+    "news_picked_today": 404,
+    "news_dropped_today": 4546
   },
   "book_momentum": {
     "live_count": 8,
