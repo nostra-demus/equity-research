@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T15:48:29Z",
+  "generated_at": "2026-11-09T15:51:01Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-380",
@@ -837,6 +837,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-418",
+      "headline": "Ionis Pharmaceuticals Reports Third Quarter 2026 Financial Results and Lowers TRYNGOLZA Guidance",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/ionis-pharmaceuticals-reports-third-quarter-2026-financial-results-and-lowers-tryngolza",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T15:32:02Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Ionis Pharmaceuticals reported Q3 2026 results and lowered guidance for its TRYNGOLZA product.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ionis Pharmaceuticals reported Q3 2026 results and lowered guidance for its TRYNGOLZA product.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ionis Pharmaceuticals",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1954,60 +2004,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-329",
-      "headline": "Argenx to acquire Unnatural Products in deal worth up to $1.15B",
-      "headline_en": null,
-      "url": "https://endpoints.news/argenx-to-acquire-unnatural-products-in-deal-worth-up-to-1-15b/",
-      "source_name": "Endpoints News",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T11:23:25Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Argenx is acquiring Unnatural Products for up to $1.15B.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Argenx is acquiring Unnatural Products for up to $1.15B.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Argenx",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Unnatural Products",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -272302,9 +272298,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2455980,
-    "news_picked_today": 977,
-    "news_dropped_today": 8197
+    "news_seen_today": 2484723,
+    "news_picked_today": 984,
+    "news_dropped_today": 8214
   },
   "book_momentum": {
     "live_count": 8,
