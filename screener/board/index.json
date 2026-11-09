@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T18:47:44Z",
+  "generated_at": "2026-11-09T18:48:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-419",
@@ -227849,6 +227849,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-52cfc7fb7402",
+      "idea_version": "IDEAV-d33178bd7b708f8a",
+      "idea_version_started_at": "2026-11-09T18:48:10Z",
+      "ticker": "NRG",
+      "company": "NRG Energy, Inc.",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "NRG Energy reported strong Q3 2026 results, announced a significant $4 billion asset sale, and initiated positive 2027 guidance, which should improve its financial outlook.",
+      "why_now": "The company released its Q3 results, asset sale announcement, and 2027 guidance today, November 9, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1f21f56fcf35"
+      ],
+      "primary_source_event_id": "EVT-1f21f56fcf35",
+      "source_headlines": [
+        "NRG Energy, Inc. Reports Third Quarter 2026 Results, Announces $4 billion Asset Sale, and Initiates 2027 Guidance"
+      ],
+      "source_headline": "NRG Energy, Inc. Reports Third Quarter 2026 Results, Announces $4 billion Asset Sale, and Initiates 2027 Guidance",
+      "source_url": "https://www.nasdaq.com/articles/nrg-energy-inc-reports-third-quarter-2026-results-announces-4-billion-asset-sale-and",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-09T14:32:26Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-09T17:16:12Z",
+      "updated_at": "2026-11-09T18:48:10Z",
+      "decay_at": "2026-11-11T02:32:26Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-99a574f2e453",
       "idea_version": "IDEAV-2b2f94acbab81903",
       "idea_version_started_at": "2026-11-09T18:28:29Z",
@@ -227989,23 +228059,23 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-52cfc7fb7402",
-      "idea_version": "IDEAV-1e111dd47e4e37a5",
-      "idea_version_started_at": "2026-11-09T17:16:12Z",
-      "ticker": "NRG",
-      "company": "NRG Energy",
+      "idea_id": "IDEA-d488a32dbbf5",
+      "idea_version": "IDEAV-28c31f4a623f8c99",
+      "idea_version_started_at": "2026-11-09T18:48:10Z",
+      "ticker": "RY",
+      "company": "Royal Bank of Canada",
       "exchange": "NYSE",
       "direction": "long",
       "pair_with": null,
-      "reason": "NRG Energy is divesting assets for $4 billion while simultaneously reporting improved quarterly earnings, signaling a successful pivot to a leaner, more profitable capital structure.",
-      "why_now": "The asset sale agreement and earnings report were released today, November 9, 2026.",
-      "conviction": 75,
+      "reason": "Royal Bank of Canada is expanding its asset management business through the acquisition of Australia's Yarra Capital Management, which could contribute to future revenue growth.",
+      "why_now": "RBC signed the deal to acquire Yarra Capital Management today, November 9, 2026.",
+      "conviction": 60,
       "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
+      "trade_score": 66,
       "trade_score_basis": "event_driven_v3",
       "trade_score_breakdown": {
         "evidence": 14,
-        "impact": 21,
+        "impact": 20,
         "specificity": 15,
         "timing": 10,
         "expression": 7,
@@ -228033,26 +228103,26 @@
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
-        "EVT-631398db4cc4"
+        "EVT-4b41422e3e6e"
       ],
-      "primary_source_event_id": "EVT-631398db4cc4",
+      "primary_source_event_id": "EVT-4b41422e3e6e",
       "source_headlines": [
-        "NRG Energy Signs $4 Billion Asset-Sale Agreement, Posts Higher Quarterly Earnings"
+        "RBC signs deal to buy Australia’s Yarra Capital Management"
       ],
-      "source_headline": "NRG Energy Signs $4 Billion Asset-Sale Agreement, Posts Higher Quarterly Earnings",
-      "source_url": "https://www.wsj.com/business/earnings/nrg-energy-signs-4-billion-asset-sale-agreement-posts-higher-quarterly-earnings-457b3efe?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
+      "source_headline": "RBC signs deal to buy Australia’s Yarra Capital Management",
+      "source_url": "https://www.theglobeandmail.com/business/article-rbc-signs-deal-to-buy-australias-yarra-capital-management/",
+      "source_name": "The Globe and Mail",
       "materiality_max": 100,
-      "newest_source_at": "2026-11-09T13:28:00Z",
+      "newest_source_at": "2026-11-09T15:26:27Z",
       "prior_coverage": {
         "has_run": false,
         "latest_run": null,
         "latest_decision": null,
         "data_pool_present": false
       },
-      "surfaced_at": "2026-11-09T17:16:12Z",
-      "updated_at": "2026-11-09T17:16:12Z",
-      "decay_at": "2026-11-11T01:28:00Z",
+      "surfaced_at": "2026-11-09T18:48:10Z",
+      "updated_at": "2026-11-09T18:48:10Z",
+      "decay_at": "2026-11-11T03:26:27Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -228263,6 +228333,76 @@
       "surfaced_at": "2026-11-07T15:09:40Z",
       "updated_at": "2026-11-09T17:16:12Z",
       "decay_at": "2026-11-11T01:43:56Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-6f55bf31e25a",
+      "idea_version": "IDEAV-dc31a60e5536b457",
+      "idea_version_started_at": "2026-11-09T18:48:10Z",
+      "ticker": "BA",
+      "company": "Boeing Co",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Boeing is cutting 5% of its commercial workforce due to factory ramp delays, indicating ongoing operational challenges that could impact production and profitability.",
+      "why_now": "The workforce reduction announcement was made today, November 9, 2026, highlighting immediate operational headwinds.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d67b66300465"
+      ],
+      "primary_source_event_id": "EVT-d67b66300465",
+      "source_headlines": [
+        "Boeing Cuts 5% of Commercial Workforce Amid Factory Ramp Delays"
+      ],
+      "source_headline": "Boeing Cuts 5% of Commercial Workforce Amid Factory Ramp Delays",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-09/boeing-cuts-5-of-commercial-workforce-amid-factory-ramp-delays",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-09T17:53:22Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-09T18:48:10Z",
+      "updated_at": "2026-11-09T18:48:10Z",
+      "decay_at": "2026-11-11T05:53:22Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -228755,6 +228895,77 @@
       "surfaced_at": "2026-11-08T23:44:25Z",
       "updated_at": "2026-11-08T23:44:25Z",
       "decay_at": "2026-11-10T11:37:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-a93036eeaeb1",
+      "idea_version": "IDEAV-9b68358b5b3232f4",
+      "idea_version_started_at": "2026-11-09T18:48:10Z",
+      "ticker": "02885",
+      "company": "Peiport Holdings Ltd",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Peiport Holdings is subject to a possible unconditional mandatory cash offer, which typically provides a premium to the current market price for shareholders.",
+      "why_now": "The joint announcement of the sale and purchase agreement and the possible cash offer was made today, November 9, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5282eea3d3e7"
+      ],
+      "primary_source_event_id": "EVT-5282eea3d3e7",
+      "source_headlines": [
+        "PEIPORT HOLD (02885): JOINT ANNOUNCEMENT - (1) SALE AND PURCHASE AGREEMENT BETWEEN THE OFFEROR AND THE VENDOR; (2) POSSIBLE UNCONDITIONAL MANDATORY CASH OFFER BY SHENWAN HONGYUAN CAPITAL (H.K.) LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR, ITS BENEFICIAL OWNERS AND PARTIES ACTING IN CONCERT WITH ANY OF THEM); (3) APPOINTMENT OF INDEPENDENT FINANCIAL ADVISER;"
+      ],
+      "source_headline": "PEIPORT HOLD (02885): JOINT ANNOUNCEMENT - (1) SALE AND PURCHASE AGREEMENT BETWEEN THE OFFEROR AND THE VENDOR; (2) POSSIBLE UNCONDITIONAL MANDATORY CASH OFFER BY SHENWAN HONGYUAN CAPITAL (H.K.) LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR, ITS BENEFICIAL OWNERS AND PARTIES ACTING IN CONCERT WITH ANY OF THEM); (3) APPOINTMENT OF INDEPENDENT FINANCIAL ADVISER;",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1109/2026110901215.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-09T13:59:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-09T18:48:10Z",
+      "updated_at": "2026-11-09T18:48:10Z",
+      "decay_at": "2026-11-11T01:59:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -271982,8 +272193,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2336,
-    "live_count": 58,
+    "surfaced_total": 2339,
+    "live_count": 61,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
