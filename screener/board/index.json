@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T18:52:11Z",
+  "generated_at": "2026-11-09T18:56:01Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-419",
@@ -51,6 +51,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-461",
+      "headline": "JW THERAP-B (02126): VERY SUBSTANTIAL DISPOSAL IN RELATION TO THE LICENSE AND ASSIGNMENT AGREEMENT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1109/2026110901316.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-09T14:57:00Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "The company announced a very substantial disposal of assets via a license and assignment agreement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company announced a very substantial disposal of assets via a license and assignment agreement.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 3,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "JW THERAP-B",
+          "ticker": "02126",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1940,57 +1989,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-405",
-      "headline": "NRG Energy, Inc. Reports Third Quarter 2026 Results, Announces $4 billion Asset Sale, and Initiates 2027 Guidance",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/nrg-energy-inc-reports-third-quarter-2026-results-announces-4-billion-asset-sale-and",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T14:32:26Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "The company reported Q3 results, announced a $4 billion asset sale, and provided 2027 guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The company reported Q3 results, announced a $4 billion asset sale, and provided 2027 guidance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "mna",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NRG Energy, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -231565,77 +231563,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-14770c0627c1",
-      "idea_version": "IDEAV-643d72cad2915728",
-      "idea_version_started_at": "2026-11-08T06:58:45Z",
-      "ticker": "JTLIND",
-      "company": "JTL Industries Ltd",
-      "exchange": "BSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The commencement of hot trials for the Pickling Line and cold trials for the GP Line at the Maharashtra facility signals the final stages of a capacity expansion that will drive future volume growth.",
-      "why_now": "Operational milestone confirmed via exchange filing on November 8, 2026.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ca28091cd1f0"
-      ],
-      "primary_source_event_id": "EVT-ca28091cd1f0",
-      "source_headlines": [
-        "JTL INDUSTRIES LIMITED: JTL INDUSTRIES LIMITED has informed the Exchange regarding a press release dated November 08, 2026, titled \"JTL Industries advances Maharashtra facility expansion with hot trial of Pickling Line and Cold Trial of GP Line\"."
-      ],
-      "source_headline": "JTL INDUSTRIES LIMITED: JTL INDUSTRIES LIMITED has informed the Exchange regarding a press release dated November 08, 2026, titled \"JTL Industries advances Maharashtra facility expansion with hot trial of Pickling Line and Cold Trial of GP Line\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/JTLIND_08112026122203_PressReleaseJTL08112026Signed.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 94,
-      "newest_source_at": "2026-11-08T06:53:08Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-08T06:58:45Z",
-      "updated_at": "2026-11-08T06:58:45Z",
-      "decay_at": "2026-11-09T18:53:08Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-9aea1559a27b",
       "idea_version": "IDEAV-a2c4ff7e6b1821e1",
       "idea_version_started_at": "2026-11-09T05:11:05Z",
@@ -234279,6 +234206,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-14770c0627c1",
+      "idea_version": "IDEAV-643d72cad2915728",
+      "idea_version_started_at": "2026-11-08T06:58:45Z",
+      "ticker": "JTLIND",
+      "company": "JTL Industries Ltd",
+      "exchange": "BSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The commencement of hot trials for the Pickling Line and cold trials for the GP Line at the Maharashtra facility signals the final stages of a capacity expansion that will drive future volume growth.",
+      "why_now": "Operational milestone confirmed via exchange filing on November 8, 2026.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ca28091cd1f0"
+      ],
+      "primary_source_event_id": "EVT-ca28091cd1f0",
+      "source_headlines": [
+        "JTL INDUSTRIES LIMITED: JTL INDUSTRIES LIMITED has informed the Exchange regarding a press release dated November 08, 2026, titled \"JTL Industries advances Maharashtra facility expansion with hot trial of Pickling Line and Cold Trial of GP Line\"."
+      ],
+      "source_headline": "JTL INDUSTRIES LIMITED: JTL INDUSTRIES LIMITED has informed the Exchange regarding a press release dated November 08, 2026, titled \"JTL Industries advances Maharashtra facility expansion with hot trial of Pickling Line and Cold Trial of GP Line\".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/JTLIND_08112026122203_PressReleaseJTL08112026Signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 94,
+      "newest_source_at": "2026-11-08T06:53:08Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-08T06:58:45Z",
+      "updated_at": "2026-11-08T06:58:45Z",
+      "decay_at": "2026-11-09T18:53:08Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-37a5e72c530e",
       "idea_version": "IDEAV-49d4d2edc49bacec",
       "idea_version_started_at": "2026-11-08T02:29:00Z",
@@ -235011,14 +235009,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 540,
+    "total_count": 541,
     "shown_count": 499,
-    "hidden_count": 41,
+    "hidden_count": 42,
     "side_counts": {
       "long": {
-        "total_count": 278,
+        "total_count": 279,
         "shown_count": 250,
-        "hidden_count": 28
+        "hidden_count": 29
       },
       "short": {
         "total_count": 263,
@@ -235042,6 +235040,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-14770c0627c1",
+        "idea_version": "IDEAV-643d72cad2915728",
+        "idea_version_started_at": "2026-11-08T06:58:45Z",
+        "ticker": "JTLIND",
+        "company": "JTL Industries Ltd",
+        "exchange": "BSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The commencement of hot trials for the Pickling Line and cold trials for the GP Line at the Maharashtra facility signals the final stages of a capacity expansion that will drive future volume growth.",
+        "why_now": "Operational milestone confirmed via exchange filing on November 8, 2026.",
+        "conviction": 50,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 15,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-ca28091cd1f0"
+        ],
+        "primary_source_event_id": "EVT-ca28091cd1f0",
+        "source_headlines": [
+          "JTL INDUSTRIES LIMITED: JTL INDUSTRIES LIMITED has informed the Exchange regarding a press release dated November 08, 2026, titled \"JTL Industries advances Maharashtra facility expansion with hot trial of Pickling Line and Cold Trial of GP Line\"."
+        ],
+        "source_headline": "JTL INDUSTRIES LIMITED: JTL INDUSTRIES LIMITED has informed the Exchange regarding a press release dated November 08, 2026, titled \"JTL Industries advances Maharashtra facility expansion with hot trial of Pickling Line and Cold Trial of GP Line\".",
+        "source_url": "https://nsearchives.nseindia.com/corporate/JTLIND_08112026122203_PressReleaseJTL08112026Signed.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 94,
+        "newest_source_at": "2026-11-08T06:53:08Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-08T06:58:45Z",
+        "updated_at": "2026-11-08T06:58:45Z",
+        "decay_at": "2026-11-09T18:53:08Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-09T18:53:08Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-781d6df95373",
         "idea_version": "IDEAV-587780df73f348c0",
@@ -263254,82 +263326,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-0e26a0f66836",
-        "idea_version": "IDEAV-e5a80daf29ca00af",
-        "idea_version_started_at": "2026-10-26T00:05:04Z",
-        "ticker": "HBOS",
-        "company": "Hugo Boss",
-        "exchange": "XETRA",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Frasers Group has acquired a majority stake in the company, which typically triggers a premium valuation or strategic restructuring.",
-        "why_now": "The acquisition was reported on October 25, 2026.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-9c6958323139"
-        ],
-        "primary_source_event_id": "EVT-9c6958323139",
-        "source_headlines": [
-          "Takeover: Sports retailer Frasers acquires majority stake in Hugo Boss"
-        ],
-        "source_headline": "Übernahme: Sportartikel-Händler Frasers übernimmt Mehrheit bei Hugo Boss",
-        "source_url": "https://www.handelsblatt.com/unternehmen/handel-konsumgueter/uebernahme-sportartikel-haendler-frasers-uebernimmt-mehrheit-bei-hugo-boss/100264800.html",
-        "source_name": "Handelsblatt",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-25T15:03:21Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-26T00:05:04Z",
-        "updated_at": "2026-10-26T00:05:04Z",
-        "decay_at": "2026-10-27T03:03:21Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-28T18:19:18Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-b0586fbde26d",
         "idea_version": "IDEAV-136afe44a600f92f",
         "idea_version_started_at": "2026-10-25T12:38:57Z",
@@ -272194,7 +272190,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2339,
-    "live_count": 61,
+    "live_count": 60,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -272213,9 +272209,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3579833,
-    "news_picked_today": 1147,
-    "news_dropped_today": 9491
+    "news_seen_today": 3600347,
+    "news_picked_today": 1150,
+    "news_dropped_today": 9512
   },
   "book_momentum": {
     "live_count": 8,
