@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-09T21:40:02Z",
+  "generated_at": "2026-11-09T21:42:52Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261109-475",
+      "headline": "RHI: Pannawonica Iron Project Divestment Option with 1.5% Royalty [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RHI?key=2924-03159820-6A1354250",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-09T21:26:17Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "RHI announced a divestment option for its Pannawonica Iron Project, including a 1.5% royalty.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "RHI announced a divestment option for its Pannawonica Iron Project, including a 1.5% royalty.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "RHI",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261109-419",
       "headline": "Tata Motors Limited: Tata Motors Limited has informed the Exchange regarding a press release dated November 09, 2026, titled \"TML CV Holdings B.V., an Indirect Wholly Owned Subsidiary of Tata Motors Limited Voluntary Totalitarian Tender Offer for all the common shares of Iveco Group N.V.\".",
@@ -1935,56 +1984,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-418",
-      "headline": "Ionis Pharmaceuticals Reports Third Quarter 2026 Financial Results and Lowers TRYNGOLZA Guidance",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/ionis-pharmaceuticals-reports-third-quarter-2026-financial-results-and-lowers-tryngolza",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T15:32:02Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Ionis Pharmaceuticals reported Q3 2026 results and lowered guidance for its TRYNGOLZA product.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Ionis Pharmaceuticals reported Q3 2026 results and lowered guidance for its TRYNGOLZA product.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ionis Pharmaceuticals",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -272284,9 +272283,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4713211,
-    "news_picked_today": 1309,
-    "news_dropped_today": 10745
+    "news_seen_today": 4749268,
+    "news_picked_today": 1323,
+    "news_dropped_today": 10755
   },
   "book_momentum": {
     "live_count": 8,
