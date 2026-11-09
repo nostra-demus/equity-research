@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T02:03:49Z",
+  "generated_at": "2026-11-09T02:08:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-069",
@@ -46,6 +46,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-103",
+      "headline": "Lendlease faces hit of $160m after Italy project sale falls through",
+      "headline_en": null,
+      "url": "https://www.afr.com/property/commercial/lendlease-faces-hit-of-160m-after-italy-project-sale-falls-through-20261109-p61cij?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T02:04:32Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Lendlease faces a quantified $160 million financial hit following the collapse of an Italy project sale.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Lendlease faces a quantified $160 million financial hit following the collapse of an Italy project sale.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lendlease",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -625,6 +674,55 @@
       "companies": [
         {
           "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-104",
+      "headline": "Tokyo’s office rent boom spurs deals as Blackstone plans sale",
+      "headline_en": null,
+      "url": "https://www.japantimes.co.jp/business/2026/11/09/companies/tokyo-office-rent-boom/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T01:58:00Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Blackstone is planning the sale of Tokyo office assets, signaling potential liquidity events in the commercial real estate sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Blackstone is planning the sale of Tokyo office assets, signaling potential liquidity events in the commercial real estate sector.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Blackstone",
           "ticker": null,
           "listing_country": "US"
         }
@@ -1322,6 +1420,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261109-101",
+      "headline": "Government ordered to buy minority empowerment shareholders’ Acsa shares",
+      "headline_en": null,
+      "url": "https://www.moneyweb.co.za/news/south-africa/government-ordered-to-buy-minority-empowerment-shareholders-acsa-shares/",
+      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T02:02:06Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "The South African government has been ordered to purchase minority empowerment shares in Acsa, representing a forced capital outlay and ownership change.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "The South African government has been ordered to purchase minority empowerment shares in Acsa, representing a forced capital outlay and ownership change.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Acsa",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261109-077",
       "headline": "Hanwha Aerospace to conduct ship-based Chunmoo missile tests in US",
       "headline_en": null,
@@ -1413,6 +1560,55 @@
           "name": "Mitsui Chemicals",
           "ticker": "4183",
           "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-108",
+      "headline": "삼성바이오에피스, 키트루다 시밀러 임상 3상 결과 발표",
+      "headline_en": "Samsung Bioepis announces Phase 3 clinical trial results for Keytruda biosimilar",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=280775",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T01:51:36Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Samsung Bioepis announced positive Phase 3 clinical trial results for its Keytruda biosimilar, a significant milestone for its product pipeline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Samsung Bioepis announced positive Phase 3 clinical trial results for its Keytruda biosimilar, a significant milestone for its product pipeline.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Samsung Bioepis",
+          "ticker": null,
+          "listing_country": "KR"
         }
       ],
       "size_bucket": "large",
@@ -1748,203 +1944,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-024",
-      "headline": "OB1: Majestic North Gold Project Development Update [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.OB1?key=2924-03159553-2A1709520",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-09T00:23:17Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Majestic Gold provided a development update on its North Gold Project, which is price-sensitive information.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 75,
-      "triage_reason": "Majestic Gold provided a development update on its North Gold Project, which is price-sensitive information.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Majestic Gold",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-087",
-      "headline": "Berkshire Plans First Japan Bond Offering Since April",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-09/berkshire-hathaway-plans-first-japan-bond-offering-since-april",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T01:04:30Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Berkshire Hathaway is planning a new yen-denominated bond offering, signaling continued interest in Japanese capital markets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 75,
-      "triage_reason": "Berkshire Hathaway is planning a new yen-denominated bond offering, signaling continued interest in Japanese capital markets.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Berkshire Hathaway",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-033",
-      "headline": "BRL: 2027 Quarter 1 Results Presentation",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BRL?key=2924-03159554-2A1709521",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-09T00:32:17Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "The company released its quarterly results presentation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 74,
-      "triage_reason": "The company released its quarterly results presentation.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BRL",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-092",
-      "headline": "M&M bets on SUV growth, EV expansion and global aerospace orders to drive earnings",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/mm-bets-on-suv-growth-ev-expansion-and-global-aerospace-orders-to-drive-earnings/articleshow/135667943.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T01:17:08Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Mahindra & Mahindra is focusing on SUV growth and EV expansion to drive future earnings.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 74,
-      "triage_reason": "Mahindra & Mahindra is focusing on SUV growth and EV expansion to drive future earnings.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex",
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mahindra & Mahindra",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -230953,77 +230952,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-420d3d291fde",
-      "idea_version": "IDEAV-7322a6f4b55f97e1",
-      "idea_version_started_at": "2026-11-07T14:23:56Z",
-      "ticker": "MUKKA",
-      "company": "Mukka Proteins Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Mukka Proteins reported strong Q2 FY227 performance, with its Oman facility commencing commercial production and U.S. FDA facility registration strengthening market access.",
-      "why_now": "The company issued a press release on November 07, 2026, detailing its Q2 FY27 results and operational milestones.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d009b8c4d110"
-      ],
-      "primary_source_event_id": "EVT-d009b8c4d110",
-      "source_headlines": [
-        "Mukka Proteins Limited: Mukka Proteins Limited has informed the Exchange regarding a press release dated November 07, 2026, titled \"Mukka Proteins Reports Strong Q2 FY27 PerformanceOman Facility Commences Commercial ProductionU.S. FDA Facility Registration Strengthens Market AccessUSDA NOP Inputs Attestation for Eco Sphere Organic Fertilizer."
-      ],
-      "source_headline": "Mukka Proteins Limited: Mukka Proteins Limited has informed the Exchange regarding a press release dated November 07, 2026, titled \"Mukka Proteins Reports Strong Q2 FY27 PerformanceOman Facility Commences Commercial ProductionU.S. FDA Facility Registration Strengthens Market AccessUSDA NOP Inputs Attestation for Eco Sphere Organic Fertilizer.",
-      "source_url": "https://nsearchives.nseindia.com/corporate/MUKKA_07112026193633_Intimation_of_Press_Release.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 99,
-      "newest_source_at": "2026-11-07T14:06:46Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-07T14:23:56Z",
-      "updated_at": "2026-11-07T14:23:56Z",
-      "decay_at": "2026-11-09T02:06:46Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-14770c0627c1",
       "idea_version": "IDEAV-643d72cad2915728",
       "idea_version_started_at": "2026-11-08T06:58:45Z",
@@ -234314,6 +234242,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-420d3d291fde",
+      "idea_version": "IDEAV-7322a6f4b55f97e1",
+      "idea_version_started_at": "2026-11-07T14:23:56Z",
+      "ticker": "MUKKA",
+      "company": "Mukka Proteins Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Mukka Proteins reported strong Q2 FY227 performance, with its Oman facility commencing commercial production and U.S. FDA facility registration strengthening market access.",
+      "why_now": "The company issued a press release on November 07, 2026, detailing its Q2 FY27 results and operational milestones.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d009b8c4d110"
+      ],
+      "primary_source_event_id": "EVT-d009b8c4d110",
+      "source_headlines": [
+        "Mukka Proteins Limited: Mukka Proteins Limited has informed the Exchange regarding a press release dated November 07, 2026, titled \"Mukka Proteins Reports Strong Q2 FY27 PerformanceOman Facility Commences Commercial ProductionU.S. FDA Facility Registration Strengthens Market AccessUSDA NOP Inputs Attestation for Eco Sphere Organic Fertilizer."
+      ],
+      "source_headline": "Mukka Proteins Limited: Mukka Proteins Limited has informed the Exchange regarding a press release dated November 07, 2026, titled \"Mukka Proteins Reports Strong Q2 FY27 PerformanceOman Facility Commences Commercial ProductionU.S. FDA Facility Registration Strengthens Market AccessUSDA NOP Inputs Attestation for Eco Sphere Organic Fertilizer.",
+      "source_url": "https://nsearchives.nseindia.com/corporate/MUKKA_07112026193633_Intimation_of_Press_Release.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 99,
+      "newest_source_at": "2026-11-07T14:06:46Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-07T14:23:56Z",
+      "updated_at": "2026-11-07T14:23:56Z",
+      "decay_at": "2026-11-09T02:06:46Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-58c269708038",
       "idea_version": "IDEAV-582986ff08955984",
       "idea_version_started_at": "2026-11-07T12:54:01Z",
@@ -234614,14 +234613,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 535,
+    "total_count": 536,
     "shown_count": 499,
-    "hidden_count": 36,
+    "hidden_count": 37,
     "side_counts": {
       "long": {
-        "total_count": 271,
+        "total_count": 272,
         "shown_count": 250,
-        "hidden_count": 21
+        "hidden_count": 22
       },
       "short": {
         "total_count": 265,
@@ -234645,6 +234644,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-420d3d291fde",
+        "idea_version": "IDEAV-7322a6f4b55f97e1",
+        "idea_version_started_at": "2026-11-07T14:23:56Z",
+        "ticker": "MUKKA",
+        "company": "Mukka Proteins Limited",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Mukka Proteins reported strong Q2 FY227 performance, with its Oman facility commencing commercial production and U.S. FDA facility registration strengthening market access.",
+        "why_now": "The company issued a press release on November 07, 2026, detailing its Q2 FY27 results and operational milestones.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-d009b8c4d110"
+        ],
+        "primary_source_event_id": "EVT-d009b8c4d110",
+        "source_headlines": [
+          "Mukka Proteins Limited: Mukka Proteins Limited has informed the Exchange regarding a press release dated November 07, 2026, titled \"Mukka Proteins Reports Strong Q2 FY27 PerformanceOman Facility Commences Commercial ProductionU.S. FDA Facility Registration Strengthens Market AccessUSDA NOP Inputs Attestation for Eco Sphere Organic Fertilizer."
+        ],
+        "source_headline": "Mukka Proteins Limited: Mukka Proteins Limited has informed the Exchange regarding a press release dated November 07, 2026, titled \"Mukka Proteins Reports Strong Q2 FY27 PerformanceOman Facility Commences Commercial ProductionU.S. FDA Facility Registration Strengthens Market AccessUSDA NOP Inputs Attestation for Eco Sphere Organic Fertilizer.",
+        "source_url": "https://nsearchives.nseindia.com/corporate/MUKKA_07112026193633_Intimation_of_Press_Release.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 99,
+        "newest_source_at": "2026-11-07T14:06:46Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-07T14:23:56Z",
+        "updated_at": "2026-11-07T14:23:56Z",
+        "decay_at": "2026-11-09T02:06:46Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-09T02:06:46Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-beb72064730e",
         "idea_version": "IDEAV-4d76917da6ee1262",
@@ -263446,82 +263519,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-f0e6ba50c3cf",
-        "idea_version": "IDEAV-a5fa3cc49d783431",
-        "idea_version_started_at": "2026-10-24T23:13:43Z",
-        "ticker": "KOTAKBANK",
-        "company": "Kotak Mahindra Bank",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Consolidated net profit grew 26% to ₹5,645 crore in Q2, demonstrating strong core banking performance.",
-        "why_now": "The results were published on 2026-10-24.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-80405be6a3cb"
-        ],
-        "primary_source_event_id": "EVT-80405be6a3cb",
-        "source_headlines": [
-          "Kotak Mahindra Bank Q2 results: Consolidated net profit jumps 26% to Rs 5,645 crore"
-        ],
-        "source_headline": "Kotak Mahindra Bank Q2 results: Consolidated net profit jumps 26% to Rs 5,645 crore",
-        "source_url": "https://timesofindia.indiatimes.com/business/india-business/kotak-mahindra-bank-q2-results-consolidated-net-profit-jumps-26-to-rs-5645-crore-margins-narrow/articleshow/135172680.cms",
-        "source_name": "The Times of India (Business)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-24T15:05:10Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-24T09:25:22Z",
-        "updated_at": "2026-10-24T23:13:43Z",
-        "decay_at": "2026-10-26T03:05:10Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-27T16:00:13Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-d61317a6133a",
         "idea_version": "IDEAV-3ef99735865d1304",
         "idea_version_started_at": "2026-10-26T00:05:04Z",
@@ -271796,7 +271793,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2307,
-    "live_count": 61,
+    "live_count": 60,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -271815,9 +271812,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 514,
-    "news_picked_today": 107,
-    "news_dropped_today": 407
+    "news_seen_today": 550,
+    "news_picked_today": 115,
+    "news_dropped_today": 435
   },
   "book_momentum": {
     "live_count": 8,
