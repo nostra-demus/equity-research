@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T02:29:09Z",
+  "generated_at": "2026-11-09T02:33:46Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-116",
@@ -1179,6 +1179,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261109-119",
+      "headline": "Divi's Laboratories share price: JPMorgan upgrades, Goldman raises earnings estimates after strong Q2",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/divis-laboratories-share-price-surges-muhurat-trading-day-motilal-oswal-remains-on-the-sidelines-20029968.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T02:23:03Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "JPMorgan upgraded Divi's Laboratories and Goldman Sachs raised earnings estimates following strong Q2 results.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "JPMorgan upgraded Divi's Laboratories and Goldman Sachs raised earnings estimates following strong Q2 results.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Divi's Laboratories",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261109-115",
       "headline": "HD Hyundai Heavy Industries secures 662.9 bln-won order for 2 LNG carriers",
       "headline_en": null,
@@ -1911,55 +1960,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-086",
-      "headline": "$1b agri fund manager AAM launches $150m cash call for timber bet",
-      "headline_en": null,
-      "url": "https://www.afr.com/street-talk/1b-agri-fund-manager-aam-launches-150m-cash-call-for-timber-bet-20261109-p61ckw?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T01:55:57Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "AAM is launching a $150 million capital raise for a timber investment fund.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "AAM is launching a $150 million capital raise for a timber investment fund.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AAM",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -271828,9 +271828,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 611,
-    "news_picked_today": 130,
-    "news_dropped_today": 481
+    "news_seen_today": 632,
+    "news_picked_today": 131,
+    "news_dropped_today": 501
   },
   "book_momentum": {
     "live_count": 8,
