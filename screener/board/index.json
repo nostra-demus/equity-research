@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T18:14:55Z",
+  "generated_at": "2026-11-09T18:18:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-419",
@@ -945,6 +945,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261109-453",
+      "headline": "Nvidia shares tumble over investigation into Huang's affair with alleged Chinese spy",
+      "headline_en": null,
+      "url": "https://www.bbc.co.uk/news/articles/c6zxjx01vyleo?at_medium=RSS&at_campaign=rss",
+      "source_name": "BBC News — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T18:11:11Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Nvidia shares are falling due to a serious investigation involving the CEO and alleged espionage.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia shares are falling due to a serious investigation involving the CEO and alleged espionage.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261109-451",
       "headline": "Boeing Cuts 5% of Commercial Workforce Amid Factory Ramp Delays",
       "headline_en": null,
@@ -1293,56 +1343,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-436",
-      "headline": "Nvidia shares takes a hit as board investigates CEO Jensen Huang's alleged Chinese spy affair",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/nvidia-shares-takes-a-hit-as-board-investigates-ceo-jensen-huangs-alleged-chinese-spy-affair-20030703.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T16:33:06Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Nvidia shares are impacted by reports of a board investigation into the CEO regarding serious allegations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia shares are impacted by reports of a board investigation into the CEO regarding serious allegations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -272080,9 +272080,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3383432,
-    "news_picked_today": 1113,
-    "news_dropped_today": 9165
+    "news_seen_today": 3414401,
+    "news_picked_today": 1118,
+    "news_dropped_today": 9184
   },
   "book_momentum": {
     "live_count": 8,
