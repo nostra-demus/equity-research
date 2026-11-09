@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T17:58:05Z",
+  "generated_at": "2026-11-09T18:01:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-419",
@@ -394,6 +394,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-448",
+      "headline": "FRONTAGE (01521): JOINT ANNOUNCEMENT (1) PRE-CONDITIONAL PROPOSAL FOR THE PRIVATIZATION OF FRONTAGE HOLDINGS CORPORATION BY THE OFFEROR BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 86 OF THE COMPANIES ACT (2) PROPOSED WITHDRAWAL OF LISTING OF FRONTAGE HOLDINGS CORPORATION (3) ESTABLISHMENT OF THE INDEPENDENT BOARD COMMITTEE AND APPOINTMENT OF THE INDEPENDENT FINANCIAL ADVISER (4) IRREVOCABLE UNDERTAKINGS (5) RESUMPTION OF TRADING IN THE SHARES",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1109/2026110900893.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-09T10:57:00Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Frontage Holdings Corporation announced a pre-conditional proposal for privatization and withdrawal of listing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Frontage Holdings Corporation announced a pre-conditional proposal for privatization and withdrawal of listing.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Frontage Holdings Corporation",
+          "ticker": "01521",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1949,65 +1998,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-376",
-      "headline": "NVIDIA Falls 5% as Board Probes Jensen Huang’s Ties to Alleged Chinese Spy; AMD Rises 4%, Intel Holds Steady",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/11/09/nvidia-falls-5-as-board-probes-jensen-huangs-ties-to-alleged-chinese-spy-amd-rises-4-intel-holds-steady/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T13:43:56Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "A board investigation into the CEO regarding national security ties represents a severe governance and operational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A board investigation into the CEO regarding national security ties represents a severe governance and operational risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NVIDIA",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "AMD",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Intel",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -272090,9 +272080,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3250070,
-    "news_picked_today": 1092,
-    "news_dropped_today": 9042
+    "news_seen_today": 3270528,
+    "news_picked_today": 1093,
+    "news_dropped_today": 9065
   },
   "book_momentum": {
     "live_count": 8,
