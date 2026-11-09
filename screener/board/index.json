@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T04:05:29Z",
+  "generated_at": "2026-11-09T04:15:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-172",
@@ -1030,6 +1030,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261109-190",
+      "headline": "ZHONGKE GROUP (03321): QUARTERLY UPDATE ON THE ACTION PLAN TO ADDRESS THE DISCLAIMER OF OPINION IN THE ANNUAL REPORT FOR THE YEAR ENDED 31 MARCH 2026",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1109/2026110900193.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-09T04:05:00Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Zhongke Group is providing an update on addressing a disclaimer of opinion in its annual report, indicating ongoing accounting/audit concerns.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Zhongke Group is providing an update on addressing a disclaimer of opinion in its annual report, indicating ongoing accounting/audit concerns.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "accounting_restatement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Zhongke Group",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261109-039",
       "headline": "NXT: Response to Statement by Goodman Group & Digital Realty [price-sensitive]",
       "headline_en": null,
@@ -1127,6 +1176,55 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-187",
+      "headline": "Divi's Laboratories shares gain 6% after JPMorgan upgrade; Goldman raises earnings estimates after strong Q2",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/divis-laboratories-share-price-surges-muhurat-trading-day-motilal-oswal-remains-on-the-sidelines-20029968.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T04:02:04Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Divi's Laboratories shares rose 6% following a JPMorgan upgrade and increased earnings estimates from Goldman Sachs after a strong Q2.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Divi's Laboratories shares rose 6% following a JPMorgan upgrade and increased earnings estimates from Goldman Sachs after a strong Q2.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Divi's Laboratories",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1626,6 +1724,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261109-191",
+      "headline": "Bosch shares fall after management cites a 'modest' outlook for second half of the year",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/bosch-share-price-q2-results-management-cites-modest-outlook-second-half-of-the-year-20030058.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T04:03:02Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Bosch shares fell after management issued a cautious outlook for the second half of the year.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Bosch shares fell after management issued a cautious outlook for the second half of the year.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bosch",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261109-167",
       "headline": "Samsung's US chip plant nears trial run in December, mass production planned for 2027",
       "headline_en": null,
@@ -1818,153 +1965,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-052",
-      "headline": "Kalpataru confident of achieving ₹6,500 crore pre-sales target in FY27, says CFO",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/services/property-/-cstruction/kalpataru-confident-of-achieving-6500-crore-pre-sales-target-in-fy27-says-cfo/articleshow/135667268.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T00:47:04Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Kalpataru Projects International has set a specific pre-sales target of 6,500 crore for FY27.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Kalpataru Projects International has set a specific pre-sales target of 6,500 crore for FY27.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kalpataru Projects International",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-021",
-      "headline": "Ryman Healthcare Limited - Depositary Receipt Price Target Decreased by 10.69% to $8.15",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/ryman-healthcare-limited-depositary-receipt-price-target-decreased-1069-815",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T23:57:58Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "A price target decrease of 10.69% reflects a significant shift in analyst expectations for Ryman Healthcare.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "A price target decrease of 10.69% reflects a significant shift in analyst expectations for Ryman Healthcare.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "credit_rating_downgrade",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "credit_rating_downgrade"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ryman Healthcare Limited",
-          "ticker": null,
-          "listing_country": "NZ"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-162",
-      "headline": "Morepen Laboratories Limited: Morepen Laboratories Limited has informed the Exchange regarding a press release dated November 09, 2026, titled \"Morepen enters U.S. prescription generics market, building on its established API strengths\".",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/MOREPENLAB_09112026085234_SEinPressrelease91126.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-09T03:23:22Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Morepen Laboratories is entering the U.S. prescription generics market, a significant expansion of its business operations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Morepen Laboratories is entering the U.S. prescription generics market, a significant expansion of its business operations.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Morepen Laboratories",
-          "ticker": "500288",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -271980,9 +271980,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 956,
-    "news_picked_today": 216,
-    "news_dropped_today": 740
+    "news_seen_today": 985,
+    "news_picked_today": 225,
+    "news_dropped_today": 760
   },
   "book_momentum": {
     "live_count": 8,
