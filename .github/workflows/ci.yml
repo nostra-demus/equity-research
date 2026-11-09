@@ -84,7 +84,54 @@ jobs:
             python3 "$test" || rc=1
           done
           python3 scripts/memory_baseline.py --check || rc=1
-          python3 scripts/memory.py doctor --root . || rc=1
+          # Profile the unchanged validator without swallowing its original exit status.
+          python3 - <<'PYMEMORY' || rc=1
+          import cProfile
+          import json
+          import pathlib
+          import pstats
+          import subprocess
+          import sys
+          import time
+
+          sys.path.insert(0, "scripts")
+          from memory import main
+
+          sys.argv = ["scripts/memory.py", "doctor", "--root", "."]
+          profiler = cProfile.Profile()
+          returned_status = None
+          started = time.monotonic()
+          try:
+              returned_status = profiler.runcall(main)
+          finally:
+              try:
+                  elapsed = time.monotonic() - started
+                  stats = pstats.Stats(profiler)
+                  observed = {"memory.py", "memory_adapters.py", "memory_projection.py",
+                              "memory_contract.py", "canonical_json.py", "subprocess.py", "pathlib.py"}
+                  functions = [
+                      {"file": pathlib.Path(file).name, "line": line, "function": name,
+                       "primitive_calls": cc, "total_calls": nc,
+                       "self_seconds": tt, "cumulative_seconds": ct}
+                      for (file, line, name), (cc, nc, tt, ct, _) in stats.stats.items()
+                      if pathlib.Path(file).name in observed
+                  ]
+                  print("MEMORY_DOCTOR_TIMING=" + json.dumps({
+                      "schema": "memory-doctor-timing/v1",
+                      "head": subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip(),
+                      "wall_seconds_after_import": elapsed,
+                      "returned_status": returned_status,
+                      "cumulative_timings_overlap": True,
+                      "functions": sorted(functions, key=lambda item: item["cumulative_seconds"], reverse=True),
+                  }, sort_keys=True), flush=True)
+              except Exception:
+                  # Observability must not replace the validator's return or exception.
+                  try:
+                      print("Warning: memory-doctor timing unavailable", file=sys.stderr, flush=True)
+                  except Exception:
+                      pass
+          raise SystemExit(returned_status)
+          PYMEMORY
           python3 scripts/memory_playbook_drift.py --root . || rc=1
           python3 scripts/memory_resolver.py drill \
             --root . \
