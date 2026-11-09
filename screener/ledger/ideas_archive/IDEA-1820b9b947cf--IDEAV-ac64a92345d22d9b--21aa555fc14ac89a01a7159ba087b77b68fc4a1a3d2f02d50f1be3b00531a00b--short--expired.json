@@ -1,29 +1,29 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-10-26T11:54:17Z",
+  "archived_at": "2026-11-09T10:01:18Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-d8399ff9bdbd",
-    "idea_version": "IDEAV-41c93ec26466212f",
-    "idea_version_started_at": "2026-10-24T08:09:01Z",
-    "ticker": "MURGY",
-    "company": "Munich Re",
-    "exchange": "OTC",
+    "idea_id": "IDEA-1820b9b947cf",
+    "idea_version": "IDEAV-ac64a92345d22d9b",
+    "idea_version_started_at": "2026-11-07T07:32:32Z",
+    "ticker": "RHM",
+    "company": "Rheinmetall",
+    "exchange": "XETRA",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
-    "direction": "long",
+    "direction": "short",
     "pair_with": null,
-    "reason": "The company raised its earnings forecast following a strong quarterly performance, indicating improved underwriting profitability.",
-    "why_now": "The guidance hike was reported on 2026-10-23, providing immediate upside potential.",
-    "conviction": 70,
+    "reason": "The company cut its outlook due to stalled military contracts, signaling a significant deceleration in revenue growth and order book conversion.",
+    "why_now": "The stock plunged 16% on 2026-11-06 following the guidance revision.",
+    "conviction": 80,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
       "evidence": 14,
-      "impact": 20,
+      "impact": 21,
       "specificity": 7,
       "timing": 10,
       "expression": 0,
@@ -53,26 +53,26 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-7cc726545452"
+      "EVT-f2da32c9822b"
     ],
-    "primary_source_event_id": "EVT-7cc726545452",
+    "primary_source_event_id": "EVT-f2da32c9822b",
     "source_headlines": [
-      "Reinsurance: Munich Re raises forecast after strong quarter"
+      "Rheinmetall shares plunge 16% after outlook cut as military contracts stall"
     ],
-    "source_headline": "Rückversicherung: Munich Re hebt nach starkem Quartal die Prognose",
-    "source_url": "https://www.handelsblatt.com/unternehmen/dienstleister/rueckversicherung-munich-re-hebt-nach-starkem-quartal-die-prognose/100264519.html",
-    "source_name": "Handelsblatt",
+    "source_headline": "Rheinmetall shares plunge 16% after outlook cut as military contracts stall",
+    "source_url": "https://www.cnbc.com/2026/11/05/rheinmetall-stock-outlook-sales-germany.html",
+    "source_name": "CNBC",
     "materiality_max": 100,
-    "newest_source_at": "2026-10-23T11:39:56Z",
+    "newest_source_at": "2026-11-06T09:05:28Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-10-24T04:26:48Z",
-    "updated_at": "2026-10-24T08:09:01Z",
-    "decay_at": "2026-10-24T23:39:56Z",
+    "surfaced_at": "2026-11-05T12:54:05Z",
+    "updated_at": "2026-11-07T07:32:32Z",
+    "decay_at": "2026-11-07T21:05:28Z",
     "status": "live",
     "promoted_signal_id": null
   }
