@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T06:28:48Z",
+  "generated_at": "2026-11-09T06:31:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-226",
@@ -1939,44 +1939,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261109-036",
-      "headline": "Sudden Distress at Top-Rated Firm Tests China’s Rating Crackdown",
+      "inbox_id": "INB-20261109-262",
+      "headline": "‎Retal shareholders to vote on capital hike to acquire Al Fozan’s Ajdan stake on Dec. 3",
       "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-08/sudden-distress-at-top-rated-firm-tests-china-s-rating-crackdown",
-      "source_name": "Bloomberg",
+      "url": "https://www.argaam.com/en/article/articledetail/id/1951665",
+      "source_name": "Argaam — Main News (English)",
       "input_nature": "news_headline",
-      "found_at": "2026-11-08T23:52:21Z",
+      "found_at": "2026-11-09T09:20:00Z",
       "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Sudden financial distress at a top-rated firm poses systemic risk and tests regulatory oversight.",
+      "prelim_note": "Retal is seeking shareholder approval for a capital hike to fund the acquisition of a stake in Ajdan.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 95,
-      "triage_reason": "Sudden financial distress at a top-rated firm poses systemic risk and tests regulatory oversight.",
-      "region": "CN",
+      "triage_reason": "Retal is seeking shareholder approval for a capital hike to fund the acquisition of a stake in Ajdan.",
+      "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 75,
       "rank_factors": {
         "materiality": 75,
         "source_tier": 0,
-        "scope": 6,
+        "scope": 5,
         "event": 9,
-        "size": 0,
+        "size": 1,
         "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "multi_name",
         "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
+        "event_id": "mna",
+        "size_bucket": "mid"
       },
       "event_types": [
-        "default_distress"
+        "mna"
       ],
       "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
+      "companies": [
+        {
+          "name": "Retal",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -272345,9 +272351,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 65474,
-    "news_picked_today": 361,
-    "news_dropped_today": 4253
+    "news_seen_today": 73409,
+    "news_picked_today": 366,
+    "news_dropped_today": 4272
   },
   "book_momentum": {
     "live_count": 8,
