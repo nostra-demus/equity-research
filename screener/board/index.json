@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T12:52:39Z",
+  "generated_at": "2026-11-09T13:00:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-352",
@@ -51,6 +51,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261109-355",
+      "headline": "SC 14D9/A - SOUNDTHINKING, INC. (0001351636) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1351636/000114036126042610/0001140361-26-042610-index.htm",
+      "source_name": "SEC EDGAR — Latest SC 14D9 (Target's Tender-Offer Response)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-09T12:34:54Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "The target company's formal response to a tender offer is a key step in an M&A process.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The target company's formal response to a tender offer is a key step in an M&A process.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SOUNDTHINKING, INC.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261109-350",
       "headline": "ESTUN (02715): UPDATE ANNOUNCEMENT - CONNECTED TRANSACTION AND DISCLOSEABLE TRANSACTION IN RELATION TO THE FURTHER ACQUISITION OF 25.4027% EQUITY INTEREST IN ESTUN INTELLIGENT (JIANGSU)",
       "headline_en": null,
@@ -95,6 +144,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-353",
+      "headline": "SC TO-T/A - Transom Capital Fund IV, L.P. (0001934933) (Filed by)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1934933/000114036126042603/0001140361-26-042603-index.htm",
+      "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-09T12:19:11Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "A third-party tender offer filing indicates an active M&A process for the target company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A third-party tender offer filing indicates an active M&A process for the target company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Transom Capital Fund IV, L.P.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1895,109 +1993,6 @@
       "event_types": [
         "earnings_revenue_margin",
         "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ADNOC Distribution",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-220",
-      "headline": "Samsung's Texas Chip Plant To Begin Trial Operations In December Ahead Of 2027 Production Of 2nm AI Chips For Tesla",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/tech/samsungs-texas-chip-plant-to-begin-trial-operations-in-december-ahead-of-2027-production-of-2nm-ai-chips-for-tesla",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T04:47:27Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Samsung is beginning trial operations at its Texas chip plant, a major capacity expansion for 2nm AI chips.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Samsung is beginning trial operations at its Texas chip plant, a major capacity expansion for 2nm AI chips.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Samsung",
-          "ticker": null,
-          "listing_country": "KR"
-        },
-        {
-          "name": "Tesla",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-214",
-      "headline": "ADNOC Distribution profit surges 37% on record fuel volumes",
-      "headline_en": null,
-      "url": "https://gulfnews.com/business/adnoc-distribution-profit-surges-37-on-record-fuel-volumes-1.500740741",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T04:35:49Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "ADNOC Distribution reported a 37% surge in profit driven by record fuel volumes.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "ADNOC Distribution reported a 37% surge in profit driven by record fuel volumes.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
       ],
       "issuer_linkage": "primary",
       "companies": [
@@ -232528,78 +232523,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-c60431da8fec",
-      "idea_version": "IDEAV-c0478129222e7d45",
-      "idea_version_started_at": "2026-11-08T01:08:34Z",
-      "ticker": "2914",
-      "company": "Japan Tobacco",
-      "exchange": "TSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The Russian government's seizure of additional assets directly impairs the company's revenue-generating capacity and asset base in a key market.",
-      "why_now": "The order was issued today, November 8, 2026, creating immediate uncertainty regarding the recoverability of these assets.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5d7f66a0edd5"
-      ],
-      "primary_source_event_id": "EVT-5d7f66a0edd5",
-      "source_headlines": [
-        "Putin orders seizure of more Japan Tobacco assets in Russia"
-      ],
-      "source_headline": "Putin orders seizure of more Japan Tobacco assets in Russia",
-      "source_url": "https://mainichi.jp/english/articles/20261107/p2g/00m/0in/025000c",
-      "source_name": "The Mainichi",
-      "materiality_max": 87,
-      "newest_source_at": "2026-11-08T01:00:10Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-06T07:46:04Z",
-      "updated_at": "2026-11-08T01:08:34Z",
-      "decay_at": "2026-11-09T13:00:10Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-6e6b4cb95539",
       "idea_version": "IDEAV-8e315f1351756ca2",
       "idea_version_started_at": "2026-11-08T05:48:41Z",
@@ -232738,80 +232661,6 @@
       "surfaced_at": "2026-11-08T05:29:08Z",
       "updated_at": "2026-11-08T05:29:08Z",
       "decay_at": "2026-11-09T17:06:37Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-5a971f1aba0f",
-      "idea_version": "IDEAV-ceba34f220360a68",
-      "idea_version_started_at": "2026-11-08T01:08:34Z",
-      "ticker": "ARB",
-      "company": "ARB Corporation",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is facing structural margin pressure and declining demand as low-cost Chinese electric vehicle imports disrupt its traditional off-road accessory market.",
-      "why_now": "The negative operational and earnings outlook was highlighted in reports dated November 8, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 44,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 13,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b15791ff0a84",
-        "EVT-e7228ada7475"
-      ],
-      "primary_source_event_id": "EVT-b15791ff0a84",
-      "source_headlines": [
-        "In the shadow of cheap Chinese EVs, ARB’s off-road empire stumbles",
-        "In the shadow of cheap Chinese EVs, ARB’s offroad empire stumbles"
-      ],
-      "source_headline": "In the shadow of cheap Chinese EVs, ARB’s off-road empire stumbles",
-      "source_url": "https://www.afr.com/companies/transport/in-the-shadow-of-cheap-chinese-evs-arb-s-off-road-empire-stumbles-20261108-p61907?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "materiality_max": 84,
-      "newest_source_at": "2026-11-08T01:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-08T01:08:34Z",
-      "updated_at": "2026-11-08T01:08:34Z",
-      "decay_at": "2026-11-09T13:00:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -235024,6 +234873,152 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": true
+    },
+    {
+      "idea_id": "IDEA-c60431da8fec",
+      "idea_version": "IDEAV-c0478129222e7d45",
+      "idea_version_started_at": "2026-11-08T01:08:34Z",
+      "ticker": "2914",
+      "company": "Japan Tobacco",
+      "exchange": "TSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The Russian government's seizure of additional assets directly impairs the company's revenue-generating capacity and asset base in a key market.",
+      "why_now": "The order was issued today, November 8, 2026, creating immediate uncertainty regarding the recoverability of these assets.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5d7f66a0edd5"
+      ],
+      "primary_source_event_id": "EVT-5d7f66a0edd5",
+      "source_headlines": [
+        "Putin orders seizure of more Japan Tobacco assets in Russia"
+      ],
+      "source_headline": "Putin orders seizure of more Japan Tobacco assets in Russia",
+      "source_url": "https://mainichi.jp/english/articles/20261107/p2g/00m/0in/025000c",
+      "source_name": "The Mainichi",
+      "materiality_max": 87,
+      "newest_source_at": "2026-11-08T01:00:10Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-06T07:46:04Z",
+      "updated_at": "2026-11-08T01:08:34Z",
+      "decay_at": "2026-11-09T13:00:10Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-5a971f1aba0f",
+      "idea_version": "IDEAV-ceba34f220360a68",
+      "idea_version_started_at": "2026-11-08T01:08:34Z",
+      "ticker": "ARB",
+      "company": "ARB Corporation",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is facing structural margin pressure and declining demand as low-cost Chinese electric vehicle imports disrupt its traditional off-road accessory market.",
+      "why_now": "The negative operational and earnings outlook was highlighted in reports dated November 8, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 44,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 13,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b15791ff0a84",
+        "EVT-e7228ada7475"
+      ],
+      "primary_source_event_id": "EVT-b15791ff0a84",
+      "source_headlines": [
+        "In the shadow of cheap Chinese EVs, ARB’s off-road empire stumbles",
+        "In the shadow of cheap Chinese EVs, ARB’s offroad empire stumbles"
+      ],
+      "source_headline": "In the shadow of cheap Chinese EVs, ARB’s off-road empire stumbles",
+      "source_url": "https://www.afr.com/companies/transport/in-the-shadow-of-cheap-chinese-evs-arb-s-off-road-empire-stumbles-20261108-p61907?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "materiality_max": 84,
+      "newest_source_at": "2026-11-08T01:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-08T01:08:34Z",
+      "updated_at": "2026-11-08T01:08:34Z",
+      "decay_at": "2026-11-09T13:00:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     }
   ],
   "ideas_archive": {
@@ -235036,9 +235031,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 529,
+    "total_count": 531,
     "shown_count": 499,
-    "hidden_count": 30,
+    "hidden_count": 32,
     "side_counts": {
       "long": {
         "total_count": 269,
@@ -235046,9 +235041,9 @@
         "hidden_count": 19
       },
       "short": {
-        "total_count": 261,
+        "total_count": 263,
         "shown_count": 250,
-        "hidden_count": 11
+        "hidden_count": 13
       }
     },
     "retention": {
@@ -235067,6 +235062,158 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-c60431da8fec",
+        "idea_version": "IDEAV-c0478129222e7d45",
+        "idea_version_started_at": "2026-11-08T01:08:34Z",
+        "ticker": "2914",
+        "company": "Japan Tobacco",
+        "exchange": "TSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The Russian government's seizure of additional assets directly impairs the company's revenue-generating capacity and asset base in a key market.",
+        "why_now": "The order was issued today, November 8, 2026, creating immediate uncertainty regarding the recoverability of these assets.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 16,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-5d7f66a0edd5"
+        ],
+        "primary_source_event_id": "EVT-5d7f66a0edd5",
+        "source_headlines": [
+          "Putin orders seizure of more Japan Tobacco assets in Russia"
+        ],
+        "source_headline": "Putin orders seizure of more Japan Tobacco assets in Russia",
+        "source_url": "https://mainichi.jp/english/articles/20261107/p2g/00m/0in/025000c",
+        "source_name": "The Mainichi",
+        "materiality_max": 87,
+        "newest_source_at": "2026-11-08T01:00:10Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-06T07:46:04Z",
+        "updated_at": "2026-11-08T01:08:34Z",
+        "decay_at": "2026-11-09T13:00:10Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-09T13:00:10Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-5a971f1aba0f",
+        "idea_version": "IDEAV-ceba34f220360a68",
+        "idea_version_started_at": "2026-11-08T01:08:34Z",
+        "ticker": "ARB",
+        "company": "ARB Corporation",
+        "exchange": "ASX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company is facing structural margin pressure and declining demand as low-cost Chinese electric vehicle imports disrupt its traditional off-road accessory market.",
+        "why_now": "The negative operational and earnings outlook was highlighted in reports dated November 8, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 44,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 13,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-b15791ff0a84",
+          "EVT-e7228ada7475"
+        ],
+        "primary_source_event_id": "EVT-b15791ff0a84",
+        "source_headlines": [
+          "In the shadow of cheap Chinese EVs, ARB’s off-road empire stumbles",
+          "In the shadow of cheap Chinese EVs, ARB’s offroad empire stumbles"
+        ],
+        "source_headline": "In the shadow of cheap Chinese EVs, ARB’s off-road empire stumbles",
+        "source_url": "https://www.afr.com/companies/transport/in-the-shadow-of-cheap-chinese-evs-arb-s-off-road-empire-stumbles-20261108-p61907?ref=rss&utm_medium=rss&utm_source=rss_feed",
+        "source_name": "Australian Financial Review",
+        "materiality_max": 84,
+        "newest_source_at": "2026-11-08T01:00:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-08T01:08:34Z",
+        "updated_at": "2026-11-08T01:08:34Z",
+        "decay_at": "2026-11-09T13:00:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-09T13:00:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-0ac5d784c64f",
         "idea_version": "IDEAV-38e2672d22607b77",
@@ -272056,160 +272203,12 @@
         "archived_at": "2026-10-15T21:33:25Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-d0d8fb1cd912",
-        "idea_version": "IDEAV-47dc223fc5c9109b",
-        "idea_version_started_at": "2026-10-12T18:34:22Z",
-        "ticker": "KR",
-        "company": "Kroger",
-        "exchange": "NYSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Albertsons is seeking an $8 billion termination fee following the collapse of their merger, creating a significant potential liability for Kroger's balance sheet.",
-        "why_now": "The demand for the $8 billion payment was reported on October 12, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 66,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-61371ed25da9"
-        ],
-        "primary_source_event_id": "EVT-61371ed25da9",
-        "source_headlines": [
-          "Albertsons Wants $8 Billion From Kroger After Failed Merger"
-        ],
-        "source_headline": "Albertsons Wants $8 Billion From Kroger After Failed Merger",
-        "source_url": "https://www.wsj.com/business/retail/albertsons-wants-8-billion-from-kroger-after-failed-merger-fd0aacd8?mod=pls_whats_news_us_business_f",
-        "source_name": "The Wall Street Journal",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-12T17:13:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-12T18:34:22Z",
-        "updated_at": "2026-10-12T18:34:22Z",
-        "decay_at": "2026-10-14T05:13:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-15T17:28:34Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-bf5d0b948a8f",
-        "idea_version": "IDEAV-6f1a9c38300d3144",
-        "idea_version_started_at": "2026-10-12T15:24:05Z",
-        "ticker": "00896",
-        "company": "Hanison",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company is undertaking a disposal of equity interests in a target, which is a major transaction that could impact its financial structure and operations.",
-        "why_now": "The announcement of the major and connected transaction is effective immediately.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-c010fe3755ea"
-        ],
-        "primary_source_event_id": "EVT-c010fe3755ea",
-        "source_headlines": [
-          "HANISON (00896): Major and Connected Transaction in relation to Disposal of Equity Interests in the Target"
-        ],
-        "source_headline": "HANISON (00896): Major and Connected Transaction in relation to Disposal of Equity Interests in the Target",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1012/2026101201251.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-12T14:09:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-12T15:24:05Z",
-        "updated_at": "2026-10-12T15:24:05Z",
-        "decay_at": "2026-10-14T02:09:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-15T15:19:23Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2327,
-    "live_count": 72,
+    "live_count": 70,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -272228,9 +272227,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1335128,
-    "news_picked_today": 775,
-    "news_dropped_today": 7175
+    "news_seen_today": 1397368,
+    "news_picked_today": 779,
+    "news_dropped_today": 7243
   },
   "book_momentum": {
     "live_count": 8,
