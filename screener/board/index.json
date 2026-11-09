@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T14:18:18Z",
+  "generated_at": "2026-11-09T14:23:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-380",
@@ -897,6 +897,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261109-388",
+      "headline": "Tilray Raises Its Guidance for the Year. Is the Stock Finally Headed on the Right Track?",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/tilray-raises-its-guidance-year-stock-finally-headed-right-track",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T13:46:02Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Tilray raised its financial guidance for the year.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tilray raised its financial guidance for the year.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tilray",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261109-377",
       "headline": "Children’s Place Files for Bankruptcy With Plans to Sell Assets",
       "headline_en": null,
@@ -1050,55 +1099,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-374",
-      "headline": "Tilray Raises Its Guidance for the Year. Is the Stock Finally Headed on the Right Track?",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/11/09/tilray-raises-its-guidance-for-the-year-is-the-stock-finally-headed-on-the-right-track/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T13:26:02Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Tilray raised its annual guidance, which directly impacts analyst expectations and valuation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Tilray raised its annual guidance, which directly impacts analyst expectations and valuation.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tilray",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -272302,9 +272302,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1828349,
-    "news_picked_today": 890,
-    "news_dropped_today": 7780
+    "news_seen_today": 1855192,
+    "news_picked_today": 896,
+    "news_dropped_today": 7798
   },
   "book_momentum": {
     "live_count": 8,
