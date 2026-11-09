@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T16:59:45Z",
+  "generated_at": "2026-11-09T17:03:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-419",
@@ -888,6 +888,55 @@
           "name": "Matsa Resources",
           "ticker": "MAT",
           "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-443",
+      "headline": "The Children’s Place, in search of new ownership, files for bankruptcy",
+      "headline_en": null,
+      "url": "https://www.retaildive.com/news/the-childrens-place-in-search-of-new-ownership-files-for-bankruptcy/874078/",
+      "source_name": "Retail Dive",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T16:52:00Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "The Children's Place filed for bankruptcy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The Children's Place filed for bankruptcy.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "The Children's Place",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "small",
@@ -1956,55 +2005,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-379",
-      "headline": "Nordea Gets $23 Million Fine in Danish Money Laundering Case",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-09/nordea-gets-23-million-fine-in-danish-money-laundering-case",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T12:45:20Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Nordea received a $23 million fine for money laundering violations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nordea received a $23 million fine for money laundering violations.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nordea",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -271872,9 +271872,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2876231,
-    "news_picked_today": 1045,
-    "news_dropped_today": 8681
+    "news_seen_today": 2906318,
+    "news_picked_today": 1053,
+    "news_dropped_today": 8697
   },
   "book_momentum": {
     "live_count": 8,
