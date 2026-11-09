@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T23:26:48Z",
+  "generated_at": "2026-11-09T23:30:21Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-484",
@@ -1142,6 +1142,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261109-493",
+      "headline": "HighPeak Energy, Inc. Announces Third Quarter 2026 Financial and Operating Results and Guidance Update",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/highpeak-energy-inc-announces-third-quarter-2026-financial-and-operating-results-and",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T23:02:58Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "HighPeak Energy reported Q3 2026 results and provided a guidance update, which directly impacts analyst expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "HighPeak Energy reported Q3 2026 results and provided a guidance update, which directly impacts analyst expectations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HighPeak Energy, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261109-491",
       "headline": "Trump Says FBI Investigating Huang Affair, Called Embattled CEO",
       "headline_en": null,
@@ -1923,60 +1973,6 @@
       "companies": [
         {
           "name": "The Children's Place",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-447",
-      "headline": "CorMedix Inc. to Acquire Substantially All Assets of Heron Therapeutics, Inc. for $145.0 million in Cash and 14,583,333 Shares",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/cormedix-inc-acquire-substantially-all-assets-heron-therapeutics-inc-1450-million-cash-and",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T17:41:53Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "CorMedix Inc. is acquiring assets from Heron Therapeutics for $145 million in cash and stock.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "CorMedix Inc. is acquiring assets from Heron Therapeutics for $145 million in cash and stock.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CorMedix Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Heron Therapeutics, Inc.",
           "ticker": null,
           "listing_country": "US"
         }
@@ -272351,9 +272347,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5701997,
-    "news_picked_today": 1474,
-    "news_dropped_today": 11372
+    "news_seen_today": 5740802,
+    "news_picked_today": 1484,
+    "news_dropped_today": 11386
   },
   "book_momentum": {
     "live_count": 8,
