@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T05:15:31Z",
+  "generated_at": "2026-11-09T05:19:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-172",
@@ -1526,6 +1526,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261109-221",
+      "headline": "Divi’s Laboratories shares gain another 5% after Q2 results. Here’s why Jefferies raised target price by 23%",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/divis-laboratories-shares-gain-another-5-after-q2-results-heres-why-jefferies-raised-target-price-by-23/articleshow/135671615.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T05:09:29Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Jefferies raised the target price for Divi's Laboratories by 23% following strong Q2 results.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Jefferies raised the target price for Divi's Laboratories by 23% following strong Q2 results.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Divi's Laboratories",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261109-187",
       "headline": "Divi's Laboratories shares gain 6% after JPMorgan upgrade; Goldman raises earnings estimates after strong Q2",
       "headline_en": null,
@@ -1915,55 +1964,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-126",
-      "headline": "Angel Oak Mortgage REIT Consensus Price Target Lowered 13.27% to $9.33",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/angel-oak-mortgage-reit-consensus-price-target-lowered-1327-933",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T01:37:30Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Angel Oak Mortgage REIT consensus price target was lowered by 13.27%, reflecting negative analyst sentiment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Angel Oak Mortgage REIT consensus price target was lowered by 13.27%, reflecting negative analyst sentiment.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Angel Oak Mortgage REIT",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -272403,9 +272403,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2828,
-    "news_picked_today": 291,
-    "news_dropped_today": 1955
+    "news_seen_today": 2849,
+    "news_picked_today": 294,
+    "news_dropped_today": 1973
   },
   "book_momentum": {
     "live_count": 8,
