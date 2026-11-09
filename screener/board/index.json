@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T03:50:56Z",
+  "generated_at": "2026-11-09T03:55:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-172",
@@ -1627,6 +1627,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261109-178",
+      "headline": "Berkshire plans first Japan bond offering since April",
+      "headline_en": null,
+      "url": "https://www.japantimes.co.jp/business/2026/11/09/companies/berkshire-japan-bond-offering/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T02:25:00Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Berkshire Hathaway planning a bond offering in Japan is a significant capital markets event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Berkshire Hathaway planning a bond offering in Japan is a significant capital markets event.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Berkshire Hathaway",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261109-125",
       "headline": "Fidelity National Information Services Consensus Price Target Decreased by 18.33% to $38.82",
       "headline_en": null,
@@ -1916,55 +1965,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-173",
-      "headline": "Bio-Techne Q1 Profit Down",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/bio-techne-q1-profit-down",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T03:25:52Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Bio-Techne reported a decline in Q1 profit, which is a material indicator of operational performance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Bio-Techne reported a decline in Q1 profit, which is a material indicator of operational performance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bio-Techne",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -271980,9 +271980,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 892,
-    "news_picked_today": 195,
-    "news_dropped_today": 697
+    "news_seen_today": 914,
+    "news_picked_today": 200,
+    "news_dropped_today": 714
   },
   "book_momentum": {
     "live_count": 8,
