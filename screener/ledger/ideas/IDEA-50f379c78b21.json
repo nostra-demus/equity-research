@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-50f379c78b21",
-  "idea_version": "IDEAV-52c6743df30fb9aa",
-  "idea_version_started_at": "2026-11-09T19:22:55Z",
+  "idea_version": "IDEAV-54d5259c9fd012ff",
+  "idea_version_started_at": "2026-11-09T22:47:11Z",
   "ticker": "NVDA",
   "company": "Nvidia",
   "exchange": "NASDAQ",
@@ -11,15 +11,15 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "short",
   "pair_with": null,
-  "reason": "The CEO has admitted to an affair with an alleged foreign intelligence operative, creating significant governance risk and potential regulatory scrutiny regarding national security and intellectual property.",
-  "why_now": "The admission and subsequent investigation are live as of 2026-11-09, triggering immediate market volatility.",
+  "reason": "The combination of a regulatory investigation into alleged spying and an internal investigation into CEO Jensen Huang creates significant governance risk and potential for severe operational disruption in key markets.",
+  "why_now": "The investigations were reported on 2026-11-09, creating immediate headline risk.",
   "conviction": 75,
   "conviction_basis": "pre_edge_proxy",
-  "trade_score": 77,
+  "trade_score": 79,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 14,
-    "impact": 21,
+    "impact": 23,
     "specificity": 15,
     "timing": 10,
     "expression": 7,
@@ -46,24 +46,21 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-0c78870a3b1a",
-    "EVT-a9e47eea30c3",
-    "EVT-d07ee540f043",
-    "EVT-e68483dd5366",
-    "EVT-5b9d1b04481b"
+    "EVT-8ade04b0fa3a",
+    "EVT-3d94526fd42a",
+    "EVT-f4b0258c227b"
   ],
-  "primary_source_event_id": "EVT-0c78870a3b1a",
+  "primary_source_event_id": "EVT-8ade04b0fa3a",
   "source_headlines": [
-    "Nvidia stock crashes 8% after a 'foreign intelligence' probe initiated by AI company into CEO Jensen Huang",
-    "£260bn wiped off value of Nvidia as it launches probe into boss Jensen Huang's affair with 'Chinese spy'",
-    "Nvidia shares tumble over investigation into Huang's affair with alleged Chinese spy",
-    "£292bn wiped off value of Nvidia as it launches probe into boss Jensen Huang's affair with 'Chinese spy'"
+    "Nvidia’s value tumbles by $330bn after ‘honeytrap’ investigation launched, as China denies spying claims – as it happened",
+    "Trump Says FBI Investigating Huang Affair, Called Embattled CEO",
+    "Nvidia shares tumble as the company says it's investigating CEO Jensen Huang"
   ],
-  "source_headline": "Nvidia stock crashes 8% after a 'foreign intelligence' probe initiated by AI company into CEO Jensen Huang",
-  "source_url": "https://economictimes.indiatimes.com/markets/us-stocks/news/nvidia-stock-crashes-8-after-a-foreign-intelligence-probe-initiated-by-ai-company-into-ceo-jensen-huang/articleshow/135685302.cms",
-  "source_name": "The Economic Times",
+  "source_headline": "Nvidia’s value tumbles by $330bn after ‘honeytrap’ investigation launched, as China denies spying claims – as it happened",
+  "source_url": "https://www.theguardian.com/business/live/2026/nov/09/nvidia-jensen-huang-scandal-investigation-ai-industry-tech-stocks-recovery-slump-latest-news-updates",
+  "source_name": "The Guardian — Business",
   "materiality_max": 100,
-  "newest_source_at": "2026-11-09T18:11:11Z",
+  "newest_source_at": "2026-11-09T22:06:21Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
@@ -71,8 +68,8 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-11-07T15:09:40Z",
-  "updated_at": "2026-11-09T19:22:55Z",
-  "decay_at": "2026-11-11T06:11:11Z",
+  "updated_at": "2026-11-09T22:47:11Z",
+  "decay_at": "2026-11-11T10:06:21Z",
   "status": "live",
   "promoted_signal_id": null
 }
