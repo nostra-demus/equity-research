@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T15:30:56Z",
+  "generated_at": "2026-11-09T15:43:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-380",
@@ -837,6 +837,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-416",
+      "headline": "RBC signs deal to buy Australia’s Yarra Capital Management",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/business/article-rbc-signs-deal-to-buy-australias-yarra-capital-management/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T15:26:27Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "RBC is acquiring Yarra Capital Management, representing a significant cross-border expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "RBC is acquiring Yarra Capital Management, representing a significant cross-border expansion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Royal Bank of Canada",
+          "ticker": "RY",
+          "listing_country": "CA"
+        },
+        {
+          "name": "Yarra Capital Management",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1954,55 +2008,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-326",
-      "headline": "Nvidia shares drop after CEO Huang’s affair triggers board probe",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/markets/nvidia-shares-drop-after-ceo-huangs-affair-triggers-board-probe/article71682207.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T11:11:48Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Board probe into CEO regarding an affair with a foreign intelligence asset poses significant governance and reputational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Board probe into CEO regarding an affair with a foreign intelligence asset poses significant governance and reputational risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -272297,9 +272302,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2351331,
-    "news_picked_today": 969,
-    "news_dropped_today": 8133
+    "news_seen_today": 2427263,
+    "news_picked_today": 974,
+    "news_dropped_today": 8152
   },
   "book_momentum": {
     "live_count": 8,
