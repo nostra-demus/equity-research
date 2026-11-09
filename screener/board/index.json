@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T22:17:02Z",
+  "generated_at": "2026-11-09T22:20:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-484",
@@ -1142,6 +1142,105 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261109-491",
+      "headline": "Trump Says FBI Investigating Huang Affair, Called Embattled CEO",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-09/trump-says-fbi-investigating-huang-affair-called-embattled-ceo",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T22:06:21Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "A report that the FBI is investigating the CEO of a major company significantly increases legal and management risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A report that the FBI is investigating the CEO of a major company significantly increases legal and management risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-486",
+      "headline": "Nvidia shares tumble as the company says it's investigating CEO Jensen Huang",
+      "headline_en": null,
+      "url": "https://www.npr.org/2026/11/09/nx-s1-6034478/nvidia-shares-tumble-as-the-company-says-its-investigating-ceo-jensen-huang",
+      "source_name": "NPR — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T22:01:47Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "An investigation into the CEO of a mega-cap company like Nvidia creates significant management and operational uncertainty.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "An investigation into the CEO of a mega-cap company like Nvidia creates significant management and operational uncertainty.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261109-483",
       "headline": "Trump Media & Technology Group Swings to Profit Ahead of TAE Technologies Merger",
       "headline_en": null,
@@ -1883,104 +1982,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-460",
-      "headline": "Nvidia Falls as CEO Jensen Huang Admits to Affair With Alleged Spy",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-11-09/bloomberg-surveillance-11-9-2026-video",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T17:41:04Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "CEO scandal involving national security concerns poses significant reputational and operational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "CEO scandal involving national security concerns poses significant reputational and operational risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-445",
-      "headline": "Eli Lilly's Foundayo Cuts Sleep Apnea Severity By Up To 44% In Phase 3 Trials",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/eli-lillys-foundayo-cuts-sleep-apnea-severity-44-phase-3-trials",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T17:41:02Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Eli Lilly reported positive Phase 3 trial results for Foundayo, showing a 44% reduction in sleep apnea severity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Eli Lilly reported positive Phase 3 trial results for Foundayo, showing a 44% reduction in sleep apnea severity.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Eli Lilly",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -272279,9 +272280,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5057483,
-    "news_picked_today": 1364,
-    "news_dropped_today": 10930
+    "news_seen_today": 5083005,
+    "news_picked_today": 1371,
+    "news_dropped_today": 10947
   },
   "book_momentum": {
     "live_count": 8,
