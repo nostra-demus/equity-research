@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T17:52:55Z",
+  "generated_at": "2026-11-09T17:54:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-419",
@@ -891,6 +891,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-445",
+      "headline": "Eli Lilly's Foundayo Cuts Sleep Apnea Severity By Up To 44% In Phase 3 Trials",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/eli-lillys-foundayo-cuts-sleep-apnea-severity-44-phase-3-trials",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T17:41:02Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Eli Lilly reported positive Phase 3 trial results for Foundayo, showing a 44% reduction in sleep apnea severity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Eli Lilly reported positive Phase 3 trial results for Foundayo, showing a 44% reduction in sleep apnea severity.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Eli Lilly",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1951,60 +2000,6 @@
       "companies": [
         {
           "name": "NRG Energy",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-375",
-      "headline": "argenx SE Announces Agreement to Acquire Unnatural Products, Inc. for Up to Approximately $1.15 billion",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/argenx-se-announces-agreement-acquire-unnatural-products-inc-approximately-115-billion",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T13:12:37Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "argenx SE is acquiring Unnatural Products, Inc. for approximately $1.15 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "argenx SE is acquiring Unnatural Products, Inc. for approximately $1.15 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "argenx SE",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Unnatural Products, Inc.",
           "ticker": null,
           "listing_country": "US"
         }
@@ -272092,9 +272087,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3209233,
-    "news_picked_today": 1083,
-    "news_dropped_today": 9003
+    "news_seen_today": 3219428,
+    "news_picked_today": 1086,
+    "news_dropped_today": 9024
   },
   "book_momentum": {
     "live_count": 8,
