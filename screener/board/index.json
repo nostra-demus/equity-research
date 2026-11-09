@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T00:21:21Z",
+  "generated_at": "2026-11-09T00:28:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-016",
@@ -145,6 +145,56 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-022",
+      "headline": "Nvidia CEO’s affair sparks Chinese espionage probe",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/11/8/nvidia-ceos-affair-sparks-chinese-espionage-probe?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-11-08T23:58:53Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Nvidia CEO is subject to a Chinese espionage probe, creating significant operational and geopolitical risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Nvidia CEO is subject to a Chinese espionage probe, creating significant operational and geopolitical risk.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -494,6 +544,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261109-030",
+      "headline": "Bloom Energy Stock Fell 16% on the Same Day 2 Giant Data Center Deals Named It. Is It a Buy?",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/11/08/bloom-energy-stock-fell-16-on-the-same-day-2-giant-data-center-deals-named-it-is-it-a-buy/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T00:16:02Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Bloom Energy stock dropped 16% despite securing two major data center deals, highlighting market volatility and valuation concerns.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "Bloom Energy stock dropped 16% despite securing two major data center deals, highlighting market volatility and valuation concerns.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bloom Energy",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261109-003",
       "headline": "Nvidia CEO Jensen Huang’s confession engulfs chip giant in spying controversy",
       "headline_en": null,
@@ -539,6 +638,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-024",
+      "headline": "OB1: Majestic North Gold Project Development Update [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.OB1?key=2924-03159553-2A1709520",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-09T00:23:17Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Majestic Gold provided a development update on its North Gold Project, which is price-sensitive information.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 75,
+      "triage_reason": "Majestic Gold provided a development update on its North Gold Project, which is price-sensitive information.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Majestic Gold",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -593,6 +741,105 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261109-023",
+      "headline": "Innospace to launch upgraded suborbital rocket in Brazil on Nov. 29",
+      "headline_en": null,
+      "url": "https://www.koreaherald.com/article/10930098",
+      "source_name": "The Korea Herald — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T00:26:25Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Innospace is conducting a suborbital rocket launch, a key operational milestone for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 62,
+      "triage_reason": "Innospace is conducting a suborbital rocket launch, a key operational milestone for the company.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "product",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Innospace",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-026",
+      "headline": "ANZ’s Matos set for gamble that will change banking",
+      "headline_en": null,
+      "url": "https://www.afr.com/chanticleer/anz-s-matos-set-for-gamble-that-will-change-banking-20261109-p61ckg?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T00:26:02Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "The headline discusses a strategic shift for ANZ, but lacks specific details on the nature of the gamble.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 62,
+      "triage_reason": "The headline discusses a strategic shift for ANZ, but lacks specific details on the nature of the gamble.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ANZ Group Holdings",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261109-007",
       "headline": "HSBC HOLDINGS (00005): Transaction in own shares",
       "headline_en": null,
@@ -642,50 +889,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261109-017",
-      "headline": "Innospace to launch upgraded suborbital rocket in Brazil on Nov. 29",
+      "inbox_id": "INB-20261109-029",
+      "headline": "Coffee giant Starbucks to hire 7,500 new UK staff over next five years",
       "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20261109001500320",
-      "source_name": "Yonhap News Agency — All News (English)",
+      "url": "https://www.independent.co.uk/news/business/starbucks-helen-dickinson-government-budget-back-b3081385.html",
+      "source_name": "The Independent — Business",
       "input_nature": "news_headline",
-      "found_at": "2026-11-09T00:14:47Z",
+      "found_at": "2026-11-09T00:01:00Z",
       "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Innospace is conducting a significant product test with a suborbital rocket launch in Brazil.",
+      "prelim_note": "Starbucks plans to hire 7,500 staff in the UK over five years, indicating long-term operational expansion.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 60,
-      "triage_reason": "Innospace is conducting a significant product test with a suborbital rocket launch in Brazil.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
+      "triage_reason": "Starbucks plans to hire 7,500 staff in the UK over five years, indicating long-term operational expansion.",
+      "region": "GB",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
       "rank_factors": {
-        "materiality": 50,
+        "materiality": 40,
         "source_tier": 0,
         "scope": 6,
-        "event": 0,
-        "size": -1,
+        "event": 2,
+        "size": 2,
         "recency": 5,
-        "materiality_label_floor": 0,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "small"
+        "event_id": "operations",
+        "size_bucket": "mega"
       },
       "event_types": [
-        "product"
+        "operations"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Innospace",
+          "name": "Starbucks",
           "ticker": null,
-          "listing_country": "KR"
+          "listing_country": "US"
         }
       ],
-      "size_bucket": "small",
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -843,6 +1090,98 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261109-031",
+      "headline": "금호타이어, 스페인 세아트 '레온'에 신차용 타이어 공급",
+      "headline_en": "Kumho Tire supplies original equipment tires to Seat's 'Leon' in Spain",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=280744",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T00:04:32Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Kumho Tire secured a supply contract for Seat's Leon model, representing a positive commercial development.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 57,
+      "triage_reason": "Kumho Tire secured a supply contract for Seat's Leon model, representing a positive commercial development.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kumho Tire",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-027",
+      "headline": "UK Firms Pared Hiring in Turbulent Weeks Before Budget, REC Says",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-09/uk-firms-pared-hiring-in-turbulent-weeks-before-budget-rec-says",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T00:01:00Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Data indicating a slowdown in hiring activity in the UK suggests cooling economic momentum.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 57,
+      "triage_reason": "Data indicating a slowdown in hiring activity in the UK suggests cooling economic momentum.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261109-020",
       "headline": "USANA Health Sciences Consensus Price Target Cut 12% to $22.44",
       "headline_en": null,
@@ -969,6 +1308,92 @@
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-028",
+      "headline": "BREAKING NEWS: Japan spent record 7.98 tril. yen in yen-buying intervention on July 30",
+      "headline_en": null,
+      "url": "https://english.kyodonews.net/articles/-/90748",
+      "source_name": "Kyodo News (Japan Wire)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T00:03:12Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Japan spent a record 7.98 trillion yen on currency intervention, a significant move to stabilize the currency.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Japan spent a record 7.98 trillion yen on currency intervention, a significant move to stabilize the currency.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-025",
+      "headline": "Iran war live: Trump says ‘Iron Gate’ in effect; drone hits Iraq gas field",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/liveblog/2026/11/9/iran-war-live-trump-says-land-blockade-in-effect-drone-cuts-power-in-iraq?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-11-09T00:00:34Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Geopolitical escalation involving a drone strike on an Iraq gas field and regional conflict tensions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Geopolitical escalation involving a drone strike on an Iraq gas field and regional conflict tensions.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
         "source_tier_id": "news",
         "event_id": null,
         "size_bucket": "unknown"
@@ -271094,7 +271519,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4628,
+    "inbox_unconsumed": 4637,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -271103,9 +271528,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 94,
-    "news_picked_today": 21,
-    "news_dropped_today": 73
+    "news_seen_today": 137,
+    "news_picked_today": 31,
+    "news_dropped_today": 106
   },
   "book_momentum": {
     "live_count": 8,
