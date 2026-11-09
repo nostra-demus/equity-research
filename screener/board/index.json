@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T09:37:21Z",
+  "generated_at": "2026-11-09T09:39:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-309",
@@ -444,6 +444,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-313",
+      "headline": "Nvidia Shares Fall As Huang's Affair Triggers China Spying Probe",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-11-09/daybreak-europe-11-09-2026-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T08:12:31Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Nvidia is facing a China spying probe, which poses significant operational and geopolitical risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia is facing a China spying probe, which poses significant operational and geopolitical risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1966,49 +2016,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-034",
-      "headline": "CTBEONE@EC2708A CT#CLIFERC2612A CT#XIAMIRP26122 CT#MTUANRP2612E CT#XIAMIRP2612M CT#LIAUTRP2612B CT#XIAMIRP2612N CT#BYD RP2612F CT#MTUANRP2612F CT#HSTECRP2612F CT#MTUANRP2612G CT#HSI RC2612B (19178 54112 54713 56019 57673 58252 58276 59446 60312 61778 63667 67293): EXCHANGE NOTICE - SUSPENSION OF TRADING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1109/2026110900063.htm",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-09T00:35:00Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Multiple structured products and derivatives linked to various companies have been suspended from trading.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Multiple structured products and derivatives linked to various companies have been suspended from trading.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 8,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -272301,9 +272308,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 542223,
-    "news_picked_today": 502,
-    "news_dropped_today": 5768
+    "news_seen_today": 554045,
+    "news_picked_today": 510,
+    "news_dropped_today": 5784
   },
   "book_momentum": {
     "live_count": 8,
