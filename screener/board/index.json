@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T03:55:24Z",
+  "generated_at": "2026-11-09T04:05:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-172",
@@ -1181,6 +1181,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261109-186",
+      "headline": "Türk Telekomünikasyon Anonim Sirketi - Depositary Receipt Consensus Price Target Lowered by 35.04% to $3.28",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/turk-telekomunikasyon-anonim-sirketi-depositary-receipt-consensus-price-target-lowered",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T03:20:18Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Significant 35.04% reduction in price target for Turk Telekom.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Significant 35.04% reduction in price target for Turk Telekom.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Türk Telekomünikasyon Anonim Sirketi",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261109-002",
       "headline": "Standard Chartered profits from geopolitical fragmentation as earnings soar: CEO",
       "headline_en": null,
@@ -1913,55 +1962,6 @@
           "name": "Morepen Laboratories",
           "ticker": "500288",
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-015",
-      "headline": "LAEKNA-B (02105): VOLUNTARY ANNOUNCEMENT SUCCESSFUL COMPLETION OF PHASE I SAD STUDY OF LAE103 IN OVERWEIGHT OR OBESE PARTICIPANTS",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1109/2026110900049.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-09T00:10:00Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "The company successfully completed a Phase I study for its obesity drug candidate LAE103.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "The company successfully completed a Phase I study for its obesity drug candidate LAE103.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Laekna",
-          "ticker": null,
-          "listing_country": "CN"
         }
       ],
       "size_bucket": "small",
@@ -230831,78 +230831,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-d10a45580c7f",
-      "idea_version": "IDEAV-c1c455646aa3c537",
-      "idea_version_started_at": "2026-11-07T16:09:13Z",
-      "ticker": "ON",
-      "company": "Onsemi",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Onsemi is walking away from a $2 billion chip investment made in 2024, indicating a significant capital allocation misstep or a deterioration in the expected returns from that project.",
-      "why_now": "News broke today, November 7, 2026, that Onsemi is abandoning a major investment, suggesting a fresh re-evaluation of its capital expenditure strategy.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-396bc528f862"
-      ],
-      "primary_source_event_id": "EVT-396bc528f862",
-      "source_headlines": [
-        "Onsemi Is Walking Away From a $2 Billion Chip Bet It Made in 2024"
-      ],
-      "source_headline": "Onsemi Is Walking Away From a $2 Billion Chip Bet It Made in 2024",
-      "source_url": "https://247wallst.com/investing/2026/11/07/onsemi-is-walking-away-from-a-2-billion-chip-bet-it-made-in-2024/",
-      "source_name": "24/7 Wall St.",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-07T16:02:56Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-07T16:09:13Z",
-      "updated_at": "2026-11-07T16:09:13Z",
-      "decay_at": "2026-11-09T04:02:56Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-14770c0627c1",
       "idea_version": "IDEAV-643d72cad2915728",
       "idea_version_started_at": "2026-11-08T06:58:45Z",
@@ -233185,6 +233113,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-d10a45580c7f",
+      "idea_version": "IDEAV-c1c455646aa3c537",
+      "idea_version_started_at": "2026-11-07T16:09:13Z",
+      "ticker": "ON",
+      "company": "Onsemi",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Onsemi is walking away from a $2 billion chip investment made in 2024, indicating a significant capital allocation misstep or a deterioration in the expected returns from that project.",
+      "why_now": "News broke today, November 7, 2026, that Onsemi is abandoning a major investment, suggesting a fresh re-evaluation of its capital expenditure strategy.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-396bc528f862"
+      ],
+      "primary_source_event_id": "EVT-396bc528f862",
+      "source_headlines": [
+        "Onsemi Is Walking Away From a $2 Billion Chip Bet It Made in 2024"
+      ],
+      "source_headline": "Onsemi Is Walking Away From a $2 Billion Chip Bet It Made in 2024",
+      "source_url": "https://247wallst.com/investing/2026/11/07/onsemi-is-walking-away-from-a-2-billion-chip-bet-it-made-in-2024/",
+      "source_name": "24/7 Wall St.",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-07T16:02:56Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-07T16:09:13Z",
+      "updated_at": "2026-11-07T16:09:13Z",
+      "decay_at": "2026-11-09T04:02:56Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-3ef98ffdf3f1",
       "idea_version": "IDEAV-6d31e59f8a4f58fe",
       "idea_version_started_at": "2026-11-07T15:28:42Z",
@@ -234781,9 +234781,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 538,
+    "total_count": 539,
     "shown_count": 499,
-    "hidden_count": 39,
+    "hidden_count": 40,
     "side_counts": {
       "long": {
         "total_count": 273,
@@ -234791,9 +234791,9 @@
         "hidden_count": 23
       },
       "short": {
-        "total_count": 266,
+        "total_count": 267,
         "shown_count": 250,
-        "hidden_count": 16
+        "hidden_count": 17
       }
     },
     "retention": {
@@ -234812,6 +234812,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-d10a45580c7f",
+        "idea_version": "IDEAV-c1c455646aa3c537",
+        "idea_version_started_at": "2026-11-07T16:09:13Z",
+        "ticker": "ON",
+        "company": "Onsemi",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Onsemi is walking away from a $2 billion chip investment made in 2024, indicating a significant capital allocation misstep or a deterioration in the expected returns from that project.",
+        "why_now": "News broke today, November 7, 2026, that Onsemi is abandoning a major investment, suggesting a fresh re-evaluation of its capital expenditure strategy.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-396bc528f862"
+        ],
+        "primary_source_event_id": "EVT-396bc528f862",
+        "source_headlines": [
+          "Onsemi Is Walking Away From a $2 Billion Chip Bet It Made in 2024"
+        ],
+        "source_headline": "Onsemi Is Walking Away From a $2 Billion Chip Bet It Made in 2024",
+        "source_url": "https://247wallst.com/investing/2026/11/07/onsemi-is-walking-away-from-a-2-billion-chip-bet-it-made-in-2024/",
+        "source_name": "24/7 Wall St.",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-07T16:02:56Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-07T16:09:13Z",
+        "updated_at": "2026-11-07T16:09:13Z",
+        "decay_at": "2026-11-09T04:02:56Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-09T04:02:56Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-b08ed75eada9",
         "idea_version": "IDEAV-d7a2bfe11dfccd70",
@@ -271881,87 +271956,12 @@
         "archived_at": "2026-10-15T13:17:43Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-8f7774ecdbc6",
-        "idea_version": "IDEAV-375b8318c6bfd98e",
-        "idea_version_started_at": "2026-10-12T12:54:35Z",
-        "ticker": "00754",
-        "company": "Hopson Development Holdings",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company issued a profit warning and remains under a continued trading suspension, indicating severe financial and operational distress.",
-        "why_now": "The filing was released on October 12, 2026.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-1a72d2323516"
-        ],
-        "primary_source_event_id": "EVT-1a72d2323516",
-        "source_headlines": [
-          "HOPSON DEV HOLD (00754): PROFIT WARNING AND CONTINUED SUSPENSION OF TRADING"
-        ],
-        "source_headline": "HOPSON DEV HOLD (00754): PROFIT WARNING AND CONTINUED SUSPENSION OF TRADING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1012/2026101201025.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-12T11:53:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-12T12:54:35Z",
-        "updated_at": "2026-10-12T12:54:35Z",
-        "decay_at": "2026-10-13T23:53:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-15T13:17:43Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2309,
-    "live_count": 60,
+    "live_count": 59,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -271980,9 +271980,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 914,
-    "news_picked_today": 200,
-    "news_dropped_today": 714
+    "news_seen_today": 956,
+    "news_picked_today": 216,
+    "news_dropped_today": 740
   },
   "book_momentum": {
     "live_count": 8,
