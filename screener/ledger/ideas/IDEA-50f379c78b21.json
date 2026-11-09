@@ -1,9 +1,9 @@
 {
   "idea_id": "IDEA-50f379c78b21",
-  "idea_version": "IDEAV-bfa10b0f825651dc",
-  "idea_version_started_at": "2026-11-09T17:16:12Z",
+  "idea_version": "IDEAV-52c6743df30fb9aa",
+  "idea_version_started_at": "2026-11-09T19:22:55Z",
   "ticker": "NVDA",
-  "company": "NVIDIA",
+  "company": "Nvidia",
   "exchange": "NASDAQ",
   "ticker_verified": true,
   "listing_verified": true,
@@ -11,26 +11,25 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "short",
   "pair_with": null,
-  "reason": "NVIDIA faces significant headline risk and potential regulatory scrutiny following reports of a board investigation into the CEO's ties to a foreign intelligence entity, creating a tactical pair trade opportunity against AMD.",
-  "why_now": "The report surfaced today, November 9, 2026, triggering immediate volatility.",
-  "conviction": 65,
+  "reason": "The CEO has admitted to an affair with an alleged foreign intelligence operative, creating significant governance risk and potential regulatory scrutiny regarding national security and intellectual property.",
+  "why_now": "The admission and subsequent investigation are live as of 2026-11-09, triggering immediate market volatility.",
+  "conviction": 75,
   "conviction_basis": "pre_edge_proxy",
-  "trade_score": 66,
+  "trade_score": 77,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 14,
-    "impact": 20,
+    "impact": 21,
     "specificity": 15,
     "timing": 10,
     "expression": 7,
-    "corroboration": 0,
+    "corroboration": 10,
     "learning_adjustment": 0
   },
   "trade_readiness": "needs_data",
   "missing_checks": [
     "live liquidity",
     "dated catalyst",
-    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -47,17 +46,24 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-786c3d8ee2a5"
+    "EVT-0c78870a3b1a",
+    "EVT-a9e47eea30c3",
+    "EVT-d07ee540f043",
+    "EVT-e68483dd5366",
+    "EVT-5b9d1b04481b"
   ],
-  "primary_source_event_id": "EVT-786c3d8ee2a5",
+  "primary_source_event_id": "EVT-0c78870a3b1a",
   "source_headlines": [
-    "NVIDIA Falls 5% as Board Probes Jensen Huang’s Ties to Alleged Chinese Spy; AMD Rises 4%, Intel Holds Steady"
+    "Nvidia stock crashes 8% after a 'foreign intelligence' probe initiated by AI company into CEO Jensen Huang",
+    "£260bn wiped off value of Nvidia as it launches probe into boss Jensen Huang's affair with 'Chinese spy'",
+    "Nvidia shares tumble over investigation into Huang's affair with alleged Chinese spy",
+    "£292bn wiped off value of Nvidia as it launches probe into boss Jensen Huang's affair with 'Chinese spy'"
   ],
-  "source_headline": "NVIDIA Falls 5% as Board Probes Jensen Huang’s Ties to Alleged Chinese Spy; AMD Rises 4%, Intel Holds Steady",
-  "source_url": "https://247wallst.com/investing/2026/11/09/nvidia-falls-5-as-board-probes-jensen-huangs-ties-to-alleged-chinese-spy-amd-rises-4-intel-holds-steady/",
-  "source_name": "24/7 Wall St.",
+  "source_headline": "Nvidia stock crashes 8% after a 'foreign intelligence' probe initiated by AI company into CEO Jensen Huang",
+  "source_url": "https://economictimes.indiatimes.com/markets/us-stocks/news/nvidia-stock-crashes-8-after-a-foreign-intelligence-probe-initiated-by-ai-company-into-ceo-jensen-huang/articleshow/135685302.cms",
+  "source_name": "The Economic Times",
   "materiality_max": 100,
-  "newest_source_at": "2026-11-09T13:43:56Z",
+  "newest_source_at": "2026-11-09T18:11:11Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
@@ -65,8 +71,8 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-11-07T15:09:40Z",
-  "updated_at": "2026-11-09T17:16:12Z",
-  "decay_at": "2026-11-11T01:43:56Z",
+  "updated_at": "2026-11-09T19:22:55Z",
+  "decay_at": "2026-11-11T06:11:11Z",
   "status": "live",
   "promoted_signal_id": null
 }
