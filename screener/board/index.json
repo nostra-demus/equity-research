@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-11-09T06:45:28Z",
+  "generated_at": "2026-11-09T06:50:48Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261109-273",
+      "headline": "MCM: MCM Update, Kinetic Bridge Loan and Makhado Operations [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MCM?key=2924-03159672-6A1354183",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-09T06:01:13Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "McEwen Mining secured a bridge loan and provided an operational update for its Makhado project, which is price-sensitive.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "McEwen Mining secured a bridge loan and provided an operational update for its Makhado project, which is price-sensitive.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "debt_credit",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "McEwen Mining",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261109-226",
       "headline": "HMX: Scheme and Demerger Meeting Results [price-sensitive]",
@@ -1924,55 +1974,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-190",
-      "headline": "ZHONGKE GROUP (03321): QUARTERLY UPDATE ON THE ACTION PLAN TO ADDRESS THE DISCLAIMER OF OPINION IN THE ANNUAL REPORT FOR THE YEAR ENDED 31 MARCH 2026",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1109/2026110900193.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-09T04:05:00Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Zhongke Group is providing an update on addressing a disclaimer of opinion in its annual report, indicating ongoing accounting/audit concerns.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Zhongke Group is providing an update on addressing a disclaimer of opinion in its annual report, indicating ongoing accounting/audit concerns.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "accounting_restatement",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Zhongke Group",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -228114,76 +228115,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-99a574f2e453",
-      "idea_version": "IDEAV-b336c4ae6bfa1368",
-      "idea_version_started_at": "2026-11-07T23:54:55Z",
-      "ticker": "LLY",
-      "company": "Eli Lilly",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company raised its 2026 revenue forecast by $5.5 billion, signaling stronger-than-expected demand for its core pharmaceutical portfolio.",
-      "why_now": "The guidance update was released on November 07, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-33b1b17dfdc9"
-      ],
-      "primary_source_event_id": "EVT-33b1b17dfdc9",
-      "source_headlines": [
-        "Eli Lilly Just Raised Its 2026 Revenue Forecast by $5.5 Billion. Is the Stock Still a Buy?"
-      ],
-      "source_headline": "Eli Lilly Just Raised Its 2026 Revenue Forecast by $5.5 Billion. Is the Stock Still a Buy?",
-      "source_url": "https://www.nasdaq.com/articles/eli-lilly-just-raised-its-2026-revenue-forecast-55-billion-stock-still-buy",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-07T18:50:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-07T18:45:39Z",
-      "updated_at": "2026-11-07T23:54:55Z",
-      "decay_at": "2026-11-09T06:50:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-ebfbd0cbbc7c",
       "idea_version": "IDEAV-75acc0c8f763da0c",
       "idea_version_started_at": "2026-11-09T04:15:43Z",
@@ -232563,6 +232494,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-99a574f2e453",
+      "idea_version": "IDEAV-b336c4ae6bfa1368",
+      "idea_version_started_at": "2026-11-07T23:54:55Z",
+      "ticker": "LLY",
+      "company": "Eli Lilly",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company raised its 2026 revenue forecast by $5.5 billion, signaling stronger-than-expected demand for its core pharmaceutical portfolio.",
+      "why_now": "The guidance update was released on November 07, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-33b1b17dfdc9"
+      ],
+      "primary_source_event_id": "EVT-33b1b17dfdc9",
+      "source_headlines": [
+        "Eli Lilly Just Raised Its 2026 Revenue Forecast by $5.5 Billion. Is the Stock Still a Buy?"
+      ],
+      "source_headline": "Eli Lilly Just Raised Its 2026 Revenue Forecast by $5.5 Billion. Is the Stock Still a Buy?",
+      "source_url": "https://www.nasdaq.com/articles/eli-lilly-just-raised-its-2026-revenue-forecast-55-billion-stock-still-buy",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-07T18:50:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-07T18:45:39Z",
+      "updated_at": "2026-11-07T23:54:55Z",
+      "decay_at": "2026-11-09T06:50:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-5d42be3b7a79",
       "idea_version": "IDEAV-c24b2db8c10cec9e",
       "idea_version_started_at": "2026-11-06T20:30:17Z",
@@ -235143,14 +235144,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 536,
+    "total_count": 537,
     "shown_count": 499,
-    "hidden_count": 37,
+    "hidden_count": 38,
     "side_counts": {
       "long": {
-        "total_count": 271,
+        "total_count": 272,
         "shown_count": 250,
-        "hidden_count": 21
+        "hidden_count": 22
       },
       "short": {
         "total_count": 266,
@@ -235174,6 +235175,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-99a574f2e453",
+        "idea_version": "IDEAV-b336c4ae6bfa1368",
+        "idea_version_started_at": "2026-11-07T23:54:55Z",
+        "ticker": "LLY",
+        "company": "Eli Lilly",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company raised its 2026 revenue forecast by $5.5 billion, signaling stronger-than-expected demand for its core pharmaceutical portfolio.",
+        "why_now": "The guidance update was released on November 07, 2026.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 67,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-33b1b17dfdc9"
+        ],
+        "primary_source_event_id": "EVT-33b1b17dfdc9",
+        "source_headlines": [
+          "Eli Lilly Just Raised Its 2026 Revenue Forecast by $5.5 Billion. Is the Stock Still a Buy?"
+        ],
+        "source_headline": "Eli Lilly Just Raised Its 2026 Revenue Forecast by $5.5 Billion. Is the Stock Still a Buy?",
+        "source_url": "https://www.nasdaq.com/articles/eli-lilly-just-raised-its-2026-revenue-forecast-55-billion-stock-still-buy",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-07T18:50:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-07T18:45:39Z",
+        "updated_at": "2026-11-07T23:54:55Z",
+        "decay_at": "2026-11-09T06:50:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-09T06:50:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-3a5e2b5bb8c5",
         "idea_version": "IDEAV-b7bc8b7cc7fc63f9",
@@ -264051,81 +264125,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-f5d5e30d8e51",
-        "idea_version": "IDEAV-65d58fa1d2e7279f",
-        "idea_version_started_at": "2026-10-24T16:12:59Z",
-        "ticker": "SETCO",
-        "company": "Setco Automotive",
-        "exchange": "BSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company swung to a ₹203.61 crore profit and is initiating a merger with Lava Cast to achieve cost synergies.",
-        "why_now": "The financial turnaround and merger announcement occurred on October 24, 2026.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-90a43ae26c1b"
-        ],
-        "primary_source_event_id": "EVT-90a43ae26c1b",
-        "source_headlines": [
-          "Setco Automotive swings to ₹203.61 crore profit, plans Lava Cast merger to cut costs"
-        ],
-        "source_headline": "Setco Automotive swings to ₹203.61 crore profit, plans Lava Cast merger to cut costs",
-        "source_url": "https://www.thehindubusinessline.com/companies/setco-automotive-swings-to-20361-crore-profit-plans-lava-cast-merger-to-cut-costs/article71620201.ece",
-        "source_name": "The Hindu BusinessLine",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-24T16:04:31Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-24T16:12:59Z",
-        "updated_at": "2026-10-24T16:12:59Z",
-        "decay_at": "2026-10-26T04:04:31Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-27T16:21:17Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-0157f621dab9",
         "idea_version": "IDEAV-8b3d415a029aec76",
         "idea_version_started_at": "2026-10-24T23:13:43Z",
@@ -272322,7 +272321,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2318,
-    "live_count": 67,
+    "live_count": 66,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -272341,9 +272340,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 89389,
-    "news_picked_today": 390,
-    "news_dropped_today": 4368
+    "news_seen_today": 97592,
+    "news_picked_today": 394,
+    "news_dropped_today": 4460
   },
   "book_momentum": {
     "live_count": 8,
