@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-09T12:42:59Z",
+  "generated_at": "2026-11-09T12:47:46Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261109-352",
+      "headline": "YOURAN DAIRY (09858): DISCLOSEABLE TRANSACTION IN RELATION TO ASSET SWAP TRANSACTIONS AND PROPOSED SPIN-OFF",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1109/2026110901103.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-09T12:37:00Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "The company announced a discloseable transaction involving an asset swap and a proposed spin-off.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company announced a discloseable transaction involving an asset swap and a proposed spin-off.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "YOURAN DAIRY",
+          "ticker": "09858",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261109-350",
       "headline": "ESTUN (02715): UPDATE ANNOUNCEMENT - CONNECTED TRANSACTION AND DISCLOSEABLE TRANSACTION IN RELATION TO THE FURTHER ACQUISITION OF 25.4027% EQUITY INTEREST IN ESTUN INTELLIGENT (JIANGSU)",
@@ -1959,57 +2008,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-203",
-      "headline": "'No excuse for what I did': Nvidia CEO Jensen Huang admits to affair with suspected Chinese spy; firm launches probe",
-      "headline_en": null,
-      "url": "https://www.deccanherald.com/world/us/no-excuse-for-what-i-did-nvidia-ceo-jensen-huang-admits-to-affair-with-suspected-chinese-spy-firm-launches-probe-4212369",
-      "source_name": "Deccan Herald",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T04:27:16Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Nvidia CEO Jensen Huang admits to an affair with a suspected spy, triggering an internal probe and significant reputational/security risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia CEO Jensen Huang admits to an affair with a suspected spy, triggering an internal probe and significant reputational/security risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 88,
-      "rank_factors": {
-        "materiality": 88,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management",
-        "executive_exit",
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia Corporation",
-          "ticker": "NVDA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -272017,9 +272015,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1287912,
-    "news_picked_today": 759,
-    "news_dropped_today": 7071
+    "news_seen_today": 1311578,
+    "news_picked_today": 762,
+    "news_dropped_today": 7092
   },
   "book_momentum": {
     "live_count": 8,
