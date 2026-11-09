@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T21:01:44Z",
+  "generated_at": "2026-11-09T21:04:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-419",
@@ -1043,6 +1043,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261109-474",
+      "headline": "Children’s Place files for bankruptcy protection, seeks buyer",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/11/09/childrens-place-chapter-11-sale.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T20:57:46Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "The Children's Place has filed for bankruptcy protection and is actively seeking a buyer.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The Children's Place has filed for bankruptcy protection and is actively seeking a buyer.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "The Children's Place",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261109-473",
       "headline": "Omnia starts final listed year with a bang as shareholders approve R21bn cash buyout",
       "headline_en": null,
@@ -1936,60 +1985,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-416",
-      "headline": "RBC signs deal to buy Australia’s Yarra Capital Management",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/business/article-rbc-signs-deal-to-buy-australias-yarra-capital-management/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T15:26:27Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "RBC is acquiring Yarra Capital Management, representing a significant cross-border expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "RBC is acquiring Yarra Capital Management, representing a significant cross-border expansion.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Royal Bank of Canada",
-          "ticker": "RY",
-          "listing_country": "CA"
-        },
-        {
-          "name": "Yarra Capital Management",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -272287,9 +272282,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4424552,
-    "news_picked_today": 1224,
-    "news_dropped_today": 10494
+    "news_seen_today": 4455935,
+    "news_picked_today": 1225,
+    "news_dropped_today": 10517
   },
   "book_momentum": {
     "live_count": 8,
