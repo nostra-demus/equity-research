@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-09T14:08:02Z",
+  "generated_at": "2026-11-09T14:10:43Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261109-380",
+      "headline": "PEIPORT HOLD (02885): JOINT ANNOUNCEMENT - (1) SALE AND PURCHASE AGREEMENT BETWEEN THE OFFEROR AND THE VENDOR; (2) POSSIBLE UNCONDITIONAL MANDATORY CASH OFFER BY SHENWAN HONGYUAN CAPITAL (H.K.) LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR, ITS BENEFICIAL OWNERS AND PARTIES ACTING IN CONCERT WITH ANY OF THEM); (3) APPOINTMENT OF INDEPENDENT FINANCIAL ADVISER;",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1109/2026110901215.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-09T13:59:00Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Peiport Holdings announced a change in control via a mandatory cash offer to acquire all issued shares.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Peiport Holdings announced a change in control via a mandatory cash offer to acquire all issued shares.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Peiport Holdings",
+          "ticker": "02885",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261109-352",
       "headline": "YOURAN DAIRY (09858): DISCLOSEABLE TRANSACTION IN RELATION TO ASSET SWAP TRANSACTIONS AND PROPOSED SPIN-OFF",
@@ -1960,55 +2009,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-275",
-      "headline": "Nuvama Wealth Management Q2 Results: Profit rises 19% YoY to Rs 304 crore",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/nuvama-wealth-management-q2-results-profit-rises-19-yoy-to-rs-304-crore/articleshow/135673703.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T06:39:56Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Nuvama Wealth Management reported a 19% year-over-year profit increase to Rs 304 crore for Q2.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nuvama Wealth Management reported a 19% year-over-year profit increase to Rs 304 crore for Q2.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nuvama Wealth Management",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -272306,9 +272306,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1757445,
-    "news_picked_today": 874,
-    "news_dropped_today": 7700
+    "news_seen_today": 1784055,
+    "news_picked_today": 881,
+    "news_dropped_today": 7717
   },
   "book_momentum": {
     "live_count": 8,
