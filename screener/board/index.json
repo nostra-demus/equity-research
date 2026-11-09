@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T23:54:16Z",
+  "generated_at": "2026-11-09T23:57:26Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-484",
@@ -1142,6 +1142,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261109-495",
+      "headline": "Nvidia investigates CEO Jensen Huang over Chinese spy concerns",
+      "headline_en": null,
+      "url": "https://www.cbsnews.com/news/nvidia-jensen-huang-investigation-china-intelligence/",
+      "source_name": "CBS MoneyWatch",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T23:49:36Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Nvidia is investigating its CEO regarding serious allegations of espionage, creating material management and reputational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia is investigating its CEO regarding serious allegations of espionage, creating material management and reputational risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-494",
+      "headline": "Nvidia CEO Jensen Huang is embroiled in a spying scandal. Could the AI chipmaker survive without him?",
+      "headline_en": null,
+      "url": "https://www.cbc.ca/news/business/nvidia-survive-without-jensen-huang-ceo-9.7415544?cmp=rss",
+      "source_name": "CBC — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T23:47:23Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Allegations of a spying scandal involving the CEO of a mega-cap company pose significant reputational and operational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Allegations of a spying scandal involving the CEO of a mega-cap company pose significant reputational and operational risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261109-493",
       "headline": "HighPeak Energy, Inc. Announces Third Quarter 2026 Financial and Operating Results and Guidance Update",
       "headline_en": null,
@@ -1880,104 +1978,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-451",
-      "headline": "Boeing Cuts 5% of Commercial Workforce Amid Factory Ramp Delays",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-09/boeing-cuts-5-of-commercial-workforce-amid-factory-ramp-delays",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T17:53:22Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Boeing is cutting 5% of its commercial workforce due to ongoing factory delays, signaling significant operational distress.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Boeing is cutting 5% of its commercial workforce due to ongoing factory delays, signaling significant operational distress.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Boeing",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-446",
-      "headline": "Children’s Place Files for Bankruptcy With Plans to Sell Assets",
-      "headline_en": null,
-      "url": "https://www.wsj.com/pro/bankruptcy/childrens-place-files-for-bankruptcy-with-plans-to-sell-assets-2ae70988?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T17:49:00Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "The Children's Place has filed for bankruptcy and intends to sell its assets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The Children's Place has filed for bankruptcy and intends to sell its assets.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "The Children's Place",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -272347,9 +272347,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5921261,
-    "news_picked_today": 1541,
-    "news_dropped_today": 11617
+    "news_seen_today": 5972885,
+    "news_picked_today": 1547,
+    "news_dropped_today": 11635
   },
   "book_momentum": {
     "live_count": 8,
