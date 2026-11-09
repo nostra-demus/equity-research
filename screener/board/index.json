@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T12:32:51Z",
+  "generated_at": "2026-11-09T12:35:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-331",
@@ -603,6 +603,148 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261109-340",
+      "headline": "Children’s specialty apparel chain files Chapter 11 bankruptcy",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/retail/the-childrens-place-files-for-chapter-11-bankruptcy",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T12:17:00Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "A children's specialty apparel chain filed for Chapter 11 bankruptcy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A children's specialty apparel chain filed for Chapter 11 bankruptcy.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-341",
+      "headline": "Whirlpool India Q2 Results: Net profit drops 39% amid commodity inflation and higher costs",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/stocks/whirlpool-india-share-price-q2-results-net-profit-drops-39-margins-come-under-pressure-20030525.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T12:14:30Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Whirlpool India reported a 39% drop in net profit.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Whirlpool India reported a 39% drop in net profit.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Whirlpool India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-343",
+      "headline": "EasyJet to slash jobs ahead of £5.7bn private equity takeover",
+      "headline_en": null,
+      "url": "https://www.thisismoney.co.uk/money/markets/article-16278083/Easyjet-slash-jobs-ahead-5-7bn-private-equity-takeover.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
+      "source_name": "This is Money (Daily Mail) — Markets",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T12:07:51Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "EasyJet to cut jobs ahead of a £5.7 billion takeover.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "EasyJet to cut jobs ahead of a £5.7 billion takeover.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs",
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EasyJet",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261109-334",
       "headline": "Whirlpool India Q2 Results: Net profit drops 39%, margins come under pressure",
       "headline_en": null,
@@ -644,6 +786,60 @@
           "name": "Whirlpool India",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-342",
+      "headline": "Strathcona to buy Greenfire Resources in up to $2.9-billion deal",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/business/article-strathcona-to-buy-greenfire-resources-in-up-to-29-billion-deal/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T11:57:00Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Strathcona to acquire Greenfire Resources in a $2.9 billion deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Strathcona to acquire Greenfire Resources in a $2.9 billion deal.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Strathcona",
+          "ticker": null,
+          "listing_country": "CA"
+        },
+        {
+          "name": "Greenfire Resources",
+          "ticker": null,
+          "listing_country": "CA"
         }
       ],
       "size_bucket": "mid",
@@ -1814,212 +2010,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-171",
-      "headline": "Anthropic signs $3.4 billion deal for gas generators to power AI data centres: Report",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/business/companies/anthropic-signs-3-4-billion-deal-for-gas-generators-to-power-ai-data-centres-report-20030054.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T03:33:36Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Anthropic has signed a $3.4 billion deal for power infrastructure to support AI data centers.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Anthropic has signed a $3.4 billion deal for power infrastructure to support AI data centers.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-168",
-      "headline": "Mitsui Chemicals to Acquire JSR With Development Bank of Japan for $8.8 Billion",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/deals/mitsui-chemicals-to-acquire-jsr-with-development-bank-of-japan-for-8-8-billion-578ccd86?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T03:32:00Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Mitsui Chemicals is acquiring JSR for $8.8 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Mitsui Chemicals is acquiring JSR for $8.8 billion.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mitsui Chemicals",
-          "ticker": null,
-          "listing_country": "JP"
-        },
-        {
-          "name": "JSR",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-159",
-      "headline": "Microsoft employees urge rethink of AI strategy as company offers buyouts to 60,000 workers",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/technology/microsoft-employees-urge-rethink-of-ai-strategy-as-company-offers-buyouts-to-60000-workers-20030046.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T03:19:43Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Microsoft is offering buyouts to 60,000 workers, indicating a major restructuring effort.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Microsoft is offering buyouts to 60,000 workers, indicating a major restructuring effort.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Microsoft",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-154",
-      "headline": "FTC to fine Baemin 331 bln won, Coupang 300 bln won for unfair practices",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20261109004200320",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T03:00:02Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "The South Korean FTC has imposed significant fines of 331 billion won and 300 billion won on Baemin and Coupang respectively for unfair practices.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The South Korean FTC has imposed significant fines of 331 billion won and 300 billion won on Baemin and Coupang respectively for unfair practices.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Baemin",
-          "ticker": null,
-          "listing_country": "KR"
-        },
-        {
-          "name": "Coupang",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -272027,9 +272017,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1240772,
-    "news_picked_today": 733,
-    "news_dropped_today": 7001
+    "news_seen_today": 1256344,
+    "news_picked_today": 742,
+    "news_dropped_today": 7016
   },
   "book_momentum": {
     "live_count": 8,
