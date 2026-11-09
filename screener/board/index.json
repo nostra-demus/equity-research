@@ -1,6 +1,60 @@
 {
-  "generated_at": "2026-11-09T16:13:32Z",
+  "generated_at": "2026-11-09T16:18:29Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261109-419",
+      "headline": "Tata Motors Limited: Tata Motors Limited has informed the Exchange regarding a press release dated November 09, 2026, titled \"TML CV Holdings B.V., an Indirect Wholly Owned Subsidiary of Tata Motors Limited Voluntary Totalitarian Tender Offer for all the common shares of Iveco Group N.V.\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/TMLCOMMERCIAL_09112026213031_nsebse_.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-09T16:00:39Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Tata Motors subsidiary has launched a voluntary tender offer to acquire all common shares of Iveco Group N.V.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tata Motors subsidiary has launched a voluntary tender offer to acquire all common shares of Iveco Group N.V.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Motors Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Iveco Group N.V.",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261109-380",
       "headline": "PEIPORT HOLD (02885): JOINT ANNOUNCEMENT - (1) SALE AND PURCHASE AGREEMENT BETWEEN THE OFFEROR AND THE VENDOR; (2) POSSIBLE UNCONDITIONAL MANDATORY CASH OFFER BY SHENWAN HONGYUAN CAPITAL (H.K.) LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR, ITS BENEFICIAL OWNERS AND PARTIES ACTING IN CONCERT WITH ANY OF THEM); (3) APPOINTMENT OF INDEPENDENT FINANCIAL ADVISER;",
@@ -1947,60 +2001,6 @@
           "name": "Whirlpool India",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-342",
-      "headline": "Strathcona to buy Greenfire Resources in up to $2.9-billion deal",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/business/article-strathcona-to-buy-greenfire-resources-in-up-to-29-billion-deal/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T11:57:00Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Strathcona to acquire Greenfire Resources in a $2.9 billion deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Strathcona to acquire Greenfire Resources in a $2.9 billion deal.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Strathcona",
-          "ticker": null,
-          "listing_country": "CA"
-        },
-        {
-          "name": "Greenfire Resources",
-          "ticker": null,
-          "listing_country": "CA"
         }
       ],
       "size_bucket": "mid",
@@ -271942,9 +271942,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2619978,
-    "news_picked_today": 1002,
-    "news_dropped_today": 8340
+    "news_seen_today": 2649505,
+    "news_picked_today": 1009,
+    "news_dropped_today": 8357
   },
   "book_momentum": {
     "live_count": 8,
