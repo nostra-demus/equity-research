@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-09T12:37:50Z",
+  "generated_at": "2026-11-09T12:42:59Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261109-350",
+      "headline": "ESTUN (02715): UPDATE ANNOUNCEMENT - CONNECTED TRANSACTION AND DISCLOSEABLE TRANSACTION IN RELATION TO THE FURTHER ACQUISITION OF 25.4027% EQUITY INTEREST IN ESTUN INTELLIGENT (JIANGSU)",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1109/2026110901091.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-09T12:29:00Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Estun announced the acquisition of a 25.4% stake in a subsidiary.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Estun announced the acquisition of a 25.4% stake in a subsidiary.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Estun",
+          "ticker": "02715",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261109-331",
       "headline": "Discontinuation of Trading and Delisting of Equity shares of Elpro International Ltd (Scrip Code: 504000)",
@@ -1961,55 +2010,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-192",
-      "headline": "Children’s Place Files Bankruptcy as Saudi Family Loans Run Out",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-09/children-s-place-files-bankruptcy-as-saudi-family-loans-run-out",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T03:53:28Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Children's Place files for bankruptcy, indicating a significant financial distress event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Children's Place files for bankruptcy, indicating a significant financial distress event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Children's Place",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -272017,9 +272017,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1264244,
-    "news_picked_today": 745,
-    "news_dropped_today": 7037
+    "news_seen_today": 1287912,
+    "news_picked_today": 759,
+    "news_dropped_today": 7071
   },
   "book_momentum": {
     "live_count": 8,
