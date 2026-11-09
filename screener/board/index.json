@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T19:52:41Z",
+  "generated_at": "2026-11-09T19:55:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-419",
@@ -994,6 +994,57 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261109-468",
+      "headline": "SHF Holdings, Inc. Reports Q3 2026 Results, Details Proposed Opifex Transaction and Series B Dilution",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/shf-holdings-inc-reports-q3-2026-results-details-proposed-opifex-transaction-and-series-b",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T19:18:30Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "SHF Holdings reported Q3 2026 results alongside a proposed transaction and significant equity dilution.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SHF Holdings reported Q3 2026 results alongside a proposed transaction and significant equity dilution.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "mna",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SHF Holdings, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261109-466",
       "headline": "Delcath Systems Reports Third Quarter 2026 Results and Increases 2026 Revenue Guidance to a Range of $115 million to $117 million",
       "headline_en": null,
@@ -1910,55 +1961,6 @@
       "launched_signal_id": null,
       "triage_score": 100,
       "triage_reason": "£260 billion was wiped off Nvidia's value as it launched a probe into CEO Jensen Huang's alleged affair with a 'Chinese spy'.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-410",
-      "headline": "Nvidia stock crashes 8% after a 'foreign intelligence' probe initiated by AI company into CEO Jensen Huang",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/us-stocks/news/nvidia-stock-crashes-8-after-a-foreign-intelligence-probe-initiated-by-ai-company-into-ceo-jensen-huang/articleshow/135685302.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T14:44:09Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Nvidia stock crashed 8% after a 'foreign intelligence' probe was initiated by an AI company into CEO Jensen Huang.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia stock crashed 8% after a 'foreign intelligence' probe was initiated by an AI company into CEO Jensen Huang.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 80,
@@ -272287,9 +272289,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3923189,
-    "news_picked_today": 1192,
-    "news_dropped_today": 9902
+    "news_seen_today": 3944191,
+    "news_picked_today": 1196,
+    "news_dropped_today": 9922
   },
   "book_momentum": {
     "live_count": 8,
