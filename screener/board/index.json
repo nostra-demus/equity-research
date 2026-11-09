@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T13:53:53Z",
+  "generated_at": "2026-11-09T13:55:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-352",
@@ -794,6 +794,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-377",
+      "headline": "Children’s Place Files for Bankruptcy With Plans to Sell Assets",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/retail/childrens-place-files-for-bankruptcy-with-plans-to-sell-assets-2ae70988?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T13:44:00Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "The Children's Place has filed for bankruptcy and intends to sell its assets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The Children's Place has filed for bankruptcy and intends to sell its assets.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "The Children's Place",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1960,60 +2009,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-230",
-      "headline": "(LEAD) FTC to fine Baemin 331 bln won, Coupang 300 bln won for unfair practices",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20261109004251320",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T05:30:35Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "FTC to fine Baemin 331 billion won and Coupang 300 billion won for unfair practices.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "FTC to fine Baemin 331 billion won and Coupang 300 billion won for unfair practices.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Baemin",
-          "ticker": null,
-          "listing_country": "KR"
-        },
-        {
-          "name": "Coupang",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -232104,79 +232099,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-37a5e72c530e",
-      "idea_version": "IDEAV-49d4d2edc49bacec",
-      "idea_version_started_at": "2026-11-08T02:29:00Z",
-      "ticker": "BRK.B",
-      "company": "Berkshire Hathaway",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is actively deploying capital through share buybacks, signaling management's confidence in the intrinsic value of the business despite a 6% decline in Q3 operating profit.",
-      "why_now": "The news of continued buybacks under new CEO Greg Abel was reported on 2026-11-08.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b9308858ea90",
-        "EVT-b6d70e3515b9"
-      ],
-      "primary_source_event_id": "EVT-b9308858ea90",
-      "source_headlines": [
-        "Berkshire ramps up buybacks under new CEO Greg Abel as Q3 operating profit falls 6%",
-        "Berkshire surprised with record buybacks, but pace slowed as the stock rose"
-      ],
-      "source_headline": "Berkshire ramps up buybacks under new CEO Greg Abel as Q3 operating profit falls 6%",
-      "source_url": "https://www.businesstimes.com.sg/companies-markets/berkshire-ramps-buybacks-under-new-ceo-greg-abel-q3-operating-profit-falls-6",
-      "source_name": "The Business Times (Singapore)",
-      "materiality_max": 93,
-      "newest_source_at": "2026-11-08T01:55:15Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-08T02:29:00Z",
-      "updated_at": "2026-11-08T02:29:00Z",
-      "decay_at": "2026-11-09T13:55:15Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-4ff4f52db48f",
       "idea_version": "IDEAV-b244e9d3401bf11b",
       "idea_version_started_at": "2026-11-08T06:15:20Z",
@@ -234959,6 +234881,79 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-37a5e72c530e",
+      "idea_version": "IDEAV-49d4d2edc49bacec",
+      "idea_version_started_at": "2026-11-08T02:29:00Z",
+      "ticker": "BRK.B",
+      "company": "Berkshire Hathaway",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is actively deploying capital through share buybacks, signaling management's confidence in the intrinsic value of the business despite a 6% decline in Q3 operating profit.",
+      "why_now": "The news of continued buybacks under new CEO Greg Abel was reported on 2026-11-08.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b9308858ea90",
+        "EVT-b6d70e3515b9"
+      ],
+      "primary_source_event_id": "EVT-b9308858ea90",
+      "source_headlines": [
+        "Berkshire ramps up buybacks under new CEO Greg Abel as Q3 operating profit falls 6%",
+        "Berkshire surprised with record buybacks, but pace slowed as the stock rose"
+      ],
+      "source_headline": "Berkshire ramps up buybacks under new CEO Greg Abel as Q3 operating profit falls 6%",
+      "source_url": "https://www.businesstimes.com.sg/companies-markets/berkshire-ramps-buybacks-under-new-ceo-greg-abel-q3-operating-profit-falls-6",
+      "source_name": "The Business Times (Singapore)",
+      "materiality_max": 93,
+      "newest_source_at": "2026-11-08T01:55:15Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-08T02:29:00Z",
+      "updated_at": "2026-11-08T02:29:00Z",
+      "decay_at": "2026-11-09T13:55:15Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-c60431da8fec",
       "idea_version": "IDEAV-c0478129222e7d45",
       "idea_version_started_at": "2026-11-08T01:08:34Z",
@@ -235115,14 +235110,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 531,
+    "total_count": 532,
     "shown_count": 499,
-    "hidden_count": 32,
+    "hidden_count": 33,
     "side_counts": {
       "long": {
-        "total_count": 269,
+        "total_count": 270,
         "shown_count": 250,
-        "hidden_count": 19
+        "hidden_count": 20
       },
       "short": {
         "total_count": 263,
@@ -235146,6 +235141,82 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-37a5e72c530e",
+        "idea_version": "IDEAV-49d4d2edc49bacec",
+        "idea_version_started_at": "2026-11-08T02:29:00Z",
+        "ticker": "BRK.B",
+        "company": "Berkshire Hathaway",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company is actively deploying capital through share buybacks, signaling management's confidence in the intrinsic value of the business despite a 6% decline in Q3 operating profit.",
+        "why_now": "The news of continued buybacks under new CEO Greg Abel was reported on 2026-11-08.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 7,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-b9308858ea90",
+          "EVT-b6d70e3515b9"
+        ],
+        "primary_source_event_id": "EVT-b9308858ea90",
+        "source_headlines": [
+          "Berkshire ramps up buybacks under new CEO Greg Abel as Q3 operating profit falls 6%",
+          "Berkshire surprised with record buybacks, but pace slowed as the stock rose"
+        ],
+        "source_headline": "Berkshire ramps up buybacks under new CEO Greg Abel as Q3 operating profit falls 6%",
+        "source_url": "https://www.businesstimes.com.sg/companies-markets/berkshire-ramps-buybacks-under-new-ceo-greg-abel-q3-operating-profit-falls-6",
+        "source_name": "The Business Times (Singapore)",
+        "materiality_max": 93,
+        "newest_source_at": "2026-11-08T01:55:15Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-08T02:29:00Z",
+        "updated_at": "2026-11-08T02:29:00Z",
+        "decay_at": "2026-11-09T13:55:15Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-09T13:55:15Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-c60431da8fec",
         "idea_version": "IDEAV-c0478129222e7d45",
@@ -263947,82 +264018,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-d20df5cd7aab",
-        "idea_version": "IDEAV-93e031c97a49d1e4",
-        "idea_version_started_at": "2026-10-25T04:38:42Z",
-        "ticker": "VWAGY",
-        "company": "Volkswagen AG",
-        "exchange": "OTC Markets",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Audi, a subsidiary of Volkswagen AG, will construct a new SUV plant in Georgia, a significant capital expenditure and expansion driven by US policy.",
-        "why_now": "President Trump confirmed the construction of the Audi plant in the USA on October 25, 2026, with a reported deal value of $4.2 billion.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 75,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 10,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "policy_conditional",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-a32e3477172e",
-          "EVT-3b8f3b16a168",
-          "EVT-6ffe0d674e16"
-        ],
-        "primary_source_event_id": "EVT-a32e3477172e",
-        "source_headlines": [
-          "Trump to announce Audi SUV plant in Georgia amid tariff push",
-          "Auto: After Handelsblatt report: Trump confirms construction of Audi plant in the USA",
-          "'Tariffs Bring In Jobs': Trump Defends Protectionist Policy With Massive $4.2B Audi Deal"
-        ],
-        "source_headline": "Trump to announce Audi SUV plant in Georgia amid tariff push",
-        "source_url": "https://www.deccanherald.com/world/us/trump-to-announce-audi-suv-plant-in-georgia-amid-tariff-push-4194380",
-        "source_name": "Deccan Herald",
-        "materiality_max": 94,
-        "newest_source_at": "2026-10-25T02:10:40Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-24T20:13:45Z",
-        "updated_at": "2026-10-25T04:38:42Z",
-        "decay_at": "2026-10-26T14:10:40Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-28T02:32:27Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-7f907737bff2",
         "idea_version": "IDEAV-1312054ea4c2d026",
         "idea_version_started_at": "2026-10-25T02:18:41Z",
@@ -272292,7 +272287,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2328,
-    "live_count": 71,
+    "live_count": 70,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -272311,9 +272306,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1679317,
-    "news_picked_today": 854,
-    "news_dropped_today": 7552
+    "news_seen_today": 1687978,
+    "news_picked_today": 858,
+    "news_dropped_today": 7572
   },
   "book_momentum": {
     "live_count": 8,
