@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T19:22:35Z",
+  "generated_at": "2026-11-09T19:23:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-419",
@@ -227707,6 +227707,82 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-50f379c78b21",
+      "idea_version": "IDEAV-52c6743df30fb9aa",
+      "idea_version_started_at": "2026-11-09T19:22:55Z",
+      "ticker": "NVDA",
+      "company": "Nvidia",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The CEO has admitted to an affair with an alleged foreign intelligence operative, creating significant governance risk and potential regulatory scrutiny regarding national security and intellectual property.",
+      "why_now": "The admission and subsequent investigation are live as of 2026-11-09, triggering immediate market volatility.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 77,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 10,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0c78870a3b1a",
+        "EVT-a9e47eea30c3",
+        "EVT-d07ee540f043",
+        "EVT-e68483dd5366",
+        "EVT-5b9d1b04481b"
+      ],
+      "primary_source_event_id": "EVT-0c78870a3b1a",
+      "source_headlines": [
+        "Nvidia stock crashes 8% after a 'foreign intelligence' probe initiated by AI company into CEO Jensen Huang",
+        "£260bn wiped off value of Nvidia as it launches probe into boss Jensen Huang's affair with 'Chinese spy'",
+        "Nvidia shares tumble over investigation into Huang's affair with alleged Chinese spy",
+        "£292bn wiped off value of Nvidia as it launches probe into boss Jensen Huang's affair with 'Chinese spy'"
+      ],
+      "source_headline": "Nvidia stock crashes 8% after a 'foreign intelligence' probe initiated by AI company into CEO Jensen Huang",
+      "source_url": "https://economictimes.indiatimes.com/markets/us-stocks/news/nvidia-stock-crashes-8-after-a-foreign-intelligence-probe-initiated-by-ai-company-into-ceo-jensen-huang/articleshow/135685302.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-09T18:11:11Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-07T15:09:40Z",
+      "updated_at": "2026-11-09T19:22:55Z",
+      "decay_at": "2026-11-11T06:11:11Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-8b7cb506ef42",
       "idea_version": "IDEAV-8ff0f950e82d96c4",
       "idea_version_started_at": "2026-11-09T05:11:05Z",
@@ -228267,76 +228343,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-50f379c78b21",
-      "idea_version": "IDEAV-bfa10b0f825651dc",
-      "idea_version_started_at": "2026-11-09T17:16:12Z",
-      "ticker": "NVDA",
-      "company": "NVIDIA",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "NVIDIA faces significant headline risk and potential regulatory scrutiny following reports of a board investigation into the CEO's ties to a foreign intelligence entity, creating a tactical pair trade opportunity against AMD.",
-      "why_now": "The report surfaced today, November 9, 2026, triggering immediate volatility.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-786c3d8ee2a5"
-      ],
-      "primary_source_event_id": "EVT-786c3d8ee2a5",
-      "source_headlines": [
-        "NVIDIA Falls 5% as Board Probes Jensen Huang’s Ties to Alleged Chinese Spy; AMD Rises 4%, Intel Holds Steady"
-      ],
-      "source_headline": "NVIDIA Falls 5% as Board Probes Jensen Huang’s Ties to Alleged Chinese Spy; AMD Rises 4%, Intel Holds Steady",
-      "source_url": "https://247wallst.com/investing/2026/11/09/nvidia-falls-5-as-board-probes-jensen-huangs-ties-to-alleged-chinese-spy-amd-rises-4-intel-holds-steady/",
-      "source_name": "24/7 Wall St.",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-09T13:43:56Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-07T15:09:40Z",
-      "updated_at": "2026-11-09T17:16:12Z",
-      "decay_at": "2026-11-11T01:43:56Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-6f55bf31e25a",
       "idea_version": "IDEAV-dc31a60e5536b457",
       "idea_version_started_at": "2026-11-09T18:48:10Z",
@@ -228751,6 +228757,77 @@
       "surfaced_at": "2026-11-09T18:28:29Z",
       "updated_at": "2026-11-09T18:28:29Z",
       "decay_at": "2026-11-11T04:12:08Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-568ff94c6eb6",
+      "idea_version": "IDEAV-0e775b23b8ba4c9c",
+      "idea_version_started_at": "2026-11-09T19:22:55Z",
+      "ticker": "PLCE",
+      "company": "Children's Place",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company has filed for bankruptcy and is initiating an asset sale, which typically results in equity holders being wiped out or receiving minimal recovery.",
+      "why_now": "The bankruptcy filing was announced on 2026-11-09.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6f6ed8f78dac"
+      ],
+      "primary_source_event_id": "EVT-6f6ed8f78dac",
+      "source_headlines": [
+        "Kids clothing company Children's Place files for bankruptcy, plans to sell assets"
+      ],
+      "source_headline": "Kids clothing company Children's Place files for bankruptcy, plans to sell assets",
+      "source_url": "https://www.cbc.ca/news/business/childrens-place-bankruptcy-sale-9.7414753?cmp=rss",
+      "source_name": "CBC — Business",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-09T15:21:29Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-09T19:22:55Z",
+      "updated_at": "2026-11-09T19:22:55Z",
+      "decay_at": "2026-11-11T03:21:29Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -233412,77 +233489,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-a025b73a32d6",
-      "idea_version": "IDEAV-0bfca11f175bef47",
-      "idea_version_started_at": "2026-11-08T00:14:07Z",
-      "ticker": "TATAMOTORS",
-      "company": "Tata Motors Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Tata Motors' indirect wholly-owned subsidiary has launched a voluntary totalitarian tender offer for all common shares of Iveco Group N.V., indicating potential strategic expansion and value creation.",
-      "why_now": "The tender offer was announced via a press release dated November 7, 2026, making this a live M&A event.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c9050b6b5cca"
-      ],
-      "primary_source_event_id": "EVT-c9050b6b5cca",
-      "source_headlines": [
-        "Tata Motors Limited: Tata Motors Limited has informed the Exchange regarding a press release dated November 07, 2026, titled \"TML CV Holdings B.V., an Indirect Wholly Owned Subsidiary of Tata Motors Limited (formerly TML Commercial Vehicles Limited) ( the Company ) Voluntary Totalitarian Tender Offer for all the common shares of Iveco Group N.V.\"."
-      ],
-      "source_headline": "Tata Motors Limited: Tata Motors Limited has informed the Exchange regarding a press release dated November 07, 2026, titled \"TML CV Holdings B.V., an Indirect Wholly Owned Subsidiary of Tata Motors Limited (formerly TML Commercial Vehicles Limited) ( the Company ) Voluntary Totalitarian Tender Offer for all the common shares of Iveco Group N.V.\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/TMLCOMMERCIAL_07112026002910_final.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-06T19:00:48Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-06T22:25:06Z",
-      "updated_at": "2026-11-08T00:14:07Z",
-      "decay_at": "2026-11-08T07:00:48Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-3a5e2b5bb8c5",
       "idea_version": "IDEAV-b7bc8b7cc7fc63f9",
       "idea_version_started_at": "2026-11-07T17:00:20Z",
@@ -235009,14 +235015,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 543,
+    "total_count": 542,
     "shown_count": 499,
-    "hidden_count": 44,
+    "hidden_count": 43,
     "side_counts": {
       "long": {
-        "total_count": 279,
+        "total_count": 278,
         "shown_count": 250,
-        "hidden_count": 29
+        "hidden_count": 28
       },
       "short": {
         "total_count": 265,
@@ -235026,12 +235032,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1737,
+      "evicted_count": 1738,
       "oldest_retained_at": "2026-10-13T14:59:40Z",
       "side_counts": {
         "long": {
-          "evicted_count": 1143,
-          "oldest_retained_at": "2026-10-25T22:57:40Z"
+          "evicted_count": 1144,
+          "oldest_retained_at": "2026-10-25T23:16:47Z"
         },
         "short": {
           "evicted_count": 595,
@@ -238320,8 +238326,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-08T07:00:48Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-09T19:23:03Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -272191,8 +272197,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2339,
-    "live_count": 58,
+    "surfaced_total": 2340,
+    "live_count": 59,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
