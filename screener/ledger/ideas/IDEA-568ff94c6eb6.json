@@ -1,9 +1,9 @@
 {
   "idea_id": "IDEA-568ff94c6eb6",
-  "idea_version": "IDEAV-0e775b23b8ba4c9c",
-  "idea_version_started_at": "2026-11-09T19:22:55Z",
+  "idea_version": "IDEAV-d611d85c8bb5f4ae",
+  "idea_version_started_at": "2026-11-09T21:23:50Z",
   "ticker": "PLCE",
-  "company": "Children's Place",
+  "company": "The Children's Place",
   "exchange": "NASDAQ",
   "ticker_verified": true,
   "listing_verified": true,
@@ -11,9 +11,9 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "short",
   "pair_with": null,
-  "reason": "The company has filed for bankruptcy and is initiating an asset sale, which typically results in equity holders being wiped out or receiving minimal recovery.",
-  "why_now": "The bankruptcy filing was announced on 2026-11-09.",
-  "conviction": 85,
+  "reason": "The company has filed for bankruptcy protection, which typically results in a total loss of equity value for common shareholders as the capital structure is reorganized.",
+  "why_now": "The filing was announced on 2026-11-09, making the equity effectively worthless as the company seeks a buyer or liquidation.",
+  "conviction": 90,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 60,
   "trade_score_basis": "event_driven_v3",
@@ -48,17 +48,17 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-6f6ed8f78dac"
+    "EVT-21eb39242d5d"
   ],
-  "primary_source_event_id": "EVT-6f6ed8f78dac",
+  "primary_source_event_id": "EVT-21eb39242d5d",
   "source_headlines": [
-    "Kids clothing company Children's Place files for bankruptcy, plans to sell assets"
+    "Children’s Place files for bankruptcy protection, seeks buyer"
   ],
-  "source_headline": "Kids clothing company Children's Place files for bankruptcy, plans to sell assets",
-  "source_url": "https://www.cbc.ca/news/business/childrens-place-bankruptcy-sale-9.7414753?cmp=rss",
-  "source_name": "CBC — Business",
+  "source_headline": "Children’s Place files for bankruptcy protection, seeks buyer",
+  "source_url": "https://www.cnbc.com/2026/11/09/childrens-place-chapter-11-sale.html",
+  "source_name": "CNBC",
   "materiality_max": 100,
-  "newest_source_at": "2026-11-09T15:21:29Z",
+  "newest_source_at": "2026-11-09T20:57:46Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
@@ -66,8 +66,8 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-11-09T19:22:55Z",
-  "updated_at": "2026-11-09T19:22:55Z",
-  "decay_at": "2026-11-11T03:21:29Z",
+  "updated_at": "2026-11-09T21:23:50Z",
+  "decay_at": "2026-11-11T08:57:46Z",
   "status": "live",
   "promoted_signal_id": null
 }
