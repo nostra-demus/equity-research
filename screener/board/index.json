@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T07:52:50Z",
+  "generated_at": "2026-11-09T07:59:30Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-286",
@@ -302,6 +302,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261109-297",
+      "headline": "Crédit Agricole pitches merger of Italian business with Banco BPM",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/5301558f-d31b-4399-ac36-cc790837db1b?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T07:36:43Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Crédit Agricole is proposing a merger of its Italian operations with Banco BPM, a significant strategic consolidation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Crédit Agricole is proposing a merger of its Italian operations with Banco BPM, a significant strategic consolidation.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Crédit Agricole",
+          "ticker": null,
+          "listing_country": "FR"
+        },
+        {
+          "name": "Banco BPM",
+          "ticker": null,
+          "listing_country": "IT"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261109-294",
       "headline": "UniCredit set to seal Commerzbank takeover this month",
       "headline_en": null,
@@ -351,60 +405,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-289",
-      "headline": "Crédit Agricole Proposes Merger of Italian Business With Banco BPM",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/deals/credit-agricole-proposes-merger-of-italian-business-with-banco-bpm-d77044a4?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T07:31:00Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Crédit Agricole has proposed a merger of its Italian business with Banco BPM, a significant consolidation event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Crédit Agricole has proposed a merger of its Italian business with Banco BPM, a significant consolidation event.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Crédit Agricole",
-          "ticker": null,
-          "listing_country": "FR"
-        },
-        {
-          "name": "Banco BPM",
-          "ticker": null,
-          "listing_country": "IT"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -272290,9 +272290,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 229742,
-    "news_picked_today": 453,
-    "news_dropped_today": 4857
+    "news_seen_today": 244326,
+    "news_picked_today": 457,
+    "news_dropped_today": 4901
   },
   "book_momentum": {
     "live_count": 8,
