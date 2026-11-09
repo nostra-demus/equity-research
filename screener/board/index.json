@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T13:15:42Z",
+  "generated_at": "2026-11-09T13:18:40Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-352",
@@ -794,6 +794,61 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-364",
+      "headline": "Empresa Distribuidora y Comercializadora Norte Sociedad Anónima Reports September 30, 2026 Financial Results and Progresses USD 780,000,000 Metrogas Acquisition",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/empresa-distribuidora-y-comercializadora-norte-sociedad-anonima-reports-september-30-2026",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T12:31:52Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Edenor reported Q3 results and is progressing a $780 million acquisition of Metrogas.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Edenor reported Q3 results and is progressing a $780 million acquisition of Metrogas.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Edenor",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Metrogas",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1950,56 +2005,6 @@
           "name": "Coupang Eats",
           "ticker": null,
           "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-216",
-      "headline": "Adnoc Distribution 9-month profit jumps 36.6% as company adds 71 new stations",
-      "headline_en": null,
-      "url": "https://www.khaleejtimes.com/business/adnoc-distribution-9-month-profit-jumps-366-as-company-adds-71-new-stations",
-      "source_name": "Khaleej Times — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T05:02:31Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "ADNOC Distribution reported a 36.6% profit jump and expanded its network by 71 stations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "ADNOC Distribution reported a 36.6% profit jump and expanded its network by 71 stations.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ADNOC Distribution",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -272300,9 +272305,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1477430,
-    "news_picked_today": 796,
-    "news_dropped_today": 7322
+    "news_seen_today": 1501961,
+    "news_picked_today": 806,
+    "news_dropped_today": 7336
   },
   "book_momentum": {
     "live_count": 8,
