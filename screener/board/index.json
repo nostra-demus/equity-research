@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T04:32:13Z",
+  "generated_at": "2026-11-09T04:40:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-172",
@@ -1371,6 +1371,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261109-199",
+      "headline": "ARX: US CMS Confirms Symphony Outpatient Reimbursement Rate",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ARX?key=2924-03159622-2A1709578",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-09T04:32:07Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "US CMS confirmed the outpatient reimbursement rate for the Symphony product, providing clarity on revenue expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "US CMS confirmed the outpatient reimbursement rate for the Symphony product, providing clarity on revenue expectations.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ARX",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261109-194",
       "headline": "ZHENROPPT SPCS ZHENRO PPT (04596 06158): INSIDE INFORMATION - WINDING-UP OF A SUBSIDIARY",
       "headline_en": null,
@@ -1909,55 +1958,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-191",
-      "headline": "Bosch shares fall after management cites a 'modest' outlook for second half of the year",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/bosch-share-price-q2-results-management-cites-modest-outlook-second-half-of-the-year-20030058.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T04:03:02Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Bosch shares fell after management issued a cautious outlook for the second half of the year.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Bosch shares fell after management issued a cautious outlook for the second half of the year.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bosch",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -272117,9 +272117,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1052,
-    "news_picked_today": 239,
-    "news_dropped_today": 813
+    "news_seen_today": 1089,
+    "news_picked_today": 244,
+    "news_dropped_today": 845
   },
   "book_momentum": {
     "live_count": 8,
