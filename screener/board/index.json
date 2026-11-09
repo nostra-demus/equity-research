@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T14:03:36Z",
+  "generated_at": "2026-11-09T14:08:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-352",
@@ -1109,6 +1109,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261109-379",
+      "headline": "Nordea Gets $23 Million Fine in Danish Money Laundering Case",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-09/nordea-gets-23-million-fine-in-danish-money-laundering-case",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T12:45:20Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Nordea received a $23 million fine for money laundering violations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nordea received a $23 million fine for money laundering violations.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nordea",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261109-364",
       "headline": "Empresa Distribuidora y Comercializadora Norte Sociedad Anónima Reports September 30, 2026 Financial Results and Progresses USD 780,000,000 Metrogas Acquisition",
       "headline_en": null,
@@ -1960,55 +2009,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-225",
-      "headline": "FirstFT: Nvidia CEO admits to affair after allegations of relationship with Chinese spy",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/494e9731-d195-40e0-9ad4-cf7811037c05?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T05:31:35Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "CEO scandal involving national security allegations poses significant reputational and operational risk to a mega-cap company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "CEO scandal involving national security allegations poses significant reputational and operational risk to a mega-cap company.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -272306,9 +272306,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1739877,
-    "news_picked_today": 868,
-    "news_dropped_today": 7682
+    "news_seen_today": 1757445,
+    "news_picked_today": 874,
+    "news_dropped_today": 7700
   },
   "book_momentum": {
     "live_count": 8,
