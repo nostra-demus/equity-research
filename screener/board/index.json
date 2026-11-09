@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T00:43:56Z",
+  "generated_at": "2026-11-09T00:55:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-034",
@@ -634,50 +634,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261109-013",
-      "headline": "Trump Backs Nvidia CEO After He Admits Affair With Suspected Spy",
+      "inbox_id": "INB-20261109-050",
+      "headline": "Troubled broadcaster JTBC to select preferred bidder in Jan.",
       "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-08/trump-defends-nvidia-s-huang-after-he-admits-affair-with-spy",
-      "source_name": "Bloomberg",
+      "url": "https://www.koreaherald.com/article/10930223",
+      "source_name": "The Korea Herald — Business",
       "input_nature": "news_headline",
-      "found_at": "2026-11-08T23:36:05Z",
+      "found_at": "2026-11-09T00:48:19Z",
       "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "The CEO is involved in an investigation regarding a suspected spy, creating potential governance and operational risk.",
+      "prelim_note": "Broadcaster JTBC is moving forward with a sale process, planning to select a preferred bidder in January.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "The CEO is involved in an investigation regarding a suspected spy, creating potential governance and operational risk.",
-      "region": "GLOBAL",
+      "triage_score": 86,
+      "triage_reason": "Broadcaster JTBC is moving forward with a sale process, planning to select a preferred bidder in January.",
+      "region": "KR",
       "relevance": "material",
       "materiality_pre_score": 50,
       "rank_factors": {
         "materiality": 50,
         "source_tier": 0,
         "scope": 6,
-        "event": 4,
-        "size": 2,
+        "event": 5,
+        "size": 0,
         "recency": 5,
         "materiality_label_floor": 20,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
+        "event_id": "strategic_review",
+        "size_bucket": "unknown"
       },
       "event_types": [
-        "management"
+        "strategic_review"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Nvidia",
+          "name": "JTBC",
           "ticker": null,
-          "listing_country": "US"
+          "listing_country": "KR"
         }
       ],
-      "size_bucket": "mega",
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -776,6 +776,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-049",
+      "headline": "Hyundai Motor's HTWO teams up with Air Liquide to expand hydrogen mobility in China",
+      "headline_en": null,
+      "url": "https://www.koreaherald.com/article/10930228",
+      "source_name": "The Korea Herald — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T00:49:36Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Hyundai Motor's HTWO division is partnering with Air Liquide to expand hydrogen mobility infrastructure in China.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Hyundai Motor's HTWO division is partnering with Air Liquide to expand hydrogen mobility infrastructure in China.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hyundai Motor",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1027,50 +1076,148 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261109-037",
-      "headline": "Troubled broadcaster JTBC to select preferred bidder in Jan.",
+      "inbox_id": "INB-20261109-045",
+      "headline": "PennyMac Mortgage Investment Trust - Preferred Stock Price Target Decreased by 13.23% to $24.82",
       "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20261109001900315",
-      "source_name": "Yonhap News Agency — All News (English)",
+      "url": "https://www.nasdaq.com/articles/pennymac-mortgage-investment-trust-preferred-stock-price-target-decreased-1323-2482",
+      "source_name": "Nasdaq",
       "input_nature": "news_headline",
-      "found_at": "2026-11-09T00:34:23Z",
+      "found_at": "2026-11-09T00:27:23Z",
       "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "A troubled broadcaster is moving forward with a sale process by selecting a preferred bidder.",
+      "prelim_note": "Analyst consensus price target for PennyMac Mortgage Investment Trust was lowered by 13.23%.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "A troubled broadcaster is moving forward with a sale process by selecting a preferred bidder.",
-      "region": "KR",
+      "triage_score": 70,
+      "triage_reason": "Analyst consensus price target for PennyMac Mortgage Investment Trust was lowered by 13.23%.",
+      "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 50,
+      "materiality_pre_score": 45,
       "rank_factors": {
-        "materiality": 50,
+        "materiality": 45,
         "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
         "recency": 5,
         "materiality_label_floor": 0,
-        "quantified": 0,
+        "quantified": 6,
         "boost_weight": 1,
-        "scope_id": "multi_name",
+        "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
       },
       "event_types": [
-        "mna"
+        "guidance_change"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "JTBC",
+          "name": "PennyMac Mortgage Investment Trust",
           "ticker": null,
-          "listing_country": "KR"
+          "listing_country": "US"
         }
       ],
-      "size_bucket": "unknown",
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-046",
+      "headline": "Finance of America Companies Consensus Price Target Lowered by 20.97% to $24.99",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/finance-america-companies-consensus-price-target-lowered-2097-2499",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T00:19:23Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Analyst consensus price target for Finance of America Companies was lowered by 20.97%.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "Analyst consensus price target for Finance of America Companies was lowered by 20.97%.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Finance of America Companies",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-048",
+      "headline": "Townsquare Media Consensus Price Target Lowered by 20% to $10.20",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/townsquare-media-consensus-price-target-lowered-20-1020",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T00:18:53Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Analyst consensus price target for Townsquare Media was lowered by 20%.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "Analyst consensus price target for Townsquare Media was lowered by 20%.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Townsquare Media",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1125,55 +1272,148 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261109-041",
-      "headline": "Hyundai Motor's HTWO teams up with Air Liquide to expand hydrogen mobility in China",
+      "inbox_id": "INB-20261109-042",
+      "headline": "CMG: Results of Share Purchase Plan [price-sensitive]",
       "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20261109001800320",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T00:36:17Z",
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CMG?key=2924-03159559-2A1709523",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-09T00:41:42Z",
       "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Hyundai Motor is expanding its hydrogen mobility footprint in China through a partnership with Air Liquide.",
+      "prelim_note": "The share purchase plan results are a routine administrative update for shareholders.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 62,
-      "triage_reason": "Hyundai Motor is expanding its hydrogen mobility footprint in China through a partnership with Air Liquide.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
+      "triage_score": 64,
+      "triage_reason": "The share purchase plan results are a routine administrative update for shareholders.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
       "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 5,
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
         "event": 0,
-        "size": 2,
+        "size": 0,
         "recency": 5,
-        "materiality_label_floor": 0,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
         "event_id": null,
-        "size_bucket": "large"
+        "size_bucket": "unknown"
       },
       "event_types": [
-        "commercial"
+        "capital_actions"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Hyundai Motor",
+          "name": "CMG",
           "ticker": null,
-          "listing_country": "KR"
-        },
-        {
-          "name": "Air Liquide",
-          "ticker": null,
-          "listing_country": "FR"
+          "listing_country": "AU"
         }
       ],
-      "size_bucket": "large",
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-047",
+      "headline": "Cricut Consensus Price Target Increased by 16.39% to $4.83",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/cricut-consensus-price-target-increased-1639-483",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T00:19:23Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Analyst consensus price target for Cricut was increased by 16.39%.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 64,
+      "triage_reason": "Analyst consensus price target for Cricut was increased by 16.39%.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cricut",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-043",
+      "headline": "Microsoft's Oracle move raises new question for investors",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/investing/stocks/microsofts-oracle-move-raises-new-question-for-investors",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T00:47:00Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Speculation regarding Microsoft's strategic moves is routine market commentary.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 63,
+      "triage_reason": "Speculation regarding Microsoft's strategic moves is routine market commentary.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "strategic_review",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Microsoft",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1713,227 +1953,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-010",
-      "headline": "New Zealand Dollar Advances as Ruling Party Gets Election Edge",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-11-08/nzd-advances-as-ruling-party-gets-election-edge-video",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-08T23:57:58Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "New Zealand dollar strengthened following political developments, reflecting market sentiment on the upcoming election.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 52,
-      "triage_reason": "New Zealand dollar strengthened following political developments, reflecting market sentiment on the upcoming election.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-032",
-      "headline": "Balkrishna eyes three fold gains from Pirelli partnership",
-      "headline_en": null,
-      "url": "https://www.livemint.com/news/balkrishna-eyes-three-fold-gains-from-pirelli-partnership-11793952840532.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T00:30:22Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Management expresses an optimistic outlook on a partnership, but no specific financial targets or deal values are provided.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 51,
-      "triage_reason": "Management expresses an optimistic outlook on a partnership, but no specific financial targets or deal values are provided.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Balkrishna Industries",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-028",
-      "headline": "BREAKING NEWS: Japan spent record 7.98 tril. yen in yen-buying intervention on July 30",
-      "headline_en": null,
-      "url": "https://english.kyodonews.net/articles/-/90748",
-      "source_name": "Kyodo News (Japan Wire)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T00:03:12Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Japan spent a record 7.98 trillion yen on currency intervention, a significant move to stabilize the currency.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "Japan spent a record 7.98 trillion yen on currency intervention, a significant move to stabilize the currency.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-025",
-      "headline": "Iran war live: Trump says ‘Iron Gate’ in effect; drone hits Iraq gas field",
-      "headline_en": null,
-      "url": "https://www.aljazeera.com/news/liveblog/2026/11/9/iran-war-live-trump-says-land-blockade-in-effect-drone-cuts-power-in-iraq?traffic_source=rss",
-      "source_name": "Al Jazeera — All news",
-      "input_nature": "geopolitical_event",
-      "found_at": "2026-11-09T00:00:34Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Geopolitical escalation involving a drone strike on an Iraq gas field and regional conflict tensions.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "Geopolitical escalation involving a drone strike on an Iraq gas field and regional conflict tensions.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-009",
-      "headline": "Iraq’s 5 Million Bpd Oil Claim Complicates Its OPEC Quota Push",
-      "headline_en": null,
-      "url": "https://oilprice.com/Energy/Crude-Oil/Iraqs-5-Million-Bpd-Oil-Claim-Complicates-Its-OPEC-Quota-Push.html",
-      "source_name": "OilPrice.com",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Iraq's production capacity claims complicate OPEC+ quota negotiations, potentially impacting global oil supply policy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 43,
-      "triage_reason": "Iraq's production capacity claims complicate OPEC+ quota negotiations, potentially impacting global oil supply policy.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -228213,77 +228232,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-a1e16e363c9a",
-      "idea_version": "IDEAV-e7fe2260d11ec589",
-      "idea_version_started_at": "2026-11-07T12:54:01Z",
-      "ticker": "MMM",
-      "company": "3M",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "3M cut its dividend after 64 years of raises, signaling potential financial distress or a strategic shift that may negatively impact shareholder returns.",
-      "why_now": "The dividend cut was announced on November 7, 2026.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5801c9501461"
-      ],
-      "primary_source_event_id": "EVT-5801c9501461",
-      "source_headlines": [
-        "3M Cut Its Dividend After 64 Years of Raises. Is It Finally a Buy Again?"
-      ],
-      "source_headline": "3M Cut Its Dividend After 64 Years of Raises. Is It Finally a Buy Again?",
-      "source_url": "https://247wallst.com/investing/2026/11/07/3m-cut-its-dividend-after-64-years-of-raises-is-it-finally-a-buy-again/",
-      "source_name": "24/7 Wall St.",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-07T12:47:15Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-07T12:54:01Z",
-      "updated_at": "2026-11-07T12:54:01Z",
-      "decay_at": "2026-11-09T00:47:15Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-2c2edf02510c",
       "idea_version": "IDEAV-8fec81305d387008",
       "idea_version_started_at": "2026-11-08T03:19:59Z",
@@ -232446,6 +232394,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-a1e16e363c9a",
+      "idea_version": "IDEAV-e7fe2260d11ec589",
+      "idea_version_started_at": "2026-11-07T12:54:01Z",
+      "ticker": "MMM",
+      "company": "3M",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "3M cut its dividend after 64 years of raises, signaling potential financial distress or a strategic shift that may negatively impact shareholder returns.",
+      "why_now": "The dividend cut was announced on November 7, 2026.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5801c9501461"
+      ],
+      "primary_source_event_id": "EVT-5801c9501461",
+      "source_headlines": [
+        "3M Cut Its Dividend After 64 Years of Raises. Is It Finally a Buy Again?"
+      ],
+      "source_headline": "3M Cut Its Dividend After 64 Years of Raises. Is It Finally a Buy Again?",
+      "source_url": "https://247wallst.com/investing/2026/11/07/3m-cut-its-dividend-after-64-years-of-raises-is-it-finally-a-buy-again/",
+      "source_name": "24/7 Wall St.",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-07T12:47:15Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-07T12:54:01Z",
+      "updated_at": "2026-11-07T12:54:01Z",
+      "decay_at": "2026-11-09T00:47:15Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-0c529d942ea8",
       "idea_version": "IDEAV-00e0b0acab4adaa3",
       "idea_version_started_at": "2026-11-06T22:25:06Z",
@@ -234533,9 +234552,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 533,
+    "total_count": 534,
     "shown_count": 499,
-    "hidden_count": 34,
+    "hidden_count": 35,
     "side_counts": {
       "long": {
         "total_count": 270,
@@ -234543,9 +234562,9 @@
         "hidden_count": 20
       },
       "short": {
-        "total_count": 264,
+        "total_count": 265,
         "shown_count": 250,
-        "hidden_count": 14
+        "hidden_count": 15
       }
     },
     "retention": {
@@ -234564,6 +234583,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-a1e16e363c9a",
+        "idea_version": "IDEAV-e7fe2260d11ec589",
+        "idea_version_started_at": "2026-11-07T12:54:01Z",
+        "ticker": "MMM",
+        "company": "3M",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "3M cut its dividend after 64 years of raises, signaling potential financial distress or a strategic shift that may negatively impact shareholder returns.",
+        "why_now": "The dividend cut was announced on November 7, 2026.",
+        "conviction": 50,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 65,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-5801c9501461"
+        ],
+        "primary_source_event_id": "EVT-5801c9501461",
+        "source_headlines": [
+          "3M Cut Its Dividend After 64 Years of Raises. Is It Finally a Buy Again?"
+        ],
+        "source_headline": "3M Cut Its Dividend After 64 Years of Raises. Is It Finally a Buy Again?",
+        "source_url": "https://247wallst.com/investing/2026/11/07/3m-cut-its-dividend-after-64-years-of-raises-is-it-finally-a-buy-again/",
+        "source_name": "24/7 Wall St.",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-07T12:47:15Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-07T12:54:01Z",
+        "updated_at": "2026-11-07T12:54:01Z",
+        "decay_at": "2026-11-09T00:47:15Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-09T00:47:15Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-ae81043b31fa",
         "idea_version": "IDEAV-b429d3b042d9af5d",
@@ -271635,85 +271728,12 @@
         "archived_at": "2026-10-15T09:47:19Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-7887ab3ce6c6",
-        "idea_version": "IDEAV-4ecbc763c0cbe847",
-        "idea_version_started_at": "2026-10-12T10:33:47Z",
-        "ticker": "YRD",
-        "company": "Yiren Digital",
-        "exchange": "NYSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The detention of the chairman following massive product defaults creates severe governance risk and potential for operational collapse.",
-        "why_now": "The news of the detention broke on 2026-10-12, representing an immediate existential threat to the firm.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 66,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "governance_turnaround",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-47f16d460fcc"
-        ],
-        "primary_source_event_id": "EVT-47f16d460fcc",
-        "source_headlines": [
-          "Beijing police detain Yiren Digital chairman after massive product defaults"
-        ],
-        "source_headline": "Beijing police detain Yiren Digital chairman after massive product defaults",
-        "source_url": "https://www.scmp.com/business/banking-finance/article/3370569/beijing-police-detain-yiren-digital-chairman-after-massive-product-defaults?utm_source=rss_feed",
-        "source_name": "South China Morning Post",
-        "materiality_max": 98,
-        "newest_source_at": "2026-10-12T07:24:24Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-12T10:33:47Z",
-        "updated_at": "2026-10-12T10:33:47Z",
-        "decay_at": "2026-10-13T19:24:24Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-15T08:42:04Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2306,
-    "live_count": 62,
+    "live_count": 61,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -271732,9 +271752,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 179,
-    "news_picked_today": 41,
-    "news_dropped_today": 138
+    "news_seen_today": 232,
+    "news_picked_today": 51,
+    "news_dropped_today": 181
   },
   "book_momentum": {
     "live_count": 8,
