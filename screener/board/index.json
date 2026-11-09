@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T01:28:43Z",
+  "generated_at": "2026-11-09T01:34:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-069",
@@ -1126,6 +1126,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261109-075",
+      "headline": "Hanwha Aerospace to conduct ship-based Chunmoo missile tests in U.S.",
+      "headline_en": null,
+      "url": "https://en.yna.co.kr/view/AEN20261109002600320",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T01:23:50Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Hanwha Aerospace is conducting missile tests in the U.S., indicating potential expansion or validation of defense technology.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Hanwha Aerospace is conducting missile tests in the U.S., indicating potential expansion or validation of defense technology.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hanwha Aerospace",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261109-049",
       "headline": "Hyundai Motor's HTWO teams up with Air Liquide to expand hydrogen mobility in China",
       "headline_en": null,
@@ -1812,6 +1861,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261109-071",
+      "headline": "Drone attack suspends production at Iraq’s Khor Mor gasfield",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/2026/11/9/drone-attack-suspends-production-at-iraqs-khor-mor-gasfield?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-11-09T01:19:09Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "A drone attack suspended production at the Khor Mor gasfield, representing a supply shock to regional energy infrastructure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 66,
+      "triage_reason": "A drone attack suspended production at the Khor Mor gasfield, representing a supply shock to regional energy infrastructure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": -26,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "sector",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261109-019",
       "headline": "Maravai LifeSciences Holdings Consensus Price Target Raised 11.76% to $9.69",
       "headline_en": null,
@@ -1853,104 +1945,6 @@
           "name": "Maravai LifeSciences",
           "ticker": "MRVI",
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-042",
-      "headline": "CMG: Results of Share Purchase Plan [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CMG?key=2924-03159559-2A1709523",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-09T00:41:42Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "The share purchase plan results are a routine administrative update for shareholders.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 64,
-      "triage_reason": "The share purchase plan results are a routine administrative update for shareholders.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CMG",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-060",
-      "headline": "Average Analyst Price Target for Kingboard Laminates Holdings Limited - Depositary Receipt Decreased by 14.38% to $294.86",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/average-analyst-price-target-kingboard-laminates-holdings-limited-depositary-receipt",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T00:58:15Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Analyst consensus price target for Kingboard Laminates Holdings Limited decreased by 14.38%.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 64,
-      "triage_reason": "Analyst consensus price target for Kingboard Laminates Holdings Limited decreased by 14.38%.",
-      "region": "CN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kingboard Laminates Holdings Limited",
-          "ticker": null,
-          "listing_country": "CN"
         }
       ],
       "size_bucket": "mid",
@@ -271753,9 +271747,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 367,
-    "news_picked_today": 76,
-    "news_dropped_today": 291
+    "news_seen_today": 386,
+    "news_picked_today": 82,
+    "news_dropped_today": 304
   },
   "book_momentum": {
     "live_count": 8,
