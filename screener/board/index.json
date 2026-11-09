@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T14:58:53Z",
+  "generated_at": "2026-11-09T15:01:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-380",
@@ -936,6 +936,57 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-405",
+      "headline": "NRG Energy, Inc. Reports Third Quarter 2026 Results, Announces $4 billion Asset Sale, and Initiates 2027 Guidance",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/nrg-energy-inc-reports-third-quarter-2026-results-announces-4-billion-asset-sale-and",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T14:32:26Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "The company reported Q3 results, announced a $4 billion asset sale, and provided 2027 guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company reported Q3 results, announced a $4 billion asset sale, and provided 2027 guidance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "mna",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NRG Energy, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1946,55 +1997,6 @@
       "companies": [
         {
           "name": "Knowledge Marine & Engineering Works",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-320",
-      "headline": "Moneyboxx Finance Q2 results: Pre-provision operating profit jumps 79% YoY, PAT rises 3.2 times",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/earnings/moneyboxx-finance-q2-results-pre-provision-operating-profit-jumps-79pc-yoy-pat-rises-3-2-times-20030332.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T09:42:21Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Moneyboxx Finance reported a 79% jump in pre-provision operating profit and a 3.2x increase in PAT for Q2.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Moneyboxx Finance reported a 79% jump in pre-provision operating profit and a 3.2x increase in PAT for Q2.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Moneyboxx Finance",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -272294,9 +272296,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2099674,
-    "news_picked_today": 937,
-    "news_dropped_today": 7973
+    "news_seen_today": 2127187,
+    "news_picked_today": 943,
+    "news_dropped_today": 7991
   },
   "book_momentum": {
     "live_count": 8,
