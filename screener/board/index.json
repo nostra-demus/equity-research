@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T16:53:00Z",
+  "generated_at": "2026-11-09T16:57:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-419",
@@ -891,6 +891,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-437",
+      "headline": "Poundland unable to buy new stock as fears over collapse grow",
+      "headline_en": null,
+      "url": "https://www.bbc.co.uk/news/articles/cw1l3lmem165o?at_medium=RSS&at_campaign=rss",
+      "source_name": "BBC News — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T16:46:40Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Poundland is facing severe operational distress with reports of inability to purchase new stock.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Poundland is facing severe operational distress with reports of inability to purchase new stock.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Poundland",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1956,61 +2005,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-364",
-      "headline": "Empresa Distribuidora y Comercializadora Norte Sociedad Anónima Reports September 30, 2026 Financial Results and Progresses USD 780,000,000 Metrogas Acquisition",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/empresa-distribuidora-y-comercializadora-norte-sociedad-anonima-reports-september-30-2026",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T12:31:52Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Edenor reported Q3 results and is progressing a $780 million acquisition of Metrogas.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Edenor reported Q3 results and is progressing a $780 million acquisition of Metrogas.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Edenor",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Metrogas",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -231960,78 +231954,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-fe0a4c2c5819",
-      "idea_version": "IDEAV-4a94a819f302db6e",
-      "idea_version_started_at": "2026-11-08T05:48:41Z",
-      "ticker": "005930",
-      "company": "Samsung Electronics",
-      "exchange": "KRX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Samsung's new chip plant in Texas is set to begin trial production, indicating progress in its significant capital expenditure and future manufacturing capacity.",
-      "why_now": "Trial runs are scheduled to commence in December, marking a near-term operational milestone.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5cb3be646ac4"
-      ],
-      "primary_source_event_id": "EVT-5cb3be646ac4",
-      "source_headlines": [
-        "Samsung's Texas chip plant could begin trial runs in December"
-      ],
-      "source_headline": "Samsung's Texas chip plant could begin trial runs in December",
-      "source_url": "https://www.koreaherald.com/article/10929626",
-      "source_name": "The Korea Herald — Business",
-      "materiality_max": 89,
-      "newest_source_at": "2026-11-08T04:55:28Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-08T05:48:41Z",
-      "updated_at": "2026-11-08T05:48:41Z",
-      "decay_at": "2026-11-09T16:55:28Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-24c2f9751ec7",
       "idea_version": "IDEAV-b1e925a9043aca93",
       "idea_version_started_at": "2026-11-09T03:31:35Z",
@@ -234383,6 +234305,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-fe0a4c2c5819",
+      "idea_version": "IDEAV-4a94a819f302db6e",
+      "idea_version_started_at": "2026-11-08T05:48:41Z",
+      "ticker": "005930",
+      "company": "Samsung Electronics",
+      "exchange": "KRX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Samsung's new chip plant in Texas is set to begin trial production, indicating progress in its significant capital expenditure and future manufacturing capacity.",
+      "why_now": "Trial runs are scheduled to commence in December, marking a near-term operational milestone.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5cb3be646ac4"
+      ],
+      "primary_source_event_id": "EVT-5cb3be646ac4",
+      "source_headlines": [
+        "Samsung's Texas chip plant could begin trial runs in December"
+      ],
+      "source_headline": "Samsung's Texas chip plant could begin trial runs in December",
+      "source_url": "https://www.koreaherald.com/article/10929626",
+      "source_name": "The Korea Herald — Business",
+      "materiality_max": 89,
+      "newest_source_at": "2026-11-08T04:55:28Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-08T05:48:41Z",
+      "updated_at": "2026-11-08T05:48:41Z",
+      "decay_at": "2026-11-09T16:55:28Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-cff62c507c34",
       "idea_version": "IDEAV-500db095ba059e40",
       "idea_version_started_at": "2026-11-08T03:38:35Z",
@@ -234683,14 +234677,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 532,
+    "total_count": 533,
     "shown_count": 499,
-    "hidden_count": 33,
+    "hidden_count": 34,
     "side_counts": {
       "long": {
-        "total_count": 271,
+        "total_count": 272,
         "shown_count": 250,
-        "hidden_count": 21
+        "hidden_count": 22
       },
       "short": {
         "total_count": 262,
@@ -234714,6 +234708,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-fe0a4c2c5819",
+        "idea_version": "IDEAV-4a94a819f302db6e",
+        "idea_version_started_at": "2026-11-08T05:48:41Z",
+        "ticker": "005930",
+        "company": "Samsung Electronics",
+        "exchange": "KRX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Samsung's new chip plant in Texas is set to begin trial production, indicating progress in its significant capital expenditure and future manufacturing capacity.",
+        "why_now": "Trial runs are scheduled to commence in December, marking a near-term operational milestone.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-5cb3be646ac4"
+        ],
+        "primary_source_event_id": "EVT-5cb3be646ac4",
+        "source_headlines": [
+          "Samsung's Texas chip plant could begin trial runs in December"
+        ],
+        "source_headline": "Samsung's Texas chip plant could begin trial runs in December",
+        "source_url": "https://www.koreaherald.com/article/10929626",
+        "source_name": "The Korea Herald — Business",
+        "materiality_max": 89,
+        "newest_source_at": "2026-11-08T04:55:28Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-08T05:48:41Z",
+        "updated_at": "2026-11-08T05:48:41Z",
+        "decay_at": "2026-11-09T16:55:28Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-09T16:55:28Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-7df26351581b",
         "idea_version": "IDEAV-aab222583d7b6d5b",
@@ -263218,79 +263287,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-3ca8f8fe21a8",
-        "idea_version": "IDEAV-b96ae19b779ab41c",
-        "idea_version_started_at": "2026-10-25T08:08:42Z",
-        "ticker": "RIO",
-        "company": "Rio Tinto",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The entry of Apollo and GIC into the bidding pool for Rio Tinto's $7 billion infrastructure assets increases the likelihood of a competitive auction and a premium valuation for the divestment.",
-        "why_now": "The auction process is currently active as of October 25, 2026, with new high-profile bidders joining the pool.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 66,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-8d2dcc3b1d8b"
-        ],
-        "primary_source_event_id": "EVT-8d2dcc3b1d8b",
-        "source_headlines": [
-          "Apollo, GIC join the bidder pool at Rio’s $7b infrastructure auction"
-        ],
-        "source_headline": "Apollo, GIC join the bidder pool at Rio’s $7b infrastructure auction",
-        "source_url": "https://www.afr.com/street-talk/apollo-gic-join-the-bidder-pool-at-rio-s-7b-infrastructure-auction-20261025-p618eq?ref=rss&utm_medium=rss&utm_source=rss_feed",
-        "source_name": "Australian Financial Review",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-25T07:39:20Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-25T08:08:42Z",
-        "updated_at": "2026-10-25T08:08:42Z",
-        "decay_at": "2026-10-26T19:39:20Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-28T08:30:04Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-e916594f6443",
         "idea_version": "IDEAV-89914ab883350773",
         "idea_version_started_at": "2026-10-25T06:39:18Z",
@@ -271857,7 +271853,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2329,
-    "live_count": 64,
+    "live_count": 63,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -271876,9 +271872,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2846310,
-    "news_picked_today": 1037,
-    "news_dropped_today": 8641
+    "news_seen_today": 2866254,
+    "news_picked_today": 1040,
+    "news_dropped_today": 8662
   },
   "book_momentum": {
     "live_count": 8,
