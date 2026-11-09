@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T20:18:35Z",
+  "generated_at": "2026-11-09T20:24:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-419",
@@ -1043,6 +1043,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261109-473",
+      "headline": "Omnia starts final listed year with a bang as shareholders approve R21bn cash buyout",
+      "headline_en": null,
+      "url": "https://www.moneyweb.co.za/moneyweb-radio/safm-market-update/omnia-starts-final-listed-year-with-a-bang-and-shareholders-approve-r21bn-cash-buyout/",
+      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T19:52:20Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Shareholders approved a R21bn cash buyout of Omnia.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Shareholders approved a R21bn cash buyout of Omnia.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Omnia",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261109-468",
       "headline": "SHF Holdings, Inc. Reports Q3 2026 Results, Details Proposed Opifex Transaction and Series B Dilution",
       "headline_en": null,
@@ -1941,56 +1990,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-412",
-      "headline": "Kids clothing company Children's Place files for bankruptcy, plans to sell assets",
-      "headline_en": null,
-      "url": "https://www.cbc.ca/news/business/childrens-place-bankruptcy-sale-9.7414753?cmp=rss",
-      "source_name": "CBC — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T15:21:29Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Children's Place filed for bankruptcy and plans to sell assets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Children's Place filed for bankruptcy and plans to sell assets.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress",
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Children's Place",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -272288,9 +272287,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4121920,
-    "news_picked_today": 1207,
-    "news_dropped_today": 10175
+    "news_seen_today": 4163666,
+    "news_picked_today": 1212,
+    "news_dropped_today": 10218
   },
   "book_momentum": {
     "live_count": 8,
