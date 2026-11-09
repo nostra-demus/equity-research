@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T14:23:15Z",
+  "generated_at": "2026-11-09T14:27:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-380",
@@ -842,6 +842,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261109-392",
+      "headline": "Clothing retailer Children’s Place to seek buyer after filing for bankruptcy",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/business/article-clothing-retailer-childrens-place-to-seek-buyer-after-filing-for/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T14:08:11Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "The Children's Place filed for bankruptcy and is seeking a buyer.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The Children's Place filed for bankruptcy and is seeking a buyer.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress",
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "The Children's Place",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261109-321",
       "headline": "Korean FTC Slaps Coupang, Baemin with Record Fine",
       "headline_en": null,
@@ -1049,6 +1099,56 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-391",
+      "headline": "National Energy Services Reunited Corp. Reports Third Quarter 2026 Revenue of $504.7 million and Declares Cash Dividend of $0.10 Per Share",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/national-energy-services-reunited-corp-reports-third-quarter-2026-revenue-5047-million-and",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T13:42:46Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "National Energy Services Reunited reported $504.7 million in revenue and declared a cash dividend.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "National Energy Services Reunited reported $504.7 million in revenue and declared a cash dividend.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "National Energy Services Reunited Corp.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1906,105 +2006,6 @@
           "name": "Commerzbank",
           "ticker": null,
           "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-292",
-      "headline": "Sipchem’s net losses deepen 173% in 9M-26 results",
-      "headline_en": null,
-      "url": "http://english.mubasher.info/news/4698715/Sipchem-s-net-losses-deepen-173-in-9M-26-results",
-      "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T07:10:10Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Sipchem reported a 173% deepening of net losses for 9M-26.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Sipchem reported a 173% deepening of net losses for 9M-26.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sipchem",
-          "ticker": null,
-          "listing_country": "SA"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-285",
-      "headline": "Nvidia CEO’s affair engulfs AI giant in Chinese spying probe",
-      "headline_en": null,
-      "url": "https://www.moneyweb.co.za/news/international/nvidia-ceos-affair-engulfs-ai-giant-in-chinese-spying-probe/",
-      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T07:00:58Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Nvidia is reportedly involved in a Chinese spying probe, creating significant regulatory and operational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia is reportedly involved in a Chinese spying probe, creating significant regulatory and operational risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory",
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "mega",
@@ -272302,9 +272303,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1855192,
-    "news_picked_today": 896,
-    "news_dropped_today": 7798
+    "news_seen_today": 1900003,
+    "news_picked_today": 905,
+    "news_dropped_today": 7813
   },
   "book_momentum": {
     "live_count": 8,
