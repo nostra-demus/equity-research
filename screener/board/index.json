@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T14:12:41Z",
+  "generated_at": "2026-11-09T14:18:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-380",
@@ -288,6 +288,55 @@
           "name": "Elpro International Ltd",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-382",
+      "headline": "BOYAA (00434): PROFIT ALERT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1109/2026110900981.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-09T11:37:00Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Boyaa Interactive issued a profit alert indicating a significant increase in expected net profit for the period.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Boyaa Interactive issued a profit alert indicating a significant increase in expected net profit for the period.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Boyaa Interactive",
+          "ticker": "00434",
+          "listing_country": "CN"
         }
       ],
       "size_bucket": "small",
@@ -1959,56 +2008,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-276",
-      "headline": "UniCredit Q3 Results Up, Lifts FY26 View; Plans Commerzbank's New Governance In Q1",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/unicredit-q3-results-lifts-fy26-view-plans-commerzbanks-new-governance-q1",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T06:44:44Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "UniCredit reported Q3 results and raised its FY26 guidance while signaling progress on Commerzbank integration.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "UniCredit reported Q3 results and raised its FY26 guidance while signaling progress on Commerzbank integration.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "UniCredit",
-          "ticker": null,
-          "listing_country": "IT"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -272303,9 +272302,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1801739,
-    "news_picked_today": 888,
-    "news_dropped_today": 7734
+    "news_seen_today": 1828349,
+    "news_picked_today": 890,
+    "news_dropped_today": 7780
   },
   "book_momentum": {
     "live_count": 8,
