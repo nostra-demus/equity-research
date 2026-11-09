@@ -152,8 +152,7 @@ Start with `# Strategic Rerating — {TICKER}`. Use rigorous, objective prose an
 1. **Pivot & observable event** — issuer/listing, as-of, applicability, dated original claim and
    milestones, current/target multiple with denominator basis and sources, horizon and sustained-success test.
 2. **Three-pillar evidence board** — one row per material metric, grouped by pillar:
-   `Pillar | Metric / scope / period | Same-period prior year | Latest | Original milestone |
-   Bull evidence | Bear evidence / gaps | Source | Winning side (Bull / Bear / Mixed / Unknown)`.
+   `Pillar | Metric / scope / period | Same-period prior year | Latest | Original milestone | Bull evidence | Bear evidence / gaps | Source | Winning side (Bull / Bear / Mixed / Unknown)`.
    Follow with one cited finding per pillar; name and adjudicate contradicting metrics.
 3. **Net economic value & priced-in test** — profit bridge and residual, cash/capital burden and
    runway, attainable multiple vs `05` expectations and `07` levels, sector/mix/denominator effects.
