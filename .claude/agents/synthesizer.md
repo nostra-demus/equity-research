@@ -610,6 +610,8 @@ If assessable, carry the event and its confirmation/falsification tests into the
 with `owner_module: valuation` and the existing schema; if not, retain the reason without inventing a
 numeric forecast. Older runs without this assessment need no back-fill. Retain all governance,
 survival, turnaround, and valuation caps and reconcile any disagreement with the module's levels.
+If the module flags the assessment **Stale — not a current estimate**, preserve that warning and treat
+the probability as dated history, not a new numeric forecast; state which admitted assessment must refresh it.
 
 Use a table:
 

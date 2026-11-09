@@ -157,6 +157,13 @@ Do not turn strong execution into upside when the improvement is priced in. The 
 not a scenario weight, valuation-confidence score, or authority to lift any existing cap. If `08` is
 absent in an older/partial run, say so; do not back-fill a probability from other specialist scores.
 
+**Freshness on partial reruns.** Compare `08`'s evidence cutoff, cited periods and milestones with the
+current upstream evidence; a matching filename/date alone is not proof of freshness. If relevant new
+evidence or revised upstream assumptions were not assessed by `08`, label its event probability **Stale —
+not a current estimate**, retain the original dated estimate only as history, and name the missing update.
+Request a fresh `strategic-rerating` assessment through the existing admitted rerun flow; do not launch
+one, silently refresh the probability yourself, or present the old probability as an updated forecast.
+
 ## 4. Score Cap Application
 
 | Cap Trigger | Applied? (Y/N) | Affected Score | Final Cap |
