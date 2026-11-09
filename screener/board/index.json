@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T20:15:35Z",
+  "generated_at": "2026-11-09T20:18:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-419",
@@ -100,6 +100,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-469",
+      "headline": "BAIYUNSHAN PH (00874): POTENTIAL MAJOR TRANSACTION AND DEEMED DISPOSAL IN RELATION TO THE CAPITAL INCREASE AND SHARE EXPANSION OF A SUBSIDIARY",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1109/2026110901292.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-09T14:49:00Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Guangzhou Baiyunshan Pharmaceutical announced a potential major transaction and deemed disposal regarding a capital increase in a subsidiary.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Guangzhou Baiyunshan Pharmaceutical announced a potential major transaction and deemed disposal regarding a capital increase in a subsidiary.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Guangzhou Baiyunshan Pharmaceutical",
+          "ticker": "00874",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1942,55 +1991,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-411",
-      "headline": "£260bn wiped off value of Nvidia as it launches probe into boss Jensen Huang's affair with 'Chinese spy'",
-      "headline_en": null,
-      "url": "https://www.thisismoney.co.uk/money/markets/article-16277867/200bn-wiped-value-Nvidia-launches-probe-boss-Jensen-Huangs-affair-Chinese-spy.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
-      "source_name": "This is Money (Daily Mail) — Markets",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T14:53:33Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "£260 billion was wiped off Nvidia's value as it launched a probe into CEO Jensen Huang's alleged affair with a 'Chinese spy'.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "£260 billion was wiped off Nvidia's value as it launched a probe into CEO Jensen Huang's alleged affair with a 'Chinese spy'.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -272288,9 +272288,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4090768,
-    "news_picked_today": 1205,
-    "news_dropped_today": 10129
+    "news_seen_today": 4121920,
+    "news_picked_today": 1207,
+    "news_dropped_today": 10175
   },
   "book_momentum": {
     "live_count": 8,
