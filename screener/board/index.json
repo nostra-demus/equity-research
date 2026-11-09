@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T19:02:42Z",
+  "generated_at": "2026-11-09T19:04:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-419",
@@ -994,6 +994,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261109-466",
+      "headline": "Delcath Systems Reports Third Quarter 2026 Results and Increases 2026 Revenue Guidance to a Range of $115 million to $117 million",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/delcath-systems-reports-third-quarter-2026-results-and-increases-2026-revenue-guidance",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T18:42:10Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Delcath Systems reported Q3 2026 results and increased its 2026 revenue guidance to a range of $115 million to $117 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Delcath Systems reported Q3 2026 results and increased its 2026 revenue guidance to a range of $115 million to $117 million.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Delcath Systems",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261109-463",
       "headline": "Compass Therapeutics, Inc. Reports 2026 Third Quarter Financial Results and Net loss of $27.2 million",
       "headline_en": null,
@@ -1929,56 +1979,6 @@
       },
       "event_types": [
         "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-401",
-      "headline": "Nvidia braces for $500b hit after CEO affair; Trump in new bid to end Iran war",
-      "headline_en": null,
-      "url": "https://www.afr.com/politics/federal/australia-news-live-updates-trump-to-meet-qatari-pm-in-bid-to-end-iran-war-after-midterm-defeat-20261110-p61cqr?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T14:38:19Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Nvidia faces a potential $500 billion market value hit amid CEO controversy and geopolitical escalation in the Middle East.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia faces a potential $500 billion market value hit amid CEO controversy and geopolitical escalation in the Middle East.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management",
-        "macro_sector"
       ],
       "issuer_linkage": "primary",
       "companies": [
@@ -272210,9 +272210,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3641646,
-    "news_picked_today": 1156,
-    "news_dropped_today": 9554
+    "news_seen_today": 3662288,
+    "news_picked_today": 1159,
+    "news_dropped_today": 9575
   },
   "book_momentum": {
     "live_count": 8,
