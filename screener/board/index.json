@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T10:57:06Z",
+  "generated_at": "2026-11-09T10:59:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-309",
@@ -549,6 +549,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-322",
+      "headline": "Knowledge Marine raises FY27 revenue growth guidance to 80% as dredging projects gather pace",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/earnings/knowledge-marine-fy27-revenue-growth-guidance-80-percent-margins-40-45-q2-earnings-results-boardroom-alpha-article-20030347.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T10:47:12Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Knowledge Marine raised its FY27 revenue growth guidance to 80%.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Knowledge Marine raised its FY27 revenue growth guidance to 80%.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Knowledge Marine & Engineering Works",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1972,55 +2021,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-065",
-      "headline": "Nvidia launches investigation into CEO over affair with alleged Chinese spy; Donald Trump calls Jensen Huang ‘honorable’",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/people/nvidia-launches-investigation-into-ceo-over-affair-with-alleged-chinese-spy-donald-trump-calls-jensen-huang-honorable-11794186568817.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T01:18:18Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Nvidia CEO is under investigation for an alleged affair with a foreign intelligence asset, posing a significant reputational and security risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia CEO is under investigation for an alleged affair with a foreign intelligence asset, posing a significant reputational and security risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -271951,9 +271951,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 826933,
-    "news_picked_today": 580,
-    "news_dropped_today": 6434
+    "news_seen_today": 840899,
+    "news_picked_today": 585,
+    "news_dropped_today": 6453
   },
   "book_momentum": {
     "live_count": 8,
