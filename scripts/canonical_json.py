@@ -28,6 +28,9 @@ MAX_SAFE_INTEGER = 9_007_199_254_740_991
 
 
 def _checked_string(value: str) -> str:
+    # Exact ASCII strings cannot contain surrogates; subclasses keep their iteration behavior.
+    if type(value) is str and value.isascii():
+        return value
     if any(0xD800 <= ord(char) <= 0xDFFF for char in value):
         raise ValueError("canonical JSON strings must not contain lone UTF-16 surrogates")
     return value
