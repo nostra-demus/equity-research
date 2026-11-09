@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-09T07:15:57Z",
+  "generated_at": "2026-11-09T07:26:56Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261109-286",
+      "headline": "[TSE]Decision on Delisting:Nippon Souken Co.,Ltd.",
+      "headline_en": null,
+      "url": "https://www.jpx.co.jp/english/news/1021/20261109_19.html",
+      "source_name": "Japan Exchange Group (JPX) — Market News",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-09T07:15:00Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Nippon Souken Co., Ltd. has been issued a decision on delisting from the Tokyo Stock Exchange.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nippon Souken Co., Ltd. has been issued a decision on delisting from the Tokyo Stock Exchange.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nippon Souken Co., Ltd.",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261109-273",
       "headline": "MCM: MCM Update, Kinetic Bridge Loan and Makhado Operations [price-sensitive]",
@@ -1930,55 +1979,6 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-278",
-      "headline": "[TSE]Revocation of Initial Listing Approval (REIT): KDX Kolet REIT,Inc.",
-      "headline_en": null,
-      "url": "https://www.jpx.co.jp/english/news/1021/20261109-12.html",
-      "source_name": "Japan Exchange Group (JPX) — Market News",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-09T07:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "KDX Kolet REIT had its initial listing approval revoked by the Tokyo Stock Exchange.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "KDX Kolet REIT had its initial listing approval revoked by the Tokyo Stock Exchange.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "KDX Kolet REIT, Inc.",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -272273,9 +272273,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 154415,
-    "news_picked_today": 424,
-    "news_dropped_today": 4646
+    "news_seen_today": 186022,
+    "news_picked_today": 425,
+    "news_dropped_today": 4693
   },
   "book_momentum": {
     "live_count": 8,
