@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T17:54:55Z",
+  "generated_at": "2026-11-09T17:58:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-419",
@@ -888,6 +888,109 @@
           "name": "Matsa Resources",
           "ticker": "MAT",
           "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-446",
+      "headline": "Children’s Place Files for Bankruptcy With Plans to Sell Assets",
+      "headline_en": null,
+      "url": "https://www.wsj.com/pro/bankruptcy/childrens-place-files-for-bankruptcy-with-plans-to-sell-assets-2ae70988?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T17:49:00Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "The Children's Place has filed for bankruptcy and intends to sell its assets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The Children's Place has filed for bankruptcy and intends to sell its assets.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "The Children's Place",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-447",
+      "headline": "CorMedix Inc. to Acquire Substantially All Assets of Heron Therapeutics, Inc. for $145.0 million in Cash and 14,583,333 Shares",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/cormedix-inc-acquire-substantially-all-assets-heron-therapeutics-inc-1450-million-cash-and",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T17:41:53Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "CorMedix Inc. is acquiring assets from Heron Therapeutics for $145 million in cash and stock.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CorMedix Inc. is acquiring assets from Heron Therapeutics for $145 million in cash and stock.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CorMedix Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Heron Therapeutics, Inc.",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "small",
@@ -1905,106 +2008,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-391",
-      "headline": "National Energy Services Reunited Corp. Reports Third Quarter 2026 Revenue of $504.7 million and Declares Cash Dividend of $0.10 Per Share",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/national-energy-services-reunited-corp-reports-third-quarter-2026-revenue-5047-million-and",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T13:42:46Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "National Energy Services Reunited reported $504.7 million in revenue and declared a cash dividend.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "National Energy Services Reunited reported $504.7 million in revenue and declared a cash dividend.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "National Energy Services Reunited Corp.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-373",
-      "headline": "NRG Energy Signs $4 Billion Asset-Sale Agreement, Posts Higher Quarterly Earnings",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/earnings/nrg-energy-signs-4-billion-asset-sale-agreement-posts-higher-quarterly-earnings-457b3efe?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T13:28:00Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "NRG Energy announced a $4 billion asset sale and reported higher quarterly earnings.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "NRG Energy announced a $4 billion asset sale and reported higher quarterly earnings.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NRG Energy",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -272087,9 +272090,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3219428,
-    "news_picked_today": 1086,
-    "news_dropped_today": 9024
+    "news_seen_today": 3250070,
+    "news_picked_today": 1092,
+    "news_dropped_today": 9042
   },
   "book_momentum": {
     "live_count": 8,
