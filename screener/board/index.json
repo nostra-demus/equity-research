@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T03:31:56Z",
+  "generated_at": "2026-11-09T03:35:23Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-131",
@@ -882,6 +882,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261109-165",
+      "headline": "Shyam Metalics and Energy Limited: Shyam Metalics And Energy Limited has informed the Exchange regarding a press release dated November 09, 2026, titled \"Shyam Metalics Reaffirms Credit Ratings of CRISIL AA+/Stable and CRISIL A1+ ; Bank Debt Ratings Enhanced to ₹4,500 Crore.\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/SHYAMMETL_09112026085719_SMELPressRelease09112026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-09T03:27:31Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "CRISIL reaffirmed Shyam Metalics' ratings at AA+/Stable and A1+ while enhancing bank debt ratings to 4,500 crore rupees.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "CRISIL reaffirmed Shyam Metalics' ratings at AA+/Stable and A1+ while enhancing bank debt ratings to 4,500 crore rupees.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "credit_rating_upgrade",
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shyam Metalics and Energy Limited",
+          "ticker": "SHYAMMETL",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261109-016",
       "headline": "GRAPHEX GROUP (06128): (1) EXERCISE OF OPTION BY THE PURCHASER AND (2) ENTERING INTO THE DEFINITIVE AGREEMENT IN RELATION TO DISPOSAL OF AN INDIRECT WHOLLY-OWNED SUBSIDIARY OF THE COMPANY",
       "headline_en": null,
@@ -1428,6 +1478,106 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261109-164",
+      "headline": "Hanwha M&S President Launches Second Tender Offer, Investing 27 Billion Won",
+      "headline_en": null,
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=280802",
+      "source_name": "Business Korea — All English Articles",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T06:59:34Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Hanwha M&S President launched a second tender offer with an investment of 27 billion won.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Hanwha M&S President launched a second tender offer with an investment of 27 billion won.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna",
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hanwha M&S",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-167",
+      "headline": "Samsung's US chip plant nears trial run in December, mass production planned for 2027",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/info-tech/samsungs-us-chip-plant-nears-trial-run-in-december-mass-production-planned-for-2027/article71681346.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T03:25:37Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Samsung's US semiconductor fab will start trial production in December, with mass production scheduled for 2027.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Samsung's US semiconductor fab will start trial production in December, with mass production scheduled for 2027.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Samsung Electronics Co., Ltd.",
+          "ticker": "005930",
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261109-125",
       "headline": "Fidelity National Information Services Consensus Price Target Decreased by 18.33% to $38.82",
       "headline_en": null,
@@ -1815,153 +1965,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-056",
-      "headline": "CJ Olive Young to operate 7 U.S. stores by H1 2027",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20261109002300320",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T00:58:11Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "CJ Olive Young announced a specific expansion plan to operate 7 stores in the US by H1 2027.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "CJ Olive Young announced a specific expansion plan to operate 7 stores in the US by H1 2027.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CJ Olive Young",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-081",
-      "headline": "Nvidia Opens Independent Probe Into CEO Amid China Spy Allegations, Raising Security Concerns",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=280772",
-      "source_name": "Business Korea — All English Articles",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T05:07:38Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Nvidia has opened an independent probe into its CEO following espionage allegations, creating management and security uncertainty.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Nvidia has opened an independent probe into its CEO following espionage allegations, creating management and security uncertainty.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-158",
-      "headline": "Pakistani farmers sue German firms for flood damage: ‘no borders in sky’",
-      "headline_en": null,
-      "url": "https://www.scmp.com/news/asia/south-asia/article/3373733/pakistani-farmers-sue-german-firms-flood-damage-no-borders-sky",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T03:08:22Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "German firms face litigation from Pakistani farmers regarding climate-related flood damages.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "German firms face litigation from Pakistani farmers regarding climate-related flood damages.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "RWE",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -271977,9 +271980,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 846,
-    "news_picked_today": 183,
-    "news_dropped_today": 663
+    "news_seen_today": 858,
+    "news_picked_today": 188,
+    "news_dropped_today": 670
   },
   "book_momentum": {
     "live_count": 8,
