@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T13:49:32Z",
+  "generated_at": "2026-11-09T13:53:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-352",
@@ -799,6 +799,65 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261109-376",
+      "headline": "NVIDIA Falls 5% as Board Probes Jensen Huang’s Ties to Alleged Chinese Spy; AMD Rises 4%, Intel Holds Steady",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/11/09/nvidia-falls-5-as-board-probes-jensen-huangs-ties-to-alleged-chinese-spy-amd-rises-4-intel-holds-steady/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T13:43:56Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "A board investigation into the CEO regarding national security ties represents a severe governance and operational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A board investigation into the CEO regarding national security ties represents a severe governance and operational risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NVIDIA",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "AMD",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Intel",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261109-373",
       "headline": "NRG Energy Signs $4 Billion Asset-Sale Agreement, Posts Higher Quarterly Earnings",
       "headline_en": null,
@@ -893,6 +952,60 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-375",
+      "headline": "argenx SE Announces Agreement to Acquire Unnatural Products, Inc. for Up to Approximately $1.15 billion",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/argenx-se-announces-agreement-acquire-unnatural-products-inc-approximately-115-billion",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T13:12:37Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "argenx SE is acquiring Unnatural Products, Inc. for approximately $1.15 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "argenx SE is acquiring Unnatural Products, Inc. for approximately $1.15 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "argenx SE",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Unnatural Products, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1901,109 +2014,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-239",
-      "headline": "The Children's Place Files For Chapter 11 Bankruptcy",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/childrens-place-files-chapter-11-bankruptcy",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T05:29:20Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "The company has filed for Chapter 11 bankruptcy, indicating a total loss of equity value for shareholders.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The company has filed for Chapter 11 bankruptcy, indicating a total loss of equity value for shareholders.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "The Children's Place",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-240",
-      "headline": "Codan To Acquire Eventide Communications",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/codan-acquire-eventide-communications",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T05:28:47Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Codan is acquiring Eventide Communications, representing a significant M&A event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Codan is acquiring Eventide Communications, representing a significant M&A event.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Codan",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Eventide Communications",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -272301,9 +272311,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1662013,
-    "news_picked_today": 852,
-    "news_dropped_today": 7530
+    "news_seen_today": 1679317,
+    "news_picked_today": 854,
+    "news_dropped_today": 7552
   },
   "book_momentum": {
     "live_count": 8,
