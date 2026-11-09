@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T15:28:26Z",
+  "generated_at": "2026-11-09T15:30:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-380",
@@ -842,6 +842,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261109-412",
+      "headline": "Kids clothing company Children's Place files for bankruptcy, plans to sell assets",
+      "headline_en": null,
+      "url": "https://www.cbc.ca/news/business/childrens-place-bankruptcy-sale-9.7414753?cmp=rss",
+      "source_name": "CBC — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T15:21:29Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Children's Place filed for bankruptcy and plans to sell assets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Children's Place filed for bankruptcy and plans to sell assets.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress",
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Children's Place",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261109-411",
       "headline": "£260bn wiped off value of Nvidia as it launches probe into boss Jensen Huang's affair with 'Chinese spy'",
       "headline_en": null,
@@ -1239,55 +1289,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-377",
-      "headline": "Children’s Place Files for Bankruptcy With Plans to Sell Assets",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/retail/childrens-place-files-for-bankruptcy-with-plans-to-sell-assets-2ae70988?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T13:44:00Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "The Children's Place has filed for bankruptcy and intends to sell its assets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The Children's Place has filed for bankruptcy and intends to sell its assets.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "The Children's Place",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -272296,9 +272297,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2322972,
-    "news_picked_today": 964,
-    "news_dropped_today": 8114
+    "news_seen_today": 2351331,
+    "news_picked_today": 969,
+    "news_dropped_today": 8133
   },
   "book_momentum": {
     "live_count": 8,
