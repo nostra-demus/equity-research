@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-09T09:27:05Z",
+  "generated_at": "2026-11-09T09:30:54Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261109-309",
+      "headline": "MOST KWAI CHUNG (01716): PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1109/2026110900358.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-09T08:45:00Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "The company issued a profit warning, indicating a material decline in expected earnings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company issued a profit warning, indicating a material decline in expected earnings.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MOST KWAI CHUNG",
+          "ticker": "01716",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261109-303",
       "headline": "PX CCI B2801 (05431): Launch of Tender Offer by Pingxiang City Construction Investment Group Co., Ltd to purchase for cash of its outstanding U.S.$193,200,000 6.50 per cent. Credit Enhanced Sustainable Bonds due 2028 with the benefit of an irrevocable Standby Letter of Credit provided by Bank of Jiujiang Co., Ltd.",
@@ -1960,55 +2009,6 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-269",
-      "headline": "Dana Gas suspends Khor Mor operations after suspected drone attack in Iraq",
-      "headline_en": null,
-      "url": "https://www.khaleejtimes.com/uae/dana-gas-khor-mor-operations-suspected-drone-attack-iraq",
-      "source_name": "Khaleej Times — UAE",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T06:26:17Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Dana Gas suspended operations at the Khor Mor field following a drone attack, which is a significant operational disruption.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Dana Gas suspended operations at the Khor Mor field following a drone attack, which is a significant operational disruption.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dana Gas",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -228220,76 +228220,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-0ac5d784c64f",
-      "idea_version": "IDEAV-38e2672d22607b77",
-      "idea_version_started_at": "2026-11-07T22:29:24Z",
-      "ticker": "TSLA",
-      "company": "Tesla",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The planned wind-down of Cybertruck production by mid-2027 signals a potential failure to achieve expected scale and profitability for a flagship product line.",
-      "why_now": "The announcement on 2026-11-07 sets a clear operational timeline for the phase-out.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-532bdb49b13b"
-      ],
-      "primary_source_event_id": "EVT-532bdb49b13b",
-      "source_headlines": [
-        "Tesla to wind down Cybertruck production in Texas by mid-2027"
-      ],
-      "source_headline": "Tesla to wind down Cybertruck production in Texas by mid-2027",
-      "source_url": "https://www.qatar-tribune.com/article/263007/business/tesla-to-wind-down-cybertruck-production-in-texas-by-mid-2027",
-      "source_name": "Qatar Tribune — Business",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-07T21:30:00Z",
-      "prior_coverage": {
-        "has_run": true,
-        "latest_run": "analyses/TSLA_2026-07-25",
-        "latest_decision": "Short Candidate",
-        "data_pool_present": true
-      },
-      "surfaced_at": "2026-11-07T22:29:24Z",
-      "updated_at": "2026-11-07T22:29:24Z",
-      "decay_at": "2026-11-09T09:30:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-1ce8545fe8eb",
       "idea_version": "IDEAV-2ad5df6ca983f9db",
       "idea_version_started_at": "2026-11-09T01:59:29Z",
@@ -232808,6 +232738,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-0ac5d784c64f",
+      "idea_version": "IDEAV-38e2672d22607b77",
+      "idea_version_started_at": "2026-11-07T22:29:24Z",
+      "ticker": "TSLA",
+      "company": "Tesla",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The planned wind-down of Cybertruck production by mid-2027 signals a potential failure to achieve expected scale and profitability for a flagship product line.",
+      "why_now": "The announcement on 2026-11-07 sets a clear operational timeline for the phase-out.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-532bdb49b13b"
+      ],
+      "primary_source_event_id": "EVT-532bdb49b13b",
+      "source_headlines": [
+        "Tesla to wind down Cybertruck production in Texas by mid-2027"
+      ],
+      "source_headline": "Tesla to wind down Cybertruck production in Texas by mid-2027",
+      "source_url": "https://www.qatar-tribune.com/article/263007/business/tesla-to-wind-down-cybertruck-production-in-texas-by-mid-2027",
+      "source_name": "Qatar Tribune — Business",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-07T21:30:00Z",
+      "prior_coverage": {
+        "has_run": true,
+        "latest_run": "analyses/TSLA_2026-07-25",
+        "latest_decision": "Short Candidate",
+        "data_pool_present": true
+      },
+      "surfaced_at": "2026-11-07T22:29:24Z",
+      "updated_at": "2026-11-07T22:29:24Z",
+      "decay_at": "2026-11-09T09:30:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-a1e16e363c9a",
       "idea_version": "IDEAV-e7fe2260d11ec589",
       "idea_version_started_at": "2026-11-07T12:54:01Z",
@@ -235109,9 +235109,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 538,
+    "total_count": 539,
     "shown_count": 499,
-    "hidden_count": 39,
+    "hidden_count": 40,
     "side_counts": {
       "long": {
         "total_count": 272,
@@ -235119,9 +235119,9 @@
         "hidden_count": 22
       },
       "short": {
-        "total_count": 267,
+        "total_count": 268,
         "shown_count": 250,
-        "hidden_count": 17
+        "hidden_count": 18
       }
     },
     "retention": {
@@ -235140,6 +235140,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-0ac5d784c64f",
+        "idea_version": "IDEAV-38e2672d22607b77",
+        "idea_version_started_at": "2026-11-07T22:29:24Z",
+        "ticker": "TSLA",
+        "company": "Tesla",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The planned wind-down of Cybertruck production by mid-2027 signals a potential failure to achieve expected scale and profitability for a flagship product line.",
+        "why_now": "The announcement on 2026-11-07 sets a clear operational timeline for the phase-out.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 65,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-532bdb49b13b"
+        ],
+        "primary_source_event_id": "EVT-532bdb49b13b",
+        "source_headlines": [
+          "Tesla to wind down Cybertruck production in Texas by mid-2027"
+        ],
+        "source_headline": "Tesla to wind down Cybertruck production in Texas by mid-2027",
+        "source_url": "https://www.qatar-tribune.com/article/263007/business/tesla-to-wind-down-cybertruck-production-in-texas-by-mid-2027",
+        "source_name": "Qatar Tribune — Business",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-07T21:30:00Z",
+        "prior_coverage": {
+          "has_run": true,
+          "latest_run": "analyses/TSLA_2026-07-25",
+          "latest_decision": "Short Candidate",
+          "data_pool_present": true
+        },
+        "surfaced_at": "2026-11-07T22:29:24Z",
+        "updated_at": "2026-11-07T22:29:24Z",
+        "decay_at": "2026-11-09T09:30:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-09T09:30:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-237bc01d6762",
         "idea_version": "IDEAV-9486b680a81e56c0",
@@ -272204,86 +272277,12 @@
         "archived_at": "2026-10-15T15:19:23Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-2325bf4b00ba",
-        "idea_version": "IDEAV-be7e12500c0c9116",
-        "idea_version_started_at": "2026-10-12T14:41:02Z",
-        "ticker": "01313",
-        "company": "CR Building Material Technology",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company issued a profit warning, indicating a deterioration in financial performance that will likely lead to downward revisions in analyst estimates.",
-        "why_now": "The profit warning was filed with the exchange today, October 12, 2026.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-a417e2d5b879"
-        ],
-        "primary_source_event_id": "EVT-a417e2d5b879",
-        "source_headlines": [
-          "CR BLDG MAT TEC (01313): INSIDE INFORMATION - PROFIT WARNING"
-        ],
-        "source_headline": "CR BLDG MAT TEC (01313): INSIDE INFORMATION - PROFIT WARNING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1012/2026101201243.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-12T14:05:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-12T14:41:02Z",
-        "updated_at": "2026-10-12T14:41:02Z",
-        "decay_at": "2026-10-14T02:05:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-15T15:19:23Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2318,
-    "live_count": 64,
+    "live_count": 63,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -272302,9 +272301,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 489885,
-    "news_picked_today": 481,
-    "news_dropped_today": 5717
+    "news_seen_today": 506754,
+    "news_picked_today": 489,
+    "news_dropped_today": 5733
   },
   "book_momentum": {
     "live_count": 8,
