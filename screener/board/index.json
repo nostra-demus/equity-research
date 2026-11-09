@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T17:03:03Z",
+  "generated_at": "2026-11-09T17:16:46Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-419",
@@ -227792,77 +227792,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-50f379c78b21",
-      "idea_version": "IDEAV-f67113761fe1d751",
-      "idea_version_started_at": "2026-11-09T10:01:10Z",
-      "ticker": "NVDA",
-      "company": "Nvidia",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The CEO's admission of an affair following allegations of a relationship with a foreign intelligence operative introduces severe governance risk and potential regulatory scrutiny regarding national security.",
-      "why_now": "The confirmation of the affair on 2026-11-09 significantly escalates the risk profile beyond initial rumors.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 74,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "governance_turnaround",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-fbef079b6145",
-        "EVT-2f566c1572a4"
-      ],
-      "primary_source_event_id": "EVT-fbef079b6145",
-      "source_headlines": [
-        "Nvidia investigating reports that CEO Jensen Huang was targeted by Chinese intelligence",
-        "FirstFT: Nvidia CEO admits to affair after allegations of relationship with Chinese spy"
-      ],
-      "source_headline": "Nvidia investigating reports that CEO Jensen Huang was targeted by Chinese intelligence",
-      "source_url": "https://mainichi.jp/english/articles/20261109/p2g/00m/0bu/004000c",
-      "source_name": "The Mainichi",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-09T05:31:35Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-07T15:09:40Z",
-      "updated_at": "2026-11-09T10:01:10Z",
-      "decay_at": "2026-11-10T17:31:35Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-7260c8f0b174",
       "idea_version": "IDEAV-509322daaf9e3636",
       "idea_version_started_at": "2026-11-09T10:01:10Z",
@@ -227935,16 +227864,16 @@
     },
     {
       "idea_id": "IDEA-49dc08133904",
-      "idea_version": "IDEAV-22b1e5116b421097",
-      "idea_version_started_at": "2026-11-09T12:48:09Z",
+      "idea_version": "IDEAV-d6be874b042d60df",
+      "idea_version_started_at": "2026-11-09T17:16:12Z",
       "ticker": "ARGX",
-      "company": "Argenx",
+      "company": "argenx SE",
       "exchange": "NASDAQ",
       "direction": "long",
       "pair_with": null,
-      "reason": "Argenx is acquiring Unnatural Products in a deal worth up to $1.15 billion, which could expand its product pipeline and market reach.",
-      "why_now": "The acquisition was announced today, November 9, 2026, creating a live M&A event.",
-      "conviction": 60,
+      "reason": "The acquisition of Unnatural Products, Inc. for $1.15 billion expands argenx's pipeline and R&D capabilities in a high-value therapeutic space.",
+      "why_now": "The acquisition agreement was announced today, November 9, 2026.",
+      "conviction": 70,
       "conviction_basis": "pre_edge_proxy",
       "trade_score": 67,
       "trade_score_basis": "event_driven_v3",
@@ -227978,17 +227907,17 @@
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
-        "EVT-0fd0903eaacd"
+        "EVT-6bb7a15aefbb"
       ],
-      "primary_source_event_id": "EVT-0fd0903eaacd",
+      "primary_source_event_id": "EVT-6bb7a15aefbb",
       "source_headlines": [
-        "Argenx to acquire Unnatural Products in deal worth up to $1.15B"
+        "argenx SE Announces Agreement to Acquire Unnatural Products, Inc. for Up to Approximately $1.15 billion"
       ],
-      "source_headline": "Argenx to acquire Unnatural Products in deal worth up to $1.15B",
-      "source_url": "https://endpoints.news/argenx-to-acquire-unnatural-products-in-deal-worth-up-to-1-15b/",
-      "source_name": "Endpoints News",
+      "source_headline": "argenx SE Announces Agreement to Acquire Unnatural Products, Inc. for Up to Approximately $1.15 billion",
+      "source_url": "https://www.nasdaq.com/articles/argenx-se-announces-agreement-acquire-unnatural-products-inc-approximately-115-billion",
+      "source_name": "Nasdaq",
       "materiality_max": 100,
-      "newest_source_at": "2026-11-09T11:23:25Z",
+      "newest_source_at": "2026-11-09T13:12:37Z",
       "prior_coverage": {
         "has_run": false,
         "latest_run": null,
@@ -227996,8 +227925,78 @@
         "data_pool_present": false
       },
       "surfaced_at": "2026-11-09T12:48:09Z",
-      "updated_at": "2026-11-09T12:48:09Z",
-      "decay_at": "2026-11-10T23:23:25Z",
+      "updated_at": "2026-11-09T17:16:12Z",
+      "decay_at": "2026-11-11T01:12:37Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-52cfc7fb7402",
+      "idea_version": "IDEAV-1e111dd47e4e37a5",
+      "idea_version_started_at": "2026-11-09T17:16:12Z",
+      "ticker": "NRG",
+      "company": "NRG Energy",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "NRG Energy is divesting assets for $4 billion while simultaneously reporting improved quarterly earnings, signaling a successful pivot to a leaner, more profitable capital structure.",
+      "why_now": "The asset sale agreement and earnings report were released today, November 9, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-631398db4cc4"
+      ],
+      "primary_source_event_id": "EVT-631398db4cc4",
+      "source_headlines": [
+        "NRG Energy Signs $4 Billion Asset-Sale Agreement, Posts Higher Quarterly Earnings"
+      ],
+      "source_headline": "NRG Energy Signs $4 Billion Asset-Sale Agreement, Posts Higher Quarterly Earnings",
+      "source_url": "https://www.wsj.com/business/earnings/nrg-energy-signs-4-billion-asset-sale-agreement-posts-higher-quarterly-earnings-457b3efe?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-09T13:28:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-09T17:16:12Z",
+      "updated_at": "2026-11-09T17:16:12Z",
+      "decay_at": "2026-11-11T01:28:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -228138,6 +228137,146 @@
       "surfaced_at": "2026-11-08T16:29:22Z",
       "updated_at": "2026-11-08T16:29:22Z",
       "decay_at": "2026-11-09T18:10:20Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-50f379c78b21",
+      "idea_version": "IDEAV-bfa10b0f825651dc",
+      "idea_version_started_at": "2026-11-09T17:16:12Z",
+      "ticker": "NVDA",
+      "company": "NVIDIA",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "NVIDIA faces significant headline risk and potential regulatory scrutiny following reports of a board investigation into the CEO's ties to a foreign intelligence entity, creating a tactical pair trade opportunity against AMD.",
+      "why_now": "The report surfaced today, November 9, 2026, triggering immediate volatility.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-786c3d8ee2a5"
+      ],
+      "primary_source_event_id": "EVT-786c3d8ee2a5",
+      "source_headlines": [
+        "NVIDIA Falls 5% as Board Probes Jensen Huang’s Ties to Alleged Chinese Spy; AMD Rises 4%, Intel Holds Steady"
+      ],
+      "source_headline": "NVIDIA Falls 5% as Board Probes Jensen Huang’s Ties to Alleged Chinese Spy; AMD Rises 4%, Intel Holds Steady",
+      "source_url": "https://247wallst.com/investing/2026/11/09/nvidia-falls-5-as-board-probes-jensen-huangs-ties-to-alleged-chinese-spy-amd-rises-4-intel-holds-steady/",
+      "source_name": "24/7 Wall St.",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-09T13:43:56Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-07T15:09:40Z",
+      "updated_at": "2026-11-09T17:16:12Z",
+      "decay_at": "2026-11-11T01:43:56Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-75faeacb3b26",
+      "idea_version": "IDEAV-3425d52bca5cbb71",
+      "idea_version_started_at": "2026-11-09T17:16:12Z",
+      "ticker": "TLRY",
+      "company": "Tilray",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Tilray has raised its annual guidance, suggesting better-than-expected operational momentum in its core segments.",
+      "why_now": "The guidance revision was announced today, November 9, 2026.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f8c19103ab47"
+      ],
+      "primary_source_event_id": "EVT-f8c19103ab47",
+      "source_headlines": [
+        "Tilray Raises Its Guidance for the Year. Is the Stock Finally Headed on the Right Track?"
+      ],
+      "source_headline": "Tilray Raises Its Guidance for the Year. Is the Stock Finally Headed on the Right Track?",
+      "source_url": "https://www.nasdaq.com/articles/tilray-raises-its-guidance-year-stock-finally-headed-right-track",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-09T13:46:02Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-09T17:16:12Z",
+      "updated_at": "2026-11-09T17:16:12Z",
+      "decay_at": "2026-11-11T01:46:02Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -228490,6 +228629,77 @@
       "surfaced_at": "2026-11-08T23:44:25Z",
       "updated_at": "2026-11-08T23:44:25Z",
       "decay_at": "2026-11-10T11:37:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-1c36c280984a",
+      "idea_version": "IDEAV-9920d305bd48e549",
+      "idea_version_started_at": "2026-11-09T17:16:12Z",
+      "ticker": "00434",
+      "company": "Boyaa Interactive",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company issued a profit alert indicating a significant improvement in earnings performance for the period.",
+      "why_now": "The profit alert was filed with the HKEX today, November 9, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5c09b2da0c8d"
+      ],
+      "primary_source_event_id": "EVT-5c09b2da0c8d",
+      "source_headlines": [
+        "BOYAA (00434): PROFIT ALERT"
+      ],
+      "source_headline": "BOYAA (00434): PROFIT ALERT",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1109/2026110900981.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-09T11:37:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-09T17:16:12Z",
+      "updated_at": "2026-11-09T17:16:12Z",
+      "decay_at": "2026-11-10T23:37:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -230878,79 +231088,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-c4243ebb3cd3",
-      "idea_version": "IDEAV-6fe6bef7f4f26a1d",
-      "idea_version_started_at": "2026-11-08T07:25:21Z",
-      "ticker": "TCHEM",
-      "company": "Tata Chemicals",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Tata Chemicals reported a net loss in Q2 due to rising energy costs and weak soda ash prices, directly impacting its earnings.",
-      "why_now": "The Q2 earnings report was released today, providing the catalyst for the negative earnings surprise.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d0cfc1ae6473"
-      ],
-      "primary_source_event_id": "EVT-d0cfc1ae6473",
-      "source_headlines": [
-        "Tata Chemicals Slips Into ₹50 Crore Loss In Q2, Rising Energy Costs & Weak Soda Ash Prices Hit Earnings"
-      ],
-      "source_headline": "Tata Chemicals Slips Into ₹50 Crore Loss In Q2, Rising Energy Costs & Weak Soda Ash Prices Hit Earnings",
-      "source_url": "https://www.freepressjournal.in/business/tata-chemicals-slips-into-50-crore-loss-in-q2-rising-energy-costs-weak-soda-ash-prices-hit-earnings",
-      "source_name": "Free Press Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-08T05:03:19Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-08T07:25:21Z",
-      "updated_at": "2026-11-08T07:25:21Z",
-      "decay_at": "2026-11-09T17:03:19Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-535e529d3ef7",
       "idea_version": "IDEAV-d7cb22541a8741c6",
       "idea_version_started_at": "2026-11-08T06:58:45Z",
@@ -231161,78 +231298,6 @@
       "surfaced_at": "2026-11-08T06:15:20Z",
       "updated_at": "2026-11-08T06:15:20Z",
       "decay_at": "2026-11-09T18:06:08Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-350fad68c876",
-      "idea_version": "IDEAV-d97d96dfc5ee0506",
-      "idea_version_started_at": "2026-11-08T05:48:41Z",
-      "ticker": "500510",
-      "company": "Adani Enterprises",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Adani Enterprises plans substantial annual capital expenditures of Rs 35,000-40,000 crore over the next two years, signaling significant investment in growth and infrastructure.",
-      "why_now": "The capex plan covers the next two years, making it a current and forward-looking investment commitment.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1a729c9b365c"
-      ],
-      "primary_source_event_id": "EVT-1a729c9b365c",
-      "source_headlines": [
-        "Adani Enterprises plans Rs 35,000-40,000 crore annual capex in next two years"
-      ],
-      "source_headline": "Adani Enterprises plans Rs 35,000-40,000 crore annual capex in next two years",
-      "source_url": "https://economictimes.indiatimes.com/news/company/corporate-trends/adani-enterprises-plans-rs-35000-40000-crore-annual-capex-in-next-two-years/articleshow/135651827.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-08T05:09:07Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-08T05:48:41Z",
-      "updated_at": "2026-11-08T05:48:41Z",
-      "decay_at": "2026-11-09T17:09:07Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -231882,78 +231947,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-7839daa4813e",
-      "idea_version": "IDEAV-27e1250d3b0ab291",
-      "idea_version_started_at": "2026-11-08T05:48:41Z",
-      "ticker": "5108",
-      "company": "Bridgestone",
-      "exchange": "TSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Bridgestone is increasing production of large mining tires, driven by AI-influenced demand, which should boost sales and operational output.",
-      "why_now": "The company is actively revving up output now to meet this AI-driven demand.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-23b8ed13e012"
-      ],
-      "primary_source_event_id": "EVT-23b8ed13e012",
-      "source_headlines": [
-        "Bridgestone revs up output of massive mining tires on AI-driven demand"
-      ],
-      "source_headline": "Bridgestone revs up output of massive mining tires on AI-driven demand",
-      "source_url": "https://asia.nikkei.com/business/automobiles/bridgestone-revs-up-output-of-massive-mining-tires-on-ai-driven-demand",
-      "source_name": "Nikkei Asia",
-      "materiality_max": 89,
-      "newest_source_at": "2026-11-08T05:07:32Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-08T05:48:41Z",
-      "updated_at": "2026-11-08T05:48:41Z",
-      "decay_at": "2026-11-09T17:07:32Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-24c2f9751ec7",
       "idea_version": "IDEAV-b1e925a9043aca93",
       "idea_version_started_at": "2026-11-09T03:31:35Z",
@@ -232091,150 +232084,6 @@
       "surfaced_at": "2026-11-09T00:20:58Z",
       "updated_at": "2026-11-09T00:20:58Z",
       "decay_at": "2026-11-10T12:10:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-6e6b4cb95539",
-      "idea_version": "IDEAV-8e315f1351756ca2",
-      "idea_version_started_at": "2026-11-08T05:48:41Z",
-      "ticker": "2290",
-      "company": "Naseej International Trading Co.",
-      "exchange": "Tadawul",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company's board has recommended a decrease in its capital, which typically signals financial distress or a restructuring that could negatively impact shareholder value.",
-      "why_now": "The board's recommendation is a current action impacting the company's capital structure.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ea5c7c2d3e42"
-      ],
-      "primary_source_event_id": "EVT-ea5c7c2d3e42",
-      "source_headlines": [
-        "Naseej International Trading Co. Announces Board's Recommendation to Decrease the Company's Capital"
-      ],
-      "source_headline": "Naseej International Trading Co. Announces Board's Recommendation to Decrease the Company's Capital",
-      "source_url": "http://english.mubasher.info/news/4697847/Naseej-International-Trading-Co-Announces-Board-s-Recommendation-to-Decrease-the-Company-s-Capital",
-      "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
-      "materiality_max": 85,
-      "newest_source_at": "2026-11-08T05:05:41Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-08T05:48:41Z",
-      "updated_at": "2026-11-08T05:48:41Z",
-      "decay_at": "2026-11-09T17:05:41Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-d5505fc2494c",
-      "idea_version": "IDEAV-d936a778c3c4dcaf",
-      "idea_version_started_at": "2026-11-08T05:29:08Z",
-      "ticker": "ADES",
-      "company": "ADES Holding Company",
-      "exchange": null,
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Securing multi-year contracts for two jackup rigs with ONGC provides immediate revenue visibility and strengthens the company's market share in the Indian offshore drilling sector.",
-      "why_now": "The contract award was announced on 2026-11-08, confirming long-term backlog growth.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9232d27e64a5"
-      ],
-      "primary_source_event_id": "EVT-9232d27e64a5",
-      "source_headlines": [
-        "ADES Secures Multi-Year Contracts for Two Standard Jackup Rigs with ONGC in India, Reinforcing its Long-Term Presence in this Market"
-      ],
-      "source_headline": "ADES Secures Multi-Year Contracts for Two Standard Jackup Rigs with ONGC in India, Reinforcing its Long-Term Presence in this Market",
-      "source_url": "http://english.mubasher.info/news/4697845/ADES-Secures-Multi-Year-Contracts-for-Two-Standard-Jackup-Rigs-with-ONGC-in-India-Reinforcing-its-Long-Term-Presence-in-this-Market",
-      "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
-      "materiality_max": 82,
-      "newest_source_at": "2026-11-08T05:06:37Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-08T05:29:08Z",
-      "updated_at": "2026-11-08T05:29:08Z",
-      "decay_at": "2026-11-09T17:06:37Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -232516,76 +232365,6 @@
       "surfaced_at": "2026-11-06T20:30:17Z",
       "updated_at": "2026-11-06T20:30:17Z",
       "decay_at": "2026-11-08T06:08:36Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-65f4ff924ce7",
-      "idea_version": "IDEAV-7d629aea956b968b",
-      "idea_version_started_at": "2026-11-06T20:30:17Z",
-      "ticker": "BAM",
-      "company": "Brookfield Asset Management",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported strong Q3 2026 results with $25 billion in fundraising and $864 million in fee-related earnings, demonstrating sustained growth in assets under management.",
-      "why_now": "Results were reported on 2026-11-06.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d462f40fb2b2"
-      ],
-      "primary_source_event_id": "EVT-d462f40fb2b2",
-      "source_headlines": [
-        "Brookfield Asset Management Ltd. Reports Third Quarter 2026 Results with $25 Billion Fundraised and $864 Million in Fee-Related Earnings"
-      ],
-      "source_headline": "Brookfield Asset Management Ltd. Reports Third Quarter 2026 Results with $25 Billion Fundraised and $864 Million in Fee-Related Earnings",
-      "source_url": "https://www.nasdaq.com/articles/brookfield-asset-management-ltd-reports-third-quarter-2026-results-25-billion-fundraised",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-06T17:11:39Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-06T20:30:17Z",
-      "updated_at": "2026-11-06T20:30:17Z",
-      "decay_at": "2026-11-08T05:11:39Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -233294,6 +233073,151 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-c4243ebb3cd3",
+      "idea_version": "IDEAV-6fe6bef7f4f26a1d",
+      "idea_version_started_at": "2026-11-08T07:25:21Z",
+      "ticker": "TCHEM",
+      "company": "Tata Chemicals",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Tata Chemicals reported a net loss in Q2 due to rising energy costs and weak soda ash prices, directly impacting its earnings.",
+      "why_now": "The Q2 earnings report was released today, providing the catalyst for the negative earnings surprise.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d0cfc1ae6473"
+      ],
+      "primary_source_event_id": "EVT-d0cfc1ae6473",
+      "source_headlines": [
+        "Tata Chemicals Slips Into ₹50 Crore Loss In Q2, Rising Energy Costs & Weak Soda Ash Prices Hit Earnings"
+      ],
+      "source_headline": "Tata Chemicals Slips Into ₹50 Crore Loss In Q2, Rising Energy Costs & Weak Soda Ash Prices Hit Earnings",
+      "source_url": "https://www.freepressjournal.in/business/tata-chemicals-slips-into-50-crore-loss-in-q2-rising-energy-costs-weak-soda-ash-prices-hit-earnings",
+      "source_name": "Free Press Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-08T05:03:19Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-08T07:25:21Z",
+      "updated_at": "2026-11-08T07:25:21Z",
+      "decay_at": "2026-11-09T17:03:19Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-350fad68c876",
+      "idea_version": "IDEAV-d97d96dfc5ee0506",
+      "idea_version_started_at": "2026-11-08T05:48:41Z",
+      "ticker": "500510",
+      "company": "Adani Enterprises",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Adani Enterprises plans substantial annual capital expenditures of Rs 35,000-40,000 crore over the next two years, signaling significant investment in growth and infrastructure.",
+      "why_now": "The capex plan covers the next two years, making it a current and forward-looking investment commitment.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1a729c9b365c"
+      ],
+      "primary_source_event_id": "EVT-1a729c9b365c",
+      "source_headlines": [
+        "Adani Enterprises plans Rs 35,000-40,000 crore annual capex in next two years"
+      ],
+      "source_headline": "Adani Enterprises plans Rs 35,000-40,000 crore annual capex in next two years",
+      "source_url": "https://economictimes.indiatimes.com/news/company/corporate-trends/adani-enterprises-plans-rs-35000-40000-crore-annual-capex-in-next-two-years/articleshow/135651827.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-08T05:09:07Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-08T05:48:41Z",
+      "updated_at": "2026-11-08T05:48:41Z",
+      "decay_at": "2026-11-09T17:09:07Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-be16a3f18c55",
       "idea_version": "IDEAV-c66b52185cd19788",
       "idea_version_started_at": "2026-11-08T03:38:35Z",
@@ -233504,78 +233428,6 @@
       "surfaced_at": "2026-11-07T07:11:04Z",
       "updated_at": "2026-11-07T23:54:55Z",
       "decay_at": "2026-11-08T07:00:48Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-04ff478f1d78",
-      "idea_version": "IDEAV-b3c870deee36cfb6",
-      "idea_version_started_at": "2026-11-07T22:29:24Z",
-      "ticker": "TTKPRESTIG",
-      "company": "TTK Prestige",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported a 65% surge in Q2 profit to ₹104.4 crore, driven by strong domestic demand for kitchen appliances.",
-      "why_now": "The earnings report was released on 2026-11-06, providing a fresh catalyst for growth momentum.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b06bc41a107d"
-      ],
-      "primary_source_event_id": "EVT-b06bc41a107d",
-      "source_headlines": [
-        "TTK Prestige Q2 profit surges 65% to ₹104.4 crore as domestic sales drive growth"
-      ],
-      "source_headline": "TTK Prestige Q2 profit surges 65% to ₹104.4 crore as domestic sales drive growth",
-      "source_url": "https://www.thehindubusinessline.com/companies/ttk-prestige-q2-profit-surges-65-to-1044-crore-as-domestic-sales-drive-growth/article71675549.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-06T16:39:21Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-07T22:29:24Z",
-      "updated_at": "2026-11-07T22:29:24Z",
-      "decay_at": "2026-11-08T04:39:21Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -234305,6 +234157,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-7839daa4813e",
+      "idea_version": "IDEAV-27e1250d3b0ab291",
+      "idea_version_started_at": "2026-11-08T05:48:41Z",
+      "ticker": "5108",
+      "company": "Bridgestone",
+      "exchange": "TSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Bridgestone is increasing production of large mining tires, driven by AI-influenced demand, which should boost sales and operational output.",
+      "why_now": "The company is actively revving up output now to meet this AI-driven demand.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-23b8ed13e012"
+      ],
+      "primary_source_event_id": "EVT-23b8ed13e012",
+      "source_headlines": [
+        "Bridgestone revs up output of massive mining tires on AI-driven demand"
+      ],
+      "source_headline": "Bridgestone revs up output of massive mining tires on AI-driven demand",
+      "source_url": "https://asia.nikkei.com/business/automobiles/bridgestone-revs-up-output-of-massive-mining-tires-on-ai-driven-demand",
+      "source_name": "Nikkei Asia",
+      "materiality_max": 89,
+      "newest_source_at": "2026-11-08T05:07:32Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-08T05:48:41Z",
+      "updated_at": "2026-11-08T05:48:41Z",
+      "decay_at": "2026-11-09T17:07:32Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-fe0a4c2c5819",
       "idea_version": "IDEAV-4a94a819f302db6e",
       "idea_version_started_at": "2026-11-08T05:48:41Z",
@@ -234521,6 +234445,150 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-6e6b4cb95539",
+      "idea_version": "IDEAV-8e315f1351756ca2",
+      "idea_version_started_at": "2026-11-08T05:48:41Z",
+      "ticker": "2290",
+      "company": "Naseej International Trading Co.",
+      "exchange": "Tadawul",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company's board has recommended a decrease in its capital, which typically signals financial distress or a restructuring that could negatively impact shareholder value.",
+      "why_now": "The board's recommendation is a current action impacting the company's capital structure.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ea5c7c2d3e42"
+      ],
+      "primary_source_event_id": "EVT-ea5c7c2d3e42",
+      "source_headlines": [
+        "Naseej International Trading Co. Announces Board's Recommendation to Decrease the Company's Capital"
+      ],
+      "source_headline": "Naseej International Trading Co. Announces Board's Recommendation to Decrease the Company's Capital",
+      "source_url": "http://english.mubasher.info/news/4697847/Naseej-International-Trading-Co-Announces-Board-s-Recommendation-to-Decrease-the-Company-s-Capital",
+      "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
+      "materiality_max": 85,
+      "newest_source_at": "2026-11-08T05:05:41Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-08T05:48:41Z",
+      "updated_at": "2026-11-08T05:48:41Z",
+      "decay_at": "2026-11-09T17:05:41Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-d5505fc2494c",
+      "idea_version": "IDEAV-d936a778c3c4dcaf",
+      "idea_version_started_at": "2026-11-08T05:29:08Z",
+      "ticker": "ADES",
+      "company": "ADES Holding Company",
+      "exchange": null,
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Securing multi-year contracts for two jackup rigs with ONGC provides immediate revenue visibility and strengthens the company's market share in the Indian offshore drilling sector.",
+      "why_now": "The contract award was announced on 2026-11-08, confirming long-term backlog growth.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9232d27e64a5"
+      ],
+      "primary_source_event_id": "EVT-9232d27e64a5",
+      "source_headlines": [
+        "ADES Secures Multi-Year Contracts for Two Standard Jackup Rigs with ONGC in India, Reinforcing its Long-Term Presence in this Market"
+      ],
+      "source_headline": "ADES Secures Multi-Year Contracts for Two Standard Jackup Rigs with ONGC in India, Reinforcing its Long-Term Presence in this Market",
+      "source_url": "http://english.mubasher.info/news/4697845/ADES-Secures-Multi-Year-Contracts-for-Two-Standard-Jackup-Rigs-with-ONGC-in-India-Reinforcing-its-Long-Term-Presence-in-this-Market",
+      "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
+      "materiality_max": 82,
+      "newest_source_at": "2026-11-08T05:06:37Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-08T05:29:08Z",
+      "updated_at": "2026-11-08T05:29:08Z",
+      "decay_at": "2026-11-09T17:06:37Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-5a971f1aba0f",
       "idea_version": "IDEAV-ceba34f220360a68",
       "idea_version_started_at": "2026-11-08T01:08:34Z",
@@ -234677,29 +234745,29 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 533,
+    "total_count": 536,
     "shown_count": 499,
-    "hidden_count": 34,
+    "hidden_count": 37,
     "side_counts": {
       "long": {
-        "total_count": 272,
+        "total_count": 273,
         "shown_count": 250,
-        "hidden_count": 22
+        "hidden_count": 23
       },
       "short": {
-        "total_count": 262,
+        "total_count": 264,
         "shown_count": 250,
-        "hidden_count": 12
+        "hidden_count": 14
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1732,
+      "evicted_count": 1734,
       "oldest_retained_at": "2026-10-13T12:30:13Z",
       "side_counts": {
         "long": {
-          "evicted_count": 1140,
-          "oldest_retained_at": "2026-10-25T16:05:46Z"
+          "evicted_count": 1142,
+          "oldest_retained_at": "2026-10-25T21:25:44Z"
         },
         "short": {
           "evicted_count": 593,
@@ -234708,6 +234776,382 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-350fad68c876",
+        "idea_version": "IDEAV-d97d96dfc5ee0506",
+        "idea_version_started_at": "2026-11-08T05:48:41Z",
+        "ticker": "500510",
+        "company": "Adani Enterprises",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Adani Enterprises plans substantial annual capital expenditures of Rs 35,000-40,000 crore over the next two years, signaling significant investment in growth and infrastructure.",
+        "why_now": "The capex plan covers the next two years, making it a current and forward-looking investment commitment.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-1a729c9b365c"
+        ],
+        "primary_source_event_id": "EVT-1a729c9b365c",
+        "source_headlines": [
+          "Adani Enterprises plans Rs 35,000-40,000 crore annual capex in next two years"
+        ],
+        "source_headline": "Adani Enterprises plans Rs 35,000-40,000 crore annual capex in next two years",
+        "source_url": "https://economictimes.indiatimes.com/news/company/corporate-trends/adani-enterprises-plans-rs-35000-40000-crore-annual-capex-in-next-two-years/articleshow/135651827.cms",
+        "source_name": "The Economic Times",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-08T05:09:07Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-08T05:48:41Z",
+        "updated_at": "2026-11-08T05:48:41Z",
+        "decay_at": "2026-11-09T17:09:07Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-09T17:09:07Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-7839daa4813e",
+        "idea_version": "IDEAV-27e1250d3b0ab291",
+        "idea_version_started_at": "2026-11-08T05:48:41Z",
+        "ticker": "5108",
+        "company": "Bridgestone",
+        "exchange": "TSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Bridgestone is increasing production of large mining tires, driven by AI-influenced demand, which should boost sales and operational output.",
+        "why_now": "The company is actively revving up output now to meet this AI-driven demand.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 16,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-23b8ed13e012"
+        ],
+        "primary_source_event_id": "EVT-23b8ed13e012",
+        "source_headlines": [
+          "Bridgestone revs up output of massive mining tires on AI-driven demand"
+        ],
+        "source_headline": "Bridgestone revs up output of massive mining tires on AI-driven demand",
+        "source_url": "https://asia.nikkei.com/business/automobiles/bridgestone-revs-up-output-of-massive-mining-tires-on-ai-driven-demand",
+        "source_name": "Nikkei Asia",
+        "materiality_max": 89,
+        "newest_source_at": "2026-11-08T05:07:32Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-08T05:48:41Z",
+        "updated_at": "2026-11-08T05:48:41Z",
+        "decay_at": "2026-11-09T17:07:32Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-09T17:07:32Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-d5505fc2494c",
+        "idea_version": "IDEAV-d936a778c3c4dcaf",
+        "idea_version_started_at": "2026-11-08T05:29:08Z",
+        "ticker": "ADES",
+        "company": "ADES Holding Company",
+        "exchange": null,
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Securing multi-year contracts for two jackup rigs with ONGC provides immediate revenue visibility and strengthens the company's market share in the Indian offshore drilling sector.",
+        "why_now": "The contract award was announced on 2026-11-08, confirming long-term backlog growth.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-9232d27e64a5"
+        ],
+        "primary_source_event_id": "EVT-9232d27e64a5",
+        "source_headlines": [
+          "ADES Secures Multi-Year Contracts for Two Standard Jackup Rigs with ONGC in India, Reinforcing its Long-Term Presence in this Market"
+        ],
+        "source_headline": "ADES Secures Multi-Year Contracts for Two Standard Jackup Rigs with ONGC in India, Reinforcing its Long-Term Presence in this Market",
+        "source_url": "http://english.mubasher.info/news/4697845/ADES-Secures-Multi-Year-Contracts-for-Two-Standard-Jackup-Rigs-with-ONGC-in-India-Reinforcing-its-Long-Term-Presence-in-this-Market",
+        "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
+        "materiality_max": 82,
+        "newest_source_at": "2026-11-08T05:06:37Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-08T05:29:08Z",
+        "updated_at": "2026-11-08T05:29:08Z",
+        "decay_at": "2026-11-09T17:06:37Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-09T17:06:37Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-6e6b4cb95539",
+        "idea_version": "IDEAV-8e315f1351756ca2",
+        "idea_version_started_at": "2026-11-08T05:48:41Z",
+        "ticker": "2290",
+        "company": "Naseej International Trading Co.",
+        "exchange": "Tadawul",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company's board has recommended a decrease in its capital, which typically signals financial distress or a restructuring that could negatively impact shareholder value.",
+        "why_now": "The board's recommendation is a current action impacting the company's capital structure.",
+        "conviction": 50,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-ea5c7c2d3e42"
+        ],
+        "primary_source_event_id": "EVT-ea5c7c2d3e42",
+        "source_headlines": [
+          "Naseej International Trading Co. Announces Board's Recommendation to Decrease the Company's Capital"
+        ],
+        "source_headline": "Naseej International Trading Co. Announces Board's Recommendation to Decrease the Company's Capital",
+        "source_url": "http://english.mubasher.info/news/4697847/Naseej-International-Trading-Co-Announces-Board-s-Recommendation-to-Decrease-the-Company-s-Capital",
+        "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
+        "materiality_max": 85,
+        "newest_source_at": "2026-11-08T05:05:41Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-08T05:48:41Z",
+        "updated_at": "2026-11-08T05:48:41Z",
+        "decay_at": "2026-11-09T17:05:41Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-09T17:05:41Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-c4243ebb3cd3",
+        "idea_version": "IDEAV-6fe6bef7f4f26a1d",
+        "idea_version_started_at": "2026-11-08T07:25:21Z",
+        "ticker": "TCHEM",
+        "company": "Tata Chemicals",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Tata Chemicals reported a net loss in Q2 due to rising energy costs and weak soda ash prices, directly impacting its earnings.",
+        "why_now": "The Q2 earnings report was released today, providing the catalyst for the negative earnings surprise.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-d0cfc1ae6473"
+        ],
+        "primary_source_event_id": "EVT-d0cfc1ae6473",
+        "source_headlines": [
+          "Tata Chemicals Slips Into ₹50 Crore Loss In Q2, Rising Energy Costs & Weak Soda Ash Prices Hit Earnings"
+        ],
+        "source_headline": "Tata Chemicals Slips Into ₹50 Crore Loss In Q2, Rising Energy Costs & Weak Soda Ash Prices Hit Earnings",
+        "source_url": "https://www.freepressjournal.in/business/tata-chemicals-slips-into-50-crore-loss-in-q2-rising-energy-costs-weak-soda-ash-prices-hit-earnings",
+        "source_name": "Free Press Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-08T05:03:19Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-08T07:25:21Z",
+        "updated_at": "2026-11-08T07:25:21Z",
+        "decay_at": "2026-11-09T17:03:19Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-09T17:03:19Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-fe0a4c2c5819",
         "idea_version": "IDEAV-4a94a819f302db6e",
@@ -237157,8 +237601,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-08T05:11:39Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-09T17:16:31Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -237232,8 +237676,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-08T04:39:21Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-09T17:16:31Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -262990,228 +263434,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-faf4a80af724",
-        "idea_version": "IDEAV-90ada29b73f1e48f",
-        "idea_version_started_at": "2026-10-25T09:24:02Z",
-        "ticker": "GODREJPROP",
-        "company": "Godrej Properties",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company is projected to exceed its FY27 pre-sales guidance by 22%, reaching ₹41,500 crore due to sustained demand in the residential real estate market.",
-        "why_now": "The report was published today, October 25, 2026, highlighting a significant upward revision to forward-looking sales expectations.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-6233de9f5d43"
-        ],
-        "primary_source_event_id": "EVT-6233de9f5d43",
-        "source_headlines": [
-          "Godrej Properties pre-sales may rise 22% to ₹41,500 crore in FY27, surpassing guidance on strong demand"
-        ],
-        "source_headline": "Godrej Properties pre-sales may rise 22% to ₹41,500 crore in FY27, surpassing guidance on strong demand",
-        "source_url": "https://www.thehindubusinessline.com/companies/godrej-properties-pre-sales-may-rise-22-to-41500-crore-in-fy27-surpassing-guidance-on-strong-demand/article71622884.ece",
-        "source_name": "The Hindu BusinessLine",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-25T09:01:46Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-25T09:24:02Z",
-        "updated_at": "2026-10-25T09:24:02Z",
-        "decay_at": "2026-10-26T21:01:46Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-28T10:33:46Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-dd03ee33d73c",
-        "idea_version": "IDEAV-f6c3ab8f229f23f2",
-        "idea_version_started_at": "2026-10-25T09:03:43Z",
-        "ticker": "2010.SR",
-        "company": "Saudi Basic Industries Corporation",
-        "exchange": "Saudi Stock Exchange",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The return to profitability in Q3 despite regional geopolitical headwinds indicates successful margin management and operational resilience in a challenging commodity environment.",
-        "why_now": "The earnings release occurred on 2026-10-25, confirming the turnaround in the most recent fiscal quarter.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 65,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-d11c6caa8159"
-        ],
-        "primary_source_event_id": "EVT-d11c6caa8159",
-        "source_headlines": [
-          "Sabic returns to profit in third quarter as revenue rises despite regional conflict"
-        ],
-        "source_headline": "Sabic returns to profit in third quarter as revenue rises despite regional conflict",
-        "source_url": "https://www.thenationalnews.com/business/energy/2026/10/25/sabic-returns-to-profit-in-third-quarter-as-revenue-rises-despite-regional-conflict/",
-        "source_name": "The National — Business",
-        "materiality_max": 93,
-        "newest_source_at": "2026-10-25T08:53:08Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-25T09:03:43Z",
-        "updated_at": "2026-10-25T09:03:43Z",
-        "decay_at": "2026-10-26T20:53:08Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-28T08:58:44Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-b233a671a3eb",
-        "idea_version": "IDEAV-ac61edd1d89ff2cf",
-        "idea_version_started_at": "2026-10-25T08:08:42Z",
-        "ticker": "BYDDF",
-        "company": "BYD",
-        "exchange": "OTC Markets",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Establishing local manufacturing in Europe allows BYD to bypass punitive import tariffs on Chinese-made electric vehicles, protecting its margins and market share in a key growth region.",
-        "why_now": "The announcement on October 25, 2026, serves as a direct strategic response to the immediate implementation of trade barriers.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 65,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "policy_conditional",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-aa3dc7afff92"
-        ],
-        "primary_source_event_id": "EVT-aa3dc7afff92",
-        "source_headlines": [
-          "BYD to build new factories in Europe to combat strict trade barriers targeting Chinese EVs"
-        ],
-        "source_headline": "BYD to build new factories in Europe to combat strict trade barriers targeting Chinese EVs",
-        "source_url": "https://www.scmp.com/business/china-evs/article/3372001/byd-build-new-factories-europe-combat-strict-trade-barriers-targeting-chinese-evs",
-        "source_name": "South China Morning Post",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-25T08:00:09Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-25T08:08:42Z",
-        "updated_at": "2026-10-25T08:08:42Z",
-        "decay_at": "2026-10-26T20:00:09Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-28T08:30:04Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-661a368ec8c5",
         "idea_version": "IDEAV-5fa30e01e95af5b6",
         "idea_version_started_at": "2026-10-25T08:28:56Z",
@@ -271699,161 +271921,12 @@
         "archived_at": "2026-10-16T00:20:19Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-d0f2bedd1bed",
-        "idea_version": "IDEAV-89ab38a22830460b",
-        "idea_version_started_at": "2026-10-13T09:12:26Z",
-        "ticker": "01999.HK",
-        "company": "Man Wah Holdings",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Profit warning signals lower expected earnings, pressuring the share price.",
-        "why_now": "Inside information filing dated 2026-10-13 delivers the warning.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-36b5f0a6bdb3"
-        ],
-        "primary_source_event_id": "EVT-36b5f0a6bdb3",
-        "source_headlines": [
-          "MAN WAH HLDGS (01999): INSIDE INFORMATION PROFIT WARNING"
-        ],
-        "source_headline": "MAN WAH HLDGS (01999): INSIDE INFORMATION PROFIT WARNING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1013/2026101300015.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-13T00:00:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-13T09:12:26Z",
-        "updated_at": "2026-10-13T09:12:26Z",
-        "decay_at": "2026-10-14T12:00:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-16T00:20:19Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-3d0aac23addf",
-        "idea_version": "IDEAV-187d5119d82ff758",
-        "idea_version_started_at": "2026-10-13T09:12:26Z",
-        "ticker": "SIX",
-        "company": "Six Flags",
-        "exchange": "NYSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Roller‑coaster accident raises liability and reputational risks that could hurt attendance and earnings.",
-        "why_now": "Incident reported on 2026-10-12 creates an immediate overhang.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 44,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 13,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-e0dc0125b5c3"
-        ],
-        "primary_source_event_id": "EVT-e0dc0125b5c3",
-        "source_headlines": [
-          "One dead and more injured after incident on Six Flags rollercoaster in US"
-        ],
-        "source_headline": "One dead and more injured after incident on Six Flags rollercoaster in US",
-        "source_url": "https://www.theguardian.com/us-news/2026/oct/13/six-flags-georgia-death-rollercoaster",
-        "source_name": "The Guardian — World news",
-        "materiality_max": 89,
-        "newest_source_at": "2026-10-12T23:51:55Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-13T09:12:26Z",
-        "updated_at": "2026-10-13T09:12:26Z",
-        "decay_at": "2026-10-14T11:51:55Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-16T00:20:19Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2329,
-    "live_count": 63,
+    "surfaced_total": 2332,
+    "live_count": 61,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -271872,9 +271945,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2906318,
+    "news_seen_today": 3016492,
     "news_picked_today": 1053,
-    "news_dropped_today": 8697
+    "news_dropped_today": 8769
   },
   "book_momentum": {
     "live_count": 8,
