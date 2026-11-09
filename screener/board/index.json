@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T07:40:57Z",
+  "generated_at": "2026-11-09T07:45:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-286",
@@ -348,6 +348,55 @@
           "name": "Banco BPM",
           "ticker": null,
           "listing_country": "IT"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-292",
+      "headline": "Sipchem’s net losses deepen 173% in 9M-26 results",
+      "headline_en": null,
+      "url": "http://english.mubasher.info/news/4698715/Sipchem-s-net-losses-deepen-173-in-9M-26-results",
+      "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T07:10:10Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Sipchem reported a 173% deepening of net losses for 9M-26.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Sipchem reported a 173% deepening of net losses for 9M-26.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sipchem",
+          "ticker": null,
+          "listing_country": "SA"
         }
       ],
       "size_bucket": "large",
@@ -1913,49 +1962,6 @@
       "launched_signal_id": null,
       "triage_score": 99,
       "triage_reason": "Geopolitical escalation risk regarding potential fresh strikes in the US-Iran conflict.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-040",
-      "headline": "Hacked records show 400,000 Russians killed in war on Ukraine",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/news/2026/11/09/world/hacked-russians-killed-ukraine/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T00:40:00Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "The report of 400,000 casualties in the Russia-Ukraine war represents a significant escalation in the human and geopolitical cost of the conflict, impacting global risk sentiment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "The report of 400,000 casualties in the Russia-Ukraine war represents a significant escalation in the human and geopolitical cost of the conflict, impacting global risk sentiment.",
       "region": "GLOBAL",
       "relevance": "material",
       "materiality_pre_score": 75,
@@ -272273,9 +272279,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 207845,
-    "news_picked_today": 444,
-    "news_dropped_today": 4794
+    "news_seen_today": 215118,
+    "news_picked_today": 449,
+    "news_dropped_today": 4813
   },
   "book_momentum": {
     "live_count": 8,
