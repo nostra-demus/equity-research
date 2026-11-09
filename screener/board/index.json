@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T11:32:45Z",
+  "generated_at": "2026-11-09T11:34:23Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-309",
@@ -546,6 +546,60 @@
           "name": "Baemin",
           "ticker": null,
           "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-329",
+      "headline": "Argenx to acquire Unnatural Products in deal worth up to $1.15B",
+      "headline_en": null,
+      "url": "https://endpoints.news/argenx-to-acquire-unnatural-products-in-deal-worth-up-to-1-15b/",
+      "source_name": "Endpoints News",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T11:23:25Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Argenx is acquiring Unnatural Products for up to $1.15B.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Argenx is acquiring Unnatural Products for up to $1.15B.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Argenx",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Unnatural Products",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -1941,55 +1995,6 @@
       "launched_signal_id": null,
       "triage_score": 100,
       "triage_reason": "Nvidia CEO Jensen Huang is under investigation following reports of an affair with an alleged foreign intelligence asset, posing a significant management and reputational risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-112",
-      "headline": "‘I take full responsibility’: Full text of Jensen Huang’s letter to Nvidia employees admitting affair with Chinese spy",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/people/i-take-full-responsibility-full-text-of-jensen-huang-s-letter-to-nvidia-employees-admitting-affair-with-chinese-spy-11794189475047.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T02:10:50Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Nvidia CEO Jensen Huang admitted to an affair with a foreign intelligence asset, creating severe operational and national security risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia CEO Jensen Huang admitted to an affair with a foreign intelligence asset, creating severe operational and national security risk.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 85,
@@ -271950,9 +271955,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1011433,
-    "news_picked_today": 633,
-    "news_dropped_today": 6669
+    "news_seen_today": 1025805,
+    "news_picked_today": 640,
+    "news_dropped_today": 6686
   },
   "book_momentum": {
     "live_count": 8,
