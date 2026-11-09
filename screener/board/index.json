@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T06:17:42Z",
+  "generated_at": "2026-11-09T06:28:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-226",
@@ -404,6 +404,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-258",
+      "headline": "Gland Pharma shares jump 4% after Q2 profit jumps 58%, revenue rises 23% YoY",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/gland-pharma-shares-jump-4-as-q2-profit-jumps-58-revenue-rises-23-yoy/articleshow/135671961.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T05:26:55Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Gland Pharma reported a 58% jump in Q2 profit and 23% revenue growth, driving a 4% share price increase.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Gland Pharma reported a 58% jump in Q2 profit and 23% revenue growth, driving a 4% share price increase.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Gland Pharma",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1928,55 +1977,6 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-221",
-      "headline": "Divi’s Laboratories shares gain another 5% after Q2 results. Here’s why Jefferies raised target price by 23%",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/divis-laboratories-shares-gain-another-5-after-q2-results-heres-why-jefferies-raised-target-price-by-23/articleshow/135671615.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T05:09:29Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Jefferies raised the target price for Divi's Laboratories by 23% following strong Q2 results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Jefferies raised the target price for Divi's Laboratories by 23% following strong Q2 results.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Divi's Laboratories",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -272345,9 +272345,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 49097,
-    "news_picked_today": 337,
-    "news_dropped_today": 3581
+    "news_seen_today": 65474,
+    "news_picked_today": 361,
+    "news_dropped_today": 4253
   },
   "book_momentum": {
     "live_count": 8,
