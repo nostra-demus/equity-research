@@ -1,0 +1,352 @@
+{
+  "schema_version": "1.0",
+  "ticker": "DHER",
+  "original_decision_date": "2026-08-12",
+  "review_date": "2026-11-10",
+  "review_window": "90d",
+  "original_decision": "Avoid",
+  "basket": "Rejected",
+  "entry_price": 37.2,
+  "tracking_price": null,
+  "review_price": 37.07,
+  "absolute_return_pct": -0.3494623655914047,
+  "benchmark_return_pct": null,
+  "sector_return_pct": null,
+  "benchmark_relative_return_pct": null,
+  "sector_relative_return_pct": null,
+  "thesis_status": "on-track",
+  "forecast_results": [
+    {
+      "forecast_id": "DHER-2026-08-12-F01",
+      "prediction": "FQ2 2026 reported revenue prints below EUR3,750m (the material-miss threshold), consistent with the CIQ-computed reported-currency growth trend rather than management's higher like-for-like framing.",
+      "status": "not assessable",
+      "evidence": "E1: revenue EUR4,024.5m is within EUR3,750m–4,050m; neither frozen trigger fires. Later Q3 growth cannot settle this Q2 forecast. [Web: Delivery Hero Q2/H1 results, KPI table, 2026-08-27; retrieved 2026-11-10 IST (indicative/unverified; outside original frozen pool): https://www.deliveryhero.com/newsroom/delivery-hero-raises-full-year-2026-guidance-as-everyday-app-strategy-drives-further-acceleration-in-growth-2/]",
+      "as_of": "2026-11-10"
+    },
+    {
+      "forecast_id": "DHER-2026-08-12-F02",
+      "prediction": "H1 2026 Adjusted EBITDA prints above EUR460m, consistent with an on-pace-for-upper-half FY2026 result.",
+      "status": "not assessable",
+      "evidence": "E1: adjusted EBITDA EUR426.7m is within EUR390m–460m; neither frozen trigger fires. [Web: Delivery Hero Q2/H1 results, KPI table, 2026-08-27; retrieved 2026-11-10 IST (indicative/unverified; outside original frozen pool): https://www.deliveryhero.com/newsroom/delivery-hero-raises-full-year-2026-guidance-as-everyday-app-strategy-drives-further-acceleration-in-growth-2/]",
+      "as_of": "2026-11-10"
+    },
+    {
+      "forecast_id": "DHER-2026-08-12-F03",
+      "prediction": "FY2026 reported (unadjusted) free cash flow misses the >EUR200m guided floor, repeating the same 'extraordinary items' exclusion pattern that produced a -EUR366m swing against guide in FY2025.",
+      "status": "still open",
+      "evidence": "FY2026 has not ended. E3 guidance uses exclusions and cannot settle the frozen unadjusted CFO-minus-capex threshold of EUR200m. [Web: Delivery Hero Q3 trading update, outlook and footnote 3, 2026-10-28; retrieved 2026-11-10 IST (indicative/unverified; outside original frozen pool): https://ir.deliveryhero.com/news/delivery-hero-hits-one-billion-orders-in-q3-as-growth-accelerates-further-raises-full-year-guidance/570346a6-5fee-4330-b7e1-b5a40b8b9d4c]",
+      "as_of": "2026-11-10"
+    },
+    {
+      "forecast_id": "DHER-2026-08-12-F04",
+      "prediction": "The BaFin-approved Offer Document for Uber's tender is published within 2026, opening the WpUeG acceptance period.",
+      "status": "confirmed",
+      "evidence": "E2 directly confirms publication within 2026; independently rechecked rather than inferred from the prior review. It does not confirm settlement. [Web: Uber offer-document publication, offer price/acceptance/settlement, 2026-08-27; retrieved 2026-11-10 IST (indicative/unverified; outside original frozen pool): https://investor.uber.com/news-events/news/press-release-details/2026/Uber-Publishes-Offer-Document-for-its-Takeover-Offer-for-Delivery-Hero/default.aspx]",
+      "as_of": "2026-11-10"
+    },
+    {
+      "forecast_id": "DHER-2026-08-12-F05",
+      "prediction": "When published, the FY2025 audited Annual Report's Independent Auditor's Report retains the 'Material Uncertainty about the Ability of Subsidiaries to Continue as a Going Concern' language on Glovo Spain rather than removing it.",
+      "status": "still open",
+      "evidence": "The December 31 window remains open. No matching FY2025 independent auditor paragraph was established in this bounded review; retention/removal is not inferred from silence or a trading update.",
+      "as_of": "2026-11-10"
+    },
+    {
+      "forecast_id": "DHER-2026-08-12-F06",
+      "prediction": "Uber's tender offer for Delivery Hero completes within the guided H2 2027 window at a per-share cash consideration at or above the currently reported (unverified) ~EUR41.50.",
+      "status": "still open",
+      "evidence": "The H2 2027 settlement window has not arrived; neither completion nor an early termination was established. The elapsed acceptance deadline does not prove acceptance or completion. [Web: Uber offer-document publication, offer price/acceptance/settlement, 2026-08-27; retrieved 2026-11-10 IST (indicative/unverified; outside original frozen pool): https://investor.uber.com/news-events/news/press-release-details/2026/Uber-Publishes-Offer-Document-for-its-Takeover-Offer-for-Delivery-Hero/default.aspx; Web: Delivery Hero Q3 trading update, outlook and footnote 3, 2026-10-28; retrieved 2026-11-10 IST (indicative/unverified; outside original frozen pool): https://ir.deliveryhero.com/news/delivery-hero-hits-one-billion-orders-in-q3-as-growth-accelerates-further-raises-full-year-guidance/570346a6-5fee-4330-b7e1-b5a40b8b9d4c]",
+      "as_of": "2026-11-10"
+    }
+  ],
+  "catalyst_results": [
+    {
+      "catalyst": "FQ2 2026 results",
+      "status": "materialized",
+      "evidence": "E1 establishes publication; neither individual quarterly/half-year forecast resolves. [Web: Delivery Hero Q2/H1 results, KPI table, 2026-08-27; retrieved 2026-11-10 IST (indicative/unverified; outside original frozen pool): https://www.deliveryhero.com/newsroom/delivery-hero-raises-full-year-2026-guidance-as-everyday-app-strategy-drives-further-acceleration-in-growth-2/]",
+      "as_of": "2026-11-10"
+    },
+    {
+      "catalyst": "Taiwan business disposal, close",
+      "status": "not",
+      "evidence": "E4: regulatory approval was declined; the original H2 2026 planned-close catalyst has not occurred. This is a different transaction from Uber's takeover. [Web: Delivery Hero Q3 trading update, Taiwan update reporting October 21 decision, 2026-10-28; retrieved 2026-11-10 IST (indicative/unverified; outside original frozen pool): https://ir.deliveryhero.com/news/delivery-hero-hits-one-billion-orders-in-q3-as-growth-accelerates-further-raises-full-year-guidance/570346a6-5fee-4330-b7e1-b5a40b8b9d4c]",
+      "as_of": "2026-11-10"
+    },
+    {
+      "catalyst": "EU Platform Work Directive transposition deadline",
+      "status": "pending",
+      "evidence": "No jurisdiction-matched implementation or rider ruling was verified; a calendar deadline alone does not establish a company liability.",
+      "as_of": "2026-11-10"
+    },
+    {
+      "catalyst": "Offer Document publication (BaFin approval)",
+      "status": "materialized",
+      "evidence": "E2 establishes publication, not final regulatory completion. [Web: Uber offer-document publication, offer price/acceptance/settlement, 2026-08-27; retrieved 2026-11-10 IST (indicative/unverified; outside original frozen pool): https://investor.uber.com/news-events/news/press-release-details/2026/Uber-Publishes-Offer-Document-for-its-Takeover-Offer-for-Delivery-Hero/default.aspx]",
+      "as_of": "2026-11-10"
+    },
+    {
+      "catalyst": "Uber acquisition, closing",
+      "status": "pending",
+      "evidence": "H2 2027 remains the stated expected window, subject to conditions; no acceptance-result notice was established in the bounded check. [Web: Uber offer-document publication, offer price/acceptance/settlement, 2026-08-27; retrieved 2026-11-10 IST (indicative/unverified; outside original frozen pool): https://investor.uber.com/news-events/news/press-release-details/2026/Uber-Publishes-Offer-Document-for-its-Takeover-Offer-for-Delivery-Hero/default.aspx; Web: Delivery Hero Q3 trading update, outlook and footnote 3, 2026-10-28; retrieved 2026-11-10 IST (indicative/unverified; outside original frozen pool): https://ir.deliveryhero.com/news/delivery-hero-hits-one-billion-orders-in-q3-as-growth-accelerates-further-raises-full-year-guidance/570346a6-5fee-4330-b7e1-b5a40b8b9d4c]",
+      "as_of": "2026-11-10"
+    },
+    {
+      "catalyst": "Post-closing squeeze-out / domination agreement",
+      "status": "pending",
+      "evidence": "Closing itself remains unresolved; no completed squeeze-out or minority-stub outcome was established.",
+      "as_of": "2026-11-10"
+    }
+  ],
+  "risk_results": [
+    {
+      "risk_id": "DISQ-01",
+      "risk": "Auditor going-concern note (KPMG) -- subsidiary-level 'Material Uncertainty about the Ability of Subsidiaries to Continue as a Going Concern,' Glovo Spain rider-classification risk, contingent liability EUR440-770m; hard disqualifier locks the business-model verdict at 'Low-quality business -- avoid deeper work.'",
+      "status": "not assessable",
+      "evidence": "Frozen Critical flag remains an unresolved restriction. This review establishes no primary evidence resolving or quantifying its current outcome; a repeated flag is not a new independent event. [decision_record.json, 2026-08-12, red_flags]",
+      "as_of": "2026-11-10"
+    },
+    {
+      "risk_id": "GOV-DISQ",
+      "risk": "Governance risk floored at 80/100 via Disqualifier Deference on the same going-concern note; stewardship verdict capped at 'Serious governance concerns.'",
+      "status": "not assessable",
+      "evidence": "Frozen Critical flag remains an unresolved restriction. This review establishes no primary evidence resolving or quantifying its current outcome; a repeated flag is not a new independent event. [decision_record.json, 2026-08-12, red_flags]",
+      "as_of": "2026-11-10"
+    },
+    {
+      "risk_id": "EARN-CRIT-1",
+      "risk": "FY2025 cash-conversion collapse (CFO/Adjusted EBITDA 8.8%) and the '+EUR250m FCF' headline exclude an implied ~EUR600-650m cash outflow tied to the same going-concern-adjacent Glovo Spain exposure -- the connection was made only by 08_earnings-red-flags, not by earnings agents 00-07.",
+      "status": "not assessable",
+      "evidence": "Frozen Critical flag remains an unresolved restriction. This review establishes no primary evidence resolving or quantifying its current outcome; a repeated flag is not a new independent event. [decision_record.json, 2026-08-12, red_flags]",
+      "as_of": "2026-11-10"
+    },
+    {
+      "risk_id": "EARN-CRIT-2",
+      "risk": "The identical FCF-exclusion methodology stands as FY2026 guidance policy; a recurring outflow could let the FY2026 print look 'on guide' while cash generation disappoints.",
+      "status": "not assessable",
+      "evidence": "Frozen Critical flag remains an unresolved restriction. This review establishes no primary evidence resolving or quantifying its current outcome; a repeated flag is not a new independent event. [decision_record.json, 2026-08-12, red_flags]",
+      "as_of": "2026-11-10"
+    },
+    {
+      "risk_id": "RF-CAP-004",
+      "risk": "Serial-acquirer pattern -- EUR2,054m cumulative goodwill impairment FY2021-2025 against the Woowa (~$4.0bn) and Glovo (EUR2.3bn) mega-deals; caps capital allocation at 50 and floors governance risk at 60 (superseded by the higher disqualifier floor of 80).",
+      "status": "not assessable",
+      "evidence": "Frozen High flag remains an unresolved restriction. This review establishes no primary evidence resolving or quantifying its current outcome; a repeated flag is not a new independent event. [decision_record.json, 2026-08-12, red_flags]",
+      "as_of": "2026-11-10"
+    },
+    {
+      "risk_id": "RF-MGT-004",
+      "risk": "Turnaround claimed without >=2-3 years delivered operating inflection on the statutory metric -- only 1 clean fiscal year (FY2025) of positive GAAP operating profit after 4 years of losses; management quality capped at 60.",
+      "status": "not assessable",
+      "evidence": "Frozen High flag remains an unresolved restriction. This review establishes no primary evidence resolving or quantifying its current outcome; a repeated flag is not a new independent event. [decision_record.json, 2026-08-12, red_flags]",
+      "as_of": "2026-11-10"
+    },
+    {
+      "risk_id": "RF-CAP-001",
+      "risk": "Change-of-control provision fully and unconditionally vests all Management Board members' unvested equity on resignation within 3 months of a change of control -- a personal, price-independent incentive to see the pending Uber deal close.",
+      "status": "not assessable",
+      "evidence": "Frozen High flag remains an unresolved restriction. This review establishes no primary evidence resolving or quantifying its current outcome; a repeated flag is not a new independent event. [decision_record.json, 2026-08-12, red_flags]",
+      "as_of": "2026-11-10"
+    },
+    {
+      "risk_id": "RF-DISC-001",
+      "risk": "The absolute FY2025 statutory net loss (-EUR782.9m) was never spoken aloud on the earnings call; only the EUR183m YoY improvement was verbalized.",
+      "status": "not assessable",
+      "evidence": "Frozen High flag remains an unresolved restriction. This review establishes no primary evidence resolving or quantifying its current outcome; a repeated flag is not a new independent event. [decision_record.json, 2026-08-12, red_flags]",
+      "as_of": "2026-11-10"
+    },
+    {
+      "risk_id": "RF-DISC-002",
+      "risk": "Goodwill impairment recorded in every one of the last 5 fiscal years; GAAP-to-Adjusted-EBITDA gap is 66% of the adjusted figure in FY2025 and exceeds 100% in FY2024.",
+      "status": "not assessable",
+      "evidence": "Frozen High flag remains an unresolved restriction. This review establishes no primary evidence resolving or quantifying its current outcome; a repeated flag is not a new independent event. [decision_record.json, 2026-08-12, red_flags]",
+      "as_of": "2026-11-10"
+    },
+    {
+      "risk_id": "RF-EQ-002",
+      "risk": "Cash conversion (CFO/Adjusted EBITDA) at 8.8% FY2025; 2 of the last 3 fiscal years below 50%.",
+      "status": "not assessable",
+      "evidence": "Frozen High flag remains an unresolved restriction. This review establishes no primary evidence resolving or quantifying its current outcome; a repeated flag is not a new independent event. [decision_record.json, 2026-08-12, red_flags]",
+      "as_of": "2026-11-10"
+    },
+    {
+      "risk_id": "RF-OBS-001",
+      "risk": "Spain rider-reclassification contingent liability: EUR520-860m unrecognized (FY2025) on top of EUR492.2m already provisioned (FY2024) and EUR524.0m already paid (FY2025) for the same matter.",
+      "status": "not assessable",
+      "evidence": "Frozen High flag remains an unresolved restriction. This review establishes no primary evidence resolving or quantifying its current outcome; a repeated flag is not a new independent event. [decision_record.json, 2026-08-12, red_flags]",
+      "as_of": "2026-11-10"
+    },
+    {
+      "risk_id": "RF-BQ-005",
+      "risk": "Fast-changing industry / disruption risk (rate-of-change score 26/100, <=40 threshold, CLAUDE.md Section 24 Filter 5) -- thesis flagged as a sector/technology-cycle bet; the industry is still being sorted by live M&A (DoorDash-Deliveroo, Uber-DHER itself).",
+      "status": "not assessable",
+      "evidence": "Frozen High flag remains an unresolved restriction. This review establishes no primary evidence resolving or quantifying its current outcome; a repeated flag is not a new independent event. [decision_record.json, 2026-08-12, red_flags]",
+      "as_of": "2026-11-10"
+    },
+    {
+      "risk_id": "MOSAIC-2026-08-12",
+      "risk": "Cross-module forensic mosaic per CLAUDE.md Section 13: RF-EQ-002 (earnings) + RF-OBS-001 (balance-sheet-survival) + RF-DISC-001 + RF-DISC-002 (management-governance) = 4 distinct tags across 3 modules. Compounds into a single High accounting-integrity flag. Does not further restrict the headline since 'Avoid' is already more conservative than the 'Starter Position Only' ceiling this cap would otherwise impose on a Buy-side rating.",
+      "status": "not assessable",
+      "evidence": "Frozen High flag remains an unresolved restriction. This review establishes no primary evidence resolving or quantifying its current outcome; a repeated flag is not a new independent event. [decision_record.json, 2026-08-12, red_flags]",
+      "as_of": "2026-11-10"
+    },
+    {
+      "risk": "Taiwan disposal approval / expected deleveraging",
+      "status": "materialized",
+      "evidence": "E4 establishes the failed regulatory approval. Do not count expected sale cash as received or infer a loss amount from this announcement. [Web: Delivery Hero Q3 trading update, Taiwan update reporting October 21 decision, 2026-10-28; retrieved 2026-11-10 IST (indicative/unverified; outside original frozen pool): https://ir.deliveryhero.com/news/delivery-hero-hits-one-billion-orders-in-q3-as-growth-accelerates-further-raises-full-year-guidance/570346a6-5fee-4330-b7e1-b5a40b8b9d4c]",
+      "as_of": "2026-11-10"
+    },
+    {
+      "risk": "Pre-mortem killer risk: one subsidiary uncertainty counted repeatedly and overly weighted in Avoid",
+      "status": "not assessable",
+      "evidence": "The original pre-mortem identified this decision-time concern, but later price movement or current guidance does not prove whether the materiality-weighted alternative call would have succeeded. [pre_mortem.json, 2026-08-12, killer_risk]",
+      "as_of": "2026-11-10"
+    }
+  ],
+  "decision_quality": "not assessable",
+  "error_taxonomy": [],
+  "lessons": [
+    "On-track means unresolved, not proven correct; the original Avoid/Rejected call was no trade. No executed position or avoided-loss success is claimed.",
+    "Indicative price comparison only: EUR37.20 frozen anchor dated August 7 to EUR37.07 Xetra close November 9, 2026, 17:35:01 CET: (37.07-37.20)/37.20*100 = -0.3494623656%. The anchor predates the August 12 decision and November 10 market close is not yet available; this is not an exact 90-day return. [Web: MarketScreener, DHER Xetra EUR close at 17:35:01 CET, 2026-11-09; retrieved 2026-11-10 IST (indicative/unverified; outside original frozen pool): https://nl.marketscreener.com/koers/aandeel/DELIVERY-HERO-SE-36718506/koersen/; decision_record.json, entry_price_timestamp]",
+    "The local data/_market feed is absent. No STOXX Europe 600 total-return series for August 7–November 9 was verified in the bounded public-source check. The frozen sector label also mixes an index and an undefined peer basket. Relative-return fields remain null; no alternative benchmark is substituted.",
+    "The indicative price change excludes dividends, costs and an executable portfolio policy. Drawdown, total return, annual returns, compounded growth and repeatability are unmeasured; no portfolio-return claim follows.",
+    "The August 27 offer publication was already recorded at the 30-day review and is not a new improvement at 90 days. New October outcome evidence is separated from decision-time process evidence.",
+    "Q2 revenue and H1 adjusted EBITDA remain within their declared inconclusive bands. Improved Q3 reported growth does not retroactively resolve either forecast or prove the earlier growth-basis bridge.",
+    "The original pre-mortem already identified the danger of repeating and over-weighting one subsidiary-level uncertainty. This is an existing decision-time concern, not a new hindsight error finding; it is not counted as multiple independent risks.",
+    "The higher excluded-items cash-flow outlook is not evidence that unadjusted cash flow cleared the original threshold. The Taiwan sale and Uber takeover are separate transactions.",
+    "No full financial model, module output, frozen evidence or original decision was updated; reruns below are recommendations only, not authorization for spending or production actions."
+  ],
+  "module_calibration_notes": {
+    "most_responsible": "Decision-time business-model/governance disqualifier locks and balance-sheet/cash-quality concerns drove Avoid. [decision_record.json and pre_mortem.json, 2026-08-12]",
+    "most_accurate": "One catalyst publication forecast is confirmed; two short-window tests are inconclusive. This single issuer does not establish module forecasting skill.",
+    "missed_key_variable": "No new decision-time omission is established. The pre-mortem had already raised correlated-flag/materiality concerns; the October developments are outcome facts.",
+    "confidence_at_decision": "Retain final frozen conviction 27/100 after the 8-point decision-time haircut. No hindsight numerical revision.",
+    "outcome_assessment": "Earnings improvement weakens parts of Avoid while the Taiwan block supports a disposal-risk caution. Matched relative returns and resolved long-horizon outcomes remain missing."
+  },
+  "action_now": {
+    "label": "Stay away",
+    "reason": "The original Avoid remains the frozen call; stronger guidance and confirmed offer terms do not clear unresolved audit, cash-quality, regulatory and valuation restrictions."
+  },
+  "confidence_update": {
+    "before": 27.0,
+    "after": null,
+    "change_reason": "Mixed outcome evidence and missing matched performance evidence do not support a calibrated new conviction score."
+  },
+  "next_check": {
+    "date": "2027-02-08",
+    "label": "180-day checkpoint: offer acceptance/conditions, statutory cash flow and auditor language",
+    "trigger": "Obtain a dated acceptance-result notice and remaining approvals; test the original FY2025 auditor-paragraph forecast and the reported-versus-excluded cash-flow bridge. Review earlier if a definitive offer or audit disclosure arrives."
+  },
+  "learning": {
+    "why_right_or_wrong": "Price skill and final thesis accuracy remain unresolved. The indicative stock-price change is not a benchmark-relative result; confirmed offer terms and higher guidance are counterevidence to parts of Avoid, while the Taiwan approval failure supports caution.",
+    "error_source": "",
+    "rule_for_future": "Retain the original trigger bands and reporting bases; the decision-time pre-mortem already warned that one subsidiary uncertainty must not be counted repeatedly as independent evidence.",
+    "future_research_check": "For DHER, verify actual takeover acceptance and remaining conditions, reconcile unadjusted CFO-minus-capex to legal-item exclusions, and inspect the auditor's exact subsidiary-versus-group language before reconsidering the original Avoid."
+  },
+  "memo_delta": {
+    "summary": "Confirmed offer terms and the stronger earnings outlook weaken parts of the original Avoid case. The blocked Taiwan sale supports caution about expected debt reduction. The overall call remains unresolved; no upgrade, completed takeover, or investment skill is established.",
+    "thesis_delta_verdict": "weakened",
+    "stage_one_comment": "Delivery Hero remains a review of the original Avoid call, with current action Stay away. Confirmed offer terms and a stronger earnings outlook weaken parts of the original bearish case. The planned Taiwan sale failed regulatory approval, which supports caution about expected debt reduction. The cash-flow outlook still excludes certain legal payments, so it cannot settle the original forecast about unadjusted cash generation. Two early forecasts remain inconclusive, one document-publication forecast is confirmed, and three longer forecasts remain open. The November 5 acceptance deadline has passed, but this review has not established an acceptance-result notice or completed takeover. A dated Xetra close allows an indicative price comparison; a matched benchmark return is missing, so no relative-performance or skill claim follows. Keep the original decision and model unchanged, and verify the outstanding terms, cash flows and auditor language before reconsidering entry.",
+    "changed_sections": [
+      {
+        "section": "3. The Variant Perception / 12. What We'd Need to Get More Confident",
+        "original_claim": "The EUR41.50 offer lacked primary-source confirmation in the decision-time pool.",
+        "new_evidence": "The bidder published the approved offer document on August 27 at EUR41.50 cash per share; acceptance deadline November 5. Expected settlement remains H2 2027, subject to conditions.",
+        "evidence_source": "Web: Uber offer-document publication, offer price/acceptance/settlement, 2026-08-27; retrieved 2026-11-10 IST (indicative/unverified; outside original frozen pool): https://investor.uber.com/news-events/news/press-release-details/2026/Uber-Publishes-Offer-Document-for-its-Takeover-Offer-for-Delivery-Hero/default.aspx",
+        "materiality_score": 85,
+        "impact_direction": "positive",
+        "impacted_modules": [
+          "catalyst"
+        ],
+        "rerun_recommended": true,
+        "rerun_reason": "A major uncertainty in the original deal inputs has been resolved; any fresh analysis must use actual offer conditions, not an assumed price. This was already visible at the 30-day review.",
+        "rerun_command": "/research:catalyst DHER"
+      },
+      {
+        "section": "4. Why It Could Work / 5. Why It Could Fail",
+        "original_claim": "The bearish growth/cash-quality setup used FY2026 adjusted EBITDA guidance of EUR910m–960m and a reported-versus-like-for-like growth gap.",
+        "new_evidence": "Q3 reported-currency revenue growth 23.2%, versus 22.0% like-for-like. FY2026 adjusted EBITDA guidance EUR980–1,020m. FCF guidance above EUR300m excludes M&A inflows and certain legal outflows.",
+        "evidence_source": "Web: Delivery Hero Q3 trading update, outlook and footnote 3, 2026-10-28; retrieved 2026-11-10 IST (indicative/unverified; outside original frozen pool): https://ir.deliveryhero.com/news/delivery-hero-hits-one-billion-orders-in-q3-as-growth-accelerates-further-raises-full-year-guidance/570346a6-5fee-4330-b7e1-b5a40b8b9d4c",
+        "materiality_score": 75,
+        "impact_direction": "mixed",
+        "impacted_modules": [
+          "earnings"
+        ],
+        "rerun_recommended": true,
+        "rerun_reason": "Higher guidance weakens the near-term bearish setup; exclusions still prevent a conclusion about unadjusted cash flow. Reconcile definitions and periods before any revised forecast.",
+        "rerun_command": "/research:earnings DHER"
+      },
+      {
+        "section": "8. Catalysts",
+        "original_claim": "A Taiwan disposal was expected to close in H2 2026 and support debt reduction.",
+        "new_evidence": "Taiwan's regulator declined approval for the planned foodpanda sale to Grab on October 21. A break-fee arrangement exists; no proceeds or payment amount is established here.",
+        "evidence_source": "Web: Delivery Hero Q3 trading update, Taiwan update reporting October 21 decision, 2026-10-28; retrieved 2026-11-10 IST (indicative/unverified; outside original frozen pool): https://ir.deliveryhero.com/news/delivery-hero-hits-one-billion-orders-in-q3-as-growth-accelerates-further-raises-full-year-guidance/570346a6-5fee-4330-b7e1-b5a40b8b9d4c",
+        "materiality_score": 80,
+        "impact_direction": "negative",
+        "impacted_modules": [
+          "catalyst",
+          "balance-sheet-survival"
+        ],
+        "rerun_recommended": true,
+        "rerun_reason": "The expected disposal catalyst failed regulatory approval; any updated debt-reduction plan must exclude unreceived proceeds and verify the break-fee terms.",
+        "rerun_command": "/research:balance-sheet-survival DHER"
+      }
+    ],
+    "watch_items": [
+      "Acceptance result after the November 5 deadline and remaining takeover conditions; no completion inference from an elapsed deadline.",
+      "FY2025 auditor paragraph, and retained versus escalated subsidiary uncertainty.",
+      "Statutory FY2026 CFO minus total capex versus exclusions; a guidance increase does not settle cash realization.",
+      "Taiwan sale alternatives and actual break-fee/payment evidence; no assumed proceeds.",
+      "A fixed same-window benchmark and sector definition before relative-return scoring."
+    ],
+    "management_questions": [
+      "What acceptance level and outstanding conditions have been formally announced after November 5?",
+      "What is the full bridge between unadjusted CFO-minus-capex and cash flow excluding legal payments?",
+      "What actual Taiwan sale alternatives and break-fee amounts or receipts are supported by signed disclosures?",
+      "Does the FY2025 auditor paragraph retain, remove or escalate the subsidiary uncertainty, and what is the group opinion?"
+    ],
+    "memo_delta_file": "analyses/DHER_2026-08-12/reviews/2026-11-10_90d_memo_delta.md"
+  },
+  "pre_mortem_check": {
+    "pre_mortem_file": "analyses/DHER_2026-08-12/pre_mortem.json",
+    "pre_mortem_verdict": "Survives with haircut",
+    "pre_mortem_confidence_haircut": 8.0,
+    "outcome_vs_verdict": "too_early",
+    "notes": "The overall Avoid outcome and its named materiality/duplicate-flag killer risk remain unresolved. Offer publication and a Taiwan approval failure do not establish whether the haircut correctly calibrated the call."
+  },
+  "evidence_notes": [
+    {
+      "id": "E1",
+      "evidence": "Q2 2026 group revenue EUR4,024.5m; H1 2026 adjusted EBITDA EUR426.7m. Both fall inside the frozen forecasts' inconclusive bands.",
+      "source": "Web: Delivery Hero Q2/H1 results, KPI table, 2026-08-27; retrieved 2026-11-10 IST (indicative/unverified; outside original frozen pool): https://www.deliveryhero.com/newsroom/delivery-hero-raises-full-year-2026-guidance-as-everyday-app-strategy-drives-further-acceleration-in-growth-2/"
+    },
+    {
+      "id": "E2",
+      "evidence": "The bidder published the approved offer document on August 27 at EUR41.50 cash per share; acceptance deadline November 5. Expected settlement remains H2 2027, subject to conditions.",
+      "source": "Web: Uber offer-document publication, offer price/acceptance/settlement, 2026-08-27; retrieved 2026-11-10 IST (indicative/unverified; outside original frozen pool): https://investor.uber.com/news-events/news/press-release-details/2026/Uber-Publishes-Offer-Document-for-its-Takeover-Offer-for-Delivery-Hero/default.aspx"
+    },
+    {
+      "id": "E3",
+      "evidence": "Q3 reported-currency revenue growth 23.2%, versus 22.0% like-for-like. FY2026 adjusted EBITDA guidance EUR980–1,020m. FCF guidance above EUR300m excludes M&A inflows and certain legal outflows.",
+      "source": "Web: Delivery Hero Q3 trading update, outlook and footnote 3, 2026-10-28; retrieved 2026-11-10 IST (indicative/unverified; outside original frozen pool): https://ir.deliveryhero.com/news/delivery-hero-hits-one-billion-orders-in-q3-as-growth-accelerates-further-raises-full-year-guidance/570346a6-5fee-4330-b7e1-b5a40b8b9d4c"
+    },
+    {
+      "id": "E4",
+      "evidence": "Taiwan's regulator declined approval for the planned foodpanda sale to Grab on October 21. A break-fee arrangement exists; no proceeds or payment amount is established here.",
+      "source": "Web: Delivery Hero Q3 trading update, Taiwan update reporting October 21 decision, 2026-10-28; retrieved 2026-11-10 IST (indicative/unverified; outside original frozen pool): https://ir.deliveryhero.com/news/delivery-hero-hits-one-billion-orders-in-q3-as-growth-accelerates-further-raises-full-year-guidance/570346a6-5fee-4330-b7e1-b5a40b8b9d4c"
+    },
+    {
+      "id": "E5",
+      "evidence": "DHER, ISIN DE000A2E4K43, Xetra: November 9 closing price EUR37.07. The distinct after-hours quote is excluded.",
+      "source": "Web: MarketScreener, DHER Xetra EUR close at 17:35:01 CET, 2026-11-09; retrieved 2026-11-10 IST (indicative/unverified; outside original frozen pool): https://nl.marketscreener.com/koers/aandeel/DELIVERY-HERO-SE-36718506/koersen/"
+    }
+  ],
+  "measurement_basis": {
+    "listing": "DHER / Xetra / EUR / ISIN DE000A2E4K43",
+    "price_start": "2026-08-07",
+    "price_end": "2026-11-09",
+    "price_basis": "Indicative web close versus immutable record anchor; price change only, no trade",
+    "cutoff_utc": "2026-11-09T22:07:09.783883+00:00",
+    "benchmark_scoreable": false,
+    "independent_issuers": 1
+  }
+}
