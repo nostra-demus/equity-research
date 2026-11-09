@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T00:15:44Z",
+  "generated_at": "2026-11-09T00:20:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-016",
@@ -43,6 +43,55 @@
           "name": "Graphex Group",
           "ticker": null,
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-018",
+      "headline": "DUG: US$33.7 million Software and HPC Infrastructure Award [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.DUG?key=2924-03159549-6A1354155",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-09T00:12:27Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "DUG Technology secured a US$33.7 million contract for software and infrastructure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "DUG Technology secured a US$33.7 million contract for software and infrastructure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DUG Technology",
+          "ticker": "DUG",
+          "listing_country": "AU"
         }
       ],
       "size_bucket": "small",
@@ -96,6 +145,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-021",
+      "headline": "Ryman Healthcare Limited - Depositary Receipt Price Target Decreased by 10.69% to $8.15",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/ryman-healthcare-limited-depositary-receipt-price-target-decreased-1069-815",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-08T23:57:58Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "A price target decrease of 10.69% reflects a significant shift in analyst expectations for Ryman Healthcare.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "A price target decrease of 10.69% reflects a significant shift in analyst expectations for Ryman Healthcare.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "credit_rating_downgrade",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "credit_rating_downgrade"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ryman Healthcare Limited",
+          "ticker": null,
+          "listing_country": "NZ"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -446,6 +544,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261109-019",
+      "headline": "Maravai LifeSciences Holdings Consensus Price Target Raised 11.76% to $9.69",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/maravai-lifesciences-holdings-consensus-price-target-raised-1176-969",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T00:01:23Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Analyst consensus price target increase is a lagging indicator of sentiment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 65,
+      "triage_reason": "Analyst consensus price target increase is a lagging indicator of sentiment.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Maravai LifeSciences",
+          "ticker": "MRVI",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261109-007",
       "headline": "HSBC HOLDINGS (00005): Transaction in own shares",
       "headline_en": null,
@@ -490,6 +637,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-017",
+      "headline": "Innospace to launch upgraded suborbital rocket in Brazil on Nov. 29",
+      "headline_en": null,
+      "url": "https://en.yna.co.kr/view/AEN20261109001500320",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T00:14:47Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Innospace is conducting a significant product test with a suborbital rocket launch in Brazil.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 60,
+      "triage_reason": "Innospace is conducting a significant product test with a suborbital rocket launch in Brazil.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Innospace",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -642,6 +838,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-020",
+      "headline": "USANA Health Sciences Consensus Price Target Cut 12% to $22.44",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/usana-health-sciences-consensus-price-target-cut-12-2244",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T00:01:00Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Analyst consensus price target decrease is a lagging indicator of sentiment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 57,
+      "triage_reason": "Analyst consensus price target decrease is a lagging indicator of sentiment.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "USANA Health Sciences",
+          "ticker": "USNA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -270847,7 +271092,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4623,
+    "inbox_unconsumed": 4628,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -270856,9 +271101,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 64,
-    "news_picked_today": 16,
-    "news_dropped_today": 48
+    "news_seen_today": 94,
+    "news_picked_today": 21,
+    "news_dropped_today": 73
   },
   "book_momentum": {
     "live_count": 8,
