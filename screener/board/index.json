@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T02:33:46Z",
+  "generated_at": "2026-11-09T02:43:57Z",
   "inbox": [
     {
       "inbox_id": "INB-20261109-116",
@@ -100,6 +100,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-120",
+      "headline": "Japan’s Mitsui Chemicals, DBJ to Buy JSR for $12 Billion",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-09/japan-s-mitsui-chemicals-dbj-to-buy-jsr-for-12-billion",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T02:16:56Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Mitsui Chemicals and DBJ are acquiring JSR for $12 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Mitsui Chemicals and DBJ are acquiring JSR for $12 billion.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mitsui Chemicals",
+          "ticker": null,
+          "listing_country": "JP"
+        },
+        {
+          "name": "JSR Corp",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -786,6 +840,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261109-126",
+      "headline": "Angel Oak Mortgage REIT Consensus Price Target Lowered 13.27% to $9.33",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/angel-oak-mortgage-reit-consensus-price-target-lowered-1327-933",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T01:37:30Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Angel Oak Mortgage REIT consensus price target was lowered by 13.27%, reflecting negative analyst sentiment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Angel Oak Mortgage REIT consensus price target was lowered by 13.27%, reflecting negative analyst sentiment.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Angel Oak Mortgage REIT",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261109-058",
       "headline": "Nvidia’s Board Just Opened an Investigation Into Jensen Huang. Here’s What History Says Comes Next for the Stock",
       "headline_en": null,
@@ -978,6 +1081,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-125",
+      "headline": "Fidelity National Information Services Consensus Price Target Decreased by 18.33% to $38.82",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/fidelity-national-information-services-consensus-price-target-decreased-1833-3882",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T01:37:49Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Fidelity National Information Services saw a significant 18.33% reduction in its consensus price target, indicating a shift in analyst expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Fidelity National Information Services saw a significant 18.33% reduction in its consensus price target, indicating a shift in analyst expectations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Fidelity National Information Services",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1523,6 +1675,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261109-127",
+      "headline": "Alterity Therapeutics Limited - Depositary Receipt Price Target Increased by 12.50% to $8.89",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/alterity-therapeutics-limited-depositary-receipt-price-target-increased-1250-889",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T01:37:05Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Alterity Therapeutics saw a 12.50% increase in its price target, indicating improved analyst outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Alterity Therapeutics saw a 12.50% increase in its price target, indicating improved analyst outlook.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Alterity Therapeutics",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261109-128",
+      "headline": "Genie Energy Consensus Price Target Increased 21.88% to $19.89",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/genie-energy-consensus-price-target-increased-2188-1989",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T01:34:48Z",
+      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
+      "prelim_note": "Genie Energy consensus price target increased by 21.88%, signaling a significant shift in analyst expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Genie Energy consensus price target increased by 21.88%, signaling a significant shift in analyst expectations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Genie Energy",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261109-078",
       "headline": "Mumbai: EOW Probes Alleged ₹14 Crore Fraud In Chembur Redevelopment Project",
       "headline_en": null,
@@ -1714,252 +1964,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-101",
-      "headline": "Government ordered to buy minority empowerment shareholders’ Acsa shares",
-      "headline_en": null,
-      "url": "https://www.moneyweb.co.za/news/south-africa/government-ordered-to-buy-minority-empowerment-shareholders-acsa-shares/",
-      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T02:02:06Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "The South African government has been ordered to purchase minority empowerment shares in Acsa, representing a forced capital outlay and ownership change.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "The South African government has been ordered to purchase minority empowerment shares in Acsa, representing a forced capital outlay and ownership change.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Acsa",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-077",
-      "headline": "Hanwha Aerospace to conduct ship-based Chunmoo missile tests in US",
-      "headline_en": null,
-      "url": "https://www.koreaherald.com/article/10930342",
-      "source_name": "The Korea Herald — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T01:33:26Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Hanwha Aerospace is expanding the testing and potential market reach of its Chunmoo missile system to the US.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Hanwha Aerospace is expanding the testing and potential market reach of its Chunmoo missile system to the US.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hanwha Aerospace",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-082",
-      "headline": "Mitsui Chemicals,Inc.(4183)",
-      "headline_en": null,
-      "url": "https://www.jpx.co.jp/english/markets/equities/suspended/index.html",
-      "source_name": "Japan Exchange Group (JPX) — Trading Halts (Equities)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-09T01:45:00Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Trading halt for Mitsui Chemicals indicates a pending material announcement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Trading halt for Mitsui Chemicals indicates a pending material announcement.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mitsui Chemicals",
-          "ticker": "4183",
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-108",
-      "headline": "삼성바이오에피스, 키트루다 시밀러 임상 3상 결과 발표",
-      "headline_en": "Samsung Bioepis announces Phase 3 clinical trial results for Keytruda biosimilar",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=280775",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T01:51:36Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Samsung Bioepis announced positive Phase 3 clinical trial results for its Keytruda biosimilar, a significant milestone for its product pipeline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Samsung Bioepis announced positive Phase 3 clinical trial results for its Keytruda biosimilar, a significant milestone for its product pipeline.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Samsung Bioepis",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261109-049",
-      "headline": "Hyundai Motor's HTWO teams up with Air Liquide to expand hydrogen mobility in China",
-      "headline_en": null,
-      "url": "https://www.koreaherald.com/article/10930228",
-      "source_name": "The Korea Herald — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-09T00:49:36Z",
-      "sweep_file": "screener/inbox/2026-11-09_sweep.json",
-      "prelim_note": "Hyundai Motor's HTWO division is partnering with Air Liquide to expand hydrogen mobility infrastructure in China.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Hyundai Motor's HTWO division is partnering with Air Liquide to expand hydrogen mobility infrastructure in China.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hyundai Motor",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -271828,9 +271832,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 632,
-    "news_picked_today": 131,
-    "news_dropped_today": 501
+    "news_seen_today": 667,
+    "news_picked_today": 140,
+    "news_dropped_today": 527
   },
   "book_momentum": {
     "live_count": 8,
