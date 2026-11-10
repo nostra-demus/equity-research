@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-10T00:43:13Z",
+  "generated_at": "2026-11-10T00:46:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20261110-025",
@@ -587,6 +587,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261110-064",
+      "headline": "Nvidia shares slide as board probes CEO over China spy reports",
+      "headline_en": null,
+      "url": "https://gulfnews.com/business/markets/nvidia-shares-slide-as-board-probes-ceo-over-china-spy-reports-1.500740631",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-10T00:17:21Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "Nvidia board is investigating the CEO regarding allegations of espionage in China, creating significant management and reputational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Nvidia board is investigating the CEO regarding allegations of espionage in China, creating significant management and reputational risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1898,55 +1947,6 @@
       "companies": [
         {
           "name": "Core University Living Real Estate Income Trust",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261110-035",
-      "headline": "SCHEDULE 13D/A - CS RE Holdings, LLC (0002140787) (Filed by)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/2140787/000119312526454037/0001193125-26-454037-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-10T00:14:56Z",
-      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "Schedule 13D/A filing indicates a change in ownership stake.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 70,
-      "triage_reason": "Schedule 13D/A filing indicates a change in ownership stake.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CS RE Holdings, LLC",
           "ticker": null,
           "listing_country": "US"
         }
@@ -274516,9 +274516,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 334623,
-    "news_picked_today": 63,
-    "news_dropped_today": 249
+    "news_seen_today": 347481,
+    "news_picked_today": 64,
+    "news_dropped_today": 272
   },
   "book_momentum": {
     "live_count": 8,
