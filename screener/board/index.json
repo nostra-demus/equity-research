@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-10T11:17:18Z",
+  "generated_at": "2026-11-10T11:20:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20261110-559",
@@ -1838,6 +1838,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261110-567",
+      "headline": "Cochin Shipyard Q2 Profit Crashes 50% To ₹53.77 Crore, Revenue Rises 12% Despite Sharp Earnings Decline",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/cochin-shipyard-q2-profit-crashes-50-to-5377-crore-revenue-rises-12-despite-sharp-earnings-decline",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-10T10:36:28Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "Cochin Shipyard reported a 50% crash in Q2 profit to ₹53.77 crore, indicating a significant earnings miss.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Cochin Shipyard reported a 50% crash in Q2 profit to ₹53.77 crore, indicating a significant earnings miss.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cochin Shipyard",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261110-549",
       "headline": "Cochin Shipyard Q2 Results: Net Profit Falls 50% To Rs 54 Crore As Margins Contract, Revenue Up 11.7%",
       "headline_en": null,
@@ -1931,57 +1980,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261110-533",
-      "headline": "Vodafone raises guidance after job cuts despite €5bn Germany impairment",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/8c734b5d-aa5a-4ba3-9ddc-b03b0f79cee2",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-10T09:08:31Z",
-      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "Vodafone raised guidance following job cuts despite a €5bn impairment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Vodafone raised guidance following job cuts despite a €5bn impairment.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change",
-        "restructuring_layoffs",
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vodafone",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -275612,9 +275610,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5899067,
-    "news_picked_today": 892,
-    "news_dropped_today": 4820
+    "news_seen_today": 5941190,
+    "news_picked_today": 895,
+    "news_dropped_today": 4841
   },
   "book_momentum": {
     "live_count": 8,
