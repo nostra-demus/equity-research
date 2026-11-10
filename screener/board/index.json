@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-11-10T00:15:31Z",
+  "generated_at": "2026-11-10T00:17:30Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261110-021",
+      "headline": "NOU: Court Approves Schemes of Arrangement [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NOU?key=2924-03159991-2A1709737",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-10T00:03:42Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "The court approved the schemes of arrangement for NOU, finalizing the path for a corporate transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The court approved the schemes of arrangement for NOU, finalizing the path for a corporate transaction.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NOU",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261110-019",
+      "headline": "WUXI APPTEC (02359): VOLUNTARY ANNOUNCEMENT - REMOVAL OF WUXI APPTEC AS A CHINESE MILITARY COMPANY UNDER THE SECTION 1260H LIST",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1110/2026111000021.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-09T23:43:00Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "WuXi AppTec was removed from the Section 1260H list of Chinese military companies, reducing significant regulatory and operational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "WuXi AppTec was removed from the Section 1260H list of Chinese military companies, reducing significant regulatory and operational risk.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "WuXi AppTec",
+          "ticker": "02359",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261110-006",
       "headline": "EVN: Carnaby Acquisition Completed",
@@ -639,6 +737,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261110-020",
+      "headline": "RIBOLIFE-B (06938): VOLUNTARY ANNOUNCEMENT - PHASE I CLINICAL TRIAL APPLICATION SUBMISSION OF NOVEL DUAL TARGETING SIRNA SR122 FOR TREATMENT OF MIXED DYSLIPIDEMIA AND SEVERE HYPERTRIGLYCERIDEMIA",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1110/2026111000019.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-09T23:41:00Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "Ribolife-B submitted a Phase I clinical trial application for a novel drug candidate, marking a milestone in its R&D pipeline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 75,
+      "triage_reason": "Ribolife-B submitted a Phase I clinical trial application for a novel drug candidate, marking a milestone in its R&D pipeline.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ribolife-B",
+          "ticker": "06938",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -273225,7 +273372,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4665,
+    "inbox_unconsumed": 4668,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -273234,9 +273381,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 141848,
-    "news_picked_today": 18,
-    "news_dropped_today": 102
+    "news_seen_today": 167572,
+    "news_picked_today": 21,
+    "news_dropped_today": 123
   },
   "book_momentum": {
     "live_count": 8,
