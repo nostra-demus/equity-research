@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-10T02:18:40Z",
+  "generated_at": "2026-11-10T02:21:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20261110-077",
@@ -346,6 +346,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261110-138",
+      "headline": "China Water Environment Seeks $410 Million Loan Restructuring",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-10/china-water-environment-seeks-410-million-loan-restructuring",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-10T01:51:14Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "China Water Environment is seeking a $410 million loan restructuring, indicating significant financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "China Water Environment is seeking a $410 million loan restructuring, indicating significant financial distress.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "China Water Environment",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1895,55 +1944,6 @@
       "launched_signal_id": null,
       "triage_score": 89,
       "triage_reason": "FDA approval of selpercatinib expands the addressable market for the drug.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Eli Lilly",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261110-115",
-      "headline": "FDA approves selpercatinib for locally advanced or metastatic RET fusion-positive solid tumors",
-      "headline_en": null,
-      "url": "http://www.fda.gov/drugs/cancer-approvals/fda-approves-selpercatinib-locally-advanced-or-metastatic-ret-fusion-positive-solid-tumors",
-      "source_name": "FDA — What's New: Drugs",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-09T21:47:15Z",
-      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "FDA approval of selpercatinib for specific solid tumors provides a new commercial product opportunity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "FDA approval of selpercatinib for specific solid tumors provides a new commercial product opportunity.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 60,
@@ -233162,78 +233162,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-e92c01041db0",
-      "idea_version": "IDEAV-b8b4bb3386105a31",
-      "idea_version_started_at": "2026-11-08T18:55:39Z",
-      "ticker": "2222",
-      "company": "Saudi Arabian Oil Co (Aramco)",
-      "exchange": "TADAWUL",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A direct security threat to the company's Riyadh headquarters introduces significant operational risk and a potential geopolitical risk premium on the equity.",
-      "why_now": "The targeting of the headquarters by Houthi forces was reported on November 8, 2026, creating an immediate security overhang.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "macro_conditional",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e82fb271bbcb"
-      ],
-      "primary_source_event_id": "EVT-e82fb271bbcb",
-      "source_headlines": [
-        "Houthis target Aramco’s Riyadh headquarters"
-      ],
-      "source_headline": "Houthis target Aramco’s Riyadh headquarters",
-      "source_url": "https://www.afr.com/politics/federal/houthis-target-aramco-s-riyadh-headquarters-20261109-p61cft?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-08T14:20:15Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-08T04:38:46Z",
-      "updated_at": "2026-11-08T18:55:39Z",
-      "decay_at": "2026-11-10T02:20:15Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-3de812988305",
       "idea_version": "IDEAV-4ff53507a3ff4c5b",
       "idea_version_started_at": "2026-11-10T01:51:56Z",
@@ -234855,6 +234783,78 @@
       "surfaced_at": "2026-11-08T03:19:59Z",
       "updated_at": "2026-11-08T03:19:59Z",
       "decay_at": "2026-11-09T14:11:11Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-e92c01041db0",
+      "idea_version": "IDEAV-b8b4bb3386105a31",
+      "idea_version_started_at": "2026-11-08T18:55:39Z",
+      "ticker": "2222",
+      "company": "Saudi Arabian Oil Co (Aramco)",
+      "exchange": "TADAWUL",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A direct security threat to the company's Riyadh headquarters introduces significant operational risk and a potential geopolitical risk premium on the equity.",
+      "why_now": "The targeting of the headquarters by Houthi forces was reported on November 8, 2026, creating an immediate security overhang.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "macro_conditional",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e82fb271bbcb"
+      ],
+      "primary_source_event_id": "EVT-e82fb271bbcb",
+      "source_headlines": [
+        "Houthis target Aramco’s Riyadh headquarters"
+      ],
+      "source_headline": "Houthis target Aramco’s Riyadh headquarters",
+      "source_url": "https://www.afr.com/politics/federal/houthis-target-aramco-s-riyadh-headquarters-20261109-p61cft?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-08T14:20:15Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-08T04:38:46Z",
+      "updated_at": "2026-11-08T18:55:39Z",
+      "decay_at": "2026-11-10T02:20:15Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -237758,9 +237758,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 551,
+    "total_count": 552,
     "shown_count": 499,
-    "hidden_count": 52,
+    "hidden_count": 53,
     "side_counts": {
       "long": {
         "total_count": 280,
@@ -237768,9 +237768,9 @@
         "hidden_count": 30
       },
       "short": {
-        "total_count": 272,
+        "total_count": 273,
         "shown_count": 250,
-        "hidden_count": 22
+        "hidden_count": 23
       }
     },
     "retention": {
@@ -237789,6 +237789,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-e92c01041db0",
+        "idea_version": "IDEAV-b8b4bb3386105a31",
+        "idea_version_started_at": "2026-11-08T18:55:39Z",
+        "ticker": "2222",
+        "company": "Saudi Arabian Oil Co (Aramco)",
+        "exchange": "TADAWUL",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "A direct security threat to the company's Riyadh headquarters introduces significant operational risk and a potential geopolitical risk premium on the equity.",
+        "why_now": "The targeting of the headquarters by Houthi forces was reported on November 8, 2026, creating an immediate security overhang.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "macro_conditional",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-e82fb271bbcb"
+        ],
+        "primary_source_event_id": "EVT-e82fb271bbcb",
+        "source_headlines": [
+          "Houthis target Aramco’s Riyadh headquarters"
+        ],
+        "source_headline": "Houthis target Aramco’s Riyadh headquarters",
+        "source_url": "https://www.afr.com/politics/federal/houthis-target-aramco-s-riyadh-headquarters-20261109-p61cft?ref=rss&utm_medium=rss&utm_source=rss_feed",
+        "source_name": "Australian Financial Review",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-08T14:20:15Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-08T04:38:46Z",
+        "updated_at": "2026-11-08T18:55:39Z",
+        "decay_at": "2026-11-10T02:20:15Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-10T02:20:15Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-c93c2c70004d",
         "idea_version": "IDEAV-1df4b804ced3eb6b",
@@ -274866,86 +274941,12 @@
         "archived_at": "2026-10-17T13:20:28Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-d9ce787618db",
-        "idea_version": "IDEAV-5b81c7ae489e1e69",
-        "idea_version_started_at": "2026-10-14T16:36:34Z",
-        "ticker": "03323",
-        "company": "China National Building Material",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "CNBM issued a profit alert, indicating that its upcoming earnings will be lower than previously expected.",
-        "why_now": "The profit alert was filed today, October 14, 2026, providing immediate negative guidance for investors.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-ab6ed0f5038d"
-        ],
-        "primary_source_event_id": "EVT-ab6ed0f5038d",
-        "source_headlines": [
-          "CNBM (03323): PROFIT ALERT"
-        ],
-        "source_headline": "CNBM (03323): PROFIT ALERT",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1014/2026101401181.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-14T12:48:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-14T16:36:34Z",
-        "updated_at": "2026-10-14T16:36:34Z",
-        "decay_at": "2026-10-16T00:48:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-17T13:20:28Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2352,
-    "live_count": 61,
+    "live_count": 60,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -274964,9 +274965,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 960908,
-    "news_picked_today": 171,
-    "news_dropped_today": 957
+    "news_seen_today": 1011552,
+    "news_picked_today": 172,
+    "news_dropped_today": 980
   },
   "book_momentum": {
     "live_count": 8,
