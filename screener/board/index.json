@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-10T20:53:41Z",
+  "generated_at": "2026-11-10T21:09:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20261110-651",
@@ -233983,77 +233983,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-237bc01d6762",
-      "idea_version": "IDEAV-9486b680a81e56c0",
-      "idea_version_started_at": "2026-11-07T22:29:24Z",
-      "ticker": "TM",
-      "company": "Toyota Motor",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company raised profit forecasts due to sustained vehicle demand and the favorable impact of a weak yen on export earnings.",
-      "why_now": "The guidance hike was announced on 2026-11-07.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "fx_rates",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-680f5a18445a"
-      ],
-      "primary_source_event_id": "EVT-680f5a18445a",
-      "source_headlines": [
-        "Toyota hikes profit forecasts on strong demand, weak yen"
-      ],
-      "source_headline": "Toyota hikes profit forecasts on strong demand, weak yen",
-      "source_url": "https://www.qatar-tribune.com/article/263040/business/toyota-hikes-profit-forecasts-on-strong-demand-weak-yen",
-      "source_name": "Qatar Tribune — Business",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-07T21:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-05T12:54:05Z",
-      "updated_at": "2026-11-07T22:29:24Z",
-      "decay_at": "2026-11-09T09:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-fbac3d69087e",
       "idea_version": "IDEAV-d87673cf8ca2ed95",
       "idea_version_started_at": "2026-11-08T02:29:00Z",
@@ -238167,14 +238096,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 568,
+    "total_count": 567,
     "shown_count": 499,
-    "hidden_count": 69,
+    "hidden_count": 68,
     "side_counts": {
       "long": {
-        "total_count": 290,
+        "total_count": 289,
         "shown_count": 250,
-        "hidden_count": 40
+        "hidden_count": 39
       },
       "short": {
         "total_count": 279,
@@ -238184,12 +238113,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1751,
+      "evicted_count": 1752,
       "oldest_retained_at": "2026-10-14T02:05:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 1151,
-          "oldest_retained_at": "2026-10-26T04:01:25Z"
+          "evicted_count": 1152,
+          "oldest_retained_at": "2026-10-26T04:04:31Z"
         },
         "short": {
           "evicted_count": 601,
@@ -243347,8 +243276,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-09T09:00:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-10T21:08:52Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -275377,7 +275306,7 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 11388157,
+    "news_seen_today": 11548242,
     "news_picked_today": 1481,
     "news_dropped_today": 8695
   },
