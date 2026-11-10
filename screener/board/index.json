@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-10T09:31:20Z",
+  "generated_at": "2026-11-10T09:33:40Z",
   "inbox": [
     {
       "inbox_id": "INB-20261110-514",
@@ -1440,6 +1440,57 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261110-533",
+      "headline": "Vodafone raises guidance after job cuts despite €5bn Germany impairment",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/8c734b5d-aa5a-4ba3-9ddc-b03b0f79cee2",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-10T09:08:31Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "Vodafone raised guidance following job cuts despite a €5bn impairment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Vodafone raised guidance following job cuts despite a €5bn impairment.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change",
+        "restructuring_layoffs",
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vodafone",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261110-523",
       "headline": "MRF Q2 results: Net profit falls 13% to ₹417 crore; dividend declared",
       "headline_en": null,
@@ -1926,55 +1977,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261110-263",
-      "headline": "Honda Raises Guidance After First-Half Profit Growth",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/earnings/honda-raises-guidance-after-first-half-profit-growth-8da73339?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-10T07:19:00Z",
-      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "Honda raised its full-year profit guidance following strong first-half profit growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Honda raised its full-year profit guidance following strong first-half profit growth.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Honda Motor",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -275184,9 +275186,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4954305,
-    "news_picked_today": 770,
-    "news_dropped_today": 4126
+    "news_seen_today": 4967632,
+    "news_picked_today": 783,
+    "news_dropped_today": 4137
   },
   "book_momentum": {
     "live_count": 8,
