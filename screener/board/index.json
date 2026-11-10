@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-10T01:09:44Z",
+  "generated_at": "2026-11-10T01:12:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20261110-077",
@@ -242,6 +242,57 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261110-078",
+      "headline": "Natural Gas Services Group, Inc. Reports Third Quarter 2026 Results, Increases Dividend to $0.16, and Updates Guidance",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/natural-gas-services-group-inc-reports-third-quarter-2026-results-increases-dividend-016",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-10T00:31:53Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "Natural Gas Services Group reported Q3 2026 results, updated guidance, and increased its dividend to $0.16.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Natural Gas Services Group reported Q3 2026 results, updated guidance, and increased its dividend to $0.16.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Natural Gas Services Group, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1898,55 +1949,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261110-042",
-      "headline": "XAS: Lifting of Trading Pause [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.XAS?key=2924-03159980-2A1709728",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-09T23:35:07Z",
-      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "Trading pause lifted for XAS, indicating resolution of a price-sensitive event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 73,
-      "triage_reason": "Trading pause lifted for XAS, indicating resolution of a price-sensitive event.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "XAS",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -274582,9 +274584,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 514260,
-    "news_picked_today": 88,
-    "news_dropped_today": 440
+    "news_seen_today": 552777,
+    "news_picked_today": 89,
+    "news_dropped_today": 463
   },
   "book_momentum": {
     "live_count": 8,
