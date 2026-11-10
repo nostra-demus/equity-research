@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-10T09:55:09Z",
+  "generated_at": "2026-11-10T09:55:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20261110-514",
@@ -229749,6 +229749,75 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-996ced4a593f",
+      "idea_version": "IDEAV-e3d62da7f720e495",
+      "idea_version_started_at": "2026-11-10T09:55:29Z",
+      "ticker": "RKLB",
+      "company": "Rocket Lab",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "A $150 million conditional loan commitment from the Department of War provides non-dilutive capital and validates the company's strategic importance to national security infrastructure.",
+      "why_now": "The loan commitment was announced on 2026-11-09.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 76,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a53deb262c7a"
+      ],
+      "primary_source_event_id": "EVT-a53deb262c7a",
+      "source_headlines": [
+        "The Department of War's Office of Strategic Capital Signs $150 Million Conditional Loan Commitment With Rocket Lab"
+      ],
+      "source_headline": "The Department of War's Office of Strategic Capital Signs $150 Million Conditional Loan Commitment With Rocket Lab",
+      "source_url": "https://www.war.gov/News/Releases/Release/Article/4644766/the-department-of-wars-office-of-strategic-capital-signs-150-million-conditiona/",
+      "source_name": "U.S. Department of War (formerly DoD) — News Releases",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-09T21:15:12Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-10T09:55:29Z",
+      "updated_at": "2026-11-10T09:55:29Z",
+      "decay_at": "2026-11-11T09:15:12Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-8b7cb506ef42",
       "idea_version": "IDEAV-8ff0f950e82d96c4",
       "idea_version_started_at": "2026-11-09T05:11:05Z",
@@ -231143,6 +231212,148 @@
       "surfaced_at": "2026-11-09T18:28:29Z",
       "updated_at": "2026-11-09T18:28:29Z",
       "decay_at": "2026-11-11T04:12:08Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-9a15ea504d7b",
+      "idea_version": "IDEAV-f3ce2396bba8217a",
+      "idea_version_started_at": "2026-11-10T09:55:29Z",
+      "ticker": "HMC",
+      "company": "Honda Motor",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company raised its full-year profit forecast as the weak yen provides a significant tailwind to export earnings, offsetting costs associated with its EV strategy shift.",
+      "why_now": "The guidance update was released on 2026-11-10.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "fx_rates",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c8fd61ebaeeb"
+      ],
+      "primary_source_event_id": "EVT-c8fd61ebaeeb",
+      "source_headlines": [
+        "Honda raises full-year profit forecast as weak yen trumps costly EV retreat"
+      ],
+      "source_headline": "Honda raises full-year profit forecast as weak yen trumps costly EV retreat",
+      "source_url": "https://asia.nikkei.com/business/automobiles/honda-raises-full-year-profit-forecast-as-weak-yen-trumps-costly-ev-retreat",
+      "source_name": "Nikkei Asia",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-10T07:35:37Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-10T09:55:29Z",
+      "updated_at": "2026-11-10T09:55:29Z",
+      "decay_at": "2026-11-11T19:35:37Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-f8d21dcf8212",
+      "idea_version": "IDEAV-932e2fc23008dc38",
+      "idea_version_started_at": "2026-11-10T09:55:29Z",
+      "ticker": "VOD",
+      "company": "Vodafone",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company raised its profit target following a restructuring program that included cutting 3,000 jobs, which improves operating margins.",
+      "why_now": "The profit target increase was announced on 2026-11-10.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9c5a9528ccb2"
+      ],
+      "primary_source_event_id": "EVT-9c5a9528ccb2",
+      "source_headlines": [
+        "Vodafone raises profit target after cutting 3,000 European jobs"
+      ],
+      "source_headline": "Vodafone raises profit target after cutting 3,000 European jobs",
+      "source_url": "https://www.cityam.com/vodafone-raises-profit-target-after-cutting-3000-european-jobs/",
+      "source_name": "City A.M.",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-10T07:38:14Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-10T09:55:29Z",
+      "updated_at": "2026-11-10T09:55:29Z",
+      "decay_at": "2026-11-11T19:38:14Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -237024,79 +237235,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-58c269708038",
-      "idea_version": "IDEAV-582986ff08955984",
-      "idea_version_started_at": "2026-11-07T12:54:01Z",
-      "ticker": "SIGMA",
-      "company": "Sigma Advanced Systems",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Sigma Advanced Systems reported a 37% jump in Q2 FY27 profit, driven by strong defence orders worth ₹3,915 crore.",
-      "why_now": "The strong Q2 FY27 earnings were reported on November 7, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-584c47c15982"
-      ],
-      "primary_source_event_id": "EVT-584c47c15982",
-      "source_headlines": [
-        "Sigma Advanced Systems Powers Ahead With Strong Q2 FY27 Earnings, Profit Jumps 37% To ₹48.60 Crore As ₹3,915 Crore Defence Orders Strengthen Growth Prospects"
-      ],
-      "source_headline": "Sigma Advanced Systems Powers Ahead With Strong Q2 FY27 Earnings, Profit Jumps 37% To ₹48.60 Crore As ₹3,915 Crore Defence Orders Strengthen Growth Prospects",
-      "source_url": "https://www.freepressjournal.in/business/sigma-advanced-systems-powers-ahead-with-strong-q2-fy27-earnings-profit-jumps-37-to-4860-crore-as-3915-crore-defence-orders-strengthen-growth-prospects",
-      "source_name": "Free Press Journal",
-      "materiality_max": 99,
-      "newest_source_at": "2026-11-07T04:31:55Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-07T12:54:01Z",
-      "updated_at": "2026-11-07T12:54:01Z",
-      "decay_at": "2026-11-08T16:31:55Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-14770c0627c1",
       "idea_version": "IDEAV-643d72cad2915728",
       "idea_version_started_at": "2026-11-08T06:58:45Z",
@@ -237973,14 +238111,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 554,
+    "total_count": 553,
     "shown_count": 499,
-    "hidden_count": 55,
+    "hidden_count": 54,
     "side_counts": {
       "long": {
-        "total_count": 281,
+        "total_count": 280,
         "shown_count": 250,
-        "hidden_count": 31
+        "hidden_count": 30
       },
       "short": {
         "total_count": 274,
@@ -237990,12 +238128,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1740,
+      "evicted_count": 1741,
       "oldest_retained_at": "2026-10-13T14:59:40Z",
       "side_counts": {
         "long": {
-          "evicted_count": 1146,
-          "oldest_retained_at": "2026-10-26T01:49:27Z"
+          "evicted_count": 1147,
+          "oldest_retained_at": "2026-10-26T02:08:30Z"
         },
         "short": {
           "evicted_count": 595,
@@ -242116,8 +242254,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-08T16:31:55Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-10T09:55:40Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -275166,8 +275304,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2356,
-    "live_count": 61,
+    "surfaced_total": 2359,
+    "live_count": 64,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,

@@ -1,0 +1,73 @@
+{
+  "idea_id": "IDEA-f8d21dcf8212",
+  "idea_version": "IDEAV-932e2fc23008dc38",
+  "idea_version_started_at": "2026-11-10T09:55:29Z",
+  "ticker": "VOD",
+  "company": "Vodafone",
+  "exchange": "NASDAQ",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "long",
+  "pair_with": null,
+  "reason": "The company raised its profit target following a restructuring program that included cutting 3,000 jobs, which improves operating margins.",
+  "why_now": "The profit target increase was announced on 2026-11-10.",
+  "conviction": 60,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 60,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 19,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 7,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "priced-in risk",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "priced",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-9c5a9528ccb2"
+  ],
+  "primary_source_event_id": "EVT-9c5a9528ccb2",
+  "source_headlines": [
+    "Vodafone raises profit target after cutting 3,000 European jobs"
+  ],
+  "source_headline": "Vodafone raises profit target after cutting 3,000 European jobs",
+  "source_url": "https://www.cityam.com/vodafone-raises-profit-target-after-cutting-3000-european-jobs/",
+  "source_name": "City A.M.",
+  "materiality_max": 100,
+  "newest_source_at": "2026-11-10T07:38:14Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-11-10T09:55:29Z",
+  "updated_at": "2026-11-10T09:55:29Z",
+  "decay_at": "2026-11-11T19:38:14Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
