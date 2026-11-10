@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-10T09:28:45Z",
+  "generated_at": "2026-11-10T09:31:20Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261110-514",
+      "headline": "ASIA COMM HOLD (00104): PROFIT WARNING AND INSIDE INFORMATION",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1110/2026111000406.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-10T09:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "The company issued a profit warning, indicating a decline in financial performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company issued a profit warning, indicating a decline in financial performance.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ASIA COMM HOLD",
+          "ticker": "00104",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261110-513",
       "headline": "EDVANCE INTL (01410): PROFIT WARNING",
@@ -1391,6 +1440,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261110-523",
+      "headline": "MRF Q2 results: Net profit falls 13% to ₹417 crore; dividend declared",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/mrf-q2-results-net-profit-falls-13-percent-dividend-declared-revenue-ebitda-tyre-company-share-price-20030892.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-10T08:41:39Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "The company reported a 13% decline in net profit to ₹417 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company reported a 13% decline in net profit to ₹417 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MRF",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261110-466",
       "headline": "Honda to build first US auto plant in 2 decades as hybrid demand rises",
       "headline_en": null,
@@ -1874,110 +1972,6 @@
           "name": "Honda Motor",
           "ticker": null,
           "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261110-361",
-      "headline": "MRF Q2 Results: Net Profit Falls 28% To Rs 369 Crore, Declares Dividend; Check Record Date",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/mrf-q2-results-november-10-net-profit-falls-28-to-rs-369-crore-declares-dividend-check-record-date-sensex-today-markets-bse-nse-12306831#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-10T07:12:54Z",
-      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "MRF reported a 28% decline in net profit to Rs 369 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "MRF reported a 28% decline in net profit to Rs 369 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MRF",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261110-478",
-      "headline": "Porsche Family Holding Profit Slumps as Volkswagen Setbacks Bite",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-10/porsche-family-holding-profit-slumps-as-volkswagen-setbacks-bite",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-10T07:12:27Z",
-      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "Porsche SE reported a profit slump driven by setbacks at Volkswagen.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Porsche SE reported a profit slump driven by setbacks at Volkswagen.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Porsche SE",
-          "ticker": null,
-          "listing_country": "DE"
-        },
-        {
-          "name": "Volkswagen",
-          "ticker": null,
-          "listing_country": "DE"
         }
       ],
       "size_bucket": "large",
@@ -275190,9 +275184,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4914501,
-    "news_picked_today": 760,
-    "news_dropped_today": 4112
+    "news_seen_today": 4954305,
+    "news_picked_today": 770,
+    "news_dropped_today": 4126
   },
   "book_momentum": {
     "live_count": 8,
