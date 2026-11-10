@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-10T10:25:33Z",
+  "generated_at": "2026-11-10T10:28:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20261110-547",
@@ -340,6 +340,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261110-552",
+      "headline": "CGN POWER (01816): COMMENCEMENT OF FULL CONSTRUCTION OF CANGNAN UNIT 4",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1110/2026111000244.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-10T08:30:00Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "CGN Power announced the commencement of full construction for Cangnan Unit 4, a major capacity expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CGN Power announced the commencement of full construction for Cangnan Unit 4, a major capacity expansion.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CGN Power",
+          "ticker": "01816",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1925,55 +1974,6 @@
           "name": "Vodafone",
           "ticker": null,
           "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261110-266",
-      "headline": "Honda raises full-year profit forecast as weak yen trumps costly EV retreat",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/automobiles/honda-raises-full-year-profit-forecast-as-weak-yen-trumps-costly-ev-retreat",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-10T07:35:37Z",
-      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "Honda raised its full-year profit forecast, citing currency tailwinds.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Honda raised its full-year profit forecast, citing currency tailwinds.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Honda Motor",
-          "ticker": null,
-          "listing_country": "JP"
         }
       ],
       "size_bucket": "large",
@@ -275323,9 +275323,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5462532,
-    "news_picked_today": 839,
-    "news_dropped_today": 4513
+    "news_seen_today": 5489357,
+    "news_picked_today": 843,
+    "news_dropped_today": 4533
   },
   "book_momentum": {
     "live_count": 8,
