@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-10T00:29:24Z",
+  "generated_at": "2026-11-10T00:31:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20261110-025",
@@ -1380,6 +1380,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261110-050",
+      "headline": "425 - Maplebear Inc. (0001579091) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1579091/000119312526453853/0001193125-26-453853-index.htm",
+      "source_name": "SEC EDGAR — Latest 425 (M&A Business-Combination Communications)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-09T22:16:14Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "Routine communication regarding a business combination for Maplebear (Instacart).",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 73,
+      "triage_reason": "Routine communication regarding a business combination for Maplebear (Instacart).",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Maplebear Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261110-004",
       "headline": "ASN: Iron Removal Pre-treatment Test Succeed on Third Party Brine [price-sensitive]",
       "headline_en": null,
@@ -1723,20 +1772,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261110-033",
-      "headline": "10-Q - NRG ENERGY, INC. (0001013871) (Filer)",
+      "inbox_id": "INB-20261110-048",
+      "headline": "10-Q - Lafayette Square USA, Inc. (0001849089) (Filer)",
       "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1013871/000101387126000025/0001013871-26-000025-index.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/1849089/000162828026072264/0001628280-26-072264-index.htm",
       "source_name": "SEC EDGAR — Latest 10-Q (Quarterly Report)",
       "input_nature": "regulatory_filing",
-      "found_at": "2026-11-09T21:37:06Z",
+      "found_at": "2026-11-09T21:35:30Z",
       "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "Routine quarterly filing for NRG Energy.",
+      "prelim_note": "Routine quarterly filing for Lafayette Square USA.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 65,
-      "triage_reason": "Routine quarterly filing for NRG Energy.",
+      "triage_score": 68,
+      "triage_reason": "Routine quarterly filing for Lafayette Square USA.",
       "region": "US",
       "relevance": "relevant_non_material",
       "materiality_pre_score": 40,
@@ -1745,47 +1794,96 @@
         "source_tier": 8,
         "scope": 6,
         "event": 5,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lafayette Square USA, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261110-052",
+      "headline": "144 - MICRON TECHNOLOGY INC (0000723125) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/723125/000195004726010899/0001950047-26-010899-index.htm",
+      "source_name": "SEC EDGAR — Latest Form 144 (Proposed Insider Sale)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-09T22:34:42Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "Proposed insider sale for Micron Technology.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 67,
+      "triage_reason": "Proposed insider sale for Micron Technology.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
         "size": 2,
         "recency": 4,
-        "materiality_label_floor": 0,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
+        "event_id": "insider_transaction",
+        "size_bucket": "mega"
       },
       "event_types": [
-        "earnings_revenue_margin"
+        "insider_transaction"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "NRG ENERGY, INC.",
+          "name": "MICRON TECHNOLOGY INC",
           "ticker": null,
           "listing_country": "US"
         }
       ],
-      "size_bucket": "large",
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261110-030",
-      "headline": "10-Q - Baldwin Insurance Group, Inc. (0001781755) (Filer)",
+      "inbox_id": "INB-20261110-047",
+      "headline": "10-Q - FiscalNote Holdings, Inc. (0001823466) (Filer)",
       "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1781755/000178175526000068/0001781755-26-000068-index.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/1823466/000119312526453716/0001193125-26-453716-index.htm",
       "source_name": "SEC EDGAR — Latest 10-Q (Quarterly Report)",
       "input_nature": "regulatory_filing",
-      "found_at": "2026-11-09T21:38:14Z",
+      "found_at": "2026-11-09T21:35:41Z",
       "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "Routine quarterly filing for Baldwin Insurance Group.",
+      "prelim_note": "Routine quarterly filing for FiscalNote Holdings.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "Routine quarterly filing for Baldwin Insurance Group.",
+      "triage_score": 67,
+      "triage_reason": "Routine quarterly filing for FiscalNote Holdings.",
       "region": "US",
       "relevance": "relevant_non_material",
       "materiality_pre_score": 40,
@@ -1794,15 +1892,15 @@
         "source_tier": 8,
         "scope": 6,
         "event": 5,
-        "size": 0,
+        "size": -1,
         "recency": 4,
-        "materiality_label_floor": 0,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
         "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
+        "size_bucket": "small"
       },
       "event_types": [
         "earnings_revenue_margin"
@@ -1810,31 +1908,31 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Baldwin Insurance Group, Inc.",
+          "name": "FiscalNote Holdings, Inc.",
           "ticker": null,
           "listing_country": "US"
         }
       ],
-      "size_bucket": "unknown",
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261110-031",
-      "headline": "10-Q - AMERICAN VANGUARD CORP (0000005981) (Filer)",
+      "inbox_id": "INB-20261110-049",
+      "headline": "10-Q - Perspective Therapeutics, Inc. (0000728387) (Filer)",
       "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/5981/000119312526453724/0001193125-26-453724-index.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/728387/000119312526453712/0001193125-26-453712-index.htm",
       "source_name": "SEC EDGAR — Latest 10-Q (Quarterly Report)",
       "input_nature": "regulatory_filing",
-      "found_at": "2026-11-09T21:37:51Z",
+      "found_at": "2026-11-09T21:34:44Z",
       "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "Routine quarterly filing for American Vanguard Corp.",
+      "prelim_note": "Routine quarterly filing for Perspective Therapeutics.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "Routine quarterly filing for American Vanguard Corp.",
+      "triage_score": 67,
+      "triage_reason": "Routine quarterly filing for Perspective Therapeutics.",
       "region": "US",
       "relevance": "relevant_non_material",
       "materiality_pre_score": 40,
@@ -1843,15 +1941,15 @@
         "source_tier": 8,
         "scope": 6,
         "event": 5,
-        "size": 0,
+        "size": -1,
         "recency": 4,
-        "materiality_label_floor": 0,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
         "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
+        "size_bucket": "small"
       },
       "event_types": [
         "earnings_revenue_margin"
@@ -1859,110 +1957,12 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "AMERICAN VANGUARD CORP",
+          "name": "Perspective Therapeutics, Inc.",
           "ticker": null,
           "listing_country": "US"
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261110-032",
-      "headline": "10-Q - DocGo Inc. (0001822359) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1822359/000162828026072270/0001628280-26-072270-index.htm",
-      "source_name": "SEC EDGAR — Latest 10-Q (Quarterly Report)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-09T21:37:22Z",
-      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "Routine quarterly filing for DocGo Inc.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "Routine quarterly filing for DocGo Inc.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DocGo Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261110-034",
-      "headline": "10-Q - HF Foods Group Inc. (0001680873) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1680873/000162828026072267/0001628280-26-072267-index.htm",
-      "source_name": "SEC EDGAR — Latest 10-Q (Quarterly Report)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-09T21:35:53Z",
-      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "Routine quarterly filing for HF Foods Group.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "Routine quarterly filing for HF Foods Group.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HF Foods Group Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -274384,9 +274384,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 244734,
-    "news_picked_today": 46,
-    "news_dropped_today": 170
+    "news_seen_today": 257587,
+    "news_picked_today": 52,
+    "news_dropped_today": 188
   },
   "book_momentum": {
     "live_count": 8,
