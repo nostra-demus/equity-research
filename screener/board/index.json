@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-11-10T00:01:25Z",
+  "generated_at": "2026-11-10T00:04:20Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261110-001",
+      "headline": "Jensen Huang affair: Trump backs Nvidia chief amid alleged Chinese espionage investigation",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/news/world/jensen-huang-affair-trump-backs-nvidia-chief-amid-alleged-chinese-espionage-investigation/article71684125.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T23:54:58Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "Donald Trump has expressed support for Nvidia CEO Jensen Huang amid reports of an investigation into alleged Chinese espionage involving the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Donald Trump has expressed support for Nvidia CEO Jensen Huang amid reports of an investigation into alleged Chinese espionage involving the company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261109-484",
       "headline": "3DA: Amaero Reports Q3 2026 Results and Q4 2026 Revenue Guidance [price-sensitive]",
@@ -272338,7 +272388,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4647,
+    "inbox_unconsumed": 4648,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -272347,9 +272397,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 0,
-    "news_picked_today": 0,
-    "news_dropped_today": 0
+    "news_seen_today": 12892,
+    "news_picked_today": 1,
+    "news_dropped_today": 23
   },
   "book_momentum": {
     "live_count": 8,
