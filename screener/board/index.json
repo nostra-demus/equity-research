@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-10T03:21:23Z",
+  "generated_at": "2026-11-10T03:26:25Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261110-151",
+      "headline": "DME: Convertible Notes [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.DME?key=2924-03160064-2A1709773",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-10T03:08:53Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "The company is issuing convertible notes, which is a dilutive capital action that impacts the capital structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company is issuing convertible notes, which is a dilutive capital action that impacts the capital structure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DME",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261110-077",
       "headline": "AWJ: Acquisition of Iron Maiden Gold Project [price-sensitive]",
@@ -1926,55 +1975,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261110-066",
-      "headline": "Empresa Distribuidora y Comercializadora Norte Sociedad Anónima Subsidiary Acquires 20% Stake in Latam Downstream Holdings Ltd.",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/empresa-distribuidora-y-comercializadora-norte-sociedad-anonima-subsidiary-acquires-20",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-10T00:20:45Z",
-      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "Empresa Distribuidora y Comercializadora Norte S.A. acquired a 20% stake in Latam Downstream Holdings Ltd.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Empresa Distribuidora y Comercializadora Norte S.A. acquired a 20% stake in Latam Downstream Holdings Ltd.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Empresa Distribuidora y Comercializadora Norte Sociedad Anónima",
-          "ticker": null,
-          "listing_country": "AR"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -274967,9 +274967,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1627168,
-    "news_picked_today": 259,
-    "news_dropped_today": 1445
+    "news_seen_today": 1664380,
+    "news_picked_today": 260,
+    "news_dropped_today": 1468
   },
   "book_momentum": {
     "live_count": 8,
