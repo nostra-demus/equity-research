@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-10T13:40:31Z",
+  "generated_at": "2026-11-10T13:45:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261110-598",
@@ -1833,6 +1833,110 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261110-605",
+      "headline": "Venture Global Q3 Profit Surges, Lifts FY26 Adj. EBITDA Guidance; Pre-Market Shares Up",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/venture-global-q3-profit-surges-lifts-fy26-adj-ebitda-guidance-pre-market-shares",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-10T13:07:15Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "Company reported surging profit and raised FY26 Adj. EBITDA guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company reported surging profit and raised FY26 Adj. EBITDA guidance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Venture Global",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261110-606",
+      "headline": "Blackstone To Acquire 16% Stake In India's IIFL Finance For $535 Mln",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/blackstone-acquire-16-stake-indias-iifl-finance-535-mln",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-10T13:06:38Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "Blackstone to acquire a 16% stake in IIFL Finance for $535 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Blackstone to acquire a 16% stake in IIFL Finance for $535 million.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Blackstone",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "IIFL Finance",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261110-601",
       "headline": "President Trump says the FBI is investigating Jensen Huang’s affair",
       "headline_en": null,
@@ -1878,110 +1982,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261110-595",
-      "headline": "Binance Halts MEXC Transfers as FinCEN Cuts Exchange Off From US Financial System",
-      "headline_en": null,
-      "url": "https://decrypt.co/382926/binance-halts-mexc-transfers-as-fincen-cuts-exchange-off-from-us-financial-system",
-      "source_name": "Decrypt — Crypto News",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-10T12:13:27Z",
-      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "FinCEN enforcement action cutting off a major crypto exchange from the U.S. financial system is a significant regulatory event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "FinCEN enforcement action cutting off a major crypto exchange from the U.S. financial system is a significant regulatory event.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Binance",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261110-581",
-      "headline": "Blackstone to buy about 16% stake in IIFL Finance for ₹5,000 crore",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/money-and-banking/blackstone-to-buy-about-16-stake-in-iifl-finance-for-5000-crore/article71685978.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-10T11:35:16Z",
-      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "Blackstone is acquiring a 16% stake in IIFL Finance for 50 billion INR.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Blackstone is acquiring a 16% stake in IIFL Finance for 50 billion INR.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Blackstone",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "IIFL Finance",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -275831,9 +275831,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7011660,
-    "news_picked_today": 1141,
-    "news_dropped_today": 5771
+    "news_seen_today": 7059397,
+    "news_picked_today": 1146,
+    "news_dropped_today": 5790
   },
   "book_momentum": {
     "live_count": 8,
