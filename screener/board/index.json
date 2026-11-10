@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-10T20:53:41Z",
+  "generated_at": "2026-11-10T21:20:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20261110-651",
@@ -144,6 +144,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261110-678",
+      "headline": "424B2 - BARCLAYS BANK PLC (0000312070) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/312070/000191870426035231/0001918704-26-035231-index.htm",
+      "source_name": "SEC EDGAR — Latest 424B2 (Prospectus, shelf takedown)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-10T18:46:14Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "Barclays Bank PLC is filing a prospectus for a shelf takedown, indicating a potential debt issuance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Barclays Bank PLC is filing a prospectus for a shelf takedown, indicating a potential debt issuance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BARCLAYS BANK PLC",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1916,55 +1965,6 @@
       "companies": [
         {
           "name": "ABC Compounding Co., Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261110-213",
-      "headline": "FDA drug recall (Class II) — The Ritedose Corporation: Formoterol Fumarate Inhalation Solution, 20mcg/2mL, packaged in cartons of 30 individually wrapped vials (NDC 76204-030-01) and 60 individually wrapped vials (N — Failed Impurities/Degradation Specification",
-      "headline_en": null,
-      "url": "https://api.fda.gov/drug/enforcement.json?search=recall_number.exact:%22D-0073-2027%22",
-      "source_name": "U.S. Food & Drug Administration (Press Releases)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-04T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "FDA drug recall (Class II) for Formoterol Fumarate Inhalation Solution due to Failed Impurities/Degradation Specification.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "FDA drug recall (Class II) for Formoterol Fumarate Inhalation Solution due to Failed Impurities/Degradation Specification.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "The Ritedose Corporation",
           "ticker": null,
           "listing_country": "US"
         }
@@ -233983,77 +233983,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-237bc01d6762",
-      "idea_version": "IDEAV-9486b680a81e56c0",
-      "idea_version_started_at": "2026-11-07T22:29:24Z",
-      "ticker": "TM",
-      "company": "Toyota Motor",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company raised profit forecasts due to sustained vehicle demand and the favorable impact of a weak yen on export earnings.",
-      "why_now": "The guidance hike was announced on 2026-11-07.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "fx_rates",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-680f5a18445a"
-      ],
-      "primary_source_event_id": "EVT-680f5a18445a",
-      "source_headlines": [
-        "Toyota hikes profit forecasts on strong demand, weak yen"
-      ],
-      "source_headline": "Toyota hikes profit forecasts on strong demand, weak yen",
-      "source_url": "https://www.qatar-tribune.com/article/263040/business/toyota-hikes-profit-forecasts-on-strong-demand-weak-yen",
-      "source_name": "Qatar Tribune — Business",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-07T21:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-05T12:54:05Z",
-      "updated_at": "2026-11-07T22:29:24Z",
-      "decay_at": "2026-11-09T09:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-fbac3d69087e",
       "idea_version": "IDEAV-d87673cf8ca2ed95",
       "idea_version_started_at": "2026-11-08T02:29:00Z",
@@ -238167,14 +238096,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 568,
+    "total_count": 567,
     "shown_count": 499,
-    "hidden_count": 69,
+    "hidden_count": 68,
     "side_counts": {
       "long": {
-        "total_count": 290,
+        "total_count": 289,
         "shown_count": 250,
-        "hidden_count": 40
+        "hidden_count": 39
       },
       "short": {
         "total_count": 279,
@@ -238184,12 +238113,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1751,
+      "evicted_count": 1752,
       "oldest_retained_at": "2026-10-14T02:05:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 1151,
-          "oldest_retained_at": "2026-10-26T04:01:25Z"
+          "evicted_count": 1152,
+          "oldest_retained_at": "2026-10-26T04:04:31Z"
         },
         "short": {
           "evicted_count": 601,
@@ -243347,8 +243276,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-09T09:00:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-10T21:08:52Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -275377,9 +275306,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 11388157,
-    "news_picked_today": 1481,
-    "news_dropped_today": 8695
+    "news_seen_today": 11672032,
+    "news_picked_today": 1534,
+    "news_dropped_today": 8882
   },
   "book_momentum": {
     "live_count": 8,
