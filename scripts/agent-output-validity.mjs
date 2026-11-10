@@ -2,7 +2,8 @@
 // One mechanical authority for whether a saved specialist markdown output is safe to reuse.
 // The cockpit imports this function when pricing/resuming orbs; MODULE_PIPELINE invokes this same file before
 // skipping an agent. Keep it deterministic: prose quality is a synthesis judgment, never a hidden reason to
-// widen an exact paid scope after the user has approved it.
+// widen an exact paid scope after the user has approved it. An explicit producer completion declaration is
+// execution metadata, not a financial verdict: unfinished or malformed declarations cannot confer completion.
 
 import fs from 'node:fs'
 import path from 'node:path'
@@ -15,17 +16,49 @@ export function validateAgentOutputText(raw) {
   if (body.includes('\0')) reasons.push('nul-byte')
   if (!/^#(?!#)(?:[ \t]|$)/.test(body.trimStart())) reasons.push('no-top-level-header')
 
+  // This reserved section is opt-in for legacy outputs. Never infer execution state from the word
+  // "incomplete" in ordinary evidence, financial verdicts, quotes or examples.
+  const declaration = (line) => {
+    const match = /^(?:\*\*(COMPLETE|COMPLETED|INCOMPLETE)\.?\*\*(?:\.(?:[ \t]|$)|[ \t]|$)|(COMPLETE|COMPLETED|INCOMPLETE)(?:\.(?:[ \t]|$)|[ \t]*$))/i.exec(line.trim())
+    return match ? ((match[1] || match[2]).toLowerCase() === 'incomplete' ? 'incomplete' : 'complete') : null
+  }
+  let completion = 'absent'
+  let completionSections = 0
+  let inCompletion = false
+  let needsDeclaration = false
+  let invalidCompletion = false
   let fence = null
   for (const line of body.split('\n')) {
-    if (!fence) {
-      const open = /^ {0,3}(`{3,}|~{3,})[^`~]*$/.exec(line)
-      if (open) fence = { char: open[1][0], width: open[1].length }
+    if (fence) {
+      const close = new RegExp(`^ {0,3}\\${fence.char}{${fence.width},}[ \\t]*$`)
+      if (close.test(line)) fence = null
       continue
     }
-    const close = new RegExp(`^ {0,3}\\${fence.char}{${fence.width},}[ \\t]*$`)
-    if (close.test(line)) fence = null
+    const open = /^ {0,3}(`{3,})[^`]*$/.exec(line) || /^ {0,3}(~{3,}).*$/.exec(line)
+    if (open) {
+      fence = { char: open[1][0], width: open[1].length }
+      continue
+    }
+    if (/^(?: {4}|\t)/.test(line) || /^ {0,3}>/.test(line)) continue
+    const heading = /^ {0,3}#{1,6}[ \t]+(.+?)(?:[ \t]+#+)?[ \t]*$/.exec(line)
+    if (heading) {
+      if (needsDeclaration) invalidCompletion = true
+      inCompletion = heading[1].trim().toLowerCase() === 'completion status'
+      needsDeclaration = inCompletion
+      if (inCompletion && ++completionSections > 1) invalidCompletion = true
+      continue
+    }
+    if (!inCompletion || !line.trim()) continue
+    const status = declaration(line)
+    if (needsDeclaration) {
+      needsDeclaration = false
+      if (status) completion = status
+      else invalidCompletion = true
+    } else if (status) invalidCompletion = true
   }
   if (fence) reasons.push('unclosed-code-fence')
+  if (invalidCompletion || needsDeclaration) reasons.push('invalid-completion-status')
+  else if (completion === 'incomplete') reasons.push('explicit-incomplete-completion-status')
 
   const tail = body.split('\n').slice(-20)
   if (tail.some((line) => /^Agent:\s*\S+\s*$/.test(line))) reasons.push('stray-confirmation-block')
@@ -128,6 +161,14 @@ function quarantineExactArtifacts(files, analysesRoot, env, kind) {
     if (!moduleReal.startsWith(`${rootReal}${path.sep}`)) throw new Error('exact-agent artifact resolves outside analyses')
     if (!targetStat.isFile() && !targetStat.isSymbolicLink()) {
       throw new Error(`refusing to remove non-file exact-agent artifact: ${file}`)
+    }
+    if (targetStat.isFile() && !targetStat.isSymbolicLink()
+        && path.basename(abs) === `${markdown[1]}.md`
+        && validateAgentOutputFile(abs).reasons.some((reason) =>
+          reason === 'explicit-incomplete-completion-status' || reason === 'invalid-completion-status')) {
+      // Supervisor-owned retention and approved preparation handle this artifact. A child cannot erase
+      // the evidence or acquire a new archive-write permission merely because it declared failure.
+      throw new Error('unfinished completion output retained; stop before another Task or publication')
     }
     fs.unlinkSync(abs)
     try {

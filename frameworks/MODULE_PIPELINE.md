@@ -217,7 +217,27 @@ node scripts/agent-output-validity.mjs "<output_path>" || echo "FAIL invalid-age
 wc -c "<output_path>"   # diagnostic only; size never overrides the validator either way
 ```
 
-The shared validator is authoritative for the saved markdown mechanics in BOTH Step 4A reuse and Step 4B persistence. It checks: (a) a real, non-empty regular file; (b) one top-level `#` header at the start, not whitespace/preamble or `##`; (c) no NUL byte and no unclosed backtick/tilde fence; and (d) no stray chat-confirmation `Agent:` line in the last 20 lines. Do not silently strengthen or weaken these rules in prose: the server uses the same function to price exact resumes.
+The shared validator is authoritative for the saved markdown mechanics in BOTH Step 4A reuse and Step 4B persistence. It checks: (a) a real, non-empty regular file; (b) one top-level `#` header at the start, not whitespace/preamble or `##`; (c) no NUL byte and no unclosed backtick/tilde fence; (d) no stray chat-confirmation `Agent:` line in the last 20 lines; and (e) any explicit producer completion declaration below. Do not silently strengthen or weaken these rules in prose: the server uses the same function to price exact resumes.
+
+**Explicit producer completion state is execution metadata, not the company verdict.** A producer that
+stops unfinished must retain its draft and declare a real `## Completion Status` section with
+`**INCOMPLETE.**` as its first substantive line (an explanation may follow). `COMPLETE`/`COMPLETED` may
+declare finished execution; they never override structural checks, financial/evidence guards or runtime
+status. The section name is reserved at Markdown heading levels 1–6; producers normally use level 2 as
+shown. A reserved section requires one closed status token, not a phrase such as "Incomplete evidence";
+empty, malformed, duplicate or conflicting declarations fail closed. Fenced/indented code and quoted
+examples are ignored. Ordinary incomplete-evidence prose, completed adverse findings, capped analyses
+and reasoned refusals remain distinct from an unfinished producer. Older outputs with no section retain
+their existing validation path; absence is not a new proof of financial correctness.
+
+On `explicit-incomplete-completion-status` or `invalid-completion-status`, stop before another Task,
+sidecar extraction, synthesis advancement, commit or publication. Do not automatically retry, repair the
+financial model, relabel a financial verdict, or erase the draft. Child cleanup deliberately fails closed
+and retains these bytes. The supervisor preserves the module's exact draft and auxiliary evidence in
+its protected retained-output storage before any approved preparation replaces/removes canonical
+files; archival failure stops preparation. A later retry requires a newly reviewed scope and the same
+single-Task limits below. This is evidence retention, never a completed-publication receipt or a new
+provider write permission.
 
 For every emitting agent, also verify `<SIGNAL_OUTPUT_PATH>` before advancing:
 

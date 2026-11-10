@@ -35,6 +35,7 @@
 // folder per subject, where "reuse" is already the natural behaviour and the carry set is always empty.
 
 import { RESEARCH_AUDIT_ATTEMPT_MARKERS } from './research-audit-outcome'
+import { retainExplicitIncompleteModule } from './module-publication'
 import { createHash } from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
@@ -1816,6 +1817,12 @@ function resumeSwapBackupAbs(runRoot: string, module: string): string {
   return path.join(ANALYSES_DIR, `.resume-backup-${path.basename(runRoot)}-${module}`)
 }
 
+function subjectFromRunRoot(runRoot: string): string {
+  const match = /^analyses\/([A-Z0-9.\-]{1,15})_\d{4}-\d{2}-\d{2}$/.exec(runRoot)
+  if (!match) throw new Error('retention requires an exact research run root')
+  return safeSubjectSegment(match[1])
+}
+
 /** Recover the two possible crash points in a directory swap. If the new target never landed, restore the
  * old folder before planning so target-only paid orbs remain visible. If the new target landed and only
  * backup cleanup was interrupted, keep the new target and remove the obsolete backup. */
@@ -1828,6 +1835,7 @@ function recoverInterruptedResumeSwap(runRoot: string, module: string): void {
   const dstAbs = path.join(targetRootAbs, module)
   if (fs.existsSync(dstAbs)) {
     assertContainedModuleDir(runRoot, module)
+    retainExplicitIncompleteModule(subjectFromRunRoot(runRoot), module, runRoot, 'resume-backup')
     fs.rmSync(backupAbs, { recursive: true, force: true })
     return
   }
@@ -2255,6 +2263,7 @@ export function prepareModuleResume(subject: string, module: string, swarmId: st
   if (!entry) throw new Error(`module ${module} is not in this swarm`)
   const moduleNode = graph.modules.find((m) => m.name === module)
   if (!moduleNode) throw new Error(`module ${module} is not in this swarm`)
+  if (swarmId === RESEARCH_SWARM_ID) retainExplicitIncompleteModule(safe, module, plan.targetRunRoot)
 
   // (1) Carry the reused ancestors. `carryForwardModules` reads `plan.carry` (derived from `plan.reuse`), so
   // an ancestor already in the target root (`mustReuse`) or not reused is silently skipped — exactly right.
@@ -2362,7 +2371,10 @@ export function prepareModuleResume(subject: string, module: string, swarmId: st
         }
         throw error
       }
-      if (movedOldTarget) fs.rmSync(backupAbs, { recursive: true, force: true })
+      if (movedOldTarget) {
+        if (swarmId === RESEARCH_SWARM_ID) retainExplicitIncompleteModule(safe, module, plan.targetRunRoot, 'resume-backup')
+        fs.rmSync(backupAbs, { recursive: true, force: true })
+      }
     } finally {
       fs.rmSync(tmpAbs, { recursive: true, force: true })
     }
@@ -2523,6 +2535,8 @@ export function sanitizeRecoverableChainRoot(input: RecoverableChainSanitizerInp
     if (actual !== expected) throw new Error(`recoverable chain artifact changed: ${outputRel}`)
   }
 
+  for (const module of modules) retainExplicitIncompleteModule(subjectFromRunRoot(input.runRoot), module, input.runRoot)
+
   for (const module of [...modules].sort()) {
     recoverInterruptedResumeSwap(input.runRoot, module)
     const tmpAbs = path.join(ANALYSES_DIR, `.chain-recovery-${path.basename(input.runRoot)}-${module}-${process.pid}-${carrySeq++}`)
@@ -2548,7 +2562,10 @@ export function sanitizeRecoverableChainRoot(input: RecoverableChainSanitizerInp
         if (moved && fs.existsSync(backupAbs) && !fs.existsSync(dstAbs)) fs.renameSync(backupAbs, dstAbs)
         throw error
       }
-      if (moved) fs.rmSync(backupAbs, { recursive: true, force: true })
+      if (moved) {
+        retainExplicitIncompleteModule(subjectFromRunRoot(input.runRoot), module, input.runRoot, 'resume-backup')
+        fs.rmSync(backupAbs, { recursive: true, force: true })
+      }
     } finally {
       fs.rmSync(tmpAbs, { recursive: true, force: true })
     }
@@ -2591,6 +2608,9 @@ export function prepareThesisPlanPrivately(
   try {
     if (fs.existsSync(targetAbs)) {
       assertRealRunRootInsideAnalyses(plan.targetRunRoot)
+      for (const module of buildSwarmGraph(swarmId).modules) {
+        retainExplicitIncompleteModule(safe, module.name, plan.targetRunRoot)
+      }
       copyDir(targetAbs, stagingRootAbs, true)
     } else {
       fs.mkdirSync(stagingRootAbs, { mode: 0o700 })

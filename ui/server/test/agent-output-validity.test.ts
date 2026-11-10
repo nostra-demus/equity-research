@@ -19,6 +19,39 @@ assert.equal(validateAgentOutputText('# Report\n\nAgent: saved-orb\n').valid, fa
 assert.equal(validateAgentOutputText('# Report\n\nAgent: cited-in-body\n' + '\n'.repeat(21) + '## End\n').valid, true,
   'only the trailing chat-confirmation window is structural')
 
+const unfinished = '# Report\n\n## Completion Status\n\n**INCOMPLETE.** The producer stopped with unresolved checks.\n'
+assert.deepEqual(validateAgentOutputText(unfinished).reasons, ['explicit-incomplete-completion-status'])
+for (const declaration of ['INCOMPLETE', 'INCOMPLETE.', '**INCOMPLETE**', '**INCOMPLETE.** explanation', '**INCOMPLETE**. explanation']) {
+  assert.equal(validateAgentOutputText(`# Report\n## Completion Status\n${declaration}\n`).valid, false,
+    `an explicit producer declaration blocks reuse: ${declaration}`)
+}
+for (const body of [
+  '# Report\nEvidence is incomplete; apply the stated confidence cap.\n',
+  '# Report\n## Verdict\nAvoid — adverse findings are a completed result.\n',
+  '# Report\n## Verdict\nInsufficient Data — Refuse To Rate.\n',
+  '# Report\n```markdown\n## Completion Status\n**INCOMPLETE.**\n```\n',
+  '# Report\n~~~markdown\n## Completion Status\n**INCOMPLETE.**\n~~~\n',
+  '# Report\n~~~ example `hint`\n## Completion Status\n**INCOMPLETE.**\n~~~\n',
+  '# Report\n``` example ~hint~\n## Completion Status\n**INCOMPLETE.**\n```\n',
+  '# Report\n> ## Completion Status\n> **INCOMPLETE.**\n',
+  '# Report\n    ## Completion Status\n    **INCOMPLETE.**\n',
+  '# Report\n## Completion Status\n**COMPLETE.**\nEvidence is incomplete; the final rating is capped.\n',
+  '# Report\n## Completion Status\nCOMPLETED. The reasoned refusal is the final outcome.\n',
+  '# Report\n## Completion Status\n**COMPLETE**. The reasoned refusal is the final outcome.\n',
+  '# Report\n## Completion Status\n```markdown\nINCOMPLETE\n```\n**COMPLETE**\n',
+]) assert.equal(validateAgentOutputText(body).valid, true,
+  'financial adversity, declared data gaps and quoted/fenced/indented examples are not execution failure')
+for (const body of [
+  '# Report\n## Completion Status\n',
+  '# Report\n## Completion Status\nIncomplete evidence remains.\n',
+  '# Report\n## Completion Status\nUNKNOWN\n',
+  '# Report\n## Completion Status\n**COMPLETE.**\n**INCOMPLETE.**\n',
+  '# Report\n## Completion Status\nCOMPLETE\n## Completion Status\nCOMPLETE\n',
+]) assert.ok(validateAgentOutputText(body).reasons.includes('invalid-completion-status'),
+  'an opt-in reserved section must have one unambiguous producer declaration')
+assert.equal(validateAgentOutputText('# Report\n## Completion Status\nCOMPLETE\n```json\n').valid, false,
+  'declared completion never overrides mechanical invalidity')
+
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-output-validity-'))
 const file = path.join(tmp, '01_check.md')
 fs.writeFileSync(file, valid)
@@ -99,6 +132,19 @@ assert.throws(() => quarantineExactAgentArtifacts([failedOutput], analyses, {
 }), /writable-orb receipt/, 'the server cannot authorize 99 through the specialist cleanup receipt')
 
 const synthesis = path.join(moduleDir, '99_management-governance-synthesis.md')
+fs.writeFileSync(synthesis, unfinished)
+assert.equal(validateAgentOutputFile(synthesis).valid, false)
+assert.throws(() => quarantineExactSynthesisArtifact(synthesis, analyses, exactEnv), /unfinished completion output retained/)
+assert.equal(fs.readFileSync(synthesis, 'utf8'), unfinished,
+  'a child retains explicit unfinished evidence for supervisor archival; it cannot silently erase it')
+assert.equal(spawnSync(process.execPath, [script, '--quarantine-exact-synthesis', synthesis], { cwd: tmp, env: cliEnv }).status, 1)
+assert.equal(fs.readFileSync(synthesis, 'utf8'), unfinished, 'CLI fails closed and retains the same bytes')
+fs.writeFileSync(failedOutput, unfinished)
+fs.writeFileSync(failedSignal, '{"evidence":"retained"}')
+assert.throws(() => quarantineExactAgentArtifacts([failedOutput, failedSignal], analyses, exactEnv), /unfinished completion output retained/)
+assert.equal(fs.readFileSync(failedOutput, 'utf8'), unfinished)
+assert.equal(fs.readFileSync(failedSignal, 'utf8'), '{"evidence":"retained"}',
+  'an unfinished specialist retains both its draft and paired evidence without a new paid Task')
 fs.writeFileSync(synthesis, '# Superficially valid summary left by an errored Task\n')
 quarantineExactSynthesisArtifact(synthesis, analyses, exactEnv)
 assert.equal(fs.existsSync(synthesis), false,
