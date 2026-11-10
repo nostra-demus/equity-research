@@ -449,15 +449,21 @@ def eval_ap_valuation_summary_integrity(sidecar, decision):
         # renders as "4000%". Normalize by the same positive-weight sum the cross-check block uses.
         _wsum = sum(v for v in weights.values() if _isnum(v) and v > 0)
         for meth, b in mbasis.items():
-            if not isinstance(b, str) or b.strip().lower() != "trailing":
+            if not isinstance(b, str):
+                continue
+            # LTM/TTM are historical too: a newer trailing SOTP is still not the forward SOTP required
+            # by Calculation Standard 10. Other methods may legitimately use LTM multiples (§TTM/LTM).
+            period_basis = b.strip().lower()
+            if period_basis != "trailing" and not (meth == "sotp" and period_basis in ("ltm", "ttm")):
                 continue
             w = weights.get(meth)
             if _isnum(w) and w > 0:
                 shown = (w / _wsum) if _wsum > 0 else w
+                rebase = "forward NTM/FY+1" if meth == "sotp" else "LTM/forward"
                 det.append(
                     f"method '{meth}' is valued on a TRAILING period yet carries {shown:.0%} base-point weight — a "
                     f"trailing anchor is a labelled sanity check only, never a weighted method "
-                    f"(06_sum-of-the-parts; MODULE_RULES Calculation Standard 10). Re-base it to LTM/forward "
+                    f"(06_sum-of-the-parts; MODULE_RULES Calculation Standard 10). Re-base it to {rebase} "
                     f"or drop its weight to 0.")
 
     # ---- v1.1 method internals (P-C sub-levers) — each block, when present, must REPRODUCE its recorded
@@ -1128,6 +1134,48 @@ def _selftest() -> int:
           any("TRAILING period" in x for x in eval_ap_valuation_summary_integrity(
               dict(exc, method_basis={"peers": "NTM", "dcf": "FY+1", "sotp": "trailing"}), dr_match)))
 
+    # The same historical SOTP must not pass merely because it is labelled LTM/TTM rather than trailing.
+    # These are representations of one fixture, not additional independent valuation cases. The cited
+    # weighting exception clears only the majority/cross-check policy, never the separate forward rule.
+    for historical_basis in ("LTM", "TTM", " lTm ", " tTm ", " trailing "):
+        historical = dict(exc, method_basis=dict(exc["method_basis"], sotp=historical_basis))
+        historical_out = eval_ap_valuation_summary_integrity(historical, dr_match)
+        check(f"historical SOTP {historical_basis!r} rejected despite weight exception",
+              len(historical_out) == 1 and "TRAILING period yet carries 40%" in historical_out[0])
+        check(f"historical SOTP {historical_basis!r} advice requires forward basis",
+              "Re-base it to forward NTM/FY+1" in historical_out[0] if historical_out else False)
+        check(f"historical SOTP {historical_basis!r} pre-1.4 unchanged",
+              eval_ap_valuation_summary_integrity(dict(historical, schema_version="1.3"), dr_match) == [])
+
+    for forward_basis in ("NTM", "FY+1"):
+        check(f"forward SOTP {forward_basis} with cited weight exception passes",
+              eval_ap_valuation_summary_integrity(
+                  dict(exc, method_basis=dict(exc["method_basis"], sotp=forward_basis)), dr_match) == [])
+
+    for historical_basis in ("LTM", "TTM"):
+        check(f"{historical_basis} peer and own-history multiples remain allowed",
+              eval_ap_valuation_summary_integrity(
+                  dict(good, method_basis=dict(good["method_basis"], peers=historical_basis,
+                                              own_history=historical_basis)), dr_match) == [])
+
+    # Method periods must not replace the run-level EV/equity basis used later to derive a missing level
+    # and reconcile it with decision_record. No optional recorded level may hide a target contradiction.
+    ev_with_periods = {
+        "schema_version": "1.4", "ticker": "T", "basis": "ev", "shares": 10, "net_debt": 0,
+        "scenarios": [{"label": "base", "forward_metric": 100, "multiple": 1.5,
+                       "metric_basis": "NTM EBITDA", "multiple_basis": "NTM EV/EBITDA",
+                       "multiple_kind": "applied", "source": "07 §3"}],
+        "methods": {"peers": 15, "sotp": 15}, "method_weights": {"peers": 0.7, "sotp": 0.3},
+        "method_basis": {"peers": "NTM", "sotp": "FY+1"},
+    }
+    check("method periods preserve derivable EV level decision mismatch",
+          any("shows level 15.0 but decision_record price_target is 16" in x
+              for x in eval_ap_valuation_summary_integrity(
+                  ev_with_periods, {"scenarios": [{"label": "base", "price_target": 16}]})))
+    check("method periods preserve matching derivable EV level",
+          eval_ap_valuation_summary_integrity(
+              ev_with_periods, {"scenarios": [{"label": "base", "price_target": 15}]}) == [])
+
     # the Method Map's non-multiple types are exempt from multiples-first (REIT → NAV, Financial → DDM)
     check("REIT exempt from multiples-first", eval_ap_valuation_summary_integrity(
         dict(amzn, business_type="REIT", method_basis={"peers": "NTM", "dcf": "FY+1", "sotp": "FY+1"}), dr_match) == [])
@@ -1136,6 +1184,11 @@ def _selftest() -> int:
     check("trailing sanity check at 0 weight is allowed", eval_ap_valuation_summary_integrity(
         dict(good, method_weights={"peers": 0.5, "own_history": 0.25, "dcf": 0.25, "sotp": 0.0},
              method_basis={"peers": "NTM", "own_history": "NTM", "dcf": "FY+1", "sotp": "trailing"}), dr_match) == [])
+    for historical_basis in ("LTM", "TTM"):
+        check(f"historical SOTP {historical_basis} sanity check at 0 weight is allowed",
+              eval_ap_valuation_summary_integrity(
+                  dict(good, method_weights={"peers": 0.5, "own_history": 0.25, "dcf": 0.25, "sotp": 0.0},
+                       method_basis=dict(good["method_basis"], sotp=historical_basis)), dr_match) == [])
 
     # NON-NORMALIZED (percent-style) weights: blend() supports them, so the trailing-weight message must
     # show the NORMALIZED share (40 of 100 -> "40%"), not the raw weight ("4000%"). Same AMZN shape, weights
