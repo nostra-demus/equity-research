@@ -45,6 +45,57 @@ The script reads the **STANDING, corrected** ledger via `scripts/ledger_records.
 
 Do **not** compute or estimate any metric yourself, and do not "fill in" a value the script left `null` — the script owns the math and the small-N refusal.
 
+**Return evidence has separate scopes (`reported-return-points/v1`, `DECISION_LEDGER.md` §8).** The
+single existing return-resolution path classifies every record and retains its inventory/reasons:
+`legacy_label_only` for wholly unadopted old scalar history, `reported_consistent` for internally
+consistent supplied raw-price points, `not_assessable` for missing/ambiguous/unsupported facts after
+adoption, or `reported_inconsistent` for explicit anchor/date/currency/basis/arithmetic contradictions.
+After any `return_measurement` key appears in a record's history, a later stripped or unknown block
+does not restore legacy fallback. Existing standing correction/version handling remains; a rejected
+corrected value cannot resurrect its older version, and the original plus correction are not two
+observations. None of these states is a company rating or an author-supplied source-verification flag.
+
+The familiar top-level return numbers remain explicitly **legacy/as-reported price proxies**, not a
+blended upgraded population. Consistent point-backed proxies appear separately in
+`reported_return_groups`. Their group key includes nested version, price-return basis, stock-level
+basis, currency, anchor kind and actual elapsed calendar days. Keep those groups separate from legacy
+checkpoint-label matching and from each other: nominal `90d` and actual 94-day measurements are not
+one newly verified horizon. Inventory `return_measurement` exposes state, reasons, lane, relative
+price change, actual dates/duration and group; the summary's `return_measurement` exposes policy,
+state counts and limitations. Report full coverage/unknown/contradiction denominators, including hard
+or losing observations, rather than claiming improvement because records were excluded.
+
+The declared basis is `price_return_ex_distributions_and_costs`, with unadjusted stock prices and a
+compatible price-index/raw-price comparator. Matching supplied date/value/source facts and canonical
+four-decimal arithmetic do not prove official closes, expected sessions, first availability, source
+truth, normalized corporate actions, an executable entry or final checkpoint. Prices and a helper
+called `total_return` do not establish dividends or costs. Never present this family as economic
+total/net return, portfolio return, drawdown or compounding. No held official-close/calendar policy or
+new provider/source campaign is activated.
+
+Keep the existing conditional numerical hit/range/e-value diagnostics, effective-N and statistical
+floors in their proper lane/group, but **neither the legacy nor this consistency-only reported family
+may declare stock-selection skill**. A mathematical threshold, exposed separately as
+`proxy_threshold_met`, is not `skill_declared=true` and is not proof of alpha. Interpret the existing
+headline/anytime-valid arithmetic and matching-horizon language above subject to these source and
+measurement limits; exact Clopper-Pearson arithmetic is not proof of an exact market exposure window.
+Provider/profile reporting obeys the same partitions and cannot turn a proxy comparison into a model
+superiority or confidence claim.
+
+In provider return-floor metadata, `matched_horizon_required` remains a deprecated compatibility alias.
+The precise `matched_review_label_required` key and `horizon_key_note` explain that legacy matching
+means checkpoint labels only, not verified actual market windows. Reported keys describe the declared
+proxy comparison group above; neither alias nor group metadata proves official/exact exposure dates.
+
+Probability forecasts are a separate branch: matched original ledger probabilities and independently
+resolved `forecast_results` statuses feed Brier/reliability and module/type slices. A forecast may
+itself concern price returns, but numerical review-return fields do not automatically resolve it.
+Return-only metadata must not erase its full forecast snapshot or quarantine its calibration slice.
+Keep Step 4C, the eight-point haircut, scorer and AG mirrors unchanged. Return counts can affect the
+global `Pre-data`/check narration, but cannot manufacture an actionable forecast slice or change a
+numeric haircut while the forecast/error evidence stays fixed. This distinction is not permission to
+invent an unresolved forecast status or a lesson from a price proxy.
+
 ## 2. Commit the output (DATA → main, per CLAUDE.md §25)
 
 The performance summary is a derived, regenerable aggregate (not immutable), so it commits straight to `main` via the serialized helper. Pass **only the two exact paths the script just printed** as `WROTE …` (the dated JSON + MD for THIS run — under `analyses/performance/scoped/` for a scoped run) — never the whole `analyses/performance/` directory, so a concurrent or scoped in-flight output is never swept into this commit (§28 — `commit-run.sh` stages only the pathspecs it is handed). Use the scope in the message (defaulting to `all`):
@@ -54,6 +105,13 @@ bash scripts/commit-run.sh "Calibrate ledger: all — $(date +%Y-%m-%d)" -- <the
 ```
 
 Report the commit SHA.
+
+Preserve the existing derived-output publisher contract: an all-scope same-day run regenerates the
+same global base JSON/Markdown paths, with prior committed versions retained in Git history. Scoped
+outputs stay under `scoped/` and outside the global Phase-6 reader glob. Do not introduce a competing
+global `_v2` file or a new ledger to make these outputs immutable; decisions and reviews remain the
+immutable inputs. This narration does not authorize executing the production-default publisher from
+a local implementation/test task or bypassing the current protected workflow.
 
 ## 3. Report in plain English (§21)
 
@@ -67,6 +125,10 @@ Read the printed JSON and say:
 - the leading `error_taxonomy_distribution` tag(s) if any count ≥ 2 (this is the one concrete "why the engine is wrong" read even in a Pre-data run — never gated by the floor; this is also now the exact threshold the Phase 6 gate uses — `frameworks/DECISION_LEDGER.md` §18 step 6 — to require the NEXT run to name a concrete defense against each leading category or admit it has none), and every `pre_mortem_calibration.false_comfort_cases` entry by ticker (the script lists them — a red-team that gave false comfort on a broken thesis is the costliest miss in that metric);
 - if `excluded_provisional.n > 0`, name every excluded run (ticker + verify-evidence verdict) and say plainly that the skill metrics above are computed WITHOUT them — do not let a reader assume the hit rate/Brier covers every standing call;
 - when the `hit_rate` is still withheld but `calibration` (Brier) IS computed, report the Brier — the `honesty_statement` already says so; do not repeat the flat "everything withheld" line, which is only true when both are below floor.
+- the return-evidence lane/group, actual reported dates/duration/basis and missing/contradictory counts;
+  identify legacy checkpoint-label comparisons explicitly, and keep any proxy threshold separate from a
+  stock-selection skill declaration. A missing return comparison does not mean a failed company or
+  unavailable probability-forecast calibration.
 
 ## Hard rules
 
