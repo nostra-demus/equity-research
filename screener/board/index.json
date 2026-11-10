@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-11-10T22:26:41Z",
+  "generated_at": "2026-11-10T23:41:55Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261110-717",
+      "headline": "IEL: Receipt of revised unsolicited proposal [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.IEL?key=2924-03160427-3A706279",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-10T22:38:01Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "IDP Education received a revised unsolicited takeover proposal, indicating potential M&A activity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "IDP Education received a revised unsolicited takeover proposal, indicating potential M&A activity.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IDP Education",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261110-797",
+      "headline": "PMT: PMT Delivers Enhanced CV5 Lithium-Tantalum Feasibility Study [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PMT?key=2924-03160378-6A1354511",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-10T22:14:16Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "Company released an enhanced feasibility study for its lithium-tantalum project, indicating potential project viability improvements.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company released an enhanced feasibility study for its lithium-tantalum project, indicating potential project viability improvements.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Patriot Battery Metals Inc.",
+          "ticker": "PMT",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261110-680",
       "headline": "FDC: FDC upgrades FY27 guidance [price-sensitive]",
@@ -1869,104 +1967,6 @@
           "name": "Fei Fah Medical Manufacturing Pte. Ltd.",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261110-211",
-      "headline": "FDA drug recall (Class II) — ABC Compounding Co., Inc.: SunCoast Paper Inc. Surgent Antiseptic Hand Soap, Net Contents : 1 Gallon (3.8 L), SunCoast Paper In., 4111 Community Rd., Brunswick, GA 31520, UPC 654441P10219 — CGMP Deviations",
-      "headline_en": null,
-      "url": "https://api.fda.gov/drug/enforcement.json?search=recall_number.exact:%22D-0102-2027%22",
-      "source_name": "U.S. Food & Drug Administration (Press Releases)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-04T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "FDA drug recall (Class II) for SunCoast Paper Inc. Surgent Antiseptic Hand Soap due to CGMP Deviations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "FDA drug recall (Class II) for SunCoast Paper Inc. Surgent Antiseptic Hand Soap due to CGMP Deviations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ABC Compounding Co., Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261110-206",
-      "headline": "FDA drug recall (Class II) — ABC Compounding Co., Inc.: PRO CHEM BAN AID, Antiseptic Hand Soap, Net Contents: 1 GALLON (3.8 L), Sold by: PRO CHEM, Inc.,1475 Bluegrass Lakes Parkway, Alpharetta, GA 30004. — CGMP Deviations",
-      "headline_en": null,
-      "url": "https://api.fda.gov/drug/enforcement.json?search=recall_number.exact:%22D-0098-2027%22",
-      "source_name": "U.S. Food & Drug Administration (Press Releases)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-04T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "FDA drug recall (Class II) for PRO CHEM BAN AID Antiseptic Hand Soap due to CGMP Deviations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "FDA drug recall (Class II) for PRO CHEM BAN AID Antiseptic Hand Soap due to CGMP Deviations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ABC Compounding Co., Inc.",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "unknown",
@@ -232710,77 +232710,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-1c36c280984a",
-      "idea_version": "IDEAV-9920d305bd48e549",
-      "idea_version_started_at": "2026-11-09T17:16:12Z",
-      "ticker": "00434",
-      "company": "Boyaa Interactive",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company issued a profit alert indicating a significant improvement in earnings performance for the period.",
-      "why_now": "The profit alert was filed with the HKEX today, November 9, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5c09b2da0c8d"
-      ],
-      "primary_source_event_id": "EVT-5c09b2da0c8d",
-      "source_headlines": [
-        "BOYAA (00434): PROFIT ALERT"
-      ],
-      "source_headline": "BOYAA (00434): PROFIT ALERT",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1109/2026110900981.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-09T11:37:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-09T17:16:12Z",
-      "updated_at": "2026-11-09T17:16:12Z",
-      "decay_at": "2026-11-10T23:37:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-04a4fdcdbbec",
       "idea_version": "IDEAV-8ee21adffd205080",
       "idea_version_started_at": "2026-11-09T16:38:32Z",
@@ -232847,78 +232776,6 @@
       "surfaced_at": "2026-11-09T13:08:40Z",
       "updated_at": "2026-11-09T16:38:32Z",
       "decay_at": "2026-11-11T00:14:30Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-a5d98d6d2638",
-      "idea_version": "IDEAV-16b71a732c8d2e1c",
-      "idea_version_started_at": "2026-11-09T12:22:52Z",
-      "ticker": "KMEW",
-      "company": "Knowledge Marine & Engineering Works",
-      "exchange": "BSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company raised its FY27 revenue growth guidance to 80% due to an accelerated pipeline of dredging projects, signaling stronger-than-expected cash flow generation.",
-      "why_now": "The guidance update was released on November 9, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1d17f2ee65f2"
-      ],
-      "primary_source_event_id": "EVT-1d17f2ee65f2",
-      "source_headlines": [
-        "Knowledge Marine raises FY27 revenue growth guidance to 80% as dredging projects gather pace"
-      ],
-      "source_headline": "Knowledge Marine raises FY27 revenue growth guidance to 80% as dredging projects gather pace",
-      "source_url": "https://www.cnbctv18.com/market/earnings/knowledge-marine-fy27-revenue-growth-guidance-80-percent-margins-40-45-q2-earnings-results-boardroom-alpha-article-20030347.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-09T10:47:12Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-09T12:22:52Z",
-      "updated_at": "2026-11-09T12:22:52Z",
-      "decay_at": "2026-11-10T22:47:12Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -234123,6 +233980,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-1c36c280984a",
+      "idea_version": "IDEAV-9920d305bd48e549",
+      "idea_version_started_at": "2026-11-09T17:16:12Z",
+      "ticker": "00434",
+      "company": "Boyaa Interactive",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company issued a profit alert indicating a significant improvement in earnings performance for the period.",
+      "why_now": "The profit alert was filed with the HKEX today, November 9, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5c09b2da0c8d"
+      ],
+      "primary_source_event_id": "EVT-5c09b2da0c8d",
+      "source_headlines": [
+        "BOYAA (00434): PROFIT ALERT"
+      ],
+      "source_headline": "BOYAA (00434): PROFIT ALERT",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1109/2026110900981.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-09T11:37:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-09T17:16:12Z",
+      "updated_at": "2026-11-09T17:16:12Z",
+      "decay_at": "2026-11-10T23:37:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-aa51eccd28b2",
       "idea_version": "IDEAV-67bfe6ddcd055744",
       "idea_version_started_at": "2026-11-09T12:48:09Z",
@@ -234335,6 +234263,78 @@
       "status": "live",
       "promoted_signal_id": null,
       "feedback": "up",
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-a5d98d6d2638",
+      "idea_version": "IDEAV-16b71a732c8d2e1c",
+      "idea_version_started_at": "2026-11-09T12:22:52Z",
+      "ticker": "KMEW",
+      "company": "Knowledge Marine & Engineering Works",
+      "exchange": "BSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company raised its FY27 revenue growth guidance to 80% due to an accelerated pipeline of dredging projects, signaling stronger-than-expected cash flow generation.",
+      "why_now": "The guidance update was released on November 9, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1d17f2ee65f2"
+      ],
+      "primary_source_event_id": "EVT-1d17f2ee65f2",
+      "source_headlines": [
+        "Knowledge Marine raises FY27 revenue growth guidance to 80% as dredging projects gather pace"
+      ],
+      "source_headline": "Knowledge Marine raises FY27 revenue growth guidance to 80% as dredging projects gather pace",
+      "source_url": "https://www.cnbctv18.com/market/earnings/knowledge-marine-fy27-revenue-growth-guidance-80-percent-margins-40-45-q2-earnings-results-boardroom-alpha-article-20030347.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-09T10:47:12Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-09T12:22:52Z",
+      "updated_at": "2026-11-09T12:22:52Z",
+      "decay_at": "2026-11-10T22:47:12Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
       "stale": true
     },
     {
@@ -238168,14 +238168,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 567,
+    "total_count": 569,
     "shown_count": 499,
-    "hidden_count": 68,
+    "hidden_count": 70,
     "side_counts": {
       "long": {
-        "total_count": 290,
+        "total_count": 292,
         "shown_count": 250,
-        "hidden_count": 40
+        "hidden_count": 42
       },
       "short": {
         "total_count": 278,
@@ -238199,6 +238199,155 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-1c36c280984a",
+        "idea_version": "IDEAV-9920d305bd48e549",
+        "idea_version_started_at": "2026-11-09T17:16:12Z",
+        "ticker": "00434",
+        "company": "Boyaa Interactive",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company issued a profit alert indicating a significant improvement in earnings performance for the period.",
+        "why_now": "The profit alert was filed with the HKEX today, November 9, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-5c09b2da0c8d"
+        ],
+        "primary_source_event_id": "EVT-5c09b2da0c8d",
+        "source_headlines": [
+          "BOYAA (00434): PROFIT ALERT"
+        ],
+        "source_headline": "BOYAA (00434): PROFIT ALERT",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1109/2026110900981.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-09T11:37:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-09T17:16:12Z",
+        "updated_at": "2026-11-09T17:16:12Z",
+        "decay_at": "2026-11-10T23:37:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-10T23:37:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-a5d98d6d2638",
+        "idea_version": "IDEAV-16b71a732c8d2e1c",
+        "idea_version_started_at": "2026-11-09T12:22:52Z",
+        "ticker": "KMEW",
+        "company": "Knowledge Marine & Engineering Works",
+        "exchange": "BSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company raised its FY27 revenue growth guidance to 80% due to an accelerated pipeline of dredging projects, signaling stronger-than-expected cash flow generation.",
+        "why_now": "The guidance update was released on November 9, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-1d17f2ee65f2"
+        ],
+        "primary_source_event_id": "EVT-1d17f2ee65f2",
+        "source_headlines": [
+          "Knowledge Marine raises FY27 revenue growth guidance to 80% as dredging projects gather pace"
+        ],
+        "source_headline": "Knowledge Marine raises FY27 revenue growth guidance to 80% as dredging projects gather pace",
+        "source_url": "https://www.cnbctv18.com/market/earnings/knowledge-marine-fy27-revenue-growth-guidance-80-percent-margins-40-45-q2-earnings-results-boardroom-alpha-article-20030347.htm",
+        "source_name": "CNBC-TV18",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-09T10:47:12Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-09T12:22:52Z",
+        "updated_at": "2026-11-09T12:22:52Z",
+        "decay_at": "2026-11-10T22:47:12Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-10T22:47:12Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-ce37838aad2a",
         "idea_version": "IDEAV-901ad839b7ff4e99",
@@ -267304,158 +267453,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-1eedaee326ce",
-        "idea_version": "IDEAV-805ff45cb433dc4c",
-        "idea_version_started_at": "2026-10-27T04:39:49Z",
-        "ticker": "HBT",
-        "company": "HBT Financial",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "HBT Financial is acquiring Tri-County Financial Group, which will expand its regional banking presence and deposit base.",
-        "why_now": "The filing of the 425 communication on 2026-10-26 confirms the ongoing progress of the merger integration.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 60,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-b2d3621f1710",
-          "EVT-b4986e77821c"
-        ],
-        "primary_source_event_id": "EVT-b2d3621f1710",
-        "source_headlines": [
-          "425 - Tri-County Financial Group, Inc. (0001725262) (Subject)",
-          "425 - HBT Financial, Inc. (0000775215) (Filed by)"
-        ],
-        "source_headline": "425 - Tri-County Financial Group, Inc. (0001725262) (Subject)",
-        "source_url": "https://www.sec.gov/Archives/edgar/data/1725262/000077521526000087/0000775215-26-000087-index.htm",
-        "source_name": "SEC EDGAR — Latest 425 (M&A Business-Combination Communications)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-26T11:04:53Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-27T04:39:49Z",
-        "updated_at": "2026-10-27T04:39:49Z",
-        "decay_at": "2026-10-27T23:04:53Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-29T11:34:51Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-3e040c992904",
-        "idea_version": "IDEAV-f8ebbfdf52ac7ab7",
-        "idea_version_started_at": "2026-10-27T04:19:35Z",
-        "ticker": "HBTF",
-        "company": "HBT Financial, Inc.",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "HBT Financial is acquiring Tri-County Financial Group, which will consolidate regional banking operations and improve HBTF's scale in its core markets.",
-        "why_now": "The companies filed the required 425 M&A communication on October 26, 2026, signaling the deal is moving toward finalization.",
-        "conviction": 80,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "pair_trade",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-b2d3621f1710",
-          "EVT-b4986e77821c"
-        ],
-        "primary_source_event_id": "EVT-b2d3621f1710",
-        "source_headlines": [
-          "425 - Tri-County Financial Group, Inc. (0001725262) (Subject)",
-          "425 - HBT Financial, Inc. (0000775215) (Filed by)"
-        ],
-        "source_headline": "425 - Tri-County Financial Group, Inc. (0001725262) (Subject)",
-        "source_url": "https://www.sec.gov/Archives/edgar/data/1725262/000077521526000087/0000775215-26-000087-index.htm",
-        "source_name": "SEC EDGAR — Latest 425 (M&A Business-Combination Communications)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-26T11:04:53Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-27T04:19:35Z",
-        "updated_at": "2026-10-27T04:19:35Z",
-        "decay_at": "2026-10-27T23:04:53Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-29T11:34:51Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-a01750e9e4fe",
         "idea_version": "IDEAV-932c765a691cde8b",
         "idea_version_started_at": "2026-10-26T11:54:04Z",
@@ -275361,7 +275358,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2372,
-    "live_count": 51,
+    "live_count": 49,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -275380,9 +275377,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 12477786,
-    "news_picked_today": 1614,
-    "news_dropped_today": 9258
+    "news_seen_today": 13371616,
+    "news_picked_today": 1733,
+    "news_dropped_today": 9859
   },
   "book_momentum": {
     "live_count": 8,
