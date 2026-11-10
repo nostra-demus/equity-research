@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-10T12:26:17Z",
+  "generated_at": "2026-11-10T12:30:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20261110-588",
@@ -1783,6 +1783,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261110-595",
+      "headline": "Binance Halts MEXC Transfers as FinCEN Cuts Exchange Off From US Financial System",
+      "headline_en": null,
+      "url": "https://decrypt.co/382926/binance-halts-mexc-transfers-as-fincen-cuts-exchange-off-from-us-financial-system",
+      "source_name": "Decrypt — Crypto News",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-10T12:13:27Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "FinCEN enforcement action cutting off a major crypto exchange from the U.S. financial system is a significant regulatory event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "FinCEN enforcement action cutting off a major crypto exchange from the U.S. financial system is a significant regulatory event.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Binance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261110-581",
       "headline": "Blackstone to buy about 16% stake in IIFL Finance for ₹5,000 crore",
       "headline_en": null,
@@ -1933,60 +1983,6 @@
           "name": "PepsiCo",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261110-578",
-      "headline": "Blackstone to Buy 15.5% of IIFL Finance in $532 Million India Bet",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-10/blackstone-to-buy-15-5-of-iifl-finance-in-532-million-india-bet",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-10T11:07:10Z",
-      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "Blackstone to acquire a 15.5% stake in IIFL Finance for $532 million, a significant capital injection and valuation marker.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Blackstone to acquire a 15.5% stake in IIFL Finance for $532 million, a significant capital injection and valuation marker.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 82,
-      "rank_factors": {
-        "materiality": 82,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 3,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Blackstone Inc",
-          "ticker": "BX",
-          "listing_country": "US"
-        },
-        {
-          "name": "IIFL Finance Ltd",
-          "ticker": "IIFL",
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "mega",
@@ -275840,9 +275836,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6447392,
-    "news_picked_today": 1013,
-    "news_dropped_today": 5323
+    "news_seen_today": 6476986,
+    "news_picked_today": 1020,
+    "news_dropped_today": 5340
   },
   "book_momentum": {
     "live_count": 8,
