@@ -22,6 +22,19 @@ export function validateAgentOutputText(raw) {
     const match = /^(?:\*\*(COMPLETE|COMPLETED|INCOMPLETE)\.?\*\*(?:\.(?:[ \t]|$)|[ \t]|$)|(COMPLETE|COMPLETED|INCOMPLETE)(?:\.(?:[ \t]|$)|[ \t]*$))/i.exec(line.trim())
     return match ? ((match[1] || match[2]).toLowerCase() === 'incomplete' ? 'incomplete' : 'complete') : null
   }
+  const withoutInlineCode = (line) => {
+    const ticks = [...line.matchAll(/`+/g)]
+    let visible = '', from = 0
+    for (let i = 0; i < ticks.length; i++) {
+      const end = ticks.findIndex((tick, j) => j > i && tick[0].length === ticks[i][0].length)
+      if (end < 0) continue // Unmatched backticks are literal Markdown, not a code span.
+      visible += line.slice(from, ticks[i].index)
+        + ' '.repeat(ticks[end].index + ticks[end][0].length - ticks[i].index)
+      from = ticks[end].index + ticks[end][0].length
+      i = end
+    }
+    return visible + line.slice(from)
+  }
   let completion = 'absent'
   let completionSections = 0
   let inCompletion = false
@@ -37,8 +50,9 @@ export function validateAgentOutputText(raw) {
     }
     // Markdown permits HTML blockquotes as well as `>` quotes. Their examples are not declarations,
     // including nested quotes and fence-looking lines inside them. Tags inside code stay literal above.
-    const quoteTags = htmlQuoteDepth || /^ {0,3}<\/?blockquote\b/i.test(line)
-      ? [...line.matchAll(/<\/?blockquote\b[^>]*(?:>|$)/gi)] : []
+    const htmlLine = withoutInlineCode(line)
+    const quoteTags = htmlQuoteDepth || /^ {0,3}<\/?blockquote\b/i.test(htmlLine)
+      ? [...htmlLine.matchAll(/<\/?blockquote\b[^>]*(?:>|$)/gi)] : []
     if (htmlQuoteDepth || quoteTags.length) {
       for (const [tag] of quoteTags) htmlQuoteDepth = Math.max(0, htmlQuoteDepth + (/^<\//.test(tag) ? -1 : 1))
       continue

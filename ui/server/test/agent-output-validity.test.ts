@@ -59,6 +59,11 @@ assert.deepEqual(validateAgentOutputText('# Report\n<blockquote>quoted prior sta
   ['explicit-incomplete-completion-status'], 'a real declaration after an HTML quote remains authoritative')
 assert.deepEqual(validateAgentOutputText('# Report\nThe literal `<blockquote>` tag is an example.\n## Completion Status\nINCOMPLETE\n').reasons,
   ['explicit-incomplete-completion-status'], 'an inline literal HTML tag cannot swallow a real declaration')
+for (const quoted of [
+  '<blockquote>\nThe literal `<blockquote>` tag is an example.\n</blockquote>',
+  '<blockquote>The literal ``<blockquote>`` tag is an example.</blockquote>',
+]) assert.deepEqual(validateAgentOutputText(`# Report\n${quoted}\n## Completion Status\nINCOMPLETE\n`).reasons,
+  ['explicit-incomplete-completion-status'], 'inline code inside an HTML quote cannot hide a later real status')
 
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-output-validity-'))
 const file = path.join(tmp, '01_check.md')
