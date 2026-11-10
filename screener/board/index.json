@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-10T11:55:23Z",
+  "generated_at": "2026-11-10T11:57:23Z",
   "inbox": [
     {
       "inbox_id": "INB-20261110-582",
@@ -1788,6 +1788,110 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261110-585",
+      "headline": "MaxCyte To Acquire Akron",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/maxcyte-acquire-akron",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-10T11:18:12Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "MaxCyte announced the acquisition of Akron, a significant strategic expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "MaxCyte announced the acquisition of Akron, a significant strategic expansion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MaxCyte",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Akron",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261110-587",
+      "headline": "PepsiCo To Cut 1,000 Jobs In North America Amid Weak Sales, Lower Earnings Outlook: Report",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/pepsico-to-cut-1000-jobs-in-north-america-amid-weak-sales-lower-earnings-outlook-report",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-10T11:17:28Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "PepsiCo is cutting 1,000 jobs due to weak sales and a lower earnings outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "PepsiCo is cutting 1,000 jobs due to weak sales and a lower earnings outlook.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PepsiCo",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261110-578",
       "headline": "Blackstone to Buy 15.5% of IIFL Finance in $532 Million India Bet",
       "headline_en": null,
@@ -1883,104 +1987,6 @@
           "name": "MRF Limited",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261110-557",
-      "headline": "Vodafone lifts guidance as the UK shows signs of improvement",
-      "headline_en": null,
-      "url": "https://ukinvestormagazine.co.uk/vodafone-lifts-guidance-as-the-uk-shows-signs-of-improvement/",
-      "source_name": "UK Investor Magazine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-10T10:45:28Z",
-      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "Vodafone has officially raised its financial guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Vodafone has officially raised its financial guidance.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vodafone",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261110-573",
-      "headline": "Sumitomo Metal Mining's H1 Earnings Up 67%, Cuts FY26-27 Earnings Outlook - Update",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/sumitomo-metal-minings-h1-earnings-67-cuts-fy26-27-earnings-outlook-update",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-10T10:44:01Z",
-      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "Sumitomo Metal Mining reported a 67% increase in H1 earnings but cut its FY26-27 earnings outlook.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Sumitomo Metal Mining reported a 67% increase in H1 earnings but cut its FY26-27 earnings outlook.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sumitomo Metal Mining",
-          "ticker": null,
-          "listing_country": "JP"
         }
       ],
       "size_bucket": "large",
@@ -275832,9 +275838,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6111591,
-    "news_picked_today": 961,
-    "news_dropped_today": 5087
+    "news_seen_today": 6125937,
+    "news_picked_today": 977,
+    "news_dropped_today": 5095
   },
   "book_momentum": {
     "live_count": 8,
