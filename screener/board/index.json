@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-10T01:52:24Z",
+  "generated_at": "2026-11-10T01:56:22Z",
   "inbox": [
     {
       "inbox_id": "INB-20261110-077",
@@ -1677,6 +1677,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261110-115",
+      "headline": "FDA approves selpercatinib for locally advanced or metastatic RET fusion-positive solid tumors",
+      "headline_en": null,
+      "url": "http://www.fda.gov/drugs/cancer-approvals/fda-approves-selpercatinib-locally-advanced-or-metastatic-ret-fusion-positive-solid-tumors",
+      "source_name": "FDA — What's New: Drugs",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-09T21:47:15Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "FDA approval of selpercatinib for specific solid tumors provides a new commercial product opportunity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "FDA approval of selpercatinib for specific solid tumors provides a new commercial product opportunity.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Eli Lilly",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261110-092",
       "headline": "Nvidia, CEO Huang sued over disclosures related to suspected Chinese spy",
       "headline_en": null,
@@ -1914,55 +1963,6 @@
       "companies": [
         {
           "name": "ImmunoGen",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261110-098",
-      "headline": "FDA grants accelerated approval to lifileucel for unresectable or metastatic melanoma",
-      "headline_en": null,
-      "url": "http://www.fda.gov/drugs/cancer-approvals/fda-grants-accelerated-approval-lifileucel-unresectable-or-metastatic-melanoma",
-      "source_name": "FDA — What's New: Drugs",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-09T21:50:41Z",
-      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "FDA accelerated approval of lifileucel represents a significant commercial milestone for the developer.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "FDA accelerated approval of lifileucel represents a significant commercial milestone for the developer.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 3,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Iovance Biotherapeutics",
           "ticker": null,
           "listing_country": "US"
         }
@@ -274958,9 +274958,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 745018,
-    "news_picked_today": 129,
-    "news_dropped_today": 711
+    "news_seen_today": 757813,
+    "news_picked_today": 132,
+    "news_dropped_today": 732
   },
   "book_momentum": {
     "live_count": 8,
