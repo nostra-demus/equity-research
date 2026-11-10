@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-10T09:59:09Z",
+  "generated_at": "2026-11-10T10:02:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20261110-514",
@@ -1538,6 +1538,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261110-543",
+      "headline": "Cochin Shipyard Q2 Results: Revenue grows 12%, but profit and margins take a hit",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/earnings/cochin-shipyard-q2-results-revenue-grows-12-pc-profit-and-margins-take-a-hit-20030920.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-10T09:51:55Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "Cochin Shipyard reported a profit and margin decline despite revenue growth, which directly impacts analyst expectations and valuation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Cochin Shipyard reported a profit and margin decline despite revenue growth, which directly impacts analyst expectations and valuation.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cochin Shipyard",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261110-533",
       "headline": "Vodafone raises guidance after job cuts despite €5bn Germany impairment",
       "headline_en": null,
@@ -1928,55 +1977,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261110-456",
-      "headline": "Force Motors bets ₹3,000 crore on vans, EVs as Traveller and Urbania demand accelerates",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/force-motors-bets-3000-crore-on-vans-evs-as-traveller-and-urbania-demand-accelerates/article71685202.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-10T07:26:11Z",
-      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "Force Motors announced a ₹3,000 crore investment in van and EV production capacity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Force Motors announced a ₹3,000 crore investment in van and EV production capacity.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Force Motors",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -275324,9 +275324,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5193889,
-    "news_picked_today": 812,
-    "news_dropped_today": 4300
+    "news_seen_today": 5220627,
+    "news_picked_today": 815,
+    "news_dropped_today": 4321
   },
   "book_momentum": {
     "live_count": 8,
