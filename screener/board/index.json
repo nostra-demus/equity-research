@@ -1,6 +1,153 @@
 {
-  "generated_at": "2026-11-10T08:06:06Z",
+  "generated_at": "2026-11-10T09:28:45Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261110-513",
+      "headline": "EDVANCE INTL (01410): PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1110/2026111000296.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-10T08:37:00Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "Edvance International issued a profit warning.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Edvance International issued a profit warning.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Edvance International",
+          "ticker": "01410",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261110-507",
+      "headline": "QINGDAO PORT (06198): ANNOUNCEMENT DISCLOSEABLE TRANSACTION AND CONNECTED TRANSACTION IN RELATION TO THE POTENTIAL ACQUISITION AND THE PROPOSED AUTHORISATION",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1110/2026111000266.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-10T08:33:00Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "Qingdao Port announced a discloseable and connected transaction regarding a potential acquisition.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Qingdao Port announced a discloseable and connected transaction regarding a potential acquisition.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Qingdao Port",
+          "ticker": "06198",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261110-508",
+      "headline": "TERN PROPERTIES (00277): INSIDE INFORMATION PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1110/2026111000260.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-10T08:31:00Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "Tern Properties issued a profit warning for the period.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tern Properties issued a profit warning for the period.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tern Properties",
+          "ticker": "00277",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261110-151",
       "headline": "DME: Convertible Notes [price-sensitive]",
@@ -1831,154 +1978,6 @@
           "name": "Volkswagen",
           "ticker": null,
           "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261110-481",
-      "headline": "+++ Geschäftszahlen +++: Softbank rutscht wegen KI-Sorgen in die Verlustzone",
-      "headline_en": "+++ Business figures +++: Softbank slips into the loss zone due to AI concerns",
-      "url": "https://www.handelsblatt.com/unternehmen/industrie/quartalszahlen-softbank-rutscht-wegen-ki-sorgen-in-die-verlustzone/24098412.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-10T07:07:57Z",
-      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "Softbank reports a net loss due to AI-related concerns.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Softbank reports a net loss due to AI-related concerns.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Softbank",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261110-270",
-      "headline": "BREAKING NEWS: Honda raises FY 2026 net profit outlook to 500 bil. yen",
-      "headline_en": null,
-      "url": "https://english.kyodonews.net/articles/-/90954",
-      "source_name": "Kyodo News (Japan Wire)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-10T06:45:59Z",
-      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "Honda officially raised its FY 2026 net profit outlook to 500 billion yen.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Honda officially raised its FY 2026 net profit outlook to 500 billion yen.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Honda Motor",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261110-345",
-      "headline": "Honda Raises Outlook Even as Failed EV Bet Weighs on Profit",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-10/honda-raises-outlook-even-as-ev-fallout-hangs-over-carmaker",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-10T06:45:20Z",
-      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "Honda raised its profit outlook despite acknowledging that its EV strategy is currently weighing on margins.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Honda raised its profit outlook despite acknowledging that its EV strategy is currently weighing on margins.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change",
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Honda",
-          "ticker": null,
-          "listing_country": "JP"
         }
       ],
       "size_bucket": "large",
@@ -233162,152 +233161,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-8c6763c204a1",
-      "idea_version": "IDEAV-40b86c89cc2011e1",
-      "idea_version_started_at": "2026-11-08T22:12:03Z",
-      "ticker": "ANZ",
-      "company": "ANZ Group Holdings",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The bank reported a $7.6b cash profit but simultaneously increased provisions for bad debts, signaling management's concern regarding the deteriorating economic environment.",
-      "why_now": "The full-year results and provision increase were released on 2026-11-08.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d30c11aab7a2",
-        "EVT-d8cdf8a861e8"
-      ],
-      "primary_source_event_id": "EVT-d30c11aab7a2",
-      "source_headlines": [
-        "ANZ: ANZ Full Year Results, Dividend Announcement & Appendix 4E [price-sensitive]",
-        "ANZ posts $7.6b cash profit, lifts provisions citing volatile economy"
-      ],
-      "source_headline": "ANZ: ANZ Full Year Results, Dividend Announcement & Appendix 4E [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ANZ?key=2924-03159207-3A706009",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-08T20:52:28Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-08T22:12:03Z",
-      "updated_at": "2026-11-08T22:12:03Z",
-      "decay_at": "2026-11-10T08:52:28Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-bd2806fdea87",
-      "idea_version": "IDEAV-91276d27436707de",
-      "idea_version_started_at": "2026-11-08T20:49:19Z",
-      "ticker": "ANZ",
-      "company": "ANZ Group Holdings",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "ANZ Group Holdings announced its full-year results and dividend, which are price-sensitive events that directly impact the company's valuation.",
-      "why_now": "The company filed its full-year results and dividend announcement on November 8, 2026.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d30c11aab7a2"
-      ],
-      "primary_source_event_id": "EVT-d30c11aab7a2",
-      "source_headlines": [
-        "ANZ: ANZ Full Year Results, Dividend Announcement & Appendix 4E [price-sensitive]"
-      ],
-      "source_headline": "ANZ: ANZ Full Year Results, Dividend Announcement & Appendix 4E [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ANZ?key=2924-03159207-3A706009",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-08T20:30:16Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-08T20:49:19Z",
-      "updated_at": "2026-11-08T20:49:19Z",
-      "decay_at": "2026-11-10T08:30:16Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-a2376ec1a2c7",
       "idea_version": "IDEAV-5c9b522a0d5b80c0",
       "idea_version_started_at": "2026-11-10T02:34:38Z",
@@ -234930,6 +234783,152 @@
       "surfaced_at": "2026-11-08T03:19:59Z",
       "updated_at": "2026-11-08T03:19:59Z",
       "decay_at": "2026-11-09T14:11:11Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-8c6763c204a1",
+      "idea_version": "IDEAV-40b86c89cc2011e1",
+      "idea_version_started_at": "2026-11-08T22:12:03Z",
+      "ticker": "ANZ",
+      "company": "ANZ Group Holdings",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The bank reported a $7.6b cash profit but simultaneously increased provisions for bad debts, signaling management's concern regarding the deteriorating economic environment.",
+      "why_now": "The full-year results and provision increase were released on 2026-11-08.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d30c11aab7a2",
+        "EVT-d8cdf8a861e8"
+      ],
+      "primary_source_event_id": "EVT-d30c11aab7a2",
+      "source_headlines": [
+        "ANZ: ANZ Full Year Results, Dividend Announcement & Appendix 4E [price-sensitive]",
+        "ANZ posts $7.6b cash profit, lifts provisions citing volatile economy"
+      ],
+      "source_headline": "ANZ: ANZ Full Year Results, Dividend Announcement & Appendix 4E [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ANZ?key=2924-03159207-3A706009",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-08T20:52:28Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-08T22:12:03Z",
+      "updated_at": "2026-11-08T22:12:03Z",
+      "decay_at": "2026-11-10T08:52:28Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-bd2806fdea87",
+      "idea_version": "IDEAV-91276d27436707de",
+      "idea_version_started_at": "2026-11-08T20:49:19Z",
+      "ticker": "ANZ",
+      "company": "ANZ Group Holdings",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "ANZ Group Holdings announced its full-year results and dividend, which are price-sensitive events that directly impact the company's valuation.",
+      "why_now": "The company filed its full-year results and dividend announcement on November 8, 2026.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d30c11aab7a2"
+      ],
+      "primary_source_event_id": "EVT-d30c11aab7a2",
+      "source_headlines": [
+        "ANZ: ANZ Full Year Results, Dividend Announcement & Appendix 4E [price-sensitive]"
+      ],
+      "source_headline": "ANZ: ANZ Full Year Results, Dividend Announcement & Appendix 4E [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ANZ?key=2924-03159207-3A706009",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-08T20:30:16Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-08T20:49:19Z",
+      "updated_at": "2026-11-08T20:49:19Z",
+      "decay_at": "2026-11-10T08:30:16Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -237978,19 +237977,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 552,
+    "total_count": 554,
     "shown_count": 499,
-    "hidden_count": 53,
+    "hidden_count": 55,
     "side_counts": {
       "long": {
-        "total_count": 280,
+        "total_count": 281,
         "shown_count": 250,
-        "hidden_count": 30
+        "hidden_count": 31
       },
       "short": {
-        "total_count": 273,
+        "total_count": 274,
         "shown_count": 250,
-        "hidden_count": 23
+        "hidden_count": 24
       }
     },
     "retention": {
@@ -238009,6 +238008,158 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-8c6763c204a1",
+        "idea_version": "IDEAV-40b86c89cc2011e1",
+        "idea_version_started_at": "2026-11-08T22:12:03Z",
+        "ticker": "ANZ",
+        "company": "ANZ Group Holdings",
+        "exchange": "ASX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The bank reported a $7.6b cash profit but simultaneously increased provisions for bad debts, signaling management's concern regarding the deteriorating economic environment.",
+        "why_now": "The full-year results and provision increase were released on 2026-11-08.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 7,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-d30c11aab7a2",
+          "EVT-d8cdf8a861e8"
+        ],
+        "primary_source_event_id": "EVT-d30c11aab7a2",
+        "source_headlines": [
+          "ANZ: ANZ Full Year Results, Dividend Announcement & Appendix 4E [price-sensitive]",
+          "ANZ posts $7.6b cash profit, lifts provisions citing volatile economy"
+        ],
+        "source_headline": "ANZ: ANZ Full Year Results, Dividend Announcement & Appendix 4E [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ANZ?key=2924-03159207-3A706009",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-08T20:52:28Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-08T22:12:03Z",
+        "updated_at": "2026-11-08T22:12:03Z",
+        "decay_at": "2026-11-10T08:52:28Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-10T08:52:28Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-bd2806fdea87",
+        "idea_version": "IDEAV-91276d27436707de",
+        "idea_version_started_at": "2026-11-08T20:49:19Z",
+        "ticker": "ANZ",
+        "company": "ANZ Group Holdings",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "ANZ Group Holdings announced its full-year results and dividend, which are price-sensitive events that directly impact the company's valuation.",
+        "why_now": "The company filed its full-year results and dividend announcement on November 8, 2026.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-d30c11aab7a2"
+        ],
+        "primary_source_event_id": "EVT-d30c11aab7a2",
+        "source_headlines": [
+          "ANZ: ANZ Full Year Results, Dividend Announcement & Appendix 4E [price-sensitive]"
+        ],
+        "source_headline": "ANZ: ANZ Full Year Results, Dividend Announcement & Appendix 4E [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ANZ?key=2924-03159207-3A706009",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-08T20:30:16Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-08T20:49:19Z",
+        "updated_at": "2026-11-08T20:49:19Z",
+        "decay_at": "2026-11-10T08:30:16Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-10T08:30:16Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-72dc515e1743",
         "idea_version": "IDEAV-4fc99e8eea72910e",
@@ -266897,80 +267048,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-586f6f9b0df8",
-        "idea_version": "IDEAV-567857f204fc9c2f",
-        "idea_version_started_at": "2026-10-26T00:44:51Z",
-        "ticker": "09926",
-        "company": "Akeso",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Positive Phase 3 clinical data for Ivonescimab in advanced biliary tract cancer demonstrates superior efficacy (mOS 14.9m vs 12.1m) compared to the current standard of care, supporting potential market share gains.",
-        "why_now": "Results were presented at the 2026 ESMO meeting on 2026-10-25, providing fresh clinical validation.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 15,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-4cd8dfbfe92c"
-        ],
-        "primary_source_event_id": "EVT-4cd8dfbfe92c",
-        "source_headlines": [
-          "AKESO (09926): VOLUNTARY ANNOUNCEMENT - HARMONI-GI1 RESULTS PUBLISHED AT 2026 ESMO mOS 14.9m vs 12.1m, HR 0.75 (P=0.0031) FOR IVONESCIMAB PLUS CHEMO VS DURVALUMAB PLUS CHEMO IN 1L ADVANCED BTC"
-        ],
-        "source_headline": "AKESO (09926): VOLUNTARY ANNOUNCEMENT - HARMONI-GI1 RESULTS PUBLISHED AT 2026 ESMO mOS 14.9m vs 12.1m, HR 0.75 (P=0.0031) FOR IVONESCIMAB PLUS CHEMO VS DURVALUMAB PLUS CHEMO IN 1L ADVANCED BTC",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1026/2026102600019.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 91,
-        "newest_source_at": "2026-10-25T23:38:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-26T00:44:51Z",
-        "updated_at": "2026-10-26T00:44:51Z",
-        "decay_at": "2026-10-27T11:38:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-29T02:54:23Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-83bd5483df63",
         "idea_version": "IDEAV-392e394cd3f28813",
         "idea_version_started_at": "2026-10-26T00:44:51Z",
@@ -275089,86 +275166,12 @@
         "archived_at": "2026-10-17T16:30:26Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-9d322ec65604",
-        "idea_version": "IDEAV-24dc4ee7e83ada71",
-        "idea_version_started_at": "2026-10-14T16:36:34Z",
-        "ticker": "01813",
-        "company": "KWG Group",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "KWG Group is facing a winding-up petition hearing, indicating severe financial distress that could lead to liquidation.",
-        "why_now": "An update on the winding-up petition hearing was filed today, October 14, 2026, signaling an active and critical event.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-2e74092a0aea"
-        ],
-        "primary_source_event_id": "EVT-2e74092a0aea",
-        "source_headlines": [
-          "KWG GROUP KWG GROUP N2701 (01813 40117): UPDATE ON WINDING-UP PETITION HEARING"
-        ],
-        "source_headline": "KWG GROUP KWG GROUP N2701 (01813 40117): UPDATE ON WINDING-UP PETITION HEARING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1014/2026101401199.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-14T12:56:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-14T16:36:34Z",
-        "updated_at": "2026-10-14T16:36:34Z",
-        "decay_at": "2026-10-16T00:56:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-17T13:20:28Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2356,
-    "live_count": 63,
+    "live_count": 61,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -275187,9 +275190,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4257872,
-    "news_picked_today": 566,
-    "news_dropped_today": 3442
+    "news_seen_today": 4914501,
+    "news_picked_today": 760,
+    "news_dropped_today": 4112
   },
   "book_momentum": {
     "live_count": 8,
