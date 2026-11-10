@@ -230,6 +230,15 @@ export function retainExplicitIncompleteModule(
     if ((error as NodeJS.ErrnoException).code !== 'EEXIST') throw error
   }
   ownerOnly(archive, true)
+  if (!created && !exists(path.join(archive, 'manifest.json'))) {
+    // A crash or failed fsync/rename can leave copied bytes without the final commit manifest. Preserve
+    // that whole attempt as history, then build afresh from the still-untouched source. Never accept a
+    // partial directory, delete it, or strand every later approved retry behind its missing manifest.
+    fs.renameSync(archive, path.join(archiveRoot, `${digest}.interrupted-${randomUUID()}`))
+    syncDirectory(archiveRoot)
+    fs.mkdirSync(archive, { mode: 0o700 })
+    created = true
+  }
   const files = path.join(archive, 'files')
   if (created) {
     fs.mkdirSync(files, { mode: 0o700 })

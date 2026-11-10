@@ -28,10 +28,19 @@ export function validateAgentOutputText(raw) {
   let needsDeclaration = false
   let invalidCompletion = false
   let fence = null
+  let htmlQuoteDepth = 0
   for (const line of body.split('\n')) {
     if (fence) {
       const close = new RegExp(`^ {0,3}\\${fence.char}{${fence.width},}[ \\t]*$`)
       if (close.test(line)) fence = null
+      continue
+    }
+    // Markdown permits HTML blockquotes as well as `>` quotes. Their examples are not declarations,
+    // including nested quotes and fence-looking lines inside them. Tags inside code stay literal above.
+    const quoteTags = htmlQuoteDepth || /^ {0,3}<\/?blockquote\b/i.test(line)
+      ? [...line.matchAll(/<\/?blockquote\b[^>]*>/gi)] : []
+    if (htmlQuoteDepth || quoteTags.length) {
+      for (const [tag] of quoteTags) htmlQuoteDepth = Math.max(0, htmlQuoteDepth + (/^<\//.test(tag) ? -1 : 1))
       continue
     }
     const open = /^ {0,3}(`{3,})[^`]*$/.exec(line) || /^ {0,3}(~{3,}).*$/.exec(line)

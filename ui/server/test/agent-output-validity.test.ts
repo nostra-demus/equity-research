@@ -34,6 +34,9 @@ for (const body of [
   '# Report\n~~~ example `hint`\n## Completion Status\n**INCOMPLETE.**\n~~~\n',
   '# Report\n``` example ~hint~\n## Completion Status\n**INCOMPLETE.**\n```\n',
   '# Report\n> ## Completion Status\n> **INCOMPLETE.**\n',
+  '# Report\n<blockquote>\n## Completion Status\n**INCOMPLETE.**\n</blockquote>\n',
+  '# Report\n<BLOCKQUOTE cite="example">\n<blockquote>\n## Completion Status\nINCOMPLETE\n</blockquote>\n```\n</BLOCKQUOTE>\n## Completion Status\nCOMPLETE\n',
+  '# Report\n```html\n<blockquote>\n```\n## Completion Status\nCOMPLETE\n',
   '# Report\n    ## Completion Status\n    **INCOMPLETE.**\n',
   '# Report\n## Completion Status\n**COMPLETE.**\nEvidence is incomplete; the final rating is capped.\n',
   '# Report\n## Completion Status\nCOMPLETED. The reasoned refusal is the final outcome.\n',
@@ -51,6 +54,10 @@ for (const body of [
   'an opt-in reserved section must have one unambiguous producer declaration')
 assert.equal(validateAgentOutputText('# Report\n## Completion Status\nCOMPLETE\n```json\n').valid, false,
   'declared completion never overrides mechanical invalidity')
+assert.deepEqual(validateAgentOutputText('# Report\n<blockquote>quoted prior status</blockquote>\n## Completion Status\nINCOMPLETE\n').reasons,
+  ['explicit-incomplete-completion-status'], 'a real declaration after an HTML quote remains authoritative')
+assert.deepEqual(validateAgentOutputText('# Report\nThe literal `<blockquote>` tag is an example.\n## Completion Status\nINCOMPLETE\n').reasons,
+  ['explicit-incomplete-completion-status'], 'an inline literal HTML tag cannot swallow a real declaration')
 
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-output-validity-'))
 const file = path.join(tmp, '01_check.md')

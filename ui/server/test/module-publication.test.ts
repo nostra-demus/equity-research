@@ -210,6 +210,44 @@ assert.equal(fs.readFileSync(path.join(backupArchive, 'files/99_alpha-synthesis.
 assert.equal(retainExplicitIncompleteModule('DRAFT', 'alpha', draftRoot), null,
   'a valid replacement without the reserved declaration needs no draft archive')
 
+// One transient failure at the manifest commit boundary must preserve the partial history and original
+// draft while allowing a later approved attempt to construct a fresh verified snapshot.
+const interruptedRoot = 'analyses/INTERRUPTED_2099-01-01'
+write(`${interruptedRoot}/alpha/99_alpha-synthesis.md`, draft)
+write(`${interruptedRoot}/alpha/aux.json`, '{"interrupted":true}\n')
+const archiveNamesBefore = new Set(fs.readdirSync(draftDirectory))
+const originalRename = fs.renameSync
+let injectedManifestFailure = false
+fs.renameSync = ((from, to) => {
+  if (!injectedManifestFailure && String(to).startsWith(draftDirectory + path.sep)
+      && path.basename(String(to)) === 'manifest.json') {
+    injectedManifestFailure = true
+    throw Object.assign(new Error('injected archive manifest EIO'), { code: 'EIO' })
+  }
+  return originalRename(from, to)
+}) as typeof fs.renameSync
+try {
+  assert.throws(() => retainExplicitIncompleteModule('INTERRUPTED', 'alpha', interruptedRoot), /injected archive manifest EIO/)
+} finally { fs.renameSync = originalRename }
+assert.ok(injectedManifestFailure)
+assert.equal(fs.readFileSync(path.join(repo, interruptedRoot, 'alpha/99_alpha-synthesis.md'), 'utf8'), draft)
+const partialName = fs.readdirSync(draftDirectory).find((name) => !archiveNamesBefore.has(name))!
+assert.ok(partialName)
+const partial = path.join(draftDirectory, partialName)
+assert.ok(!fs.existsSync(path.join(partial, 'manifest.json')), 'failed commit has no authoritative manifest')
+assert.equal(fs.readFileSync(path.join(partial, 'files/aux.json'), 'utf8'), '{"interrupted":true}\n')
+const retriedArchive = retainExplicitIncompleteModule('INTERRUPTED', 'alpha', interruptedRoot)!
+assert.equal(retriedArchive, partial, 'fresh verified attempt occupies the canonical content-bound archive identity')
+assert.ok(fs.existsSync(path.join(retriedArchive, 'manifest.json')))
+assert.equal(retainExplicitIncompleteModule('INTERRUPTED', 'alpha', interruptedRoot), retriedArchive,
+  'successful recovery remains idempotent')
+const interruptedHistory = fs.readdirSync(draftDirectory).filter((name) => name.startsWith(`${partialName}.interrupted-`))
+assert.equal(interruptedHistory.length, 1, 'the incomplete archive remains as separate append-only history')
+assert.equal(fs.readFileSync(path.join(draftDirectory, interruptedHistory[0], 'files/99_alpha-synthesis.md'), 'utf8'), draft)
+assert.equal(fs.readFileSync(path.join(draftDirectory, interruptedHistory[0], 'files/aux.json'), 'utf8'), '{"interrupted":true}\n')
+assert.equal(captureCompletedModuleFingerprint('INTERRUPTED', 'alpha', interruptedRoot), null)
+assert.equal(validPendingModulePublication('INTERRUPTED', 'alpha'), null, 'recovered raw snapshot still confers no publication authority')
+
 // If durable marker storage is unsafe/unavailable, recovery must not strand a valid 99 as "done". It removes
 // only the server-bound synthesis leaf; the specialist evidence remains, so the next plan reruns synthesis.
 write('analyses/GAMMA_2099-01-01/alpha/01_alpha-check.md', '# retained specialist\n')
