@@ -183,6 +183,8 @@ Then reconcile: sum of components vs stated Total (Section 6's Total row) = **{N
 residual**. If the residual is large relative to the total, state that plainly — it caps how confidently
 Section 7 can name a single biggest driver.
 
+Apply these attribution requirements to narrative claims anywhere in the report, even when no pp decomposition is attempted. An analyst assertion that a component supplied “most,” a “majority,” or the “bulk” of observed revenue growth requires a disclosed contribution or a reproducible source-based bridge on matched periods, scope and denominators; show the supported share and what remains unexplained. A subset’s growth rate is not its contribution to group growth: rate comparison or subtraction alone cannot establish dominance without supported base weights/coverage and any relevant FX, acquisition or selling-period effects. When that bridge is unavailable, retain the reported metrics and state that the contribution/majority share is not established; neither a “not attempted” tag nor an exact-amount caveat licenses a neighbouring majority claim. Preserve explicitly attributed management explanations, labelled plausible-contributor hypotheses and scoped current/prior growth-rate comparisons without upgrading them to measured contributions. Section 7’s forward sensitivity hypothesis is distinct from a realised historical contribution claim.
+
 Close this section with a standalone machine-readable tag line, in ONE of two exact forms (this
 mechanizes the reconciliation above for `scripts/eval.py` check BE — the residual must never be
 silently omitted or rounded away, CLAUDE.md §15):
