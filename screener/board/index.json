@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-10T15:42:42Z",
+  "generated_at": "2026-11-10T15:44:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20261110-611",
@@ -1931,50 +1931,60 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261110-607",
-      "headline": "Lumen CFO expects up to $1.5 billion from legacy copper amid pivot to AI connectivity",
+      "inbox_id": "INB-20261110-629",
+      "headline": "TSMC earmarks up to $1bn to buy Anthropic and OpenAI shares",
       "headline_en": null,
-      "url": "https://fortune.com/2026/11/10/lumen-cfo-expects-1-5-billion-legacy-copper-pivot-ai-connectivity/",
-      "source_name": "Fortune",
+      "url": "https://asia.nikkei.com/business/technology/artificial-intelligence/tsmc-earmarks-up-to-1bn-to-buy-anthropic-and-openai-shares",
+      "source_name": "Nikkei Asia",
       "input_nature": "news_headline",
-      "found_at": "2026-11-10T13:17:40Z",
+      "found_at": "2026-11-10T15:39:24Z",
       "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "Lumen Technologies expects to generate up to $1.5 billion in cash from legacy copper assets to fund its AI pivot.",
+      "prelim_note": "TSMC is investing up to $1 billion to acquire stakes in AI firms Anthropic and OpenAI.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Lumen Technologies expects to generate up to $1.5 billion in cash from legacy copper assets to fund its AI pivot.",
-      "region": "US",
+      "triage_reason": "TSMC is investing up to $1 billion to acquire stakes in AI firms Anthropic and OpenAI.",
+      "region": "JP",
       "relevance": "material",
       "materiality_pre_score": 75,
       "rank_factors": {
         "materiality": 75,
         "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
         "recency": 5,
         "materiality_label_floor": 10,
-        "quantified": 0,
+        "quantified": 6,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "multi_name",
         "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
+        "event_id": "mna",
+        "size_bucket": "mega"
       },
       "event_types": [
-        "guidance_change"
+        "mna"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Lumen Technologies",
-          "ticker": "LUMN",
-          "listing_country": "US"
+          "name": "TSMC",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": null
         }
       ],
-      "size_bucket": "mid",
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -275533,9 +275543,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8243096,
-    "news_picked_today": 1202,
-    "news_dropped_today": 5950
+    "news_seen_today": 8278646,
+    "news_picked_today": 1243,
+    "news_dropped_today": 5981
   },
   "book_momentum": {
     "live_count": 8,
