@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-10T23:41:55Z",
+  "generated_at": "2026-11-10T23:42:38Z",
   "inbox": [
     {
       "inbox_id": "INB-20261110-717",
@@ -231352,17 +231352,88 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-2ca58888932d",
-      "idea_version": "IDEAV-ec06c69fadc0fa88",
-      "idea_version_started_at": "2026-11-10T22:24:17Z",
-      "ticker": "FDC",
-      "company": "FDC Limited",
+      "idea_id": "IDEA-1e80e6023e62",
+      "idea_version": "IDEAV-c3e94f6a5fb0ae2a",
+      "idea_version_started_at": "2026-11-10T23:42:15Z",
+      "ticker": "IEL",
+      "company": "IDP Education",
       "exchange": "ASX",
       "direction": "long",
       "pair_with": null,
-      "reason": "FDC upgraded its FY27 guidance, indicating improved future financial performance.",
-      "why_now": "The company announced the upgrade to its FY27 guidance on November 10, 2026, providing a clear positive catalyst.",
+      "reason": "Receipt of a revised unsolicited takeover proposal indicates potential for a control premium or a competitive bidding process.",
+      "why_now": "The filing confirming the revised proposal was released on 2026-11-10.",
       "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2f91849a55a2"
+      ],
+      "primary_source_event_id": "EVT-2f91849a55a2",
+      "source_headlines": [
+        "IEL: Receipt of revised unsolicited proposal [price-sensitive]"
+      ],
+      "source_headline": "IEL: Receipt of revised unsolicited proposal [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.IEL?key=2924-03160427-3A706279",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-10T22:38:01Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-10T23:42:15Z",
+      "updated_at": "2026-11-10T23:42:15Z",
+      "decay_at": "2026-11-12T10:38:01Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-2ca58888932d",
+      "idea_version": "IDEAV-77850e38f476adfe",
+      "idea_version_started_at": "2026-11-10T23:42:15Z",
+      "ticker": "FDC",
+      "company": "FDC",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company issued an upgrade to its FY27 earnings guidance, signaling improved operational performance or margin expansion.",
+      "why_now": "The guidance upgrade was filed on 2026-11-10 and is effective immediately.",
+      "conviction": 75,
       "conviction_basis": "pre_edge_proxy",
       "trade_score": 45,
       "trade_score_basis": "event_driven_v3",
@@ -231415,8 +231486,79 @@
         "data_pool_present": false
       },
       "surfaced_at": "2026-11-10T22:24:17Z",
-      "updated_at": "2026-11-10T22:24:17Z",
+      "updated_at": "2026-11-10T23:42:15Z",
       "decay_at": "2026-11-12T09:45:26Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-38073b8fc2c5",
+      "idea_version": "IDEAV-ebd8226f88b38473",
+      "idea_version_started_at": "2026-11-10T23:42:15Z",
+      "ticker": "PMT",
+      "company": "Patriot Battery Metals Inc.",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The release of an enhanced feasibility study for the CV5 project improves the project's economics and de-risks the development path.",
+      "why_now": "The study was released on 2026-11-10.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-27e284fd5b1e"
+      ],
+      "primary_source_event_id": "EVT-27e284fd5b1e",
+      "source_headlines": [
+        "PMT: PMT Delivers Enhanced CV5 Lithium-Tantalum Feasibility Study [price-sensitive]"
+      ],
+      "source_headline": "PMT: PMT Delivers Enhanced CV5 Lithium-Tantalum Feasibility Study [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PMT?key=2924-03160378-6A1354511",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-10T22:14:16Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-10T23:42:15Z",
+      "updated_at": "2026-11-10T23:42:15Z",
+      "decay_at": "2026-11-12T10:14:16Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -275357,8 +275499,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2372,
-    "live_count": 49,
+    "surfaced_total": 2374,
+    "live_count": 51,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
