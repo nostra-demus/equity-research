@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-10T04:14:32Z",
+  "generated_at": "2026-11-10T04:27:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20261110-151",
@@ -1437,6 +1437,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261110-185",
+      "headline": "25-NSE - Stran & Company, Inc. (0001872525) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1872525/000135445726001060/0001354457-26-001060-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-09T21:08:03Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "Stran & Company, Inc. filed a Form 25-NSE, indicating a delisting notification.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Stran & Company, Inc. filed a Form 25-NSE, indicating a delisting notification.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Stran & Company, Inc.",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261110-082",
       "headline": "AAON, Inc. Restates First and Second Quarter 2026 Financials, Reports Record Third Quarter Results, and Raises Full-Year Outlook",
       "headline_en": null,
@@ -1925,55 +1974,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261110-145",
-      "headline": "Disney's next earnings come with an unusual $600 million boost",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/investing/disney-earnings-come-with-an-unusual-600-million-boost-streaming-cuts",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-10T02:37:00Z",
-      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "Disney expects a $600 million boost to its upcoming earnings report.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Disney expects a $600 million boost to its upcoming earnings report.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Walt Disney Co",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -275177,9 +275177,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2168563,
-    "news_picked_today": 303,
-    "news_dropped_today": 1809
+    "news_seen_today": 2290288,
+    "news_picked_today": 334,
+    "news_dropped_today": 1850
   },
   "book_momentum": {
     "live_count": 8,
