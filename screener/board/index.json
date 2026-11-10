@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-10T14:29:13Z",
+  "generated_at": "2026-11-10T15:15:08Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261110-611",
+      "headline": "eca2026-809 - Information Regarding the Merger of Pacira BioSciences, Inc. (PCRX)",
+      "headline_en": null,
+      "url": "http://www.nasdaqtrader.com/TraderNews.aspx?id=eca2026-809",
+      "source_name": "Nasdaq Trader — Current Headlines / Market Alerts",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-10T19:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "Official exchange information regarding the merger of Pacira BioSciences.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Official exchange information regarding the merger of Pacira BioSciences.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pacira BioSciences, Inc.",
+          "ticker": "PCRX",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261110-608",
       "headline": "XIN YUAN ENT (01748): JOINT ANNOUNCEMENT ADDITIONAL IRREVOCABLE UNDERTAKING WITH RESPECT TO PRE-CONDITIONAL VOLUNTARY GENERAL CASH OFFER BY ICBC INTERNATIONAL CAPITAL LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR AND/OR PARTIES ACTING IN CONCERT WITH IT)",
@@ -1926,56 +1975,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261110-605",
-      "headline": "Venture Global Q3 Profit Surges, Lifts FY26 Adj. EBITDA Guidance; Pre-Market Shares Up",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/venture-global-q3-profit-surges-lifts-fy26-adj-ebitda-guidance-pre-market-shares",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-10T13:07:15Z",
-      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "Company reported surging profit and raised FY26 Adj. EBITDA guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Company reported surging profit and raised FY26 Adj. EBITDA guidance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Venture Global",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -275679,9 +275678,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7500696,
-    "news_picked_today": 1184,
-    "news_dropped_today": 5896
+    "news_seen_today": 7978962,
+    "news_picked_today": 1202,
+    "news_dropped_today": 5950
   },
   "book_momentum": {
     "live_count": 8,
