@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-10T01:27:14Z",
+  "generated_at": "2026-11-10T01:32:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20261110-077",
@@ -343,6 +343,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261110-087",
+      "headline": "Blackstone set to acquire 15% of IIFL for Rs 5,000 crore",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/blackstone-set-to-acquire-15-of-iifl-for-rs-5000-crore/articleshow/135696342.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-09T23:30:00Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "Blackstone is acquiring a 15% stake in IIFL for Rs 5,000 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Blackstone is acquiring a 15% stake in IIFL for Rs 5,000 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IIFL Finance",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -693,6 +742,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261110-090",
+      "headline": "AMD: Trading Halt [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AMD?key=2924-03159857-6A1354277",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-09T21:54:02Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "Trading halt for price-sensitive information indicates a significant pending announcement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Trading halt for price-sensitive information indicates a significant pending announcement.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Advanced Micro Devices",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261110-007",
       "headline": "IA Financial Group Q3 Profit Falls; Raises Dividend By 7%",
       "headline_en": null,
@@ -738,6 +836,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261110-091",
+      "headline": "DTZ: Trading halt [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.DTZ?key=2924-03160009-3A706204",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-10T00:48:17Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "Trading halt on the ASX is a price-sensitive event indicating pending material news.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Trading halt on the ASX is a price-sensitive event indicating pending material news.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DTZ",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1038,6 +1185,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261110-088",
+      "headline": "FDA grants accelerated approval to pirtobrutinib for chronic lymphocytic leukemia and small lymphocytic lymphoma",
+      "headline_en": null,
+      "url": "http://www.fda.gov/drugs/cancer-approvals/fda-grants-accelerated-approval-pirtobrutinib-chronic-lymphocytic-leukemia-and-small-lymphocytic",
+      "source_name": "FDA — What's New: Drugs",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-09T21:55:59Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "FDA granted accelerated approval for pirtobrutinib, a significant product milestone for the manufacturer.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "FDA granted accelerated approval for pirtobrutinib, a significant product milestone for the manufacturer.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Eli Lilly",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261110-009",
       "headline": "Law firm files class-action lawsuit against Nvidia after CEO Jensen Huang confirms affair with alleged Chinese spy",
       "headline_en": null,
@@ -1182,6 +1378,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261110-089",
+      "headline": "FDA grants accelerated approval to mirvetuximab soravtansine-gynx for FRα positive, platinum-resistant epithelial ovarian, fallopian tube, or peritoneal cancer",
+      "headline_en": null,
+      "url": "http://www.fda.gov/drugs/cancer-approvals/fda-grants-accelerated-approval-mirvetuximab-soravtansine-gynx-fra-positive-platinum-resistant",
+      "source_name": "FDA — What's New: Drugs",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-09T21:53:52Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "FDA granted accelerated approval for mirvetuximab soravtansine-gynx, a significant product milestone for the manufacturer.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "FDA granted accelerated approval for mirvetuximab soravtansine-gynx, a significant product milestone for the manufacturer.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ImmunoGen",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1710,246 +1955,6 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261110-053",
-      "headline": "Canada Expands US Tariff Exemptions, Cuts Some Aluminum Relief",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-10/canada-expands-us-tariff-exemptions-cuts-some-aluminum-relief",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-10T00:19:24Z",
-      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "Canada is adjusting tariff exemptions and aluminum relief, impacting cross-border trade dynamics for North American industrial sectors.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Canada is adjusting tariff exemptions and aluminum relief, impacting cross-border trade dynamics for North American industrial sectors.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261110-013",
-      "headline": "SCHEDULE 13D/A - FATE THERAPEUTICS INC (0001434316) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1434316/000090514826004718/0000905148-26-004718-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-10T00:08:10Z",
-      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "Amendment to a 13D filing indicates a change in position or intent by a significant shareholder.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "Amendment to a 13D filing indicates a change in position or intent by a significant shareholder.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "FATE THERAPEUTICS INC",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261110-027",
-      "headline": "CervoMed Inc. Reports Third Quarter 2026 Financial Results",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/cervomed-inc-reports-third-quarter-2026-financial-results",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-10T00:02:10Z",
-      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "CervoMed reported Q3 2026 financial results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 76,
-      "triage_reason": "CervoMed reported Q3 2026 financial results.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CervoMed Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261110-014",
-      "headline": "SCHEDULE 13D/A - Redmile Group, LLC (0001425738) (Filed by)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1425738/000090514826004718/0000905148-26-004718-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-10T00:08:10Z",
-      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "Amendment to a 13D filing by Redmile Group indicates a change in their significant stake.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 75,
-      "triage_reason": "Amendment to a 13D filing by Redmile Group indicates a change in their significant stake.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Redmile Group, LLC",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261110-015",
-      "headline": "SCHEDULE 13D - Credenza, Inc. (0002163347) (Filed by)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/2163347/000149315226050820/0001493152-26-050820-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-09T23:49:19Z",
-      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "Initial 13D filing indicates a new significant shareholder position.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 75,
-      "triage_reason": "Initial 13D filing indicates a new significant shareholder position.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Credenza, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -274727,9 +274732,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 655464,
-    "news_picked_today": 99,
-    "news_dropped_today": 549
+    "news_seen_today": 668300,
+    "news_picked_today": 105,
+    "news_dropped_today": 591
   },
   "book_momentum": {
     "live_count": 8,
