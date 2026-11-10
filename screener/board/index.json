@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-10T10:47:15Z",
+  "generated_at": "2026-11-10T10:52:18Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261110-559",
+      "headline": "CTF SERVICES (00659): DISCLOSEABLE TRANSACTIONS (1) DISPOSAL OF 100% EQUITY INTEREST IN BILLIONOBLE INVESTMENT LIMITED; (2) DISPOSAL OF 25% EQUITY INTEREST IN BEIJING-ZHUHAI EXPRESSWAY GUANGZHOU-ZHUHAI SECTION COMPANY LIMITED; AND (3) DISPOSAL OF 25% EQUITY INTEREST IN ZHAOQING YUEZHAO EXPRESSWAY CO., LTD.",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1110/2026111000777.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-10T10:34:00Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "CTF Services is disposing of multiple equity interests, including a 100% stake in Billionoble Investment Limited.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CTF Services is disposing of multiple equity interests, including a 100% stake in Billionoble Investment Limited.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CTF Services",
+          "ticker": "00659",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261110-547",
       "headline": "CH BEIDAHUANG (00039): INSIDE INFORMATION: (1) QUARTERLY UPDATE ON BUSINESS OPERATIONS AND PROGRESS OF RESUMPTION; AND (2) CONTINUED SUSPENSION OF TRADING",
@@ -1636,6 +1685,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261110-557",
+      "headline": "Vodafone lifts guidance as the UK shows signs of improvement",
+      "headline_en": null,
+      "url": "https://ukinvestormagazine.co.uk/vodafone-lifts-guidance-as-the-uk-shows-signs-of-improvement/",
+      "source_name": "UK Investor Magazine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-10T10:45:28Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "Vodafone has officially raised its financial guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Vodafone has officially raised its financial guidance.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vodafone",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261110-549",
       "headline": "Cochin Shipyard Q2 Results: Net Profit Falls 50% To Rs 54 Crore As Margins Contract, Revenue Up 11.7%",
       "headline_en": null,
@@ -1878,105 +1976,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261110-459",
-      "headline": "SoftBank swings to first-half loss as AI ambitions face fresh setbacks",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/softbank/softbank-swings-to-first-half-loss-as-ai-ambitions-face-fresh-setbacks",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-10T07:59:39Z",
-      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "SoftBank reported a first-half loss, indicating a setback in its investment strategy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "SoftBank reported a first-half loss, indicating a setback in its investment strategy.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SoftBank",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261110-344",
-      "headline": "Vodafone raises profit target after cutting 3,000 European jobs",
-      "headline_en": null,
-      "url": "https://www.cityam.com/vodafone-raises-profit-target-after-cutting-3000-european-jobs/",
-      "source_name": "City A.M.",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-10T07:38:14Z",
-      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "Vodafone raised its profit target and confirmed 3,000 job cuts in Europe, signaling improved operational efficiency.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Vodafone raised its profit target and confirmed 3,000 job cuts in Europe, signaling improved operational efficiency.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change",
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vodafone",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -275323,9 +275322,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5636932,
-    "news_picked_today": 852,
-    "news_dropped_today": 4620
+    "news_seen_today": 5664220,
+    "news_picked_today": 860,
+    "news_dropped_today": 4684
   },
   "book_momentum": {
     "live_count": 8,
