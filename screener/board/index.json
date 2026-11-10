@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-10T21:11:00Z",
+  "generated_at": "2026-11-10T21:14:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20261110-651",
@@ -144,6 +144,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261110-678",
+      "headline": "424B2 - BARCLAYS BANK PLC (0000312070) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/312070/000191870426035231/0001918704-26-035231-index.htm",
+      "source_name": "SEC EDGAR — Latest 424B2 (Prospectus, shelf takedown)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-10T18:46:14Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "Barclays Bank PLC is filing a prospectus for a shelf takedown, indicating a potential debt issuance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Barclays Bank PLC is filing a prospectus for a shelf takedown, indicating a potential debt issuance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BARCLAYS BANK PLC",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1916,55 +1965,6 @@
       "companies": [
         {
           "name": "ABC Compounding Co., Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261110-213",
-      "headline": "FDA drug recall (Class II) — The Ritedose Corporation: Formoterol Fumarate Inhalation Solution, 20mcg/2mL, packaged in cartons of 30 individually wrapped vials (NDC 76204-030-01) and 60 individually wrapped vials (N — Failed Impurities/Degradation Specification",
-      "headline_en": null,
-      "url": "https://api.fda.gov/drug/enforcement.json?search=recall_number.exact:%22D-0073-2027%22",
-      "source_name": "U.S. Food & Drug Administration (Press Releases)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-04T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "FDA drug recall (Class II) for Formoterol Fumarate Inhalation Solution due to Failed Impurities/Degradation Specification.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "FDA drug recall (Class II) for Formoterol Fumarate Inhalation Solution due to Failed Impurities/Degradation Specification.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "The Ritedose Corporation",
           "ticker": null,
           "listing_country": "US"
         }
@@ -275306,9 +275306,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 11589092,
-    "news_picked_today": 1492,
-    "news_dropped_today": 8756
+    "news_seen_today": 11609935,
+    "news_picked_today": 1526,
+    "news_dropped_today": 8842
   },
   "book_momentum": {
     "live_count": 8,
