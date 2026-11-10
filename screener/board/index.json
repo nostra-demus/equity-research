@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-10T00:09:20Z",
+  "generated_at": "2026-11-10T00:12:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20261110-006",
@@ -145,6 +145,56 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261110-009",
+      "headline": "Law firm files class-action lawsuit against Nvidia after CEO Jensen Huang confirms affair with alleged Chinese spy",
+      "headline_en": null,
+      "url": "https://www.tomshardware.com/tech-industry/big-tech/law-firm-files-class-action-lawsuit-against-nvidia-after-ceo-jensen-huang-confirms-affair-with-alleged-chinese-spy-more-to-come-as-multiple-other-law-firms-investigate-securities-fraud-following-stock-drop",
+      "source_name": "Tom's Hardware",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-10T00:03:08Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "A class-action lawsuit involving allegations against the CEO creates significant reputational and operational risk for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "A class-action lawsuit involving allegations against the CEO creates significant reputational and operational risk for the company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -272734,7 +272784,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4655,
+    "inbox_unconsumed": 4656,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -272743,9 +272793,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 64508,
-    "news_picked_today": 8,
-    "news_dropped_today": 64
+    "news_seen_today": 103202,
+    "news_picked_today": 9,
+    "news_dropped_today": 87
   },
   "book_momentum": {
     "live_count": 8,
