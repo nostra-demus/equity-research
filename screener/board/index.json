@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-10T02:34:59Z",
+  "generated_at": "2026-11-10T02:38:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20261110-077",
@@ -293,6 +293,55 @@
         {
           "name": "Merck & Co.",
           "ticker": "MRK",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261110-144",
+      "headline": "FBI investigating Nvidia CEO over affair with alleged Chinese spy",
+      "headline_en": null,
+      "url": "https://news.sky.com/story/fbi-to-investigate-nvidia-ceo-over-affair-with-alleged-chinese-spy-trump-says-13610382",
+      "source_name": "Sky News — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-10T02:06:00Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "FBI investigation into the CEO of a major technology company regarding national security concerns poses significant reputational and operational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "FBI investigation into the CEO of a major technology company regarding national security concerns poses significant reputational and operational risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
           "listing_country": "US"
         }
       ],
@@ -1684,6 +1733,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261110-143",
+      "headline": "Take-Two Interactive Software, Inc. Reports Fiscal Second Quarter 2027 Results and Reiterates Full-Year Net Bookings Outlook of $8.0 to $8.2 billion",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/take-two-interactive-software-inc-reports-fiscal-second-quarter-2027-results-and",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-10T02:11:55Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "Company reported quarterly results and reiterated full-year net bookings outlook of $8.0 to $8.2 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Company reported quarterly results and reiterated full-year net bookings outlook of $8.0 to $8.2 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Take-Two Interactive Software, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261110-065",
       "headline": "DocGo Inc. Announces Third Quarter 2026 Results and CEO Transition",
       "headline_en": null,
@@ -1873,104 +1972,6 @@
           "name": "Global Blood Therapeutics",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261110-103",
-      "headline": "FDA approves tisotumab vedotin-tftv for recurrent or metastatic cervical cancer",
-      "headline_en": null,
-      "url": "http://www.fda.gov/drugs/cancer-approvals/fda-approves-tisotumab-vedotin-tftv-recurrent-or-metastatic-cervical-cancer",
-      "source_name": "FDA — What's New: Drugs",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-09T21:48:49Z",
-      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "FDA approval of tisotumab vedotin-tftv expands the commercial indication for the manufacturer.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "FDA approval of tisotumab vedotin-tftv expands the commercial indication for the manufacturer.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Seagen",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261110-109",
-      "headline": "FDA approves tepotinib for metastatic non-small cell lung cancer",
-      "headline_en": null,
-      "url": "http://www.fda.gov/drugs/cancer-approvals/fda-approves-tepotinib-metastatic-non-small-cell-lung-cancer",
-      "source_name": "FDA — What's New: Drugs",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-09T21:48:28Z",
-      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "FDA approval of tepotinib provides a new revenue stream for the manufacturer.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "FDA approval of tepotinib provides a new revenue stream for the manufacturer.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Merck KGaA",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -274966,9 +274967,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1112424,
-    "news_picked_today": 181,
-    "news_dropped_today": 1067
+    "news_seen_today": 1150215,
+    "news_picked_today": 188,
+    "news_dropped_today": 1084
   },
   "book_momentum": {
     "live_count": 8,
