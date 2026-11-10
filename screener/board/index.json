@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-10T09:36:12Z",
+  "generated_at": "2026-11-10T09:38:33Z",
   "inbox": [
     {
       "inbox_id": "INB-20261110-514",
@@ -42,6 +42,55 @@
         {
           "name": "ASIA COMM HOLD",
           "ticker": "00104",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261110-538",
+      "headline": "FUTURE BRIGHT (00703): LOSS WARNING FOR THE NINE MONTHS ENDED 30 SEPTEMBER 2026 AND BUSINESS UPDATE OF THE GROUP FOR THE THIRD QUARTER OF 2026",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1110/2026111000326.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-10T08:42:00Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "Future Bright issued a loss warning for the nine months ended September 30, 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Future Bright issued a loss warning for the nine months ended September 30, 2026.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Future Bright",
+          "ticker": "00703",
           "listing_country": "CN"
         }
       ],
@@ -1928,55 +1977,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261110-280",
-      "headline": "DoubleDown Interactive Co., Ltd. Enters into Transaction Agreement for Cash Tender Offer at US$16.25 per ADS",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/doubledown-interactive-co-ltd-enters-transaction-agreement-cash-tender-offer-us-1625-ads",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-10T07:19:05Z",
-      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "DoubleDown Interactive entered a transaction agreement for a cash tender offer at US$16.25 per ADS.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "DoubleDown Interactive entered a transaction agreement for a cash tender offer at US$16.25 per ADS.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DoubleDown Interactive Co., Ltd.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -275186,9 +275186,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4994238,
-    "news_picked_today": 791,
-    "news_dropped_today": 4153
+    "news_seen_today": 5020832,
+    "news_picked_today": 796,
+    "news_dropped_today": 4172
   },
   "book_momentum": {
     "live_count": 8,
