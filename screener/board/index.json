@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-10T11:40:49Z",
+  "generated_at": "2026-11-10T11:45:59Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261110-582",
+      "headline": "IIFL Finance Limited: IIFL Finance Limited has informed the Exchange regarding a press release dated November 10, 2026, titled \"IIFL Finance to Raise ₹6,414 Crores ($686 million) in One of the Largest Primary Private Equity Infusions in a Listed Indian NBFC, Led by Blackstone and the Promoters.\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/IIFL_10112026164007_SEIntimation.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-10T11:10:22Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "IIFL Finance is raising 6414 crore rupees (686 million dollars) in a primary private equity infusion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "IIFL Finance is raising 6414 crore rupees (686 million dollars) in a primary private equity infusion.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IIFL Finance Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261110-559",
       "headline": "CTF SERVICES (00659): DISCLOSEABLE TRANSACTIONS (1) DISPOSAL OF 100% EQUITY INTEREST IN BILLIONOBLE INVESTMENT LIMITED; (2) DISPOSAL OF 25% EQUITY INTEREST IN BEIJING-ZHUHAI EXPRESSWAY GUANGZHOU-ZHUHAI SECTION COMPANY LIMITED; AND (3) DISPOSAL OF 25% EQUITY INTEREST IN ZHAOQING YUEZHAO EXPRESSWAY CO., LTD.",
@@ -1685,20 +1734,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261110-565",
-      "headline": "IIFL Finance clears ₹6,414 crore fundraise; Blackstone affiliate to acquire 15.57% stake",
+      "inbox_id": "INB-20261110-581",
+      "headline": "Blackstone to buy about 16% stake in IIFL Finance for ₹5,000 crore",
       "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/iifl-finance-rs-6414-crore-fundraise-ccps-warrants-blackstone-affiliate-15-57-pc-stake-20030948.htm",
-      "source_name": "CNBC-TV18",
+      "url": "https://www.thehindubusinessline.com/money-and-banking/blackstone-to-buy-about-16-stake-in-iifl-finance-for-5000-crore/article71685978.ece",
+      "source_name": "The Hindu BusinessLine",
       "input_nature": "news_headline",
-      "found_at": "2026-11-10T11:11:03Z",
+      "found_at": "2026-11-10T11:35:16Z",
       "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "IIFL Finance is raising ₹6,414 crore, with Blackstone acquiring a 15.57% stake.",
+      "prelim_note": "Blackstone is acquiring a 16% stake in IIFL Finance for 50 billion INR.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "IIFL Finance is raising ₹6,414 crore, with Blackstone acquiring a 15.57% stake.",
+      "triage_reason": "Blackstone is acquiring a 16% stake in IIFL Finance for 50 billion INR.",
       "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 85,
@@ -1718,20 +1767,19 @@
         "size_bucket": "large"
       },
       "event_types": [
-        "mna",
-        "capital_actions"
+        "mna"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "IIFL Finance",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
           "name": "Blackstone",
           "ticker": null,
           "listing_country": "US"
+        },
+        {
+          "name": "IIFL Finance",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -1936,55 +1984,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261110-567",
-      "headline": "Cochin Shipyard Q2 Profit Crashes 50% To ₹53.77 Crore, Revenue Rises 12% Despite Sharp Earnings Decline",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/cochin-shipyard-q2-profit-crashes-50-to-5377-crore-revenue-rises-12-despite-sharp-earnings-decline",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-10T10:36:28Z",
-      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "Cochin Shipyard reported a 50% crash in Q2 profit to ₹53.77 crore, indicating a significant earnings miss.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Cochin Shipyard reported a 50% crash in Q2 profit to ₹53.77 crore, indicating a significant earnings miss.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cochin Shipyard",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -275829,9 +275828,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6040249,
-    "news_picked_today": 942,
-    "news_dropped_today": 5010
+    "news_seen_today": 6068688,
+    "news_picked_today": 946,
+    "news_dropped_today": 5054
   },
   "book_momentum": {
     "live_count": 8,
