@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-10T11:35:22Z",
+  "generated_at": "2026-11-10T11:37:22Z",
   "inbox": [
     {
       "inbox_id": "INB-20261110-559",
@@ -1740,6 +1740,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261110-578",
+      "headline": "Blackstone to Buy 15.5% of IIFL Finance in $532 Million India Bet",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-10/blackstone-to-buy-15-5-of-iifl-finance-in-532-million-india-bet",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-10T11:07:10Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "Blackstone to acquire a 15.5% stake in IIFL Finance for $532 million, a significant capital injection and valuation marker.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Blackstone to acquire a 15.5% stake in IIFL Finance for $532 million, a significant capital injection and valuation marker.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 82,
+      "rank_factors": {
+        "materiality": 82,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 3,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Blackstone Inc",
+          "ticker": "BX",
+          "listing_country": "US"
+        },
+        {
+          "name": "IIFL Finance Ltd",
+          "ticker": "IIFL",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261110-562",
       "headline": "MRF Q2 Results: Net profit declines 27% to ₹387 cr",
       "headline_en": null,
@@ -1838,6 +1892,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261110-573",
+      "headline": "Sumitomo Metal Mining's H1 Earnings Up 67%, Cuts FY26-27 Earnings Outlook - Update",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/sumitomo-metal-minings-h1-earnings-67-cuts-fy26-27-earnings-outlook-update",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-10T10:44:01Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "Sumitomo Metal Mining reported a 67% increase in H1 earnings but cut its FY26-27 earnings outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Sumitomo Metal Mining reported a 67% increase in H1 earnings but cut its FY26-27 earnings outlook.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sumitomo Metal Mining",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261110-567",
       "headline": "Cochin Shipyard Q2 Profit Crashes 50% To ₹53.77 Crore, Revenue Rises 12% Despite Sharp Earnings Decline",
       "headline_en": null,
@@ -1879,104 +1982,6 @@
           "name": "Cochin Shipyard",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261110-549",
-      "headline": "Cochin Shipyard Q2 Results: Net Profit Falls 50% To Rs 54 Crore As Margins Contract, Revenue Up 11.7%",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/business/cochin-shipyard-q2-results-net-profit-falls-50-to-rs-53-8-crore-as-margins-contract-revenue-rises-11-7-12307427#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-10T09:53:46Z",
-      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "Cochin Shipyard reported a 50% decline in net profit to Rs 54 crore due to margin contraction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Cochin Shipyard reported a 50% decline in net profit to Rs 54 crore due to margin contraction.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cochin Shipyard",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261110-546",
-      "headline": "Premier Group lifts operating profit by 52.5% after RFG acquisition",
-      "headline_en": null,
-      "url": "https://www.moneyweb.co.za/news/companies-and-deals/premier-group-lifts-operating-profit-by-52-5-after-rfg-acquisition/",
-      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-10T09:37:09Z",
-      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "Company reported a 52.5% increase in operating profit following an acquisition.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Company reported a 52.5% increase in operating profit following an acquisition.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Premier Group",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "mid",
@@ -231575,77 +231580,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-c3fce5a7fa01",
-      "idea_version": "IDEAV-1ad56b20f02a4ed6",
-      "idea_version_started_at": "2026-11-08T23:44:25Z",
-      "ticker": "SHOP",
-      "company": "Shopify",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company met earnings expectations but the market reaction suggests underlying concerns regarding growth sustainability or margin quality.",
-      "why_now": "The earnings report was released on 2026-11-08, and the negative price action following the release indicates a potential shift in investor sentiment.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-154d8abe7837"
-      ],
-      "primary_source_event_id": "EVT-154d8abe7837",
-      "source_headlines": [
-        "Shopify just hit its numbers, and that was the problem"
-      ],
-      "source_headline": "Shopify just hit its numbers, and that was the problem",
-      "source_url": "https://www.thestreet.com/investing/shopify-just-hit-its-numbers-and-that-was-the-problem",
-      "source_name": "TheStreet",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-08T23:37:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-08T23:44:25Z",
-      "updated_at": "2026-11-08T23:44:25Z",
-      "decay_at": "2026-11-10T11:37:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-3c061905fff4",
       "idea_version": "IDEAV-d3801242e61b755a",
       "idea_version_started_at": "2026-11-10T11:30:45Z",
@@ -234997,6 +234931,77 @@
       "surfaced_at": "2026-11-08T03:19:59Z",
       "updated_at": "2026-11-08T03:19:59Z",
       "decay_at": "2026-11-09T14:49:47Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-c3fce5a7fa01",
+      "idea_version": "IDEAV-1ad56b20f02a4ed6",
+      "idea_version_started_at": "2026-11-08T23:44:25Z",
+      "ticker": "SHOP",
+      "company": "Shopify",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company met earnings expectations but the market reaction suggests underlying concerns regarding growth sustainability or margin quality.",
+      "why_now": "The earnings report was released on 2026-11-08, and the negative price action following the release indicates a potential shift in investor sentiment.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-154d8abe7837"
+      ],
+      "primary_source_event_id": "EVT-154d8abe7837",
+      "source_headlines": [
+        "Shopify just hit its numbers, and that was the problem"
+      ],
+      "source_headline": "Shopify just hit its numbers, and that was the problem",
+      "source_url": "https://www.thestreet.com/investing/shopify-just-hit-its-numbers-and-that-was-the-problem",
+      "source_name": "TheStreet",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-08T23:37:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-08T23:44:25Z",
+      "updated_at": "2026-11-08T23:44:25Z",
+      "decay_at": "2026-11-10T11:37:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -238612,9 +238617,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 557,
+    "total_count": 558,
     "shown_count": 499,
-    "hidden_count": 58,
+    "hidden_count": 59,
     "side_counts": {
       "long": {
         "total_count": 281,
@@ -238622,9 +238627,9 @@
         "hidden_count": 31
       },
       "short": {
-        "total_count": 277,
+        "total_count": 278,
         "shown_count": 250,
-        "hidden_count": 27
+        "hidden_count": 28
       }
     },
     "retention": {
@@ -238643,6 +238648,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-c3fce5a7fa01",
+        "idea_version": "IDEAV-1ad56b20f02a4ed6",
+        "idea_version_started_at": "2026-11-08T23:44:25Z",
+        "ticker": "SHOP",
+        "company": "Shopify",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company met earnings expectations but the market reaction suggests underlying concerns regarding growth sustainability or margin quality.",
+        "why_now": "The earnings report was released on 2026-11-08, and the negative price action following the release indicates a potential shift in investor sentiment.",
+        "conviction": 50,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 60,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-154d8abe7837"
+        ],
+        "primary_source_event_id": "EVT-154d8abe7837",
+        "source_headlines": [
+          "Shopify just hit its numbers, and that was the problem"
+        ],
+        "source_headline": "Shopify just hit its numbers, and that was the problem",
+        "source_url": "https://www.thestreet.com/investing/shopify-just-hit-its-numbers-and-that-was-the-problem",
+        "source_name": "TheStreet",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-08T23:37:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-08T23:44:25Z",
+        "updated_at": "2026-11-08T23:44:25Z",
+        "decay_at": "2026-11-10T11:37:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-10T11:37:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-80d8059c8c1e",
         "idea_version": "IDEAV-d08ff9e70a7989a2",
@@ -275726,86 +275805,12 @@
         "archived_at": "2026-10-18T00:22:55Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-e07345b47c7f",
-        "idea_version": "IDEAV-29343a0846017038",
-        "idea_version_started_at": "2026-10-15T02:47:20Z",
-        "ticker": "01773",
-        "company": "Tianli International Holdings",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "A profit warning indicates deteriorating margins or revenue shortfalls, which typically leads to downward earnings revisions.",
-        "why_now": "The profit warning was filed on October 14, 2026, and the market has yet to fully digest the impact on forward earnings.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-cf3ac50db465"
-        ],
-        "primary_source_event_id": "EVT-cf3ac50db465",
-        "source_headlines": [
-          "TIANLI INT HLDG (01773): PROFIT WARNING"
-        ],
-        "source_headline": "TIANLI INT HLDG (01773): PROFIT WARNING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1015/2026101500009.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-14T22:22:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-15T02:47:20Z",
-        "updated_at": "2026-10-15T02:47:20Z",
-        "decay_at": "2026-10-16T10:22:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-18T00:22:55Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2367,
-    "live_count": 67,
+    "live_count": 66,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -275824,9 +275829,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6011836,
-    "news_picked_today": 912,
-    "news_dropped_today": 4920
+    "news_seen_today": 6026060,
+    "news_picked_today": 935,
+    "news_dropped_today": 4993
   },
   "book_momentum": {
     "live_count": 8,
