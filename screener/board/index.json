@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-10T11:14:57Z",
+  "generated_at": "2026-11-10T11:17:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261110-559",
@@ -1685,6 +1685,61 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261110-565",
+      "headline": "IIFL Finance clears ₹6,414 crore fundraise; Blackstone affiliate to acquire 15.57% stake",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/iifl-finance-rs-6414-crore-fundraise-ccps-warrants-blackstone-affiliate-15-57-pc-stake-20030948.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-10T11:11:03Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "IIFL Finance is raising ₹6,414 crore, with Blackstone acquiring a 15.57% stake.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "IIFL Finance is raising ₹6,414 crore, with Blackstone acquiring a 15.57% stake.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IIFL Finance",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Blackstone",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261110-562",
       "headline": "MRF Q2 Results: Net profit declines 27% to ₹387 cr",
       "headline_en": null,
@@ -1927,55 +1982,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261110-523",
-      "headline": "MRF Q2 results: Net profit falls 13% to ₹417 crore; dividend declared",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/mrf-q2-results-net-profit-falls-13-percent-dividend-declared-revenue-ebitda-tyre-company-share-price-20030892.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-10T08:41:39Z",
-      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "The company reported a 13% decline in net profit to ₹417 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The company reported a 13% decline in net profit to ₹417 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MRF",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -275606,9 +275612,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5871097,
-    "news_picked_today": 888,
-    "news_dropped_today": 4800
+    "news_seen_today": 5899067,
+    "news_picked_today": 892,
+    "news_dropped_today": 4820
   },
   "book_momentum": {
     "live_count": 8,
