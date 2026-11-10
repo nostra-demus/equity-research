@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-10T07:47:50Z",
+  "generated_at": "2026-11-10T07:54:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20261110-151",
@@ -1091,6 +1091,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261110-344",
+      "headline": "Vodafone raises profit target after cutting 3,000 European jobs",
+      "headline_en": null,
+      "url": "https://www.cityam.com/vodafone-raises-profit-target-after-cutting-3000-european-jobs/",
+      "source_name": "City A.M.",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-10T07:38:14Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "Vodafone raised its profit target and confirmed 3,000 job cuts in Europe, signaling improved operational efficiency.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Vodafone raised its profit target and confirmed 3,000 job cuts in Europe, signaling improved operational efficiency.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vodafone",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261110-266",
       "headline": "Honda raises full-year profit forecast as weak yen trumps costly EV retreat",
       "headline_en": null,
@@ -1375,6 +1425,56 @@
       "companies": [
         {
           "name": "Honda Motor",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261110-345",
+      "headline": "Honda Raises Outlook Even as Failed EV Bet Weighs on Profit",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-10/honda-raises-outlook-even-as-ev-fallout-hangs-over-carmaker",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-10T06:45:20Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "Honda raised its profit outlook despite acknowledging that its EV strategy is currently weighing on margins.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Honda raised its profit outlook despite acknowledging that its EV strategy is currently weighing on margins.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Honda",
           "ticker": null,
           "listing_country": "JP"
         }
@@ -1876,106 +1976,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261110-135",
-      "headline": "Surgery Partners, Inc. Amends HealthSpan Partners Merger Agreement to $25.00 Per Share and Reports Third Quarter 2026 Results",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/surgery-partners-inc-amends-healthspan-partners-merger-agreement-2500-share-and-reports",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-10T01:41:22Z",
-      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "Surgery Partners amended its merger agreement to $25.00 per share and reported Q3 2026 results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Surgery Partners amended its merger agreement to $25.00 per share and reported Q3 2026 results.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna",
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Surgery Partners, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261110-105",
-      "headline": "Qualys, Inc. Reports Third Quarter 2026 Revenues of $188.0 million and Raises 2026 Revenue Guidance",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/qualys-inc-reports-third-quarter-2026-revenues-1880-million-and-raises-2026-revenue",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-10T01:11:18Z",
-      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "Qualys reported Q3 2026 revenue of $188 million and raised its full-year revenue guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Qualys reported Q3 2026 revenue of $188 million and raised its full-year revenue guidance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Qualys",
-          "ticker": "QLYS",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -275181,9 +275181,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4203316,
-    "news_picked_today": 561,
-    "news_dropped_today": 2511
+    "news_seen_today": 4231414,
+    "news_picked_today": 566,
+    "news_dropped_today": 3418
   },
   "book_momentum": {
     "live_count": 8,
