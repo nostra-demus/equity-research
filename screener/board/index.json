@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-10T04:27:22Z",
+  "generated_at": "2026-11-10T05:37:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20261110-151",
@@ -395,6 +395,106 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261110-188",
+      "headline": "U.S. Physical Therapy, Inc. Reports Third Quarter 2026 Results and Reaffirms EBITDA Guidance of $102 million to $106 million",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/us-physical-therapy-inc-reports-third-quarter-2026-results-and-reaffirms-ebitda-guidance",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-10T04:28:37Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "Company reports Q3 results and reaffirms EBITDA guidance of $102M to $106M.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company reports Q3 results and reaffirms EBITDA guidance of $102M to $106M.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "U.S. Physical Therapy, Inc.",
+          "ticker": "USPH",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261110-189",
+      "headline": "P3 Health Partners Inc. Reports Third Quarter 2026 Net Income of $30.8 million and Raises Adjusted EBITDA Guidance Midpoint",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/p3-health-partners-inc-reports-third-quarter-2026-net-income-308-million-and-raises",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-10T04:28:37Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "Reports Q3 net income of $30.8M and raises its Adjusted EBITDA guidance midpoint.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Reports Q3 net income of $30.8M and raises its Adjusted EBITDA guidance midpoint.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 82,
+      "rank_factors": {
+        "materiality": 82,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 3,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "P3 Health Partners Inc.",
+          "ticker": "PIII",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1733,6 +1833,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261110-193",
+      "headline": "Humana Inc. Launches Cash Tender Offers for Up to $1,500,000,000 of Outstanding Debt Securities",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/humana-inc-launches-cash-tender-offers-1500000000-outstanding-debt-securities",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-10T04:18:38Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "Humana Inc. launched cash tender offers for up to $1.5 billion of outstanding debt securities, which could impact its capital structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Humana Inc. launched cash tender offers for up to $1.5 billion of outstanding debt securities, which could impact its capital structure.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Humana Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261110-007",
       "headline": "IA Financial Group Q3 Profit Falls; Raises Dividend By 7%",
       "headline_en": null,
@@ -1827,153 +1976,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261110-045",
-      "headline": "AWJ: Trading Halt [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AWJ?key=2924-03159977-6A1354325",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-09T23:31:17Z",
-      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "AWJ has entered a trading halt pending a price-sensitive announcement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "AWJ has entered a trading halt pending a price-sensitive announcement.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AWJ",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261110-046",
-      "headline": "MEL: Prospectus [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MEL?key=2924-03159974-2A1709714",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-09T23:29:52Z",
-      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "MEL released a prospectus, which is a price-sensitive event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "MEL released a prospectus, which is a price-sensitive event.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MEL",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261110-140",
-      "headline": "NT 10-Q - BT Brands, Inc. (0001718224) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1718224/000147793226006781/0001477932-26-006781-index.htm",
-      "source_name": "SEC EDGAR — Latest NT 10-Q (Late Quarterly Filing Notice)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-09T21:30:44Z",
-      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "BT Brands filed a notice of late quarterly filing (NT 10-Q), which is a negative signal regarding financial reporting controls.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "BT Brands filed a notice of late quarterly filing (NT 10-Q), which is a negative signal regarding financial reporting controls.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 3,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "accounting_restatement",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BT Brands, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -233300,79 +233302,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-72dc515e1743",
-      "idea_version": "IDEAV-4fc99e8eea72910e",
-      "idea_version_started_at": "2026-11-08T18:55:39Z",
-      "ticker": "C6L",
-      "company": "Singapore Airlines",
-      "exchange": "SGX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "A $1.1 billion (S$1.6bn) investment in cabin upgrades across the long-haul fleet aims to defend premium yields and capture high-margin luxury travel demand.",
-      "why_now": "The formal unveiling of the multi-year capex program on November 8, 2026, signals a major strategic shift in product positioning.",
-      "conviction": 45,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-af73baecc998"
-      ],
-      "primary_source_event_id": "EVT-af73baecc998",
-      "source_headlines": [
-        "Singapore Airlines unveils $1.6bn cabin revamp with giant double bed"
-      ],
-      "source_headline": "Singapore Airlines unveils $1.6bn cabin revamp with giant double bed",
-      "source_url": "https://asia.nikkei.com/business/transportation/singapore-airlines-unveils-1.6bn-cabin-revamp-with-giant-double-bed",
-      "source_name": "Nikkei Asia",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-08T16:47:53Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-08T18:55:39Z",
-      "updated_at": "2026-11-08T18:55:39Z",
-      "decay_at": "2026-11-10T04:47:53Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-a2376ec1a2c7",
       "idea_version": "IDEAV-5c9b522a0d5b80c0",
       "idea_version_started_at": "2026-11-10T02:34:38Z",
@@ -234995,6 +234924,79 @@
       "surfaced_at": "2026-11-08T03:19:59Z",
       "updated_at": "2026-11-08T03:19:59Z",
       "decay_at": "2026-11-09T14:11:11Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-72dc515e1743",
+      "idea_version": "IDEAV-4fc99e8eea72910e",
+      "idea_version_started_at": "2026-11-08T18:55:39Z",
+      "ticker": "C6L",
+      "company": "Singapore Airlines",
+      "exchange": "SGX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "A $1.1 billion (S$1.6bn) investment in cabin upgrades across the long-haul fleet aims to defend premium yields and capture high-margin luxury travel demand.",
+      "why_now": "The formal unveiling of the multi-year capex program on November 8, 2026, signals a major strategic shift in product positioning.",
+      "conviction": 45,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-af73baecc998"
+      ],
+      "primary_source_event_id": "EVT-af73baecc998",
+      "source_headlines": [
+        "Singapore Airlines unveils $1.6bn cabin revamp with giant double bed"
+      ],
+      "source_headline": "Singapore Airlines unveils $1.6bn cabin revamp with giant double bed",
+      "source_url": "https://asia.nikkei.com/business/transportation/singapore-airlines-unveils-1.6bn-cabin-revamp-with-giant-double-bed",
+      "source_name": "Nikkei Asia",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-08T16:47:53Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-08T18:55:39Z",
+      "updated_at": "2026-11-08T18:55:39Z",
+      "decay_at": "2026-11-10T04:47:53Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -237970,14 +237972,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 551,
+    "total_count": 552,
     "shown_count": 499,
-    "hidden_count": 52,
+    "hidden_count": 53,
     "side_counts": {
       "long": {
-        "total_count": 279,
+        "total_count": 280,
         "shown_count": 250,
-        "hidden_count": 29
+        "hidden_count": 30
       },
       "short": {
         "total_count": 273,
@@ -238001,6 +238003,82 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-72dc515e1743",
+        "idea_version": "IDEAV-4fc99e8eea72910e",
+        "idea_version_started_at": "2026-11-08T18:55:39Z",
+        "ticker": "C6L",
+        "company": "Singapore Airlines",
+        "exchange": "SGX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "A $1.1 billion (S$1.6bn) investment in cabin upgrades across the long-haul fleet aims to defend premium yields and capture high-margin luxury travel demand.",
+        "why_now": "The formal unveiling of the multi-year capex program on November 8, 2026, signals a major strategic shift in product positioning.",
+        "conviction": 45,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-af73baecc998"
+        ],
+        "primary_source_event_id": "EVT-af73baecc998",
+        "source_headlines": [
+          "Singapore Airlines unveils $1.6bn cabin revamp with giant double bed"
+        ],
+        "source_headline": "Singapore Airlines unveils $1.6bn cabin revamp with giant double bed",
+        "source_url": "https://asia.nikkei.com/business/transportation/singapore-airlines-unveils-1.6bn-cabin-revamp-with-giant-double-bed",
+        "source_name": "Nikkei Asia",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-08T16:47:53Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-08T18:55:39Z",
+        "updated_at": "2026-11-08T18:55:39Z",
+        "decay_at": "2026-11-10T04:47:53Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-10T04:47:53Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-e92c01041db0",
         "idea_version": "IDEAV-b8b4bb3386105a31",
@@ -266887,80 +266965,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-b46baf89fdca",
-        "idea_version": "IDEAV-9f527617e5a30b41",
-        "idea_version_started_at": "2026-10-26T00:44:51Z",
-        "ticker": "WC8",
-        "company": "Wildcat Resources",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The Definitive Feasibility Study for the Tabba Tabba project confirms the technical and economic viability for large-scale lithium development, de-risking the company's primary asset.",
-        "why_now": "The filing was released on 2026-10-25, providing an immediate catalyst for project valuation re-rating.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-d5ff625d16f0"
-        ],
-        "primary_source_event_id": "EVT-d5ff625d16f0",
-        "source_headlines": [
-          "WC8: TABBA TABBA DFS CLEARS PATHWAY FOR LARGE-SCALE DEVELOPMENT [price-sensitive]"
-        ],
-        "source_headline": "WC8: TABBA TABBA DFS CLEARS PATHWAY FOR LARGE-SCALE DEVELOPMENT [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WC8?key=2924-03152983-6A1351295",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-25T23:30:01Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-26T00:44:51Z",
-        "updated_at": "2026-10-26T00:44:51Z",
-        "decay_at": "2026-10-27T11:30:01Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-29T02:54:23Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-83bd5483df63",
         "idea_version": "IDEAV-392e394cd3f28813",
         "idea_version_started_at": "2026-10-26T00:44:51Z",
@@ -275158,7 +275162,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2356,
-    "live_count": 64,
+    "live_count": 63,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -275177,9 +275181,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2290288,
-    "news_picked_today": 334,
-    "news_dropped_today": 1850
+    "news_seen_today": 3023008,
+    "news_picked_today": 361,
+    "news_dropped_today": 1895
   },
   "book_momentum": {
     "live_count": 8,
