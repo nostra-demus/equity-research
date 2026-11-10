@@ -61,6 +61,7 @@ bands), §11 (data sufficiency), §12 (scoring), §13/§18 (decision/caps), §24
 """
 from __future__ import annotations
 from dataclasses import dataclass, field
+import math
 from typing import Optional
 
 
@@ -113,8 +114,41 @@ def _isnum(v) -> bool:
     return isinstance(v, (int, float)) and not isinstance(v, bool)
 
 
+def _finite_number(name: str, value, *, nullable: bool = False, score: bool = False):
+    """Validate supplied JSON numbers without coercing strings/bools or changing recorded values."""
+    if value is None and nullable:
+        return None
+    if not _isnum(value):
+        raise ValueError(f"{name} must be a finite non-boolean number")
+    try:
+        number = float(value)
+    except (OverflowError, TypeError, ValueError):
+        raise ValueError(f"{name} must be a finite representable number") from None
+    if not math.isfinite(number):
+        raise ValueError(f"{name} must be a finite representable number")
+    if score and not 0.0 <= number <= 100.0:
+        raise ValueError(f"{name} must be between 0 and 100")
+    return number
+
+
+def _validate_numeric_inputs(inp: ConfidenceInputs):
+    """One entry guard shared by compute and direct analysis; null defaults stay intentional."""
+    for name in ("data_sufficiency", "corroboration", "evidence_tier", "edge_score", "rating_cap_ceiling"):
+        _finite_number(name, getattr(inp, name), nullable=name != "data_sufficiency", score=True)
+    _finite_number("expected_return_pct", inp.expected_return_pct, nullable=True)
+    _finite_number("staleness_penalty", inp.staleness_penalty, nullable=True)
+    haircut = _finite_number("calibration_haircut", inp.calibration_haircut, nullable=True)
+    penalties = []
+    for i, downgrade in enumerate(inp.downgrades):
+        points = _finite_number(f"downgrades[{i}].points", downgrade.get("points"), nullable=True)
+        penalties.append(max(0.0, points if points is not None else 0.0))
+    total = sum(penalties) + max(0.0, haircut if haircut is not None else 0.0)
+    if not math.isfinite(total):
+        raise ValueError("downgrade_points_total must be finite and representable")
+
+
 def _num0(v) -> float:
-    """Coerce a nullable numeric field to float, treating None / non-numeric as 0.0. Ledger fields such as
+    """After shared input validation, coerce a nullable numeric field to float. Ledger fields such as
     calibration_haircut and staleness_penalty are nullable (null = 'not applied'); float(None) must never
     crash the scorer when a decision_record is fed in verbatim."""
     return float(v) if _isnum(v) else 0.0
@@ -186,6 +220,7 @@ def analysis_confidence(inp: ConfidenceInputs) -> float:
     score HIGH here (this is exactly where the earlier single-number sketch broke on HCG).
     Omitted sub-scores fall back to data_sufficiency so a caller who records only thin data
     is not silently credited with 'mixed/decent' corroboration+tier."""
+    _validate_numeric_inputs(inp)
     corrob = inp.data_sufficiency if inp.corroboration is None else inp.corroboration
     tier = inp.data_sufficiency if inp.evidence_tier is None else inp.evidence_tier
     raw = (CONST["AC_W_DATA_SUFFICIENCY"] * inp.data_sufficiency
@@ -360,12 +395,17 @@ def reconcile(stated_confidence, inp: ConfidenceInputs, tol: Optional[float] = N
     (which have no ConfidenceInputs) are N/A."""
     if tol is None:
         tol = CONST["RECONCILE_TOL"]
+    numeric_tol = _finite_number("tol", tol)
+    if numeric_tol < 0:
+        raise ValueError("tol must be nonnegative")
     r = compute(inp)
     computed = r["conviction"]
-    if not _isnum(stated_confidence):
+    try:
+        stated = _finite_number("stated_confidence", stated_confidence, score=True)
+    except ValueError as exc:
         return {"ok": False, "computed": computed, "stated": stated_confidence, "delta": None,
-                "detail": f"stated confidence {stated_confidence!r} is not a number — PROVISIONAL"}
-    delta = round(abs(float(stated_confidence) - computed), 1)
+                "detail": f"{exc} — PROVISIONAL"}
+    delta = round(abs(stated - computed), 1)
     ok = delta <= tol and not r["warnings"]
     if delta > tol:
         detail = (f"stated confidence {stated_confidence} != recomputed conviction {computed} "

@@ -231,6 +231,121 @@ check("soft-max is BINDING: an all-100 Buy lands exactly at 85", compute(sky)["c
 sky.exceptional_evidence = True
 check("exceptional_evidence lifts conviction above 85", compute(sky)["conviction"] > 85)
 
+# D — Numeric admission must precede weighting, clamping and nullable defaults. These
+# are dependent mutations of ONE fictional fixture, not company or investment cases.
+# In particular, null (not applied) stays legal, while malformed applied penalties
+# cannot silently become zero and make confidence look stronger.
+print("\n=== D. NUMERIC INPUT SAFETY AND COMPATIBILITY ===")
+import copy
+import math
+
+_numeric_fixture = dict(data_sufficiency=60, corroboration=60, evidence_tier=60,
+                        decision="Avoid", staleness_penalty=4, calibration_haircut=8,
+                        downgrades=[{"type": "fixture_penalty", "points": 5,
+                                     "reason": "fictional declared penalty"}])
+
+def _numeric_input(**changes):
+    values = copy.deepcopy(_numeric_fixture)
+    values.update(changes)
+    return ConfidenceInputs(**values)
+
+def _refuses_numeric(name, field, action):
+    try:
+        action()
+    except ValueError as exc:
+        check(name, field in str(exc), f"missing field context in {exc!s}")
+    except Exception as exc:
+        check(name, False, f"unhandled {type(exc).__name__}: {exc}")
+    else:
+        check(name, False, "returned a result for invalid supplied numeric input")
+
+def _all_numbers_finite(value):
+    if isinstance(value, float):
+        return math.isfinite(value)
+    if isinstance(value, dict):
+        return all(_all_numbers_finite(item) for item in value.values())
+    if isinstance(value, (list, tuple)):
+        return all(_all_numbers_finite(item) for item in value)
+    return True
+
+_bad_numbers = [("nan", float("nan")), ("+inf", float("inf")),
+                ("-inf", -float("inf")), ("true", True), ("false", False),
+                ("string", "60"), ("oversized", 10 ** 1000)]
+_score_fields = ("data_sufficiency", "corroboration", "evidence_tier", "edge_score",
+                 "rating_cap_ceiling")
+for field in _score_fields:
+    for label, value in _bad_numbers + [("negative", -1), ("above100", 101)]:
+        _refuses_numeric(f"{field}: reject {label} before confidence arithmetic", field,
+                         lambda field=field, value=value: compute(_numeric_input(**{field: value})))
+    for value in (0, 100):
+        result = compute(_numeric_input(**{field: value}))
+        check(f"{field}: valid boundary {value} remains supported",
+              _all_numbers_finite(result) and 0 <= result["conviction"] <= 100)
+
+for field in ("staleness_penalty", "calibration_haircut"):
+    for label, value in _bad_numbers + [("object", {"unexpected": 5})]:
+        _refuses_numeric(f"{field}: malformed applied {label} is not null/zero", field,
+                         lambda field=field, value=value: compute(_numeric_input(**{field: value})))
+for label, value in _bad_numbers + [("object", {"unexpected": 5})]:
+    _refuses_numeric(f"downgrades: malformed applied {label} cannot erase points", "downgrade",
+                     lambda value=value: compute(_numeric_input(
+                         downgrades=[{"type": "fixture_penalty", "points": value}])))
+
+# Expected return is context, not a 0..100 score. Do not narrow the valid domain.
+_numeric_reference = compute(_numeric_input())
+for expected_return in (-150, 250):
+    check(f"finite signed expected return {expected_return} preserves confidence",
+          compute(_numeric_input(expected_return_pct=expected_return)) == _numeric_reference)
+for label, value in _bad_numbers:
+    _refuses_numeric(f"expected_return_pct: reject {label}", "expected_return_pct",
+                     lambda value=value: compute(_numeric_input(expected_return_pct=value)))
+
+_optional_reference = compute(ConfidenceInputs(data_sufficiency=60, decision="Avoid"))
+_optional_null = compute(ConfidenceInputs(data_sufficiency=60, decision="Avoid",
+                                         corroboration=None, evidence_tier=None, edge_score=None,
+                                         rating_cap_ceiling=None, expected_return_pct=None,
+                                         staleness_penalty=None, calibration_haircut=None,
+                                         downgrades=[{"type": "not_applied", "points": None}]))
+check("null/default optional fields retain legitimate not-applied semantics",
+      all(_optional_null[key] == _optional_reference[key]
+          for key in ("analysis_confidence", "conviction", "direction", "sizing_hint")))
+for field in ("staleness_penalty", "calibration_haircut"):
+    negative = compute(_numeric_input(**{field: -1e308}))
+    zero = compute(_numeric_input(**{field: 0}))
+    check(f"large negative finite {field} retains the zero floor",
+          all(negative[key] == zero[key] for key in ("analysis_confidence", "conviction")))
+    positive = compute(_numeric_input(**{field: 1e308}))
+    check(f"single large finite {field} remains supported and conservative",
+          positive["conviction"] == 0 and _all_numbers_finite(positive))
+for value, label in ((-1e308, "negative"), (1e308, "positive")):
+    result = compute(_numeric_input(downgrades=[{"type": "fixture_penalty", "points": value}]))
+    zero = compute(_numeric_input(downgrades=[{"type": "fixture_penalty", "points": 0}]))
+    check(f"single large finite {label} downgrade remains supported",
+          _all_numbers_finite(result) and
+          (result["conviction"] == 0 if value > 0 else result["conviction"] == zero["conviction"]))
+_refuses_numeric("finite downgrade operands cannot yield an infinite total", "downgrade",
+                 lambda: compute(_numeric_input(calibration_haircut=0,
+                     downgrades=[{"points": 1e308}, {"points": 1e308}])))
+_refuses_numeric("finite downgrade plus calibration cannot yield an infinite total", "downgrade",
+                 lambda: compute(_numeric_input(calibration_haircut=1e308,
+                     downgrades=[{"points": 1e308}])))
+
+# Reconciliation must not legitimize an invalid number or disable its comparison.
+_numeric_stated = _numeric_reference["conviction"]
+for label, value in _bad_numbers:
+    check(f"reconcile rejects invalid stated confidence {label}",
+          reconcile(value, _numeric_input())["ok"] is False)
+for label, value in _bad_numbers + [("negative", -1)]:
+    _refuses_numeric(f"reconcile refuses invalid tolerance {label}", "tol",
+                     lambda value=value: reconcile(_numeric_stated, _numeric_input(), tol=value))
+check("reconcile preserves exact zero tolerance",
+      reconcile(_numeric_stated, _numeric_input(), tol=0)["ok"] is True)
+check("zero tolerance still rejects a different number",
+      reconcile(_numeric_stated + 1, _numeric_input(), tol=0)["ok"] is False)
+check("reconcile preserves default and positive tolerance",
+      reconcile(_numeric_stated, _numeric_input())["ok"] is True and
+      reconcile(_numeric_stated + 1, _numeric_input(), tol=2)["ok"] is True)
+
 print()
 if _fails:
     print(f"FAILED {len(_fails)}: " + "; ".join(_fails)); sys.exit(1)
