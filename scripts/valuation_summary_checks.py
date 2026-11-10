@@ -15,12 +15,14 @@ WHY THIS EXISTS
     legitimately cannot emit one (no pool-verified price, no scenario points, a partial run). It is
     STRICT-VALIDITY for any sidecar that DOES exist.
 
-    HONEST SCOPE: this checks structural integrity + non-contradiction with the frozen decision_record. It
-    does NOT re-derive the analyst's fair value or re-judge the methods — those are the recorded levers.
+    HONEST SCOPE: this checks structural integrity, declared equity-premium policy for a weighted DCF
+    from v1.5, and non-contradiction with the frozen decision_record. It does NOT re-derive fair value,
+    establish the true economic discount rate, or validate the documentary scope of the recorded rates.
 """
 from __future__ import annotations
 
 import json
+import math
 import os
 import sys
 
@@ -31,6 +33,14 @@ from valuation_math import blend as _blend, level_from_multiple as _level_from_m
 def _isnum(v) -> bool:
     # Local (not imported) so the guard never couples to another module's private helper.
     return isinstance(v, (int, float)) and not isinstance(v, bool)
+
+
+def _finite_number(v) -> bool:
+    # Rate-context validation must reject booleans/nonfinite values without aborting a corpus sweep.
+    try:
+        return _isnum(v) and math.isfinite(v)
+    except OverflowError:
+        return False
 
 
 # The load-bearing subset of frameworks/valuation_summary.schema.json, encoded here so the core stays
@@ -392,6 +402,38 @@ def eval_ap_valuation_summary_integrity(sidecar, decision):
     # all-null methods map is a documented "unavailable" state (schema permits null values) and is NOT a
     # failure — only a field that claims numeric values yet cannot blend (missing/zero weights) is.
     methods, weights = sidecar.get("methods"), sidecar.get("method_weights")
+
+    # Prospective rollout at v1.5: older records never promised this context. Check a DCF that actually
+    # contributes to the base blend, including a zero/negative value. A zero-weight diagnostic is exempt.
+    # This policy belongs here, where issuer type and USED Ke are available, not in the mirrored CAPM
+    # assembly calculator. Never replace declared Ke with rf + beta*ERP or infer an Operating issuer.
+    if (v15 and isinstance(methods, dict) and isinstance(weights, dict)
+            and _finite_number(methods.get("dcf")) and _finite_number(weights.get("dcf"))
+            and weights["dcf"] > 0):
+        prefix = "DCF equity-premium policy: "
+        btype = sidecar.get("business_type")
+        btype = btype.strip().lower() if isinstance(btype, str) else ""
+        if btype not in ("operating", "commodity", "financial", "reit", "holding"):
+            det.append(prefix + "not assessable — a weighted DCF in schema v1.5+ needs explicit "
+                       "business_type (Operating / Commodity / Financial / REIT / Holding); "
+                       "missing or unknown type never defaults to Operating")
+        elif btype in ("operating", "commodity"):
+            rates = sidecar.get("discount_rate")
+            rates = rates if isinstance(rates, dict) else {}
+            rf, ke = rates.get("rf"), rates.get("cost_of_equity")
+            # A bounded annual decimal representation, not percentage-style scalars or an implicit
+            # units conversion. Negative sovereign yields are allowed. Rates outside (-1, 1) are not
+            # assessable by this contract; no claim that such a rate is economically impossible.
+            if not all(_finite_number(r) and -1 < r < 1 for r in (rf, ke)):
+                det.append(prefix + "not assessable — a weighted Operating/Commodity DCF needs "
+                           "discount_rate.rf and the USED cost_of_equity as finite annual decimal "
+                           "fractions in (-1, 1); missing/malformed rates are not inferred from beta/ERP")
+            elif ke - rf < 0.04 - 1e-10:
+                det.append(prefix + f"declared cost_of_equity {ke:.4%} minus rf {rf:.4%} = "
+                           f"{(ke - rf) * 100:.4f}pp, below the nominal 4pp operating-company floor "
+                           "(MODULE_RULES Economic Consistency Gate 4). Resolve the rate or remove "
+                           "DCF weight; this finding does not supply a corrected WACC or fair value.")
+
     if isinstance(methods, dict) and any(_isnum(v) for v in methods.values()):
         try:
             b = _blend(methods, weights if isinstance(weights, dict) else {})
@@ -1223,6 +1265,53 @@ def _selftest() -> int:
     v15 = {"schema_version": "1.5", "ticker": "T", "basis": "equity",
            "scenarios": [_v15("bull", 7.0, 18.0), _v15("base", 6.0, 15.0), _v15("bear", 5.0, 12.0)]}
     check("a complete v1.5 sidecar passes", eval_ap_valuation_summary_integrity(v15, None) == [])
+
+    # The existing AP consumer, not just an isolated rate helper: policy findings stay distinct from
+    # arithmetic assembly and missing context. One source-derived premium, dependent software controls.
+    rate_ok = dict(v15, business_type="Operating", methods={"peers": 90, "dcf": 90},
+                   method_weights={"peers": 0.7, "dcf": 0.3},
+                   discount_rate={"rf": 0.0438, "cost_of_equity": 0.0838})
+    def rate_findings(sc):
+        return [v for v in eval_ap_valuation_summary_integrity(sc, None)
+                if v.startswith("DCF equity-premium policy:")]
+    check("declared premium at 4pp passes", rate_findings(rate_ok) == [])
+    low_rate = dict(rate_ok, discount_rate={"rf": 0.0438, "cost_of_equity": 0.0753,
+                                          "beta": 0.7, "erp": 0.045})
+    check("source 3.15pp premium flagged by AP", any("3.1500pp" in v for v in rate_findings(low_rate)))
+    for dcf_value in (0, -5):
+        check(f"active DCF {dcf_value} still needs premium assessment",
+              bool(rate_findings(dict(low_rate, methods={"peers": 90, "dcf": dcf_value}))))
+    check("declared Ke adjustment is not replaced with CAPM",
+          rate_findings(dict(rate_ok, discount_rate={"rf": 0.046, "cost_of_equity": 0.0958,
+                                                     "beta": 0.36, "erp": 0.055})) == [])
+    check("negative risk-free yield permitted",
+          rate_findings(dict(rate_ok, discount_rate={"rf": -0.005, "cost_of_equity": 0.04})) == [])
+    check("floating point threshold noise allowed",
+          rate_findings(dict(rate_ok, discount_rate={"rf": 0.1, "cost_of_equity": 0.14})) == [])
+    check("materially below 4pp is not rounding",
+          bool(rate_findings(dict(rate_ok, discount_rate={"rf": 0.0438, "cost_of_equity": 0.0837}))))
+    check("type case/whitespace and patch version normalized",
+          bool(rate_findings(dict(low_rate, schema_version="1.5.1", business_type=" cOmMoDiTy "))))
+    for issuer in ("Financial", "REIT", "Holding"):
+        check(f"{issuer} is outside operating floor",
+              rate_findings(dict(low_rate, business_type=issuer, discount_rate=None)) == [])
+    for issuer in (None, True, "Unclassified"):
+        check(f"unknown type {issuer!r} is unresolved, not a pass",
+              any("not assessable" in v for v in rate_findings(dict(rate_ok, business_type=issuer))))
+    for bad in (None, False, "7.53%", {}, {"rf": True, "cost_of_equity": 0.0838},
+                {"rf": 0.0438, "cost_of_equity": False}, {"rf": "0.0438", "cost_of_equity": 0.0838},
+                {"rf": 0.0438, "cost_of_equity": "7.53%"}, {"rf": 4.38, "cost_of_equity": 7.53},
+                {"rf": float("nan"), "cost_of_equity": 0.0838},
+                {"rf": 0.0438, "cost_of_equity": float("inf")},
+                {"rf": 10**1000, "cost_of_equity": 0.0838}):
+        check("malformed/missing rate context returns violation without raising",
+              any("not assessable" in v for v in rate_findings(dict(rate_ok, discount_rate=bad))))
+    for legacy in ("1.0", "1.3", "1.4"):
+        check(f"legacy {legacy} deliberately grandfathered",
+              rate_findings(dict(low_rate, schema_version=legacy)) == [])
+    check("zero-weight DCF diagnostic needs no new context",
+          rate_findings(dict(rate_ok, business_type=None, discount_rate=None,
+                             method_weights={"peers": 1, "dcf": 0})) == [])
     check("v1.5: a derivable-but-null level is caught (numeric level required)",
           any("no numeric `level`" in v for v in eval_ap_valuation_summary_integrity(
               dict(v15, scenarios=[_v15("bull", 7.0, 18.0, level=None), _v15("base", 6.0, 15.0),
