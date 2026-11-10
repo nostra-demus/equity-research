@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-10T21:52:19Z",
+  "generated_at": "2026-11-10T22:09:16Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261110-680",
+      "headline": "FDC: FDC upgrades FY27 guidance [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FDC?key=2924-03160321-2A1709923",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-10T21:45:26Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "FDC upgraded its FY27 guidance, which is a direct change to analyst expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "FDC upgraded its FY27 guidance, which is a direct change to analyst expectations.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FDC",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261110-679",
       "headline": "FLT: AGM Presentation (inc trading update & guidance) [price-sensitive]",
@@ -1891,55 +1940,6 @@
       "launched_signal_id": null,
       "triage_score": 100,
       "triage_reason": "FDA drug recall (Class II) for PRO CHEM BAN AID Antiseptic Hand Soap due to CGMP Deviations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ABC Compounding Co., Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261110-207",
-      "headline": "FDA drug recall (Class II) — ABC Compounding Co., Inc.: Antiseptic Hand Soap, Net Contents: 1 Gallon (3.8 L) Distributed By: image supply, inc., P.O. Box 1108, 5081 Dawn Drive, Lumberton, NC28359 — CGMP Deviations",
-      "headline_en": null,
-      "url": "https://api.fda.gov/drug/enforcement.json?search=recall_number.exact:%22D-0091-2027%22",
-      "source_name": "U.S. Food & Drug Administration (Press Releases)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-04T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "FDA drug recall (Class II) for Antiseptic Hand Soap due to CGMP Deviations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "FDA drug recall (Class II) for Antiseptic Hand Soap due to CGMP Deviations.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 70,
@@ -275308,9 +275308,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 12013289,
-    "news_picked_today": 1578,
-    "news_dropped_today": 9054
+    "news_seen_today": 12232833,
+    "news_picked_today": 1585,
+    "news_dropped_today": 9167
   },
   "book_momentum": {
     "live_count": 8,
