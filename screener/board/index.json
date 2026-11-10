@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-10T01:00:31Z",
+  "generated_at": "2026-11-10T01:04:43Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261110-076",
+      "headline": "AMD: Arrow agrees option to acquire 62MT West Pilbara DSO Fe [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AMD?key=2924-03160010_PS-6A1354333",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-10T00:49:57Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "Arrow Minerals has secured an option to acquire a 62 million tonne iron ore project, representing a significant potential asset expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Arrow Minerals has secured an option to acquire a 62 million tonne iron ore project, representing a significant potential asset expansion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Arrow Minerals",
+          "ticker": "AMD",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261110-025",
       "headline": "CNB: Implementation of Scheme",
@@ -1898,55 +1947,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261110-004",
-      "headline": "ASN: Iron Removal Pre-treatment Test Succeed on Third Party Brine [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ASN?key=2924-03159888-6A1354293",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-09T22:05:27Z",
-      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "Successful testing of iron removal pre-treatment is a positive operational milestone for the company's brine processing technology.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 73,
-      "triage_reason": "Successful testing of iron removal pre-treatment is a positive operational milestone for the company's brine processing technology.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ASN",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -274582,9 +274582,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 424341,
-    "news_picked_today": 79,
-    "news_dropped_today": 377
+    "news_seen_today": 462869,
+    "news_picked_today": 82,
+    "news_dropped_today": 398
   },
   "book_momentum": {
     "live_count": 8,
