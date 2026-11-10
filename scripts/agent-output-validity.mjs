@@ -38,7 +38,7 @@ export function validateAgentOutputText(raw) {
     // Markdown permits HTML blockquotes as well as `>` quotes. Their examples are not declarations,
     // including nested quotes and fence-looking lines inside them. Tags inside code stay literal above.
     const quoteTags = htmlQuoteDepth || /^ {0,3}<\/?blockquote\b/i.test(line)
-      ? [...line.matchAll(/<\/?blockquote\b[^>]*>/gi)] : []
+      ? [...line.matchAll(/<\/?blockquote\b[^>]*(?:>|$)/gi)] : []
     if (htmlQuoteDepth || quoteTags.length) {
       for (const [tag] of quoteTags) htmlQuoteDepth = Math.max(0, htmlQuoteDepth + (/^<\//.test(tag) ? -1 : 1))
       continue

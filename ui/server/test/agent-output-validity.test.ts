@@ -35,6 +35,7 @@ for (const body of [
   '# Report\n``` example ~hint~\n## Completion Status\n**INCOMPLETE.**\n```\n',
   '# Report\n> ## Completion Status\n> **INCOMPLETE.**\n',
   '# Report\n<blockquote>\n## Completion Status\n**INCOMPLETE.**\n</blockquote>\n',
+  '# Report\n<blockquote\n  cite="prior draft">\n## Completion Status\n**INCOMPLETE.**\n</blockquote>\n',
   '# Report\n<BLOCKQUOTE cite="example">\n<blockquote>\n## Completion Status\nINCOMPLETE\n</blockquote>\n```\n</BLOCKQUOTE>\n## Completion Status\nCOMPLETE\n',
   '# Report\n```html\n<blockquote>\n```\n## Completion Status\nCOMPLETE\n',
   '# Report\n    ## Completion Status\n    **INCOMPLETE.**\n',
