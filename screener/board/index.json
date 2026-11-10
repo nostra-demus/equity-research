@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-10T10:58:36Z",
+  "generated_at": "2026-11-10T11:00:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20261110-559",
@@ -1685,6 +1685,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261110-562",
+      "headline": "MRF Q2 Results: Net profit declines 27% to ₹387 cr",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/mrf-reports-27-decline-in-q2-pat/article71685759.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-10T10:50:05Z",
+      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
+      "prelim_note": "MRF reported a 27% decline in net profit to ₹387 crore for Q2.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "MRF reported a 27% decline in net profit to ₹387 crore for Q2.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MRF Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261110-557",
       "headline": "Vodafone lifts guidance as the UK shows signs of improvement",
       "headline_en": null,
@@ -1927,55 +1976,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261110-466",
-      "headline": "Honda to build first US auto plant in 2 decades as hybrid demand rises",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/automobiles/honda-to-build-first-us-auto-plant-in-2-decades-as-hybrid-demand-rises",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-10T07:59:39Z",
-      "sweep_file": "screener/inbox/2026-11-10_sweep.json",
-      "prelim_note": "Honda is building its first new US auto plant in two decades to meet hybrid demand, representing a major capital expenditure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Honda is building its first new US auto plant in two decades to meet hybrid demand, representing a major capital expenditure.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Honda",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -275606,9 +275606,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5705179,
-    "news_picked_today": 861,
-    "news_dropped_today": 4707
+    "news_seen_today": 5732593,
+    "news_picked_today": 864,
+    "news_dropped_today": 4728
   },
   "book_momentum": {
     "live_count": 8,
