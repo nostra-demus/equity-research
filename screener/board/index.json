@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T09:19:05Z",
+  "generated_at": "2026-11-11T09:27:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20261111-224",
@@ -882,6 +882,104 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-239",
+      "headline": "ITV to slash costs by £30m ahead of Sky takeover deal probe",
+      "headline_en": null,
+      "url": "https://www.independent.co.uk/news/business/itv-sky-takeover-im-a-celeb-profits-b3082921.html",
+      "source_name": "The Independent — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T08:45:43Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "ITV plans to slash costs by £30 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "ITV plans to slash costs by £30 million.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ITV",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-237",
+      "headline": "Taylor Wimpey cuts housing targets in ‘subdued’ market",
+      "headline_en": null,
+      "url": "https://www.cityam.com/taylor-wimpey-cuts-housing-targets-in-subdued-market/",
+      "source_name": "City A.M.",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T08:45:16Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Taylor Wimpey cut housing targets due to a subdued market.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Taylor Wimpey cut housing targets due to a subdued market.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Taylor Wimpey",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1880,98 +1978,6 @@
       ],
       "issuer_linkage": "sector",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-115",
-      "headline": "FTC to fine 15 firms 1.62 tln won for rigging gov't bond bids",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20261111005300320",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T03:00:01Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "The Korean FTC is fining 15 firms a total of 1.62 trillion won for bid-rigging, a significant regulatory enforcement action.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "The Korean FTC is fining 15 firms a total of 1.62 trillion won for bid-rigging, a significant regulatory enforcement action.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-198",
-      "headline": "Bajaj Hindusthan Sugar Limited: Bajaj Hindusthan Sugar Limited has informed the Exchange regarding Outcome of Board Meeting held on November 11, 2026 and sale / divestment of the Company's entire (100%) shareholding in Bajaj Hindusthan (Singapore) Private Limited, a wholly owned subsidiary of the Company.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/BAJAJNEAPS1_11112026133116_SE_Intimation_Outcome_of_Board_Meeting_11112026_with_Annexure_1.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-11T08:01:39Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "Bajaj Hindusthan Sugar announces sale of 100% stake in wholly-owned Singapore subsidiary; no deal value, financial impact, or strategic rationale disclosed.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Bajaj Hindusthan Sugar announces sale of 100% stake in wholly-owned Singapore subsidiary; no deal value, financial impact, or strategic rationale disclosed.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bajaj Hindusthan Sugar Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -276392,9 +276398,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5029057,
-    "news_picked_today": 412,
-    "news_dropped_today": 8612
+    "news_seen_today": 5088174,
+    "news_picked_today": 427,
+    "news_dropped_today": 8621
   },
   "book_momentum": {
     "live_count": 8,
