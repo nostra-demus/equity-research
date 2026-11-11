@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T13:28:06Z",
+  "generated_at": "2026-11-11T13:42:20Z",
   "inbox": [
     {
       "inbox_id": "INB-20261111-327",
@@ -1085,6 +1085,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261111-353",
+      "headline": "EasyJet investors back £5.7bn takeover by Apollo",
+      "headline_en": null,
+      "url": "https://www.independent.co.uk/news/business/apollo-stelios-hajiioannou-luton-london-stock-exchange-london-b3083152.html",
+      "source_name": "The Independent — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T12:57:19Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Apollo to acquire EasyJet for £5.7bn; confirmed M&A with named deal value, alters capital structure and board control.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Apollo to acquire EasyJet for £5.7bn; confirmed M&A with named deal value, alters capital structure and board control.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EasyJet",
+          "ticker": "EASY.L",
+          "listing_country": "GB"
+        },
+        {
+          "name": "Apollo Global Management",
+          "ticker": "APO",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261111-324",
       "headline": "UnitedHealth Just Raised Guidance for the Third Time This Year. Where Will the Stock Be in 3 Years?",
       "headline_en": null,
@@ -1932,60 +1986,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-159",
-      "headline": "Marsh Agrees To Acquire Wilshire From CC Capital And Motive Partners",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/marsh-agrees-acquire-wilshire-cc-capital-and-motive-partners",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T05:35:32Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "Marsh is acquiring Wilshire, representing a significant M&A transaction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Marsh is acquiring Wilshire, representing a significant M&A transaction.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Marsh & McLennan",
-          "ticker": "MMC",
-          "listing_country": "US"
-        },
-        {
-          "name": "Wilshire",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -232077,76 +232077,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-f69a276b003b",
-      "idea_version": "IDEAV-847c049549bca2de",
-      "idea_version_started_at": "2026-11-10T03:26:43Z",
-      "ticker": "GFL",
-      "company": "GFL Environmental",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The rejection of a buyout offer removes the immediate takeover premium that was supporting the stock price, likely leading to a re-rating toward fundamental valuation.",
-      "why_now": "The news of the rejected offer was reported on 2026-11-10.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7d27f4c02898"
-      ],
-      "primary_source_event_id": "EVT-7d27f4c02898",
-      "source_headlines": [
-        "GFL Environmental turns down buyout offer from Wall Street private equity funds"
-      ],
-      "source_headline": "GFL Environmental turns down buyout offer from Wall Street private equity funds",
-      "source_url": "https://www.theglobeandmail.com/business/article-gfl-environmental-turns-down-buyout-offer-wall-street-private-equity/",
-      "source_name": "The Globe and Mail",
-      "materiality_max": 96,
-      "newest_source_at": "2026-11-10T01:30:43Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-10T03:26:43Z",
-      "updated_at": "2026-11-10T03:26:43Z",
-      "decay_at": "2026-11-11T13:30:43Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-2e5391db32b6",
       "idea_version": "IDEAV-93da71797e2a0728",
       "idea_version_started_at": "2026-11-11T03:59:14Z",
@@ -232282,77 +232212,6 @@
       "surfaced_at": "2026-11-10T09:55:29Z",
       "updated_at": "2026-11-10T09:55:29Z",
       "decay_at": "2026-11-11T19:35:37Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-8239e24e9708",
-      "idea_version": "IDEAV-a36b117802dc751a",
-      "idea_version_started_at": "2026-11-10T03:26:43Z",
-      "ticker": "SGRY",
-      "company": "Surgery Partners, Inc.",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company amended its merger agreement with HealthSpan Partners to a higher price of $25.00 per share, providing a clear floor and positive signal regarding the valuation of its surgical facility assets.",
-      "why_now": "The merger amendment and Q3 2026 results were announced on 2026-11-10.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ca06e3d3533d"
-      ],
-      "primary_source_event_id": "EVT-ca06e3d3533d",
-      "source_headlines": [
-        "Surgery Partners, Inc. Amends HealthSpan Partners Merger Agreement to $25.00 Per Share and Reports Third Quarter 2026 Results"
-      ],
-      "source_headline": "Surgery Partners, Inc. Amends HealthSpan Partners Merger Agreement to $25.00 Per Share and Reports Third Quarter 2026 Results",
-      "source_url": "https://www.nasdaq.com/articles/surgery-partners-inc-amends-healthspan-partners-merger-agreement-2500-share-and-reports",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-10T01:41:22Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-10T03:26:43Z",
-      "updated_at": "2026-11-10T03:26:43Z",
-      "decay_at": "2026-11-11T13:41:22Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -235477,6 +235336,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-f69a276b003b",
+      "idea_version": "IDEAV-847c049549bca2de",
+      "idea_version_started_at": "2026-11-10T03:26:43Z",
+      "ticker": "GFL",
+      "company": "GFL Environmental",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The rejection of a buyout offer removes the immediate takeover premium that was supporting the stock price, likely leading to a re-rating toward fundamental valuation.",
+      "why_now": "The news of the rejected offer was reported on 2026-11-10.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7d27f4c02898"
+      ],
+      "primary_source_event_id": "EVT-7d27f4c02898",
+      "source_headlines": [
+        "GFL Environmental turns down buyout offer from Wall Street private equity funds"
+      ],
+      "source_headline": "GFL Environmental turns down buyout offer from Wall Street private equity funds",
+      "source_url": "https://www.theglobeandmail.com/business/article-gfl-environmental-turns-down-buyout-offer-wall-street-private-equity/",
+      "source_name": "The Globe and Mail",
+      "materiality_max": 96,
+      "newest_source_at": "2026-11-10T01:30:43Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-10T03:26:43Z",
+      "updated_at": "2026-11-10T03:26:43Z",
+      "decay_at": "2026-11-11T13:30:43Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-1ce8545fe8eb",
       "idea_version": "IDEAV-2ad5df6ca983f9db",
       "idea_version_started_at": "2026-11-09T01:59:29Z",
@@ -235681,6 +235610,77 @@
       "surfaced_at": "2026-11-09T18:28:29Z",
       "updated_at": "2026-11-09T18:28:29Z",
       "decay_at": "2026-11-11T04:12:08Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-8239e24e9708",
+      "idea_version": "IDEAV-a36b117802dc751a",
+      "idea_version_started_at": "2026-11-10T03:26:43Z",
+      "ticker": "SGRY",
+      "company": "Surgery Partners, Inc.",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company amended its merger agreement with HealthSpan Partners to a higher price of $25.00 per share, providing a clear floor and positive signal regarding the valuation of its surgical facility assets.",
+      "why_now": "The merger amendment and Q3 2026 results were announced on 2026-11-10.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ca06e3d3533d"
+      ],
+      "primary_source_event_id": "EVT-ca06e3d3533d",
+      "source_headlines": [
+        "Surgery Partners, Inc. Amends HealthSpan Partners Merger Agreement to $25.00 Per Share and Reports Third Quarter 2026 Results"
+      ],
+      "source_headline": "Surgery Partners, Inc. Amends HealthSpan Partners Merger Agreement to $25.00 Per Share and Reports Third Quarter 2026 Results",
+      "source_url": "https://www.nasdaq.com/articles/surgery-partners-inc-amends-healthspan-partners-merger-agreement-2500-share-and-reports",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-10T01:41:22Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-10T03:26:43Z",
+      "updated_at": "2026-11-10T03:26:43Z",
+      "decay_at": "2026-11-11T13:41:22Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -238851,19 +238851,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 563,
+    "total_count": 565,
     "shown_count": 499,
-    "hidden_count": 64,
+    "hidden_count": 66,
     "side_counts": {
       "long": {
-        "total_count": 291,
+        "total_count": 292,
         "shown_count": 250,
-        "hidden_count": 41
+        "hidden_count": 42
       },
       "short": {
-        "total_count": 273,
+        "total_count": 274,
         "shown_count": 250,
-        "hidden_count": 23
+        "hidden_count": 24
       }
     },
     "retention": {
@@ -238882,6 +238882,153 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-8239e24e9708",
+        "idea_version": "IDEAV-a36b117802dc751a",
+        "idea_version_started_at": "2026-11-10T03:26:43Z",
+        "ticker": "SGRY",
+        "company": "Surgery Partners, Inc.",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company amended its merger agreement with HealthSpan Partners to a higher price of $25.00 per share, providing a clear floor and positive signal regarding the valuation of its surgical facility assets.",
+        "why_now": "The merger amendment and Q3 2026 results were announced on 2026-11-10.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 60,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-ca06e3d3533d"
+        ],
+        "primary_source_event_id": "EVT-ca06e3d3533d",
+        "source_headlines": [
+          "Surgery Partners, Inc. Amends HealthSpan Partners Merger Agreement to $25.00 Per Share and Reports Third Quarter 2026 Results"
+        ],
+        "source_headline": "Surgery Partners, Inc. Amends HealthSpan Partners Merger Agreement to $25.00 Per Share and Reports Third Quarter 2026 Results",
+        "source_url": "https://www.nasdaq.com/articles/surgery-partners-inc-amends-healthspan-partners-merger-agreement-2500-share-and-reports",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-10T01:41:22Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-10T03:26:43Z",
+        "updated_at": "2026-11-10T03:26:43Z",
+        "decay_at": "2026-11-11T13:41:22Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-11T13:41:22Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-f69a276b003b",
+        "idea_version": "IDEAV-847c049549bca2de",
+        "idea_version_started_at": "2026-11-10T03:26:43Z",
+        "ticker": "GFL",
+        "company": "GFL Environmental",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The rejection of a buyout offer removes the immediate takeover premium that was supporting the stock price, likely leading to a re-rating toward fundamental valuation.",
+        "why_now": "The news of the rejected offer was reported on 2026-11-10.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 65,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-7d27f4c02898"
+        ],
+        "primary_source_event_id": "EVT-7d27f4c02898",
+        "source_headlines": [
+          "GFL Environmental turns down buyout offer from Wall Street private equity funds"
+        ],
+        "source_headline": "GFL Environmental turns down buyout offer from Wall Street private equity funds",
+        "source_url": "https://www.theglobeandmail.com/business/article-gfl-environmental-turns-down-buyout-offer-wall-street-private-equity/",
+        "source_name": "The Globe and Mail",
+        "materiality_max": 96,
+        "newest_source_at": "2026-11-10T01:30:43Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-10T03:26:43Z",
+        "updated_at": "2026-11-10T03:26:43Z",
+        "decay_at": "2026-11-11T13:30:43Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-11T13:30:43Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-96d1efcd8291",
         "idea_version": "IDEAV-be1fbbf20b581ee1",
@@ -267524,79 +267671,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-f1d1a4c60f5d",
-        "idea_version": "IDEAV-599b8300b03b9855",
-        "idea_version_started_at": "2026-10-27T18:30:15Z",
-        "ticker": "CTS",
-        "company": "CTS Corporation",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company reported Q3 sales of $149.6 million and increased its full-year guidance, signaling operational momentum and better-than-expected demand.",
-        "why_now": "The guidance hike was announced on 2026-10-27, providing an immediate catalyst for earnings estimate revisions.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 66,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-a045f1d9fab5"
-        ],
-        "primary_source_event_id": "EVT-a045f1d9fab5",
-        "source_headlines": [
-          "CTS Corporation Reports Third Quarter 2026 Sales of $149.6 million and Raises Full-Year Guidance"
-        ],
-        "source_headline": "CTS Corporation Reports Third Quarter 2026 Sales of $149.6 million and Raises Full-Year Guidance",
-        "source_url": "https://www.nasdaq.com/articles/cts-corporation-reports-third-quarter-2026-sales-1496-million-and-raises-full-year",
-        "source_name": "Nasdaq",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-27T15:39:40Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-27T18:30:15Z",
-        "updated_at": "2026-10-27T18:30:15Z",
-        "decay_at": "2026-10-29T03:39:40Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-30T22:42:19Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-85129948d8af",
         "idea_version": "IDEAV-63cd6e976e3b57ff",
         "idea_version_started_at": "2026-10-27T16:21:10Z",
@@ -275937,87 +276011,12 @@
         "archived_at": "2026-10-20T19:09:38Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-58721326aaea",
-        "idea_version": "IDEAV-0ee77860f24cdf0e",
-        "idea_version_started_at": "2026-10-17T14:35:09Z",
-        "ticker": "IBM",
-        "company": "IBM",
-        "exchange": "NYSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Heavy capital expenditure of $11 billion on growth initiatives is failing to offset stalling core software revenue, pressuring margins and free cash flow.",
-        "why_now": "The report detailing the disconnect between high capex and stagnant software performance was published on October 17, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-d8ec5a6802bb"
-        ],
-        "primary_source_event_id": "EVT-d8ec5a6802bb",
-        "source_headlines": [
-          "IBM spent $11 billion on growth as its own software stalls"
-        ],
-        "source_headline": "IBM spent $11 billion on growth as its own software stalls",
-        "source_url": "https://www.thestreet.com/investing/ibm-q3-earnings-bofa-analyst-rating",
-        "source_name": "TheStreet",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-17T13:33:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-17T14:35:09Z",
-        "updated_at": "2026-10-17T14:35:09Z",
-        "decay_at": "2026-10-19T01:33:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-20T13:35:24Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2391,
-    "live_count": 37,
+    "live_count": 35,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -276036,9 +276035,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6347641,
-    "news_picked_today": 654,
-    "news_dropped_today": 14370
+    "news_seen_today": 6430603,
+    "news_picked_today": 680,
+    "news_dropped_today": 14680
   },
   "book_momentum": {
     "live_count": 8,
