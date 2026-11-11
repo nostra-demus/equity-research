@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T12:05:28Z",
+  "generated_at": "2026-11-11T12:09:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20261111-302",
@@ -1036,6 +1036,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261111-305",
+      "headline": "Western Union Scraps $500 Million International Money Express Takeover",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/deals/western-union-scraps-500-million-international-money-express-takeover-0cf7ae09?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T11:47:00Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Western Union announces termination of $500M acquisition of Intermex, eliminating a named growth and cost-synergy option.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Western Union announces termination of $500M acquisition of Intermex, eliminating a named growth and cost-synergy option.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 74,
+      "rank_factors": {
+        "materiality": 74,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Western Union Company",
+          "ticker": "WU",
+          "listing_country": "US"
+        },
+        {
+          "name": "Intermex Holdings Inc.",
+          "ticker": "IMXI",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261111-290",
       "headline": "Nvidia down 30% from peak in $1.7 trillion rout as Trump reveals FBI probe into boss's affair with suspected Chinese spy",
       "headline_en": null,
@@ -1939,55 +1993,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-073",
-      "headline": "LIV Golf files bankruptcy plan and sets sight on January liquidation",
-      "headline_en": null,
-      "url": "https://www.koreaherald.com/article/10933202",
-      "source_name": "The Korea Herald — All News",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T00:54:47Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "LIV Golf has filed for bankruptcy and plans to liquidate in January.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "LIV Golf has filed for bankruptcy and plans to liquidate in January.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "LIV Golf",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -276043,9 +276048,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5878013,
-    "news_picked_today": 559,
-    "news_dropped_today": 13001
+    "news_seen_today": 5895722,
+    "news_picked_today": 568,
+    "news_dropped_today": 13040
   },
   "book_momentum": {
     "live_count": 8,
