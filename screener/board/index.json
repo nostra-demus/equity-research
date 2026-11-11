@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T17:57:21Z",
+  "generated_at": "2026-11-11T18:00:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20261111-369",
@@ -1281,6 +1281,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261111-447",
+      "headline": "Cupid Q2 profit jumps 133%, raises FY27 revenue guidance to ₹880 crore",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/earnings/cupid-q2-profit-jumps-133pc-raises-fy27-revenue-guidance-to-rs880-crore-20031942.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T17:33:09Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Cupid reported a 133% profit jump and raised FY27 revenue guidance to 880 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Cupid reported a 133% profit jump and raised FY27 revenue guidance to 880 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cupid",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261111-445",
       "headline": "University of Texas MD Anderson Cancer Center unveils $3.4B expansion plans",
       "headline_en": null,
@@ -1930,49 +1980,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-315",
-      "headline": "Utah-Based Startup Raises $500 Million for Modular AI Data Center",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-11/utah-based-startup-raises-500-million-for-modular-ai-data-center",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T12:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "A $500 million capital raise for a new data center project is a significant investment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A $500 million capital raise for a new data center project is a significant investment.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -276093,9 +276100,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7509122,
-    "news_picked_today": 1060,
-    "news_dropped_today": 18380
+    "news_seen_today": 7522041,
+    "news_picked_today": 1065,
+    "news_dropped_today": 18399
   },
   "book_momentum": {
     "live_count": 8,
