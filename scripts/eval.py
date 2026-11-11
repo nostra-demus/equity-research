@@ -2484,6 +2484,16 @@ if scope=="selftest":
         #   field is unparseable, BG must not fall back to a record date. "ex-date TBD, record date 2026-12-01"
         #   must FAIL (the controlling ex-date is unknown), not pass on the future record date.
         ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3.1%, ex-date TBD, record date 2026-12-01, is a reason to own.\n"),["no parseable"]),
+        # ── PR #754 review 6718647404 ── (A) a % bound to the yield through a comma aside + value connector
+        #   ("sits at") is a quoted yield — it must FLAG (old 24-char window missed it); the plain control
+        #   still flags, and the unrelated-% exclusion (withholding tax, ';' or ',' separated) still passes.
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"The dividend yield, on a trailing basis, sits at 3.1%; ex-date 2024-05-01 has passed and it remains a reason to own.\n"),["an ex-/record-date"]),
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield of 3.1%, ex-date 2024-05-01, remains a reason to own.\n"),["on or before the decision date"]),
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Dividend yield unavailable, foreign withholding tax is 15%.\n"),[]),
+        #   (B) "none" merely NEAR "yield" is not a no-yield disclosure — it must FLAG (old proximity rule
+        #   suppressed it); a real "Dividend yield: n/a" construction still passes.
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3%, none in its peer set higher, ex-date 2024-05-01 (passed), a reason to own.\n"),["on or before the decision date"]),
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Dividend yield: n/a, payout ratio is 25%.\n"),[]),
     ]
     bgbad=0
     for dt_,d_,th_,exp in _bg_cases:

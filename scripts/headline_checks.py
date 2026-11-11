@@ -921,13 +921,26 @@ BG_DATE = "2026-10-05"
 # yield expression, not merely somewhere on the line). This stops an unrelated percentage — e.g.
 # "Dividend yield unavailable; foreign withholding tax is 15%" — from being read as the yield value and
 # flagged for a missing basis/date (Codex r1 round 3).
+# A third form binds the % through a comma/parenthetical aside plus a VALUE connector ("The dividend
+# yield, on a trailing basis, sits at 3.1%") — the aside must open right after "yield" and the % must
+# follow a connector (of/is/at/sits at/=/:), so "Dividend yield unavailable, withholding tax is 15%"
+# still does not bind (the window was NOT simply widened — PR #754 review 6718647404, case A).
 _BG_YIELD_QUOTED = re.compile(
     r"(?:dividend|distribution)\s+yield\b[^.\n]{0,24}?\d[\d.,]*\s*%|"
+    r"(?:dividend|distribution)\s+yield\b\s*(?:,[^,;.\n]{0,40},|\([^)\n]{0,40}\))\s*"
+    r"(?:(?:currently|now|still)\s+)?(?:of|is|was|at|sits\s+at|stands\s+at|=|:)\s*"
+    r"(?:~|about\s+|roughly\s+|approximately\s+|around\s+|c\.\s*)?\d[\d.,]*\s*%|"
     r"\d[\d.,]*\s*%\s+(?:dividend|distribution)\s+yield\b", re.I)
-# An explicit "no yield quoted" disclosure — never subject to the basis/date requirement.
+# An explicit "no yield quoted" disclosure — never subject to the basis/date requirement. It must be a
+# real no-yield CONSTRUCTION ("yield: none", "yield n/a", "yield unavailable", "no dividend yield", "does
+# not pay a dividend"), not a "none"/"n/a" merely near the word "yield" — "yield 3%, none in its peer set
+# higher" is a quoted yield (PR #754 review 6718647404, case B).
 _BG_YIELD_NONE = re.compile(
-    r"(?:dividend|distribution)\s+yield[^.\n]{0,20}(?:unavailable|not\s+(?:quoted|disclosed|applicable|available)|n/?a|none)|"
-    r"\bno\s+(?:dividend|distribution)\s+yield", re.I)
+    r"(?:dividend|distribution)\s+yield\b\s*(?:\([^)\n]{0,40}\)\s*)?(?:[:=\-\u2013\u2014]\s*|(?:is|was)\s+)?"
+    r"(?:unavailable\b|not\s+(?:quoted|disclosed|applicable|available)\b|n/?a\b|none\b|nil\b)|"
+    r"\bno\s+(?:dividend|distribution)\s+yield|"
+    r"\b(?:does|did)\s+not\s+pay\s+(?:a\s+|any\s+)?(?:dividend|distribution)s?\b|"
+    r"\bpays\s+no\s+(?:dividend|distribution)s?\b", re.I)
 # A basis must say WHICH period the yield represents — trailing/backward or forward. "annualized" is
 # deliberately NOT accepted alone: it describes scaling, not direction, so it does not satisfy §16's
 # trailing-or-forward requirement (Codex r2 round 2). ttm/ltm = trailing, ntm = forward.
