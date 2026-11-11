@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T10:23:52Z",
+  "generated_at": "2026-11-11T10:34:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20261111-224",
@@ -882,6 +882,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-271",
+      "headline": "Hapag-Lloyd Raises Guidance Again on Strong Freight Rates",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/logistics/hapag-lloyd-raises-guidance-again-on-strong-freight-rates-d74c8067?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T10:10:00Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Hapag-Lloyd raised its financial guidance again due to strong freight rates.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Hapag-Lloyd raised its financial guidance again due to strong freight rates.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hapag-Lloyd",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1945,56 +1994,6 @@
           "name": "CNB",
           "ticker": "CNB",
           "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-210",
-      "headline": "Aye Finance Limited: Aye Finance Limited has informed the Exchange about Credit Rating- Revision",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/AYEFINANCE_11112026140314_AYE_Intimation.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-11T08:34:05Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "Credit rating revised by agency; direction (upgrade or downgrade) not stated in headline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Credit rating revised by agency; direction (upgrade or downgrade) not stated in headline.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "credit_rating_downgrade",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "credit_rating_upgrade",
-        "credit_rating_downgrade"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Aye Finance Limited",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "unknown",
@@ -276415,9 +276414,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5259086,
-    "news_picked_today": 488,
-    "news_dropped_today": 10792
+    "news_seen_today": 5295852,
+    "news_picked_today": 494,
+    "news_dropped_today": 11242
   },
   "book_momentum": {
     "live_count": 8,
