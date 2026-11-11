@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T17:26:10Z",
+  "generated_at": "2026-11-11T17:35:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20261111-369",
@@ -1281,6 +1281,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261111-420",
+      "headline": "Nvidia appoints law firm to investigate CEO's affair with suspected Chinese spy",
+      "headline_en": null,
+      "url": "https://www.datacenterdynamics.com/en/news/nvidia-appoints-law-firm-to-investigate-ceos-affair-with-suspected-chinese-spy/",
+      "source_name": "DataCenterDynamics",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T17:15:20Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Nvidia CEO is under investigation for an alleged affair with a suspected Chinese spy, posing a significant governance and geopolitical risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia CEO is under investigation for an alleged affair with a suspected Chinese spy, posing a significant governance and geopolitical risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261111-419",
       "headline": "Revealed: West Bank petrol station chain faces $325m claim in PA fuel-smuggling probe",
       "headline_en": null,
@@ -1923,55 +1972,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-293",
-      "headline": "Nissan CEO breaks down how it plans to fight back against Chinese companies, after second outlook cut in months",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/11/11/nissan-sales-forecast-earnings-china.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T10:16:34Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "Nissan announced its second outlook cut in months, signaling significant operational and competitive challenges.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nissan announced its second outlook cut in months, signaling significant operational and competitive challenges.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nissan",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -276092,9 +276092,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7404091,
-    "news_picked_today": 980,
-    "news_dropped_today": 18052
+    "news_seen_today": 7443936,
+    "news_picked_today": 990,
+    "news_dropped_today": 18066
   },
   "book_momentum": {
     "live_count": 8,
