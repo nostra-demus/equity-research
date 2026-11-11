@@ -2423,6 +2423,22 @@ if scope=="selftest":
         ("2026-11-06", _bh_th("Net cash of ₹33.7 bn on the broad basis (strict: ₹0.15 bn)."), []),
         ("2026-11-06", _bh_th("Strict net cash is ₹0.15 bn versus ₹33.7 bn on the broad basis."), []),
         ("2026-11-06", _bh_th("Broad net cash is ₹33.7 bn and strict-basis net cash is nil."), []),
+        # ── Layer-3 (automated PR-review) regression cases — markdown presentation must not defeat the gate.
+        # §15: "label the basis inline every time the figure appears"; §17: a trigger a **bolded** figure slips
+        # past is a rubber stamp. Pre-fix, markdown emphasis / table pipes between the term and the amount broke
+        # _BH_A/_BH_B adjacency, so the EXACT INDIAMART defect merely bolded (or table-celled, or stated with an
+        # "in"/"held as" connector) shipped CLEAN. These flip red→green only with the _BH_MD normalisation + the
+        # widened money-first filler.
+        ("2026-11-06", _bh_th("the balance sheet has ~**₹31 billion** of net cash."), ["no basis label"]),  # bold figure
+        ("2026-11-06", _bh_th("Net cash of **₹33.7 bn**."), ["no basis label"]),                            # bold amount
+        ("2026-11-06", _bh_th("**Net cash** of ₹33.7 bn."), ["no basis label"]),                            # bold term
+        ("2026-11-06", _bh_th("Net debt of `$9.3 billion`."), ["no basis label"]),                          # code-span
+        ("2026-11-06", _bh_th("| Net cash | ~₹31 billion |"), ["no basis label"]),                          # table cell
+        ("2026-11-06", _bh_th("with ₹31 billion in net cash."), ["no basis label"]),                        # "in" filler
+        ("2026-11-06", _bh_th("₹33.7 bn held as net cash."), ["no basis label"]),                           # "held as" filler
+        # …and a correctly-LABELLED figure stays clean through the same markdown (no new false positive).
+        ("2026-11-06", _bh_th("Net cash (strict) of **₹31 billion**."), []),
+        ("2026-11-06", _bh_th("| Net cash (strict) | ₹0.15 bn | broad | ₹33.7 bn |"), []),
     ]
     bhbad=0
     for dt_,th_,exp in bhcases:

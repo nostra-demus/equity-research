@@ -933,7 +933,7 @@ _BH_CONN = (r"(?:[\s,:(~≈=\-—]|\b(?:of|at|to|from|was|is|were|are|be|been|st
             r"climbed|rising|falling|widened|narrowed|ballooned|surged|swelled)\b\.?)*")
 _BH_A = re.compile(_BH_NET + _BH_CONN + "(?:" + _BH_MONEY + ")", re.I)
 _BH_B = re.compile("(?:" + _BH_MONEY + r")(?:\s+(?:of|its|the|a|total|reported|group|consolidated|year-end|"
-                   r"pro[\s-]*forma|(?:post|pre)-\w+))*\s+" + _BH_NET, re.I)
+                   r"in|held\s+as|worth\s+of|pro[\s-]*forma|(?:post|pre)-\w+))*\s+" + _BH_NET, re.I)
 # A basis label: the §15 words, the "cash & equivalents" definition of strict, an explicit
 # including/excluding-investments clause, or an explicit company-defined figure.
 _BH_BASIS = re.compile(
@@ -955,6 +955,12 @@ _BH_STRICT_FIG = re.compile(
     r"\bstrict\b[\w-]*(?:[\s,:()=~≈–—-]+[\w&'.-]+){0,4}?[\s,:(=~≈–—-]+" + _BH_VAL
     + "|" + _BH_VAL + r"(?:[\s,()]+[\w'.-]+){0,2}?[\s,(]+strict\b", re.I)
 _BH_VAL_RE = re.compile(_BH_VAL, re.I)
+# Markdown emphasis / table punctuation (**bold**, *italic*, _under_, `code`, | table |) is presentational
+# noise that must not defeat the figure↔term adjacency _BH_A/_BH_B rely on: a bolded or table-celled bare
+# net-cash figure is the SAME §15 defect as a plain one, and bolding the headline number is idiomatic in
+# these theses, so a gate that a **₹31 billion** figure slips past is a §17 rubber stamp. Normalise it to
+# spaces for MATCHING only; the violation message still quotes the original segment.
+_BH_MD = re.compile(r"[*`_|]")
 
 
 def _part_one(thesis):
@@ -986,13 +992,17 @@ def eval_bh_net_debt_basis_label(decision_date, thesis):
         # "Inc." is not split; ';' needs no such guard because it always separates independent clauses.
         prev_net = False  # the previous ';'-clause on this line quoted a net-cash / net-debt amount
         for seg in re.split(r"(?<=;)\s*|(?<=[.!?])\s+(?=[A-Z*(\[‘\"])", line):
-            has_net = bool(_BH_A.search(seg) or _BH_B.search(seg))
+            # Match on markdown-normalised text so **bold**, `code`, _under_ and | table | punctuation cannot
+            # break the figure↔term adjacency _BH_A/_BH_B require (§15). The report below still quotes the
+            # original seg; the ';'-structure check below also keeps the original (normalisation never adds ';').
+            nseg = _BH_MD.sub(" ", seg)
+            has_net = bool(_BH_A.search(nseg) or _BH_B.search(nseg))
             continuation = prev_net and not has_net
             prev_net = has_net and seg.rstrip().endswith(";")
             if not has_net:
                 # An elliptical ';' continuation of a net-cash clause ("…incl. investments; ₹0.15 bn strict")
                 # names the strict figure only when "strict" sits on its own amount.
-                if continuation and _BH_STRICT_FIG.search(seg):
+                if continuation and _BH_STRICT_FIG.search(nseg):
                     strict_fig = True
                 continue
             # §15 requires the STRICT FIGURE alongside an investment-inclusive one — so "strict" only
@@ -1000,13 +1010,13 @@ def eval_bh_net_debt_basis_label(decision_date, thesis):
             # AMOUNT (a quantified strict figure), not as a bare token borrowed from "strict leverage".
             # Where the same segment ALSO carries the broad label, "strict" must sit on a second, distinct
             # amount — one amount cannot be both the broad figure and the strict one.
-            if re.search(r"\bstrict\b", seg, re.I):
-                if not _BH_NONSTRICT.search(seg):
+            if re.search(r"\bstrict\b", nseg, re.I):
+                if not _BH_NONSTRICT.search(nseg):
                     strict_fig = True
-                elif len(_BH_VAL_RE.findall(seg)) >= 2 and _BH_STRICT_FIG.search(seg):
+                elif len(_BH_VAL_RE.findall(nseg)) >= 2 and _BH_STRICT_FIG.search(nseg):
                     strict_fig = True
-            if _BH_BASIS.search(seg):
-                nonstrict = nonstrict or bool(_BH_NONSTRICT.search(seg))
+            if _BH_BASIS.search(nseg):
+                nonstrict = nonstrict or bool(_BH_NONSTRICT.search(nseg))
             else:
                 det.append("Part I states a net cash / net debt amount with no basis label "
                            f"(strict / broad / gross-liquidity, CLAUDE.md §15): {seg.strip()[:160]!r}")
