@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-11T03:29:03Z",
+  "generated_at": "2026-11-11T03:31:04Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261111-129",
+      "headline": "HEG Advanced Materials Limited: HEG Advanced Materials Limited has informed the Exchange regarding a press release dated November 11, 2026, titled \"TACC Receives Approval Letter for Rs 609.50 Crore Incentive under ECMS for its Synthetic Graphite Anode Material Project in Dewas\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/HEGAM_11112026085043_StEX_TACC_Subsidy_Press_release.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-11T03:21:06Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "HEG Advanced Materials received a Rs 609.50 crore incentive approval for its synthetic graphite anode material project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "HEG Advanced Materials received a Rs 609.50 crore incentive approval for its synthetic graphite anode material project.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HEG Advanced Materials",
+          "ticker": "509631",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261111-080",
       "headline": "ASB: Austal commences production on $5B Landing Craft Projects",
@@ -1910,55 +1959,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-124",
-      "headline": "RHI: Red Hill advances Thomson Au-Cu Royalty and Farm-In Option [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RHI?key=2924-03160254-6A1354453",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-10T21:18:11Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "Red Hill Minerals announced a farm-in option and royalty agreement for its Thomson project, indicating potential asset development.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Red Hill Minerals announced a farm-in option and royalty agreement for its Thomson project, indicating potential asset development.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 2,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Red Hill Minerals",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -276967,9 +276967,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2426537,
-    "news_picked_today": 186,
-    "news_dropped_today": 1686
+    "news_seen_today": 2448454,
+    "news_picked_today": 189,
+    "news_dropped_today": 1707
   },
   "book_momentum": {
     "live_count": 8,
