@@ -2498,10 +2498,49 @@ if scope=="selftest":
         #   suppressed it); a real "Dividend yield: n/a" construction still passes.
         ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3%, none in its peer set higher, ex-date 2024-05-01 (passed), a reason to own.\n"),["on or before the decision date"]),
         ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Dividend yield: n/a, payout ratio is 25%.\n"),[]),
+        # ── PR #754 deferred-thread fixes (each red on eabc62492, green after; controls stay clean) ──
+        # thread 25: basis / record date must belong to the DIVIDEND, not a comma-joined EPS guide / AGM.
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Gross dividend yield 3.1%, forward EPS guide, AGM record date 2026-12-01.\n"),["a trailing/forward basis or an ex-/record-date"]),
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Dividend yield 3.1%, trailing, ex-date 2026-12-01.\n"),[]),
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Forward dividend yield 3.1%, record date 2026-12-01.\n"),[]),
+        # thread 23: a stale yield acknowledged as non-receivable but still "a reason to own" FLAGS; a
+        #   negated "so it is not a reason to own" does not.
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3.1%, ex-date 2025-08-14, remains a reason to own although a buyer today does not receive it.\n"),["still presents it as a reason to own"]),
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3.1%, ex-date 2025-08-14; a buyer today does not receive it, so it is not a reason to own.\n"),[]),
+        # thread 22: a EUR headline price / fair value on a USD decision line FLAGS; USD cells and a prose
+        #   mention of another instrument's price ("Uber's offer price: €41.50") do not.
+        ("2026-10-05",_bg_d,_bg_th("Decision line: AKAM · NasdaqGS · USD\nCurrent price: €90; fair-value range: €100–€120\n"),["not in the decision line's currency"]),
+        ("2026-10-05",_bg_d,_bg_th("Decision line: AKAM · NasdaqGS · USD\nCurrent price: $90; fair-value range: $100–$120\n| Fair-value range | US$100 – US$120 |\n"),[]),
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Uber's offer price: €41.50 per Delivery Hero share.\n"),[]),
+        # thread 17: a decision line naming NO venue (or only a placeholder) FLAGS when the record's venue is
+        #   known; a concrete venue the alias table lacks ('TSE Prime') is never flagged.
+        ("2026-10-05",_bg_d,_bg_th("Decision line: AKAM · primary exchange · USD\n"),["names no venue"]),
+        ("2026-10-05",{"ticker":"7203","exchange":"Tokyo Stock Exchange","currency":"JPY"},_bg_th("Decision line: 7203 · TSE Prime · JPY\n"),[]),
+        # thread 26: a premium/discount on the decision venue itself / to fair value is not cross-line.
+        ("2026-10-05",{"ticker":"600690","exchange":"SHSE:600690 (also HKEX-listed)","currency":"CNY"},_bg_th("Decision line: 600690 · SSE · CNY\nThe SSE line trades at a 10% discount to fair value.\n"),["cross-line premium/discount (a figure"]),
+        ("2026-10-05",{"ticker":"600690","exchange":"SHSE:600690 (also HKEX-listed)","currency":"CNY"},_bg_th("Decision line: 600690 · SSE · CNY\nThe HKEX line trades at a 22% discount to the A-share after FX.\n"),[]),
+        # thread 32: ticker and venue are one line — INDIAMART · BSE FLAGS; the real 542726 · BSE line passes,
+        #   and a same-row two-venue cross-line note on the primary line passes.
+        ("2026-10-05",{"ticker":"INDIAMART","exchange":"NSE (also listed BSE:542726)","currency":"INR"},_bg_th("Decision line: INDIAMART · BSE · INR\nThe BSE:542726 line trades at a 0.1% premium to the NSE line.\n"),["that venue's own ticker"]),
+        ("2026-10-05",{"ticker":"INDIAMART","exchange":"NSE (also listed BSE:542726)","currency":"INR"},_bg_th("Decision line: 542726 · BSE · INR\nThe NSE line trades at a 0.1% discount to the BSE line.\n"),[]),
+        ("2026-10-05",{"ticker":"INDIAMART","exchange":"NSE (also listed BSE:542726)","currency":"INR"},_bg_th("Decision line: INDIAMART · NSE · INR — the BSE line trades at a 0.1% premium to the NSE line.\n"),[]),
+        # thread 33: another class on the SAME venue, read from valuation/01's 'Other listed lines', needs a
+        #   cross-line figure; stating it (by ticker) passes; 'None' does not trigger.
+        ("2026-10-05",{"ticker":"GOOGL","exchange":"Nasdaq Global Select Market","currency":"USD"},_bg_th("Decision line: GOOGL · Nasdaq Global Select Market · USD\n"),["another listed line on the same venue"],
+         {"listed_lines_text":"- Other listed lines: **GOOG · Nasdaq Global Select Market · (0.34%) vs GOOGL on 2026-11-03**.\n"}),
+        ("2026-10-05",{"ticker":"GOOGL","exchange":"Nasdaq Global Select Market","currency":"USD"},_bg_th("Decision line: GOOGL · Nasdaq Global Select Market · USD\nGOOG trades at a 0.34% discount to GOOGL.\n"),[],
+         {"listed_lines_text":"- Other listed lines: **GOOG · Nasdaq Global Select Market · (0.34%) vs GOOGL on 2026-11-03**.\n"}),
+        ("2026-10-05",{"ticker":"GOOGL","exchange":"Nasdaq Global Select Market","currency":"USD"},_bg_th("Decision line: GOOGL · Nasdaq Global Select Market · USD\n"),[],
+         {"listed_lines_text":"- Other listed lines: **None**.\n"}),
+        # thread 16: on a DEPOSITARY line the yield must say gross/net of withholding; a domestic yield is not asked.
+        ("2026-10-05",{"ticker":"BABA","exchange":"NYSE (ADR; also HKEX-listed)","currency":"USD"},_bg_th("Decision line: BABA · NYSE · USD\nThe ADR trades at a 1% premium to the HKEX line.\nTrailing dividend yield 1.1%, ex-date 2026-12-01.\n"),["gross/net-of-withholding"]),
+        ("2026-10-05",{"ticker":"BABA","exchange":"NYSE (ADR; also HKEX-listed)","currency":"USD"},_bg_th("Decision line: BABA · NYSE · USD\nThe ADR trades at a 1% premium to the HKEX line.\nTrailing dividend yield 1.1% net of 10% withholding, ex-date 2026-12-01.\n"),[]),
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 1.1%, ex-date 2026-12-01.\n"),[]),
     ]
     bgbad=0
-    for dt_,d_,th_,exp in _bg_cases:
-        got=BG(dt_,d_,th_)
+    for _bgc in _bg_cases:
+        dt_,d_,th_,exp=_bgc[:4]
+        got=BG(dt_,d_,th_,**(_bgc[4] if len(_bgc)>4 else {}))
         if exp is None: ok=(got is None)
         elif not exp: ok=(isinstance(got,list) and len(got)==0)
         else: ok=(isinstance(got,list) and len(got)>0 and all(any(x in v for v in got) for x in exp))
@@ -4390,7 +4429,8 @@ for drp in runs:
     #   decision must name the ONE listed line it applies to, and a quoted dividend yield must say whether it
     #   is trailing/forward and carry its ex-/record-date; synthesizer.md Part I item 12 instructed both with
     #   nothing mechanical behind it.
-    bgresult=eval_bg_tradable_line_and_yield(ddte,d,thesis)
+    #   valuation/01's Anchor-Block 'Other listed lines' feeds the same-venue share-class leg (GOOGL/GOOG).
+    bgresult=eval_bg_tradable_line_and_yield(ddte,d,thesis,listed_lines_text=_read_specialist_text("valuation","01_"))
     if bgresult is None:
         add("BG_tradable_line_and_yield",True,f"run predates the gate ({ddte}) — N/A",na=True)
     elif bgresult:
