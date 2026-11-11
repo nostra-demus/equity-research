@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T18:37:20Z",
+  "generated_at": "2026-11-11T18:43:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20261111-369",
@@ -1827,6 +1827,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261111-484",
+      "headline": "Formula 1 tipped to go private by 2029 in deal that could be worth £22bn",
+      "headline_en": null,
+      "url": "https://www.cityam.com/formula-1-tipped-to-go-private-by-2029-in-deal-that-could-be-worth-22bn/",
+      "source_name": "City A.M.",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T16:38:38Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Formula 1 is reportedly considering a potential privatization deal valued at £22 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Formula 1 is reportedly considering a potential privatization deal valued at £22 billion.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Formula 1",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261111-425",
       "headline": "EasyJet investors back £5.7bn takeover by Apollo",
       "headline_en": null,
@@ -1925,55 +1974,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-394",
-      "headline": "De’ Longhi Group: Record Results for the Quarter, With Revenue Growing by 7.7% and Net Profit Pertaining to the Group Progressing Significantly by 19%",
-      "headline_en": null,
-      "url": "https://www.cityam.com/de-longhi-group-record-results-for-the-quarter-with-revenue-growing-by-7-7-and-net-profit-pertaining-to-the-group-progressing-significantly-by-19/",
-      "source_name": "City A.M.",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T14:58:00Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "De' Longhi reported record quarterly results with 7.7% revenue growth and 19% net profit growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "De' Longhi reported record quarterly results with 7.7% revenue growth and 19% net profit growth.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "De' Longhi Group",
-          "ticker": null,
-          "listing_country": "IT"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -276094,9 +276094,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7621974,
-    "news_picked_today": 1165,
-    "news_dropped_today": 18875
+    "news_seen_today": 7646074,
+    "news_picked_today": 1180,
+    "news_dropped_today": 18956
   },
   "book_momentum": {
     "live_count": 8,
