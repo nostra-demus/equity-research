@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T03:20:20Z",
+  "generated_at": "2026-11-11T03:24:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20261111-080",
@@ -1031,6 +1031,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261111-126",
+      "headline": "NT 10-Q - New Fortress Energy Inc. (0001749723) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1749723/000174972326000178/0001749723-26-000178-index.htm",
+      "source_name": "SEC EDGAR — Latest NT 10-Q (Late Quarterly Filing Notice)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-10T21:17:26Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "New Fortress Energy filed a notice of late quarterly filing (NT 10-Q), which often signals internal control or accounting issues.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "New Fortress Energy filed a notice of late quarterly filing (NT 10-Q), which often signals internal control or accounting issues.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "accounting_restatement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "New Fortress Energy",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-125",
+      "headline": "FLT: Becoming a substantial holder",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FLT?key=2924-03160255-2A1709902",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-10T21:18:11Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Flight Centre Travel Group reported a change in substantial shareholding, which is a material disclosure of ownership structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Flight Centre Travel Group reported a change in substantial shareholding, which is a material disclosure of ownership structure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Flight Centre Travel Group",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261111-105",
       "headline": "OCT (ASIA) (03366): UPDATES ON MAJOR TRANSACTION INVOLVING DISPOSAL OF OCT (CHANGSHU) INVESTMENT THROUGH PUBLIC TENDER",
       "headline_en": null,
@@ -1768,6 +1866,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261111-124",
+      "headline": "RHI: Red Hill advances Thomson Au-Cu Royalty and Farm-In Option [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RHI?key=2924-03160254-6A1354453",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-10T21:18:11Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Red Hill Minerals announced a farm-in option and royalty agreement for its Thomson project, indicating potential asset development.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Red Hill Minerals announced a farm-in option and royalty agreement for its Thomson project, indicating potential asset development.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 2,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Red Hill Minerals",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261111-113",
       "headline": "Samsung, AMD Join Forces to Upgrade Semiconductor Test Infrastructure",
       "headline_en": null,
@@ -1817,152 +1964,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-018",
-      "headline": "CFTC warns Kalshi of imminent charges over notification of contracts: Politico",
-      "headline_en": null,
-      "url": "https://cointelegraph.com/news/cftc-warns-kalshi-imminent-charges-over-contracts?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source_name": "Cointelegraph",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-10T23:49:51Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "The CFTC is threatening charges against Kalshi, which poses a significant regulatory risk to the company's business model.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "The CFTC is threatening charges against Kalshi, which poses a significant regulatory risk to the company's business model.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kalshi",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-036",
-      "headline": "Meal-kit delivery company Fresh Prep secures court approval to buy rival Goodfood",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/business/article-fresh-prep-foods-goodfood-meal-kit-delivery/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-10T23:15:53Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "Fresh Prep has secured court approval to acquire its rival Goodfood, marking a consolidation in the meal-kit sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "Fresh Prep has secured court approval to acquire its rival Goodfood, marking a consolidation in the meal-kit sector.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 9,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Fresh Prep",
-          "ticker": null,
-          "listing_country": "CA"
-        },
-        {
-          "name": "Goodfood",
-          "ticker": null,
-          "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-091",
-      "headline": "US Federal Reserve officials open door to a quicker round of rate hikes as inflation worsens",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/economy/us-federal-reserve-officials-open-door-to-a-quicker-round-of-rate-hikes-as-inflation-worsens-20031086.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T01:49:35Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "Fed officials signaling potential for faster rate hikes due to worsening inflation impacts broader market valuations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "Fed officials signaling potential for faster rate hikes due to worsening inflation impacts broader market valuations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -276973,9 +276974,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2338875,
-    "news_picked_today": 181,
-    "news_dropped_today": 1619
+    "news_seen_today": 2360806,
+    "news_picked_today": 184,
+    "news_dropped_today": 1640
   },
   "book_momentum": {
     "live_count": 8,
