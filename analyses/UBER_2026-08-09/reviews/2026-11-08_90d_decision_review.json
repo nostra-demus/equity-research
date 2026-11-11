@@ -1,0 +1,232 @@
+{
+  "schema_version": "1.0",
+  "ticker": "UBER",
+  "original_decision_date": "2026-08-09",
+  "review_date": "2026-11-08",
+  "review_window": "90d",
+  "original_decision": "Watchlist",
+  "basket": "Watchlist",
+  "entry_price": 68.18,
+  "tracking_price": null,
+  "review_price": 68.59,
+  "absolute_return_pct": 0.601349,
+  "benchmark_return_pct": null,
+  "sector_return_pct": null,
+  "benchmark_relative_return_pct": null,
+  "sector_relative_return_pct": null,
+  "thesis_status": "on-track",
+  "forecast_results": [
+    {
+      "prediction": "Q3 FY2026 guided EBITDA clears the guided high end ($2,960M) for a 3rd straight quarter",
+      "status": "expired",
+      "evidence": "The original deadline was 3 November. Adjusted EBITDA of $2,963m exceeded $2,960m by $3m, but was disclosed on 4 November. Economic threshold met after expiry; do not move the deadline or score an on-time confirmation. [Web: Uber Q3 2026 earnings release, 2026-11-04, Financial and Operational Highlights; Adjusted EBITDA reconciliation; retrieved 2026-11-08; indicative/unverified pending pool ingestion] https://investor.uber.com/news-events/news/press-release-details/2026/Uber-Announces-Results-for-Third-Quarter-2026/default.aspx",
+      "as_of": "2026-11-08",
+      "forecast_id": "UBER-2026-08-09-F1",
+      "original_forecast_index": 0
+    },
+    {
+      "prediction": "Delivery Hero bridge-to-term-loan conversion is priced <=5.7% weighted-average coupon with no first-time maintenance covenant",
+      "status": "not assessable",
+      "evidence": "No primary exhibit establishing conversion coupon, covenants and completion by 30 September was verified. A bounded search cannot establish the absence of every qualifying conversion disclosure.",
+      "as_of": "2026-11-08",
+      "original_forecast_index": 1
+    },
+    {
+      "prediction": "Revenue consensus for FQ3 FY26 stabilizes (no further net cut beyond 1% from the Aug-2026 level)",
+      "status": "not assessable",
+      "evidence": "The original August-level and pre-print consensus history was not independently verified; realized revenue cannot resolve an estimate-revision forecast.",
+      "as_of": "2026-11-08",
+      "original_forecast_index": 2
+    },
+    {
+      "prediction": "The N.D. Cal. derivative lawsuit reaches a motion-to-dismiss ruling, discovery order, or settlement naming the board",
+      "status": "still open",
+      "evidence": "The primary-docket test runs through August 2027. Allegations remain allegations; no ruling, discovery order or settlement was verified.",
+      "as_of": "2026-11-08",
+      "original_forecast_index": 3
+    },
+    {
+      "prediction": "FY2026 10-K (filed ~Feb-2027) reintroduces the full company-level Adjusted-EBITDA-to-GAAP reconciliation",
+      "status": "still open",
+      "evidence": "The forecast names the FY2026 10-K, expected in 2027. A Q3 release reconciliation is not the specified annual-filing outcome.",
+      "as_of": "2026-11-08",
+      "original_forecast_index": 4
+    },
+    {
+      "prediction": "Q4/FY2026 print (~Feb-2027) discloses a first quantified autonomous-vehicle investment cost figure",
+      "status": "still open",
+      "evidence": "The Q4/FY2026 disclosure window is not mature; a vehicle-count target is not an AV investment cost figure.",
+      "as_of": "2026-11-08",
+      "original_forecast_index": 5
+    },
+    {
+      "prediction": "Pro-forma net debt/TTM EBITDA (post Delivery Hero bridge draw) exceeds 2.5x by Q4 FY2026 reporting",
+      "status": "still open",
+      "evidence": "The FY2026 year-end reporting and conditional post-bridge leverage test remain open; no pro-forma model is substituted for realized debt and EBITDA.",
+      "as_of": "2026-11-08",
+      "original_forecast_index": 6
+    }
+  ],
+  "catalyst_results": [
+    {
+      "catalyst": "Q3 results originally pinned to 3 November",
+      "status": "materialized",
+      "evidence": "The release occurred 4 November, one day after the frozen deadline. [Web: Uber Q3 2026 earnings release, 2026-11-04, Financial and Operational Highlights; Adjusted EBITDA reconciliation; retrieved 2026-11-08; indicative/unverified pending pool ingestion] https://investor.uber.com/news-events/news/press-release-details/2026/Uber-Announces-Results-for-Third-Quarter-2026/default.aspx",
+      "as_of": "2026-11-08"
+    },
+    {
+      "catalyst": "Bridge conversion terms",
+      "status": "pending",
+      "evidence": "The exact facility terms and original deadline outcome remain unverified.",
+      "as_of": "2026-11-08"
+    }
+  ],
+  "risk_results": [
+    {
+      "risk": "The derivative lawsuit surviving a motion to dismiss with discovery corroborating the board's proxy statements were false — converting an unproven allegation into a proven integrity finding — landing at the same time the €14.2bn Delivery Hero bridge is drawn in full on undisclosed, possibly rich, terms.",
+      "status": "pending",
+      "evidence": "The bounded review does not resolve this complete risk. No absence-of-disclosure inference or legal clearance is made. [Frozen decision_record.json, 2026-08-09, killer_risk]",
+      "as_of": "2026-11-08"
+    },
+    {
+      "risk_id": "RF-MGT-005",
+      "risk": "Unresolved federal shareholder derivative lawsuit naming CEO, Chairman, and every sitting director, alleging suppressed safety data and false 2024-2026 proxy disclosures on board safety oversight. Unproven (confidence 2/5, web-sourced only).",
+      "severity": "Critical",
+      "source_module": "",
+      "original_source": "management-governance/01_management-and-track-record.md; 05_board-and-shareholder-rights.md; 06_candor-and-disclosure-quality.md; 99_management-governance-synthesis.md",
+      "status": "pending",
+      "evidence": "Retain the original severity and qualifiers. This review does not independently resolve the flag. [Frozen decision_record.json, 2026-08-09, red_flags]",
+      "as_of": "2026-11-08"
+    },
+    {
+      "risk_id": "RF-CAP-004",
+      "risk": "Serial-acquirer / debt-funded M&A pattern: Careem sold to minority (2023) then re-bought to control (2026); pending $14.8bn debt-funded Delivery Hero takeover, bridge ~1.2x pre-deal total debt.",
+      "severity": "Critical",
+      "source_module": "",
+      "original_source": "management-governance/02_capital-allocation-scorecard.md; 99_management-governance-synthesis.md",
+      "status": "pending",
+      "evidence": "Retain the original severity and qualifiers. This review does not independently resolve the flag. [Frozen decision_record.json, 2026-08-09, red_flags]",
+      "as_of": "2026-11-08"
+    },
+    {
+      "risk_id": "RF-DISC-001",
+      "risk": "Discontinuation of the company-level Adjusted-EBITDA-to-GAAP reconciliation, effective Q1 FY2026, unacknowledged on either subsequent earnings call.",
+      "severity": "High",
+      "source_module": "",
+      "original_source": "management-governance/06_candor-and-disclosure-quality.md",
+      "status": "pending",
+      "evidence": "Retain the original severity and qualifiers. This review does not independently resolve the flag. [Frozen decision_record.json, 2026-08-09, red_flags]",
+      "as_of": "2026-11-08"
+    },
+    {
+      "risk_id": "RF-DISC-002",
+      "risk": "Recurring 'legal, non-income tax, and regulatory reserve' line added back to Adjusted EBITDA as non-recurring in both FY2024 ($1,123M) and FY2025 ($564M).",
+      "severity": "High",
+      "source_module": "",
+      "original_source": "management-governance/06_candor-and-disclosure-quality.md; earnings/06_earnings-quality.md",
+      "status": "pending",
+      "evidence": "Retain the original severity and qualifiers. This review does not independently resolve the flag. [Frozen decision_record.json, 2026-08-09, red_flags]",
+      "as_of": "2026-11-08"
+    },
+    {
+      "risk_id": "RF-CAP-001",
+      "risk": "Drizly ($1.1bn alcohol-delivery acquisition, closed Oct-2021) shut down entirely ~2.5 years after close — full write-off.",
+      "severity": "High",
+      "source_module": "",
+      "original_source": "management-governance/02_capital-allocation-scorecard.md",
+      "status": "pending",
+      "evidence": "Retain the original severity and qualifiers. This review does not independently resolve the flag. [Frozen decision_record.json, 2026-08-09, red_flags]",
+      "as_of": "2026-11-08"
+    }
+  ],
+  "decision_quality": "not assessable",
+  "error_taxonomy": [],
+  "lessons": [
+    "This is a late review filed on 8 November, not a reconstructed review at the scheduled due date. Outcomes use only sources available by this review; do not compare it to exact 30/90-day forecasts without aligning horizons.",
+    "Absolute return is the underlying share-price change from the frozen anchor, excludes dividends, trading costs and execution lags, and is not a feasible portfolio return. Watchlist names had no paper entry. A positive underlying change is adverse to a simple short; option returns cannot be inferred.",
+    "No source-bound market feed was present in the review worktree. The primary source checkout contained no located post-decision result document in the inspected ticker pool inventories. Public outcomes are review evidence only and do not alter any frozen extraction generation.",
+    "Matched-window benchmark and sector total-return endpoints were not verified. Public searches found index levels, but not all exact anchor endpoints on a consistent total-return basis. Benchmark/sector fields remain null; no alpha, directional skill or annual-return claim is made.",
+    "The original decision, thesis, memo, model and all earlier reviews remain untouched. No paid provider, analytical run, production mutation, trade or memory activation was performed.",
+    "[Web: UBER NYSE USD closing-price page, 2026-11-06, completed regular session; historical row where available; retrieved 2026-11-08; indicative/unverified pending pool ingestion] https://chartexchange.com/symbol/nyse-uber/historical",
+    "The exact reporting deadline is preserved. A later release can inform the current thesis without being relabeled an on-time forecast success. No new original-process error or governance clearance is inferred."
+  ],
+  "module_calibration_notes": {
+    "information_partition": "Original-process observations below rely only on frozen records or prior reviews. Post-decision results are outcome evidence, not should-have-known information.",
+    "process_observation": "The exact reporting deadline is preserved. A later release can inform the current thesis without being relabeled an on-time forecast success. No new original-process error or governance clearance is inferred.",
+    "outcome_observation": "Q3 adjusted EBITDA exceeded the frozen high-end threshold, but the release occurred on 4 November rather than by the original 3 November deadline. The operating event and timing result are recorded separately. No favorable operating print clears the unverified financing or legal conditions, so the capped Watchlist stance remains unresolved.",
+    "calibration": "No confidence haircut, module promotion or skill conclusion is inferred from this small, selected, partly provisional cohort."
+  },
+  "action_now": {
+    "label": "Keep watching",
+    "reason": "Keep the call under review; no positive new evidence and refreshed valuation/risk assessment together justify adding exposure. Q3 adjusted EBITDA exceeded the frozen high-end threshold, but the release occurred on 4 November rather than by the original 3 November deadline. The operating event and timing result are recorded separately. No favorable operating print clears the unverified financing or legal conditions, so the capped Watchlist stance remains unresolved."
+  },
+  "confidence_update": {
+    "before": 47,
+    "after": null,
+    "change_reason": "Current conviction is not quantifiable from this bounded, incomplete review; do not carry forward the old score as newly validated."
+  },
+  "next_check": {
+    "date": null,
+    "label": "Verify bridge conversion terms and first disclosure date against 30 September.",
+    "trigger": "Recover the dated consensus revision history before scoring that forecast."
+  },
+  "learning": {
+    "why_right_or_wrong": "Q3 adjusted EBITDA exceeded the frozen high-end threshold, but the release occurred on 4 November rather than by the original 3 November deadline. The operating event and timing result are recorded separately. No favorable operating print clears the unverified financing or legal conditions, so the capped Watchlist stance remains unresolved. Price direction is not a benchmark-adjusted thesis verdict.",
+    "error_source": "",
+    "rule_for_future": "Preserve metric basis, literal triggers and first usable disclosure time; ambiguous or unavailable outcomes remain unscored.",
+    "future_research_check": "Verify bridge conversion terms and first disclosure date against 30 September."
+  },
+  "memo_delta": {
+    "summary": "Q3 adjusted EBITDA exceeded the frozen high-end threshold, but the release occurred on 4 November rather than by the original 3 November deadline. The operating event and timing result are recorded separately. No favorable operating print clears the unverified financing or legal conditions, so the capped Watchlist stance remains unresolved.",
+    "thesis_delta_verdict": "unchanged",
+    "stage_one_comment": "The original Watchlist call is unchanged as a historical record. Q3 adjusted EBITDA exceeded the frozen high-end threshold, but the release occurred on 4 November rather than by the original 3 November deadline. The operating event and timing result are recorded separately. No favorable operating print clears the unverified financing or legal conditions, so the capped Watchlist stance remains unresolved. This review was filed on 8 November 2026; the observed share-price endpoint is 6 November. The frozen price anchor and its own date remain visible, so the anchor-to-endpoint move is not presented as a decision-date or fixed-horizon portfolio return. Benchmark and sector total returns were not verified on the same window; no relative skill conclusion is available. Keep watching and obtain the named missing evidence before changing exposure. All new facts are dated public outcome evidence; the original files and evidence generations remain immutable. No forecast deadline is moved to fit the result.",
+    "changed_sections": [
+      {
+        "section": "8. Catalysts (Next 12 Months)",
+        "original_claim": "The Q3 release occurs by 3 November and adjusted EBITDA reaches $2,960m.",
+        "new_evidence": "The 4 November release reported $2,963m. The $3m operating beat occurred after the frozen deadline, so it is not an on-time forecast success.",
+        "evidence_source": "[Web: Uber Q3 2026 earnings release, 2026-11-04, Financial and Operational Highlights; Adjusted EBITDA reconciliation; retrieved 2026-11-08; indicative/unverified pending pool ingestion] https://investor.uber.com/news-events/news/press-release-details/2026/Uber-Announces-Results-for-Third-Quarter-2026/default.aspx",
+        "materiality_score": 75,
+        "impact_direction": "mixed",
+        "impacted_modules": [
+          "earnings",
+          "catalyst"
+        ],
+        "rerun_recommended": false,
+        "rerun_reason": "",
+        "rerun_command": ""
+      }
+    ],
+    "watch_items": [
+      "Verify bridge conversion terms and first disclosure date against 30 September.",
+      "Recover the dated consensus revision history before scoring that forecast.",
+      "Check the actual FY2026 10-K reconciliation and year-end leverage rather than using a Q3 substitute.",
+      "Do not count the overlapping 6 August and 9 August UBER calls as independent evidence."
+    ],
+    "management_questions": [
+      "When did the signed bridge conversion become effective and public?",
+      "What covenant and coupon terms apply to that exact facility?",
+      "What quantified AV investment cost will be disclosed with FY2026 results?"
+    ],
+    "memo_delta_file": "analyses/UBER_2026-08-09/reviews/2026-11-08_90d_memo_delta.md"
+  },
+  "pre_mortem_check": {
+    "pre_mortem_file": "analyses/UBER_2026-08-09/pre_mortem.json",
+    "pre_mortem_verdict": "Survives with haircut",
+    "pre_mortem_confidence_haircut": 6,
+    "outcome_vs_verdict": "too_early",
+    "notes": "The near-term financing prediction remains unassessed, and the litigation and year-end leverage tests remain open. The post-deadline EBITDA beat is not vindication of those risk predictions."
+  },
+  "review_observation": {
+    "scheduled_due_date": "2026-11-07",
+    "days_after_decision": 91,
+    "price_as_of": "2026-11-06",
+    "price_currency": "USD",
+    "price_source": "[Web: UBER NYSE USD closing-price page, 2026-11-06, completed regular session; historical row where available; retrieved 2026-11-08; indicative/unverified pending pool ingestion] https://chartexchange.com/symbol/nyse-uber/historical",
+    "price_anchor_as_of": "2026-08-06",
+    "return_basis": "Underlying close-price change from the frozen anchor; dividends/costs excluded; no benchmark-relative inference.",
+    "dependency_cluster": "UBER",
+    "retrospective_review": true,
+    "provisional_original": true
+  }
+}

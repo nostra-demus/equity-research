@@ -200,6 +200,8 @@ RF-EARN-001: revenue decomposition not attempted — {reason}
 ## 7. The Single Biggest Revenue Driver
 
 One paragraph: which driver, if it moved 10–20%, would have the largest impact on revenue? What is its current direction?
+
+For each component actually discussed in a realised-growth attribution or conclusion, including a shared summary, state “Actual contribution evidence — {component}: {disclosed | derived | unknown}; {source/bridge or missing basis}.” Disclosed means the source reports contribution to the same company total, with its qualifications retained; derived requires a reproducible matched-period, scope and denominator bridge with assumptions and uncertainty stated. Component growth rates, capacity/count changes or closeness to total growth alone do not supply that bridge. With unknown, hold actual contribution magnitude and importance unknown throughout the conclusion: an exact-share disclaimer cannot coexist with an asserted actual substantial, main or dominant contribution. Preserve positive or negative reported component growth, scoped current/prior rate comparisons, source-attributed management explanations and explicitly conditional possible-contributor hypotheses without converting them to established group-growth importance. Do not invent weights or require unavailable disclosures. Answer the original forward sensitivity question as a separately labelled hypothesis under explicit assumptions, not proof of realised historical contribution.
 ```
 
 # SELF-CHECK

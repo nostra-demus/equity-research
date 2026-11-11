@@ -1,0 +1,78 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-11-09T16:04:32Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-134411564950",
+    "idea_version": "IDEAV-332275a26d1a6278",
+    "idea_version_started_at": "2026-11-06T19:23:03Z",
+    "ticker": "MRNA",
+    "company": "Moderna",
+    "exchange": "NASDAQ",
+    "ticker_verified": true,
+    "listing_verified": true,
+    "liquidity_verified": false,
+    "listing_verification_source": "yahoo_symbol_directory",
+    "direction": "long",
+    "pair_with": null,
+    "reason": "Moderna reported a Q3 profit and raised its annual revenue growth outlook, signaling better-than-expected commercial execution.",
+    "why_now": "The company issued its updated financial guidance and Q3 results on 2026-11-06.",
+    "conviction": 75,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 72,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 19,
+      "specificity": 15,
+      "timing": 10,
+      "expression": 7,
+      "corroboration": 7,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "needs_data",
+    "missing_checks": [
+      "live liquidity",
+      "dated catalyst",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-78eaaba253f3",
+      "EVT-92772249e1ac"
+    ],
+    "primary_source_event_id": "EVT-78eaaba253f3",
+    "source_headlines": [
+      "Moderna raises its revenue outlook — but all eyes are on what happens next with its experimental cancer vaccine",
+      "Moderna Turns To Q3 Profit, Revenue Rises 29%; Raises Annual Revenue Growth Outlook"
+    ],
+    "source_headline": "Moderna raises its revenue outlook — but all eyes are on what happens next with its experimental cancer vaccine",
+    "source_url": "https://www.marketwatch.com/story/modernas-stock-jumps-after-biotech-raises-sales-outlook-65363127?mod=mw_rss_topstories",
+    "source_name": "MarketWatch",
+    "materiality_max": 100,
+    "newest_source_at": "2026-11-06T14:10:00Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-11-06T19:23:03Z",
+    "updated_at": "2026-11-06T19:23:03Z",
+    "decay_at": "2026-11-08T02:10:00Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}

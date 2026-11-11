@@ -1,0 +1,77 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-11-11T03:59:25Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-0d5b2f83ac86",
+    "idea_version": "IDEAV-8d18eda4d4fef72d",
+    "idea_version_started_at": "2026-11-08T03:19:59Z",
+    "ticker": "9022.T",
+    "company": "Central Japan Railway Company",
+    "exchange": "Tokyo Stock Exchange",
+    "ticker_verified": true,
+    "listing_verified": true,
+    "liquidity_verified": false,
+    "listing_verification_source": "yahoo_symbol_directory",
+    "direction": "long",
+    "pair_with": null,
+    "reason": "Tokaido Shinkansen bullet trains have resumed normal operations after a quake, allowing for the restoration of passenger and freight services.",
+    "why_now": "The trains are back to normal operation, indicating an immediate return to business as usual.",
+    "conviction": 50,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 59,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 13,
+      "specificity": 15,
+      "timing": 10,
+      "expression": 7,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "needs_data",
+    "missing_checks": [
+      "live liquidity",
+      "dated catalyst",
+      "independent confirmation",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-7bfb0c1f23ae"
+    ],
+    "primary_source_event_id": "EVT-7bfb0c1f23ae",
+    "source_headlines": [
+      "BREAKING NEWS: Tokaido Shinkansen bullet trains resume normal operation after quake"
+    ],
+    "source_headline": "BREAKING NEWS: Tokaido Shinkansen bullet trains resume normal operation after quake",
+    "source_url": "https://english.kyodonews.net/articles/-/90723",
+    "source_name": "Kyodo News (Japan Wire)",
+    "materiality_max": 65,
+    "newest_source_at": "2026-11-08T02:11:11Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-11-08T03:19:59Z",
+    "updated_at": "2026-11-08T03:19:59Z",
+    "decay_at": "2026-11-09T14:11:11Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}

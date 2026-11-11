@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Creation-time gate for newly published terminal research decision records.
+"""Creation-time gate for terminal research records and declared swarm JSON contracts.
 
 One definition, two callers, so they cannot drift:
 
@@ -10,7 +10,7 @@ One definition, two callers, so they cannot drift:
   into an immutable ready receipt (``--records``). A sealed record this gate rejects can never
   publish: commit-run.sh reaches the same verdict on the same bytes at every retry.
 
-What is gated: a top-level research decision record, ``analyses/<RUN>/decision_record.json``, and
+The research data-needs gate judges a top-level ``analyses/<RUN>/decision_record.json``, and
 only when this publication would actually change it. The exact path shape excludes module outputs,
 reviews, calibration files, and the commodity swarm's records (``commodity/runs/**`` has its own
 pre-archive validator and orb roster and is deliberately not routed through this gate). A record
@@ -24,6 +24,14 @@ it). The verdict therefore depends on the record's bytes AND on the checked-out 
 that renames an orb can change it for the same bytes. (eval.py also reads today's date, but only to
 require the v2 contract from 2026-08-14 on; that date has passed, so it can no longer flip a verdict.)
 
+Swarm JSON admission is additive. A trusted SWARM.md may declare ``publication_schemas`` entries
+``run:<artifact pattern>=<schema file>`` or ``ledger:<artifact pattern>=<schema file>`` beneath its
+``schemas_root``. The existing schema checker judges those exact frozen/index bytes. Shared derived
+boards are intentionally not declared: a new publication never regrades unchanged historical rows.
+``--schema-contract`` describes run artifacts for the supervisor's freshness selection, and
+``--schema-records`` judges every explicitly supplied pair before any durable mutation, without a
+HEAD exemption. The later ``--records``/staged gate retains its unchanged-history exemption.
+
 Exit codes. Callers refuse on ANY non-zero exit: an unjudged record is exactly what must not be
 committed or sealed, so the distinctions below are for the reader of a log, not for control flow.
 ``--records``: 0 PASS; 1 the validator did not accept a record (including a validator that could not
@@ -35,11 +43,16 @@ could not be launched. ``--select``: 0.
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import pathlib
 import re
+import stat
 import subprocess
 import sys
+import tempfile
+
+from execution_provenance import ProvenanceError, discover_swarm_contracts, read_program_bytes
 
 
 # Bytes, not text: this is the byte-exact port of commit-run.sh's former
@@ -50,6 +63,149 @@ TERMINAL_DECISION_PATH = re.compile(rb"analyses/[^/]+/decision_record\.json")
 
 class GateError(RuntimeError):
     pass
+
+
+def canonical_relative(value: str, label: str) -> str:
+    if (not isinstance(value, str) or not value or value.startswith("/") or "\\" in value
+            or any(part in {"", ".", ".."} for part in value.split("/"))):
+        raise GateError(f"{label} must be a canonical repository-relative path")
+    return value
+
+
+def read_beneath(repo: pathlib.Path, relative: str, directory: bool = False) -> bytes:
+    """Use the same no-follow program reader as trusted manifest discovery."""
+    try:
+        return read_program_bytes(repo, relative, directory)
+    except (OSError, ProvenanceError) as error:
+        raise GateError(str(error)) from error
+
+
+def pattern_regex(pattern: str) -> re.Pattern:
+    canonical_relative(pattern, "publication artifact pattern")
+    # Wildcards apply within a path component, never across a run or ledger boundary.
+    return re.compile("^" + re.escape(pattern).replace(r"\*", "[^/]*").replace(r"\?", "[^/]") + "$")
+
+
+def schema_bindings(repo: pathlib.Path) -> list[dict]:
+    """Resolve only trusted manifest mappings; payloads never select their own schema."""
+    try:
+        contracts = discover_swarm_contracts(repo)
+    except (OSError, ValueError, ProvenanceError) as error:
+        raise GateError(f"cannot discover publication contracts: {error}") from error
+    bindings = []
+    patterns = set()
+    for contract in contracts:
+        mappings = contract.get("publication_schemas")
+        if mappings is None and not contract.get("schemas_root"):
+            continue
+        if not isinstance(mappings, list) or any(not isinstance(row, str) for row in mappings):
+            raise GateError(f"malformed publication_schemas: {contract['manifest']}")
+        read_beneath(repo, contract["manifest"])
+        schema_root = canonical_relative(contract.get("schemas_root"), "schemas_root")
+        read_beneath(repo, schema_root, directory=True)
+        # An explicit empty list delegates to the swarm's existing stronger specialized validator.
+        # Omitting a mapping on a schema-bearing manifest is an error, never an inferred opt-out.
+        for row in mappings:
+            scope, separator, rest = row.partition(":")
+            artifact, equal, schema = rest.partition("=")
+            if not separator or not equal or scope not in {"run", "ledger"}:
+                raise GateError(f"malformed publication schema mapping: {row}")
+            canonical_relative(artifact, "publication artifact")
+            canonical_relative(schema, "publication schema")
+            if not artifact.endswith(".json") or not schema.endswith(".schema.json") or any(x in schema for x in "*?"):
+                raise GateError(f"malformed publication schema mapping: {row}")
+            prefix = contract["run_glob"] if scope == "run" else contract.get("ledger_root")
+            if not prefix:
+                raise GateError(f"publication schema mapping has no {scope} root: {row}")
+            canonical_relative(prefix, "publication root")
+            pattern = prefix + "/" + artifact
+            if pattern in patterns:
+                raise GateError(f"ambiguous publication schema mapping: {pattern}")
+            patterns.add(pattern)
+            schema_relative = schema_root + "/" + schema
+            schema_bytes = read_beneath(repo, schema_relative)
+            try:
+                schema_value = json.loads(schema_bytes)
+            except (UnicodeError, ValueError) as error:
+                raise GateError(f"invalid publication schema: {schema_relative}") from error
+            if not isinstance(schema_value, dict):
+                raise GateError(f"publication schema is not an object: {schema_relative}")
+
+            def check_refs(value):
+                if isinstance(value, dict):
+                    if "$ref" in value and (not isinstance(value["$ref"], str)
+                                            or (value["$ref"] != "#" and not value["$ref"].startswith("#/"))):
+                        raise GateError(f"publication schema has an unsupported external reference: {schema_relative}")
+                    for child in value.values():
+                        check_refs(child)
+                elif isinstance(value, list):
+                    for child in value:
+                        check_refs(child)
+            check_refs(schema_value)
+            bindings.append({"scope": scope, "artifact": artifact, "pattern": pattern,
+                             "regex": pattern_regex(pattern), "schema": schema_relative,
+                             "schema_bytes": schema_bytes, "contract": contract})
+    return bindings
+
+
+def binding_for(relative: bytes, bindings: list[dict]) -> dict | None:
+    path = os.fsdecode(relative)
+    matches = [row for row in bindings if row["regex"].fullmatch(path)]
+    if len(matches) > 1:
+        raise GateError(f"ambiguous publication schema for {path}")
+    return matches[0] if matches else None
+
+
+def schema_contract(repo: pathlib.Path, run_root: str) -> dict:
+    canonical_relative(run_root, "run root")
+    if os.path.lexists(repo / run_root):
+        read_beneath(repo, run_root, directory=True)
+    bindings = schema_bindings(repo)
+    contracts = {row["id"]: row for row in discover_swarm_contracts(repo)
+                 if pattern_regex(row["run_glob"]).fullmatch(run_root)}
+    if not contracts and is_terminal_decision_path(os.fsencode(run_root + "/decision_record.json")):
+        return {"swarm_id": "research", "run_root": run_root, "declared": False, "artifacts": []}
+    if len(contracts) != 1:
+        raise GateError(f"expected exactly one declared schema contract for run root: {run_root}")
+    contract = next(iter(contracts.values()))
+    artifacts = {}
+    for row in bindings:
+        if row["contract"]["id"] != contract["id"] or row["scope"] != "run":
+            continue
+        artifact = row["artifact"]
+        # Literal declarations are retained even if absent. Version globs enumerate only existing files;
+        # the supervisor separately decides which ones this exact attempt authored.
+        if any(character in artifact for character in "*?"):
+            paths = [str(path.relative_to(repo)).replace("\\", "/") for path in (repo / run_root).glob(artifact)]
+        else:
+            paths = [run_root + "/" + artifact]
+        for path in paths:
+            if binding_for(os.fsencode(path), bindings) is None:
+                raise GateError(f"unmapped publication schema artifact: {path}")
+            artifacts[path] = {"path": path, "relative": path[len(run_root) + 1:]}
+    return {"swarm_id": contract["id"], "run_root": run_root,
+            "declared": bool(contract.get("publication_schemas")),
+            "artifacts": [artifacts[path] for path in sorted(artifacts)]}
+
+
+def validate_schema_bytes(binding: dict, frozen: str) -> list[str]:
+    from validate_screener_json import validate
+    try:
+        descriptor = os.open(frozen, os.O_RDONLY | os.O_NOFOLLOW)
+        with os.fdopen(descriptor, "rb") as handle:
+            if not stat.S_ISREG(os.fstat(handle.fileno()).st_mode):
+                raise GateError("frozen schema artifact is not a regular file")
+            document = handle.read()
+        # Pin both inputs before the existing canonical checker opens them. Program or provider writes
+        # cannot make this check judge a different schema/doc from the bytes selected above.
+        with tempfile.TemporaryDirectory(prefix="publication-schema-") as directory:
+            schema_file = pathlib.Path(directory) / "schema.json"
+            document_file = pathlib.Path(directory) / "document.json"
+            schema_file.write_bytes(binding["schema_bytes"])
+            document_file.write_bytes(document)
+            return validate(str(schema_file), str(document_file))
+    except (OSError, ValueError, KeyError, TypeError, RecursionError) as error:
+        raise GateError(f"cannot validate declared publication schema {binding['schema']}: {error}") from error
 
 
 def is_terminal_decision_path(relative: bytes) -> bool:
@@ -98,20 +254,34 @@ def differs_from_head(repo: pathlib.Path, relative: bytes, frozen: str) -> bool:
     return [entry for entry in listed.split(b"\0") if entry] != [b"100644 blob " + oid + b"\t" + relative]
 
 
-def select(raw: bytes) -> bytes:
+def select(raw: bytes, repo: pathlib.Path | None = None) -> bytes:
     # NUL-TERMINATED on the way out: commit-run.sh reads with `read -r -d ''`, which drops a final
     # field that has no terminator.
-    return b"".join(field + b"\0" for field in nul_fields(raw) if is_terminal_decision_path(field))
+    bindings = schema_bindings(repo) if repo is not None else []
+    return b"".join(field + b"\0" for field in nul_fields(raw)
+                    if is_terminal_decision_path(field) or binding_for(field, bindings))
 
 
-def check(repo: pathlib.Path, record: str) -> int:
+def check(repo: pathlib.Path, record: str, publication_path: str | None = None) -> int:
+    if publication_path is not None:
+        relative = os.fsencode(canonical_relative(publication_path, "publication path"))
+        binding = binding_for(relative, schema_bindings(repo))
+        if binding is not None:
+            errors = validate_schema_bytes(binding, record)
+            if errors:
+                print(f"DECISION-PUBLICATION-GATE: FAIL — schema rejected {publication_path}", file=sys.stderr)
+                sys.stderr.write("\n".join(errors) + "\n")
+                return 1
+            return 0
+        if not is_terminal_decision_path(relative):
+            raise GateError(f"no declared validator for publication path: {publication_path}")
     # Output is inherited, not captured: commit-run.sh's stdout/stderr stay byte-for-byte what the
     # inline eval call produced.
     code = run_validator(repo, record, capture=False).returncode
     return code if 0 <= code <= 255 else 1
 
 
-def records(repo: pathlib.Path, raw: bytes) -> int:
+def records(repo: pathlib.Path, raw: bytes, schema_only: bool = False) -> int:
     fields = nul_fields(raw)
     if not fields or len(fields) % 2 or not all(fields):
         # An empty list would pass vacuously; a malformed one has lost track of which bytes belong to
@@ -124,18 +294,30 @@ def records(repo: pathlib.Path, raw: bytes) -> int:
     # Either way the answer would be a PASS about bytes nobody judged.
     for relative, frozen in pairs:
         shown = relative.decode("utf-8", "replace")
-        if os.path.isabs(os.fsdecode(relative)):
-            raise GateError(f"publication path must be repository-relative: {shown}")
-        if not os.path.isabs(frozen) or not os.path.isfile(frozen):
+        canonical_relative(os.fsdecode(relative), "publication path")
+        if not os.path.isabs(frozen) or not os.path.isfile(frozen) or os.path.islink(frozen):
             raise GateError(f"frozen bytes must be an absolute path to an existing file for {shown}")
+    bindings = schema_bindings(repo)
     checked = 0
+    schema_checked = 0
     for relative, frozen in pairs:
-        if not is_terminal_decision_path(relative):
+        binding = binding_for(relative, bindings)
+        if schema_only and binding is None:
+            raise GateError(f"no declared publication schema for {os.fsdecode(relative)}")
+        if binding is None and not is_terminal_decision_path(relative):
             continue
-        if not differs_from_head(repo, relative, frozen):
+        if not schema_only and not differs_from_head(repo, relative, frozen):
+            continue
+        checked += 1
+        if binding is not None:
+            schema_checked += 1
+            errors = validate_schema_bytes(binding, frozen)
+            if errors:
+                print(f"DECISION-PUBLICATION-GATE: FAIL — schema rejected {os.fsdecode(relative)}", file=sys.stderr)
+                sys.stderr.write("\n".join(errors) + "\n")
+                return 1
             continue
         result = run_validator(repo, frozen, capture=True)
-        checked += 1
         if result.returncode != 0:
             # Name the record first: a caller that truncates this output must still learn which file.
             print(
@@ -145,19 +327,26 @@ def records(repo: pathlib.Path, raw: bytes) -> int:
             )
             sys.stderr.write(result.stderr.decode("utf-8", "replace") or result.stdout.decode("utf-8", "replace"))
             return 1
-    print(f"DECISION-PUBLICATION-GATE: PASS — {checked} new terminal decision record(s) validated")
+    if schema_only:
+        print(f"DECISION-PUBLICATION-GATE: PASS — {checked} declared schema artifact(s) validated")
+    else:
+        print(f"DECISION-PUBLICATION-GATE: PASS — {checked - schema_checked} new terminal decision record(s) validated; "
+              f"{schema_checked} declared schema artifact(s) validated")
     return 0
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__.split("\n\n", 1)[0])
     parser.add_argument("--repo", default=".")
+    parser.add_argument("--publication-path", help="repository path whose exact staged bytes --check judges")
     mode = parser.add_mutually_exclusive_group(required=True)
     mode.add_argument(
         "--select", action="store_true",
         help="stdin: NUL-separated repository paths; stdout: the gated ones, NUL-terminated, in order",
     )
     mode.add_argument("--check", metavar="RECORD", help="judge one decision record's bytes")
+    mode.add_argument("--schema-contract", metavar="RUN_ROOT", help="describe trusted schema-bearing run artifacts as JSON")
+    mode.add_argument("--schema-records", action="store_true", help="validate every explicitly supplied mapped (path, bytes file) pair before durable mutation")
     mode.add_argument(
         "--records", action="store_true",
         help="stdin: NUL-separated (publication path, frozen bytes file) pairs for one whole publication; "
@@ -174,12 +363,15 @@ def main() -> int:
     repo = pathlib.Path(args.repo).resolve()
     try:
         if args.select:
-            sys.stdout.buffer.write(select(sys.stdin.buffer.read()))
+            sys.stdout.buffer.write(select(sys.stdin.buffer.read(), repo))
             sys.stdout.buffer.flush()
             return 0
         if args.check is not None:
-            return check(repo, args.check)
-        return records(repo, sys.stdin.buffer.read())
+            return check(repo, args.check, args.publication_path)
+        if args.schema_contract is not None:
+            print(json.dumps(schema_contract(repo, args.schema_contract)))
+            return 0
+        return records(repo, sys.stdin.buffer.read(), schema_only=args.schema_records)
     except GateError as error:
         print(f"DECISION-PUBLICATION-GATE: FAIL — {error}", file=sys.stderr)
         return 2

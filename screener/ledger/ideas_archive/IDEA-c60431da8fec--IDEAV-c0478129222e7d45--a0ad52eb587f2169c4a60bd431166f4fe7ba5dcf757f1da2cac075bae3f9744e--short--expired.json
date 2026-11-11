@@ -1,0 +1,79 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-11-11T01:14:13Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-c60431da8fec",
+    "idea_version": "IDEAV-c0478129222e7d45",
+    "idea_version_started_at": "2026-11-08T01:08:34Z",
+    "ticker": "2914",
+    "company": "Japan Tobacco",
+    "exchange": "TSE",
+    "ticker_verified": false,
+    "listing_verified": false,
+    "liquidity_verified": false,
+    "listing_verification_source": null,
+    "direction": "short",
+    "pair_with": null,
+    "reason": "The Russian government's seizure of additional assets directly impairs the company's revenue-generating capacity and asset base in a key market.",
+    "why_now": "The order was issued today, November 8, 2026, creating immediate uncertainty regarding the recoverability of these assets.",
+    "conviction": 65,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 45,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 16,
+      "specificity": 7,
+      "timing": 10,
+      "expression": 0,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "watch_only",
+    "missing_checks": [
+      "verified listed ticker",
+      "verified listing",
+      "live liquidity",
+      "dated catalyst",
+      "independent confirmation",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-5d7f66a0edd5"
+    ],
+    "primary_source_event_id": "EVT-5d7f66a0edd5",
+    "source_headlines": [
+      "Putin orders seizure of more Japan Tobacco assets in Russia"
+    ],
+    "source_headline": "Putin orders seizure of more Japan Tobacco assets in Russia",
+    "source_url": "https://mainichi.jp/english/articles/20261107/p2g/00m/0in/025000c",
+    "source_name": "The Mainichi",
+    "materiality_max": 87,
+    "newest_source_at": "2026-11-08T01:00:10Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-11-06T07:46:04Z",
+    "updated_at": "2026-11-08T01:08:34Z",
+    "decay_at": "2026-11-09T13:00:10Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}

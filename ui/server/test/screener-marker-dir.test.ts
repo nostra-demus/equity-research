@@ -21,7 +21,6 @@
 // GREEN only with the validated rebuild. Run: npx tsx test/screener-marker-dir.test.ts
 import assert from 'node:assert/strict'
 import fs from 'node:fs'
-import os from 'node:os'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -30,9 +29,17 @@ import { fileURLToPath } from 'node:url'
 // genuine SWARM.md run_root_template — not a hand-rebuilt stub.
 const here = path.dirname(fileURLToPath(import.meta.url))
 const realRepo = path.resolve(here, '..', '..', '..') // ui/server/test -> repo root
-const root = fs.mkdtempSync(path.join(os.tmpdir(), 'sc-marker-'))
+const testOutput = path.join(realRepo, '.cache', 'test-output')
+fs.mkdirSync(testOutput, { recursive: true })
+const root = fs.mkdtempSync(path.join(testOutput, 'sc-marker-'))
 process.env.ENGINE_REPO_ROOT = root
 fs.symlinkSync(path.join(realRepo, '.claude'), path.join(root, '.claude'), 'dir')
+// Schema roots are real contained program directories, including in an isolated manifest fixture.
+const schemaProgram = path.join(root, 'frameworks', 'screener')
+fs.mkdirSync(schemaProgram, { recursive: true })
+for (const name of fs.readdirSync(path.join(realRepo, 'frameworks', 'screener')).filter((name) => name.endsWith('.schema.json'))) {
+  fs.copyFileSync(path.join(realRepo, 'frameworks', 'screener', name), path.join(schemaProgram, name))
+}
 fs.mkdirSync(path.join(root, 'screener', 'runs'), { recursive: true }) // the store base must exist for the containment realpath
 
 const { screenerMarkerDir } = await import('../src/launcher')
