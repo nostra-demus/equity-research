@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-11T11:20:25Z",
+  "generated_at": "2026-11-11T11:25:25Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261111-296",
+      "headline": "HUBEONE@EC2708A (18898): Notice of Suspension of Trading and Withdrawal of Listing issued by Huatai Financial Holdings (Hong Kong) Limited",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1111/2026111100791.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-11T10:22:00Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Notice of suspension of trading and withdrawal of listing indicates severe distress or delisting event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Notice of suspension of trading and withdrawal of listing indicates severe distress or delisting event.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HUBEONE@EC2708A",
+          "ticker": "18898",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261111-278",
       "headline": "AMUSE GROUP (08545): PROFIT WARNING",
@@ -1938,60 +1987,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-032",
-      "headline": "ASX falls; IDP jumps on Blackstone takeover talks",
-      "headline_en": null,
-      "url": "https://www.afr.com/markets/equity-markets/asx-to-fall-wall-st-declines-on-inflation-print-nvidia-dives-20261111-p61d3g?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T00:14:45Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "IDP Education is in takeover talks with Blackstone, which is a significant M&A event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "IDP Education is in takeover talks with Blackstone, which is a significant M&A event.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IDP Education",
-          "ticker": null,
-          "listing_country": "AU"
-        },
-        {
-          "name": "Blackstone",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -276046,9 +276041,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5629892,
-    "news_picked_today": 525,
-    "news_dropped_today": 12219
+    "news_seen_today": 5648039,
+    "news_picked_today": 529,
+    "news_dropped_today": 12287
   },
   "book_momentum": {
     "live_count": 8,
