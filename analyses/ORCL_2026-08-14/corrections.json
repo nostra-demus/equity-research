@@ -1,0 +1,17 @@
+{
+  "schema": "corrections/v1",
+  "errata": [
+    {
+      "field": "earnings/06_earnings-quality.md",
+      "kind": "math_reconcile",
+      "reason": "Cash-conversion history correction (2026-11-11): the score rationale says CFO exceeded EBITDA in three of the last four years. Its own FY2023-FY2026 reported ratios are 86.8%, 85.3%, 93.2% and 104.9%, so the supported count is one of four. The displayed adjusted sequence 85.3%, 93.2%, 89.6% also does not steadily improve; its last point uses the FY2026 adjustment. These facts correct the supporting prose and do not recompute the frozen score or decision.",
+      "evidence": "Saved earnings/06_earnings-quality.md sections 1-2 and 9, FY2023-FY2026 table and score rationale. The count follows directly from the frozen table; no later stock outcome is used."
+    },
+    {
+      "field": "final_thesis.md",
+      "kind": "note_clear",
+      "reason": "Cash-quality qualification (2026-11-11): the approximately 90% normalized CFO/EBITDA carried from earnings/06 through earnings/99 is a timing sensitivity, not an established estimate of sustainable operating cash. The saved calculation subtracts USD4,642m = USD4,592m increase in deferred revenues from customer prepayments with a significant financing component + USD50m increase in other deferred revenues (both filed cash-flow movements) from reported CFO of USD31,977m, leaving USD27,335m; division by the saved vendor-derived EBITDA of USD30,494m gives 89.6%. Unusual size does not establish nonrecurrence, and recurring advance funding does not establish earned, unrestricted surplus cash. The saved vendor EBITDA definition was not independently verified in this review; do not relabel it as a filing-based or standardized EBITDA measure. Keep the adjustment definition, vendor denominator and this uncertainty with the ratio. Reported FCF of USD-23,686m remains unchanged; no replacement normalized figure, score or investment action is asserted.",
+      "evidence": "FY2026 Oracle Form 10-K, Consolidated Statements of Cash Flows p.68 and Note 1 Customer Prepayments p.73; Q4 FY2026 earnings call, CFO prepared remarks and final Materne Q&A; saved earnings/06 sections 1-2, earnings/99 sections 1A and 6 and final_thesis.md earnings summary. The saved06 already calls prepayments an ongoing mechanism; customer/project collection, fulfillment, refund and cash-restriction schedules are not established by this review."
+    }
+  ]
+}
