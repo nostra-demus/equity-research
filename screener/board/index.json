@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T21:03:39Z",
+  "generated_at": "2026-11-11T21:14:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20261111-565",
@@ -1431,6 +1431,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261111-568",
+      "headline": "H&R’s $4.7 Billion Breakup Faces Revolt by Major Investors",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-11/h-r-s-4-7-billion-breakup-faces-revolt-by-major-investors",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T19:04:00Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "H&R Block faces a revolt from major investors regarding a $4.7 billion breakup plan, creating significant uncertainty for the company's structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "H&R Block faces a revolt from major investors regarding a $4.7 billion breakup plan, creating significant uncertainty for the company's structure.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "H&R Block",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261111-531",
       "headline": "Versicherer: Allianz erhöht Gewinnprognose – Rekordgewinn nach neun Monaten",
       "headline_en": "Insurers: Allianz raises profit forecast – record profit after nine months",
@@ -1920,56 +1970,6 @@
       "companies": [
         {
           "name": "Indo Thai Securities",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-447",
-      "headline": "Cupid Q2 profit jumps 133%, raises FY27 revenue guidance to ₹880 crore",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/earnings/cupid-q2-profit-jumps-133pc-raises-fy27-revenue-guidance-to-rs880-crore-20031942.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T17:33:09Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "Cupid reported a 133% profit jump and raised FY27 revenue guidance to 880 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Cupid reported a 133% profit jump and raised FY27 revenue guidance to 880 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cupid",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -276091,9 +276091,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8001755,
-    "news_picked_today": 1471,
-    "news_dropped_today": 21857
+    "news_seen_today": 8044788,
+    "news_picked_today": 1477,
+    "news_dropped_today": 22091
   },
   "book_momentum": {
     "live_count": 8,
