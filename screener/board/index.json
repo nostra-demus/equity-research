@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T05:29:34Z",
+  "generated_at": "2026-11-11T05:34:33Z",
   "inbox": [
     {
       "inbox_id": "INB-20261111-151",
@@ -1082,6 +1082,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261111-155",
+      "headline": "425 - C. H. ROBINSON WORLDWIDE, INC. (0001043277) (Filed by)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1043277/000119312526455386/0001193125-26-455386-index.htm",
+      "source_name": "SEC EDGAR — Latest 425 (M&A Business-Combination Communications)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-10T21:01:22Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "C.H. Robinson filed communications regarding a business combination, indicating ongoing M&A activity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "C.H. Robinson filed communications regarding a business combination, indicating ongoing M&A activity.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "C. H. Robinson Worldwide, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-154",
+      "headline": "425 - RXO, Inc. (0001929561) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1929561/000119312526455386/0001193125-26-455386-index.htm",
+      "source_name": "SEC EDGAR — Latest 425 (M&A Business-Combination Communications)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-10T21:01:22Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "RXO, Inc. filed communications regarding its business combination, indicating ongoing M&A activity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "RXO, Inc. filed communications regarding its business combination, indicating ongoing M&A activity.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "RXO, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261111-094",
       "headline": "SCHEDULE 13D/A - JANA Partners Management, LP (0001998597) (Filed by)",
       "headline_en": null,
@@ -1858,104 +1956,6 @@
           "name": "AKN",
           "ticker": null,
           "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-134",
-      "headline": "NT 10-Q - Veradigm Inc. (0001124804) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1124804/000119312526455449/0001193125-26-455449-index.htm",
-      "source_name": "SEC EDGAR — Latest NT 10-Q (Late Quarterly Filing Notice)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-10T21:10:02Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "Veradigm Inc. filed a notice of late quarterly filing (NT 10-Q), indicating potential accounting or reporting delays.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Veradigm Inc. filed a notice of late quarterly filing (NT 10-Q), indicating potential accounting or reporting delays.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "accounting_restatement",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Veradigm Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-141",
-      "headline": "NT 10-Q - GoPro, Inc. (0001500435) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1500435/000162828026072722/0001628280-26-072722-index.htm",
-      "source_name": "SEC EDGAR — Latest NT 10-Q (Late Quarterly Filing Notice)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-10T21:08:10Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "GoPro filed a notice of late quarterly filing (NT 10-Q), which is a negative signal regarding financial reporting controls.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "GoPro filed a notice of late quarterly filing (NT 10-Q), which is a negative signal regarding financial reporting controls.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "accounting_restatement",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GoPro, Inc.",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "small",
@@ -276744,9 +276744,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3619032,
-    "news_picked_today": 260,
-    "news_dropped_today": 2548
+    "news_seen_today": 3641683,
+    "news_picked_today": 264,
+    "news_dropped_today": 2592
   },
   "book_momentum": {
     "live_count": 8,
