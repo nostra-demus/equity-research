@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T01:00:45Z",
+  "generated_at": "2026-11-11T01:03:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20261111-074",
@@ -1917,51 +1917,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261111-070",
-      "headline": "Adnoc Confirms Strike on Tanker in UAE's Territorial Waters",
+      "inbox_id": "INB-20261111-075",
+      "headline": "SCHEDULE 13G/A - UWM Holdings Corp (0001783398) (Subject)",
       "headline_en": null,
-      "url": "https://maritime-executive.com/article/adnoc-confirms-strike-on-tanker-in-uae-s-territorial-waters",
-      "source_name": "Maritime Executive",
-      "input_nature": "shipping_rate_move",
-      "found_at": "2026-11-11T00:48:57Z",
+      "url": "https://www.sec.gov/Archives/edgar/data/1783398/000088698226000631/0000886982-26-000631-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-11T00:53:27Z",
       "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "Adnoc confirmed a strike on a tanker in UAE waters, representing a significant geopolitical escalation and supply chain risk.",
+      "prelim_note": "Routine amendment to beneficial ownership filing.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 67,
-      "triage_reason": "Adnoc confirmed a strike on a tanker in UAE waters, representing a significant geopolitical escalation and supply chain risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
+      "triage_reason": "Routine amendment to beneficial ownership filing.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
       "rank_factors": {
-        "materiality": 85,
-        "source_tier": -33,
+        "materiality": 40,
+        "source_tier": 8,
         "scope": 6,
-        "event": 2,
+        "event": 6,
         "size": 2,
         "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
-        "source_tier_id": "official_data",
-        "event_id": "operations",
-        "size_bucket": "mega"
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "large"
       },
       "event_types": [
-        "macro_sector",
-        "operations"
+        "ownership_activist"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Abu Dhabi National Oil Company",
+          "name": "UWM Holdings Corp",
           "ticker": null,
-          "listing_country": null
+          "listing_country": "US"
         }
       ],
-      "size_bucket": "mega",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -277483,9 +277482,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 629118,
-    "news_picked_today": 74,
-    "news_dropped_today": 502
+    "news_seen_today": 651535,
+    "news_picked_today": 76,
+    "news_dropped_today": 524
   },
   "book_momentum": {
     "live_count": 8,
