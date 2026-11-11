@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T18:48:25Z",
+  "generated_at": "2026-11-11T18:53:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20261111-369",
@@ -1827,6 +1827,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261111-508",
+      "headline": "GO Telecom logs SAR 140m net profits in H1-26/27",
+      "headline_en": null,
+      "url": "http://english.mubasher.info/news/4700914/GO-Telecom-logs-SAR-140m-net-profits-in-H1-26-27",
+      "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T16:47:43Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "GO Telecom reported SAR 140 million in net profits for H1-26/27.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "GO Telecom reported SAR 140 million in net profits for H1-26/27.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GO Telecom",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261111-484",
       "headline": "Formula 1 tipped to go private by 2029 in deal that could be worth £22bn",
       "headline_en": null,
@@ -1925,55 +1974,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-491",
-      "headline": "Poundland hopes for more time to secure rescue deal as deadline looms",
-      "headline_en": null,
-      "url": "https://www.independent.co.uk/news/business/poundland-alixpartners-mps-iceland-irish-b3083137.html",
-      "source_name": "The Independent — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T15:54:47Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "Poundland is seeking an extension to secure a rescue deal, indicating significant financial distress and potential insolvency risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Poundland is seeking an extension to secure a rescue deal, indicating significant financial distress and potential insolvency risk.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Poundland",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -276094,9 +276094,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7658069,
-    "news_picked_today": 1193,
-    "news_dropped_today": 18991
+    "news_seen_today": 7681759,
+    "news_picked_today": 1236,
+    "news_dropped_today": 19116
   },
   "book_momentum": {
     "live_count": 8,
