@@ -1,6 +1,300 @@
 {
-  "generated_at": "2026-11-10T23:53:44Z",
+  "generated_at": "2026-11-11T00:03:44Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261111-001",
+      "headline": "SCHEDULE 13D/A - WATEROUS ENERGY FUND III (US) LP (0001999193) (Filed by)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1999193/000119312526455883/0001193125-26-455883-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-10T23:37:48Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Waterous Energy Fund III filed an amended 13D regarding its stake in Greenfire Resources Ltd.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 80,
+      "triage_reason": "Waterous Energy Fund III filed an amended 13D regarding its stake in Greenfire Resources Ltd.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Greenfire Resources Ltd.",
+          "ticker": null,
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-002",
+      "headline": "SCHEDULE 13D/A - Greenfire Resources Ltd. (0001966287) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1966287/000119312526455883/0001193125-26-455883-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-10T23:37:48Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Waterous Energy Fund III filed an amended 13D regarding its stake in Greenfire Resources Ltd.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 80,
+      "triage_reason": "Waterous Energy Fund III filed an amended 13D regarding its stake in Greenfire Resources Ltd.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Greenfire Resources Ltd.",
+          "ticker": null,
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-003",
+      "headline": "PMT: PMET Resources - Updated Feasibility Study Presentation",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PMT?key=2924-03160467-6A1354548",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-10T23:25:01Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "PMET Resources updated its feasibility study presentation, which may impact project valuation and capital requirements.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 75,
+      "triage_reason": "PMET Resources updated its feasibility study presentation, which may impact project valuation and capital requirements.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PMET Resources",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-004",
+      "headline": "10-Q - Datacentrex, Inc. (0001853825) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1853825/000149315226050990/0001493152-26-050990-index.htm",
+      "source_name": "SEC EDGAR — Latest 10-Q (Quarterly Report)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-10T21:31:03Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Routine quarterly filing for Datacentrex, Inc.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "Routine quarterly filing for Datacentrex, Inc.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Datacentrex, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-005",
+      "headline": "10-Q - CLEARONE INC (0000840715) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/840715/000175392626002096/0001753926-26-002096-index.htm",
+      "source_name": "SEC EDGAR — Latest 10-Q (Quarterly Report)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-10T21:30:58Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Routine quarterly filing for ClearOne Inc.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "Routine quarterly filing for ClearOne Inc.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ClearOne Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-006",
+      "headline": "10-Q - CAPSTONE COMPANIES, INC. (0000814926) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/814926/000149315226050989/0001493152-26-050989-index.htm",
+      "source_name": "SEC EDGAR — Latest 10-Q (Quarterly Report)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-10T21:30:53Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Routine quarterly filing for Capstone Companies, Inc.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "Routine quarterly filing for Capstone Companies, Inc.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Capstone Companies, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261110-717",
       "headline": "IEL: Receipt of revised unsolicited proposal [price-sensitive]",
@@ -231281,77 +231575,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-ff3dc5bb0e11",
-      "idea_version": "IDEAV-4ed8ee5a6b071de2",
-      "idea_version_started_at": "2026-11-09T16:04:27Z",
-      "ticker": "GFR",
-      "company": "Greenfire Resources",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Strathcona Resources has agreed to acquire Greenfire Resources in a deal valued at up to $2.9 billion, providing a clear exit valuation for shareholders.",
-      "why_now": "The acquisition was announced on 2026-11-09 and typically trades toward the offer price until deal closure.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7811012ca76b"
-      ],
-      "primary_source_event_id": "EVT-7811012ca76b",
-      "source_headlines": [
-        "Strathcona to buy Greenfire Resources in up to $2.9-billion deal"
-      ],
-      "source_headline": "Strathcona to buy Greenfire Resources in up to $2.9-billion deal",
-      "source_url": "https://www.theglobeandmail.com/business/article-strathcona-to-buy-greenfire-resources-in-up-to-29-billion-deal/",
-      "source_name": "The Globe and Mail",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-09T11:57:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-09T16:04:27Z",
-      "updated_at": "2026-11-09T16:04:27Z",
-      "decay_at": "2026-11-10T23:57:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-1e80e6023e62",
       "idea_version": "IDEAV-c3e94f6a5fb0ae2a",
       "idea_version_started_at": "2026-11-10T23:42:15Z",
@@ -233905,6 +234128,77 @@
       "surfaced_at": "2026-11-08T03:19:59Z",
       "updated_at": "2026-11-08T03:19:59Z",
       "decay_at": "2026-11-09T14:49:47Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-ff3dc5bb0e11",
+      "idea_version": "IDEAV-4ed8ee5a6b071de2",
+      "idea_version_started_at": "2026-11-09T16:04:27Z",
+      "ticker": "GFR",
+      "company": "Greenfire Resources",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Strathcona Resources has agreed to acquire Greenfire Resources in a deal valued at up to $2.9 billion, providing a clear exit valuation for shareholders.",
+      "why_now": "The acquisition was announced on 2026-11-09 and typically trades toward the offer price until deal closure.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7811012ca76b"
+      ],
+      "primary_source_event_id": "EVT-7811012ca76b",
+      "source_headlines": [
+        "Strathcona to buy Greenfire Resources in up to $2.9-billion deal"
+      ],
+      "source_headline": "Strathcona to buy Greenfire Resources in up to $2.9-billion deal",
+      "source_url": "https://www.theglobeandmail.com/business/article-strathcona-to-buy-greenfire-resources-in-up-to-29-billion-deal/",
+      "source_name": "The Globe and Mail",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-09T11:57:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-09T16:04:27Z",
+      "updated_at": "2026-11-09T16:04:27Z",
+      "decay_at": "2026-11-10T23:57:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -238310,14 +238604,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 569,
+    "total_count": 570,
     "shown_count": 499,
-    "hidden_count": 70,
+    "hidden_count": 71,
     "side_counts": {
       "long": {
-        "total_count": 292,
+        "total_count": 293,
         "shown_count": 250,
-        "hidden_count": 42
+        "hidden_count": 43
       },
       "short": {
         "total_count": 278,
@@ -238341,6 +238635,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-ff3dc5bb0e11",
+        "idea_version": "IDEAV-4ed8ee5a6b071de2",
+        "idea_version_started_at": "2026-11-09T16:04:27Z",
+        "ticker": "GFR",
+        "company": "Greenfire Resources",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Strathcona Resources has agreed to acquire Greenfire Resources in a deal valued at up to $2.9 billion, providing a clear exit valuation for shareholders.",
+        "why_now": "The acquisition was announced on 2026-11-09 and typically trades toward the offer price until deal closure.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 60,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-7811012ca76b"
+        ],
+        "primary_source_event_id": "EVT-7811012ca76b",
+        "source_headlines": [
+          "Strathcona to buy Greenfire Resources in up to $2.9-billion deal"
+        ],
+        "source_headline": "Strathcona to buy Greenfire Resources in up to $2.9-billion deal",
+        "source_url": "https://www.theglobeandmail.com/business/article-strathcona-to-buy-greenfire-resources-in-up-to-29-billion-deal/",
+        "source_name": "The Globe and Mail",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-09T11:57:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-09T16:04:27Z",
+        "updated_at": "2026-11-09T16:04:27Z",
+        "decay_at": "2026-11-10T23:57:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-10T23:57:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-1c36c280984a",
         "idea_version": "IDEAV-9920d305bd48e549",
@@ -267446,81 +267814,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-12bc112e4547",
-        "idea_version": "IDEAV-b21eff0807614f38",
-        "idea_version_started_at": "2026-10-26T13:58:56Z",
-        "ticker": "SONACOMS",
-        "company": "Sona BLW Precision Forgings",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company reported a 30% surge in net profit driven by a 129% jump in battery electric vehicle (BEV) revenue, indicating strong secular growth in its core EV segment.",
-        "why_now": "The Q2 results were released on October 26, 2026.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-d7b21f21205b"
-        ],
-        "primary_source_event_id": "EVT-d7b21f21205b",
-        "source_headlines": [
-          "Sona BLW Q2 Results: Net profit surges 30% on higher revenue; BEV revenue jumps 129%"
-        ],
-        "source_headline": "Sona BLW Q2 Results: Net profit surges 30% on higher revenue; BEV revenue jumps 129%",
-        "source_url": "https://www.cnbctv18.com/market/stocks/sona-blw-precision-forgings-share-price-q2-results-net-profit-surges-30-on-higher-revenue-bev-revenue-jumps-129-20019576.htm",
-        "source_name": "CNBC-TV18",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-26T11:56:32Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-26T13:58:56Z",
-        "updated_at": "2026-10-26T13:58:56Z",
-        "decay_at": "2026-10-27T23:56:32Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-29T16:12:55Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-406ba717f9ef",
         "idea_version": "IDEAV-25276e7ead781014",
         "idea_version_started_at": "2026-10-26T13:58:56Z",
@@ -275500,7 +275793,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2374,
-    "live_count": 51,
+    "live_count": 50,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -275510,7 +275803,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4687,
+    "inbox_unconsumed": 4693,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -275519,9 +275812,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 13439283,
-    "news_picked_today": 1743,
-    "news_dropped_today": 9945
+    "news_seen_today": 0,
+    "news_picked_today": 0,
+    "news_dropped_today": 0
   },
   "book_momentum": {
     "live_count": 8,
