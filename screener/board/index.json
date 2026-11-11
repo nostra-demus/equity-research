@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T20:28:32Z",
+  "generated_at": "2026-11-11T20:32:38Z",
   "inbox": [
     {
       "inbox_id": "INB-20261111-369",
@@ -233921,77 +233921,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-d7a7b8a87382",
-      "idea_version": "IDEAV-8989f0239944f65f",
-      "idea_version_started_at": "2026-11-10T10:55:57Z",
-      "ticker": "00277",
-      "company": "Tern Properties",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning, signaling negative earnings momentum.",
-      "why_now": "The warning was filed on November 10, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ec13cdbcea02"
-      ],
-      "primary_source_event_id": "EVT-ec13cdbcea02",
-      "source_headlines": [
-        "TERN PROPERTIES (00277): INSIDE INFORMATION PROFIT WARNING"
-      ],
-      "source_headline": "TERN PROPERTIES (00277): INSIDE INFORMATION PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1110/2026111000260.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-10T08:31:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-10T10:55:57Z",
-      "updated_at": "2026-11-10T10:55:57Z",
-      "decay_at": "2026-11-11T20:31:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-f83ad9896fec",
       "idea_version": "IDEAV-d12bcdae63088dc9",
       "idea_version_started_at": "2026-11-10T10:55:57Z",
@@ -236167,6 +236096,77 @@
       "surfaced_at": "2026-11-10T10:55:57Z",
       "updated_at": "2026-11-10T10:55:57Z",
       "decay_at": "2026-11-11T00:57:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-d7a7b8a87382",
+      "idea_version": "IDEAV-8989f0239944f65f",
+      "idea_version_started_at": "2026-11-10T10:55:57Z",
+      "ticker": "00277",
+      "company": "Tern Properties",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a profit warning, signaling negative earnings momentum.",
+      "why_now": "The warning was filed on November 10, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ec13cdbcea02"
+      ],
+      "primary_source_event_id": "EVT-ec13cdbcea02",
+      "source_headlines": [
+        "TERN PROPERTIES (00277): INSIDE INFORMATION PROFIT WARNING"
+      ],
+      "source_headline": "TERN PROPERTIES (00277): INSIDE INFORMATION PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1110/2026111000260.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-10T08:31:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-10T10:55:57Z",
+      "updated_at": "2026-11-10T10:55:57Z",
+      "decay_at": "2026-11-11T20:31:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -238909,9 +238909,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 564,
+    "total_count": 565,
     "shown_count": 499,
-    "hidden_count": 65,
+    "hidden_count": 66,
     "side_counts": {
       "long": {
         "total_count": 293,
@@ -238919,9 +238919,9 @@
         "hidden_count": 43
       },
       "short": {
-        "total_count": 272,
+        "total_count": 273,
         "shown_count": 250,
-        "hidden_count": 22
+        "hidden_count": 23
       }
     },
     "retention": {
@@ -238940,6 +238940,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-d7a7b8a87382",
+        "idea_version": "IDEAV-8989f0239944f65f",
+        "idea_version_started_at": "2026-11-10T10:55:57Z",
+        "ticker": "00277",
+        "company": "Tern Properties",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company issued a profit warning, signaling negative earnings momentum.",
+        "why_now": "The warning was filed on November 10, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-ec13cdbcea02"
+        ],
+        "primary_source_event_id": "EVT-ec13cdbcea02",
+        "source_headlines": [
+          "TERN PROPERTIES (00277): INSIDE INFORMATION PROFIT WARNING"
+        ],
+        "source_headline": "TERN PROPERTIES (00277): INSIDE INFORMATION PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1110/2026111000260.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-10T08:31:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-10T10:55:57Z",
+        "updated_at": "2026-11-10T10:55:57Z",
+        "decay_at": "2026-11-11T20:31:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-11T20:31:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-9a15ea504d7b",
         "idea_version": "IDEAV-f3ce2396bba8217a",
@@ -275997,85 +276071,12 @@
         "archived_at": "2026-10-20T19:09:38Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-fbaf750de821",
-        "idea_version": "IDEAV-f04a157d726ac9f8",
-        "idea_version_started_at": "2026-10-18T04:18:08Z",
-        "ticker": "STLA",
-        "company": "Stellantis",
-        "exchange": "NYSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The initiation of a strike mandate vote introduces significant operational risk and potential production disruption, which would negatively impact quarterly cash flow and margins.",
-        "why_now": "The vote began on 2026-10-17 and will last for two days, creating a window of high uncertainty.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 61,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 15,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-ae129a3e02be"
-        ],
-        "primary_source_event_id": "EVT-ae129a3e02be",
-        "source_headlines": [
-          "Stellantis workers begin two-day vote on strike mandate"
-        ],
-        "source_headline": "Stellantis workers begin two-day vote on strike mandate",
-        "source_url": "https://www.theglobeandmail.com/business/article-stellantis-workers-begin-two-day-vote-on-strike-mandate/",
-        "source_name": "The Globe and Mail",
-        "materiality_max": 83,
-        "newest_source_at": "2026-10-17T15:48:45Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-18T04:18:08Z",
-        "updated_at": "2026-10-18T04:18:08Z",
-        "decay_at": "2026-10-19T03:48:45Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-20T19:09:38Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2394,
-    "live_count": 37,
+    "live_count": 36,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -276094,9 +276095,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7869002,
-    "news_picked_today": 1443,
-    "news_dropped_today": 21381
+    "news_seen_today": 7880278,
+    "news_picked_today": 1444,
+    "news_dropped_today": 21452
   },
   "book_momentum": {
     "live_count": 8,
