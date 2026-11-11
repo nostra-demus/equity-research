@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T07:10:21Z",
+  "generated_at": "2026-11-11T07:18:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20261111-163",
@@ -947,6 +947,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-186",
+      "headline": "VAU: ZSP: Vault Minerals Ltd to be removed from S&P/ASX 200 Index [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.VAU?key=2924-03160658_PS-6A1354624",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-11T06:15:43Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Removal from the S&P/ASX 200 index will trigger mechanical selling by index-tracking funds.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Removal from the S&P/ASX 200 index will trigger mechanical selling by index-tracking funds.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "index_rebalance",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "index_rebalance"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vault Minerals Ltd",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1919,55 +1968,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-100",
-      "headline": "NT 10-Q - EIDP, Inc. (0000030554) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/30554/000119312526455598/0001193125-26-455598-index.htm",
-      "source_name": "SEC EDGAR — Latest NT 10-Q (Late Quarterly Filing Notice)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-10T21:31:08Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "EIDP, Inc. filed a notice of late quarterly filing, indicating potential delays in financial reporting.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "EIDP, Inc. filed a notice of late quarterly filing, indicating potential delays in financial reporting.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "accounting_restatement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "EIDP, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -276391,9 +276391,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4465017,
-    "news_picked_today": 313,
-    "news_dropped_today": 4223
+    "news_seen_today": 4490447,
+    "news_picked_today": 329,
+    "news_dropped_today": 4543
   },
   "book_momentum": {
     "live_count": 8,
