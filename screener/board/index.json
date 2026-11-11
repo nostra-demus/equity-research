@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T01:13:52Z",
+  "generated_at": "2026-11-11T01:14:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20261111-074",
@@ -231702,6 +231702,75 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-bba477b08d48",
+      "idea_version": "IDEAV-133966263598619c",
+      "idea_version_started_at": "2026-11-11T01:14:09Z",
+      "ticker": "WRN",
+      "company": "Western Copper and Gold",
+      "exchange": "NYSE MKT",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported a 20% increase in silver resources at its Elizabeth Hill project to 3.36 million ounces, with 77% now in the indicated category, enhancing the project's valuation.",
+      "why_now": "The resource update was filed via official exchange disclosure on 2026-11-10.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 73,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 16,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-fe5617c316d8"
+      ],
+      "primary_source_event_id": "EVT-fe5617c316d8",
+      "source_headlines": [
+        "WCE: Elizabeth Hill Up 20% to 3.36 Moz Ag, 77% Indicated Resource [price-sensitive]"
+      ],
+      "source_headline": "WCE: Elizabeth Hill Up 20% to 3.36 Moz Ag, 77% Indicated Resource [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WCE?key=2924-03160345-6A1354459",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 89,
+      "newest_source_at": "2026-11-10T22:02:56Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-11T01:14:09Z",
+      "updated_at": "2026-11-11T01:14:09Z",
+      "decay_at": "2026-11-12T10:02:56Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-50f379c78b21",
       "idea_version": "IDEAV-7f72f33e5d57461c",
       "idea_version_started_at": "2026-11-10T20:08:49Z",
@@ -239902,78 +239971,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-c60431da8fec",
-      "idea_version": "IDEAV-c0478129222e7d45",
-      "idea_version_started_at": "2026-11-08T01:08:34Z",
-      "ticker": "2914",
-      "company": "Japan Tobacco",
-      "exchange": "TSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The Russian government's seizure of additional assets directly impairs the company's revenue-generating capacity and asset base in a key market.",
-      "why_now": "The order was issued today, November 8, 2026, creating immediate uncertainty regarding the recoverability of these assets.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5d7f66a0edd5"
-      ],
-      "primary_source_event_id": "EVT-5d7f66a0edd5",
-      "source_headlines": [
-        "Putin orders seizure of more Japan Tobacco assets in Russia"
-      ],
-      "source_headline": "Putin orders seizure of more Japan Tobacco assets in Russia",
-      "source_url": "https://mainichi.jp/english/articles/20261107/p2g/00m/0in/025000c",
-      "source_name": "The Mainichi",
-      "materiality_max": 87,
-      "newest_source_at": "2026-11-08T01:00:10Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-06T07:46:04Z",
-      "updated_at": "2026-11-08T01:08:34Z",
-      "decay_at": "2026-11-09T13:00:10Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-6e6b4cb95539",
       "idea_version": "IDEAV-8e315f1351756ca2",
       "idea_version_started_at": "2026-11-08T05:48:41Z",
@@ -240118,80 +240115,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-5a971f1aba0f",
-      "idea_version": "IDEAV-ceba34f220360a68",
-      "idea_version_started_at": "2026-11-08T01:08:34Z",
-      "ticker": "ARB",
-      "company": "ARB Corporation",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is facing structural margin pressure and declining demand as low-cost Chinese electric vehicle imports disrupt its traditional off-road accessory market.",
-      "why_now": "The negative operational and earnings outlook was highlighted in reports dated November 8, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 44,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 13,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b15791ff0a84",
-        "EVT-e7228ada7475"
-      ],
-      "primary_source_event_id": "EVT-b15791ff0a84",
-      "source_headlines": [
-        "In the shadow of cheap Chinese EVs, ARB’s off-road empire stumbles",
-        "In the shadow of cheap Chinese EVs, ARB’s offroad empire stumbles"
-      ],
-      "source_headline": "In the shadow of cheap Chinese EVs, ARB’s off-road empire stumbles",
-      "source_url": "https://www.afr.com/companies/transport/in-the-shadow-of-cheap-chinese-evs-arb-s-off-road-empire-stumbles-20261108-p61907?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "materiality_max": 84,
-      "newest_source_at": "2026-11-08T01:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-08T01:08:34Z",
-      "updated_at": "2026-11-08T01:08:34Z",
-      "decay_at": "2026-11-09T13:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-3035bde44e02",
       "idea_version": "IDEAV-e307d29a0fabc4b1",
       "idea_version_started_at": "2026-11-08T02:53:44Z",
@@ -240274,9 +240197,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 573,
+    "total_count": 571,
     "shown_count": 499,
-    "hidden_count": 74,
+    "hidden_count": 72,
     "side_counts": {
       "long": {
         "total_count": 295,
@@ -240284,23 +240207,23 @@
         "hidden_count": 45
       },
       "short": {
-        "total_count": 279,
+        "total_count": 277,
         "shown_count": 250,
-        "hidden_count": 29
+        "hidden_count": 27
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1753,
-      "oldest_retained_at": "2026-10-14T02:09:00Z",
+      "evicted_count": 1755,
+      "oldest_retained_at": "2026-10-14T08:16:02Z",
       "side_counts": {
         "long": {
           "evicted_count": 1152,
           "oldest_retained_at": "2026-10-26T04:04:31Z"
         },
         "short": {
-          "evicted_count": 602,
-          "oldest_retained_at": "2026-10-14T02:09:00Z"
+          "evicted_count": 604,
+          "oldest_retained_at": "2026-10-14T08:16:02Z"
         }
       }
     },
@@ -245750,8 +245673,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-09T13:00:10Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-11T01:14:13Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -245827,8 +245750,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-09T13:00:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-11T01:14:13Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -277461,8 +277384,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2374,
-    "live_count": 47,
+    "surfaced_total": 2375,
+    "live_count": 48,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
