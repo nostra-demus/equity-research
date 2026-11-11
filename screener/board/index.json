@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T20:13:36Z",
+  "generated_at": "2026-11-11T20:59:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20261111-369",
@@ -1281,6 +1281,105 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261111-563",
+      "headline": "Carelon agrees to pay $10M to settle ghost network, coverage denial allegations in New York",
+      "headline_en": null,
+      "url": "https://www.fiercehealthcare.com/payers/carelon-agrees-pay-10m-settle-ghost-network-coverage-denial-allegations-new-york",
+      "source_name": "Fierce Healthcare",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T20:36:43Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Carelon agreed to a $10M settlement regarding allegations of ghost networks and improper coverage denials.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Carelon agreed to a $10M settlement regarding allegations of ghost networks and improper coverage denials.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Carelon",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-562",
+      "headline": "Lucid Recalled 4,400 Gravity SUVs, Delayed the Cosmos, and Is \"Buying Time.\" Here's How Many Shares It Needs to Sell to Survive 2027.",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/11/11/lucid-recalled-4400-gravity-suvs-delayed-the-cosmo/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T20:05:00Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Lucid recalled 4,400 SUVs and faces significant liquidity concerns, raising questions about its ability to survive 2027.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Lucid recalled 4,400 SUVs and faces significant liquidity concerns, raising questions about its ability to survive 2027.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "product",
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lucid",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261111-531",
       "headline": "Versicherer: Allianz erhöht Gewinnprognose – Rekordgewinn nach neun Monaten",
       "headline_en": "Insurers: Allianz raises profit forecast – record profit after nine months",
@@ -1874,104 +1973,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-471",
-      "headline": "+++ Geschäftszahlen +++: Höhere Kosten zehren Nissan-Gewinn auf",
-      "headline_en": "+++ Business Figures +++: Higher costs erode Nissan's profit",
-      "url": "https://www.handelsblatt.com/unternehmen/industrie/quartalszahlen-hoehere-kosten-zehren-nissan-gewinn-auf/24098412.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T17:25:22Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "Nissan reported that higher costs have eroded its profits.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nissan reported that higher costs have eroded its profits.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nissan Motor",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-445",
-      "headline": "University of Texas MD Anderson Cancer Center unveils $3.4B expansion plans",
-      "headline_en": null,
-      "url": "https://www.fiercehealthcare.com/providers/university-texas-md-anderson-cancer-center-unveils-34b-expansion-plans",
-      "source_name": "Fierce Healthcare",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T17:16:26Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "University of Texas MD Anderson Cancer Center announced a $3.4B expansion plan.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "University of Texas MD Anderson Cancer Center announced a $3.4B expansion plan.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "University of Texas MD Anderson Cancer Center",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -233634,77 +233635,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-782778e5a24d",
-      "idea_version": "IDEAV-c71aad664fbab82d",
-      "idea_version_started_at": "2026-11-10T11:30:45Z",
-      "ticker": "01489",
-      "company": "GC Construction",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company issued a positive profit alert, indicating improved earnings performance for the period.",
-      "why_now": "The filing was released on 2026-11-10, making this a fresh catalyst for price discovery.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4fb828dcba27"
-      ],
-      "primary_source_event_id": "EVT-4fb828dcba27",
-      "source_headlines": [
-        "GC CONSTRUCTION (01489): POSITIVE PROFIT ALERT"
-      ],
-      "source_headline": "GC CONSTRUCTION (01489): POSITIVE PROFIT ALERT",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1110/2026111000328.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-10T08:43:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-10T11:30:45Z",
-      "updated_at": "2026-11-10T11:30:45Z",
-      "decay_at": "2026-11-11T20:43:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-d3eef43d72c2",
       "idea_version": "IDEAV-2c246f3bb58cd966",
       "idea_version_started_at": "2026-11-10T11:30:45Z",
@@ -233843,148 +233773,6 @@
       "surfaced_at": "2026-11-10T11:30:45Z",
       "updated_at": "2026-11-10T11:30:45Z",
       "decay_at": "2026-11-11T21:37:09Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-d5a782f7d4ee",
-      "idea_version": "IDEAV-608d4383925a0edf",
-      "idea_version_started_at": "2026-11-10T10:55:57Z",
-      "ticker": "01410",
-      "company": "Edvance International",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning, indicating a deterioration in financial performance.",
-      "why_now": "The warning was filed on November 10, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-610bcb880a89"
-      ],
-      "primary_source_event_id": "EVT-610bcb880a89",
-      "source_headlines": [
-        "EDVANCE INTL (01410): PROFIT WARNING"
-      ],
-      "source_headline": "EDVANCE INTL (01410): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1110/2026111000296.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-10T08:37:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-10T10:55:57Z",
-      "updated_at": "2026-11-10T10:55:57Z",
-      "decay_at": "2026-11-11T20:37:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-d7a7b8a87382",
-      "idea_version": "IDEAV-8989f0239944f65f",
-      "idea_version_started_at": "2026-11-10T10:55:57Z",
-      "ticker": "00277",
-      "company": "Tern Properties",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning, signaling negative earnings momentum.",
-      "why_now": "The warning was filed on November 10, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ec13cdbcea02"
-      ],
-      "primary_source_event_id": "EVT-ec13cdbcea02",
-      "source_headlines": [
-        "TERN PROPERTIES (00277): INSIDE INFORMATION PROFIT WARNING"
-      ],
-      "source_headline": "TERN PROPERTIES (00277): INSIDE INFORMATION PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1110/2026111000260.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-10T08:31:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-10T10:55:57Z",
-      "updated_at": "2026-11-10T10:55:57Z",
-      "decay_at": "2026-11-11T20:31:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -236101,6 +235889,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-782778e5a24d",
+      "idea_version": "IDEAV-c71aad664fbab82d",
+      "idea_version_started_at": "2026-11-10T11:30:45Z",
+      "ticker": "01489",
+      "company": "GC Construction",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company issued a positive profit alert, indicating improved earnings performance for the period.",
+      "why_now": "The filing was released on 2026-11-10, making this a fresh catalyst for price discovery.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4fb828dcba27"
+      ],
+      "primary_source_event_id": "EVT-4fb828dcba27",
+      "source_headlines": [
+        "GC CONSTRUCTION (01489): POSITIVE PROFIT ALERT"
+      ],
+      "source_headline": "GC CONSTRUCTION (01489): POSITIVE PROFIT ALERT",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1110/2026111000328.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-10T08:43:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-10T11:30:45Z",
+      "updated_at": "2026-11-10T11:30:45Z",
+      "decay_at": "2026-11-11T20:43:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-9219a32f6160",
       "idea_version": "IDEAV-a5479e17b5b2b324",
       "idea_version_started_at": "2026-11-10T10:55:57Z",
@@ -236166,6 +236025,148 @@
       "surfaced_at": "2026-11-10T10:55:57Z",
       "updated_at": "2026-11-10T10:55:57Z",
       "decay_at": "2026-11-11T00:57:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-d5a782f7d4ee",
+      "idea_version": "IDEAV-608d4383925a0edf",
+      "idea_version_started_at": "2026-11-10T10:55:57Z",
+      "ticker": "01410",
+      "company": "Edvance International",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a profit warning, indicating a deterioration in financial performance.",
+      "why_now": "The warning was filed on November 10, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-610bcb880a89"
+      ],
+      "primary_source_event_id": "EVT-610bcb880a89",
+      "source_headlines": [
+        "EDVANCE INTL (01410): PROFIT WARNING"
+      ],
+      "source_headline": "EDVANCE INTL (01410): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1110/2026111000296.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-10T08:37:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-10T10:55:57Z",
+      "updated_at": "2026-11-10T10:55:57Z",
+      "decay_at": "2026-11-11T20:37:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-d7a7b8a87382",
+      "idea_version": "IDEAV-8989f0239944f65f",
+      "idea_version_started_at": "2026-11-10T10:55:57Z",
+      "ticker": "00277",
+      "company": "Tern Properties",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a profit warning, signaling negative earnings momentum.",
+      "why_now": "The warning was filed on November 10, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ec13cdbcea02"
+      ],
+      "primary_source_event_id": "EVT-ec13cdbcea02",
+      "source_headlines": [
+        "TERN PROPERTIES (00277): INSIDE INFORMATION PROFIT WARNING"
+      ],
+      "source_headline": "TERN PROPERTIES (00277): INSIDE INFORMATION PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1110/2026111000260.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-10T08:31:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-10T10:55:57Z",
+      "updated_at": "2026-11-10T10:55:57Z",
+      "decay_at": "2026-11-11T20:31:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -238908,19 +238909,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 564,
+    "total_count": 567,
     "shown_count": 499,
-    "hidden_count": 65,
+    "hidden_count": 68,
     "side_counts": {
       "long": {
-        "total_count": 293,
+        "total_count": 294,
         "shown_count": 250,
-        "hidden_count": 43
+        "hidden_count": 44
       },
       "short": {
-        "total_count": 272,
+        "total_count": 274,
         "shown_count": 250,
-        "hidden_count": 22
+        "hidden_count": 24
       }
     },
     "retention": {
@@ -238939,6 +238940,228 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-782778e5a24d",
+        "idea_version": "IDEAV-c71aad664fbab82d",
+        "idea_version_started_at": "2026-11-10T11:30:45Z",
+        "ticker": "01489",
+        "company": "GC Construction",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company issued a positive profit alert, indicating improved earnings performance for the period.",
+        "why_now": "The filing was released on 2026-11-10, making this a fresh catalyst for price discovery.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-4fb828dcba27"
+        ],
+        "primary_source_event_id": "EVT-4fb828dcba27",
+        "source_headlines": [
+          "GC CONSTRUCTION (01489): POSITIVE PROFIT ALERT"
+        ],
+        "source_headline": "GC CONSTRUCTION (01489): POSITIVE PROFIT ALERT",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1110/2026111000328.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-10T08:43:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-10T11:30:45Z",
+        "updated_at": "2026-11-10T11:30:45Z",
+        "decay_at": "2026-11-11T20:43:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-11T20:43:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-d5a782f7d4ee",
+        "idea_version": "IDEAV-608d4383925a0edf",
+        "idea_version_started_at": "2026-11-10T10:55:57Z",
+        "ticker": "01410",
+        "company": "Edvance International",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company issued a profit warning, indicating a deterioration in financial performance.",
+        "why_now": "The warning was filed on November 10, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-610bcb880a89"
+        ],
+        "primary_source_event_id": "EVT-610bcb880a89",
+        "source_headlines": [
+          "EDVANCE INTL (01410): PROFIT WARNING"
+        ],
+        "source_headline": "EDVANCE INTL (01410): PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1110/2026111000296.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-10T08:37:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-10T10:55:57Z",
+        "updated_at": "2026-11-10T10:55:57Z",
+        "decay_at": "2026-11-11T20:37:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-11T20:37:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-d7a7b8a87382",
+        "idea_version": "IDEAV-8989f0239944f65f",
+        "idea_version_started_at": "2026-11-10T10:55:57Z",
+        "ticker": "00277",
+        "company": "Tern Properties",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company issued a profit warning, signaling negative earnings momentum.",
+        "why_now": "The warning was filed on November 10, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-ec13cdbcea02"
+        ],
+        "primary_source_event_id": "EVT-ec13cdbcea02",
+        "source_headlines": [
+          "TERN PROPERTIES (00277): INSIDE INFORMATION PROFIT WARNING"
+        ],
+        "source_headline": "TERN PROPERTIES (00277): INSIDE INFORMATION PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1110/2026111000260.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-10T08:31:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-10T10:55:57Z",
+        "updated_at": "2026-11-10T10:55:57Z",
+        "decay_at": "2026-11-11T20:31:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-11T20:31:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-9a15ea504d7b",
         "idea_version": "IDEAV-f3ce2396bba8217a",
@@ -267655,80 +267878,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-84d3d160ac55",
-        "idea_version": "IDEAV-439af98f38aa2cf0",
-        "idea_version_started_at": "2026-10-28T08:58:37Z",
-        "ticker": "INA",
-        "company": "Inghams Group",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company received an improved takeover proposal from Warburg Pincus, which typically provides a floor for the share price and potential upside if a deal is finalized.",
-        "why_now": "The filing confirming the improved proposal was released on October 27, 2026.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-582c6c049f34"
-        ],
-        "primary_source_event_id": "EVT-582c6c049f34",
-        "source_headlines": [
-          "INA: Receipt of improved proposal from Warburg Pincus [price-sensitive]"
-        ],
-        "source_headline": "INA: Receipt of improved proposal from Warburg Pincus [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.INA?key=2924-03154291-2A1706595",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-27T22:56:35Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-26T09:24:06Z",
-        "updated_at": "2026-10-28T08:58:37Z",
-        "decay_at": "2026-10-29T10:56:35Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-31T00:35:23Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-85129948d8af",
         "idea_version": "IDEAV-63cd6e976e3b57ff",
         "idea_version_started_at": "2026-10-27T16:21:10Z",
@@ -275919,162 +276068,12 @@
         "archived_at": "2026-10-20T19:09:38Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-5e41e1261439",
-        "idea_version": "IDEAV-abecb1617204e9e6",
-        "idea_version_started_at": "2026-10-18T04:18:08Z",
-        "ticker": "NESTLEIND",
-        "company": "Nestle India",
-        "exchange": "NSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Regulatory scrutiny from the FSSAI regarding product labeling and claims poses a direct threat to the company's premium brand positioning and could lead to costly compliance adjustments.",
-        "why_now": "The notices were issued on 2026-10-17, creating immediate regulatory uncertainty.",
-        "conviction": 50,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 16,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 7,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-4a0d0b39275d",
-          "EVT-5740236529c0"
-        ],
-        "primary_source_event_id": "EVT-4a0d0b39275d",
-        "source_headlines": [
-          "FSSAI Issues Notices to Nestle India, HUL Over Allegedly Misleading Product Claims, Labelling Violations",
-          "FSSAI issues notices to Nestlé India, HUL over misleading claims, non-compliance"
-        ],
-        "source_headline": "FSSAI Issues Notices to Nestle India, HUL Over Allegedly Misleading Product Claims, Labelling Violations",
-        "source_url": "https://www.ndtvprofit.com/business/fssai-issues-notices-to-nestle-india-hul-over-allegedly-misleading-product-claims-labelling-violations-12200174#publisher=newsstand",
-        "source_name": "NDTV Profit",
-        "materiality_max": 85,
-        "newest_source_at": "2026-10-17T16:09:29Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-16T04:42:08Z",
-        "updated_at": "2026-10-18T04:18:08Z",
-        "decay_at": "2026-10-19T04:09:29Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-20T19:09:38Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-fbaf750de821",
-        "idea_version": "IDEAV-f04a157d726ac9f8",
-        "idea_version_started_at": "2026-10-18T04:18:08Z",
-        "ticker": "STLA",
-        "company": "Stellantis",
-        "exchange": "NYSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The initiation of a strike mandate vote introduces significant operational risk and potential production disruption, which would negatively impact quarterly cash flow and margins.",
-        "why_now": "The vote began on 2026-10-17 and will last for two days, creating a window of high uncertainty.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 61,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 15,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-ae129a3e02be"
-        ],
-        "primary_source_event_id": "EVT-ae129a3e02be",
-        "source_headlines": [
-          "Stellantis workers begin two-day vote on strike mandate"
-        ],
-        "source_headline": "Stellantis workers begin two-day vote on strike mandate",
-        "source_url": "https://www.theglobeandmail.com/business/article-stellantis-workers-begin-two-day-vote-on-strike-mandate/",
-        "source_name": "The Globe and Mail",
-        "materiality_max": 83,
-        "newest_source_at": "2026-10-17T15:48:45Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-18T04:18:08Z",
-        "updated_at": "2026-10-18T04:18:08Z",
-        "decay_at": "2026-10-19T03:48:45Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-20T19:09:38Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2394,
-    "live_count": 37,
+    "live_count": 34,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -276093,9 +276092,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7835323,
-    "news_picked_today": 1418,
-    "news_dropped_today": 21214
+    "news_seen_today": 7990950,
+    "news_picked_today": 1467,
+    "news_dropped_today": 21837
   },
   "book_momentum": {
     "live_count": 8,
