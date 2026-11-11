@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T19:35:35Z",
+  "generated_at": "2026-11-11T20:02:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20261111-369",
@@ -1281,6 +1281,156 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261111-531",
+      "headline": "Versicherer: Allianz erhöht Gewinnprognose – Rekordgewinn nach neun Monaten",
+      "headline_en": "Insurers: Allianz raises profit forecast – record profit after nine months",
+      "url": "https://www.handelsblatt.com/finanzen/banken-versicherungen/versicherung-allianz-erhoeht-gewinnprognose-rekordgewinn-nach-neun-monaten/100266550.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T18:58:28Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Allianz raised its profit guidance following record earnings over the first nine months of the year.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Allianz raised its profit guidance following record earnings over the first nine months of the year.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Allianz SE",
+          "ticker": "ALV",
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-544",
+      "headline": "Poundland’s future hangs in balance as administration deadline looms",
+      "headline_en": null,
+      "url": "https://www.independent.co.uk/news/business/poundland-liam-byrne-richard-tice-business-alixpartners-b3083416.html",
+      "source_name": "The Independent — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T18:47:40Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Poundland faces potential administration insolvency as a critical deadline approaches.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Poundland faces potential administration insolvency as a critical deadline approaches.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Poundland",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-557",
+      "headline": "Poundland set for crunch decision on survival after owner grilled by MPs",
+      "headline_en": null,
+      "url": "https://www.cityam.com/poundland-set-for-crunch-decision-on-survival-after-owner-grilled-by-mps/",
+      "source_name": "City A.M.",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T18:30:37Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Poundland facing a crunch decision on survival after its owner was grilled by MPs indicates severe financial distress and potential for a significant restructuring or default.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Poundland facing a crunch decision on survival after its owner was grilled by MPs indicates severe financial distress and potential for a significant restructuring or default.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "strategic_review",
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Poundland",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261111-509",
       "headline": "Multibagger Cupid to be in focus on Thursday after Q2 net profit more than doubles to ₹56 crore; raises FY27 guidance",
       "headline_en": null,
@@ -1817,154 +1967,6 @@
       "companies": [
         {
           "name": "University of Texas MD Anderson Cancer Center",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-443",
-      "headline": "Hims & Hers reports $890.4M Q3 revenue, tightens 2026 outlook",
-      "headline_en": null,
-      "url": "https://www.fiercehealthcare.com/finance/hims-hers-reports-8904m-q3-revenue-tightens-2026-outlook",
-      "source_name": "Fierce Healthcare",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T17:16:26Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "Hims & Hers reported $890.4M in Q3 revenue and tightened its 2026 outlook.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Hims & Hers reported $890.4M in Q3 revenue and tightened its 2026 outlook.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hims & Hers",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-420",
-      "headline": "Nvidia appoints law firm to investigate CEO's affair with suspected Chinese spy",
-      "headline_en": null,
-      "url": "https://www.datacenterdynamics.com/en/news/nvidia-appoints-law-firm-to-investigate-ceos-affair-with-suspected-chinese-spy/",
-      "source_name": "DataCenterDynamics",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T17:15:20Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "Nvidia CEO is under investigation for an alleged affair with a suspected Chinese spy, posing a significant governance and geopolitical risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia CEO is under investigation for an alleged affair with a suspected Chinese spy, posing a significant governance and geopolitical risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-508",
-      "headline": "GO Telecom logs SAR 140m net profits in H1-26/27",
-      "headline_en": null,
-      "url": "http://english.mubasher.info/news/4700914/GO-Telecom-logs-SAR-140m-net-profits-in-H1-26-27",
-      "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T16:47:43Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "GO Telecom reported SAR 140 million in net profits for H1-26/27.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "GO Telecom reported SAR 140 million in net profits for H1-26/27.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GO Telecom",
           "ticker": null,
           "listing_country": null
         }
@@ -232131,77 +232133,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-9a15ea504d7b",
-      "idea_version": "IDEAV-f3ce2396bba8217a",
-      "idea_version_started_at": "2026-11-10T09:55:29Z",
-      "ticker": "HMC",
-      "company": "Honda Motor",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company raised its full-year profit forecast as the weak yen provides a significant tailwind to export earnings, offsetting costs associated with its EV strategy shift.",
-      "why_now": "The guidance update was released on 2026-11-10.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "fx_rates",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c8fd61ebaeeb"
-      ],
-      "primary_source_event_id": "EVT-c8fd61ebaeeb",
-      "source_headlines": [
-        "Honda raises full-year profit forecast as weak yen trumps costly EV retreat"
-      ],
-      "source_headline": "Honda raises full-year profit forecast as weak yen trumps costly EV retreat",
-      "source_url": "https://asia.nikkei.com/business/automobiles/honda-raises-full-year-profit-forecast-as-weak-yen-trumps-costly-ev-retreat",
-      "source_name": "Nikkei Asia",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-10T07:35:37Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-10T09:55:29Z",
-      "updated_at": "2026-11-10T09:55:29Z",
-      "decay_at": "2026-11-11T19:35:37Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-7ef4de3aea43",
       "idea_version": "IDEAV-2154f38014190c6d",
       "idea_version_started_at": "2026-11-11T15:44:29Z",
@@ -235815,6 +235746,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-9a15ea504d7b",
+      "idea_version": "IDEAV-f3ce2396bba8217a",
+      "idea_version_started_at": "2026-11-10T09:55:29Z",
+      "ticker": "HMC",
+      "company": "Honda Motor",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company raised its full-year profit forecast as the weak yen provides a significant tailwind to export earnings, offsetting costs associated with its EV strategy shift.",
+      "why_now": "The guidance update was released on 2026-11-10.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "fx_rates",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c8fd61ebaeeb"
+      ],
+      "primary_source_event_id": "EVT-c8fd61ebaeeb",
+      "source_headlines": [
+        "Honda raises full-year profit forecast as weak yen trumps costly EV retreat"
+      ],
+      "source_headline": "Honda raises full-year profit forecast as weak yen trumps costly EV retreat",
+      "source_url": "https://asia.nikkei.com/business/automobiles/honda-raises-full-year-profit-forecast-as-weak-yen-trumps-costly-ev-retreat",
+      "source_name": "Nikkei Asia",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-10T07:35:37Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-10T09:55:29Z",
+      "updated_at": "2026-11-10T09:55:29Z",
+      "decay_at": "2026-11-11T19:35:37Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-8239e24e9708",
       "idea_version": "IDEAV-a36b117802dc751a",
       "idea_version_started_at": "2026-11-10T03:26:43Z",
@@ -238906,14 +238908,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 563,
+    "total_count": 564,
     "shown_count": 499,
-    "hidden_count": 64,
+    "hidden_count": 65,
     "side_counts": {
       "long": {
-        "total_count": 292,
+        "total_count": 293,
         "shown_count": 250,
-        "hidden_count": 42
+        "hidden_count": 43
       },
       "short": {
         "total_count": 272,
@@ -238937,6 +238939,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-9a15ea504d7b",
+        "idea_version": "IDEAV-f3ce2396bba8217a",
+        "idea_version_started_at": "2026-11-10T09:55:29Z",
+        "ticker": "HMC",
+        "company": "Honda Motor",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company raised its full-year profit forecast as the weak yen provides a significant tailwind to export earnings, offsetting costs associated with its EV strategy shift.",
+        "why_now": "The guidance update was released on 2026-11-10.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 60,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "fx_rates",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-c8fd61ebaeeb"
+        ],
+        "primary_source_event_id": "EVT-c8fd61ebaeeb",
+        "source_headlines": [
+          "Honda raises full-year profit forecast as weak yen trumps costly EV retreat"
+        ],
+        "source_headline": "Honda raises full-year profit forecast as weak yen trumps costly EV retreat",
+        "source_url": "https://asia.nikkei.com/business/automobiles/honda-raises-full-year-profit-forecast-as-weak-yen-trumps-costly-ev-retreat",
+        "source_name": "Nikkei Asia",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-10T07:35:37Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-10T09:55:29Z",
+        "updated_at": "2026-11-10T09:55:29Z",
+        "decay_at": "2026-11-11T19:35:37Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-11T19:35:37Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-8239e24e9708",
         "idea_version": "IDEAV-a36b117802dc751a",
@@ -267653,79 +267729,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-f60d317b461b",
-        "idea_version": "IDEAV-c31c71fee5520652",
-        "idea_version_started_at": "2026-10-28T02:32:22Z",
-        "ticker": "ENSG",
-        "company": "The Ensign Group, Inc.",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company reported strong Q3 2026 results and raised its annual earnings guidance, indicating better-than-expected demand and margin expansion in its healthcare services.",
-        "why_now": "The earnings release and guidance update were published on October 27, 2026.",
-        "conviction": 80,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 66,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-3b1ca4a0b5d9"
-        ],
-        "primary_source_event_id": "EVT-3b1ca4a0b5d9",
-        "source_headlines": [
-          "The Ensign Group, Inc. Reports Third Quarter 2026 Results and Raises 2026 Annual Earnings Guidance"
-        ],
-        "source_headline": "The Ensign Group, Inc. Reports Third Quarter 2026 Results and Raises 2026 Annual Earnings Guidance",
-        "source_url": "https://www.nasdaq.com/articles/ensign-group-inc-reports-third-quarter-2026-results-and-raises-2026-annual-earnings",
-        "source_name": "Nasdaq",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-27T22:14:21Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-28T02:32:22Z",
-        "updated_at": "2026-10-28T02:32:22Z",
-        "decay_at": "2026-10-29T10:14:21Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-30T22:42:19Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-85129948d8af",
         "idea_version": "IDEAV-63cd6e976e3b57ff",
         "idea_version_started_at": "2026-10-27T16:21:10Z",
@@ -276071,7 +276074,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2394,
-    "live_count": 38,
+    "live_count": 37,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -276090,9 +276093,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7766111,
-    "news_picked_today": 1342,
-    "news_dropped_today": 19706
+    "news_seen_today": 7802309,
+    "news_picked_today": 1384,
+    "news_dropped_today": 21080
   },
   "book_momentum": {
     "live_count": 8,
