@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-11T14:13:21Z",
+  "generated_at": "2026-11-11T14:25:32Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261111-360",
+      "headline": "E-STATION GTECH (08475): (1) DECISION OF THE GEM LISTING REVIEW COMMITTEE; (2) CANCELLATION OF LISTING; AND (3) CONTINUED SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1111/2026111101385.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-11T14:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "The company faces cancellation of its listing and continued suspension of trading.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company faces cancellation of its listing and continued suspension of trading.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "E-STATION GTECH",
+          "ticker": "08475",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261111-327",
       "headline": "YEEBO (INT'L H) (00259): POSITIVE PROFIT ALERT",
@@ -1932,60 +1981,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-172",
-      "headline": "Cathay Pacific to buy 11 Airbus aircraft for US$5.1 bn",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/transportation/airlines-/-aviation/cathay-pacific-to-buy-11-airbus-aircraft-for-us5-1-bn/articleshow/135728055.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T06:32:21Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "Cathay Pacific is purchasing 11 Airbus aircraft for US$5.1 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Cathay Pacific is purchasing 11 Airbus aircraft for US$5.1 billion.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cathay Pacific",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Airbus",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -276035,9 +276030,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6643508,
-    "news_picked_today": 718,
-    "news_dropped_today": 15074
+    "news_seen_today": 6756810,
+    "news_picked_today": 725,
+    "news_dropped_today": 15187
   },
   "book_momentum": {
     "live_count": 8,
