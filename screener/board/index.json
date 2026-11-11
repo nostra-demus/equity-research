@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T01:32:46Z",
+  "generated_at": "2026-11-11T01:35:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20261111-080",
@@ -591,6 +591,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-088",
+      "headline": "AKN: Updated Halls Creek Scoping Study [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AKN?key=2924-03160325-2A1709927",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-10T21:46:16Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Updated scoping study for the Halls Creek project indicates potential development progress for AKN.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Updated scoping study for the Halls Creek project indicates potential development progress for AKN.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 3,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AKN",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1909,55 +1958,6 @@
       "companies": [
         {
           "name": "Finwise Bancorp",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-025",
-      "headline": "10-Q - NextCure, Inc. (0001661059) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1661059/000110465926125220/0001104659-26-125220-index.htm",
-      "source_name": "SEC EDGAR — Latest 10-Q (Quarterly Report)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-10T21:25:38Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "NextCure, Inc. filed its quarterly 10-Q report, providing updated financial disclosures.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 72,
-      "triage_reason": "NextCure, Inc. filed its quarterly 10-Q report, providing updated financial disclosures.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NextCure, Inc.",
           "ticker": null,
           "listing_country": "US"
         }
@@ -277406,9 +277406,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 964769,
-    "news_picked_today": 87,
-    "news_dropped_today": 729
+    "news_seen_today": 987109,
+    "news_picked_today": 91,
+    "news_dropped_today": 749
   },
   "book_momentum": {
     "live_count": 8,
