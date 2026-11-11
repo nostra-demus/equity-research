@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T00:23:45Z",
+  "generated_at": "2026-11-11T00:26:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20261111-032",
@@ -497,6 +497,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-041",
+      "headline": "GQG: FUM as at 31 October 2026 [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GQG?key=2924-03160479-2A1709989",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-11T00:02:11Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "GQG Partners reported monthly funds under management, a key performance metric for asset managers.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 80,
+      "triage_reason": "GQG Partners reported monthly funds under management, a key performance metric for asset managers.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GQG Partners",
+          "ticker": "GQG",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1133,6 +1182,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261111-042",
+      "headline": "DCO: DCOR Estimated Distribution October 2026 [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.DCO?key=2924-03160478-2A1709988",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-10T23:59:41Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "DCO announced an estimated distribution for October 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 69,
+      "triage_reason": "DCO announced an estimated distribution for October 2026.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DCO",
+          "ticker": "DCO",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261111-004",
       "headline": "10-Q - Datacentrex, Inc. (0001853825) (Filer)",
       "headline_en": null,
@@ -1294,55 +1392,6 @@
       "launched_signal_id": null,
       "triage_score": 68,
       "triage_reason": "AtlasClear Holdings is facing a NYSE American trading suspension and delisting proceedings, which is a severe threat to liquidity and status.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AtlasClear Holdings",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-014",
-      "headline": "AtlasClear Holdings Responds to NYSE American Trading Suspension and Delisting Proceedings; Intends to Appeal | ATCH Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/ATCH/atlas-clear-holdings-responds-to-nyse-american-trading-suspension-u8bl4jg1zcvi.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-11-10T23:58:00Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "AtlasClear Holdings is facing a NYSE American trading suspension and delisting proceedings.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "AtlasClear Holdings is facing a NYSE American trading suspension and delisting proceedings.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 80,
@@ -1867,55 +1916,6 @@
       "headline_en": null,
       "url": "https://www.prnewswire.com/news-releases/greenberg-traurig-advises-tnl-mediagene-in-management-buyout-equity-transaction-302935657.html",
       "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-11-10T23:50:00Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "TNL Mediagene completed a management buyout and equity transaction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 53,
-      "triage_reason": "TNL Mediagene completed a management buyout and equity transaction.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TNL Mediagene",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-015",
-      "headline": "Greenberg Traurig Advises TNL Mediagene in Management Buyout, Equity Transaction | TNMG Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/TNMG/greenberg-traurig-advises-tnl-mediagene-in-management-buyout-equity-8pidgok0emc2.html",
-      "source_name": "Stock Titan — Latest News",
       "input_nature": "company_press_release",
       "found_at": "2026-11-10T23:50:00Z",
       "sweep_file": "screener/inbox/2026-11-11_sweep.json",
@@ -277476,9 +277476,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 202409,
-    "news_picked_today": 40,
-    "news_dropped_today": 200
+    "news_seen_today": 247361,
+    "news_picked_today": 42,
+    "news_dropped_today": 222
   },
   "book_momentum": {
     "live_count": 8,
