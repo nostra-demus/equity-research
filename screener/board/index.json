@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T01:22:50Z",
+  "generated_at": "2026-11-11T01:28:33Z",
   "inbox": [
     {
       "inbox_id": "INB-20261111-080",
@@ -542,6 +542,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-082",
+      "headline": "ADH: Trading Update [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ADH?key=2924-03160332-3A706256",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-10T21:49:46Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Company issued a price-sensitive trading update which may impact market expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Company issued a price-sensitive trading update which may impact market expectations.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ADH",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1869,69 +1918,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261111-028",
-      "headline": "SCHEDULE 13G/A - PAR PACIFIC HOLDINGS, INC. (0000821483) (Subject)",
+      "inbox_id": "INB-20261111-081",
+      "headline": "HMY: Director Neil Roberts - Leave of absence",
       "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/821483/000091420826000444/0000914208-26-000444-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-10T21:59:36Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "Par Pacific Holdings filed an amended 13G, indicating a change in significant shareholding positions.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 70,
-      "triage_reason": "Par Pacific Holdings filed an amended 13G, indicating a change in significant shareholding positions.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Par Pacific Holdings, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-042",
-      "headline": "DCO: DCOR Estimated Distribution October 2026 [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.DCO?key=2924-03160478-2A1709988",
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.HMY?key=2924-03160335-2A1709931",
       "source_name": "ASX (Australia Exchange Filing)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-11-10T23:59:41Z",
+      "found_at": "2026-11-10T21:51:11Z",
       "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "DCO announced an estimated distribution for October 2026.",
+      "prelim_note": "Director Neil Roberts is taking a leave of absence from HMY.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "DCO announced an estimated distribution for October 2026.",
+      "triage_score": 71,
+      "triage_reason": "Director Neil Roberts is taking a leave of absence from HMY.",
       "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 50,
@@ -1939,26 +1939,26 @@
         "materiality": 50,
         "source_tier": 8,
         "scope": 6,
-        "event": 0,
+        "event": 4,
         "size": 0,
-        "recency": 5,
+        "recency": 3,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
-        "event_id": null,
+        "event_id": "management",
         "size_bucket": "unknown"
       },
       "event_types": [
-        "capital_actions"
+        "management"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "DCO",
-          "ticker": "DCO",
-          "listing_country": null
+          "name": "HMY",
+          "ticker": null,
+          "listing_country": "AU"
         }
       ],
       "size_bucket": "unknown",
@@ -277405,9 +277405,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 808224,
-    "news_picked_today": 82,
-    "news_dropped_today": 638
+    "news_seen_today": 897653,
+    "news_picked_today": 84,
+    "news_dropped_today": 684
   },
   "book_momentum": {
     "live_count": 8,
