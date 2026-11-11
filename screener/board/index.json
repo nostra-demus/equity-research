@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T05:20:48Z",
+  "generated_at": "2026-11-11T05:24:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20261111-142",
@@ -925,6 +925,104 @@
       "companies": [
         {
           "name": "Corteva, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-149",
+      "headline": "425 - Marvell Technology, Inc. (0001835632) (Filed by)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1835632/000119312526455400/0001193125-26-455400-index.htm",
+      "source_name": "SEC EDGAR — Latest 425 (M&A Business-Combination Communications)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-10T21:03:05Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Marvell Technology filed communications related to a business combination.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Marvell Technology filed communications related to a business combination.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Marvell Technology, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-150",
+      "headline": "425 - Lumentum Holdings Inc. (0001633978) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1633978/000119312526455400/0001193125-26-455400-index.htm",
+      "source_name": "SEC EDGAR — Latest 425 (M&A Business-Combination Communications)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-10T21:03:05Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Lumentum Holdings is the subject of business combination communications.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Lumentum Holdings is the subject of business combination communications.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lumentum Holdings Inc.",
           "ticker": null,
           "listing_country": "US"
         }
@@ -1861,104 +1959,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-043",
-      "headline": "WIN: Radio Gold - Mine Development and Closure Plan Approved [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WIN?key=2924-03160484-6A1354550",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-11T00:14:26Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "Winchester Gold received approval for its mine development and closure plan, a key operational milestone for project advancement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Winchester Gold received approval for its mine development and closure plan, a key operational milestone for project advancement.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Winchester Gold",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-132",
-      "headline": "FDA Approves Pimjetmi (pimicotinib) for Patients with Tenosynovial Giant Cell Tumor",
-      "headline_en": null,
-      "url": "https://www.drugs.com/newdrugs/fda-approves-pimjetmi-pimicotinib-patients-tenosynovial-giant-cell-tumor-6931.html",
-      "source_name": "Drugs.com — New Drug Approvals",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-10T21:11:35Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "FDA approval of Pimjetmi (pimicotinib) provides a new revenue stream for the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "FDA approval of Pimjetmi (pimicotinib) provides a new revenue stream for the company.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Abbisko Therapeutics",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -276744,9 +276744,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3573719,
-    "news_picked_today": 249,
-    "news_dropped_today": 2487
+    "news_seen_today": 3596375,
+    "news_picked_today": 253,
+    "news_dropped_today": 2507
   },
   "book_momentum": {
     "live_count": 8,
