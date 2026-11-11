@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T01:58:32Z",
+  "generated_at": "2026-11-11T02:04:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261111-080",
@@ -1088,6 +1088,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261111-093",
+      "headline": "LGM: New Thomson Royalty Arrangement and JV Option with Red Hill [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LGM?key=2924-03160315-2A1709922",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-10T21:36:56Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Legacy Minerals announced a new royalty arrangement and joint venture option for the Thomson project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Legacy Minerals announced a new royalty arrangement and joint venture option for the Thomson project.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Legacy Minerals",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261111-011",
       "headline": "OTPBANK N3612 OTPBANK N3109 OTPBANK N2908-R (40506 40739 85157): Summary of the first nine months 2026 results",
       "headline_en": null,
@@ -1669,6 +1718,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261111-092",
+      "headline": "424B5 - QUALCOMM INC/DE (0000804328) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/804328/000110465926125254/0001104659-26-125254-index.htm",
+      "source_name": "SEC EDGAR — Latest 424B5 (Shelf Offering Final Prospectus)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-10T21:35:07Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Qualcomm filed a shelf registration statement for potential future debt or equity offerings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 76,
+      "triage_reason": "Qualcomm filed a shelf registration statement for potential future debt or equity offerings.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "QUALCOMM INC",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261111-071",
       "headline": "SCHEDULE 13D/A - Saba Capital Management, L.P. (0001510281) (Filed by)",
       "headline_en": null,
@@ -1857,104 +1955,6 @@
           "name": "AERIS ENVIRONMENTAL LTD",
           "ticker": "AEI",
           "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-022",
-      "headline": "10-Q - Strategic Storage Trust VI, Inc. (0001852575) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1852575/000119312526455562/0001193125-26-455562-index.htm",
-      "source_name": "SEC EDGAR — Latest 10-Q (Quarterly Report)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-10T21:29:32Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "Strategic Storage Trust VI filed its quarterly 10-Q report, providing updated financial disclosures.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 73,
-      "triage_reason": "Strategic Storage Trust VI filed its quarterly 10-Q report, providing updated financial disclosures.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Strategic Storage Trust VI, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-009",
-      "headline": "PINESTONE (00804): RESIGNATION OF CO-CHAIRMAN AND NON-EXECUTIVE DIRECTOR",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1111/2026111100041.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-11T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "The resignation of a co-chairman and non-executive director is a notable change in board composition.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 72,
-      "triage_reason": "The resignation of a co-chairman and non-executive director is a notable change in board composition.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Pinestone Capital",
-          "ticker": "00804",
-          "listing_country": "CN"
         }
       ],
       "size_bucket": "small",
@@ -234314,77 +234314,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-a93036eeaeb1",
-      "idea_version": "IDEAV-9b68358b5b3232f4",
-      "idea_version_started_at": "2026-11-09T18:48:10Z",
-      "ticker": "02885",
-      "company": "Peiport Holdings Ltd",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Peiport Holdings is subject to a possible unconditional mandatory cash offer, which typically provides a premium to the current market price for shareholders.",
-      "why_now": "The joint announcement of the sale and purchase agreement and the possible cash offer was made today, November 9, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5282eea3d3e7"
-      ],
-      "primary_source_event_id": "EVT-5282eea3d3e7",
-      "source_headlines": [
-        "PEIPORT HOLD (02885): JOINT ANNOUNCEMENT - (1) SALE AND PURCHASE AGREEMENT BETWEEN THE OFFEROR AND THE VENDOR; (2) POSSIBLE UNCONDITIONAL MANDATORY CASH OFFER BY SHENWAN HONGYUAN CAPITAL (H.K.) LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR, ITS BENEFICIAL OWNERS AND PARTIES ACTING IN CONCERT WITH ANY OF THEM); (3) APPOINTMENT OF INDEPENDENT FINANCIAL ADVISER;"
-      ],
-      "source_headline": "PEIPORT HOLD (02885): JOINT ANNOUNCEMENT - (1) SALE AND PURCHASE AGREEMENT BETWEEN THE OFFEROR AND THE VENDOR; (2) POSSIBLE UNCONDITIONAL MANDATORY CASH OFFER BY SHENWAN HONGYUAN CAPITAL (H.K.) LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR, ITS BENEFICIAL OWNERS AND PARTIES ACTING IN CONCERT WITH ANY OF THEM); (3) APPOINTMENT OF INDEPENDENT FINANCIAL ADVISER;",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1109/2026110901215.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-09T13:59:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-09T18:48:10Z",
-      "updated_at": "2026-11-09T18:48:10Z",
-      "decay_at": "2026-11-11T01:59:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-67edac5436ac",
       "idea_version": "IDEAV-6e845f14ba205c1f",
       "idea_version_started_at": "2026-11-09T18:28:29Z",
@@ -236074,6 +236003,77 @@
       "surfaced_at": "2026-11-10T10:55:57Z",
       "updated_at": "2026-11-10T10:55:57Z",
       "decay_at": "2026-11-11T00:57:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-a93036eeaeb1",
+      "idea_version": "IDEAV-9b68358b5b3232f4",
+      "idea_version_started_at": "2026-11-09T18:48:10Z",
+      "ticker": "02885",
+      "company": "Peiport Holdings Ltd",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Peiport Holdings is subject to a possible unconditional mandatory cash offer, which typically provides a premium to the current market price for shareholders.",
+      "why_now": "The joint announcement of the sale and purchase agreement and the possible cash offer was made today, November 9, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5282eea3d3e7"
+      ],
+      "primary_source_event_id": "EVT-5282eea3d3e7",
+      "source_headlines": [
+        "PEIPORT HOLD (02885): JOINT ANNOUNCEMENT - (1) SALE AND PURCHASE AGREEMENT BETWEEN THE OFFEROR AND THE VENDOR; (2) POSSIBLE UNCONDITIONAL MANDATORY CASH OFFER BY SHENWAN HONGYUAN CAPITAL (H.K.) LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR, ITS BENEFICIAL OWNERS AND PARTIES ACTING IN CONCERT WITH ANY OF THEM); (3) APPOINTMENT OF INDEPENDENT FINANCIAL ADVISER;"
+      ],
+      "source_headline": "PEIPORT HOLD (02885): JOINT ANNOUNCEMENT - (1) SALE AND PURCHASE AGREEMENT BETWEEN THE OFFEROR AND THE VENDOR; (2) POSSIBLE UNCONDITIONAL MANDATORY CASH OFFER BY SHENWAN HONGYUAN CAPITAL (H.K.) LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR, ITS BENEFICIAL OWNERS AND PARTIES ACTING IN CONCERT WITH ANY OF THEM); (3) APPOINTMENT OF INDEPENDENT FINANCIAL ADVISER;",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1109/2026110901215.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-09T13:59:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-09T18:48:10Z",
+      "updated_at": "2026-11-09T18:48:10Z",
+      "decay_at": "2026-11-11T01:59:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -240194,14 +240194,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 572,
+    "total_count": 573,
     "shown_count": 499,
-    "hidden_count": 73,
+    "hidden_count": 74,
     "side_counts": {
       "long": {
-        "total_count": 296,
+        "total_count": 297,
         "shown_count": 250,
-        "hidden_count": 46
+        "hidden_count": 47
       },
       "short": {
         "total_count": 277,
@@ -240225,6 +240225,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-a93036eeaeb1",
+        "idea_version": "IDEAV-9b68358b5b3232f4",
+        "idea_version_started_at": "2026-11-09T18:48:10Z",
+        "ticker": "02885",
+        "company": "Peiport Holdings Ltd",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Peiport Holdings is subject to a possible unconditional mandatory cash offer, which typically provides a premium to the current market price for shareholders.",
+        "why_now": "The joint announcement of the sale and purchase agreement and the possible cash offer was made today, November 9, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-5282eea3d3e7"
+        ],
+        "primary_source_event_id": "EVT-5282eea3d3e7",
+        "source_headlines": [
+          "PEIPORT HOLD (02885): JOINT ANNOUNCEMENT - (1) SALE AND PURCHASE AGREEMENT BETWEEN THE OFFEROR AND THE VENDOR; (2) POSSIBLE UNCONDITIONAL MANDATORY CASH OFFER BY SHENWAN HONGYUAN CAPITAL (H.K.) LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR, ITS BENEFICIAL OWNERS AND PARTIES ACTING IN CONCERT WITH ANY OF THEM); (3) APPOINTMENT OF INDEPENDENT FINANCIAL ADVISER;"
+        ],
+        "source_headline": "PEIPORT HOLD (02885): JOINT ANNOUNCEMENT - (1) SALE AND PURCHASE AGREEMENT BETWEEN THE OFFEROR AND THE VENDOR; (2) POSSIBLE UNCONDITIONAL MANDATORY CASH OFFER BY SHENWAN HONGYUAN CAPITAL (H.K.) LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR, ITS BENEFICIAL OWNERS AND PARTIES ACTING IN CONCERT WITH ANY OF THEM); (3) APPOINTMENT OF INDEPENDENT FINANCIAL ADVISER;",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1109/2026110901215.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-09T13:59:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-09T18:48:10Z",
+        "updated_at": "2026-11-09T18:48:10Z",
+        "decay_at": "2026-11-11T01:59:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-11T01:59:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-75faeacb3b26",
         "idea_version": "IDEAV-3425d52bca5cbb71",
@@ -269253,80 +269327,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-8239e24e9708",
-        "idea_version": "IDEAV-e9b499f4916f6f14",
-        "idea_version_started_at": "2026-10-26T17:25:34Z",
-        "ticker": "SGRY",
-        "company": "Surgery Partners",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company has entered into a definitive merger agreement to be acquired at $23.50 per share.",
-        "why_now": "The merger agreement was announced on October 26, 2026.",
-        "conviction": 90,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 60,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-44ba16c0384f"
-        ],
-        "primary_source_event_id": "EVT-44ba16c0384f",
-        "source_headlines": [
-          "Surgery Partners, Inc. Enters into Merger Agreement with Spyglass Topco, LLC at $23.50 Per Share"
-        ],
-        "source_headline": "Surgery Partners, Inc. Enters into Merger Agreement with Spyglass Topco, LLC at $23.50 Per Share",
-        "source_url": "https://www.nasdaq.com/articles/surgery-partners-inc-enters-merger-agreement-spyglass-topco-llc-2350-share",
-        "source_name": "Nasdaq",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-26T15:58:52Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-26T17:25:34Z",
-        "updated_at": "2026-10-26T17:25:34Z",
-        "decay_at": "2026-10-28T03:58:52Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-29T16:12:55Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-dba8408df9af",
         "idea_version": "IDEAV-8fb529b4ea87788f",
         "idea_version_started_at": "2026-10-26T17:25:34Z",
@@ -277379,7 +277379,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2375,
-    "live_count": 47,
+    "live_count": 46,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -277398,9 +277398,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1232446,
-    "news_picked_today": 97,
-    "news_dropped_today": 911
+    "news_seen_today": 1254810,
+    "news_picked_today": 103,
+    "news_dropped_today": 1001
   },
   "book_momentum": {
     "live_count": 8,
