@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T01:08:00Z",
+  "generated_at": "2026-11-11T01:13:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20261111-074",
@@ -688,6 +688,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-078",
+      "headline": "AR9: archTIS Secures A$217k U.S. Defence Technology Contract",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AR9?key=2924-03160340-6A1354504",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-10T21:56:36Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "archTIS secured a defense technology contract worth A$217k.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "archTIS secured a defense technology contract worth A$217k.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 3,
+        "materiality_label_floor": 25,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "archTIS",
+          "ticker": "AR9",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1907,55 +1956,6 @@
       "companies": [
         {
           "name": "ClearOne Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-006",
-      "headline": "10-Q - CAPSTONE COMPANIES, INC. (0000814926) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/814926/000149315226050989/0001493152-26-050989-index.htm",
-      "source_name": "SEC EDGAR — Latest 10-Q (Quarterly Report)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-10T21:30:53Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "Routine quarterly filing for Capstone Companies, Inc.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "Routine quarterly filing for Capstone Companies, Inc.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Capstone Companies, Inc.",
           "ticker": null,
           "listing_country": "US"
         }
@@ -232052,76 +232052,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-49dc08133904",
-      "idea_version": "IDEAV-d6be874b042d60df",
-      "idea_version_started_at": "2026-11-09T17:16:12Z",
-      "ticker": "ARGX",
-      "company": "argenx SE",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of Unnatural Products, Inc. for $1.15 billion expands argenx's pipeline and R&D capabilities in a high-value therapeutic space.",
-      "why_now": "The acquisition agreement was announced today, November 9, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6bb7a15aefbb"
-      ],
-      "primary_source_event_id": "EVT-6bb7a15aefbb",
-      "source_headlines": [
-        "argenx SE Announces Agreement to Acquire Unnatural Products, Inc. for Up to Approximately $1.15 billion"
-      ],
-      "source_headline": "argenx SE Announces Agreement to Acquire Unnatural Products, Inc. for Up to Approximately $1.15 billion",
-      "source_url": "https://www.nasdaq.com/articles/argenx-se-announces-agreement-acquire-unnatural-products-inc-approximately-115-billion",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-09T13:12:37Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-09T12:48:09Z",
-      "updated_at": "2026-11-09T17:16:12Z",
-      "decay_at": "2026-11-11T01:12:37Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-ce779af9c495",
       "idea_version": "IDEAV-806d29b8c59755ca",
       "idea_version_started_at": "2026-11-10T20:08:49Z",
@@ -235235,6 +235165,76 @@
       "surfaced_at": "2026-11-09T10:01:10Z",
       "updated_at": "2026-11-09T10:01:10Z",
       "decay_at": "2026-11-10T17:30:35Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-49dc08133904",
+      "idea_version": "IDEAV-d6be874b042d60df",
+      "idea_version_started_at": "2026-11-09T17:16:12Z",
+      "ticker": "ARGX",
+      "company": "argenx SE",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The acquisition of Unnatural Products, Inc. for $1.15 billion expands argenx's pipeline and R&D capabilities in a high-value therapeutic space.",
+      "why_now": "The acquisition agreement was announced today, November 9, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6bb7a15aefbb"
+      ],
+      "primary_source_event_id": "EVT-6bb7a15aefbb",
+      "source_headlines": [
+        "argenx SE Announces Agreement to Acquire Unnatural Products, Inc. for Up to Approximately $1.15 billion"
+      ],
+      "source_headline": "argenx SE Announces Agreement to Acquire Unnatural Products, Inc. for Up to Approximately $1.15 billion",
+      "source_url": "https://www.nasdaq.com/articles/argenx-se-announces-agreement-acquire-unnatural-products-inc-approximately-115-billion",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-09T13:12:37Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-09T12:48:09Z",
+      "updated_at": "2026-11-09T17:16:12Z",
+      "decay_at": "2026-11-11T01:12:37Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -240274,14 +240274,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 572,
+    "total_count": 573,
     "shown_count": 499,
-    "hidden_count": 73,
+    "hidden_count": 74,
     "side_counts": {
       "long": {
-        "total_count": 294,
+        "total_count": 295,
         "shown_count": 250,
-        "hidden_count": 44
+        "hidden_count": 45
       },
       "short": {
         "total_count": 279,
@@ -240305,6 +240305,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-49dc08133904",
+        "idea_version": "IDEAV-d6be874b042d60df",
+        "idea_version_started_at": "2026-11-09T17:16:12Z",
+        "ticker": "ARGX",
+        "company": "argenx SE",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The acquisition of Unnatural Products, Inc. for $1.15 billion expands argenx's pipeline and R&D capabilities in a high-value therapeutic space.",
+        "why_now": "The acquisition agreement was announced today, November 9, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 67,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-6bb7a15aefbb"
+        ],
+        "primary_source_event_id": "EVT-6bb7a15aefbb",
+        "source_headlines": [
+          "argenx SE Announces Agreement to Acquire Unnatural Products, Inc. for Up to Approximately $1.15 billion"
+        ],
+        "source_headline": "argenx SE Announces Agreement to Acquire Unnatural Products, Inc. for Up to Approximately $1.15 billion",
+        "source_url": "https://www.nasdaq.com/articles/argenx-se-announces-agreement-acquire-unnatural-products-inc-approximately-115-billion",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-09T13:12:37Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-09T12:48:09Z",
+        "updated_at": "2026-11-09T17:16:12Z",
+        "decay_at": "2026-11-11T01:12:37Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-11T01:12:37Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-9219a32f6160",
         "idea_version": "IDEAV-a5479e17b5b2b324",
@@ -269410,80 +269483,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-fa21270b499e",
-        "idea_version": "IDEAV-d7616b75b50bf538",
-        "idea_version_started_at": "2026-10-26T21:48:47Z",
-        "ticker": "NAZARA",
-        "company": "Nazara Technologies Limited",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company reported strong Q2FY27 results with revenue growth of 53% and EBITDA growth of 93%, indicating significant operational leverage.",
-        "why_now": "The earnings were released on October 26, 2026, providing a fresh catalyst for valuation re-rating.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-1ff9d4a8e4b8"
-        ],
-        "primary_source_event_id": "EVT-1ff9d4a8e4b8",
-        "source_headlines": [
-          "Nazara Technologies Limited: Nazara Technologies Limited informs the Exchange regarding a press release dated October 26, 2026, titled Nazara reports record Q2FY27: revenue up 53% to INR 803 crore, EBITDA up 93% to INR 120 crore."
-        ],
-        "source_headline": "Nazara Technologies Limited: Nazara Technologies Limited informs the Exchange regarding a press release dated October 26, 2026, titled Nazara reports record Q2FY27: revenue up 53% to INR 803 crore, EBITDA up 93% to INR 120 crore.",
-        "source_url": "https://nsearchives.nseindia.com/corporate/NAZARA_26102026193838_PRIntimationF.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-26T14:09:10Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-26T21:48:47Z",
-        "updated_at": "2026-10-26T21:48:47Z",
-        "decay_at": "2026-10-28T02:09:10Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-29T16:12:55Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-f37da333a82f",
         "idea_version": "IDEAV-5fbb982d0893e35d",
         "idea_version_started_at": "2026-10-26T13:58:56Z",
@@ -277463,7 +277462,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2374,
-    "live_count": 48,
+    "live_count": 47,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -277482,9 +277481,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 696297,
-    "news_picked_today": 78,
-    "news_dropped_today": 546
+    "news_seen_today": 741066,
+    "news_picked_today": 80,
+    "news_dropped_today": 592
   },
   "book_momentum": {
     "live_count": 8,
