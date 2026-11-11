@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T01:42:56Z",
+  "generated_at": "2026-11-11T01:55:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20261111-080",
@@ -547,6 +547,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261111-089",
+      "headline": "Macquarie Bank to pay $14m penalty after confusing ‘welcome rate’ promotion",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/australia-news/2026/nov/11/macquarie-bank-14m-penalty-welcome-rate-savings-account",
+      "source_name": "The Guardian — World news",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T01:23:39Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Macquarie Bank faces a $14 million penalty for misleading promotional rates.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Macquarie Bank faces a $14 million penalty for misleading promotional rates.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Macquarie Bank",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261111-082",
       "headline": "ADH: Trading Update [price-sensitive]",
       "headline_en": null,
@@ -891,6 +940,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261111-090",
+      "headline": "Nvidia faces scrutiny over China chip ties, CEO affair",
+      "headline_en": null,
+      "url": "https://www.koreaherald.com/article/10933361",
+      "source_name": "The Korea Herald — All News",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T01:44:24Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Nvidia faces increased regulatory scrutiny regarding China operations and management conduct.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Nvidia faces increased regulatory scrutiny regarding China operations and management conduct.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261111-016",
       "headline": "Scoop: Commerce Department received national security warning on Nvidia CEO affair",
       "headline_en": null,
@@ -1136,6 +1235,49 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-091",
+      "headline": "US Federal Reserve officials open door to a quicker round of rate hikes as inflation worsens",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/economy/us-federal-reserve-officials-open-door-to-a-quicker-round-of-rate-hikes-as-inflation-worsens-20031086.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T01:49:35Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Fed officials signaling potential for faster rate hikes due to worsening inflation impacts broader market valuations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "Fed officials signaling potential for faster rate hikes due to worsening inflation impacts broader market valuations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1813,153 +1955,6 @@
           "name": "Pinestone Capital",
           "ticker": "00804",
           "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-019",
-      "headline": "10-Q - BEYOND MEAT, INC. (0001655210) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1655210/000165521026000079/0001655210-26-000079-index.htm",
-      "source_name": "SEC EDGAR — Latest 10-Q (Quarterly Report)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-10T21:30:28Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "Beyond Meat filed its quarterly 10-Q report, providing updated financial disclosures.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 72,
-      "triage_reason": "Beyond Meat filed its quarterly 10-Q report, providing updated financial disclosures.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Beyond Meat, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-020",
-      "headline": "10-Q - Seer, Inc. (0001726445) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1726445/000119312526455566/0001193125-26-455566-index.htm",
-      "source_name": "SEC EDGAR — Latest 10-Q (Quarterly Report)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-10T21:29:44Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "Seer, Inc. filed its quarterly 10-Q report, providing updated financial disclosures.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 72,
-      "triage_reason": "Seer, Inc. filed its quarterly 10-Q report, providing updated financial disclosures.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Seer, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-023",
-      "headline": "10-Q - Finwise Bancorp (0001856365) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1856365/000185636526000115/0001856365-26-000115-index.htm",
-      "source_name": "SEC EDGAR — Latest 10-Q (Quarterly Report)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-10T21:27:42Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "Finwise Bancorp filed its quarterly 10-Q report, providing updated financial disclosures.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 72,
-      "triage_reason": "Finwise Bancorp filed its quarterly 10-Q report, providing updated financial disclosures.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Finwise Bancorp",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "small",
@@ -232753,76 +232748,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-75faeacb3b26",
-      "idea_version": "IDEAV-3425d52bca5cbb71",
-      "idea_version_started_at": "2026-11-09T17:16:12Z",
-      "ticker": "TLRY",
-      "company": "Tilray",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Tilray has raised its annual guidance, suggesting better-than-expected operational momentum in its core segments.",
-      "why_now": "The guidance revision was announced today, November 9, 2026.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f8c19103ab47"
-      ],
-      "primary_source_event_id": "EVT-f8c19103ab47",
-      "source_headlines": [
-        "Tilray Raises Its Guidance for the Year. Is the Stock Finally Headed on the Right Track?"
-      ],
-      "source_headline": "Tilray Raises Its Guidance for the Year. Is the Stock Finally Headed on the Right Track?",
-      "source_url": "https://www.nasdaq.com/articles/tilray-raises-its-guidance-year-stock-finally-headed-right-track",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-09T13:46:02Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-09T17:16:12Z",
-      "updated_at": "2026-11-09T17:16:12Z",
-      "decay_at": "2026-11-11T01:46:02Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-f69a276b003b",
       "idea_version": "IDEAV-847c049549bca2de",
       "idea_version_started_at": "2026-11-10T03:26:43Z",
@@ -235446,6 +235371,76 @@
       "surfaced_at": "2026-11-08T16:29:22Z",
       "updated_at": "2026-11-08T16:29:22Z",
       "decay_at": "2026-11-09T18:10:20Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-75faeacb3b26",
+      "idea_version": "IDEAV-3425d52bca5cbb71",
+      "idea_version_started_at": "2026-11-09T17:16:12Z",
+      "ticker": "TLRY",
+      "company": "Tilray",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Tilray has raised its annual guidance, suggesting better-than-expected operational momentum in its core segments.",
+      "why_now": "The guidance revision was announced today, November 9, 2026.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f8c19103ab47"
+      ],
+      "primary_source_event_id": "EVT-f8c19103ab47",
+      "source_headlines": [
+        "Tilray Raises Its Guidance for the Year. Is the Stock Finally Headed on the Right Track?"
+      ],
+      "source_headline": "Tilray Raises Its Guidance for the Year. Is the Stock Finally Headed on the Right Track?",
+      "source_url": "https://www.nasdaq.com/articles/tilray-raises-its-guidance-year-stock-finally-headed-right-track",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-09T13:46:02Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-09T17:16:12Z",
+      "updated_at": "2026-11-09T17:16:12Z",
+      "decay_at": "2026-11-11T01:46:02Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -240199,14 +240194,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 571,
+    "total_count": 572,
     "shown_count": 499,
-    "hidden_count": 72,
+    "hidden_count": 73,
     "side_counts": {
       "long": {
-        "total_count": 295,
+        "total_count": 296,
         "shown_count": 250,
-        "hidden_count": 45
+        "hidden_count": 46
       },
       "short": {
         "total_count": 277,
@@ -240230,6 +240225,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-75faeacb3b26",
+        "idea_version": "IDEAV-3425d52bca5cbb71",
+        "idea_version_started_at": "2026-11-09T17:16:12Z",
+        "ticker": "TLRY",
+        "company": "Tilray",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Tilray has raised its annual guidance, suggesting better-than-expected operational momentum in its core segments.",
+        "why_now": "The guidance revision was announced today, November 9, 2026.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 65,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-f8c19103ab47"
+        ],
+        "primary_source_event_id": "EVT-f8c19103ab47",
+        "source_headlines": [
+          "Tilray Raises Its Guidance for the Year. Is the Stock Finally Headed on the Right Track?"
+        ],
+        "source_headline": "Tilray Raises Its Guidance for the Year. Is the Stock Finally Headed on the Right Track?",
+        "source_url": "https://www.nasdaq.com/articles/tilray-raises-its-guidance-year-stock-finally-headed-right-track",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-09T13:46:02Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-09T17:16:12Z",
+        "updated_at": "2026-11-09T17:16:12Z",
+        "decay_at": "2026-11-11T01:46:02Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-11T01:46:02Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-49dc08133904",
         "idea_version": "IDEAV-d6be874b042d60df",
@@ -269259,82 +269327,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-a78031ede4db",
-        "idea_version": "IDEAV-feb8ddb5e9a5b3cd",
-        "idea_version_started_at": "2026-10-26T17:25:34Z",
-        "ticker": "HLF",
-        "company": "High Liner Foods",
-        "exchange": "TSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company is being acquired by Japanese seafood firm Umios in a deal valued at over $800 million.",
-        "why_now": "The acquisition announcement was reported on October 26, 2026.",
-        "conviction": 85,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-bbf980997906"
-        ],
-        "primary_source_event_id": "EVT-bbf980997906",
-        "source_headlines": [
-          "Japanese seafood giant Umios to buy Nova Scotia’s High Liner Foods for more than $800-million"
-        ],
-        "source_headline": "Japanese seafood giant Umios to buy Nova Scotia’s High Liner Foods for more than $800-million",
-        "source_url": "https://www.theglobeandmail.com/business/article-umios-to-buy-high-liner-foods-for-more-than-800-million/",
-        "source_name": "The Globe and Mail",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-26T15:38:32Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-26T13:58:56Z",
-        "updated_at": "2026-10-26T17:25:34Z",
-        "decay_at": "2026-10-28T03:38:32Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-29T16:12:55Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-dba8408df9af",
         "idea_version": "IDEAV-8fb529b4ea87788f",
         "idea_version_started_at": "2026-10-26T17:25:34Z",
@@ -277387,7 +277379,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2375,
-    "live_count": 48,
+    "live_count": 47,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -277406,9 +277398,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1031775,
-    "news_picked_today": 92,
-    "news_dropped_today": 820
+    "news_seen_today": 1187826,
+    "news_picked_today": 95,
+    "news_dropped_today": 865
   },
   "book_momentum": {
     "live_count": 8,
