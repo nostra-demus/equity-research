@@ -15,6 +15,15 @@ ledger_root: screener/ledger
 board_index: screener/board/index.json
 inbox_root: screener/inbox
 schemas_root: frameworks/screener
+publication_schemas:
+  - "run:intake.json=intake.schema.json"
+  - "run:signal_payload.json=signal_payload.schema.json"
+  - "run:candidates.json=candidates.schema.json"
+  - "run:thesis_record.json=thesis_record.schema.json"
+  - "run:thesis_integrity_review.json=thesis_integrity_review.schema.json"
+  - "run:thesis_integrity_review_v*.json=thesis_integrity_review.schema.json"
+  - "ledger:theses/*.json=thesis_record.schema.json"
+  - "ledger:conviction/conviction_state/*.json=conviction.schema.json"
 calibrator: scripts/screener_calibrate.py
 calibration_root: screener/ledger/conviction
 decision_memory: equity_calls

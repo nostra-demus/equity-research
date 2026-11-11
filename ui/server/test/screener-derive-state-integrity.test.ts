@@ -14,15 +14,23 @@
 // Run: npx tsx test/screener-derive-state-integrity.test.ts
 import assert from 'node:assert/strict'
 import fs from 'node:fs'
-import os from 'node:os'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const here = path.dirname(fileURLToPath(import.meta.url))
 const realRepo = path.resolve(here, '..', '..', '..') // ui/server/test -> repo root
-const root = fs.mkdtempSync(path.join(os.tmpdir(), 'sc-derive-'))
+const testOutput = path.join(realRepo, '.cache', 'test-output')
+fs.mkdirSync(testOutput, { recursive: true })
+const root = fs.mkdtempSync(path.join(testOutput, 'sc-derive-'))
 process.env.ENGINE_REPO_ROOT = root
 fs.symlinkSync(path.join(realRepo, '.claude'), path.join(root, '.claude'), 'dir')
+// The real manifest declares a contained schema program. Keep real schema files in the isolated
+// checkout instead of introducing a schema-root symlink or bypassing manifest admission.
+const schemaProgram = path.join(root, 'frameworks', 'screener')
+fs.mkdirSync(schemaProgram, { recursive: true })
+for (const name of fs.readdirSync(path.join(realRepo, 'frameworks', 'screener')).filter((name) => name.endsWith('.schema.json'))) {
+  fs.copyFileSync(path.join(realRepo, 'frameworks', 'screener', name), path.join(schemaProgram, name))
+}
 
 const runsDir = path.join(root, 'screener', 'runs')
 fs.mkdirSync(runsDir, { recursive: true })

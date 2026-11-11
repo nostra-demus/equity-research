@@ -1,0 +1,80 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-11-11T03:13:09Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-be16a3f18c55",
+    "idea_version": "IDEAV-c66b52185cd19788",
+    "idea_version_started_at": "2026-11-08T03:38:35Z",
+    "ticker": "XOM",
+    "company": "Exxon Mobil Corporation",
+    "exchange": "NYSE",
+    "ticker_verified": false,
+    "listing_verified": false,
+    "liquidity_verified": false,
+    "listing_verification_source": null,
+    "direction": "long",
+    "pair_with": null,
+    "reason": "Escalating tensions and reported damage to oil tankers in the Strait of Hormuz will likely lead to higher crude oil prices, benefiting integrated oil and gas companies.",
+    "why_now": "Blasts and reported mine damage to oil tankers in the Strait of Hormuz today signal immediate supply disruption risks.",
+    "conviction": 70,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 45,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 23,
+      "specificity": 7,
+      "timing": 10,
+      "expression": 0,
+      "corroboration": 7,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "watch_only",
+    "missing_checks": [
+      "verified listed ticker",
+      "verified listing",
+      "live liquidity",
+      "dated catalyst",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "commodity_conditional",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-d3b8ac1bddd4",
+      "EVT-0666f08b9c26"
+    ],
+    "primary_source_event_id": "EVT-d3b8ac1bddd4",
+    "source_headlines": [
+      "Gulf On Edge: Blasts Hit Iran's Hormuz Coast, US Disables Cargo Ship As Houthis Target Aramco",
+      "Iran Strait Of Hormuz Tensions Escalate As Explosions Rock Qeshm Island, 2 Oil Tankers Reportedly Damaged By Mines"
+    ],
+    "source_headline": "Gulf On Edge: Blasts Hit Iran's Hormuz Coast, US Disables Cargo Ship As Houthis Target Aramco",
+    "source_url": "https://www.ndtvprofit.com/world/gulf-on-edge-blasts-hit-irans-hormuz-coast-us-disables-cargo-ship-as-houthis-target-aramco-12298879#publisher=newsstand",
+    "source_name": "NDTV Profit",
+    "materiality_max": 100,
+    "newest_source_at": "2026-11-08T02:57:18Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-11-08T03:38:35Z",
+    "updated_at": "2026-11-08T03:38:35Z",
+    "decay_at": "2026-11-09T14:57:18Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}

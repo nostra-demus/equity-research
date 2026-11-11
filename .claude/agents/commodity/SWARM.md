@@ -13,6 +13,8 @@ decision_artifacts:
   - decision_record.json
 board_index: commodity/board/index.json
 schemas_root: frameworks/commodity
+# The dedicated immutable-archive validator owns this swarm's stronger publication contract.
+publication_schemas: []
 review_command: review
 calibrator: scripts/commodity_calibrate.py
 calibration_root: commodity/performance

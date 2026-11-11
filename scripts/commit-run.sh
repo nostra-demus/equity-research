@@ -428,7 +428,7 @@ if ! git -C "$TOP" diff --cached --name-only --diff-filter=ACMRT -z -- >"$PREWRI
   echo "commit-run: cannot enumerate staged publications — nothing was committed or pushed" >&2
   exit 5
 fi
-if ! python3 "$TOP/scripts/decision_publication_gate.py" --select \
+if ! python3 "$TOP/scripts/decision_publication_gate.py" --select --repo "$TOP" \
     <"$PREWRITE_TMP/staged-paths" >"$PREWRITE_TMP/selected-paths"; then
   unstage_own_paths "$@"
   echo "commit-run: cannot select staged decision publications — nothing was committed or pushed" >&2
@@ -447,7 +447,7 @@ while IFS= read -r -d '' STAGED_PATH; do
     echo "commit-run: cannot read staged decision publication: $STAGED_PATH — nothing was committed or pushed" >&2
     exit 5
   fi
-  if ! python3 "$TOP/scripts/decision_publication_gate.py" --repo "$TOP" --check "$PREWRITE_TMP/decision_record.json"; then
+  if ! python3 "$TOP/scripts/decision_publication_gate.py" --repo "$TOP" --check "$PREWRITE_TMP/decision_record.json" --publication-path "$STAGED_PATH"; then
     unstage_own_paths "$@"
     echo "commit-run: data-needs prewrite rejected staged publication: $STAGED_PATH — nothing was committed or pushed" >&2
     exit 5

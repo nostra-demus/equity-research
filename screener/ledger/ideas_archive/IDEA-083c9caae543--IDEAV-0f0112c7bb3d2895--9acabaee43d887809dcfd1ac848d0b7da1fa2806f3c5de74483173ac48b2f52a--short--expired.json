@@ -1,0 +1,79 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-11-09T10:01:18Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-083c9caae543",
+    "idea_version": "IDEAV-0f0112c7bb3d2895",
+    "idea_version_started_at": "2026-11-07T10:18:55Z",
+    "ticker": "VOW3",
+    "company": "Volkswagen",
+    "exchange": "XETRA",
+    "ticker_verified": false,
+    "listing_verified": false,
+    "liquidity_verified": false,
+    "listing_verification_source": null,
+    "direction": "short",
+    "pair_with": null,
+    "reason": "The company issued a profit warning driven by the challenging transition to electric vehicles, which is compressing margins.",
+    "why_now": "The profit warning was reported on 2026-11-06 as part of a broader sector-wide warning.",
+    "conviction": 70,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 45,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 21,
+      "specificity": 7,
+      "timing": 6,
+      "expression": 0,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "watch_only",
+    "missing_checks": [
+      "verified listed ticker",
+      "verified listing",
+      "live liquidity",
+      "dated catalyst",
+      "independent confirmation",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "sector_cycle",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-1b0313ab5b9f"
+    ],
+    "primary_source_event_id": "EVT-1b0313ab5b9f",
+    "source_headlines": [
+      "Auto industry: Three carmakers, four profit warnings: The electric wave is rolling over VW, BMW and Mercedes"
+    ],
+    "source_headline": "Autoindustrie: Drei Autobauer, vier Gewinnwarnungen: Die Elektrowelle überrollt VW, BMW und Mercedes",
+    "source_url": "https://www.handelsblatt.com/unternehmen/industrie/autobauer-wie-die-elektrowelle-vw-bmw-und-mercedes-ueberrollt/100265334.html",
+    "source_name": "Handelsblatt",
+    "materiality_max": 100,
+    "newest_source_at": "2026-11-06T07:47:00Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-11-07T10:18:55Z",
+    "updated_at": "2026-11-07T10:18:55Z",
+    "decay_at": "2026-11-07T19:47:00Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}

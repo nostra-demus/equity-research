@@ -254,6 +254,12 @@ When data is missing or weak, these hard caps override the agent's own scoring. 
 | No sensitivity disclosures and only inferred sensitivities | Earnings volatility confidence must be Low |
 | Conflicting sources not reconcilable | Overall usefulness max 65 |
 
+**Clarification — conflict, definition difference, and uncertainty.** The max-65 rule applies when source claims remain contradictory after reasonable adjudication using the source hierarchy, reporting/adjustment bases, disclosed reconciliations, and any revisions or restatements. Identify and cite the competing claims and explain the unresolved disagreement; do not average it away. Use the conservative supported interpretation or withhold the affected claim, and retain the overall-usefulness max 65 while that contradiction remains. Perfect metadata is not a prerequisite for recognizing a real contradiction: judge what the available sources actually claim, and do not use a missing field to dismiss affirmative conflicting evidence.
+
+Different disclosed constructions of an adjusted measure, or uncertainty about a vendor's forward exclusions, do not alone establish irreconcilable source claims. Show any source-supported bridge, its rounding limits and residual; keep the constructions separately labelled. An unknown bridge or policy is not proof that the figures are comparable or that the sources contradict. If missing metric definitions or exclusions prevent a defensible like-for-like earnings comparison, keep the affected bar **Unknown** and state what remains unproven; do not invent a conflict cap or an adjustment. A **provisional Low/Fair/High** verdict is available only when the like-for-like comparison is otherwise defensible and the limitation is consensus timing or staleness; state that timing limitation in the verdict line.
+
+Apply every other cap whose actual trigger is present, independently: genuine absence of consensus, revision history, or a call source is different from staleness or definition uncertainty. Do not borrow an absent-data cap for present data. This clarification supplies no confidence or score uplift and does not relax the source hierarchy, conservative default, critical-red-flag caps, or any other existing cap.
+
 ---
 
 ## Cross-Module Inputs
