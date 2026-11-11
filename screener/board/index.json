@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T03:34:04Z",
+  "generated_at": "2026-11-11T03:38:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20261111-129",
@@ -1915,50 +1915,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261111-011",
-      "headline": "OTPBANK N3612 OTPBANK N3109 OTPBANK N2908-R (40506 40739 85157): Summary of the first nine months 2026 results",
+      "inbox_id": "INB-20261111-130",
+      "headline": "S-1 - American Barrick Gold Corp (0002162540) (Filer)",
       "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1111/2026111100029.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-10T23:10:00Z",
+      "url": "https://www.sec.gov/Archives/edgar/data/2162540/000119312526455481/0001193125-26-455481-index.htm",
+      "source_name": "SEC EDGAR — Latest S-1 (IPO Registration)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-10T21:14:27Z",
       "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "The company released its financial summary for the first nine months of 2026.",
+      "prelim_note": "Filing of an S-1 registration statement for an IPO indicates a potential new public offering.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "The company released its financial summary for the first nine months of 2026.",
-      "region": "OTHER",
+      "triage_score": 86,
+      "triage_reason": "Filing of an S-1 registration statement for an IPO indicates a potential new public offering.",
+      "region": "US",
       "relevance": "material",
       "materiality_pre_score": 60,
       "rank_factors": {
         "materiality": 60,
         "source_tier": 8,
         "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
+        "event": 0,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
+        "event_id": null,
+        "size_bucket": "unknown"
       },
       "event_types": [
-        "earnings_revenue_margin"
+        "capital_actions"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "OTP Bank",
+          "name": "American Barrick Gold Corp",
           "ticker": null,
-          "listing_country": null
+          "listing_country": "US"
         }
       ],
-      "size_bucket": "large",
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -276966,9 +276966,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2492240,
-    "news_picked_today": 190,
-    "news_dropped_today": 1730
+    "news_seen_today": 2536016,
+    "news_picked_today": 191,
+    "news_dropped_today": 1777
   },
   "book_momentum": {
     "live_count": 8,
