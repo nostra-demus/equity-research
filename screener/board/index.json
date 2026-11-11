@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T07:29:30Z",
+  "generated_at": "2026-11-11T07:48:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20261111-163",
@@ -47,6 +47,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-188",
+      "headline": "ACF: Acrow Guides to FY27 NPAT Growth of 74% [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ACF?key=2924-03160667-6A1354630",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-11T06:24:43Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Acrow announced a significant projected growth in NPAT of 74% for FY27.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Acrow announced a significant projected growth in NPAT of 74% for FY27.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Acrow",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1919,55 +1968,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-103",
-      "headline": "SCHEDULE 13D/A - TXO Partners, L.P. (0001559432) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1559432/000119312526455987/0001193125-26-455987-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-11T02:20:44Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "A Schedule 13D/A filing indicates a change in significant ownership or intent for TXO Partners, L.P.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "A Schedule 13D/A filing indicates a change in significant ownership or intent for TXO Partners, L.P.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TXO Partners, L.P.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -276390,9 +276390,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4515532,
-    "news_picked_today": 345,
-    "news_dropped_today": 5055
+    "news_seen_today": 4564195,
+    "news_picked_today": 352,
+    "news_dropped_today": 5912
   },
   "book_momentum": {
     "live_count": 8,
