@@ -42,6 +42,9 @@ export function validateAgentOutputText(raw) {
   let invalidCompletion = false
   let fence = null
   let htmlQuoteDepth = 0
+  let htmlQuoteHidesCompletion = false
+  const completionHeading = (line) =>
+    /^ {0,3}#{1,6}[ \t]+completion status(?:[ \t]+#+)?[ \t]*$/i.test(line)
   for (const line of body.split('\n')) {
     if (fence) {
       const close = new RegExp(`^ {0,3}\\${fence.char}{${fence.width},}[ \\t]*$`)
@@ -54,7 +57,9 @@ export function validateAgentOutputText(raw) {
     const quoteTags = htmlQuoteDepth || /^ {0,3}<\/?blockquote\b/i.test(htmlLine)
       ? [...htmlLine.matchAll(/<\/?blockquote\b[^>]*(?:>|$)/gi)] : []
     if (htmlQuoteDepth || quoteTags.length) {
+      if (completionHeading(line)) htmlQuoteHidesCompletion = true
       for (const [tag] of quoteTags) htmlQuoteDepth = Math.max(0, htmlQuoteDepth + (/^<\//.test(tag) ? -1 : 1))
+      if (!htmlQuoteDepth) htmlQuoteHidesCompletion = false
       continue
     }
     const open = /^ {0,3}(`{3,})[^`]*$/.exec(line) || /^ {0,3}(~{3,}).*$/.exec(line)
@@ -86,6 +91,10 @@ export function validateAgentOutputText(raw) {
   // structure cannot confer completion. (A balanced quote returns depth to 0 and is unaffected;
   // a stray literal `<blockquote>` in prose that desyncs depth also lands here, in the safe direction.)
   if (htmlQuoteDepth > 0) reasons.push('unclosed-html-blockquote')
+  // The unclosed region may have swallowed the producer's real reserved section. Its state is then
+  // indeterminate, which must reach every completion consumer (retention, fingerprint, quarantine) that
+  // keys on the completion reasons rather than on `valid` alone.
+  if (htmlQuoteDepth > 0 && htmlQuoteHidesCompletion) invalidCompletion = true
   if (invalidCompletion || needsDeclaration) reasons.push('invalid-completion-status')
   else if (completion === 'incomplete') reasons.push('explicit-incomplete-completion-status')
 

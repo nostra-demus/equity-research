@@ -68,11 +68,13 @@ for (const quoted of [
 // guard both of these validated as { valid: true, reasons: [] } — an explicitly-unfinished module would
 // have been treated as publishable (CLAUDE.md §25/§28; MODULE_PIPELINE "malformed declarations fail closed").
 assert.deepEqual(validateAgentOutputText('# Report\n<blockquote>\n## Completion Status\nINCOMPLETE\n').reasons,
-  ['unclosed-html-blockquote'], 'an unbalanced HTML blockquote fails closed instead of swallowing a later real status')
+  ['unclosed-html-blockquote', 'invalid-completion-status'], 'an unbalanced HTML blockquote fails closed instead of swallowing a later real status')
 assert.deepEqual(validateAgentOutputText('# Report\n<blockquote>\nI referenced <blockquote> once more.\n</blockquote>\n## Completion Status\nINCOMPLETE\n').reasons,
-  ['unclosed-html-blockquote'], 'a prose <blockquote> mention that desyncs the quote depth also fails closed')
+  ['unclosed-html-blockquote', 'invalid-completion-status'], 'a prose <blockquote> mention that desyncs the quote depth also fails closed')
 assert.equal(validateAgentOutputText('# Report\n<blockquote>\n## Completion Status\nINCOMPLETE\n</blockquote>\n## Done\n').valid, true,
   'a properly balanced HTML quote example is still not a real declaration (no false positive)')
+assert.deepEqual(validateAgentOutputText('# Report\n<blockquote>\nquoted source only\n').reasons,
+  ['unclosed-html-blockquote'], 'an unclosed quote that hides no reserved section is malformed, not a completion claim')
 
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-output-validity-'))
 const file = path.join(tmp, '01_check.md')

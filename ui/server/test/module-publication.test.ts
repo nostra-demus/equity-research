@@ -166,6 +166,10 @@ write(`${draftRoot}/alpha/01_alpha-check.md`, draft)
 write(`${draftRoot}/alpha/99_alpha-synthesis.md`, '# complete synthesis cannot conceal unfinished specialist\n')
 assert.equal(captureCompletedModuleFingerprint('DRAFT', 'alpha', draftRoot), null,
   'an explicit unfinished specialist also prevents completed module fingerprint')
+write(`${draftRoot}/alpha/01_alpha-check.md`,
+  '# check\n\n<blockquote>\nquoted source\n\n## Completion Status\n**INCOMPLETE.**\n')
+assert.equal(captureCompletedModuleFingerprint('DRAFT', 'alpha', draftRoot), null,
+  'an unclosed HTML blockquote cannot hide an unfinished specialist from the completed fingerprint')
 write(`${draftRoot}/alpha/01_alpha-check.md`, '# source-backed check\n')
 write(`${draftRoot}/alpha/99_alpha-synthesis.md`, draft)
 
