@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T08:19:18Z",
+  "generated_at": "2026-11-11T08:27:46Z",
   "inbox": [
     {
       "inbox_id": "INB-20261111-163",
@@ -539,6 +539,61 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-200",
+      "headline": "AkzoNobel, Axalta’s $25 Billion Merger Could Harm Competition, U.K. Regulator Warns",
+      "headline_en": null,
+      "url": "https://www.wsj.com/tech/akzonobel-axaltas-25-billion-merger-could-harm-competition-u-k-regulator-warns-d3a59010?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T07:55:00Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "UK CMA issues formal warning that $25bn AkzoNobel-Axalta merger could harm competition; regulatory risk escalation that could block, delay, or reshape deal terms.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "UK CMA issues formal warning that $25bn AkzoNobel-Axalta merger could harm competition; regulatory risk escalation that could block, delay, or reshape deal terms.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AkzoNobel",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Axalta Coating Systems",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1150,6 +1205,61 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261111-201",
+      "headline": "McCormick’s $65 Billion Unilever Foods Merger Could Harm Competition, U.K. Regulator Warns",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/deals/mccormicks-65-billion-unilever-foods-merger-could-harm-competition-u-k-regulator-warns-ccd08701?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T07:40:00Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "McCormick's announced $65 billion acquisition of Unilever Foods faces U.K. regulator warning of competitive harm, creating material deal approval and execution risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "McCormick's announced $65 billion acquisition of Unilever Foods faces U.K. regulator warning of competitive harm, creating material deal approval and execution risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "McCormick",
+          "ticker": "MKC",
+          "listing_country": "US"
+        },
+        {
+          "name": "Unilever Foods",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261111-186",
       "headline": "VAU: ZSP: Vault Minerals Ltd to be removed from S&P/ASX 200 Index [price-sensitive]",
       "headline_en": null,
@@ -1322,6 +1432,55 @@
       ],
       "issuer_linkage": "sector",
       "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-198",
+      "headline": "Bajaj Hindusthan Sugar Limited: Bajaj Hindusthan Sugar Limited has informed the Exchange regarding Outcome of Board Meeting held on November 11, 2026 and sale / divestment of the Company's entire (100%) shareholding in Bajaj Hindusthan (Singapore) Private Limited, a wholly owned subsidiary of the Company.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/BAJAJNEAPS1_11112026133116_SE_Intimation_Outcome_of_Board_Meeting_11112026_with_Annexure_1.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-11T08:01:39Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Bajaj Hindusthan Sugar announces sale of 100% stake in wholly-owned Singapore subsidiary; no deal value, financial impact, or strategic rationale disclosed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Bajaj Hindusthan Sugar announces sale of 100% stake in wholly-owned Singapore subsidiary; no deal value, financial impact, or strategic rationale disclosed.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bajaj Hindusthan Sugar Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -1813,153 +1972,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-065",
-      "headline": "425 - Planet 13 Holdings Inc. (0001813452) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1813452/000110465926125362/0001104659-26-125362-index.htm",
-      "source_name": "SEC EDGAR — Latest 425 (M&A Business-Combination Communications)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-10T22:30:33Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "Planet 13 Holdings Inc. filed business-combination communications related to an M&A transaction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Planet 13 Holdings Inc. filed business-combination communications related to an M&A transaction.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Planet 13 Holdings Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-111",
-      "headline": "NHC: New Hope proposes making an offer of Hybrid Securities [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NHC?key=2924-03160310-2A1709920",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-10T21:29:26Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "New Hope Corporation is proposing an offer of hybrid securities to raise capital.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "New Hope Corporation is proposing an offer of hybrid securities to raise capital.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 3,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "New Hope Corporation",
-          "ticker": "NHC",
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-123",
-      "headline": "PXA: PEXA 1QFY27 Trading Update [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PXA?key=2924-03160291-3A706247",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-10T21:21:01Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "PEXA released a quarterly trading update which typically contains material revenue and volume data.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "PEXA released a quarterly trading update which typically contains material revenue and volume data.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PEXA Group Limited",
-          "ticker": "PXA",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -276380,9 +276392,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4657463,
-    "news_picked_today": 375,
-    "news_dropped_today": 7857
+    "news_seen_today": 4700542,
+    "news_picked_today": 383,
+    "news_dropped_today": 7873
   },
   "book_momentum": {
     "live_count": 8,
