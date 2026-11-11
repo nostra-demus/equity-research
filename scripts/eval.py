@@ -2490,6 +2490,10 @@ if scope=="selftest":
         ("2026-10-05",_bg_d,_bg_th(_bg_dl+"The dividend yield, on a trailing basis, sits at 3.1%; ex-date 2024-05-01 has passed and it remains a reason to own.\n"),["an ex-/record-date"]),
         ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield of 3.1%, ex-date 2024-05-01, remains a reason to own.\n"),["on or before the decision date"]),
         ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Dividend yield unavailable, foreign withholding tax is 15%.\n"),[]),
+        #   sibling (Codex thread "Match the full dividend-yield expression"): an on/for line qualifier before
+        #   the connector still binds and FLAGS; a negated qualifier ("for the year was unavailable") does not.
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield on the named ADR line is 3.1%, ex-date 2025-01-01, and remains a reason to own.\n"),["on or before the decision date"]),
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Dividend yield for the year was unavailable while payout is 25%.\n"),[]),
         #   (B) "none" merely NEAR "yield" is not a no-yield disclosure — it must FLAG (old proximity rule
         #   suppressed it); a real "Dividend yield: n/a" construction still passes.
         ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3%, none in its peer set higher, ex-date 2024-05-01 (passed), a reason to own.\n"),["on or before the decision date"]),

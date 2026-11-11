@@ -922,12 +922,14 @@ BG_DATE = "2026-10-05"
 # "Dividend yield unavailable; foreign withholding tax is 15%" — from being read as the yield value and
 # flagged for a missing basis/date (Codex r1 round 3).
 # A third form binds the % through a comma/parenthetical aside plus a VALUE connector ("The dividend
-# yield, on a trailing basis, sits at 3.1%") — the aside must open right after "yield" and the % must
-# follow a connector (of/is/at/sits at/=/:), so "Dividend yield unavailable, withholding tax is 15%"
+# yield, on a trailing basis, sits at 3.1%", "dividend yield on the named ADR line is 3.1%") — the aside
+# (comma/parenthetical, or an on/for qualifier with no negation word) must open right after "yield" and
+# the % must follow a connector (of/is/at/sits at/=/:), so "Dividend yield unavailable, withholding tax is 15%"
 # still does not bind (the window was NOT simply widened — PR #754 review 6718647404, case A).
 _BG_YIELD_QUOTED = re.compile(
     r"(?:dividend|distribution)\s+yield\b[^.\n]{0,24}?\d[\d.,]*\s*%|"
-    r"(?:dividend|distribution)\s+yield\b\s*(?:,[^,;.\n]{0,40},|\([^)\n]{0,40}\))\s*"
+    r"(?:dividend|distribution)\s+yield\b\s*(?:,[^,;.\n]{0,40},|\([^)\n]{0,40}\)|"
+    r"(?:on|for)\s+(?:(?!unavailable|not\b|n/?a\b|none\b|nil\b|no\b)[^,;.\n%]){0,40}?\s)\s*"
     r"(?:(?:currently|now|still)\s+)?(?:of|is|was|at|sits\s+at|stands\s+at|=|:)\s*"
     r"(?:~|about\s+|roughly\s+|approximately\s+|around\s+|c\.\s*)?\d[\d.,]*\s*%|"
     r"\d[\d.,]*\s*%\s+(?:dividend|distribution)\s+yield\b", re.I)
