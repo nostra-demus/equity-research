@@ -1,0 +1,231 @@
+{
+  "schema_version": "1.0",
+  "ticker": "UBER",
+  "original_decision_date": "2026-08-06",
+  "review_date": "2026-11-08",
+  "review_window": "90d",
+  "original_decision": "Watchlist",
+  "basket": "Watchlist",
+  "entry_price": 68.18,
+  "tracking_price": null,
+  "review_price": 68.59,
+  "absolute_return_pct": 0.601349,
+  "benchmark_return_pct": null,
+  "sector_return_pct": null,
+  "benchmark_relative_return_pct": null,
+  "sector_relative_return_pct": null,
+  "thesis_status": "on-track",
+  "forecast_results": [
+    {
+      "prediction": "Uber's FQ3 2026 (quarter ended Sep-30-2026) results will report Adjusted EBITDA within or above the guided $2,860-$2,960mm range.",
+      "status": "confirmed",
+      "evidence": "Adjusted EBITDA was $2,963m, exceeding the frozen $2,860m floor by $103m; the 4 November release was inside the 25 October-5 November window. [Web: Uber Q3 2026 earnings release, 2026-11-04, Financial and Operational Highlights; Adjusted EBITDA reconciliation; retrieved 2026-11-08; indicative/unverified pending pool ingestion] https://investor.uber.com/news-events/news/press-release-details/2026/Uber-Announces-Results-for-Third-Quarter-2026/default.aspx",
+      "as_of": "2026-11-08",
+      "original_forecast_index": 0
+    },
+    {
+      "prediction": "Uber's FQ3 2026 reported Revenue growth will miss the Street's own pre-print consensus estimate for a third consecutive quarter.",
+      "status": "not assessable",
+      "evidence": "Reported Q3 revenue does not supply the Street pre-print consensus comparator; no dated independent consensus snapshot was verified. Do not compare against the August estimate as if it were pre-print consensus.",
+      "as_of": "2026-11-08",
+      "original_forecast_index": 1
+    },
+    {
+      "prediction": "Uber's FQ3 2026 SG&A ratio (SG&A as % of revenue) will be at or above the LTM Jun-2026 level of 20.50%, continuing off the FY2025 low of 19.87%.",
+      "status": "not assessable",
+      "evidence": "The frozen 20.50% / 19.87% thresholds came from vendor SG&A ($11,320m LTM / $10,339m FY2025), not a demonstrated bridge to the filing lines. Sales and marketing $1,563m + G&A $1,047m = $2,610m; divided by revenue $14,766m gives 17.6757%. Matched Q3 FY2025 was ($1,277m + $1,183m) / $13,467m = 18.2669%. These GAAP ratios do not resolve the differently scoped vendor forecast until reconciled. [Frozen earnings/03_margin-drivers.md, 2026-08-06, section 3 SG&A row] [Web: Uber Q3 2026 Form 10-Q, 2026-11-04, MD&A Sales and Marketing; General and Administrative; retrieved 2026-11-08; indicative/unverified pending pool ingestion] https://www.sec.gov/Archives/edgar/data/1543151/000154315126000041/uber-20260930.htm",
+      "as_of": "2026-11-08",
+      "original_forecast_index": 2
+    },
+    {
+      "prediction": "The Delivery Hero SE acquisition will close within the H2 2027 window at or near its announced terms, without a leverage covenant breach or waiver disclosed in the twelve months following the bridge-facility draw.",
+      "status": "still open",
+      "evidence": "The H2 2027 closing window and four-post-draw-quarter covenant test are not mature. This review does not independently re-prove the frozen acquisition or bridge terms.",
+      "as_of": "2026-11-08",
+      "original_forecast_index": 3
+    },
+    {
+      "prediction": "Uber's NTM EV/EBITDA multiple will sit at or above 13.0x (versus 11.89x today) within the next 12 months, consistent with the base-case re-rating.",
+      "status": "still open",
+      "evidence": "The forecast explicitly resolves at the 12-month review; no current multiple is substituted for that endpoint.",
+      "as_of": "2026-11-08",
+      "original_forecast_index": 4
+    }
+  ],
+  "catalyst_results": [
+    {
+      "catalyst": "Q3 FY2026 results",
+      "status": "materialized",
+      "evidence": "Released 4 November within the frozen window. [Web: Uber Q3 2026 earnings release, 2026-11-04, Financial and Operational Highlights; Adjusted EBITDA reconciliation; retrieved 2026-11-08; indicative/unverified pending pool ingestion] https://investor.uber.com/news-events/news/press-release-details/2026/Uber-Announces-Results-for-Third-Quarter-2026/default.aspx",
+      "as_of": "2026-11-08"
+    },
+    {
+      "catalyst": "Delivery Hero closing and post-draw covenant test",
+      "status": "pending",
+      "evidence": "The original H2 2027 and post-draw windows are not mature; no independent deal-outcome verification was completed.",
+      "as_of": "2026-11-08"
+    }
+  ],
+  "risk_results": [
+    {
+      "risk": "The Delivery Hero acquisition closing and drawing its ~€14bn bridge facility without adequate disclosed covenant headroom — pro-forma leverage would compress the assumed covenant cushion from +62-72% today to a breach on as little as a 0.9%-25.5% EBITDA decline, turning an ordinary recession into a covenant crisis at the exact moment leverage discipline is least proven (RF-CAP-004).",
+      "status": "pending",
+      "evidence": "The bounded review does not resolve this complete risk. No absence-of-disclosure inference or legal clearance is made. [Frozen decision_record.json, 2026-08-06, killer_risk]",
+      "as_of": "2026-11-08"
+    },
+    {
+      "risk_id": "RF-CAP-004",
+      "risk": "Serial-acquirer pattern: at least 7 acquisitions in ~18 months culminating in the $14.8bn, debt-funded Delivery Hero deal (10.6% of Uber's own market cap), financed by a ~€14bn bridge facility, requiring a forced $1.6bn divestiture, and net debt jumping from $76mm to $9,340mm in one LTM window. Materiality-Critical per the module's own tagging; not one of the enumerated fraud/going-concern/enforcement/restatement/RPT>10% hard-lock triggers (module's own hard-lock Critical count = 0), but independently caps the master rating at Watchlist via the separate, non-bypassable CLAUDE.md §24 Filter 4 mechanism.",
+      "severity": "Critical",
+      "source_module": "",
+      "original_source": "management-governance/02_capital-allocation-scorecard.md; management-governance/99_management-governance-synthesis.md",
+      "status": "pending",
+      "evidence": "Retain the original severity and qualifiers. This review does not independently resolve the flag. [Frozen decision_record.json, 2026-08-06, red_flags]",
+      "as_of": "2026-11-08"
+    },
+    {
+      "risk_id": "RF-DISC-002",
+      "risk": "Recurring non-GAAP aggressiveness: ~25% of Adjusted EBITDA's own addback never itemized (FY2025 gap +38.3% vs GAAP-based EBITDA); a deferred-tax valuation-allowance release inflated GAAP net income by a combined $10,104mm over two consecutive years (FY2024 $5,758mm + FY2025 $4,346mm), never flagged as a distortion on any call in the pool.",
+      "severity": "High",
+      "source_module": "",
+      "original_source": "earnings/06_earnings-quality.md; management-governance/06_candor-and-disclosure-quality.md",
+      "status": "pending",
+      "evidence": "Retain the original severity and qualifiers. This review does not independently resolve the flag. [Frozen decision_record.json, 2026-08-06, red_flags]",
+      "as_of": "2026-11-08"
+    },
+    {
+      "risk_id": "RF-OBS-001",
+      "risk": "Contingent-liability spike: total contingent exposure of at least $6,414mm (22.6% of Jun-30-2026 total equity), driven by a $5,611mm gross unrecognized tax benefit that grew 13.7% year-over-year and is not separately broken out from Other Non-Current Liabilities on the balance sheet, plus a live €700mm Delivery Hero termination fee and an active wrongful-death lawsuit.",
+      "severity": "High",
+      "source_module": "",
+      "original_source": "balance-sheet-survival/05_off-balance-sheet-and-contingencies.md",
+      "status": "pending",
+      "evidence": "Retain the original severity and qualifiers. This review does not independently resolve the flag. [Frozen decision_record.json, 2026-08-06, red_flags]",
+      "as_of": "2026-11-08"
+    },
+    {
+      "risk_id": "N/A-EARNINGS-BOOKINGS-GAP",
+      "risk": "Unreconciled ~10-percentage-point gap between Mobility Gross Bookings growth (+22% YoY) and reported Revenue growth (+12.2% YoY); management's 'optical, UK reclassification' explanation is unverified against any primary filing. Determines whether the earnings setup reads as genuinely accelerating or decelerating.",
+      "severity": "High",
+      "source_module": "",
+      "original_source": "earnings/02_revenue-drivers.md; earnings/08_earnings-red-flags.md; earnings/99_earnings-synthesis.md",
+      "status": "pending",
+      "evidence": "Retain the original severity and qualifiers. This review does not independently resolve the flag. [Frozen decision_record.json, 2026-08-06, red_flags]",
+      "as_of": "2026-11-08"
+    },
+    {
+      "risk_id": "N/A-BS-FORWARD-LEVERAGE",
+      "risk": "Once the Delivery Hero acquisition closes and the ~€14bn bridge facility is drawn, pro-forma leverage on mid-cycle EBITDA runs 5.0x-6.6x and an assumed 3.5x covenant would breach at an EBITDA decline of just 0.9% (full-bridge draw) to 25.5% (consideration-only) — a normal 30-40% recession breaches it in three of four pro-forma combinations modeled. Covenant terms themselves are undisclosed (Not assessable).",
+      "severity": "High",
+      "source_module": "",
+      "original_source": "balance-sheet-survival/06_downside-stress-test.md; balance-sheet-survival/99_balance-sheet-survival-synthesis.md",
+      "status": "pending",
+      "evidence": "Retain the original severity and qualifiers. This review does not independently resolve the flag. [Frozen decision_record.json, 2026-08-06, red_flags]",
+      "as_of": "2026-11-08"
+    }
+  ],
+  "decision_quality": "not assessable",
+  "error_taxonomy": [],
+  "lessons": [
+    "This is a late review filed on 8 November, not a reconstructed review at the scheduled due date. Outcomes use only sources available by this review; do not compare it to exact 30/90-day forecasts without aligning horizons.",
+    "Absolute return is the underlying share-price change from the frozen anchor, excludes dividends, trading costs and execution lags, and is not a feasible portfolio return. Watchlist names had no paper entry. A positive underlying change is adverse to a simple short; option returns cannot be inferred.",
+    "No source-bound market feed was present in the review worktree. The primary source checkout contained no located post-decision result document in the inspected ticker pool inventories. Public outcomes are review evidence only and do not alter any frozen extraction generation.",
+    "Matched-window benchmark and sector total-return endpoints were not verified. Public searches found index levels, but not all exact anchor endpoints on a consistent total-return basis. Benchmark/sector fields remain null; no alpha, directional skill or annual-return claim is made.",
+    "The original decision, thesis, memo, model and all earlier reviews remain untouched. No paid provider, analytical run, production mutation, trade or memory activation was performed.",
+    "[Web: UBER NYSE USD closing-price page, 2026-11-06, completed regular session; historical row where available; retrieved 2026-11-08; indicative/unverified pending pool ingestion] https://chartexchange.com/symbol/nyse-uber/historical",
+    "The frozen SG&A threshold uses a vendor-defined line whose expense scope has not been reconciled to GAAP sales and marketing plus G&A. This definition gap is visible from the original margin-driver source, not a claim the analyst should have known later results. No module penalty is inferred from one quarter."
+  ],
+  "module_calibration_notes": {
+    "information_partition": "Original-process observations below rely only on frozen records or prior reviews. Post-decision results are outcome evidence, not should-have-known information.",
+    "process_observation": "The frozen SG&A threshold uses a vendor-defined line whose expense scope has not been reconciled to GAAP sales and marketing plus G&A. This definition gap is visible from the original margin-driver source, not a claim the analyst should have known later results. No module penalty is inferred from one quarter.",
+    "outcome_observation": "The broad Q3 adjusted-EBITDA forecast cleared. A filing-derived SG&A ratio can be calculated, but its expense scope has not been reconciled to the frozen vendor-defined threshold, so that forecast remains unscored. A dated pre-print consensus snapshot also remains missing; none of these observations settles the financing or legal risks. The Watchlist action remains a monitoring judgment, not a proved successful investment call.",
+    "calibration": "No confidence haircut, module promotion or skill conclusion is inferred from this small, selected, partly provisional cohort."
+  },
+  "action_now": {
+    "label": "Keep watching",
+    "reason": "Keep the call under review; no positive new evidence and refreshed valuation/risk assessment together justify adding exposure. The broad Q3 adjusted-EBITDA forecast cleared. A filing-derived SG&A ratio can be calculated, but its expense scope has not been reconciled to the frozen vendor-defined threshold, so that forecast remains unscored. A dated pre-print consensus snapshot also remains missing; none of these observations settles the financing or legal risks. The Watchlist action remains a monitoring judgment, not a proved successful investment call."
+  },
+  "confidence_update": {
+    "before": 42.0,
+    "after": null,
+    "change_reason": "Current conviction is not quantifiable from this bounded, incomplete review; do not carry forward the old score as newly validated."
+  },
+  "next_check": {
+    "date": null,
+    "label": "Obtain a first-usable, dated pre-print consensus snapshot to resolve the revenue-surprise forecast.",
+    "trigger": "Verify the actual credit agreement, funding and covenant definitions before claiming headroom."
+  },
+  "learning": {
+    "why_right_or_wrong": "The broad Q3 adjusted-EBITDA forecast cleared. A filing-derived SG&A ratio can be calculated, but its expense scope has not been reconciled to the frozen vendor-defined threshold, so that forecast remains unscored. A dated pre-print consensus snapshot also remains missing; none of these observations settles the financing or legal risks. The Watchlist action remains a monitoring judgment, not a proved successful investment call. Price direction is not a benchmark-adjusted thesis verdict.",
+    "error_source": "",
+    "rule_for_future": "Preserve metric basis, literal triggers and first usable disclosure time; ambiguous or unavailable outcomes remain unscored.",
+    "future_research_check": "Reconcile the vendor SG&A definition to the exact filing expense lines before scoring the ratio forecast."
+  },
+  "memo_delta": {
+    "summary": "The broad Q3 adjusted-EBITDA forecast cleared. A filing-derived SG&A ratio can be calculated, but its expense scope has not been reconciled to the frozen vendor-defined threshold, so that forecast remains unscored. A dated pre-print consensus snapshot also remains missing; none of these observations settles the financing or legal risks. The Watchlist action remains a monitoring judgment, not a proved successful investment call.",
+    "thesis_delta_verdict": "unchanged",
+    "stage_one_comment": "The original Watchlist call is unchanged as a historical record. The broad Q3 adjusted-EBITDA forecast cleared. A filing-derived SG&A ratio can be calculated, but its expense scope has not been reconciled to the frozen vendor-defined threshold, so that forecast remains unscored. A dated pre-print consensus snapshot also remains missing; none of these observations settles the financing or legal risks. The Watchlist action remains a monitoring judgment, not a proved successful investment call. This review was filed on 8 November 2026; the observed share-price endpoint is 6 November. The frozen price anchor and its own date remain visible, so the anchor-to-endpoint move is not presented as a decision-date or fixed-horizon portfolio return. Benchmark and sector total returns were not verified on the same window; no relative skill conclusion is available. Keep watching and obtain the named missing evidence before changing exposure. All new facts are dated public outcome evidence; the original files and evidence generations remain immutable. No forecast deadline is moved to fit the result.",
+    "changed_sections": [
+      {
+        "section": "8. Catalysts",
+        "original_claim": "Q3 adjusted EBITDA reaches at least $2,860m.",
+        "new_evidence": "The company reported adjusted EBITDA of $2,963m on 4 November, inside the original reporting window.",
+        "evidence_source": "[Web: Uber Q3 2026 earnings release, 2026-11-04, Financial and Operational Highlights; Adjusted EBITDA reconciliation; retrieved 2026-11-08; indicative/unverified pending pool ingestion] https://investor.uber.com/news-events/news/press-release-details/2026/Uber-Announces-Results-for-Third-Quarter-2026/default.aspx",
+        "materiality_score": 70,
+        "impact_direction": "mixed",
+        "impacted_modules": [
+          "earnings"
+        ],
+        "rerun_recommended": false,
+        "rerun_reason": "",
+        "rerun_command": ""
+      },
+      {
+        "section": "5. Why It Could Fail — Bear Case & The Killer Risk",
+        "original_claim": "The vendor-defined Q3 SG&A/revenue threshold is 20.50%, with falsification below 19.87%.",
+        "new_evidence": "The filing-derived SG&A calculation is ($1,563m sales and marketing + $1,047m G&A) / $14,766m revenue = 17.6757%. Its scope is not reconciled to the frozen vendor SG&A threshold, so no falsification is scored.",
+        "evidence_source": "[Frozen earnings/03_margin-drivers.md, 2026-08-06, section 3 SG&A row]; [Web: Uber Q3 2026 Form 10-Q, 2026-11-04, MD&A Sales and Marketing; General and Administrative; retrieved 2026-11-08; indicative/unverified pending pool ingestion] https://www.sec.gov/Archives/edgar/data/1543151/000154315126000041/uber-20260930.htm",
+        "materiality_score": 80,
+        "impact_direction": "mixed",
+        "impacted_modules": [
+          "earnings"
+        ],
+        "rerun_recommended": true,
+        "rerun_reason": "Reassess the named assumption using the new disclosure in a new authorized evidence snapshot.",
+        "rerun_command": "/research:earnings UBER"
+      }
+    ],
+    "watch_items": [
+      "Reconcile the vendor SG&A definition to the exact filing expense lines before scoring the ratio forecast.",
+      "Obtain a first-usable, dated pre-print consensus snapshot to resolve the revenue-surprise forecast.",
+      "Verify the actual credit agreement, funding and covenant definitions before claiming headroom.",
+      "Keep reported revenue-presentation changes distinct from underlying bookings demand.",
+      "Treat the two UBER reviews as one issuer with overlapping evidence, not independent successes."
+    ],
+    "management_questions": [
+      "What drove the lower GAAP SG&A ratio on a matched-quarter basis?",
+      "Which business-model changes explain the bookings-to-revenue difference?",
+      "What are the signed bridge terms and covenant EBITDA definition?"
+    ],
+    "memo_delta_file": "analyses/UBER_2026-08-06/reviews/2026-11-08_90d_memo_delta.md"
+  },
+  "pre_mortem_check": {
+    "pre_mortem_file": "analyses/UBER_2026-08-06/pre_mortem.json",
+    "pre_mortem_verdict": "Survives with haircut",
+    "pre_mortem_confidence_haircut": 6.0,
+    "outcome_vs_verdict": "too_early",
+    "notes": "The pre-mortem financing-risk prediction remains unresolved. A cleared EBITDA forecast does not establish a resolved favorable investment outcome or prove covenant headroom."
+  },
+  "review_observation": {
+    "scheduled_due_date": "2026-11-04",
+    "days_after_decision": 94,
+    "price_as_of": "2026-11-06",
+    "price_currency": "USD",
+    "price_source": "[Web: UBER NYSE USD closing-price page, 2026-11-06, completed regular session; historical row where available; retrieved 2026-11-08; indicative/unverified pending pool ingestion] https://chartexchange.com/symbol/nyse-uber/historical",
+    "price_anchor_as_of": "2026-08-05",
+    "return_basis": "Underlying close-price change from the frozen anchor; dividends/costs excluded; no benchmark-relative inference.",
+    "dependency_cluster": "UBER",
+    "retrospective_review": true,
+    "provisional_original": true
+  }
+}

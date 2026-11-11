@@ -1,0 +1,77 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-11-08T08:08:57Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-0d084cede79e",
+    "idea_version": "IDEAV-536feaa8d0e1f8db",
+    "idea_version_started_at": "2026-11-05T12:54:05Z",
+    "ticker": "SONY",
+    "company": "Sony Group Corporation",
+    "exchange": "NYSE",
+    "ticker_verified": true,
+    "listing_verified": true,
+    "liquidity_verified": false,
+    "listing_verification_source": "yahoo_symbol_directory",
+    "direction": "long",
+    "pair_with": null,
+    "reason": "Sony raised its annual profit forecast driven by strong performance in its gaming division and the success of its Spider-Man franchise.",
+    "why_now": "The guidance upgrade was reported on 2026-11-05.",
+    "conviction": 70,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 66,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 20,
+      "specificity": 15,
+      "timing": 10,
+      "expression": 7,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "needs_data",
+    "missing_checks": [
+      "live liquidity",
+      "dated catalyst",
+      "independent confirmation",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-971e6c0d3e5d"
+    ],
+    "primary_source_event_id": "EVT-971e6c0d3e5d",
+    "source_headlines": [
+      "Sony raises annual profit forecast on Spider-Man hit, gaming gains"
+    ],
+    "source_headline": "Sony raises annual profit forecast on Spider-Man hit, gaming gains",
+    "source_url": "https://asia.nikkei.com/business/companies/sony-raises-annual-profit-forecast-on-spider-man-hit-gaming-gains",
+    "source_name": "Nikkei Asia",
+    "materiality_max": 100,
+    "newest_source_at": "2026-11-05T07:48:47Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-11-05T12:54:05Z",
+    "updated_at": "2026-11-05T12:54:05Z",
+    "decay_at": "2026-11-06T19:48:47Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-11-08T16:48:58Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-61866d942f2f",
+    "idea_version": "IDEAV-2af7736aef1a146b",
+    "idea_version_started_at": "2026-11-05T20:09:05Z",
+    "ticker": "GIL",
+    "company": "Gildan Activewear",
+    "exchange": "NYSE",
+    "ticker_verified": true,
+    "listing_verified": true,
+    "liquidity_verified": false,
+    "listing_verification_source": "yahoo_symbol_directory",
+    "direction": "short",
+    "pair_with": null,
+    "reason": "A 25% share price drop following Q3 results and a full-year guidance cut indicates structural margin pressure and weakening demand that is likely to persist.",
+    "why_now": "The earnings release and guidance cut occurred today, November 5, 2026.",
+    "conviction": 80,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 60,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 21,
+      "specificity": 15,
+      "timing": 10,
+      "expression": 7,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "needs_data",
+    "missing_checks": [
+      "live liquidity",
+      "dated catalyst",
+      "priced-in risk",
+      "independent confirmation",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "priced",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-bf3bad858015"
+    ],
+    "primary_source_event_id": "EVT-bf3bad858015",
+    "source_headlines": [
+      "Gildan shares tumble 25% after third-quarter results disappoint; cuts full-year guidance"
+    ],
+    "source_headline": "Gildan shares tumble 25% after third-quarter results disappoint; cuts full-year guidance",
+    "source_url": "https://www.theglobeandmail.com/business/article-gildan-third-quarter-results-full-year-guidance/",
+    "source_name": "The Globe and Mail",
+    "materiality_max": 100,
+    "newest_source_at": "2026-11-05T16:31:00Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-11-05T20:09:05Z",
+    "updated_at": "2026-11-05T20:09:05Z",
+    "decay_at": "2026-11-07T04:31:00Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}

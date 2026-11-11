@@ -1715,6 +1715,165 @@ def test_preseal_decision_gate_fails_closed():
               run_gate(["--repo", agent, "--check", os.fsdecode(frozen)]).returncode != 0)
 
 
+def test_manifest_schema_publication_uses_frozen_and_staged_bytes():
+    """The new-event admission bug, exact-byte parity, and immutable-history counterexample."""
+    cache = Path(REPO_ROOT, ".cache", "publication-schema-tests")
+    cache.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(prefix="admission-", dir=cache) as tmp:
+        _, agent, env = setup_stale_local_main_scenario(tmp)
+        manifest = Path(agent, ".claude/agents/screener/SWARM.md")
+        manifest.parent.mkdir(parents=True)
+        manifest.write_text(Path(REPO_ROOT, ".claude/agents/screener/SWARM.md").read_text())
+        schema_root = Path(agent, "frameworks/screener")
+        schema_root.mkdir(parents=True)
+        for source in Path(REPO_ROOT, "frameworks/screener").glob("*.schema.json"):
+            shutil.copy2(source, schema_root / source.name)
+        # The isolated repository runs the real gate while reusing the existing canonical checker and
+        # its local imports; there is no duplicate dependency install or substitute validator.
+        schema_env = no_push_env(env)
+        schema_env["PYTHONPATH"] = os.path.join(REPO_ROOT, "scripts")
+        valid = json.loads(Path(REPO_ROOT, "screener/runs/SIG-20260610-a3f2c81d/signal_payload.json").read_text())
+        invalid = dict(valid, event_id="EVT-0123456789abcdef")
+        relative = "screener/runs/SIG-20260610-a3f2c81d/signal_payload.json"
+        frozen = Path(tmp, "frozen.json")
+        frozen.write_text(json.dumps(invalid))
+        pairs = os.fsencode(relative) + b"\0" + os.fsencode(frozen) + b"\0"
+        write_json(agent, relative, valid)
+        rejected = run_gate(["--repo", agent, "--records"], pairs, env=schema_env)
+        check("a new16hex event rejects frozen bytes even when the mutable worktree is valid",
+              rejected.returncode == 1 and b"event_id" in rejected.stderr, rejected.stderr.decode())
+        frozen.write_text(json.dumps(valid))
+        write_json(agent, relative, invalid)
+        accepted = run_gate(["--repo", agent, "--records"], pairs, env=schema_env)
+        check("a valid12hex frozen signal is accepted despite an invalid mutable worktree",
+              accepted.returncode == 0 and b"1 declared schema artifact(s) validated" in accepted.stdout,
+              repr(accepted.stderr))
+        before = run(["git", "rev-parse", "HEAD"], cwd=agent, env=env).stdout
+        refused = run(["bash", COMMIT_RUN, "test: reject new malformed signal", "--", relative],
+                      cwd=agent, env=schema_env, check_rc=False)
+        check("the exact staged malformed signal is refused without committing",
+              refused.returncode == 5 and before == run(["git", "rev-parse", "HEAD"], cwd=agent, env=env).stdout,
+              repr(refused.stderr))
+        snapshot, _, _ = make_protected_snapshot(tmp, "valid-schema-snapshot", {
+            relative: (json.dumps(valid) + "\n").encode(),
+        })
+        # Retain the invalid mutable worktree while the protected index receives the valid snapshot.
+        snapshot_env = dict(schema_env, NOSTRA_SUPERVISOR_SNAPSHOT_MANIFEST=snapshot)
+        published = run(["bash", COMMIT_RUN, "test: accept valid signal", "--", relative],
+                        cwd=agent, env=snapshot_env, check_rc=False)
+        published_value = json.loads(run(["git", "show", f"HEAD:{relative}"], cwd=agent, env=env).stdout)
+        check("protected schema publication judges exact staged bytes, not the later worktree",
+              published.returncode == 0 and published_value == valid
+              and json.loads(Path(agent, relative).read_text()) == invalid, published.stderr)
+        # A legacy malformed record is retained, but is not regraded by the ordinary snapshot gate.
+        write_json(agent, relative, invalid)
+        run(["git", "add", relative], cwd=agent, env=env)
+        run(["git", "commit", "-qm", "fixture: preserved legacy malformed history"], cwd=agent, env=env)
+        frozen.write_bytes(subprocess.check_output(["git", "show", f"HEAD:{relative}"], cwd=agent))
+        unchanged = run_gate(["--repo", agent, "--records"], pairs, env=schema_env)
+        check("unchanged malformed history is not retrograded", unchanged.returncode == 0, repr(unchanged.stderr))
+        forced = run_gate(["--repo", agent, "--schema-records"], pairs, env=schema_env)
+        check("pre-mutation explicit fresh artifacts never get a HEAD exemption",
+              forced.returncode == 1, repr(forced.stderr))
+        state_relative = "screener/ledger/conviction/conviction_state/THS-SIG-20260610-a3f2c81d-v1.json"
+        frozen.write_text(json.dumps({"thesis_id":"THS-SIG-20260610-a3f2c81d-v1", "state":"watching",
+                                      "edge_locked":10, "edge_score_live":10, "conviction":101,
+                                      "validated":False, "updated_at":"2026-06-10T05:40:00Z"}))
+        state_pair = os.fsencode(state_relative) + b"\0" + os.fsencode(frozen) + b"\0"
+        refused_state = run_gate(["--repo", agent, "--records"], state_pair, env=schema_env)
+        check("a newly changed conviction-state leaf is schema gated without scanning NDJSON history",
+              refused_state.returncode == 1 and b"conviction" in refused_state.stderr, repr(refused_state.stderr))
+
+
+def test_manifest_schema_contract_is_generic_and_fails_closed():
+    cache = Path(REPO_ROOT, ".cache", "publication-schema-tests")
+    cache.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(prefix="contracts-", dir=cache) as tmp:
+        root = Path(tmp)
+        schema = root / "frameworks/future/verdict.schema.json"
+        schema.parent.mkdir(parents=True)
+        schema.write_text(json.dumps({"type":"object", "required":["answer"],
+                                      "properties":{"answer":{"const":"ok"}}, "additionalProperties":False}))
+        manifest = root / ".claude/agents/future/SWARM.md"
+        manifest.parent.mkdir(parents=True)
+        base = "---\nid: future\nruns_root: future/runs\nrun_root_template: future/runs/{ID}/current\nplaceholder: ID\nschemas_root: frameworks/future\npublication_schemas:\n  - run:verdict.json=verdict.schema.json\n  - run:review_v*.json=verdict.schema.json\n---\n"
+        manifest.write_text(base)
+        run_root = "future/runs/subject/current"
+        directory = root / run_root
+        directory.mkdir(parents=True)
+        (directory / "review_v2.json").write_text('{"answer":"ok"}')
+        contract = run_gate(["--repo", str(root), "--schema-contract", run_root])
+        value = json.loads(contract.stdout)
+        check("a future manifest discovers literal and existing versioned artifacts without a swarm registry",
+              contract.returncode == 0 and value["swarm_id"] == "future"
+              and {x["relative"] for x in value["artifacts"]} == {"verdict.json", "review_v2.json"}, repr(contract.stderr))
+        frozen = root / "bytes.json"
+        frozen.write_text('{"answer":"ok"}')
+        pair = os.fsencode(run_root + "/verdict.json") + b"\0" + os.fsencode(frozen) + b"\0"
+        check("the synthetic future swarm uses the canonical schema validator",
+              run_gate(["--repo", str(root), "--schema-records"], pair).returncode == 0)
+        unmapped = b"future/runs/subject/current/unknown.json\0" + os.fsencode(frozen) + b"\0"
+        check("explicit unmapped artifacts cannot be mistaken for zero-record approval",
+              run_gate(["--repo", str(root), "--schema-records"], unmapped).returncode == 2)
+        check("an empty schema preflight cannot pass vacuously",
+              run_gate(["--repo", str(root), "--schema-records"]).returncode == 2)
+        missing_declaration = "\n".join(line for line in base.splitlines()
+                                        if not line.startswith(("publication_schemas:", "  - run:"))) + "\n"
+        malformed_inline = missing_declaration.replace("schemas_root: frameworks/future", "schemas_root: frameworks/future\npublication_schemas: [")
+        mixed_declaration = missing_declaration.replace(
+            "schemas_root: frameworks/future",
+            "schemas_root: frameworks/future\npublication_schemas: [] # inline declaration\n  - run:verdict.json=verdict.schema.json",
+        )
+        duplicate_key = base[:-4] + "publication_schemas: []\n---\n"
+        for label, body in [
+            ("traversal", base.replace("schemas_root: frameworks/future", "schemas_root: frameworks/../future")),
+            ("missing schema", base.replace("=verdict.schema.json", "=missing.schema.json")),
+            ("missing declaration", missing_declaration),
+            ("malformed inline declaration", malformed_inline),
+            ("mixed inline/block declaration", mixed_declaration),
+            ("duplicate frontmatter key", duplicate_key),
+            ("duplicate mapping", base.replace("---\n", "---\n", 1).replace("  - run:review", "  - run:verdict.json=verdict.schema.json\n  - run:review")),
+        ]:
+            manifest.write_text(body)
+            result = run_gate(["--repo", str(root), "--schema-contract", run_root])
+            check(f"declared {label} fails closed", result.returncode == 2, repr(result.stderr))
+        manifest.write_text(missing_declaration.replace("schemas_root: frameworks/future", "schemas_root: frameworks/future\npublication_schemas: []"))
+        delegated = run_gate(["--repo", str(root), "--schema-contract", run_root])
+        check("an explicitly delegated stronger legacy validator is reported without schema approval",
+              delegated.returncode == 0 and json.loads(delegated.stdout)["declared"] is False
+              and json.loads(delegated.stdout)["artifacts"] == [], repr(delegated.stderr))
+        manifest.write_text(base)
+        original_schema = schema.read_text()
+        schema.write_text('{"$ref":"../../untrusted.json"}')
+        external = run_gate(["--repo", str(root), "--schema-records"], pair)
+        check("an external schema reference cannot escape the trusted schema program",
+              external.returncode == 2, repr(external.stderr))
+        schema.write_text(original_schema)
+        manifest.write_text(base)
+        schema.rename(schema.with_suffix(".saved"))
+        schema.symlink_to(schema.with_suffix(".saved"))
+        linked = run_gate(["--repo", str(root), "--schema-records"], pair)
+        check("a linked schema is refused, even inside the declared schema directory",
+              linked.returncode == 2, repr(linked.stderr))
+        schema.unlink()
+        schema.with_suffix(".saved").rename(schema)
+        root_dir = schema.parent
+        root_dir.rename(root_dir.with_name("retained"))
+        root_dir.symlink_to(root_dir.with_name("retained"), target_is_directory=True)
+        linked_root = run_gate(["--repo", str(root), "--schema-contract", run_root])
+        check("a linked schema root is refused", linked_root.returncode == 2, repr(linked_root.stderr))
+        root_dir.unlink()
+        root_dir.with_name("retained").rename(root_dir)
+        manifest.rename(manifest.with_suffix(".saved"))
+        invalid_program = root / "unreadable-program.bin"
+        invalid_program.write_bytes(b"\xff")
+        manifest.symlink_to(invalid_program)
+        linked_manifest = run_gate(["--repo", str(root), "--schema-contract", run_root])
+        check("manifest discovery refuses a symlink before reading its target bytes",
+              linked_manifest.returncode == 2 and b"linked" in linked_manifest.stderr
+              and b"UTF-8" not in linked_manifest.stderr, repr(linked_manifest.stderr))
+
+
 if __name__ == "__main__":
     print("== test_commit_run.py ==")
     test_fast_forward_push_from_non_main_branch_with_stale_local_main()
@@ -1753,6 +1912,8 @@ if __name__ == "__main__":
     test_every_exit_5_has_a_decision_about_sealed_receipts()
     test_preseal_decision_gate_reaches_commit_runs_verdict_on_the_same_frozen_bytes()
     test_preseal_decision_gate_fails_closed()
+    test_manifest_schema_publication_uses_frozen_and_staged_bytes()
+    test_manifest_schema_contract_is_generic_and_fails_closed()
     test_cockpit_publication_delegates_to_supervisor_and_never_trusts_child_manifest()
     test_supervisor_snapshot_stages_fixed_bytes_not_mutable_worktree()
     if _fails:

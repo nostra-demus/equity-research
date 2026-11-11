@@ -25,7 +25,6 @@
 // resumable) and GREEN only with the exclusion. Run: npx tsx test/screener-resume-target.test.ts
 import assert from 'node:assert/strict'
 import fs from 'node:fs'
-import os from 'node:os'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -35,9 +34,17 @@ import { fileURLToPath } from 'node:url'
 // (routing.terminal) and module names are the genuine ones, not a hand-rebuilt stub.
 const here = path.dirname(fileURLToPath(import.meta.url))
 const realRepo = path.resolve(here, '..', '..', '..') // ui/server/test -> repo root
-const root = fs.mkdtempSync(path.join(os.tmpdir(), 'sc-resume-'))
+const testOutput = path.join(realRepo, '.cache', 'test-output')
+fs.mkdirSync(testOutput, { recursive: true })
+const root = fs.mkdtempSync(path.join(testOutput, 'sc-resume-'))
 process.env.ENGINE_REPO_ROOT = root
 fs.symlinkSync(path.join(realRepo, '.claude'), path.join(root, '.claude'), 'dir')
+// Reproduce the manifest's real contained schema program without relaxing the runtime path guard.
+const schemaProgram = path.join(root, 'frameworks', 'screener')
+fs.mkdirSync(schemaProgram, { recursive: true })
+for (const name of fs.readdirSync(path.join(realRepo, 'frameworks', 'screener')).filter((name) => name.endsWith('.schema.json'))) {
+  fs.copyFileSync(path.join(realRepo, 'frameworks', 'screener', name), path.join(schemaProgram, name))
+}
 
 const runsDir = path.join(root, 'screener', 'runs')
 fs.mkdirSync(runsDir, { recursive: true })
