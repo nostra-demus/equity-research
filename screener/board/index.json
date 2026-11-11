@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T14:54:38Z",
+  "generated_at": "2026-11-11T15:21:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20261111-369",
@@ -1232,6 +1232,109 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261111-394",
+      "headline": "De’ Longhi Group: Record Results for the Quarter, With Revenue Growing by 7.7% and Net Profit Pertaining to the Group Progressing Significantly by 19%",
+      "headline_en": null,
+      "url": "https://www.cityam.com/de-longhi-group-record-results-for-the-quarter-with-revenue-growing-by-7-7-and-net-profit-pertaining-to-the-group-progressing-significantly-by-19/",
+      "source_name": "City A.M.",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T14:58:00Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "De' Longhi reported record quarterly results with 7.7% revenue growth and 19% net profit growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "De' Longhi reported record quarterly results with 7.7% revenue growth and 19% net profit growth.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "De' Longhi Group",
+          "ticker": null,
+          "listing_country": "IT"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-393",
+      "headline": "EasyJet investors give green light to £5.7bn takeover by Apollo",
+      "headline_en": null,
+      "url": "https://www.standard.co.uk/business/easyjet-apollo-takeover-bid-approved-b1304472.html",
+      "source_name": "The Standard (Evening Standard) — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T14:47:34Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Investors approved a major £5.7 billion takeover of EasyJet by Apollo.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Investors approved a major £5.7 billion takeover of EasyJet by Apollo.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "easyJet plc",
+          "ticker": "EZJ",
+          "listing_country": "GB"
+        },
+        {
+          "name": "Apollo Global Management, Inc.",
+          "ticker": "APO",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261111-378",
       "headline": "Softbank loses $3.7 billion on canceled AI data center gas turbine orders days after denying Elon Musk’s claim it was defaulting",
       "headline_en": null,
@@ -1870,110 +1973,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-266",
-      "headline": "AkzoNobel-Axalta $25 Billion Merger Could Harm Competition, U.K. Regulator Warns",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/deals/akzonobel-axaltas-25-billion-merger-could-harm-competition-u-k-regulator-warns-d3a59010?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T09:18:00Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "UK regulator warned that the proposed $25 billion merger between AkzoNobel and Axalta could harm competition, threatening the deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "UK regulator warned that the proposed $25 billion merger between AkzoNobel and Axalta could harm competition, threatening the deal.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AkzoNobel",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Axalta",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-239",
-      "headline": "ITV to slash costs by £30m ahead of Sky takeover deal probe",
-      "headline_en": null,
-      "url": "https://www.independent.co.uk/news/business/itv-sky-takeover-im-a-celeb-profits-b3082921.html",
-      "source_name": "The Independent — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T08:45:43Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "ITV plans to slash costs by £30 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "ITV plans to slash costs by £30 million.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ITV",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -276023,9 +276022,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6868259,
-    "news_picked_today": 767,
-    "news_dropped_today": 15625
+    "news_seen_today": 7009301,
+    "news_picked_today": 797,
+    "news_dropped_today": 16075
   },
   "book_momentum": {
     "live_count": 8,
