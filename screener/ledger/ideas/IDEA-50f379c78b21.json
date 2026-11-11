@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-50f379c78b21",
-  "idea_version": "IDEAV-7f72f33e5d57461c",
-  "idea_version_started_at": "2026-11-10T20:08:49Z",
+  "idea_version": "IDEAV-79fd44d625d53dc6",
+  "idea_version_started_at": "2026-11-11T03:59:14Z",
   "ticker": "NVDA",
   "company": "Nvidia",
   "exchange": "NASDAQ",
@@ -11,15 +11,15 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "short",
   "pair_with": null,
-  "reason": "An investigation into the CEO introduces significant leadership uncertainty and potential governance risk for a company currently trading at a high valuation multiple.",
-  "why_now": "The investigation was announced on 2026-11-09, creating immediate headline risk.",
-  "conviction": 70,
+  "reason": "Allegations involving the CEO and a foreign intelligence asset create significant governance risk and potential regulatory scrutiny that could destabilize the stock's premium valuation.",
+  "why_now": "The report surfaced on 2026-11-11, creating immediate headline risk.",
+  "conviction": 60,
   "conviction_basis": "pre_edge_proxy",
-  "trade_score": 69,
+  "trade_score": 67,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 14,
-    "impact": 23,
+    "impact": 21,
     "specificity": 15,
     "timing": 10,
     "expression": 7,
@@ -43,21 +43,21 @@
     "evidenceIds": []
   },
   "priced_in": "room",
-  "thesis_type": "governance_turnaround",
+  "thesis_type": "company_specific",
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-f4b0258c227b"
+    "EVT-ce81b40528c9"
   ],
-  "primary_source_event_id": "EVT-f4b0258c227b",
+  "primary_source_event_id": "EVT-ce81b40528c9",
   "source_headlines": [
-    "Nvidia shares tumble as the company says it's investigating CEO Jensen Huang"
+    "Nvidia shares plummet again amid CEO Jensen Huang's affair with alleged Chinese spy"
   ],
-  "source_headline": "Nvidia shares tumble as the company says it's investigating CEO Jensen Huang",
-  "source_url": "https://www.npr.org/2026/11/09/nx-s1-6034478/nvidia-shares-tumble-as-the-company-says-its-investigating-ceo-jensen-huang",
-  "source_name": "NPR — Business",
+  "source_headline": "Nvidia shares plummet again amid CEO Jensen Huang's affair with alleged Chinese spy",
+  "source_url": "https://www.cbsnews.com/video/nvidia-shares-plummet-again-amid-ceo-jensen-huangs-affair-with-alleged-chinese-spy/",
+  "source_name": "CBS MoneyWatch",
   "materiality_max": 100,
-  "newest_source_at": "2026-11-09T22:01:47Z",
+  "newest_source_at": "2026-11-11T01:01:17Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
@@ -65,8 +65,8 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-11-07T15:09:40Z",
-  "updated_at": "2026-11-10T20:08:49Z",
-  "decay_at": "2026-11-11T10:01:47Z",
+  "updated_at": "2026-11-11T03:59:14Z",
+  "decay_at": "2026-11-12T13:01:17Z",
   "status": "live",
   "promoted_signal_id": null
 }
