@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T03:52:18Z",
+  "generated_at": "2026-11-11T03:55:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261111-129",
@@ -1423,6 +1423,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261111-132",
+      "headline": "FDA Approves Pimjetmi (pimicotinib) for Patients with Tenosynovial Giant Cell Tumor",
+      "headline_en": null,
+      "url": "https://www.drugs.com/newdrugs/fda-approves-pimjetmi-pimicotinib-patients-tenosynovial-giant-cell-tumor-6931.html",
+      "source_name": "Drugs.com — New Drug Approvals",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-10T21:11:35Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "FDA approval of Pimjetmi (pimicotinib) provides a new revenue stream for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "FDA approval of Pimjetmi (pimicotinib) provides a new revenue stream for the company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Abbisko Therapeutics",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261111-131",
       "headline": "S-1 - Agility Robotics, Inc. (0002074973) (Filer)",
       "headline_en": null,
@@ -1907,55 +1956,6 @@
           "name": "archTIS",
           "ticker": "AR9",
           "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-093",
-      "headline": "LGM: New Thomson Royalty Arrangement and JV Option with Red Hill [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LGM?key=2924-03160315-2A1709922",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-10T21:36:56Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "Legacy Minerals announced a new royalty arrangement and joint venture option for the Thomson project.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Legacy Minerals announced a new royalty arrangement and joint venture option for the Thomson project.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Legacy Minerals",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "small",
@@ -276966,9 +276966,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2689097,
-    "news_picked_today": 197,
-    "news_dropped_today": 1867
+    "news_seen_today": 2732765,
+    "news_picked_today": 203,
+    "news_dropped_today": 1885
   },
   "book_momentum": {
     "live_count": 8,
