@@ -80,6 +80,12 @@ export function validateAgentOutputText(raw) {
     } else if (status) invalidCompletion = true
   }
   if (fence) reasons.push('unclosed-code-fence')
+  // An unbalanced HTML blockquote leaves the skip region open to end-of-output, so a real
+  // `## Completion Status` / INCOMPLETE after it would be silently swallowed and the output would
+  // validate as clean. Fail closed, exactly as an unclosed code fence does: a malformed quote
+  // structure cannot confer completion. (A balanced quote returns depth to 0 and is unaffected;
+  // a stray literal `<blockquote>` in prose that desyncs depth also lands here, in the safe direction.)
+  if (htmlQuoteDepth > 0) reasons.push('unclosed-html-blockquote')
   if (invalidCompletion || needsDeclaration) reasons.push('invalid-completion-status')
   else if (completion === 'incomplete') reasons.push('explicit-incomplete-completion-status')
 
