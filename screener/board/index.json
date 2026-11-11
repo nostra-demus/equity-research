@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-11T13:06:02Z",
+  "generated_at": "2026-11-11T13:16:55Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261111-327",
+      "headline": "YEEBO (INT'L H) (00259): POSITIVE PROFIT ALERT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1111/2026111101085.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-11T11:38:00Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "The company issued a positive profit alert, indicating an expected increase in net profit.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company issued a positive profit alert, indicating an expected increase in net profit.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "YEEBO (INT'L H)",
+          "ticker": "00259",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261111-302",
       "headline": "[TSE]Designation of Securities Under Supervision (Confirmation): Internetworking and Broadband Consulting Co.,Ltd.",
@@ -1937,56 +1986,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-148",
-      "headline": "Honda raises outlook even as failed EV bet weighs on profit",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/business/2026/11/11/companies/honda-profit-outlook/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T05:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "Honda raised its profit outlook despite challenges in its EV segment, indicating a mixed performance update.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Honda raised its profit outlook despite challenges in its EV segment, indicating a mixed performance update.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change",
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Honda",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -231868,76 +231867,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-96d1efcd8291",
-      "idea_version": "IDEAV-be1fbbf20b581ee1",
-      "idea_version_started_at": "2026-11-10T03:26:43Z",
-      "ticker": "QLYS",
-      "company": "Qualys, Inc.",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported Q3 2026 revenue of $188 million and increased its full-year revenue guidance, signaling better-than-expected demand for its cloud security and compliance platform.",
-      "why_now": "The earnings report and guidance hike were released on 2026-11-10.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4806340a2e95"
-      ],
-      "primary_source_event_id": "EVT-4806340a2e95",
-      "source_headlines": [
-        "Qualys, Inc. Reports Third Quarter 2026 Revenues of $188.0 million and Raises 2026 Revenue Guidance"
-      ],
-      "source_headline": "Qualys, Inc. Reports Third Quarter 2026 Revenues of $188.0 million and Raises 2026 Revenue Guidance",
-      "source_url": "https://www.nasdaq.com/articles/qualys-inc-reports-third-quarter-2026-revenues-1880-million-and-raises-2026-revenue",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-10T01:11:18Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-10T03:26:43Z",
-      "updated_at": "2026-11-10T03:26:43Z",
-      "decay_at": "2026-11-11T13:11:18Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-b9034165ef90",
       "idea_version": "IDEAV-02229181e6f9a698",
       "idea_version_started_at": "2026-11-10T14:20:30Z",
@@ -234982,6 +234911,76 @@
       "surfaced_at": "2026-11-09T22:47:11Z",
       "updated_at": "2026-11-10T20:08:49Z",
       "decay_at": "2026-11-11T09:27:54Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-96d1efcd8291",
+      "idea_version": "IDEAV-be1fbbf20b581ee1",
+      "idea_version_started_at": "2026-11-10T03:26:43Z",
+      "ticker": "QLYS",
+      "company": "Qualys, Inc.",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported Q3 2026 revenue of $188 million and increased its full-year revenue guidance, signaling better-than-expected demand for its cloud security and compliance platform.",
+      "why_now": "The earnings report and guidance hike were released on 2026-11-10.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4806340a2e95"
+      ],
+      "primary_source_event_id": "EVT-4806340a2e95",
+      "source_headlines": [
+        "Qualys, Inc. Reports Third Quarter 2026 Revenues of $188.0 million and Raises 2026 Revenue Guidance"
+      ],
+      "source_headline": "Qualys, Inc. Reports Third Quarter 2026 Revenues of $188.0 million and Raises 2026 Revenue Guidance",
+      "source_url": "https://www.nasdaq.com/articles/qualys-inc-reports-third-quarter-2026-revenues-1880-million-and-raises-2026-revenue",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-10T01:11:18Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-10T03:26:43Z",
+      "updated_at": "2026-11-10T03:26:43Z",
+      "decay_at": "2026-11-11T13:11:18Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -238852,14 +238851,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 562,
+    "total_count": 563,
     "shown_count": 499,
-    "hidden_count": 63,
+    "hidden_count": 64,
     "side_counts": {
       "long": {
-        "total_count": 290,
+        "total_count": 291,
         "shown_count": 250,
-        "hidden_count": 40
+        "hidden_count": 41
       },
       "short": {
         "total_count": 273,
@@ -238883,6 +238882,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-96d1efcd8291",
+        "idea_version": "IDEAV-be1fbbf20b581ee1",
+        "idea_version_started_at": "2026-11-10T03:26:43Z",
+        "ticker": "QLYS",
+        "company": "Qualys, Inc.",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company reported Q3 2026 revenue of $188 million and increased its full-year revenue guidance, signaling better-than-expected demand for its cloud security and compliance platform.",
+        "why_now": "The earnings report and guidance hike were released on 2026-11-10.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 66,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-4806340a2e95"
+        ],
+        "primary_source_event_id": "EVT-4806340a2e95",
+        "source_headlines": [
+          "Qualys, Inc. Reports Third Quarter 2026 Revenues of $188.0 million and Raises 2026 Revenue Guidance"
+        ],
+        "source_headline": "Qualys, Inc. Reports Third Quarter 2026 Revenues of $188.0 million and Raises 2026 Revenue Guidance",
+        "source_url": "https://www.nasdaq.com/articles/qualys-inc-reports-third-quarter-2026-revenues-1880-million-and-raises-2026-revenue",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-10T01:11:18Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-10T03:26:43Z",
+        "updated_at": "2026-11-10T03:26:43Z",
+        "decay_at": "2026-11-11T13:11:18Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-11T13:11:18Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-3de812988305",
         "idea_version": "IDEAV-4ff53507a3ff4c5b",
@@ -267599,80 +267671,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-954f3f21e4b8",
-        "idea_version": "IDEAV-9ad7ea903ec140fd",
-        "idea_version_started_at": "2026-10-27T16:21:10Z",
-        "ticker": "SKYGOLD",
-        "company": "Sky Gold Limited",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company reported a 111.9% increase in profit after tax for Q2 FY27, signaling significant operational scaling and margin expansion.",
-        "why_now": "Financial results were released on October 27, 2026.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-4db805c4b43e"
-        ],
-        "primary_source_event_id": "EVT-4db805c4b43e",
-        "source_headlines": [
-          "SKY GOLD AND DIAMONDS LIMITED: Please see attached Copy of Press Release titled \"Sky Gold and Diamonds Limited announces Q2 and H1 FY27 Financial Results; Revenue at Rs. 4,403.45 Crore, PAT up 111.9%.\""
-        ],
-        "source_headline": "SKY GOLD AND DIAMONDS LIMITED: Please see attached Copy of Press Release titled \"Sky Gold and Diamonds Limited announces Q2 and H1 FY27 Financial Results; Revenue at Rs. 4,403.45 Crore, PAT up 111.9%.\"",
-        "source_url": "https://nsearchives.nseindia.com/corporate/SKYGOLD_27102026204333_PressRelease27102026.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-27T15:13:47Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-27T11:08:01Z",
-        "updated_at": "2026-10-27T16:21:10Z",
-        "decay_at": "2026-10-29T03:13:47Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-30T22:42:19Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-14600c52489c",
         "idea_version": "IDEAV-57292833b014c260",
         "idea_version_started_at": "2026-10-27T18:30:15Z",
@@ -276019,7 +276017,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2391,
-    "live_count": 38,
+    "live_count": 37,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -276038,9 +276036,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6229485,
-    "news_picked_today": 647,
-    "news_dropped_today": 13945
+    "news_seen_today": 6280688,
+    "news_picked_today": 653,
+    "news_dropped_today": 14107
   },
   "book_momentum": {
     "live_count": 8,
