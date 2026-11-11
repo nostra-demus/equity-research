@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T12:51:42Z",
+  "generated_at": "2026-11-11T13:06:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20261111-302",
@@ -1036,6 +1036,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261111-324",
+      "headline": "UnitedHealth Just Raised Guidance for the Third Time This Year. Where Will the Stock Be in 3 Years?",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/11/11/unitedhealth-just-raised-guidance-for-the-third-ti/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T12:45:00Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "UnitedHealth raised its guidance for the third time this year.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "UnitedHealth raised its guidance for the third time this year.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "UnitedHealth",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-322",
+      "headline": "Mishra Dhatu Q2 results: Net profit doubles to ₹28 crore, revenue jumps 41%",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/mishra-dhatu-share-price-q2-results-net-profit-doubles-revenue-jumps-ebitda-margin-20031752.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T12:32:57Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Mishra Dhatu reported Q2 net profit doubling to ₹28 crore and revenue growth of 41%.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Mishra Dhatu reported Q2 net profit doubling to ₹28 crore and revenue growth of 41%.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mishra Dhatu",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261111-315",
       "headline": "Utah-Based Startup Raises $500 Million for Modular AI Data Center",
       "headline_en": null,
@@ -1889,104 +1987,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-143",
-      "headline": "Cochin Shipyard shares crash 8%: Defence PSU stock Q2 profit drops 50% but declares ₹3 dividend- Still a stock to buy?",
-      "headline_en": null,
-      "url": "https://www.livemint.com/market/stock-market-news/cochin-shipyard-shares-crash-8-defence-psu-stock-q2-profit-drops-50-but-declares-rs-3-dividend-still-a-stock-to-buy-11794370626964.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T04:38:24Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "Cochin Shipyard reported a 50% drop in Q2 profit.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Cochin Shipyard reported a 50% drop in Q2 profit.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cochin Shipyard",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-135",
-      "headline": "David Jones to close half its stores triggering mass job losses under ‘urgent restructure’",
-      "headline_en": null,
-      "url": "https://www.theguardian.com/business/2026/nov/11/david-jones-store-closures-administration-restructure",
-      "source_name": "The Guardian — World news",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T03:59:03Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "David Jones is closing 50% of its stores and initiating a major restructuring involving mass job losses.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "David Jones is closing 50% of its stores and initiating a major restructuring involving mass job losses.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "David Jones",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -234287,78 +234287,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-3de812988305",
-      "idea_version": "IDEAV-4ff53507a3ff4c5b",
-      "idea_version_started_at": "2026-11-10T01:51:56Z",
-      "ticker": "AAON",
-      "company": "AAON, Inc.",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Despite the accounting restatement, the company reported record Q3 results and raised its full-year outlook, suggesting the underlying business momentum outweighs the historical reporting issues.",
-      "why_now": "The earnings report and outlook increase were released on 2026-11-10.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0cd9149aad54"
-      ],
-      "primary_source_event_id": "EVT-0cd9149aad54",
-      "source_headlines": [
-        "AAON, Inc. Restates First and Second Quarter 2026 Financials, Reports Record Third Quarter Results, and Raises Full-Year Outlook"
-      ],
-      "source_headline": "AAON, Inc. Restates First and Second Quarter 2026 Financials, Reports Record Third Quarter Results, and Raises Full-Year Outlook",
-      "source_url": "https://www.nasdaq.com/articles/aaon-inc-restates-first-and-second-quarter-2026-financials-reports-record-third-quarter",
-      "source_name": "Nasdaq",
-      "materiality_max": 95,
-      "newest_source_at": "2026-11-10T00:52:33Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-10T01:51:56Z",
-      "updated_at": "2026-11-10T01:51:56Z",
-      "decay_at": "2026-11-11T12:52:33Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-3e0ccff47789",
       "idea_version": "IDEAV-0acad24986e16db6",
       "idea_version_started_at": "2026-11-11T05:44:55Z",
@@ -238130,6 +238058,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-3de812988305",
+      "idea_version": "IDEAV-4ff53507a3ff4c5b",
+      "idea_version_started_at": "2026-11-10T01:51:56Z",
+      "ticker": "AAON",
+      "company": "AAON, Inc.",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Despite the accounting restatement, the company reported record Q3 results and raised its full-year outlook, suggesting the underlying business momentum outweighs the historical reporting issues.",
+      "why_now": "The earnings report and outlook increase were released on 2026-11-10.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0cd9149aad54"
+      ],
+      "primary_source_event_id": "EVT-0cd9149aad54",
+      "source_headlines": [
+        "AAON, Inc. Restates First and Second Quarter 2026 Financials, Reports Record Third Quarter Results, and Raises Full-Year Outlook"
+      ],
+      "source_headline": "AAON, Inc. Restates First and Second Quarter 2026 Financials, Reports Record Third Quarter Results, and Raises Full-Year Outlook",
+      "source_url": "https://www.nasdaq.com/articles/aaon-inc-restates-first-and-second-quarter-2026-financials-reports-record-third-quarter",
+      "source_name": "Nasdaq",
+      "materiality_max": 95,
+      "newest_source_at": "2026-11-10T00:52:33Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-10T01:51:56Z",
+      "updated_at": "2026-11-10T01:51:56Z",
+      "decay_at": "2026-11-11T12:52:33Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-d75ab3a03107",
       "idea_version": "IDEAV-28284785c1988330",
       "idea_version_started_at": "2026-11-09T04:50:45Z",
@@ -238852,14 +238852,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 561,
+    "total_count": 562,
     "shown_count": 499,
-    "hidden_count": 62,
+    "hidden_count": 63,
     "side_counts": {
       "long": {
-        "total_count": 289,
+        "total_count": 290,
         "shown_count": 250,
-        "hidden_count": 39
+        "hidden_count": 40
       },
       "short": {
         "total_count": 273,
@@ -238883,6 +238883,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-3de812988305",
+        "idea_version": "IDEAV-4ff53507a3ff4c5b",
+        "idea_version_started_at": "2026-11-10T01:51:56Z",
+        "ticker": "AAON",
+        "company": "AAON, Inc.",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Despite the accounting restatement, the company reported record Q3 results and raised its full-year outlook, suggesting the underlying business momentum outweighs the historical reporting issues.",
+        "why_now": "The earnings report and outlook increase were released on 2026-11-10.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-0cd9149aad54"
+        ],
+        "primary_source_event_id": "EVT-0cd9149aad54",
+        "source_headlines": [
+          "AAON, Inc. Restates First and Second Quarter 2026 Financials, Reports Record Third Quarter Results, and Raises Full-Year Outlook"
+        ],
+        "source_headline": "AAON, Inc. Restates First and Second Quarter 2026 Financials, Reports Record Third Quarter Results, and Raises Full-Year Outlook",
+        "source_url": "https://www.nasdaq.com/articles/aaon-inc-restates-first-and-second-quarter-2026-financials-reports-record-third-quarter",
+        "source_name": "Nasdaq",
+        "materiality_max": 95,
+        "newest_source_at": "2026-11-10T00:52:33Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-10T01:51:56Z",
+        "updated_at": "2026-11-10T01:51:56Z",
+        "decay_at": "2026-11-11T12:52:33Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-11T12:52:33Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-d96cfa97ad42",
         "idea_version": "IDEAV-bcf8154f79d20eed",
@@ -267747,79 +267822,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-1bea3b52b765",
-        "idea_version": "IDEAV-58aba6bcf16bd1fd",
-        "idea_version_started_at": "2026-10-27T16:00:02Z",
-        "ticker": "KO",
-        "company": "The Coca-Cola Company",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company reported Q3 2026 results and raised its full-year guidance, signaling stronger-than-expected organic growth and margin expansion.",
-        "why_now": "The guidance hike was announced today, October 27, 2026, providing an immediate catalyst for earnings revisions.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 67,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-46cbdd56a910"
-        ],
-        "primary_source_event_id": "EVT-46cbdd56a910",
-        "source_headlines": [
-          "The Coca-Cola Company Reports Third Quarter 2026 Results and Raises Full Year Guidance"
-        ],
-        "source_headline": "The Coca-Cola Company Reports Third Quarter 2026 Results and Raises Full Year Guidance",
-        "source_url": "https://www.nasdaq.com/articles/coca-cola-company-reports-third-quarter-2026-results-and-raises-full-year-guidance",
-        "source_name": "Nasdaq",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-27T13:23:25Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-27T16:00:02Z",
-        "updated_at": "2026-10-27T16:00:02Z",
-        "decay_at": "2026-10-29T01:23:25Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-30T22:42:19Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-5ac020e252f1",
         "idea_version": "IDEAV-f6edb2d1124ee651",
         "idea_version_started_at": "2026-10-28T08:58:37Z",
@@ -276017,7 +276019,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2391,
-    "live_count": 39,
+    "live_count": 38,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -276036,9 +276038,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6125014,
-    "news_picked_today": 628,
-    "news_dropped_today": 13748
+    "news_seen_today": 6229485,
+    "news_picked_today": 647,
+    "news_dropped_today": 13945
   },
   "book_momentum": {
     "live_count": 8,
