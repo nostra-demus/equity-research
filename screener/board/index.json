@@ -1,6 +1,57 @@
 {
-  "generated_at": "2026-11-11T20:59:43Z",
+  "generated_at": "2026-11-11T21:14:37Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261111-565",
+      "headline": "XRO: Strong Xero H1 FY27 result, upgraded outlook & A$1bn buyback [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.XRO?key=2924-03160722-3A706332",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-11T20:44:20Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Xero reported strong H1 FY27 results, upgraded its outlook, and announced a significant A$1bn share buyback.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Xero reported strong H1 FY27 results, upgraded its outlook, and announced a significant A$1bn share buyback.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Xero",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261111-369",
       "headline": "XXF (02473): (1) DISCLOSEABLE TRANSACTION IN RELATION TO THE PROPOSED ACQUISITION OF 100% OF THE ISSUED SHARE CAPITAL IN THE TARGET COMPANY INVOLVING ISSUE OF CONSIDERATION SHARES UNDER SPECIFIC MANDATE AND (2) NOTICE OF EXTRAORDINARY GENERAL MEETING",
@@ -1380,6 +1431,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261111-568",
+      "headline": "H&R’s $4.7 Billion Breakup Faces Revolt by Major Investors",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-11/h-r-s-4-7-billion-breakup-faces-revolt-by-major-investors",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T19:04:00Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "H&R Block faces a revolt from major investors regarding a $4.7 billion breakup plan, creating significant uncertainty for the company's structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "H&R Block faces a revolt from major investors regarding a $4.7 billion breakup plan, creating significant uncertainty for the company's structure.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "H&R Block",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261111-531",
       "headline": "Versicherer: Allianz erhöht Gewinnprognose – Rekordgewinn nach neun Monaten",
       "headline_en": "Insurers: Allianz raises profit forecast – record profit after nine months",
@@ -1874,105 +1975,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-447",
-      "headline": "Cupid Q2 profit jumps 133%, raises FY27 revenue guidance to ₹880 crore",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/earnings/cupid-q2-profit-jumps-133pc-raises-fy27-revenue-guidance-to-rs880-crore-20031942.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T17:33:09Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "Cupid reported a 133% profit jump and raised FY27 revenue guidance to 880 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Cupid reported a 133% profit jump and raised FY27 revenue guidance to 880 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cupid",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-470",
-      "headline": "Poundland to stave off collapse as US owner continues talks with buyers",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/95b04e44-85c8-4025-adca-7c76ddfc94d5?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T17:30:11Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "Poundland is facing potential collapse and is in talks with buyers to avoid insolvency.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Poundland is facing potential collapse and is in talks with buyers to avoid insolvency.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Poundland",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -233779,77 +233781,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-f83ad9896fec",
-      "idea_version": "IDEAV-d12bcdae63088dc9",
-      "idea_version_started_at": "2026-11-10T10:55:57Z",
-      "ticker": "00104",
-      "company": "Asia Comm Hold",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning, indicating a decline in profitability.",
-      "why_now": "The warning was filed on November 10, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4d253ceb238b"
-      ],
-      "primary_source_event_id": "EVT-4d253ceb238b",
-      "source_headlines": [
-        "ASIA COMM HOLD (00104): PROFIT WARNING AND INSIDE INFORMATION"
-      ],
-      "source_headline": "ASIA COMM HOLD (00104): PROFIT WARNING AND INSIDE INFORMATION",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1110/2026111000406.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-10T09:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-10T10:55:57Z",
-      "updated_at": "2026-11-10T10:55:57Z",
-      "decay_at": "2026-11-11T21:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-b492220bad93",
       "idea_version": "IDEAV-d9fb0cfe0062cd47",
       "idea_version_started_at": "2026-11-11T05:20:27Z",
@@ -236167,6 +236098,77 @@
       "surfaced_at": "2026-11-10T10:55:57Z",
       "updated_at": "2026-11-10T10:55:57Z",
       "decay_at": "2026-11-11T20:31:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-f83ad9896fec",
+      "idea_version": "IDEAV-d12bcdae63088dc9",
+      "idea_version_started_at": "2026-11-10T10:55:57Z",
+      "ticker": "00104",
+      "company": "Asia Comm Hold",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a profit warning, indicating a decline in profitability.",
+      "why_now": "The warning was filed on November 10, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4d253ceb238b"
+      ],
+      "primary_source_event_id": "EVT-4d253ceb238b",
+      "source_headlines": [
+        "ASIA COMM HOLD (00104): PROFIT WARNING AND INSIDE INFORMATION"
+      ],
+      "source_headline": "ASIA COMM HOLD (00104): PROFIT WARNING AND INSIDE INFORMATION",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1110/2026111000406.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-10T09:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-10T10:55:57Z",
+      "updated_at": "2026-11-10T10:55:57Z",
+      "decay_at": "2026-11-11T21:00:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -238909,9 +238911,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 567,
+    "total_count": 568,
     "shown_count": 499,
-    "hidden_count": 68,
+    "hidden_count": 69,
     "side_counts": {
       "long": {
         "total_count": 294,
@@ -238919,9 +238921,9 @@
         "hidden_count": 44
       },
       "short": {
-        "total_count": 274,
+        "total_count": 275,
         "shown_count": 250,
-        "hidden_count": 24
+        "hidden_count": 25
       }
     },
     "retention": {
@@ -238940,6 +238942,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-f83ad9896fec",
+        "idea_version": "IDEAV-d12bcdae63088dc9",
+        "idea_version_started_at": "2026-11-10T10:55:57Z",
+        "ticker": "00104",
+        "company": "Asia Comm Hold",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company issued a profit warning, indicating a decline in profitability.",
+        "why_now": "The warning was filed on November 10, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-4d253ceb238b"
+        ],
+        "primary_source_event_id": "EVT-4d253ceb238b",
+        "source_headlines": [
+          "ASIA COMM HOLD (00104): PROFIT WARNING AND INSIDE INFORMATION"
+        ],
+        "source_headline": "ASIA COMM HOLD (00104): PROFIT WARNING AND INSIDE INFORMATION",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1110/2026111000406.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-10T09:00:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-10T10:55:57Z",
+        "updated_at": "2026-11-10T10:55:57Z",
+        "decay_at": "2026-11-11T21:00:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-11T21:00:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-782778e5a24d",
         "idea_version": "IDEAV-c71aad664fbab82d",
@@ -275991,89 +276067,12 @@
         "archived_at": "2026-10-20T19:09:38Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-3f434faf3dd2",
-        "idea_version": "IDEAV-7589d7b8fbcda646",
-        "idea_version_started_at": "2026-10-18T04:18:08Z",
-        "ticker": "HINDUNILVR",
-        "company": "Hindustan Unilever",
-        "exchange": "NSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Regulatory notices from the FSSAI regarding misleading product claims and labeling violations create brand risk and potential fines, which can weigh on consumer sentiment and margins.",
-        "why_now": "The notices were issued on 2026-10-17, and the market has yet to fully digest the potential impact on brand equity.",
-        "conviction": 50,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 16,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 7,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-4a0d0b39275d",
-          "EVT-5740236529c0"
-        ],
-        "primary_source_event_id": "EVT-4a0d0b39275d",
-        "source_headlines": [
-          "FSSAI Issues Notices to Nestle India, HUL Over Allegedly Misleading Product Claims, Labelling Violations",
-          "FSSAI issues notices to Nestlé India, HUL over misleading claims, non-compliance"
-        ],
-        "source_headline": "FSSAI Issues Notices to Nestle India, HUL Over Allegedly Misleading Product Claims, Labelling Violations",
-        "source_url": "https://www.ndtvprofit.com/business/fssai-issues-notices-to-nestle-india-hul-over-allegedly-misleading-product-claims-labelling-violations-12200174#publisher=newsstand",
-        "source_name": "NDTV Profit",
-        "materiality_max": 85,
-        "newest_source_at": "2026-10-17T16:09:29Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-18T04:18:08Z",
-        "updated_at": "2026-10-18T04:18:08Z",
-        "decay_at": "2026-10-19T04:09:29Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-20T19:09:38Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2394,
-    "live_count": 34,
+    "live_count": 33,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -276092,9 +276091,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7990950,
-    "news_picked_today": 1467,
-    "news_dropped_today": 21837
+    "news_seen_today": 8044788,
+    "news_picked_today": 1477,
+    "news_dropped_today": 22091
   },
   "book_momentum": {
     "live_count": 8,
