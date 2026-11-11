@@ -1,6 +1,153 @@
 {
-  "generated_at": "2026-11-11T13:50:20Z",
+  "generated_at": "2026-11-11T19:21:24Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261111-369",
+      "headline": "XXF (02473): (1) DISCLOSEABLE TRANSACTION IN RELATION TO THE PROPOSED ACQUISITION OF 100% OF THE ISSUED SHARE CAPITAL IN THE TARGET COMPANY INVOLVING ISSUE OF CONSIDERATION SHARES UNDER SPECIFIC MANDATE AND (2) NOTICE OF EXTRAORDINARY GENERAL MEETING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1111/2026111101431.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-11T14:39:00Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "XXF announced a proposed acquisition of 100% of a target company involving the issuance of consideration shares.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "XXF announced a proposed acquisition of 100% of a target company involving the issuance of consideration shares.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "XXF",
+          "ticker": "02473",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-367",
+      "headline": "GP Petroleums Limited: GP Petroleums Limited has informed the Exchange about the execution of Share Purchase Agreement with Incubit Pipavav Terminal Private Limited (IPTPL) and its selling shareholder for the acquisition of a 22.45% stake in IPTPL.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/GULFPETRO_11112026200642_IntimationSPAAcquisitionofSharesofIPTPLsigned.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-11T14:37:05Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "GP Petroleums is acquiring a 22.45% stake in Incubit Pipavav Terminal Private Limited.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "GP Petroleums is acquiring a 22.45% stake in Incubit Pipavav Terminal Private Limited.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GP Petroleums Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-360",
+      "headline": "E-STATION GTECH (08475): (1) DECISION OF THE GEM LISTING REVIEW COMMITTEE; (2) CANCELLATION OF LISTING; AND (3) CONTINUED SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1111/2026111101385.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-11T14:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "The company faces cancellation of its listing and continued suspension of trading.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company faces cancellation of its listing and continued suspension of trading.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "E-STATION GTECH",
+          "ticker": "08475",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261111-327",
       "headline": "YEEBO (INT'L H) (00259): POSITIVE PROFIT ALERT",
@@ -1085,31 +1232,724 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261111-353",
-      "headline": "EasyJet investors back £5.7bn takeover by Apollo",
+      "inbox_id": "INB-20261111-395",
+      "headline": "BROAD HOMES (02163): DECISION OF THE LISTING COMMITTEE ON CANCELLATION OF LISTING; AND REQUEST TO THE LISTING REVIEW COMMITTEE TO REVIEW THE DECISION OF THE LISTING COMMITTEE",
       "headline_en": null,
-      "url": "https://www.independent.co.uk/news/business/apollo-stelios-hajiioannou-luton-london-stock-exchange-london-b3083152.html",
-      "source_name": "The Independent — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T12:57:19Z",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1110/2026111001103.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-10T13:06:00Z",
       "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "Apollo to acquire EasyJet for £5.7bn; confirmed M&A with named deal value, alters capital structure and board control.",
+      "prelim_note": "Listing committee decided to cancel Broad Homes' Hong Kong listing; company requested review of the decision.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Apollo to acquire EasyJet for £5.7bn; confirmed M&A with named deal value, alters capital structure and board control.",
+      "triage_reason": "Listing committee decided to cancel Broad Homes' Hong Kong listing; company requested review of the decision.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 88,
+      "rank_factors": {
+        "materiality": 88,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Broad Homes",
+          "ticker": "02163",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-450",
+      "headline": "Singapore Airlines takes 44% profit hit in 1st half on soaring fuel costs",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/transportation/singapore-airlines-takes-44-profit-hit-in-1st-half-on-soaring-fuel-costs",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T17:51:34Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Singapore Airlines reported a 44% profit decline in the first half due to rising fuel costs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Singapore Airlines reported a 44% profit decline in the first half due to rising fuel costs.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Singapore Airlines",
+          "ticker": null,
+          "listing_country": "SG"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-469",
+      "headline": "Grab, SoftBank to invest $1.85bn in Malaysia AI infrastructure",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/technology/artificial-intelligence/grab-softbank-to-invest-1.85bn-in-malaysia-ai-infrastructure",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T17:51:34Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Grab and SoftBank are investing $1.85 billion in Malaysian AI infrastructure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Grab and SoftBank are investing $1.85 billion in Malaysian AI infrastructure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Grab",
+          "ticker": null,
+          "listing_country": "SG"
+        },
+        {
+          "name": "SoftBank Group",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-459",
+      "headline": "Japan Tobacco shares tumble on fears of $8bn Russia loss",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/markets/equities/japan-tobacco-shares-tumble-on-fears-of-8bn-russia-loss",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T17:51:34Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Japan Tobacco shares are falling on concerns over an $8 billion loss related to Russia.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Japan Tobacco shares are falling on concerns over an $8 billion loss related to Russia.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Japan Tobacco",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-467",
+      "headline": "SoftBank swings to first-half loss as AI hopes face new setbacks",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/softbank/softbank-swings-to-first-half-loss-as-ai-hopes-face-new-setbacks",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T17:51:34Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "SoftBank reported a first-half loss, indicating a significant financial setback.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SoftBank reported a first-half loss, indicating a significant financial setback.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SoftBank Group",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-474",
+      "headline": "Bought Indo Thai Securities shares in 2026? Stock crashes 90% after two years of multibagger gains; what went wrong?",
+      "headline_en": null,
+      "url": "https://www.livemint.com/market/stock-market-news/bought-indo-thai-securities-shares-in-2026-stock-crashes-90-after-two-years-of-multibagger-gains-what-went-wrong-11794418354632.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T17:42:09Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Indo Thai Securities shares crashed 90%, indicating a severe loss of value and potential distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Indo Thai Securities shares crashed 90%, indicating a severe loss of value and potential distress.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Indo Thai Securities",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-447",
+      "headline": "Cupid Q2 profit jumps 133%, raises FY27 revenue guidance to ₹880 crore",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/earnings/cupid-q2-profit-jumps-133pc-raises-fy27-revenue-guidance-to-rs880-crore-20031942.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T17:33:09Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Cupid reported a 133% profit jump and raised FY27 revenue guidance to 880 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Cupid reported a 133% profit jump and raised FY27 revenue guidance to 880 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cupid",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-470",
+      "headline": "Poundland to stave off collapse as US owner continues talks with buyers",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/95b04e44-85c8-4025-adca-7c76ddfc94d5?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T17:30:11Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Poundland is facing potential collapse and is in talks with buyers to avoid insolvency.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Poundland is facing potential collapse and is in talks with buyers to avoid insolvency.",
       "region": "GB",
       "relevance": "material",
-      "materiality_pre_score": 78,
+      "materiality_pre_score": 70,
       "rank_factors": {
-        "materiality": 78,
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Poundland",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-471",
+      "headline": "+++ Geschäftszahlen +++: Höhere Kosten zehren Nissan-Gewinn auf",
+      "headline_en": "+++ Business Figures +++: Higher costs erode Nissan's profit",
+      "url": "https://www.handelsblatt.com/unternehmen/industrie/quartalszahlen-hoehere-kosten-zehren-nissan-gewinn-auf/24098412.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T17:25:22Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Nissan reported that higher costs have eroded its profits.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nissan reported that higher costs have eroded its profits.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nissan Motor",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-445",
+      "headline": "University of Texas MD Anderson Cancer Center unveils $3.4B expansion plans",
+      "headline_en": null,
+      "url": "https://www.fiercehealthcare.com/providers/university-texas-md-anderson-cancer-center-unveils-34b-expansion-plans",
+      "source_name": "Fierce Healthcare",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T17:16:26Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "University of Texas MD Anderson Cancer Center announced a $3.4B expansion plan.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "University of Texas MD Anderson Cancer Center announced a $3.4B expansion plan.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "University of Texas MD Anderson Cancer Center",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-443",
+      "headline": "Hims & Hers reports $890.4M Q3 revenue, tightens 2026 outlook",
+      "headline_en": null,
+      "url": "https://www.fiercehealthcare.com/finance/hims-hers-reports-8904m-q3-revenue-tightens-2026-outlook",
+      "source_name": "Fierce Healthcare",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T17:16:26Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Hims & Hers reported $890.4M in Q3 revenue and tightened its 2026 outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Hims & Hers reported $890.4M in Q3 revenue and tightened its 2026 outlook.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hims & Hers",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-420",
+      "headline": "Nvidia appoints law firm to investigate CEO's affair with suspected Chinese spy",
+      "headline_en": null,
+      "url": "https://www.datacenterdynamics.com/en/news/nvidia-appoints-law-firm-to-investigate-ceos-affair-with-suspected-chinese-spy/",
+      "source_name": "DataCenterDynamics",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T17:15:20Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Nvidia CEO is under investigation for an alleged affair with a suspected Chinese spy, posing a significant governance and geopolitical risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia CEO is under investigation for an alleged affair with a suspected Chinese spy, posing a significant governance and geopolitical risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-508",
+      "headline": "GO Telecom logs SAR 140m net profits in H1-26/27",
+      "headline_en": null,
+      "url": "http://english.mubasher.info/news/4700914/GO-Telecom-logs-SAR-140m-net-profits-in-H1-26-27",
+      "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T16:47:43Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "GO Telecom reported SAR 140 million in net profits for H1-26/27.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "GO Telecom reported SAR 140 million in net profits for H1-26/27.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GO Telecom",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-484",
+      "headline": "Formula 1 tipped to go private by 2029 in deal that could be worth £22bn",
+      "headline_en": null,
+      "url": "https://www.cityam.com/formula-1-tipped-to-go-private-by-2029-in-deal-that-could-be-worth-22bn/",
+      "source_name": "City A.M.",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T16:38:38Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Formula 1 is reportedly considering a potential privatization deal valued at £22 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Formula 1 is reportedly considering a potential privatization deal valued at £22 billion.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
         "source_tier": 0,
         "scope": 5,
         "event": 9,
         "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Formula 1",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-425",
+      "headline": "EasyJet investors back £5.7bn takeover by Apollo",
+      "headline_en": null,
+      "url": "https://www.standard.co.uk/business/business-news/luton-london-stock-exchange-london-wagamama-airbus-b1304470.html",
+      "source_name": "The Standard (Evening Standard) — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T16:12:55Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "EasyJet investors have backed a £5.7 billion takeover bid by Apollo.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "EasyJet investors have backed a £5.7 billion takeover bid by Apollo.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
         "quantified": 6,
         "boost_weight": 1,
         "scope_id": "multi_name",
@@ -1124,865 +1964,13 @@
       "companies": [
         {
           "name": "EasyJet",
-          "ticker": "EASY.L",
-          "listing_country": "GB"
-        },
-        {
-          "name": "Apollo Global Management",
-          "ticker": "APO",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-324",
-      "headline": "UnitedHealth Just Raised Guidance for the Third Time This Year. Where Will the Stock Be in 3 Years?",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/11/11/unitedhealth-just-raised-guidance-for-the-third-ti/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T12:45:00Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "UnitedHealth raised its guidance for the third time this year.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "UnitedHealth raised its guidance for the third time this year.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "UnitedHealth",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-322",
-      "headline": "Mishra Dhatu Q2 results: Net profit doubles to ₹28 crore, revenue jumps 41%",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/mishra-dhatu-share-price-q2-results-net-profit-doubles-revenue-jumps-ebitda-margin-20031752.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T12:32:57Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "Mishra Dhatu reported Q2 net profit doubling to ₹28 crore and revenue growth of 41%.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Mishra Dhatu reported Q2 net profit doubling to ₹28 crore and revenue growth of 41%.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mishra Dhatu",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-315",
-      "headline": "Utah-Based Startup Raises $500 Million for Modular AI Data Center",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-11/utah-based-startup-raises-500-million-for-modular-ai-data-center",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T12:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "A $500 million capital raise for a new data center project is a significant investment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A $500 million capital raise for a new data center project is a significant investment.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-305",
-      "headline": "Western Union Scraps $500 Million International Money Express Takeover",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/deals/western-union-scraps-500-million-international-money-express-takeover-0cf7ae09?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T11:47:00Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "Western Union announces termination of $500M acquisition of Intermex, eliminating a named growth and cost-synergy option.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Western Union announces termination of $500M acquisition of Intermex, eliminating a named growth and cost-synergy option.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 74,
-      "rank_factors": {
-        "materiality": 74,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Western Union Company",
-          "ticker": "WU",
-          "listing_country": "US"
-        },
-        {
-          "name": "Intermex Holdings Inc.",
-          "ticker": "IMXI",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-290",
-      "headline": "Nvidia down 30% from peak in $1.7 trillion rout as Trump reveals FBI probe into boss's affair with suspected Chinese spy",
-      "headline_en": null,
-      "url": "https://www.thisismoney.co.uk/money/markets/article-16282579/Nvidia-30-1-8-trillion-rout-Trump-reveals-FBI-probe-bosss-affair-suspected-Chinese-spy.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
-      "source_name": "This is Money (Daily Mail) — Markets",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T11:02:04Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "Nvidia faces a significant market rout following reports of an FBI probe into the CEO regarding a potential security risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia faces a significant market rout following reports of an FBI probe into the CEO regarding a potential security risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-292",
-      "headline": "DIP Holding raises $517.4 million in UAE’s first 2026 IPO, debuts at $2.6 billion valuation",
-      "headline_en": null,
-      "url": "https://economymiddleeast.com/news/dip-holding-raises-517-4-million-in-uaes-first-2026-ipo-debuts-at-2-6-billion-valuation/?utm_source=rss&utm_medium=rss&utm_campaign=dip-holding-raises-517-4-million-in-uaes-first-2026-ipo-debuts-at-2-6-billion-valuation",
-      "source_name": "Economy Middle East",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T10:50:01Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "DIP Holding raised $517.4 million in an IPO with a $2.6 billion valuation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "DIP Holding raised $517.4 million in an IPO with a $2.6 billion valuation.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DIP Holding",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-293",
-      "headline": "Nissan CEO breaks down how it plans to fight back against Chinese companies, after second outlook cut in months",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/11/11/nissan-sales-forecast-earnings-china.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T10:16:34Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "Nissan announced its second outlook cut in months, signaling significant operational and competitive challenges.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nissan announced its second outlook cut in months, signaling significant operational and competitive challenges.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nissan",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-271",
-      "headline": "Hapag-Lloyd Raises Guidance Again on Strong Freight Rates",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/logistics/hapag-lloyd-raises-guidance-again-on-strong-freight-rates-d74c8067?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T10:10:00Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "Hapag-Lloyd raised its financial guidance again due to strong freight rates.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Hapag-Lloyd raised its financial guidance again due to strong freight rates.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hapag-Lloyd",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-267",
-      "headline": "Vestas Wind Systems Shares Drop on Earnings Miss, Narrowed Guidance",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/earnings/vestas-wind-systems-shares-drop-on-earnings-miss-narrowed-guidance-d146caf2?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T09:38:00Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "Vestas Wind Systems shares dropped following an earnings miss and a narrowing of their guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Vestas Wind Systems shares dropped following an earnings miss and a narrowing of their guidance.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vestas Wind Systems",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-266",
-      "headline": "AkzoNobel-Axalta $25 Billion Merger Could Harm Competition, U.K. Regulator Warns",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/deals/akzonobel-axaltas-25-billion-merger-could-harm-competition-u-k-regulator-warns-d3a59010?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T09:18:00Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "UK regulator warned that the proposed $25 billion merger between AkzoNobel and Axalta could harm competition, threatening the deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "UK regulator warned that the proposed $25 billion merger between AkzoNobel and Axalta could harm competition, threatening the deal.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AkzoNobel",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Axalta",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-239",
-      "headline": "ITV to slash costs by £30m ahead of Sky takeover deal probe",
-      "headline_en": null,
-      "url": "https://www.independent.co.uk/news/business/itv-sky-takeover-im-a-celeb-profits-b3082921.html",
-      "source_name": "The Independent — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T08:45:43Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "ITV plans to slash costs by £30 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "ITV plans to slash costs by £30 million.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ITV",
           "ticker": null,
           "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-237",
-      "headline": "Taylor Wimpey cuts housing targets in ‘subdued’ market",
-      "headline_en": null,
-      "url": "https://www.cityam.com/taylor-wimpey-cuts-housing-targets-in-subdued-market/",
-      "source_name": "City A.M.",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T08:45:16Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "Taylor Wimpey cut housing targets due to a subdued market.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Taylor Wimpey cut housing targets due to a subdued market.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Taylor Wimpey",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-200",
-      "headline": "AkzoNobel, Axalta’s $25 Billion Merger Could Harm Competition, U.K. Regulator Warns",
-      "headline_en": null,
-      "url": "https://www.wsj.com/tech/akzonobel-axaltas-25-billion-merger-could-harm-competition-u-k-regulator-warns-d3a59010?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T07:55:00Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "UK CMA issues formal warning that $25bn AkzoNobel-Axalta merger could harm competition; regulatory risk escalation that could block, delay, or reshape deal terms.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "UK CMA issues formal warning that $25bn AkzoNobel-Axalta merger could harm competition; regulatory risk escalation that could block, delay, or reshape deal terms.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AkzoNobel",
-          "ticker": null,
-          "listing_country": null
         },
         {
-          "name": "Axalta Coating Systems",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-194",
-      "headline": "Nissan Posts Quarterly Loss, Cuts Sales View on China Slump",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/autos/nissan-posts-quarterly-loss-cuts-sales-view-on-china-slump-d5cbb640?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T07:32:00Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "Company reported a quarterly loss and cut its sales guidance due to a China slump.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Company reported a quarterly loss and cut its sales guidance due to a China slump.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nissan",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-196",
-      "headline": "Nvidia down 30% in $1.7 trillion rout as Trump reveals FBI probe into boss's affair with suspected Chinese spy",
-      "headline_en": null,
-      "url": "https://www.thisismoney.co.uk/money/markets/article-16282579/Nvidia-30-1-8-trillion-rout-Trump-reveals-FBI-probe-bosss-affair-suspected-Chinese-spy.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
-      "source_name": "This is Money (Daily Mail) — Markets",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T07:16:21Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "Major market rout linked to a reported FBI probe into the CEO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Major market rout linked to a reported FBI probe into the CEO.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
+          "name": "Apollo",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-197",
-      "headline": "NC Corp Q3 Swings To Operating Income From Loss; Raises FY26 Revenue Guidance",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/nc-corp-q3-swings-operating-income-loss-raises-fy26-revenue-guidance",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T06:43:23Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "NC Corp reported a swing to operating income and raised its FY26 revenue guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "NC Corp reported a swing to operating income and raised its FY26 revenue guidance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NC Corp",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-172",
-      "headline": "Cathay Pacific to buy 11 Airbus aircraft for US$5.1 bn",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/transportation/airlines-/-aviation/cathay-pacific-to-buy-11-airbus-aircraft-for-us5-1-bn/articleshow/135728055.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T06:32:21Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "Cathay Pacific is purchasing 11 Airbus aircraft for US$5.1 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Cathay Pacific is purchasing 11 Airbus aircraft for US$5.1 billion.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cathay Pacific",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Airbus",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -232218,6 +232206,221 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-7ef4de3aea43",
+      "idea_version": "IDEAV-2154f38014190c6d",
+      "idea_version_started_at": "2026-11-11T15:44:29Z",
+      "ticker": "00259",
+      "company": "Yeebo (International Holdings)",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company issued a positive profit alert, indicating improved margins or revenue growth compared to the prior period.",
+      "why_now": "The filing was released today, November 11, 2026, providing a fresh catalyst for a valuation re-rating.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8c0987a24853"
+      ],
+      "primary_source_event_id": "EVT-8c0987a24853",
+      "source_headlines": [
+        "YEEBO (INT'L H) (00259): POSITIVE PROFIT ALERT"
+      ],
+      "source_headline": "YEEBO (INT'L H) (00259): POSITIVE PROFIT ALERT",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1111/2026111101085.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-11T11:38:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-11T15:44:29Z",
+      "updated_at": "2026-11-11T15:44:29Z",
+      "decay_at": "2026-11-12T23:38:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-94add26e023d",
+      "idea_version": "IDEAV-883767bc2ee39fbe",
+      "idea_version_started_at": "2026-11-11T15:44:29Z",
+      "ticker": "IMXI",
+      "company": "Intermex Holdings",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The termination of the $500 million acquisition by Western Union removes the takeover premium and leaves the company to navigate a challenging standalone environment.",
+      "why_now": "The deal collapse was reported today, November 11, 2026, triggering an immediate repricing of the target's shares.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1f5d209c0b1d"
+      ],
+      "primary_source_event_id": "EVT-1f5d209c0b1d",
+      "source_headlines": [
+        "Western Union Scraps $500 Million International Money Express Takeover"
+      ],
+      "source_headline": "Western Union Scraps $500 Million International Money Express Takeover",
+      "source_url": "https://www.wsj.com/business/deals/western-union-scraps-500-million-international-money-express-takeover-0cf7ae09?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-11T11:47:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-11T15:44:29Z",
+      "updated_at": "2026-11-11T15:44:29Z",
+      "decay_at": "2026-11-12T23:47:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-e8778e3ed285",
+      "idea_version": "IDEAV-e62abb8e1f6bf1ec",
+      "idea_version_started_at": "2026-11-11T15:44:29Z",
+      "ticker": "HLAG",
+      "company": "Hapag-Lloyd",
+      "exchange": "XETRA",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company continues to benefit from elevated global freight rates, leading to another upward revision in its earnings guidance.",
+      "why_now": "The guidance hike was announced today, November 11, 2026, reflecting current strong pricing power in the shipping sector.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-71baec6e5a51"
+      ],
+      "primary_source_event_id": "EVT-71baec6e5a51",
+      "source_headlines": [
+        "Hapag-Lloyd Raises Guidance Again on Strong Freight Rates"
+      ],
+      "source_headline": "Hapag-Lloyd Raises Guidance Again on Strong Freight Rates",
+      "source_url": "https://www.wsj.com/business/logistics/hapag-lloyd-raises-guidance-again-on-strong-freight-rates-d74c8067?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-11T10:10:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-11T15:44:29Z",
+      "updated_at": "2026-11-11T15:44:29Z",
+      "decay_at": "2026-11-12T22:10:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-bc31f7a2ae36",
       "idea_version": "IDEAV-9fb06784cbf61406",
       "idea_version_started_at": "2026-11-11T11:14:28Z",
@@ -237842,150 +238045,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-e92c01041db0",
-      "idea_version": "IDEAV-b8b4bb3386105a31",
-      "idea_version_started_at": "2026-11-08T18:55:39Z",
-      "ticker": "2222",
-      "company": "Saudi Arabian Oil Co (Aramco)",
-      "exchange": "TADAWUL",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A direct security threat to the company's Riyadh headquarters introduces significant operational risk and a potential geopolitical risk premium on the equity.",
-      "why_now": "The targeting of the headquarters by Houthi forces was reported on November 8, 2026, creating an immediate security overhang.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "macro_conditional",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e82fb271bbcb"
-      ],
-      "primary_source_event_id": "EVT-e82fb271bbcb",
-      "source_headlines": [
-        "Houthis target Aramco’s Riyadh headquarters"
-      ],
-      "source_headline": "Houthis target Aramco’s Riyadh headquarters",
-      "source_url": "https://www.afr.com/politics/federal/houthis-target-aramco-s-riyadh-headquarters-20261109-p61cft?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-08T14:20:15Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-08T04:38:46Z",
-      "updated_at": "2026-11-08T18:55:39Z",
-      "decay_at": "2026-11-10T02:20:15Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-c93c2c70004d",
-      "idea_version": "IDEAV-1df4b804ced3eb6b",
-      "idea_version_started_at": "2026-11-08T12:16:39Z",
-      "ticker": "2110.SR",
-      "company": "Retal",
-      "exchange": "TADAWUL",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Retal's stock has fallen to a record low since its listing, indicating significant financial distress.",
-      "why_now": "The stock hit a record low on November 8, 2026, signaling immediate pressure.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-17c3b96a8efd"
-      ],
-      "primary_source_event_id": "EVT-17c3b96a8efd",
-      "source_headlines": [
-        "‎Retal hits record low since listing"
-      ],
-      "source_headline": "‎Retal hits record low since listing",
-      "source_url": "https://www.argaam.com/en/article/articledetail/id/1951422",
-      "source_name": "Argaam — Main News (English)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-08T11:15:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-08T12:16:39Z",
-      "updated_at": "2026-11-08T12:16:39Z",
-      "decay_at": "2026-11-09T23:15:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-a2376ec1a2c7",
       "idea_version": "IDEAV-5c9b522a0d5b80c0",
       "idea_version_started_at": "2026-11-10T02:34:38Z",
@@ -238851,9 +238910,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 565,
+    "total_count": 563,
     "shown_count": 499,
-    "hidden_count": 66,
+    "hidden_count": 64,
     "side_counts": {
       "long": {
         "total_count": 292,
@@ -238861,23 +238920,23 @@
         "hidden_count": 42
       },
       "short": {
-        "total_count": 274,
+        "total_count": 272,
         "shown_count": 250,
-        "hidden_count": 24
+        "hidden_count": 22
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1790,
-      "oldest_retained_at": "2026-10-15T23:28:18Z",
+      "evicted_count": 1792,
+      "oldest_retained_at": "2026-10-16T00:56:00Z",
       "side_counts": {
         "long": {
           "evicted_count": 1175,
           "oldest_retained_at": "2026-10-27T11:30:01Z"
         },
         "short": {
-          "evicted_count": 616,
-          "oldest_retained_at": "2026-10-15T23:28:18Z"
+          "evicted_count": 618,
+          "oldest_retained_at": "2026-10-16T00:56:00Z"
         }
       }
     },
@@ -243695,8 +243754,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-10T02:20:15Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-11T15:44:41Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -243770,8 +243829,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-09T23:15:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-11T15:44:41Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -276015,8 +276074,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2391,
-    "live_count": 35,
+    "surfaced_total": 2394,
+    "live_count": 38,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -276035,9 +276094,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6528900,
-    "news_picked_today": 690,
-    "news_dropped_today": 14886
+    "news_seen_today": 7727892,
+    "news_picked_today": 1312,
+    "news_dropped_today": 19520
   },
   "book_momentum": {
     "live_count": 8,
