@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-11-11T07:03:26Z",
+  "generated_at": "2026-11-11T07:10:21Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261111-163",
+      "headline": "Mahanagar Telephone Nigam Limited: COMPLIANCE WITH REGULATION 30 & 51 OF SEBI (LODR) REGULATIONS, 2015 & SEBI CIRCULAR NO SEBI/HO/CFD/CMD1/CIR/P/2019/140 DATED 21.11.2019 INTIMATION OF DEFAULT IN THE PAYMENT OF PRINCIPAL (INSTALMENT) & INTEREST OF BANKS BY MTNL AS ON 31.10.2026",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/MTNL_11112026120328_LOANINT_SE_11112026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-11T06:33:42Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "MTNL disclosed default on principal and interest payments to banks as of 31 October 2026, signalling solvency distress and going-concern risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "MTNL disclosed default on principal and interest payments to banks as of 31 October 2026, signalling solvency distress and going-concern risk.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "default_distress",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mahanagar Telephone Nigam Limited",
+          "ticker": "MTNL",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261111-151",
       "headline": "VAU: Results of Scheme Meeting [price-sensitive]",
@@ -445,6 +495,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261111-172",
+      "headline": "Cathay Pacific to buy 11 Airbus aircraft for US$5.1 bn",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/transportation/airlines-/-aviation/cathay-pacific-to-buy-11-airbus-aircraft-for-us5-1-bn/articleshow/135728055.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T06:32:21Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Cathay Pacific is purchasing 11 Airbus aircraft for US$5.1 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Cathay Pacific is purchasing 11 Airbus aircraft for US$5.1 billion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cathay Pacific",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Airbus",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261111-159",
       "headline": "Marsh Agrees To Acquire Wilshire From CC Capital And Motive Partners",
       "headline_en": null,
@@ -843,6 +947,92 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-169",
+      "headline": "FTC to fine 15 firms 1.62tr won for rigging govt. bond bids",
+      "headline_en": null,
+      "url": "https://www.koreaherald.com/article/10933945",
+      "source_name": "The Korea Herald — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T06:27:01Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "The FTC is fining 15 firms a total of 1.62 trillion won for rigging government bond bids.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "The FTC is fining 15 firms a total of 1.62 trillion won for rigging government bond bids.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-170",
+      "headline": "Banks, brokerages hit with record W1.63tr bond-rigging fine",
+      "headline_en": null,
+      "url": "https://www.koreaherald.com/article/10933910",
+      "source_name": "The Korea Herald — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T06:13:48Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Banks and brokerages are hit with a record 1.63 trillion won fine for bond-rigging.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Banks and brokerages are hit with a record 1.63 trillion won fine for bond-rigging.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1775,202 +1965,6 @@
           "name": "EIDP, Inc.",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-101",
-      "headline": "NT 10-Q - Vylor Inc. (0002128626) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/2128626/000119312526455591/0001193125-26-455591-index.htm",
-      "source_name": "SEC EDGAR — Latest NT 10-Q (Late Quarterly Filing Notice)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-10T21:30:11Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "Vylor Inc. filed a notice of late quarterly filing, indicating potential delays in financial reporting.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Vylor Inc. filed a notice of late quarterly filing, indicating potential delays in financial reporting.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "accounting_restatement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vylor Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-126",
-      "headline": "NT 10-Q - New Fortress Energy Inc. (0001749723) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1749723/000174972326000178/0001749723-26-000178-index.htm",
-      "source_name": "SEC EDGAR — Latest NT 10-Q (Late Quarterly Filing Notice)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-10T21:17:26Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "New Fortress Energy filed a notice of late quarterly filing (NT 10-Q), which often signals internal control or accounting issues.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "New Fortress Energy filed a notice of late quarterly filing (NT 10-Q), which often signals internal control or accounting issues.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "accounting_restatement",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "New Fortress Energy",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-127",
-      "headline": "NT 10-Q - Hub Group, Inc. (0000940942) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/940942/000119312526455499/0001193125-26-455499-index.htm",
-      "source_name": "SEC EDGAR — Latest NT 10-Q (Late Quarterly Filing Notice)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-10T21:17:01Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "Hub Group filed a notice of late quarterly filing, which is a negative signal regarding financial reporting controls or timing.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Hub Group filed a notice of late quarterly filing, which is a negative signal regarding financial reporting controls or timing.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "accounting_restatement",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hub Group, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-161",
-      "headline": "MCM: Board Appointments and Executive Leadership Changes [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MCM?key=2924-03160625-6A1354610",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-11T05:18:17Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "MCM announced board appointments and executive leadership changes, which are explicitly flagged as price-sensitive information.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "MCM announced board appointments and executive leadership changes, which are explicitly flagged as price-sensitive information.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MCM",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -276397,9 +276391,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4439505,
-    "news_picked_today": 297,
-    "news_dropped_today": 4023
+    "news_seen_today": 4465017,
+    "news_picked_today": 313,
+    "news_dropped_today": 4223
   },
   "book_momentum": {
     "live_count": 8,
