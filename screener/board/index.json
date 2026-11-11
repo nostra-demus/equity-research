@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T20:46:39Z",
+  "generated_at": "2026-11-11T20:59:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20261111-369",
@@ -1281,6 +1281,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261111-563",
+      "headline": "Carelon agrees to pay $10M to settle ghost network, coverage denial allegations in New York",
+      "headline_en": null,
+      "url": "https://www.fiercehealthcare.com/payers/carelon-agrees-pay-10m-settle-ghost-network-coverage-denial-allegations-new-york",
+      "source_name": "Fierce Healthcare",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T20:36:43Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Carelon agreed to a $10M settlement regarding allegations of ghost networks and improper coverage denials.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Carelon agreed to a $10M settlement regarding allegations of ghost networks and improper coverage denials.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Carelon",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261111-562",
       "headline": "Lucid Recalled 4,400 Gravity SUVs, Delayed the Cosmos, and Is \"Buying Time.\" Here's How Many Shares It Needs to Sell to Survive 2027.",
       "headline_en": null,
@@ -1924,55 +1973,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-471",
-      "headline": "+++ Geschäftszahlen +++: Höhere Kosten zehren Nissan-Gewinn auf",
-      "headline_en": "+++ Business Figures +++: Higher costs erode Nissan's profit",
-      "url": "https://www.handelsblatt.com/unternehmen/industrie/quartalszahlen-hoehere-kosten-zehren-nissan-gewinn-auf/24098412.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T17:25:22Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "Nissan reported that higher costs have eroded its profits.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nissan reported that higher costs have eroded its profits.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nissan Motor",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -276092,9 +276092,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7935955,
-    "news_picked_today": 1455,
-    "news_dropped_today": 21633
+    "news_seen_today": 7990950,
+    "news_picked_today": 1467,
+    "news_dropped_today": 21837
   },
   "book_momentum": {
     "live_count": 8,
