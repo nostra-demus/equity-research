@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T15:21:39Z",
+  "generated_at": "2026-11-11T15:27:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261111-369",
@@ -1232,6 +1232,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261111-395",
+      "headline": "BROAD HOMES (02163): DECISION OF THE LISTING COMMITTEE ON CANCELLATION OF LISTING; AND REQUEST TO THE LISTING REVIEW COMMITTEE TO REVIEW THE DECISION OF THE LISTING COMMITTEE",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1110/2026111001103.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-10T13:06:00Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Listing committee decided to cancel Broad Homes' Hong Kong listing; company requested review of the decision.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Listing committee decided to cancel Broad Homes' Hong Kong listing; company requested review of the decision.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 88,
+      "rank_factors": {
+        "materiality": 88,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Broad Homes",
+          "ticker": "02163",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261111-394",
       "headline": "De’ Longhi Group: Record Results for the Quarter, With Revenue Growing by 7.7% and Net Profit Pertaining to the Group Progressing Significantly by 19%",
       "headline_en": null,
@@ -1920,56 +1969,6 @@
           "name": "Hapag-Lloyd",
           "ticker": null,
           "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-267",
-      "headline": "Vestas Wind Systems Shares Drop on Earnings Miss, Narrowed Guidance",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/earnings/vestas-wind-systems-shares-drop-on-earnings-miss-narrowed-guidance-d146caf2?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T09:38:00Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "Vestas Wind Systems shares dropped following an earnings miss and a narrowing of their guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Vestas Wind Systems shares dropped following an earnings miss and a narrowing of their guidance.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vestas Wind Systems",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -276022,9 +276021,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7009301,
-    "news_picked_today": 797,
-    "news_dropped_today": 16075
+    "news_seen_today": 7039506,
+    "news_picked_today": 798,
+    "news_dropped_today": 16218
   },
   "book_momentum": {
     "live_count": 8,
