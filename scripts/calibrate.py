@@ -542,11 +542,12 @@ def match_resolved_forecasts(record, reviews):
     for e in ledger:
         if isinstance(e, dict):
             k = _norm(e.get("prediction"))
-            if k and text_counts[k] == 1:  # unique text only — duplicates are ambiguous, not first-wins
-                by_text[k] = e
-            sentence = k.removesuffix(".")
-            if sentence and sentence_counts[sentence] == 1 and any(ch.isalnum() for ch in sentence):
-                by_sentence[sentence] = e
+            if k:
+                if text_counts[k] == 1:  # unique text only — duplicates are ambiguous, not first-wins
+                    by_text[k] = e
+                sentence = k.removesuffix(".")
+                if sentence and sentence_counts[sentence] == 1 and any(ch.isalnum() for ch in sentence):
+                    by_sentence[sentence] = e
 
     def _by_reference(result):
         """A DELIBERATE 1-based reference into forecast_ledger, or None. Honours an explicit
@@ -576,11 +577,12 @@ def match_resolved_forecasts(record, reviews):
         y = _realized(r.get("status"))
         if y is None:
             continue  # unresolved — excluded
-        src = by_text.get(_norm(r.get("prediction"))) or _by_reference(r)
+        norm_pred = _norm(r.get("prediction"))
+        src = by_text.get(norm_pred) or _by_reference(r)
         if src is None:
             # Count every ledger row above, including invalid probabilities: a second possible
             # identity must not disappear merely because its probability cannot be scored.
-            src = by_sentence.get(_norm(r.get("prediction")).removesuffix("."))
+            src = by_sentence.get(norm_pred.removesuffix("."))
         if src is None:
             continue  # neither text nor an explicit reference matched → not Brier-scorable, never positional-guessed
         if id(src) in seen:
