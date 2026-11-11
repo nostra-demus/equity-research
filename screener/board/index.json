@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T14:32:27Z",
+  "generated_at": "2026-11-11T14:41:20Z",
   "inbox": [
     {
       "inbox_id": "INB-20261111-360",
@@ -1134,6 +1134,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261111-366",
+      "headline": "Tata Power appoints Sanjay Banga as CEO & MD-designate; approves ₹11,871-cr pumped storage project",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/tata-power-appoints-sanjay-banga-as-ceo-md-designate-approves-11871-cr-pumped-storage-project/article71690242.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T14:18:12Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Tata Power announced a new CEO-designate and a major ₹11,871-crore pumped storage project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tata Power announced a new CEO-designate and a major ₹11,871-crore pumped storage project.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Power",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261111-353",
       "headline": "EasyJet investors back £5.7bn takeover by Apollo",
       "headline_en": null,
@@ -1931,56 +1981,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-197",
-      "headline": "NC Corp Q3 Swings To Operating Income From Loss; Raises FY26 Revenue Guidance",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/nc-corp-q3-swings-operating-income-loss-raises-fy26-revenue-guidance",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T06:43:23Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "NC Corp reported a swing to operating income and raised its FY26 revenue guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "NC Corp reported a swing to operating income and raised its FY26 revenue guidance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NC Corp",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -276030,9 +276030,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6773081,
-    "news_picked_today": 728,
-    "news_dropped_today": 15328
+    "news_seen_today": 6789145,
+    "news_picked_today": 749,
+    "news_dropped_today": 15547
   },
   "book_momentum": {
     "live_count": 8,
