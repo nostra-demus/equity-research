@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-11-11T11:34:25Z",
+  "generated_at": "2026-11-11T11:38:42Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261111-302",
+      "headline": "[TSE]Designation of Securities Under Supervision (Confirmation): Internetworking and Broadband Consulting Co.,Ltd.",
+      "headline_en": null,
+      "url": "https://www.jpx.co.jp/english/news/1023/20261111-11.html",
+      "source_name": "Japan Exchange Group (JPX) — Market News",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-11T11:10:00Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "The Tokyo Stock Exchange has designated the company's securities under supervision, a precursor to potential delisting.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The Tokyo Stock Exchange has designated the company's securities under supervision, a precursor to potential delisting.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory",
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Internetworking and Broadband Consulting Co.,Ltd.",
+          "ticker": "3815",
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261111-296",
       "headline": "HUBEONE@EC2708A (18898): Notice of Suspension of Trading and Withdrawal of Listing issued by Huatai Financial Holdings (Hong Kong) Limited",
@@ -1938,55 +1988,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-046",
-      "headline": "Keppel Infrastructure Trust to acquire 70% stake in power plant for up to S$111.6 million",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/keppel-infrastructure-trust-acquire-70-stake-power-plant-s111-6-million",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T00:29:02Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "Keppel Infrastructure Trust is acquiring a 70% stake in a power plant for S$111.6 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Keppel Infrastructure Trust is acquiring a 70% stake in a power plant for S$111.6 million.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Keppel Infrastructure Trust",
-          "ticker": null,
-          "listing_country": "SG"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -276041,9 +276042,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5684166,
-    "news_picked_today": 532,
-    "news_dropped_today": 12452
+    "news_seen_today": 5719914,
+    "news_picked_today": 541,
+    "news_dropped_today": 12587
   },
   "book_momentum": {
     "live_count": 8,
