@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T09:42:56Z",
+  "generated_at": "2026-11-11T10:13:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20261111-224",
@@ -882,6 +882,111 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-267",
+      "headline": "Vestas Wind Systems Shares Drop on Earnings Miss, Narrowed Guidance",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/earnings/vestas-wind-systems-shares-drop-on-earnings-miss-narrowed-guidance-d146caf2?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T09:38:00Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Vestas Wind Systems shares dropped following an earnings miss and a narrowing of their guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Vestas Wind Systems shares dropped following an earnings miss and a narrowing of their guidance.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vestas Wind Systems",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-266",
+      "headline": "AkzoNobel-Axalta $25 Billion Merger Could Harm Competition, U.K. Regulator Warns",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/deals/akzonobel-axaltas-25-billion-merger-could-harm-competition-u-k-regulator-warns-d3a59010?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T09:18:00Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "UK regulator warned that the proposed $25 billion merger between AkzoNobel and Axalta could harm competition, threatening the deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "UK regulator warned that the proposed $25 billion merger between AkzoNobel and Axalta could harm competition, threatening the deal.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AkzoNobel",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Axalta",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1892,98 +1997,6 @@
           "listing_country": "IN"
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-186",
-      "headline": "VAU: ZSP: Vault Minerals Ltd to be removed from S&P/ASX 200 Index [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.VAU?key=2924-03160658_PS-6A1354624",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-11T06:15:43Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "Removal from the S&P/ASX 200 index will trigger mechanical selling by index-tracking funds.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Removal from the S&P/ASX 200 index will trigger mechanical selling by index-tracking funds.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "index_rebalance",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "index_rebalance"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vault Minerals Ltd",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-169",
-      "headline": "FTC to fine 15 firms 1.62tr won for rigging govt. bond bids",
-      "headline_en": null,
-      "url": "https://www.koreaherald.com/article/10933945",
-      "source_name": "The Korea Herald — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T06:27:01Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "The FTC is fining 15 firms a total of 1.62 trillion won for rigging government bond bids.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "The FTC is fining 15 firms a total of 1.62 trillion won for rigging government bond bids.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -234213,77 +234226,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-a2376ec1a2c7",
-      "idea_version": "IDEAV-5c9b522a0d5b80c0",
-      "idea_version_started_at": "2026-11-10T02:34:38Z",
-      "ticker": "BMY",
-      "company": "Bristol Myers Squibb",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "FDA accelerated approval for lisocabtagene maraleucel in a new indication expands the addressable market and revenue potential for this key asset.",
-      "why_now": "The approval was granted on 2026-11-09.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-82e4aedb0e18"
-      ],
-      "primary_source_event_id": "EVT-82e4aedb0e18",
-      "source_headlines": [
-        "FDA grants accelerated approval to lisocabtagene maraleucel for follicular lymphoma"
-      ],
-      "source_headline": "FDA grants accelerated approval to lisocabtagene maraleucel for follicular lymphoma",
-      "source_url": "http://www.fda.gov/drugs/cancer-approvals/fda-grants-accelerated-approval-lisocabtagene-maraleucel-follicular-lymphoma",
-      "source_name": "FDA — What's New: Drugs",
-      "materiality_max": 98,
-      "newest_source_at": "2026-11-09T21:52:03Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-10T02:34:38Z",
-      "updated_at": "2026-11-10T02:34:38Z",
-      "decay_at": "2026-11-11T09:52:03Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-b492220bad93",
       "idea_version": "IDEAV-d9fb0cfe0062cd47",
       "idea_version_started_at": "2026-11-11T05:20:27Z",
@@ -234636,148 +234578,6 @@
       "surfaced_at": "2026-11-10T01:19:46Z",
       "updated_at": "2026-11-10T01:19:46Z",
       "decay_at": "2026-11-11T12:25:52Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-6d92b0c12baa",
-      "idea_version": "IDEAV-828517684f9fb4b4",
-      "idea_version_started_at": "2026-11-10T01:00:12Z",
-      "ticker": "LIN",
-      "company": "Lindian Resources",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company secured a binding offtake agreement for 30,000 tonnes of monazite concentrate, providing a clear path to revenue generation and project validation.",
-      "why_now": "The agreement was announced on 2026-11-09 and is effective immediately.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ff49020695e1"
-      ],
-      "primary_source_event_id": "EVT-ff49020695e1",
-      "source_headlines": [
-        "LIN: 30,000 Tonne Binding Monazite Concentrate Offtake [price-sensitive]"
-      ],
-      "source_headline": "LIN: 30,000 Tonne Binding Monazite Concentrate Offtake [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LIN?key=2924-03159876-6A1354288",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 88,
-      "newest_source_at": "2026-11-09T22:00:07Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-10T01:00:12Z",
-      "updated_at": "2026-11-10T01:00:12Z",
-      "decay_at": "2026-11-11T10:00:07Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-b2f2923b654d",
-      "idea_version": "IDEAV-10da123e0d675503",
-      "idea_version_started_at": "2026-11-10T00:22:09Z",
-      "ticker": "AVR",
-      "company": "AVR",
-      "exchange": null,
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The filing of amendments to historical 10-K and 10-Q forms indicates potential accounting irregularities or material misstatements, which typically lead to increased regulatory scrutiny and a loss of investor confidence.",
-      "why_now": "The filing was released on 2026-11-09, signaling immediate risk of restatement-related volatility.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0ddbbd3f3a19"
-      ],
-      "primary_source_event_id": "EVT-0ddbbd3f3a19",
-      "source_headlines": [
-        "AVR: Filing of Amendments to Form 10-K and Forms 10-Q"
-      ],
-      "source_headline": "AVR: Filing of Amendments to Form 10-K and Forms 10-Q",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AVR?key=2924-03159883-6A1354290",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 85,
-      "newest_source_at": "2026-11-09T22:03:12Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-10T00:22:09Z",
-      "updated_at": "2026-11-10T00:22:09Z",
-      "decay_at": "2026-11-11T10:03:12Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -238704,6 +238504,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-a2376ec1a2c7",
+      "idea_version": "IDEAV-5c9b522a0d5b80c0",
+      "idea_version_started_at": "2026-11-10T02:34:38Z",
+      "ticker": "BMY",
+      "company": "Bristol Myers Squibb",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "FDA accelerated approval for lisocabtagene maraleucel in a new indication expands the addressable market and revenue potential for this key asset.",
+      "why_now": "The approval was granted on 2026-11-09.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-82e4aedb0e18"
+      ],
+      "primary_source_event_id": "EVT-82e4aedb0e18",
+      "source_headlines": [
+        "FDA grants accelerated approval to lisocabtagene maraleucel for follicular lymphoma"
+      ],
+      "source_headline": "FDA grants accelerated approval to lisocabtagene maraleucel for follicular lymphoma",
+      "source_url": "http://www.fda.gov/drugs/cancer-approvals/fda-grants-accelerated-approval-lisocabtagene-maraleucel-follicular-lymphoma",
+      "source_name": "FDA — What's New: Drugs",
+      "materiality_max": 98,
+      "newest_source_at": "2026-11-09T21:52:03Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-10T02:34:38Z",
+      "updated_at": "2026-11-10T02:34:38Z",
+      "decay_at": "2026-11-11T09:52:03Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-d75ab3a03107",
       "idea_version": "IDEAV-28284785c1988330",
       "idea_version_started_at": "2026-11-09T04:50:45Z",
@@ -239060,6 +238931,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-6d92b0c12baa",
+      "idea_version": "IDEAV-828517684f9fb4b4",
+      "idea_version_started_at": "2026-11-10T01:00:12Z",
+      "ticker": "LIN",
+      "company": "Lindian Resources",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company secured a binding offtake agreement for 30,000 tonnes of monazite concentrate, providing a clear path to revenue generation and project validation.",
+      "why_now": "The agreement was announced on 2026-11-09 and is effective immediately.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ff49020695e1"
+      ],
+      "primary_source_event_id": "EVT-ff49020695e1",
+      "source_headlines": [
+        "LIN: 30,000 Tonne Binding Monazite Concentrate Offtake [price-sensitive]"
+      ],
+      "source_headline": "LIN: 30,000 Tonne Binding Monazite Concentrate Offtake [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LIN?key=2924-03159876-6A1354288",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 88,
+      "newest_source_at": "2026-11-09T22:00:07Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-10T01:00:12Z",
+      "updated_at": "2026-11-10T01:00:12Z",
+      "decay_at": "2026-11-11T10:00:07Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-24c2f9751ec7",
       "idea_version": "IDEAV-b1e925a9043aca93",
       "idea_version_started_at": "2026-11-09T03:31:35Z",
@@ -239201,6 +239143,77 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": true
+    },
+    {
+      "idea_id": "IDEA-b2f2923b654d",
+      "idea_version": "IDEAV-10da123e0d675503",
+      "idea_version_started_at": "2026-11-10T00:22:09Z",
+      "ticker": "AVR",
+      "company": "AVR",
+      "exchange": null,
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The filing of amendments to historical 10-K and 10-Q forms indicates potential accounting irregularities or material misstatements, which typically lead to increased regulatory scrutiny and a loss of investor confidence.",
+      "why_now": "The filing was released on 2026-11-09, signaling immediate risk of restatement-related volatility.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0ddbbd3f3a19"
+      ],
+      "primary_source_event_id": "EVT-0ddbbd3f3a19",
+      "source_headlines": [
+        "AVR: Filing of Amendments to Form 10-K and Forms 10-Q"
+      ],
+      "source_headline": "AVR: Filing of Amendments to Form 10-K and Forms 10-Q",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AVR?key=2924-03159883-6A1354290",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 85,
+      "newest_source_at": "2026-11-09T22:03:12Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-10T00:22:09Z",
+      "updated_at": "2026-11-10T00:22:09Z",
+      "decay_at": "2026-11-11T10:03:12Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     }
   ],
   "ideas_archive": {
@@ -239213,19 +239226,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 561,
+    "total_count": 564,
     "shown_count": 499,
-    "hidden_count": 62,
+    "hidden_count": 65,
     "side_counts": {
       "long": {
-        "total_count": 287,
+        "total_count": 289,
         "shown_count": 250,
-        "hidden_count": 37
+        "hidden_count": 39
       },
       "short": {
-        "total_count": 275,
+        "total_count": 276,
         "shown_count": 250,
-        "hidden_count": 25
+        "hidden_count": 26
       }
     },
     "retention": {
@@ -239244,6 +239257,228 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-b2f2923b654d",
+        "idea_version": "IDEAV-10da123e0d675503",
+        "idea_version_started_at": "2026-11-10T00:22:09Z",
+        "ticker": "AVR",
+        "company": "AVR",
+        "exchange": null,
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The filing of amendments to historical 10-K and 10-Q forms indicates potential accounting irregularities or material misstatements, which typically lead to increased regulatory scrutiny and a loss of investor confidence.",
+        "why_now": "The filing was released on 2026-11-09, signaling immediate risk of restatement-related volatility.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 15,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-0ddbbd3f3a19"
+        ],
+        "primary_source_event_id": "EVT-0ddbbd3f3a19",
+        "source_headlines": [
+          "AVR: Filing of Amendments to Form 10-K and Forms 10-Q"
+        ],
+        "source_headline": "AVR: Filing of Amendments to Form 10-K and Forms 10-Q",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AVR?key=2924-03159883-6A1354290",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 85,
+        "newest_source_at": "2026-11-09T22:03:12Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-10T00:22:09Z",
+        "updated_at": "2026-11-10T00:22:09Z",
+        "decay_at": "2026-11-11T10:03:12Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-11T10:03:12Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-6d92b0c12baa",
+        "idea_version": "IDEAV-828517684f9fb4b4",
+        "idea_version_started_at": "2026-11-10T01:00:12Z",
+        "ticker": "LIN",
+        "company": "Lindian Resources",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company secured a binding offtake agreement for 30,000 tonnes of monazite concentrate, providing a clear path to revenue generation and project validation.",
+        "why_now": "The agreement was announced on 2026-11-09 and is effective immediately.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-ff49020695e1"
+        ],
+        "primary_source_event_id": "EVT-ff49020695e1",
+        "source_headlines": [
+          "LIN: 30,000 Tonne Binding Monazite Concentrate Offtake [price-sensitive]"
+        ],
+        "source_headline": "LIN: 30,000 Tonne Binding Monazite Concentrate Offtake [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LIN?key=2924-03159876-6A1354288",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 88,
+        "newest_source_at": "2026-11-09T22:00:07Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-10T01:00:12Z",
+        "updated_at": "2026-11-10T01:00:12Z",
+        "decay_at": "2026-11-11T10:00:07Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-11T10:00:07Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-a2376ec1a2c7",
+        "idea_version": "IDEAV-5c9b522a0d5b80c0",
+        "idea_version_started_at": "2026-11-10T02:34:38Z",
+        "ticker": "BMY",
+        "company": "Bristol Myers Squibb",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "FDA accelerated approval for lisocabtagene maraleucel in a new indication expands the addressable market and revenue potential for this key asset.",
+        "why_now": "The approval was granted on 2026-11-09.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-82e4aedb0e18"
+        ],
+        "primary_source_event_id": "EVT-82e4aedb0e18",
+        "source_headlines": [
+          "FDA grants accelerated approval to lisocabtagene maraleucel for follicular lymphoma"
+        ],
+        "source_headline": "FDA grants accelerated approval to lisocabtagene maraleucel for follicular lymphoma",
+        "source_url": "http://www.fda.gov/drugs/cancer-approvals/fda-grants-accelerated-approval-lisocabtagene-maraleucel-follicular-lymphoma",
+        "source_name": "FDA — What's New: Drugs",
+        "materiality_max": 98,
+        "newest_source_at": "2026-11-09T21:52:03Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-10T02:34:38Z",
+        "updated_at": "2026-11-10T02:34:38Z",
+        "decay_at": "2026-11-11T09:52:03Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-11T09:52:03Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-ce779af9c495",
         "idea_version": "IDEAV-806d29b8c59755ca",
@@ -267885,154 +268120,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-894c196d214b",
-        "idea_version": "IDEAV-5fcb2feed73eb56b",
-        "idea_version_started_at": "2026-10-27T11:08:01Z",
-        "ticker": "MOREPENLAB",
-        "company": "Morepen Laboratories",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company reported record Q2 revenue of Rs. 755 Cr and a 273% surge in EBITDA, driven by strong momentum in its CDMO business.",
-        "why_now": "The financial results were released via exchange filing on October 27, 2026.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-4d2c9e2080c2"
-        ],
-        "primary_source_event_id": "EVT-4d2c9e2080c2",
-        "source_headlines": [
-          "Morepen Laboratories Limited: Morepen Laboratories Limited has informed the Exchange regarding a press release dated October 27, 2026, titled \"Morepen hits record Q2 revenue of Rs. 755 Cr; EBITDA surges 273% to Rs. 132 Cr; CDMO momentum drives Morepen into a new earnings scale; H1 EBITDA reaches Rs. 220 Cr\"."
-        ],
-        "source_headline": "Morepen Laboratories Limited: Morepen Laboratories Limited has informed the Exchange regarding a press release dated October 27, 2026, titled \"Morepen hits record Q2 revenue of Rs. 755 Cr; EBITDA surges 273% to Rs. 132 Cr; CDMO momentum drives Morepen into a new earnings scale; H1 EBITDA reaches Rs. 220 Cr\".",
-        "source_url": "https://nsearchives.nseindia.com/corporate/MOREPENLAB_27102026134742_SEIntimationPR271026.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-27T08:17:49Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-27T11:08:01Z",
-        "updated_at": "2026-10-27T11:08:01Z",
-        "decay_at": "2026-10-28T20:17:49Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-30T22:42:19Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-b169a761145d",
-        "idea_version": "IDEAV-b88da5cc6261cc3c",
-        "idea_version_started_at": "2026-10-27T11:08:01Z",
-        "ticker": "MAHINDELIFE",
-        "company": "Mahindra Lifespace Developers",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company is developing a 10.05-acre land parcel in North Bengaluru with a Gross Development Value (GDV) of INR 1250 crore, signaling a major expansion in a high-demand real estate market.",
-        "why_now": "The project announcement was filed with the exchange on October 27, 2026.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-61e8f0ded53c"
-        ],
-        "primary_source_event_id": "EVT-61e8f0ded53c",
-        "source_headlines": [
-          "Mahindra Lifespace Developers Limited: Mahindra Lifespace Developers Limited has informed the Exchange regarding a press release dated October 27, 2026, titled \"Mahindra Lifespaces to develop 10.05 acre land parcel in North Bengaluru with INR 1250 crore GDV\"."
-        ],
-        "source_headline": "Mahindra Lifespace Developers Limited: Mahindra Lifespace Developers Limited has informed the Exchange regarding a press release dated October 27, 2026, titled \"Mahindra Lifespaces to develop 10.05 acre land parcel in North Bengaluru with INR 1250 crore GDV\".",
-        "source_url": "https://nsearchives.nseindia.com/corporate/MAHLIFE1_27102026114951_IntimationofPressRelease.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-27T06:20:03Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-27T11:08:01Z",
-        "updated_at": "2026-10-27T11:08:01Z",
-        "decay_at": "2026-10-28T18:20:03Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-30T06:36:29Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-58d3e0cadc2a",
         "idea_version": "IDEAV-3b0ca6c61b0b4714",
         "idea_version_started_at": "2026-10-27T08:26:43Z",
@@ -276304,86 +276391,12 @@
         "archived_at": "2026-10-20T05:56:57Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-0b852ac1558d",
-        "idea_version": "IDEAV-b846ee605c075730",
-        "idea_version_started_at": "2026-10-18T02:00:52Z",
-        "ticker": "02369",
-        "company": "Coolpad Group",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company announced a non-underwritten rights issue, which is dilutive to existing shareholders and often signals a need for capital to address balance sheet weakness.",
-        "why_now": "The filing was released on 2026-10-16, and the market typically reacts negatively to dilution events.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-367845cc817d"
-        ],
-        "primary_source_event_id": "EVT-367845cc817d",
-        "source_headlines": [
-          "COOLPAD GROUP (02369): PROPOSED RIGHTS ISSUE ON THE BASIS OF ONE (1) RIGHTS SHARE FOR EVERY TWO (2) EXISTING SHARES HELD ON THE RECORD DATE ON A NON-UNDERWRITTEN BASIS AND PROPOSED CHANGE IN BOARD LOT SIZE"
-        ],
-        "source_headline": "COOLPAD GROUP (02369): PROPOSED RIGHTS ISSUE ON THE BASIS OF ONE (1) RIGHTS SHARE FOR EVERY TWO (2) EXISTING SHARES HELD ON THE RECORD DATE ON A NON-UNDERWRITTEN BASIS AND PROPOSED CHANGE IN BOARD LOT SIZE",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1016/2026101601510.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-16T14:57:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-16T23:31:00Z",
-        "updated_at": "2026-10-18T02:00:52Z",
-        "decay_at": "2026-10-18T02:57:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-19T19:35:58Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2388,
-    "live_count": 44,
+    "live_count": 41,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -276402,9 +276415,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5165473,
-    "news_picked_today": 444,
-    "news_dropped_today": 9060
+    "news_seen_today": 5240150,
+    "news_picked_today": 467,
+    "news_dropped_today": 10549
   },
   "book_momentum": {
     "live_count": 8,
