@@ -1,0 +1,77 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-11-09T20:03:15Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-0c529d942ea8",
+    "idea_version": "IDEAV-00e0b0acab4adaa3",
+    "idea_version_started_at": "2026-11-06T22:25:06Z",
+    "ticker": "GOOGL",
+    "company": "Alphabet Inc.",
+    "exchange": "NASDAQ",
+    "ticker_verified": true,
+    "listing_verified": true,
+    "liquidity_verified": false,
+    "listing_verification_source": "yahoo_symbol_directory",
+    "direction": "long",
+    "pair_with": null,
+    "reason": "Alphabet's drone unit plans to invest up to $125 million in a new Texas facility, signaling expansion and potential for future revenue growth in its drone delivery operations.",
+    "why_now": "The investment plan was announced on November 6, 2026, indicating a fresh capital expenditure commitment.",
+    "conviction": 55,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 65,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 19,
+      "specificity": 15,
+      "timing": 10,
+      "expression": 7,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "needs_data",
+    "missing_checks": [
+      "live liquidity",
+      "dated catalyst",
+      "independent confirmation",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-defc85159fe4"
+    ],
+    "primary_source_event_id": "EVT-defc85159fe4",
+    "source_headlines": [
+      "Alphabet’s Drone Unit to Invest Up to $125 Million in New Texas Facility"
+    ],
+    "source_headline": "Alphabet’s Drone Unit to Invest Up to $125 Million in New Texas Facility",
+    "source_url": "https://www.wsj.com/business/alphabets-drone-unit-to-invest-up-to-125-million-in-new-texas-facility-d9725c3b?mod=pls_whats_news_us_business_f",
+    "source_name": "The Wall Street Journal",
+    "materiality_max": 100,
+    "newest_source_at": "2026-11-06T19:56:00Z",
+    "prior_coverage": {
+      "has_run": true,
+      "latest_run": "analyses/GOOGL_2026-11-03",
+      "latest_decision": "Watchlist",
+      "data_pool_present": true
+    },
+    "surfaced_at": "2026-11-06T22:25:06Z",
+    "updated_at": "2026-11-06T22:25:06Z",
+    "decay_at": "2026-11-08T07:56:00Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}

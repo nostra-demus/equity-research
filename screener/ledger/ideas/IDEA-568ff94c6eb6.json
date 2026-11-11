@@ -1,0 +1,73 @@
+{
+  "idea_id": "IDEA-568ff94c6eb6",
+  "idea_version": "IDEAV-d611d85c8bb5f4ae",
+  "idea_version_started_at": "2026-11-09T21:23:50Z",
+  "ticker": "PLCE",
+  "company": "The Children's Place",
+  "exchange": "NASDAQ",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "short",
+  "pair_with": null,
+  "reason": "The company has filed for bankruptcy protection, which typically results in a total loss of equity value for common shareholders as the capital structure is reorganized.",
+  "why_now": "The filing was announced on 2026-11-09, making the equity effectively worthless as the company seeks a buyer or liquidation.",
+  "conviction": 90,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 60,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 21,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 7,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "priced-in risk",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "priced",
+  "thesis_type": "balance_sheet_survival",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-21eb39242d5d"
+  ],
+  "primary_source_event_id": "EVT-21eb39242d5d",
+  "source_headlines": [
+    "Children’s Place files for bankruptcy protection, seeks buyer"
+  ],
+  "source_headline": "Children’s Place files for bankruptcy protection, seeks buyer",
+  "source_url": "https://www.cnbc.com/2026/11/09/childrens-place-chapter-11-sale.html",
+  "source_name": "CNBC",
+  "materiality_max": 100,
+  "newest_source_at": "2026-11-09T20:57:46Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-11-09T19:22:55Z",
+  "updated_at": "2026-11-09T21:23:50Z",
+  "decay_at": "2026-11-11T08:57:46Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
