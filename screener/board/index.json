@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T20:24:31Z",
+  "generated_at": "2026-11-11T20:28:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20261111-369",
@@ -1281,6 +1281,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261111-562",
+      "headline": "Lucid Recalled 4,400 Gravity SUVs, Delayed the Cosmos, and Is \"Buying Time.\" Here's How Many Shares It Needs to Sell to Survive 2027.",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/11/11/lucid-recalled-4400-gravity-suvs-delayed-the-cosmo/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T20:05:00Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Lucid recalled 4,400 SUVs and faces significant liquidity concerns, raising questions about its ability to survive 2027.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Lucid recalled 4,400 SUVs and faces significant liquidity concerns, raising questions about its ability to survive 2027.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "product",
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lucid",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261111-531",
       "headline": "Versicherer: Allianz erhöht Gewinnprognose – Rekordgewinn nach neun Monaten",
       "headline_en": "Insurers: Allianz raises profit forecast – record profit after nine months",
@@ -1923,55 +1973,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-445",
-      "headline": "University of Texas MD Anderson Cancer Center unveils $3.4B expansion plans",
-      "headline_en": null,
-      "url": "https://www.fiercehealthcare.com/providers/university-texas-md-anderson-cancer-center-unveils-34b-expansion-plans",
-      "source_name": "Fierce Healthcare",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T17:16:26Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "University of Texas MD Anderson Cancer Center announced a $3.4B expansion plan.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "University of Texas MD Anderson Cancer Center announced a $3.4B expansion plan.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "University of Texas MD Anderson Cancer Center",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -276093,9 +276094,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7857702,
-    "news_picked_today": 1438,
-    "news_dropped_today": 21362
+    "news_seen_today": 7869002,
+    "news_picked_today": 1443,
+    "news_dropped_today": 21381
   },
   "book_momentum": {
     "live_count": 8,
