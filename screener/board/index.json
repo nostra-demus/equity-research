@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T17:35:17Z",
+  "generated_at": "2026-11-11T17:44:21Z",
   "inbox": [
     {
       "inbox_id": "INB-20261111-369",
@@ -1330,6 +1330,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261111-425",
+      "headline": "EasyJet investors back £5.7bn takeover by Apollo",
+      "headline_en": null,
+      "url": "https://www.standard.co.uk/business/business-news/luton-london-stock-exchange-london-wagamama-airbus-b1304470.html",
+      "source_name": "The Standard (Evening Standard) — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T16:12:55Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "EasyJet investors have backed a £5.7 billion takeover bid by Apollo.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "EasyJet investors have backed a £5.7 billion takeover bid by Apollo.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EasyJet",
+          "ticker": null,
+          "listing_country": "GB"
+        },
+        {
+          "name": "Apollo",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261111-419",
       "headline": "Revealed: West Bank petrol station chain faces $325m claim in PA fuel-smuggling probe",
       "headline_en": null,
@@ -1923,55 +1977,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-292",
-      "headline": "DIP Holding raises $517.4 million in UAE’s first 2026 IPO, debuts at $2.6 billion valuation",
-      "headline_en": null,
-      "url": "https://economymiddleeast.com/news/dip-holding-raises-517-4-million-in-uaes-first-2026-ipo-debuts-at-2-6-billion-valuation/?utm_source=rss&utm_medium=rss&utm_campaign=dip-holding-raises-517-4-million-in-uaes-first-2026-ipo-debuts-at-2-6-billion-valuation",
-      "source_name": "Economy Middle East",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T10:50:01Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "DIP Holding raised $517.4 million in an IPO with a $2.6 billion valuation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "DIP Holding raised $517.4 million in an IPO with a $2.6 billion valuation.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DIP Holding",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -276092,9 +276097,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7443936,
-    "news_picked_today": 990,
-    "news_dropped_today": 18066
+    "news_seen_today": 7457163,
+    "news_picked_today": 1008,
+    "news_dropped_today": 18216
   },
   "book_momentum": {
     "live_count": 8,
