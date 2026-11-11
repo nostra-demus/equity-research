@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-11-11T00:03:44Z",
+  "generated_at": "2026-11-11T00:08:36Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261111-007",
+      "headline": "WCE: Elizabeth Hill Up 20% to 3.36 Moz Ag, 77% Indicated Resource [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WCE?key=2924-03160345-6A1354459",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-10T22:02:56Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Western Copper and Gold reported a 20% increase in the Elizabeth Hill resource estimate to 3.36 million ounces of silver.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Western Copper and Gold reported a 20% increase in the Elizabeth Hill resource estimate to 3.36 million ounces of silver.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Western Copper and Gold",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-008",
+      "headline": "AGT: Capital Raising Lodgement of Prospectus [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AGT?key=2924-03160344-2A1709936",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-10T22:02:36Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "AGT announced a capital raising via a prospectus, which is dilutive to existing shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "AGT announced a capital raising via a prospectus, which is dilutive to existing shareholders.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AGT",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261111-001",
       "headline": "SCHEDULE 13D/A - WATEROUS ENERGY FUND III (US) LP (0001999193) (Filed by)",
@@ -275803,7 +275901,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4693,
+    "inbox_unconsumed": 4695,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -275812,9 +275910,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 0,
-    "news_picked_today": 0,
-    "news_dropped_today": 0
+    "news_seen_today": 67454,
+    "news_picked_today": 8,
+    "news_dropped_today": 112
   },
   "book_momentum": {
     "live_count": 8,
