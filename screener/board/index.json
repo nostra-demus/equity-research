@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T05:19:47Z",
+  "generated_at": "2026-11-11T05:20:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20261111-142",
@@ -234391,6 +234391,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-b492220bad93",
+      "idea_version": "IDEAV-d9fb0cfe0062cd47",
+      "idea_version_started_at": "2026-11-11T05:20:27Z",
+      "ticker": "MI6",
+      "company": "MI6",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "MI6 can start production because its capex is fully funded, which should boost its revenue and profit margins.",
+      "why_now": "The ASX filing dated 2026-11-10 shows the funding is now in place, providing an immediate catalyst.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d77904fb0124"
+      ],
+      "primary_source_event_id": "EVT-d77904fb0124",
+      "source_headlines": [
+        "MI6: Bullabulling Fully Funded to First Production [price-sensitive]"
+      ],
+      "source_headline": "MI6: Bullabulling Fully Funded to First Production [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MI6?key=2924-03160304-6A1354489",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 97,
+      "newest_source_at": "2026-11-10T21:22:31Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-11T05:20:27Z",
+      "updated_at": "2026-11-11T05:20:27Z",
+      "decay_at": "2026-11-12T09:22:31Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-c9b7224cbdda",
       "idea_version": "IDEAV-9500e4dab8bdeaa4",
       "idea_version_started_at": "2026-11-11T04:24:11Z",
@@ -238464,79 +238535,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-c4243ebb3cd3",
-      "idea_version": "IDEAV-6fe6bef7f4f26a1d",
-      "idea_version_started_at": "2026-11-08T07:25:21Z",
-      "ticker": "TCHEM",
-      "company": "Tata Chemicals",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Tata Chemicals reported a net loss in Q2 due to rising energy costs and weak soda ash prices, directly impacting its earnings.",
-      "why_now": "The Q2 earnings report was released today, providing the catalyst for the negative earnings surprise.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d0cfc1ae6473"
-      ],
-      "primary_source_event_id": "EVT-d0cfc1ae6473",
-      "source_headlines": [
-        "Tata Chemicals Slips Into ₹50 Crore Loss In Q2, Rising Energy Costs & Weak Soda Ash Prices Hit Earnings"
-      ],
-      "source_headline": "Tata Chemicals Slips Into ₹50 Crore Loss In Q2, Rising Energy Costs & Weak Soda Ash Prices Hit Earnings",
-      "source_url": "https://www.freepressjournal.in/business/tata-chemicals-slips-into-50-crore-loss-in-q2-rising-energy-costs-weak-soda-ash-prices-hit-earnings",
-      "source_name": "Free Press Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-08T05:03:19Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-08T07:25:21Z",
-      "updated_at": "2026-11-08T07:25:21Z",
-      "decay_at": "2026-11-09T17:03:19Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-535e529d3ef7",
       "idea_version": "IDEAV-d7cb22541a8741c6",
       "idea_version_started_at": "2026-11-08T06:58:45Z",
@@ -238747,78 +238745,6 @@
       "surfaced_at": "2026-11-08T06:15:20Z",
       "updated_at": "2026-11-08T06:15:20Z",
       "decay_at": "2026-11-09T18:06:08Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-350fad68c876",
-      "idea_version": "IDEAV-d97d96dfc5ee0506",
-      "idea_version_started_at": "2026-11-08T05:48:41Z",
-      "ticker": "500510",
-      "company": "Adani Enterprises",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Adani Enterprises plans substantial annual capital expenditures of Rs 35,000-40,000 crore over the next two years, signaling significant investment in growth and infrastructure.",
-      "why_now": "The capex plan covers the next two years, making it a current and forward-looking investment commitment.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1a729c9b365c"
-      ],
-      "primary_source_event_id": "EVT-1a729c9b365c",
-      "source_headlines": [
-        "Adani Enterprises plans Rs 35,000-40,000 crore annual capex in next two years"
-      ],
-      "source_headline": "Adani Enterprises plans Rs 35,000-40,000 crore annual capex in next two years",
-      "source_url": "https://economictimes.indiatimes.com/news/company/corporate-trends/adani-enterprises-plans-rs-35000-40000-crore-annual-capex-in-next-two-years/articleshow/135651827.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-08T05:09:07Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-08T05:48:41Z",
-      "updated_at": "2026-11-08T05:48:41Z",
-      "decay_at": "2026-11-09T17:09:07Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -239468,150 +239394,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-7839daa4813e",
-      "idea_version": "IDEAV-27e1250d3b0ab291",
-      "idea_version_started_at": "2026-11-08T05:48:41Z",
-      "ticker": "5108",
-      "company": "Bridgestone",
-      "exchange": "TSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Bridgestone is increasing production of large mining tires, driven by AI-influenced demand, which should boost sales and operational output.",
-      "why_now": "The company is actively revving up output now to meet this AI-driven demand.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-23b8ed13e012"
-      ],
-      "primary_source_event_id": "EVT-23b8ed13e012",
-      "source_headlines": [
-        "Bridgestone revs up output of massive mining tires on AI-driven demand"
-      ],
-      "source_headline": "Bridgestone revs up output of massive mining tires on AI-driven demand",
-      "source_url": "https://asia.nikkei.com/business/automobiles/bridgestone-revs-up-output-of-massive-mining-tires-on-ai-driven-demand",
-      "source_name": "Nikkei Asia",
-      "materiality_max": 89,
-      "newest_source_at": "2026-11-08T05:07:32Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-08T05:48:41Z",
-      "updated_at": "2026-11-08T05:48:41Z",
-      "decay_at": "2026-11-09T17:07:32Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-fe0a4c2c5819",
-      "idea_version": "IDEAV-4a94a819f302db6e",
-      "idea_version_started_at": "2026-11-08T05:48:41Z",
-      "ticker": "005930",
-      "company": "Samsung Electronics",
-      "exchange": "KRX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Samsung's new chip plant in Texas is set to begin trial production, indicating progress in its significant capital expenditure and future manufacturing capacity.",
-      "why_now": "Trial runs are scheduled to commence in December, marking a near-term operational milestone.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5cb3be646ac4"
-      ],
-      "primary_source_event_id": "EVT-5cb3be646ac4",
-      "source_headlines": [
-        "Samsung's Texas chip plant could begin trial runs in December"
-      ],
-      "source_headline": "Samsung's Texas chip plant could begin trial runs in December",
-      "source_url": "https://www.koreaherald.com/article/10929626",
-      "source_name": "The Korea Herald — Business",
-      "materiality_max": 89,
-      "newest_source_at": "2026-11-08T04:55:28Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-08T05:48:41Z",
-      "updated_at": "2026-11-08T05:48:41Z",
-      "decay_at": "2026-11-09T16:55:28Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-24c2f9751ec7",
       "idea_version": "IDEAV-b1e925a9043aca93",
       "idea_version_started_at": "2026-11-09T03:31:35Z",
@@ -239753,150 +239535,6 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": true
-    },
-    {
-      "idea_id": "IDEA-6e6b4cb95539",
-      "idea_version": "IDEAV-8e315f1351756ca2",
-      "idea_version_started_at": "2026-11-08T05:48:41Z",
-      "ticker": "2290",
-      "company": "Naseej International Trading Co.",
-      "exchange": "Tadawul",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company's board has recommended a decrease in its capital, which typically signals financial distress or a restructuring that could negatively impact shareholder value.",
-      "why_now": "The board's recommendation is a current action impacting the company's capital structure.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ea5c7c2d3e42"
-      ],
-      "primary_source_event_id": "EVT-ea5c7c2d3e42",
-      "source_headlines": [
-        "Naseej International Trading Co. Announces Board's Recommendation to Decrease the Company's Capital"
-      ],
-      "source_headline": "Naseej International Trading Co. Announces Board's Recommendation to Decrease the Company's Capital",
-      "source_url": "http://english.mubasher.info/news/4697847/Naseej-International-Trading-Co-Announces-Board-s-Recommendation-to-Decrease-the-Company-s-Capital",
-      "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
-      "materiality_max": 85,
-      "newest_source_at": "2026-11-08T05:05:41Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-08T05:48:41Z",
-      "updated_at": "2026-11-08T05:48:41Z",
-      "decay_at": "2026-11-09T17:05:41Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-d5505fc2494c",
-      "idea_version": "IDEAV-d936a778c3c4dcaf",
-      "idea_version_started_at": "2026-11-08T05:29:08Z",
-      "ticker": "ADES",
-      "company": "ADES Holding Company",
-      "exchange": null,
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Securing multi-year contracts for two jackup rigs with ONGC provides immediate revenue visibility and strengthens the company's market share in the Indian offshore drilling sector.",
-      "why_now": "The contract award was announced on 2026-11-08, confirming long-term backlog growth.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9232d27e64a5"
-      ],
-      "primary_source_event_id": "EVT-9232d27e64a5",
-      "source_headlines": [
-        "ADES Secures Multi-Year Contracts for Two Standard Jackup Rigs with ONGC in India, Reinforcing its Long-Term Presence in this Market"
-      ],
-      "source_headline": "ADES Secures Multi-Year Contracts for Two Standard Jackup Rigs with ONGC in India, Reinforcing its Long-Term Presence in this Market",
-      "source_url": "http://english.mubasher.info/news/4697845/ADES-Secures-Multi-Year-Contracts-for-Two-Standard-Jackup-Rigs-with-ONGC-in-India-Reinforcing-its-Long-Term-Presence-in-this-Market",
-      "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
-      "materiality_max": 82,
-      "newest_source_at": "2026-11-08T05:06:37Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-08T05:29:08Z",
-      "updated_at": "2026-11-08T05:29:08Z",
-      "decay_at": "2026-11-09T17:06:37Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
     }
   ],
   "ideas_archive": {
@@ -239909,33 +239547,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 571,
+    "total_count": 565,
     "shown_count": 499,
-    "hidden_count": 72,
+    "hidden_count": 66,
     "side_counts": {
       "long": {
-        "total_count": 295,
+        "total_count": 291,
         "shown_count": 250,
-        "hidden_count": 45
+        "hidden_count": 41
       },
       "short": {
-        "total_count": 277,
+        "total_count": 275,
         "shown_count": 250,
-        "hidden_count": 27
+        "hidden_count": 25
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1763,
-      "oldest_retained_at": "2026-10-14T11:51:55Z",
+      "evicted_count": 1769,
+      "oldest_retained_at": "2026-10-14T12:00:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 1159,
-          "oldest_retained_at": "2026-10-26T18:25:00Z"
+          "evicted_count": 1163,
+          "oldest_retained_at": "2026-10-26T20:53:08Z"
         },
         "short": {
-          "evicted_count": 605,
-          "oldest_retained_at": "2026-10-14T11:51:55Z"
+          "evicted_count": 607,
+          "oldest_retained_at": "2026-10-14T12:00:00Z"
         }
       }
     },
@@ -244927,8 +244565,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-09T17:09:07Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-11T05:20:32Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -245002,8 +244640,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-09T17:07:32Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-11T05:20:32Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -245077,8 +244715,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-09T17:06:37Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-11T05:20:32Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -245152,8 +244790,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-09T17:05:41Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-11T05:20:32Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -245228,8 +244866,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-09T17:03:19Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-11T05:20:32Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -245303,8 +244941,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-09T16:55:28Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-11T05:20:32Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -277086,8 +276724,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2379,
-    "live_count": 44,
+    "surfaced_total": 2380,
+    "live_count": 45,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
