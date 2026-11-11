@@ -1,0 +1,79 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-11-11T05:45:09Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-834405409b8b",
+    "idea_version": "IDEAV-6722edeb07df63c0",
+    "idea_version_started_at": "2026-11-08T05:48:41Z",
+    "ticker": "DJS",
+    "company": "David Jones",
+    "exchange": null,
+    "ticker_verified": false,
+    "listing_verified": false,
+    "liquidity_verified": false,
+    "listing_verification_source": null,
+    "direction": "short",
+    "pair_with": null,
+    "reason": "David Jones faces rising unpaid bills totaling $100 million, indicating severe financial distress and potential default risk.",
+    "why_now": "The unpaid bills have risen to $100 million, highlighting a current and critical financial situation.",
+    "conviction": 60,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 45,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 19,
+      "specificity": 7,
+      "timing": 10,
+      "expression": 0,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "watch_only",
+    "missing_checks": [
+      "verified listed ticker",
+      "verified listing",
+      "live liquidity",
+      "dated catalyst",
+      "independent confirmation",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "balance_sheet_survival",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-0160816b42b0"
+    ],
+    "primary_source_event_id": "EVT-0160816b42b0",
+    "source_headlines": [
+      "David Jones’ unpaid bills rise to $100m as prospective owners circle"
+    ],
+    "source_headline": "David Jones’ unpaid bills rise to $100m as prospective owners circle",
+    "source_url": "https://www.afr.com/companies/retail/david-jones-unpaid-bills-rise-to-100m-as-prospective-owners-circle-20261108-p61ccx?ref=rss&utm_medium=rss&utm_source=rss_feed",
+    "source_name": "Australian Financial Review",
+    "materiality_max": 100,
+    "newest_source_at": "2026-11-08T05:30:00Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-11-08T05:48:41Z",
+    "updated_at": "2026-11-08T05:48:41Z",
+    "decay_at": "2026-11-09T17:30:00Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}
