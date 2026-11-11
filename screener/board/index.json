@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T18:10:21Z",
+  "generated_at": "2026-11-11T18:18:30Z",
   "inbox": [
     {
       "inbox_id": "INB-20261111-369",
@@ -1482,6 +1482,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261111-474",
+      "headline": "Bought Indo Thai Securities shares in 2026? Stock crashes 90% after two years of multibagger gains; what went wrong?",
+      "headline_en": null,
+      "url": "https://www.livemint.com/market/stock-market-news/bought-indo-thai-securities-shares-in-2026-stock-crashes-90-after-two-years-of-multibagger-gains-what-went-wrong-11794418354632.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T17:42:09Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Indo Thai Securities shares crashed 90%, indicating a severe loss of value and potential distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Indo Thai Securities shares crashed 90%, indicating a severe loss of value and potential distress.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Indo Thai Securities",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261111-447",
       "headline": "Cupid Q2 profit jumps 133%, raises FY27 revenue guidance to ₹880 crore",
       "headline_en": null,
@@ -1922,60 +1971,6 @@
           "name": "De' Longhi Group",
           "ticker": null,
           "listing_country": "IT"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-393",
-      "headline": "EasyJet investors give green light to £5.7bn takeover by Apollo",
-      "headline_en": null,
-      "url": "https://www.standard.co.uk/business/easyjet-apollo-takeover-bid-approved-b1304472.html",
-      "source_name": "The Standard (Evening Standard) — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T14:47:34Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "Investors approved a major £5.7 billion takeover of EasyJet by Apollo.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Investors approved a major £5.7 billion takeover of EasyJet by Apollo.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "easyJet plc",
-          "ticker": "EZJ",
-          "listing_country": "GB"
-        },
-        {
-          "name": "Apollo Global Management, Inc.",
-          "ticker": "APO",
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -276099,9 +276094,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7547693,
-    "news_picked_today": 1100,
-    "news_dropped_today": 18460
+    "news_seen_today": 7572893,
+    "news_picked_today": 1115,
+    "news_dropped_today": 18613
   },
   "book_momentum": {
     "live_count": 8,
