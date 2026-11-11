@@ -932,7 +932,13 @@ _BG_YIELD_QUOTED = re.compile(
     r"(?:on|for)\s+(?:(?!unavailable|not\b|n/?a\b|none\b|nil\b|no\b)[^,;.\n%]){0,40}?\s)\s*"
     r"(?:(?:currently|now|still)\s+)?(?:of|is|was|at|sits\s+at|stands\s+at|=|:)\s*"
     r"(?:~|about\s+|roughly\s+|approximately\s+|around\s+|c\.\s*)?\d[\d.,]*\s*%|"
-    r"\d[\d.,]*\s*%\s+(?:dividend|distribution)\s+yield\b", re.I)
+    # The %-first form must still read as a QUOTED yield when a basis adjective sits between the % and the
+    # phrase ("3.1% trailing dividend yield", "4% forward dividend yield"); otherwise the whole §16
+    # availability check (basis, ex-/record-date, staleness, reason-to-own) is skipped and a stale yield
+    # presented as a reason to own ships clean. Restricted to basis/qualifier words so it never swallows an
+    # unrelated "revenue rose 5% while the dividend yield …".
+    r"\d[\d.,]*\s*%\s+(?:(?:trailing|forward|ttm|ltm|ntm|gross|net|annuali[sz]ed|current|indicative|"
+    r"prospective|est(?:imated)?\.?|expected|headline|reported)\s+){0,3}(?:dividend|distribution)\s+yield\b", re.I)
 # An explicit "no yield quoted" disclosure — never subject to the basis/date requirement. It must be a
 # real no-yield CONSTRUCTION ("yield: none", "yield n/a", "yield unavailable", "no dividend yield", "does
 # not pay a dividend"), not a "none"/"n/a" merely near the word "yield" — "yield 3%, none in its peer set
@@ -1117,7 +1123,10 @@ _BG_NEG_BEFORE = re.compile(r"\b(?:not|never|no|nor|isn'?t|cannot)\b[^,;.]{0,6}$
 # A depositary / foreign-wrapper line: its yield must say gross or net of withholding / depositary fees
 # (§16); scoped to these lines so a domestic yield is never asked to state a withholding it does not bear.
 _BG_DEPOSITARY = re.compile(r"\b(?:ADRs?|ADSs?|GDRs?|depositary|CEDEARs?|BDRs?)\b", re.I)
-_BG_GROSS_NET = re.compile(r"\b(?:gross|net)\b|withholding", re.I)
+# "gross of" / "net of" (an actual withholding statement), withholding, or a depositary-fee mention — NOT a
+# bare "net"/"gross": a stray balance-sheet word on the line ("net debt", "net margin", "net income") must
+# not discharge the §16 requirement that a depositary-line yield state its withholding/fee treatment.
+_BG_GROSS_NET = re.compile(r"\b(?:gross|net)\s+of\b|withholding|depositary\s+fee", re.I)
 # Headline price / fair-value value cells ("Current price: €90", "| Fair-value range | $100–$120 |").
 # The label must sit in LABEL position — line start, a table cell, or a new clause — so prose such as
 # "Uber's offer price: €41.50" (a different instrument's price) cannot fire.

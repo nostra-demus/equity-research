@@ -2536,6 +2536,26 @@ if scope=="selftest":
         ("2026-10-05",{"ticker":"BABA","exchange":"NYSE (ADR; also HKEX-listed)","currency":"USD"},_bg_th("Decision line: BABA · NYSE · USD\nThe ADR trades at a 1% premium to the HKEX line.\nTrailing dividend yield 1.1%, ex-date 2026-12-01.\n"),["gross/net-of-withholding"]),
         ("2026-10-05",{"ticker":"BABA","exchange":"NYSE (ADR; also HKEX-listed)","currency":"USD"},_bg_th("Decision line: BABA · NYSE · USD\nThe ADR trades at a 1% premium to the HKEX line.\nTrailing dividend yield 1.1% net of 10% withholding, ex-date 2026-12-01.\n"),[]),
         ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 1.1%, ex-date 2026-12-01.\n"),[]),
+        # ── Layer-3 (automated PR-review) regression cases — two confirmed §16 FALSE NEGATIVES ──
+        # Finding 1 (§16 "a yield is only a yield a buyer can still receive … must never be presented as a
+        # reason to own"): a %-FIRST quote with a basis adjective between the % and the phrase ("3.1% trailing
+        # dividend yield", "4% forward dividend yield") was recognised by NEITHER alternative, so the whole
+        # availability check (basis / ex-/record-date / staleness / reason-to-own) was skipped and a stale
+        # yield presented as a reason to own shipped clean. The %-first form is now recognised, so these FAIL.
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"The shares offer a 3.1% trailing dividend yield, ex-date 2025-08-14, which is a reason to own.\n"),["before the decision date"]),
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"A 4% forward dividend yield, ex-date 2024-01-01, that rewards holders and is a reason to own.\n"),["before the decision date"]),
+        # ...the compliant %-first form (future ex-date, basis present) still PASSES — no new false positive...
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"A 4% forward dividend yield, ex-date 2026-12-01.\n"),[]),
+        # ...and an unrelated "5%" near a bare "dividend yield" (no bound figure, no basis word between) is NOT
+        #   a quoted yield and must still PASS — the basis-word restriction prevents over-matching.
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Revenue rose 5% while the dividend yield story is secondary.\n"),[]),
+        # Finding 2 (§16 depositary "gross or net of withholding"): a stray balance-sheet word on the yield
+        # line ("net debt", "net margin") used to satisfy the requirement via a bare \bnet\b. Now only an
+        # actual "gross of" / "net of" / withholding / depositary-fee statement discharges it, so these FAIL...
+        ("2026-10-05",{"ticker":"BABA","exchange":"NYSE (ADR; also HKEX-listed)","currency":"USD"},_bg_th("Decision line: BABA · NYSE · USD\nThe ADR trades at a 1% premium to the HKEX line.\nTrailing dividend yield 1.1%, ex-date 2026-12-01, while net debt fell.\n"),["gross/net-of-withholding"]),
+        ("2026-10-05",{"ticker":"BABA","exchange":"NYSE (ADR; also HKEX-listed)","currency":"USD"},_bg_th("Decision line: BABA · NYSE · USD\nThe ADR trades at a 1% premium to the HKEX line.\nTrailing dividend yield 1.1%, ex-date 2026-12-01; net margin rose.\n"),["gross/net-of-withholding"]),
+        # ...while a real "gross of withholding" statement PASSES (so does the existing "net of 10% withholding").
+        ("2026-10-05",{"ticker":"BABA","exchange":"NYSE (ADR; also HKEX-listed)","currency":"USD"},_bg_th("Decision line: BABA · NYSE · USD\nThe ADR trades at a 1% premium to the HKEX line.\nTrailing dividend yield 1.1% gross of withholding, ex-date 2026-12-01.\n"),[]),
     ]
     bgbad=0
     for _bgc in _bg_cases:
