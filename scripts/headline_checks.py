@@ -944,6 +944,17 @@ _BH_BASIS = re.compile(
 _BH_NONSTRICT = re.compile(
     r"\bbroad\b|gross[\s-]*liquidity|\b(?:incl|including|includes)\w*\.?\s+(?:[\w-]+\s+){0,4}?"
     r"(?:investments?|treasury|securities|deposits|funds)", re.I)
+# The STRICT FIGURE that §15 wants beside a broad one: a value ("₹0.15 bn", or nil / zero) that a
+# "strict" token sits directly on — "strict net cash is ₹0.15 bn", "₹0.15 bn on a strict basis",
+# "(strict: ₹0.15 bn)". Used where a bare "strict" anywhere in the segment is not enough: a segment that
+# also carries the broad label (the "strict" must quote its OWN amount, not the broad one — "Net cash of
+# ₹33.7 bn on the broad basis, held under strict treasury rules" shows no strict figure), and an
+# elliptical ';' continuation of a net-cash clause ("…incl. investments; ₹0.15 bn strict").
+_BH_VAL = r"(?:(?:" + _BH_MONEY + r")(?:\s?(?:bn|mn|million|billion|trillion|crore|cr|lakh)\b)?|\b(?:nil|zero)\b)"
+_BH_STRICT_FIG = re.compile(
+    r"\bstrict\b[\w-]*(?:[\s,:()=~≈–—-]+[\w&'.-]+){0,4}?[\s,:(=~≈–—-]+" + _BH_VAL
+    + "|" + _BH_VAL + r"(?:[\s,()]+[\w'.-]+){0,2}?[\s,(]+strict\b", re.I)
+_BH_VAL_RE = re.compile(_BH_VAL, re.I)
 
 
 def _part_one(thesis):
@@ -973,14 +984,27 @@ def eval_bh_net_debt_basis_label(decision_date, thesis):
         # on a strict basis is 2.1x", "…net cash; its cash and cash equivalents sit offshore" — must NOT
         # cover the figure). Sentence breaks (. ! ?) still require a following capital/quote so a decimal or
         # "Inc." is not split; ';' needs no such guard because it always separates independent clauses.
+        prev_net = False  # the previous ';'-clause on this line quoted a net-cash / net-debt amount
         for seg in re.split(r"(?<=;)\s*|(?<=[.!?])\s+(?=[A-Z*(\[‘\"])", line):
-            if not (_BH_A.search(seg) or _BH_B.search(seg)):
+            has_net = bool(_BH_A.search(seg) or _BH_B.search(seg))
+            continuation = prev_net and not has_net
+            prev_net = has_net and seg.rstrip().endswith(";")
+            if not has_net:
+                # An elliptical ';' continuation of a net-cash clause ("…incl. investments; ₹0.15 bn strict")
+                # names the strict figure only when "strict" sits on its own amount.
+                if continuation and _BH_STRICT_FIG.search(seg):
+                    strict_fig = True
                 continue
             # §15 requires the STRICT FIGURE alongside an investment-inclusive one — so "strict" only
             # discharges that duty when it sits in a segment that itself quotes a net-cash/net-debt
             # AMOUNT (a quantified strict figure), not as a bare token borrowed from "strict leverage".
+            # Where the same segment ALSO carries the broad label, "strict" must sit on a second, distinct
+            # amount — one amount cannot be both the broad figure and the strict one.
             if re.search(r"\bstrict\b", seg, re.I):
-                strict_fig = True
+                if not _BH_NONSTRICT.search(seg):
+                    strict_fig = True
+                elif len(_BH_VAL_RE.findall(seg)) >= 2 and _BH_STRICT_FIG.search(seg):
+                    strict_fig = True
             if _BH_BASIS.search(seg):
                 nonstrict = nonstrict or bool(_BH_NONSTRICT.search(seg))
             else:

@@ -2407,6 +2407,22 @@ if scope=="selftest":
         # FN2: ';' separates the bare net-cash figure from an unrelated "cash and cash equivalents" clause
         # (which describes where cash sits, not the net-cash basis). Pre-fix: silent pass. Now flagged.
         ("2026-11-06", _bh_th("The group carries ~₹31 billion of net cash; its cash and cash equivalents sit largely offshore."), ["no basis label"]),
+        # ── Strict-FIGURE binding (PR #781 documented residual + ';'-split follow-on). §15: an investment-
+        # inclusive figure must never appear "without also showing the strict figure" — a strict FIGURE, so the
+        # "strict" token has to sit on its own amount, not merely share a segment with the broad one.
+        # SF1/SF2: one broad amount + an unrelated "strict" in the SAME segment. Pre-fix: silent pass. Now flagged.
+        ("2026-11-06", _bh_th("Net cash of ₹33.7 bn on the broad basis, held under strict treasury rules."), ["never names the strict"]),
+        ("2026-11-06", _bh_th("Net cash of ₹33.7 bn on the broad basis, with ₹5 bn of debt under strict covenant tests."), ["never names the strict"]),
+        # SF3: elliptical strict figure after ';' ("…; ₹0.15 bn strict") IS the strict figure. The ';'-split in
+        # 0a2094f3 orphaned that clause (no net-cash term) → false "never names the strict". Now passes.
+        ("2026-11-06", _bh_th("Net cash is ₹33.7 bn incl. liquid-fund investments; ₹0.15 bn strict."), []),
+        # …but an elliptical clause whose "strict" sits on no amount still does not name the strict figure.
+        ("2026-11-06", _bh_th("Net cash is ₹33.7 bn incl. liquid-fund investments; leverage is strict at 1.0x."), ["never names the strict"]),
+        # No new false positives: broad and strict amounts in one segment, in either order / parenthetical / nil.
+        ("2026-11-06", _bh_th("Net cash is ₹33.7 bn on a broad basis and ₹0.15 bn on a strict basis."), []),
+        ("2026-11-06", _bh_th("Net cash of ₹33.7 bn on the broad basis (strict: ₹0.15 bn)."), []),
+        ("2026-11-06", _bh_th("Strict net cash is ₹0.15 bn versus ₹33.7 bn on the broad basis."), []),
+        ("2026-11-06", _bh_th("Broad net cash is ₹33.7 bn and strict-basis net cash is nil."), []),
     ]
     bhbad=0
     for dt_,th_,exp in bhcases:
