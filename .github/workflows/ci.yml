@@ -346,6 +346,10 @@ jobs:
         with:
           python-version: "3.x"
 
+      - name: Use official Ubuntu package mirrors
+        run: |
+          printf 'https://archive.ubuntu.com/ubuntu/\tpriority:1\nhttps://security.ubuntu.com/ubuntu/\tpriority:2\n' |
+            sudo tee /etc/apt/apt-mirrors.txt >/dev/null
       - name: Install extractor dependencies (workbooks, PDF, RTF + poppler for PDF text)
         run: |
           python3 -m pip install --quiet -r .claude/tools/requirements.txt
@@ -499,6 +503,10 @@ jobs:
       - name: Tests (pure-logic units — incl. the intake "no new data" safety gate)
         run: npm test
 
+      - name: Use official Ubuntu package mirrors
+        run: |
+          printf 'https://archive.ubuntu.com/ubuntu/\tpriority:1\nhttps://security.ubuntu.com/ubuntu/\tpriority:2\n' |
+            sudo tee /etc/apt/apt-mirrors.txt >/dev/null
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
 
