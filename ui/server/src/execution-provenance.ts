@@ -479,6 +479,52 @@ export function decisionArtifacts(run: RunState): string[] {
   return [...(swarmById(run.swarmId)?.decisionArtifacts ?? [])]
 }
 
+export interface PublicationSchemaContract {
+  swarm_id: string
+  run_root: string
+  declared: boolean
+  artifacts: Array<{ path: string; relative: string }>
+}
+
+/** Decode the shared Python resolver's output without granting its paths any wider filesystem scope. */
+export function parsePublicationSchemaContract(raw: string, runRoot: string, swarmId: string): PublicationSchemaContract {
+  const value = JSON.parse(raw) as PublicationSchemaContract
+  if (!value || value.run_root !== runRoot || value.swarm_id !== swarmId
+      || typeof value.declared !== 'boolean' || !Array.isArray(value.artifacts)
+      || (!value.declared && value.artifacts.length)) {
+    throw new Error('publication schema contract returned an invalid artifact list')
+  }
+  const seen = new Set<string>()
+  for (const item of value.artifacts) {
+    const relative = item?.relative
+    if (typeof relative !== 'string' || !relative || typeof item.path !== 'string'
+        || item.path !== path.posix.join(runRoot, relative)
+        || path.posix.normalize(relative) !== relative || path.posix.isAbsolute(relative)
+        || relative.includes('\\') || relative.split('/').includes('..') || seen.has(item.path)) {
+      throw new Error('publication schema contract returned an unsafe or duplicate artifact path')
+    }
+    seen.add(item.path)
+  }
+  return value
+}
+
+export function readPublicationSchemaContract(run: Pick<RunState, 'runRoot' | 'swarmId'>): PublicationSchemaContract | null {
+  if (!run.runRoot) return null
+  const swarm = swarmById(run.swarmId)
+  if (!swarm) throw new Error('execution attempt has no trusted swarm manifest')
+  if (!swarm.schemasRoot) return null // synthetic research and schema-free legacy contracts
+  try {
+    const raw = execFileSync('python3', [
+      path.join(REPO_ROOT, 'scripts', 'decision_publication_gate.py'), '--repo', REPO_ROOT,
+      '--schema-contract', run.runRoot,
+    ], { cwd: REPO_ROOT, encoding: 'utf8', stdio: ['pipe', 'pipe', 'pipe'], timeout: 20_000, maxBuffer: 1024 * 1024 })
+    return parsePublicationSchemaContract(raw, run.runRoot, swarm.id)
+  } catch (error: any) {
+    const detail = (String(error?.stderr ?? '').trim() || String(error?.message || error).trim()).slice(0, 1000)
+    throw new Error(`publication schema contract could not be verified: ${detail}`)
+  }
+}
+
 export function provenanceManifestPath(run: RunState): string {
   if (!run.runRoot) throw new Error(`Run ${run.runId} has no resolved run root for provenance.`)
   const root = path.resolve(REPO_ROOT, run.runRoot)
@@ -740,13 +786,13 @@ export function beginExecutionAttempt(run: RunState): void {
   })
   const priorBaselines = run.publicationBaselines
   const baselines: Record<string, string | null> = {}
-  for (const relative of decisionArtifacts(run)) {
+  const schemaArtifacts = readPublicationSchemaContract(run)?.artifacts.map((item) => item.relative) ?? []
+  for (const relative of new Set([...decisionArtifacts(run), ...schemaArtifacts])) {
     // Automatic processes belong to one admitted logical run. Preserve the first process's pre-spawn
     // bytes so a decision it authored stays fresh when a later process performs publication only.
     // A manual resume creates a new RunState and therefore captures a new baseline normally.
     baselines[relative] = priorBaselines
-      && Object.prototype.hasOwnProperty.call(priorBaselines, relative)
-      ? priorBaselines[relative]
+      ? Object.prototype.hasOwnProperty.call(priorBaselines, relative) ? priorBaselines[relative] : null
       : sha256File(path.join(REPO_ROOT, run.runRoot, relative))
   }
   // Outcome reviews are append-only. Capture every pre-existing review filename before the provider

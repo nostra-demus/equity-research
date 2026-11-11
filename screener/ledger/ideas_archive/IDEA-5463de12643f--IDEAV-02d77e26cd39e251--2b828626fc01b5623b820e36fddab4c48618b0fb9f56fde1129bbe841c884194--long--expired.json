@@ -1,0 +1,77 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-11-06T18:04:39Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-5463de12643f",
+    "idea_version": "IDEAV-02d77e26cd39e251",
+    "idea_version_started_at": "2026-11-03T19:40:00Z",
+    "ticker": "UL",
+    "company": "Unilever",
+    "exchange": "NYSE",
+    "ticker_verified": true,
+    "listing_verified": true,
+    "liquidity_verified": false,
+    "listing_verification_source": "yahoo_symbol_directory",
+    "direction": "long",
+    "pair_with": null,
+    "reason": "The company is initiating a 1 billion euro cost-cutting program following the planned spin-off of its food division, which should improve operating margins.",
+    "why_now": "The announcement was made on November 3, 2026, and the restructuring is immediate.",
+    "conviction": 75,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 67,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 21,
+      "specificity": 15,
+      "timing": 10,
+      "expression": 7,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "needs_data",
+    "missing_checks": [
+      "live liquidity",
+      "dated catalyst",
+      "independent confirmation",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-19a9290506fb"
+    ],
+    "primary_source_event_id": "EVT-19a9290506fb",
+    "source_headlines": [
+      "Unilever to cut €1bn in costs after food spin-off"
+    ],
+    "source_headline": "Unilever to cut €1bn in costs after food spin-off",
+    "source_url": "https://www.ft.com/content/d86c9440-0c50-4879-ae46-81c9649934c0?syn-25a6b1a6=1",
+    "source_name": "Financial Times",
+    "materiality_max": 100,
+    "newest_source_at": "2026-11-03T17:03:51Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-11-03T19:40:00Z",
+    "updated_at": "2026-11-03T19:40:00Z",
+    "decay_at": "2026-11-05T05:03:51Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}

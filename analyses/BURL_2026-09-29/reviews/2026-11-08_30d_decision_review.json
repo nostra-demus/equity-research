@@ -1,0 +1,225 @@
+{
+  "schema_version": "1.0",
+  "ticker": "BURL",
+  "original_decision_date": "2026-09-29",
+  "review_date": "2026-11-08",
+  "review_window": "30d",
+  "original_decision": "Watchlist",
+  "basket": "Watchlist",
+  "entry_price": 254.69,
+  "tracking_price": null,
+  "review_price": 246.76,
+  "absolute_return_pct": -3.113589,
+  "benchmark_return_pct": null,
+  "sector_return_pct": null,
+  "benchmark_relative_return_pct": null,
+  "sector_relative_return_pct": null,
+  "thesis_status": "on-track",
+  "forecast_results": [
+    {
+      "prediction": "Burlington's Q3 FY2026 standalone total-sales growth exceeds 11.0% year over year.",
+      "status": "still open",
+      "evidence": "The November Q3 reporting window has not ended; no Q3 result was located in the inspected issuer release index. [Web: Burlington issuer press-release index, 2026-11-08, latest listed earnings release; retrieved 2026-11-08; indicative/unverified pending pool ingestion] https://www.burlingtoninvestors.com/news-and-events/press-releases",
+      "as_of": "2026-11-08",
+      "forecast_id": "FC-BURL-Q3FY26-SALES",
+      "original_forecast_index": 0
+    },
+    {
+      "prediction": "Burlington's Q3 FY2026 adjusted EBIT-margin decline is within 60-80bp versus standalone Q3 FY2025.",
+      "status": "still open",
+      "evidence": "The same November reporting window remains open; do not treat Q2 guidance as a Q3 outcome. [Web: Burlington issuer press-release index, 2026-11-08, latest listed earnings release; retrieved 2026-11-08; indicative/unverified pending pool ingestion] https://www.burlingtoninvestors.com/news-and-events/press-releases",
+      "as_of": "2026-11-08",
+      "forecast_id": "FC-BURL-Q3FY26-ADJ-EBIT-MARGIN",
+      "original_forecast_index": 1
+    }
+  ],
+  "catalyst_results": [
+    {
+      "catalyst": "Q3 FY2026 results",
+      "status": "pending",
+      "evidence": "The original November reporting window is open; no exact release day was established by the inspected issuer index. [Web: Burlington issuer press-release index, 2026-11-08, earnings releases; retrieved 2026-11-08; indicative/unverified pending pool ingestion] https://www.burlingtoninvestors.com/news-and-events/press-releases",
+      "as_of": "2026-11-08"
+    }
+  ],
+  "risk_results": [
+    {
+      "risk": "The planned H2 value investment fails to lift traffic, leaving more inventory to mark down and weakening sales, margin, cash conversion, and the warranted multiple at the same time.",
+      "status": "pending",
+      "evidence": "The bounded review does not resolve this complete risk. No absence-of-disclosure inference or legal clearance is made. [Frozen decision_record.json, 2026-09-29, killer_risk]",
+      "as_of": "2026-11-08"
+    },
+    {
+      "risk_id": "EARN-CAPACITY-LED-GROWTH",
+      "risk": "New and non-comparable stores supplied about 86% of Q2's dollar sales increase while mature-store transactions were relatively flat.",
+      "severity": "High",
+      "source_module": "earnings",
+      "original_source": "",
+      "status": "pending",
+      "evidence": "Retain the original severity and qualifiers. This review does not independently resolve the flag. [Frozen decision_record.json, 2026-09-29, red_flags]",
+      "as_of": "2026-11-08"
+    },
+    {
+      "risk_id": "EARN-REFUND-MARGIN",
+      "risk": "The $55.5m Q2 tariff refund added about 185bp to reported gross margin and is planned for H2 reinvestment.",
+      "severity": "High",
+      "source_module": "earnings",
+      "original_source": "",
+      "status": "pending",
+      "evidence": "Retain the original severity and qualifiers. This review does not independently resolve the flag. [Frozen decision_record.json, 2026-09-29, red_flags]",
+      "as_of": "2026-11-08"
+    },
+    {
+      "risk_id": "EARN-Q3-CONJUNCTION",
+      "risk": "The Q3 upside case requires store ramp, mature-store demand, and value-investment conversion to work together.",
+      "severity": "High",
+      "source_module": "earnings",
+      "original_source": "",
+      "status": "pending",
+      "evidence": "Retain the original severity and qualifiers. This review does not independently resolve the flag. [Frozen decision_record.json, 2026-09-29, red_flags]",
+      "as_of": "2026-11-08"
+    },
+    {
+      "risk_id": "EARN-Q4-UNRESOLVED",
+      "risk": "Q4 is the larger seasonal quarter and carries about 60% of the planned refund reinvestment, so a Q3 beat alone does not settle the year.",
+      "severity": "High",
+      "source_module": "earnings",
+      "original_source": "",
+      "status": "pending",
+      "evidence": "Retain the original severity and qualifiers. This review does not independently resolve the flag. [Frozen decision_record.json, 2026-09-29, red_flags]",
+      "as_of": "2026-11-08"
+    },
+    {
+      "risk_id": "EARN-REFUND-CASH",
+      "risk": "Reported trailing FCF of $412.5m includes up to $55.5m of non-recurring refund cash; the normalised read is about $357.0m.",
+      "severity": "High",
+      "source_module": "earnings",
+      "original_source": "",
+      "status": "pending",
+      "evidence": "Retain the original severity and qualifiers. This review does not independently resolve the flag. [Frozen decision_record.json, 2026-09-29, red_flags]",
+      "as_of": "2026-11-08"
+    },
+    {
+      "risk_id": "EARN-CORRELATED-DOWNSIDE",
+      "risk": "Demand, weather, markdown, and selling-cost leverage can worsen together, but the filing gives no operating coefficients for that chain.",
+      "severity": "High",
+      "source_module": "earnings",
+      "original_source": "",
+      "status": "pending",
+      "evidence": "Retain the original severity and qualifiers. This review does not independently resolve the flag. [Frozen decision_record.json, 2026-09-29, red_flags]",
+      "as_of": "2026-11-08"
+    },
+    {
+      "risk_id": "EARN-ACCELERATION-FRAMING",
+      "risk": "Capacity-led growth, flat mature-store transactions, and refund-aided reported results support a mixed verdict rather than proven acceleration.",
+      "severity": "High",
+      "source_module": "earnings",
+      "original_source": "",
+      "status": "pending",
+      "evidence": "Retain the original severity and qualifiers. This review does not independently resolve the flag. [Frozen decision_record.json, 2026-09-29, red_flags]",
+      "as_of": "2026-11-08"
+    },
+    {
+      "risk_id": "RF-DISC-002",
+      "risk": "FY2025 adjusted profit excluded $21.8m of lease, impairment, and litigation costs in categories also used in prior years. The FY2025 adjusted-versus-GAAP net-income gap was 2.5%.",
+      "severity": "High",
+      "source_module": "management-governance",
+      "original_source": "",
+      "status": "pending",
+      "evidence": "Retain the original severity and qualifiers. This review does not independently resolve the flag. [Frozen decision_record.json, 2026-09-29, red_flags]",
+      "as_of": "2026-11-08"
+    },
+    {
+      "risk_id": "RF-AUD-007",
+      "risk": "Deloitte has 43-year tenure and historical PCAOB orders from 2007, 2013, and 2018. None was tied to BURL, current audit and ICFR opinions are clean, and the current signing partner is unidentified.",
+      "severity": "High",
+      "source_module": "management-governance",
+      "original_source": "",
+      "status": "pending",
+      "evidence": "Retain the original severity and qualifiers. This review does not independently resolve the flag. [Frozen decision_record.json, 2026-09-29, red_flags]",
+      "as_of": "2026-11-08"
+    },
+    {
+      "risk_id": "FORENSIC-MOSAIC-RF-EQ-001-RF-OBS-001-RF-DISC-002",
+      "risk": "RF-EQ-001, RF-OBS-001, and RF-DISC-002 are three distinct tagged problems across earnings, balance-sheet survival, and governance. Each retains its qualifier, and the combination does not prove fraud.",
+      "severity": "High",
+      "source_module": "cross-module",
+      "original_source": "",
+      "status": "pending",
+      "evidence": "Retain the original severity and qualifiers. This review does not independently resolve the flag. [Frozen decision_record.json, 2026-09-29, red_flags]",
+      "as_of": "2026-11-08"
+    }
+  ],
+  "decision_quality": "not assessable",
+  "error_taxonomy": [],
+  "lessons": [
+    "This is a late review filed on 8 November, not a reconstructed review at the scheduled due date. Outcomes use only sources available by this review; do not compare it to exact 30/90-day forecasts without aligning horizons.",
+    "Absolute return is the underlying share-price change from the frozen anchor, excludes dividends, trading costs and execution lags, and is not a feasible portfolio return. Watchlist names had no paper entry. A positive underlying change is adverse to a simple short; option returns cannot be inferred.",
+    "No source-bound market feed was present in the review worktree. The primary source checkout contained no located post-decision result document in the inspected ticker pool inventories. Public outcomes are review evidence only and do not alter any frozen extraction generation.",
+    "Matched-window benchmark and sector total-return endpoints were not verified. Public searches found index levels, but not all exact anchor endpoints on a consistent total-return basis. Benchmark/sector fields remain null; no alpha, directional skill or annual-return claim is made.",
+    "The original decision, thesis, memo, model and all earlier reviews remain untouched. No paid provider, analytical run, production mutation, trade or memory activation was performed.",
+    "[Web: BURL NYSE USD closing-price page, 2026-11-06, completed regular session; historical row where available; retrieved 2026-11-08; indicative/unverified pending pool ingestion] https://stockcharted.com/burl/today",
+    "No new decision-time process error is established. Preserve the original evidence gaps and monitor-only sizing."
+  ],
+  "module_calibration_notes": {
+    "information_partition": "Original-process observations below rely only on frozen records or prior reviews. Post-decision results are outcome evidence, not should-have-known information.",
+    "process_observation": "No new decision-time process error is established. Preserve the original evidence gaps and monitor-only sizing.",
+    "outcome_observation": "The Q3 operating tests remain unresolved. The issuer press-release index inspected on 8 November still lists Q2 as its latest results; that bounded search is not proof that no other disclosure exists. The Watchlist action continues without a skill verdict.",
+    "calibration": "No confidence haircut, module promotion or skill conclusion is inferred from this small, selected, partly provisional cohort."
+  },
+  "action_now": {
+    "label": "Keep watching",
+    "reason": "Keep the call under review; no positive new evidence and refreshed valuation/risk assessment together justify adding exposure. The Q3 operating tests remain unresolved. The issuer press-release index inspected on 8 November still lists Q2 as its latest results; that bounded search is not proof that no other disclosure exists. The Watchlist action continues without a skill verdict."
+  },
+  "confidence_update": {
+    "before": 50.0,
+    "after": null,
+    "change_reason": "Current conviction is not quantifiable from this bounded, incomplete review; do not carry forward the old score as newly validated."
+  },
+  "next_check": {
+    "date": null,
+    "label": "Locate the Q3 FY2026 release during the original 1-30 November window; exact issuer-confirmed day remains unproven.",
+    "trigger": "Test standalone Q3 sales growth >11.0% and adjusted EBIT-margin decline of 60-80bp on the original matched-year basis."
+  },
+  "learning": {
+    "why_right_or_wrong": "The Q3 operating tests remain unresolved. The issuer press-release index inspected on 8 November still lists Q2 as its latest results; that bounded search is not proof that no other disclosure exists. The Watchlist action continues without a skill verdict. Price direction is not a benchmark-adjusted thesis verdict.",
+    "error_source": "",
+    "rule_for_future": "Preserve metric basis, literal triggers and first usable disclosure time; ambiguous or unavailable outcomes remain unscored.",
+    "future_research_check": "Locate the Q3 FY2026 release during the original 1-30 November window; exact issuer-confirmed day remains unproven."
+  },
+  "memo_delta": {
+    "summary": "The Q3 operating tests remain unresolved. The issuer press-release index inspected on 8 November still lists Q2 as its latest results; that bounded search is not proof that no other disclosure exists. The Watchlist action continues without a skill verdict.",
+    "thesis_delta_verdict": "too_early",
+    "stage_one_comment": "The original Watchlist call is unchanged as a historical record. The Q3 operating tests remain unresolved. The issuer press-release index inspected on 8 November still lists Q2 as its latest results; that bounded search is not proof that no other disclosure exists. The Watchlist action continues without a skill verdict. This review was filed on 8 November 2026; the observed share-price endpoint is 6 November. The frozen price anchor and its own date remain visible, so the anchor-to-endpoint move is not presented as a decision-date or fixed-horizon portfolio return. Benchmark and sector total returns were not verified on the same window; no relative skill conclusion is available. Keep watching and obtain the named missing evidence before changing exposure. All new facts are dated public outcome evidence; the original files and evidence generations remain immutable. No forecast deadline is moved to fit the result.",
+    "changed_sections": [],
+    "watch_items": [
+      "Locate the Q3 FY2026 release during the original 1-30 November window; exact issuer-confirmed day remains unproven.",
+      "Test standalone Q3 sales growth >11.0% and adjusted EBIT-margin decline of 60-80bp on the original matched-year basis.",
+      "Obtain transaction-versus-basket and refund-excluded margin evidence before treating the value investment as successful."
+    ],
+    "management_questions": [
+      "How much of Q3 comparable-store growth came from transactions versus basket?",
+      "What is the Q3 margin bridge excluding tariff refunds and their reinvestment?",
+      "What cash payback do the new-store cohorts achieve?"
+    ],
+    "memo_delta_file": "analyses/BURL_2026-09-29/reviews/2026-11-08_30d_memo_delta.md"
+  },
+  "pre_mortem_check": {
+    "pre_mortem_file": "analyses/BURL_2026-09-29/pre_mortem_v2.json",
+    "pre_mortem_verdict": "Survives",
+    "pre_mortem_confidence_haircut": 0,
+    "outcome_vs_verdict": "too_early",
+    "notes": "The pre-mortem false-negative timing risk remains unresolved: neither Q3 transactions nor refund-excluded margins has been assessed. No vindication is claimed."
+  },
+  "review_observation": {
+    "scheduled_due_date": "2026-10-29",
+    "days_after_decision": 40,
+    "price_as_of": "2026-11-06",
+    "price_currency": "USD",
+    "price_source": "[Web: BURL NYSE USD closing-price page, 2026-11-06, completed regular session; historical row where available; retrieved 2026-11-08; indicative/unverified pending pool ingestion] https://stockcharted.com/burl/today",
+    "price_anchor_as_of": "2026-09-28",
+    "return_basis": "Underlying close-price change from the frozen anchor; dividends/costs excluded; no benchmark-relative inference.",
+    "dependency_cluster": "BURL",
+    "retrospective_review": true,
+    "provisional_original": false
+  }
+}
