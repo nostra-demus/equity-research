@@ -1,29 +1,29 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-10-16T23:31:12Z",
+  "archived_at": "2026-11-11T11:14:40Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-11e71885e916",
-    "idea_version": "IDEAV-2fbc227795adbe78",
-    "idea_version_started_at": "2026-10-14T04:53:47Z",
-    "ticker": "01333.HK",
-    "company": "Breton",
-    "exchange": "HKEX",
+    "idea_id": "IDEA-192883ff2edc",
+    "idea_version": "IDEAV-48b3b583ba5d295e",
+    "idea_version_started_at": "2026-11-08T12:16:39Z",
+    "ticker": "2120.SR",
+    "company": "Sipchem",
+    "exchange": "TADAWUL",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "short",
     "pair_with": null,
-    "reason": "The announcement of a new H-share placing under a general mandate will result in immediate equity dilution for existing shareholders.",
-    "why_now": "The filing was released on 2026-10-13, and share placings typically exert downward pressure on the stock price as the market adjusts for the increased share count.",
-    "conviction": 65,
+    "reason": "Sipchem's shares have fallen to a 52-week low, suggesting severe negative market sentiment or financial performance.",
+    "why_now": "The stock reached a 52-week low on November 8, 2026, indicating current weakness.",
+    "conviction": 45,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
-      "evidence": 25,
-      "impact": 15,
+      "evidence": 14,
+      "impact": 19,
       "specificity": 7,
       "timing": 10,
       "expression": 0,
@@ -36,6 +36,7 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
+      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -52,26 +53,26 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-5245bf389a69"
+      "EVT-786bfe54e422"
     ],
-    "primary_source_event_id": "EVT-5245bf389a69",
+    "primary_source_event_id": "EVT-786bfe54e422",
     "source_headlines": [
-      "BRETON (01333): PLACING OF NEW H SHARES UNDER GENERAL MANDATE"
+      "‎Sipchem, Makkah Construction fall to 52-week lows"
     ],
-    "source_headline": "BRETON (01333): PLACING OF NEW H SHARES UNDER GENERAL MANDATE",
-    "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1014/2026101400061.pdf",
-    "source_name": "HKEXnews (HK Exchange Filing)",
-    "materiality_max": 89,
-    "newest_source_at": "2026-10-13T23:04:00Z",
+    "source_headline": "‎Sipchem, Makkah Construction fall to 52-week lows",
+    "source_url": "https://www.argaam.com/en/article/articledetail/id/1951421",
+    "source_name": "Argaam — Main News (English)",
+    "materiality_max": 100,
+    "newest_source_at": "2026-11-08T11:13:00Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-10-14T04:53:47Z",
-    "updated_at": "2026-10-14T04:53:47Z",
-    "decay_at": "2026-10-15T11:04:00Z",
+    "surfaced_at": "2026-11-08T12:16:39Z",
+    "updated_at": "2026-11-08T12:16:39Z",
+    "decay_at": "2026-11-09T23:13:00Z",
     "status": "live",
     "promoted_signal_id": null
   }
