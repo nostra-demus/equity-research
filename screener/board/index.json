@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T00:11:59Z",
+  "generated_at": "2026-11-11T00:18:36Z",
   "inbox": [
     {
       "inbox_id": "INB-20261111-007",
@@ -443,6 +443,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261111-022",
+      "headline": "10-Q - Strategic Storage Trust VI, Inc. (0001852575) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1852575/000119312526455562/0001193125-26-455562-index.htm",
+      "source_name": "SEC EDGAR — Latest 10-Q (Quarterly Report)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-10T21:29:32Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Strategic Storage Trust VI filed its quarterly 10-Q report, providing updated financial disclosures.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 73,
+      "triage_reason": "Strategic Storage Trust VI filed its quarterly 10-Q report, providing updated financial disclosures.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Strategic Storage Trust VI, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261111-009",
       "headline": "PINESTONE (00804): RESIGNATION OF CO-CHAIRMAN AND NON-EXECUTIVE DIRECTOR",
       "headline_en": null,
@@ -487,6 +536,300 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-019",
+      "headline": "10-Q - BEYOND MEAT, INC. (0001655210) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1655210/000165521026000079/0001655210-26-000079-index.htm",
+      "source_name": "SEC EDGAR — Latest 10-Q (Quarterly Report)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-10T21:30:28Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Beyond Meat filed its quarterly 10-Q report, providing updated financial disclosures.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 72,
+      "triage_reason": "Beyond Meat filed its quarterly 10-Q report, providing updated financial disclosures.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Beyond Meat, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-020",
+      "headline": "10-Q - Seer, Inc. (0001726445) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1726445/000119312526455566/0001193125-26-455566-index.htm",
+      "source_name": "SEC EDGAR — Latest 10-Q (Quarterly Report)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-10T21:29:44Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Seer, Inc. filed its quarterly 10-Q report, providing updated financial disclosures.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 72,
+      "triage_reason": "Seer, Inc. filed its quarterly 10-Q report, providing updated financial disclosures.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Seer, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-023",
+      "headline": "10-Q - Finwise Bancorp (0001856365) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1856365/000185636526000115/0001856365-26-000115-index.htm",
+      "source_name": "SEC EDGAR — Latest 10-Q (Quarterly Report)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-10T21:27:42Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Finwise Bancorp filed its quarterly 10-Q report, providing updated financial disclosures.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 72,
+      "triage_reason": "Finwise Bancorp filed its quarterly 10-Q report, providing updated financial disclosures.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Finwise Bancorp",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-025",
+      "headline": "10-Q - NextCure, Inc. (0001661059) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1661059/000110465926125220/0001104659-26-125220-index.htm",
+      "source_name": "SEC EDGAR — Latest 10-Q (Quarterly Report)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-10T21:25:38Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "NextCure, Inc. filed its quarterly 10-Q report, providing updated financial disclosures.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 72,
+      "triage_reason": "NextCure, Inc. filed its quarterly 10-Q report, providing updated financial disclosures.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NextCure, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-026",
+      "headline": "SCHEDULE 13G/A - Invesco Ltd. (0000914208) (Filed by)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/914208/000091420826000444/0000914208-26-000444-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-10T21:59:36Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Invesco Ltd. filed an amended 13G, indicating a change in its significant shareholding position.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 71,
+      "triage_reason": "Invesco Ltd. filed an amended 13G, indicating a change in its significant shareholding position.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Invesco Ltd.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-028",
+      "headline": "SCHEDULE 13G/A - PAR PACIFIC HOLDINGS, INC. (0000821483) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/821483/000091420826000444/0000914208-26-000444-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-10T21:59:36Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Par Pacific Holdings filed an amended 13G, indicating a change in significant shareholding positions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 70,
+      "triage_reason": "Par Pacific Holdings filed an amended 13G, indicating a change in significant shareholding positions.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Par Pacific Holdings, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -727,6 +1070,300 @@
       "companies": [
         {
           "name": "AtlasClear Holdings",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-029",
+      "headline": "424B5 - Novartis Capital CORP (0001443411) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1443411/000110465926125262/0001104659-26-125262-index.htm",
+      "source_name": "SEC EDGAR — Latest 424B5 (Shelf Offering Final Prospectus)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-10T21:36:51Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Novartis Capital filed a shelf offering prospectus, indicating potential future debt or equity issuance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 65,
+      "triage_reason": "Novartis Capital filed a shelf offering prospectus, indicating potential future debt or equity issuance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Novartis Capital Corp",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-030",
+      "headline": "424B5 - NOVARTIS AG (0001114448) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1114448/000110465926125262/0001104659-26-125262-index.htm",
+      "source_name": "SEC EDGAR — Latest 424B5 (Shelf Offering Final Prospectus)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-10T21:36:51Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Novartis AG filed a shelf offering prospectus, indicating potential future capital issuance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 65,
+      "triage_reason": "Novartis AG filed a shelf offering prospectus, indicating potential future capital issuance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Novartis AG",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-024",
+      "headline": "424B5 - National Healthcare Properties, Inc. (0001561032) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1561032/000114036126043057/0001140361-26-043057-index.htm",
+      "source_name": "SEC EDGAR — Latest 424B5 (Shelf Offering Final Prospectus)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-10T21:53:22Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "National Healthcare Properties filed a shelf offering prospectus, indicating potential future equity dilution.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 63,
+      "triage_reason": "National Healthcare Properties filed a shelf offering prospectus, indicating potential future equity dilution.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "National Healthcare Properties, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-021",
+      "headline": "424B5 - Neuronetics, Inc. (0001227636) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1227636/000119312526455694/0001193125-26-455694-index.htm",
+      "source_name": "SEC EDGAR — Latest 424B5 (Shelf Offering Final Prospectus)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-10T22:01:48Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Neuronetics filed a shelf offering prospectus, indicating potential future equity dilution.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 62,
+      "triage_reason": "Neuronetics filed a shelf offering prospectus, indicating potential future equity dilution.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Neuronetics, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-031",
+      "headline": "S-3 - Atara Biotherapeutics, Inc. (0001604464) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1604464/000110465926125314/0001104659-26-125314-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-10T21:59:27Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Atara Biotherapeutics filed an S-3 registration statement, indicating potential future equity issuance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 62,
+      "triage_reason": "Atara Biotherapeutics filed an S-3 registration statement, indicating potential future equity issuance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Atara Biotherapeutics, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-027",
+      "headline": "424B5 - Prime Medicine, Inc. (0001894562) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1894562/000162828026072802/0001628280-26-072802-index.htm",
+      "source_name": "SEC EDGAR — Latest 424B5 (Shelf Offering Final Prospectus)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-10T21:43:12Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Prime Medicine filed a shelf offering prospectus, indicating potential future equity dilution.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 62,
+      "triage_reason": "Prime Medicine filed a shelf offering prospectus, indicating potential future equity dilution.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Prime Medicine, Inc.",
           "ticker": null,
           "listing_country": "US"
         }
@@ -233657,78 +234294,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-04a4fdcdbbec",
-      "idea_version": "IDEAV-8ee21adffd205080",
-      "idea_version_started_at": "2026-11-09T16:38:32Z",
-      "ticker": "WHIRLPOOL",
-      "company": "Whirlpool India",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A 39% drop in net profit driven by commodity inflation and rising costs indicates margin compression that is unlikely to reverse in the near term.",
-      "why_now": "The Q2 earnings results were released on 2026-11-09, confirming the negative trend in profitability.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-21b49e8d760f"
-      ],
-      "primary_source_event_id": "EVT-21b49e8d760f",
-      "source_headlines": [
-        "Whirlpool India Q2 Results: Net profit drops 39% amid commodity inflation and higher costs"
-      ],
-      "source_headline": "Whirlpool India Q2 Results: Net profit drops 39% amid commodity inflation and higher costs",
-      "source_url": "https://www.cnbctv18.com/market/stocks/whirlpool-india-share-price-q2-results-net-profit-drops-39-margins-come-under-pressure-20030525.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-09T12:14:30Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-09T13:08:40Z",
-      "updated_at": "2026-11-09T16:38:32Z",
-      "decay_at": "2026-11-11T00:14:30Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-a2376ec1a2c7",
       "idea_version": "IDEAV-5c9b522a0d5b80c0",
       "idea_version_started_at": "2026-11-10T02:34:38Z",
@@ -235063,6 +235628,78 @@
       "surfaced_at": "2026-11-09T17:16:12Z",
       "updated_at": "2026-11-09T17:16:12Z",
       "decay_at": "2026-11-10T23:37:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-04a4fdcdbbec",
+      "idea_version": "IDEAV-8ee21adffd205080",
+      "idea_version_started_at": "2026-11-09T16:38:32Z",
+      "ticker": "WHIRLPOOL",
+      "company": "Whirlpool India",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A 39% drop in net profit driven by commodity inflation and rising costs indicates margin compression that is unlikely to reverse in the near term.",
+      "why_now": "The Q2 earnings results were released on 2026-11-09, confirming the negative trend in profitability.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-21b49e8d760f"
+      ],
+      "primary_source_event_id": "EVT-21b49e8d760f",
+      "source_headlines": [
+        "Whirlpool India Q2 Results: Net profit drops 39% amid commodity inflation and higher costs"
+      ],
+      "source_headline": "Whirlpool India Q2 Results: Net profit drops 39% amid commodity inflation and higher costs",
+      "source_url": "https://www.cnbctv18.com/market/stocks/whirlpool-india-share-price-q2-results-net-profit-drops-39-margins-come-under-pressure-20030525.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-09T12:14:30Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-09T13:08:40Z",
+      "updated_at": "2026-11-09T16:38:32Z",
+      "decay_at": "2026-11-11T00:14:30Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -239186,9 +239823,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 570,
+    "total_count": 571,
     "shown_count": 499,
-    "hidden_count": 71,
+    "hidden_count": 72,
     "side_counts": {
       "long": {
         "total_count": 293,
@@ -239196,9 +239833,9 @@
         "hidden_count": 43
       },
       "short": {
-        "total_count": 278,
+        "total_count": 279,
         "shown_count": 250,
-        "hidden_count": 28
+        "hidden_count": 29
       }
     },
     "retention": {
@@ -239217,6 +239854,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-04a4fdcdbbec",
+        "idea_version": "IDEAV-8ee21adffd205080",
+        "idea_version_started_at": "2026-11-09T16:38:32Z",
+        "ticker": "WHIRLPOOL",
+        "company": "Whirlpool India",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "A 39% drop in net profit driven by commodity inflation and rising costs indicates margin compression that is unlikely to reverse in the near term.",
+        "why_now": "The Q2 earnings results were released on 2026-11-09, confirming the negative trend in profitability.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-21b49e8d760f"
+        ],
+        "primary_source_event_id": "EVT-21b49e8d760f",
+        "source_headlines": [
+          "Whirlpool India Q2 Results: Net profit drops 39% amid commodity inflation and higher costs"
+        ],
+        "source_headline": "Whirlpool India Q2 Results: Net profit drops 39% amid commodity inflation and higher costs",
+        "source_url": "https://www.cnbctv18.com/market/stocks/whirlpool-india-share-price-q2-results-net-profit-drops-39-margins-come-under-pressure-20030525.htm",
+        "source_name": "CNBC-TV18",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-09T12:14:30Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-09T13:08:40Z",
+        "updated_at": "2026-11-09T16:38:32Z",
+        "decay_at": "2026-11-11T00:14:30Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-11T00:14:30Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-ff3dc5bb0e11",
         "idea_version": "IDEAV-4ed8ee5a6b071de2",
@@ -276295,87 +277007,12 @@
         "archived_at": "2026-10-19T09:41:40Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-7470585394f5",
-        "idea_version": "IDEAV-b50d9f2ebcd1abb7",
-        "idea_version_started_at": "2026-10-16T06:33:20Z",
-        "ticker": "POLYCAB",
-        "company": "Polycab India Limited",
-        "exchange": "NSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The initiation of a Corporate Insolvency Resolution Process indicates severe financial distress and potential equity wipeout for shareholders.",
-        "why_now": "The filing regarding the insolvency process was made on October 16, 2026.",
-        "conviction": 85,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 23,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-4a63fb695938"
-        ],
-        "primary_source_event_id": "EVT-4a63fb695938",
-        "source_headlines": [
-          "Polycab India Limited: Polycab India Limited has informed the Exchange about Corporate Insolvency Resolution Process"
-        ],
-        "source_headline": "Polycab India Limited: Polycab India Limited has informed the Exchange about Corporate Insolvency Resolution Process",
-        "source_url": "https://nsearchives.nseindia.com/corporate/POLYCAB_16102026093958_CIRP15102026.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-16T04:10:15Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-16T06:33:20Z",
-        "updated_at": "2026-10-16T06:33:20Z",
-        "decay_at": "2026-10-17T16:10:15Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-19T04:16:13Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2374,
-    "live_count": 50,
+    "live_count": 49,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -276385,7 +277022,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4705,
+    "inbox_unconsumed": 4718,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -276394,9 +277031,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 112430,
-    "news_picked_today": 18,
-    "news_dropped_today": 126
+    "news_seen_today": 179873,
+    "news_picked_today": 31,
+    "news_dropped_today": 161
   },
   "book_momentum": {
     "live_count": 8,
