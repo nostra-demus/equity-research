@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T05:11:12Z",
+  "generated_at": "2026-11-11T05:19:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261111-142",
@@ -391,6 +391,56 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261111-148",
+      "headline": "Honda raises outlook even as failed EV bet weighs on profit",
+      "headline_en": null,
+      "url": "https://www.japantimes.co.jp/business/2026/11/11/companies/honda-profit-outlook/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T05:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "Honda raised its profit outlook despite challenges in its EV segment, indicating a mixed performance update.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Honda raised its profit outlook despite challenges in its EV segment, indicating a mixed performance update.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Honda",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1906,55 +1956,6 @@
           "name": "Abbisko Therapeutics",
           "ticker": null,
           "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-131",
-      "headline": "S-1 - Agility Robotics, Inc. (0002074973) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/2074973/000121390026118025/0001213900-26-118025-index.htm",
-      "source_name": "SEC EDGAR — Latest S-1 (IPO Registration)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-11-10T21:10:59Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "Agility Robotics has filed an S-1 registration statement for an initial public offering.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Agility Robotics has filed an S-1 registration statement for an initial public offering.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Agility Robotics, Inc.",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "unknown",
@@ -277105,9 +277106,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3528447,
-    "news_picked_today": 245,
-    "news_dropped_today": 2419
+    "news_seen_today": 3573719,
+    "news_picked_today": 249,
+    "news_dropped_today": 2487
   },
   "book_momentum": {
     "live_count": 8,
