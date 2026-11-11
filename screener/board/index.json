@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T09:27:52Z",
+  "generated_at": "2026-11-11T09:42:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20261111-224",
@@ -1799,6 +1799,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261111-256",
+      "headline": "CNB: Removal from Official List",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CNB?key=2924-03160706-6A1354657",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-11T08:43:58Z",
+      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
+      "prelim_note": "CNB removal from ASX Official List materially impairs trading liquidity and shareholder rights; underlying cause (insolvency, acquisition, restructuring) undisclosed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "CNB removal from ASX Official List materially impairs trading liquidity and shareholder rights; underlying cause (insolvency, acquisition, restructuring) undisclosed.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CNB",
+          "ticker": "CNB",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261111-210",
       "headline": "Aye Finance Limited: Aye Finance Limited has informed the Exchange about Credit Rating- Revision",
       "headline_en": null,
@@ -1912,49 +1961,6 @@
       "launched_signal_id": null,
       "triage_score": 98,
       "triage_reason": "The FTC is fining 15 firms a total of 1.62 trillion won for rigging government bond bids.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261111-170",
-      "headline": "Banks, brokerages hit with record W1.63tr bond-rigging fine",
-      "headline_en": null,
-      "url": "https://www.koreaherald.com/article/10933910",
-      "source_name": "The Korea Herald — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T06:13:48Z",
-      "sweep_file": "screener/inbox/2026-11-11_sweep.json",
-      "prelim_note": "Banks and brokerages are hit with a record 1.63 trillion won fine for bond-rigging.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Banks and brokerages are hit with a record 1.63 trillion won fine for bond-rigging.",
       "region": "KR",
       "relevance": "material",
       "materiality_pre_score": 85,
@@ -231860,76 +231866,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-ce779af9c495",
-      "idea_version": "IDEAV-806d29b8c59755ca",
-      "idea_version_started_at": "2026-11-10T20:08:49Z",
-      "ticker": "LCID",
-      "company": "Lucid Group",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company missed revenue expectations and is forced to increase reliance on high-cost debt financing from its primary shareholder, signaling ongoing cash burn and liquidity pressure.",
-      "why_now": "The earnings miss and debt expansion were reported on 2026-11-09.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-aa8435b6623b"
-      ],
-      "primary_source_event_id": "EVT-aa8435b6623b",
-      "source_headlines": [
-        "Lucid misses Wall Street’s earnings expectations, expands loan from Saudi Arabia fund"
-      ],
-      "source_headline": "Lucid misses Wall Street’s earnings expectations, expands loan from Saudi Arabia fund",
-      "source_url": "https://www.cnbc.com/2026/11/09/lucid-group-lcid-earnings-q3-2026.html",
-      "source_name": "CNBC",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-09T21:27:54Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-09T22:47:11Z",
-      "updated_at": "2026-11-10T20:08:49Z",
-      "decay_at": "2026-11-11T09:27:54Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-96d1efcd8291",
       "idea_version": "IDEAV-be1fbbf20b581ee1",
       "idea_version_started_at": "2026-11-10T03:26:43Z",
@@ -235331,6 +235267,76 @@
       "surfaced_at": "2026-11-09T12:48:09Z",
       "updated_at": "2026-11-09T17:16:12Z",
       "decay_at": "2026-11-11T01:12:37Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-ce779af9c495",
+      "idea_version": "IDEAV-806d29b8c59755ca",
+      "idea_version_started_at": "2026-11-10T20:08:49Z",
+      "ticker": "LCID",
+      "company": "Lucid Group",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company missed revenue expectations and is forced to increase reliance on high-cost debt financing from its primary shareholder, signaling ongoing cash burn and liquidity pressure.",
+      "why_now": "The earnings miss and debt expansion were reported on 2026-11-09.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-aa8435b6623b"
+      ],
+      "primary_source_event_id": "EVT-aa8435b6623b",
+      "source_headlines": [
+        "Lucid misses Wall Street’s earnings expectations, expands loan from Saudi Arabia fund"
+      ],
+      "source_headline": "Lucid misses Wall Street’s earnings expectations, expands loan from Saudi Arabia fund",
+      "source_url": "https://www.cnbc.com/2026/11/09/lucid-group-lcid-earnings-q3-2026.html",
+      "source_name": "CNBC",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-09T21:27:54Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-09T22:47:11Z",
+      "updated_at": "2026-11-10T20:08:49Z",
+      "decay_at": "2026-11-11T09:27:54Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -239207,9 +239213,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 560,
+    "total_count": 561,
     "shown_count": 499,
-    "hidden_count": 61,
+    "hidden_count": 62,
     "side_counts": {
       "long": {
         "total_count": 287,
@@ -239217,9 +239223,9 @@
         "hidden_count": 37
       },
       "short": {
-        "total_count": 274,
+        "total_count": 275,
         "shown_count": 250,
-        "hidden_count": 24
+        "hidden_count": 25
       }
     },
     "retention": {
@@ -239238,6 +239244,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-ce779af9c495",
+        "idea_version": "IDEAV-806d29b8c59755ca",
+        "idea_version_started_at": "2026-11-10T20:08:49Z",
+        "ticker": "LCID",
+        "company": "Lucid Group",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company missed revenue expectations and is forced to increase reliance on high-cost debt financing from its primary shareholder, signaling ongoing cash burn and liquidity pressure.",
+        "why_now": "The earnings miss and debt expansion were reported on 2026-11-09.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 66,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-aa8435b6623b"
+        ],
+        "primary_source_event_id": "EVT-aa8435b6623b",
+        "source_headlines": [
+          "Lucid misses Wall Street’s earnings expectations, expands loan from Saudi Arabia fund"
+        ],
+        "source_headline": "Lucid misses Wall Street’s earnings expectations, expands loan from Saudi Arabia fund",
+        "source_url": "https://www.cnbc.com/2026/11/09/lucid-group-lcid-earnings-q3-2026.html",
+        "source_name": "CNBC",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-09T21:27:54Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-09T22:47:11Z",
+        "updated_at": "2026-11-10T20:08:49Z",
+        "decay_at": "2026-11-11T09:27:54Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-11T09:27:54Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-996ced4a593f",
         "idea_version": "IDEAV-e3d62da7f720e495",
@@ -276299,87 +276378,12 @@
         "archived_at": "2026-10-19T19:35:58Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-69be6242b6c3",
-        "idea_version": "IDEAV-bd782201a2c5e9f2",
-        "idea_version_started_at": "2026-10-18T00:40:50Z",
-        "ticker": "OLAELEC",
-        "company": "Ola Electric",
-        "exchange": "NSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Regulatory scrutiny and audit deficiencies regarding a major rights issue create significant downside risk and uncertainty for the stock.",
-        "why_now": "The report of SEBI scrutiny surfaced on 2026-10-16, creating an immediate overhang on the equity.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-4716bd7a268c"
-        ],
-        "primary_source_event_id": "EVT-4716bd7a268c",
-        "source_headlines": [
-          "Ola Electric’s ₹1,000 crore rights issue uncovers SEBI scrutiny, audit deficiencies"
-        ],
-        "source_headline": "Ola Electric’s ₹1,000 crore rights issue uncovers SEBI scrutiny, audit deficiencies",
-        "source_url": "https://www.thehindubusinessline.com/companies/ola-electrics-1000-crore-rights-issue-uncovers-sebi-scrutiny-audit-deficiencies/article71572604.ece",
-        "source_name": "The Hindu BusinessLine",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-16T13:57:18Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-18T00:40:50Z",
-        "updated_at": "2026-10-18T00:40:50Z",
-        "decay_at": "2026-10-18T01:57:18Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-19T19:35:58Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2388,
-    "live_count": 45,
+    "live_count": 44,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -276398,9 +276402,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5088174,
-    "news_picked_today": 427,
-    "news_dropped_today": 8621
+    "news_seen_today": 5165473,
+    "news_picked_today": 444,
+    "news_dropped_today": 9060
   },
   "book_momentum": {
     "live_count": 8,
