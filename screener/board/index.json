@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T17:51:45Z",
+  "generated_at": "2026-11-12T18:26:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20261112-874",
@@ -1238,6 +1238,106 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261112-949",
+      "headline": "Nvidia’s Jensen Huang to testify to US Congress amid scandal, reports say, as CFO Colette Kress replaces him as interim CEO – follow live",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/technology/live/2026/nov/12/nvidia-ceo-jensen-huang-affairs-share-price-plunges-live-latest",
+      "source_name": "The Guardian — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T17:54:15Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Nvidia CEO Jensen Huang is stepping down amid a scandal, with the CFO taking over as interim CEO.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia CEO Jensen Huang is stepping down amid a scandal, with the CFO taking over as interim CEO.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management",
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-950",
+      "headline": "Nvidia CEO Jensen Huang steps down, more affair details revealed",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/11/12/nvidia-ceo-jensen-huang-steps-down-more-affair-details-revealed?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-11-12T17:25:58Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Nvidia CEO Jensen Huang has stepped down following a scandal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia CEO Jensen Huang has stepped down following a scandal.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management",
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261112-919",
       "headline": "Jensen Huang resigns as Nvidia chief after alleged second affair",
       "headline_en": null,
@@ -1876,104 +1976,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-844",
-      "headline": "Wall Street opens lower after Nvidia CEO Jensen Huang steps down",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/international/wall-street-opens-lower-after-nvidia-ceo-jensen-huang-steps-down",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T14:54:19Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Founder CEO Jensen Huang's departure from Nvidia affects management credibility, strategic direction, and investor confidence in a mega-cap; market opens lower in direct response.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Founder CEO Jensen Huang's departure from Nvidia affects management credibility, strategic direction, and investor confidence in a mega-cap; market opens lower in direct response.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": "NVDA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-878",
-      "headline": "Jensen Huang Resigns as Nvidia CEO, With CFO Colette Kress Named Interim Chief",
-      "headline_en": null,
-      "url": "https://decrypt.co/383134/jensen-huang-resigns-as-nvidia-ceo-with-cfo-colette-kress-named-interim-chief",
-      "source_name": "Decrypt — Crypto News",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T14:44:39Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Jensen Huang has resigned as CEO of Nvidia.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Jensen Huang has resigned as CEO of Nvidia.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -236047,77 +236049,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-830d63243e4e",
-      "idea_version": "IDEAV-aa00af3ac2c495fa",
-      "idea_version_started_at": "2026-11-11T08:18:47Z",
-      "ticker": "ACF",
-      "company": "Acrow",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Acrow has guided for FY27 NPAT growth of 74%, indicating strong future profitability.",
-      "why_now": "The guidance was released on November 11, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ff1700806b4f"
-      ],
-      "primary_source_event_id": "EVT-ff1700806b4f",
-      "source_headlines": [
-        "ACF: Acrow Guides to FY27 NPAT Growth of 74% [price-sensitive]"
-      ],
-      "source_headline": "ACF: Acrow Guides to FY27 NPAT Growth of 74% [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ACF?key=2924-03160667-6A1354630",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-11T06:24:43Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-11T08:18:47Z",
-      "updated_at": "2026-11-11T08:18:47Z",
-      "decay_at": "2026-11-12T18:24:43Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-83f5b0ffac12",
       "idea_version": "IDEAV-2dae1365724fd267",
       "idea_version_started_at": "2026-11-11T08:18:47Z",
@@ -237375,6 +237306,77 @@
       "surfaced_at": "2026-11-09T19:22:55Z",
       "updated_at": "2026-11-09T21:23:50Z",
       "decay_at": "2026-11-11T08:57:46Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-830d63243e4e",
+      "idea_version": "IDEAV-aa00af3ac2c495fa",
+      "idea_version_started_at": "2026-11-11T08:18:47Z",
+      "ticker": "ACF",
+      "company": "Acrow",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Acrow has guided for FY27 NPAT growth of 74%, indicating strong future profitability.",
+      "why_now": "The guidance was released on November 11, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ff1700806b4f"
+      ],
+      "primary_source_event_id": "EVT-ff1700806b4f",
+      "source_headlines": [
+        "ACF: Acrow Guides to FY27 NPAT Growth of 74% [price-sensitive]"
+      ],
+      "source_headline": "ACF: Acrow Guides to FY27 NPAT Growth of 74% [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ACF?key=2924-03160667-6A1354630",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-11T06:24:43Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-11T08:18:47Z",
+      "updated_at": "2026-11-11T08:18:47Z",
+      "decay_at": "2026-11-12T18:24:43Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -239604,14 +239606,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 547,
+    "total_count": 548,
     "shown_count": 499,
-    "hidden_count": 48,
+    "hidden_count": 49,
     "side_counts": {
       "long": {
-        "total_count": 283,
+        "total_count": 284,
         "shown_count": 250,
-        "hidden_count": 33
+        "hidden_count": 34
       },
       "short": {
         "total_count": 265,
@@ -239635,6 +239637,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-830d63243e4e",
+        "idea_version": "IDEAV-aa00af3ac2c495fa",
+        "idea_version_started_at": "2026-11-11T08:18:47Z",
+        "ticker": "ACF",
+        "company": "Acrow",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Acrow has guided for FY27 NPAT growth of 74%, indicating strong future profitability.",
+        "why_now": "The guidance was released on November 11, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-ff1700806b4f"
+        ],
+        "primary_source_event_id": "EVT-ff1700806b4f",
+        "source_headlines": [
+          "ACF: Acrow Guides to FY27 NPAT Growth of 74% [price-sensitive]"
+        ],
+        "source_headline": "ACF: Acrow Guides to FY27 NPAT Growth of 74% [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ACF?key=2924-03160667-6A1354630",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-11T06:24:43Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-11T08:18:47Z",
+        "updated_at": "2026-11-11T08:18:47Z",
+        "decay_at": "2026-11-12T18:24:43Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-12T18:24:43Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-044dc4e9fa5c",
         "idea_version": "IDEAV-5951286fe5cddfd6",
@@ -267981,81 +268057,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-492a0f6c8413",
-        "idea_version": "IDEAV-6eeccb7bd95c0956",
-        "idea_version_started_at": "2026-10-30T01:26:14Z",
-        "ticker": "MPW",
-        "company": "Medical Properties Trust",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company generated $680 million in asset sale proceeds, which improves liquidity and aids in deleveraging the balance sheet.",
-        "why_now": "The Q3 2026 results and asset sale update were released on October 29, 2026.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-445123545802"
-        ],
-        "primary_source_event_id": "EVT-445123545802",
-        "source_headlines": [
-          "Medical Properties Trust, Inc. Reports 2026 Third Quarter Results and Approximately $680 Million in Asset Sale Proceeds"
-        ],
-        "source_headline": "Medical Properties Trust, Inc. Reports 2026 Third Quarter Results and Approximately $680 Million in Asset Sale Proceeds",
-        "source_url": "https://www.nasdaq.com/articles/medical-properties-trust-inc-reports-2026-third-quarter-results-and-approximately-680",
-        "source_name": "Nasdaq",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-29T21:12:27Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-30T01:26:14Z",
-        "updated_at": "2026-10-30T01:26:14Z",
-        "decay_at": "2026-10-31T09:12:27Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-01T21:20:37Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-c6f1a0d27ff6",
         "idea_version": "IDEAV-a015e0f4e4c355d7",
         "idea_version_started_at": "2026-10-29T16:12:50Z",
@@ -276764,7 +276765,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2419,
-    "live_count": 36,
+    "live_count": 35,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -276783,9 +276784,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1637122,
-    "news_picked_today": 2226,
-    "news_dropped_today": 16926
+    "news_seen_today": 1704123,
+    "news_picked_today": 2241,
+    "news_dropped_today": 18207
   },
   "book_momentum": {
     "live_count": 8,
