@@ -1,0 +1,78 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-11-12T05:40:07Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-7260c8f0b174",
+    "idea_version": "IDEAV-509322daaf9e3636",
+    "idea_version_started_at": "2026-11-09T10:01:10Z",
+    "ticker": "CPNG",
+    "company": "Coupang",
+    "exchange": "NYSE",
+    "ticker_verified": true,
+    "listing_verified": true,
+    "liquidity_verified": false,
+    "listing_verification_source": "yahoo_symbol_directory",
+    "direction": "short",
+    "pair_with": null,
+    "reason": "The company has been hit with a 300 billion won antitrust fine for unfair business practices, which will directly impact net income and future operating margins.",
+    "why_now": "The fine was announced on 2026-11-09 and represents a material regulatory penalty.",
+    "conviction": 75,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 74,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 21,
+      "specificity": 15,
+      "timing": 10,
+      "expression": 7,
+      "corroboration": 7,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "needs_data",
+    "missing_checks": [
+      "live liquidity",
+      "dated catalyst",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-be1f6a422883",
+      "EVT-45929bd0a058"
+    ],
+    "primary_source_event_id": "EVT-be1f6a422883",
+    "source_headlines": [
+      "Baemin, Coupang Eats hit with record W632b antitrust penalty",
+      "(LEAD) FTC to fine Baemin 331 bln won, Coupang 300 bln won for unfair practices"
+    ],
+    "source_headline": "Baemin, Coupang Eats hit with record W632b antitrust penalty",
+    "source_url": "https://www.koreaherald.com/article/10930770",
+    "source_name": "The Korea Herald — Business",
+    "materiality_max": 100,
+    "newest_source_at": "2026-11-09T05:30:35Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-11-09T10:01:10Z",
+    "updated_at": "2026-11-09T10:01:10Z",
+    "decay_at": "2026-11-10T17:30:35Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}
