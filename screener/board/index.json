@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T16:53:34Z",
+  "generated_at": "2026-11-12T17:06:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20261112-874",
@@ -1339,6 +1339,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261112-889",
+      "headline": "Nvidia Hit By Seven Downgrades In 24 Hours As Jensen Huang's Exit Rattles Wall Street",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/nvidia-hit-by-seven-downgrades-in-24-hours-as-jensen-huangs-exit-rattles-wall-street-12318623#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T15:06:46Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Nvidia received seven analyst downgrades following the exit of CEO Jensen Huang.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia received seven analyst downgrades following the exit of CEO Jensen Huang.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "credit_rating_downgrade",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "credit_rating_downgrade",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261112-835",
       "headline": "Jensen Huang Has Been Ousted as Nvidia CEO",
       "headline_en": null,
@@ -1487,6 +1537,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261112-875",
+      "headline": "Vodafone Idea Q2 Results: ARPU Hits Rs 198, Revenue Up Slightly, But Losses Balloon To Rs 5,975 Crore",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/vodafone-idea-q2-results-arpu-hits-rs-198-revenue-up-slightly-but-losses-balloon-to-rs-5-975-crore-12318273#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T14:57:20Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Vodafone Idea reported a net loss of Rs 5,975 crore for Q2.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Vodafone Idea reported a net loss of Rs 5,975 crore for Q2.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vodafone Idea",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261112-844",
       "headline": "Wall Street opens lower after Nvidia CEO Jensen Huang steps down",
       "headline_en": null,
@@ -1527,6 +1626,55 @@
         {
           "name": "Nvidia",
           "ticker": "NVDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-878",
+      "headline": "Jensen Huang Resigns as Nvidia CEO, With CFO Colette Kress Named Interim Chief",
+      "headline_en": null,
+      "url": "https://decrypt.co/383134/jensen-huang-resigns-as-nvidia-ceo-with-cfo-colette-kress-named-interim-chief",
+      "source_name": "Decrypt — Crypto News",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T14:44:39Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Jensen Huang has resigned as CEO of Nvidia.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Jensen Huang has resigned as CEO of Nvidia.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
           "listing_country": "US"
         }
       ],
@@ -1821,154 +1969,6 @@
         {
           "name": "Nvidia",
           "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-778",
-      "headline": "Nvidia CEO Jensen Huang resigns as CEO in the wake of multiple affairs, Chinese spy allegations",
-      "headline_en": null,
-      "url": "https://www.tomshardware.com/tech-industry/nvidia-confirms-jensen-huang-has-resigned-as-ceo-colette-kress-executive-vice-president-and-chief-financial-officer-appointed-interim-ceo",
-      "source_name": "Tom's Hardware",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T13:58:41Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "CEO resignation of a mega-cap company is a major event affecting leadership and market valuation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "CEO resignation of a mega-cap company is a major event affecting leadership and market valuation.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-850",
-      "headline": "Nvidia CEO Huang quits company he co-founded, led for 3 decades. Shares slump",
-      "headline_en": null,
-      "url": "https://www.coindesk.com/markets/2026/11/12/nvidia-shares-plunge-10-as-jensen-huang-resigns",
-      "source_name": "CoinDesk",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T13:57:53Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Nvidia CEO Jensen Huang quit company he co-founded and led 3 decades; shares slumped, raising succession and strategic uncertainty for mega-cap semiconductor/AI leader.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia CEO Jensen Huang quit company he co-founded and led 3 decades; shares slumped, raising succession and strategic uncertainty for mega-cap semiconductor/AI leader.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 87,
-      "rank_factors": {
-        "materiality": 87,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": "NVDA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-756",
-      "headline": "Nvidia CEO Jensen Huang resigns over scandal and is replaced by CFO Colette Kress on interim basis – follow live",
-      "headline_en": null,
-      "url": "https://www.theguardian.com/technology/live/2026/nov/12/nvidia-ceo-jensen-huang-affairs-share-price-plunges-live-latest",
-      "source_name": "The Guardian — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T13:57:26Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Founder CEO Jensen Huang resigns over personal scandal; CFO Colette Kress assumes interim CEO role, creating management continuity and governance credibility risk at mega-cap AI chipmaker.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Founder CEO Jensen Huang resigns over personal scandal; CFO Colette Kress assumes interim CEO role, creating management continuity and governance credibility risk at mega-cap AI chipmaker.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 88,
-      "rank_factors": {
-        "materiality": 88,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit",
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": "NVDA",
           "listing_country": "US"
         }
       ],
@@ -233621,15 +233621,15 @@
   "ideas": [
     {
       "idea_id": "IDEA-50f379c78b21",
-      "idea_version": "IDEAV-99f606622d309855",
-      "idea_version_started_at": "2026-11-12T16:29:30Z",
+      "idea_version": "IDEAV-3cb14052b151b224",
+      "idea_version_started_at": "2026-11-12T17:06:09Z",
       "ticker": "NVDA",
       "company": "Nvidia",
       "exchange": "NASDAQ",
       "direction": "short",
       "pair_with": null,
-      "reason": "The sudden resignation of CEO Jensen Huang amid scandal and allegations creates significant leadership uncertainty and potential long-term strategic disruption for the company.",
-      "why_now": "The resignation was announced on 2026-11-12, triggering immediate market volatility.",
+      "reason": "The sudden resignation of Jensen Huang, the architect of Nvidia's AI strategy, creates significant leadership uncertainty and potential strategic drift during a critical period for the company's growth.",
+      "why_now": "The resignation was announced today, November 12, 2026, triggering an immediate and sharp decline in share price.",
       "conviction": 85,
       "conviction_basis": "pre_edge_proxy",
       "trade_score": 80,
@@ -233663,28 +233663,26 @@
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
-        "EVT-074bb58cbda6",
         "EVT-27f4c66804d9",
-        "EVT-2eada4b39351",
         "EVT-37dae785d262",
-        "EVT-3c533b8f954d",
-        "EVT-6f635650c4c6",
         "EVT-ac0157da8a0c",
-        "EVT-ae843e6ddff6",
-        "EVT-d3c6a1ee99be"
+        "EVT-d3c6a1ee99be",
+        "EVT-5bc8b7886bc7",
+        "EVT-6416f70b4e5f",
+        "EVT-6e15b8b611af"
       ],
-      "primary_source_event_id": "EVT-074bb58cbda6",
+      "primary_source_event_id": "EVT-27f4c66804d9",
       "source_headlines": [
-        "Huang, Face of the AI Boom, Ousted by Nvidia Board as CEO",
         "Huang resigns as Nvidia shares plunge again",
-        "Nvidia CEO Jensen Huang resigns as CEO in the wake of multiple affairs, Chinese spy allegations",
-        "NVIDIA CEO Jensen Huang resigns; Colette Kress to lead company for now"
+        "NVIDIA CEO Jensen Huang resigns; Colette Kress to lead company for now",
+        "Nvidia CEO Jensen Huang to step down in big blow to AI boom",
+        "Nvidia boss Jensen Huang resigns and shares plunge 10% - taking losses this week to $730bn"
       ],
-      "source_headline": "Huang, Face of the AI Boom, Ousted by Nvidia Board as CEO",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-11-12/jensen-huang-face-of-the-ai-boom-ousted-by-nvidia-board-as-ceo",
-      "source_name": "Bloomberg",
+      "source_headline": "Huang resigns as Nvidia shares plunge again",
+      "source_url": "https://www.afr.com/politics/federal/australia-news-live-updates-nvidia-shares-plunge-again-as-default-risk-nears-record-high-20261113-p61dtm?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
       "materiality_max": 100,
-      "newest_source_at": "2026-11-12T14:05:31Z",
+      "newest_source_at": "2026-11-12T15:04:00Z",
       "prior_coverage": {
         "has_run": false,
         "latest_run": null,
@@ -233692,8 +233690,8 @@
         "data_pool_present": false
       },
       "surfaced_at": "2026-11-07T15:09:40Z",
-      "updated_at": "2026-11-12T16:29:30Z",
-      "decay_at": "2026-11-14T02:05:31Z",
+      "updated_at": "2026-11-12T17:06:09Z",
+      "decay_at": "2026-11-14T03:04:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -276782,9 +276780,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1573871,
-    "news_picked_today": 2125,
-    "news_dropped_today": 15419
+    "news_seen_today": 1582445,
+    "news_picked_today": 2152,
+    "news_dropped_today": 15776
   },
   "book_momentum": {
     "live_count": 8,
