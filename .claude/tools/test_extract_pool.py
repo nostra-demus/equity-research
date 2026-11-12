@@ -1044,6 +1044,22 @@ def test_pdf_visual_completeness() -> None:
             check("PDF visuals: provider upgrade cannot silently repay an unproved existing cache",
                   alternate == text and "no valid page-coverage proof" in (alternate_err or ""))
             ep._write_pdf_visual_cache(str(saved), str(source), text, ep._inspect_pdf_pages(str(source)), "tesseract")
+            for preferred_vision in (True, False):
+                alternate_tag = "tesseract" if preferred_vision else f"claude:{ep._VISION_MODEL}"
+                alternate_dir = root / f"alternate-{preferred_vision}"
+                alternate_dir.mkdir()
+                with patch.object(ep, "_OCR_CACHE_DIR", str(alternate_dir)), \
+                        patch.object(ep, "_vision_configured", return_value=preferred_vision), \
+                        patch.object(ep, "_vision_transcribe") as vision:
+                    alternate_path = ep._read_cache_path(str(source), alternate_tag)
+                    ep._write_pdf_visual_cache(alternate_path, str(source), text,
+                                               ep._inspect_pdf_pages(str(source)), alternate_tag)
+                    ocr.reset_mock(); render.reset_mock()
+                    alternate_text, alternate_note, alternate_error = ep._read_scanned_pdf(str(source))
+                check(f"PDF visuals: proved alternate {alternate_tag} cache reuses without any reader call",
+                      alternate_text == text and alternate_error is None and "cached" in (alternate_note or "")
+                      and not vision.called and not ocr.called and not render.called,
+                      repr((alternate_text, alternate_note, alternate_error)))
             scan_pool = root / "data" / "SCAN"; scan_pool.mkdir(parents=True)
             (scan_pool / "scan.pdf").write_bytes(source.read_bytes())
             scan_out = root / "out"

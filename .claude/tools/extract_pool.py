@@ -1334,7 +1334,8 @@ def _vision_transcribe(png_paths, label=""):
         content = []
         for j, pp in enumerate(batch):
             try:
-                b = open(pp, "rb").read()
+                with open(pp, "rb") as handle:
+                    b = handle.read()
             except Exception as e:
                 raise incomplete(f"vision input image unreadable: {os.path.basename(pp)}") from e
             if not b:
@@ -1407,13 +1408,7 @@ def _read_scanned_pdf(path):
         alternate_cache = _read_cache_path(path, alternate)
         alternate_text = _cache_read(alternate_cache)
         if alternate_text is not None:
-            try:
-                with open(alternate_cache + ".coverage.json", encoding="utf-8") as handle:
-                    alternate_proof = json.load(handle)
-                if alternate_proof != _pdf_visual_cache_proof(path, alternate_text, inspected, alternate):
-                    raise ValueError("coverage binding differs")
-            except Exception:
-                cache, hit, tag = alternate_cache, alternate_text, alternate
+            cache, hit, tag = alternate_cache, alternate_text, alternate
     if hit is not None:
         try:
             with open(cache + ".coverage.json", encoding="utf-8") as handle:
