@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T02:35:55Z",
+  "generated_at": "2026-11-12T02:43:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20261112-189",
@@ -242,6 +242,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-331",
+      "headline": "CDL shares slide more than 10% after warning of ‘significantly weaker’ H2 performance",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/property/cdl-shares-slide-more-10-after-warning-significantly-weaker-h2-performance",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T01:33:56Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "CDL warned of significantly weaker H2 performance, causing shares to drop over 10%.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CDL warned of significantly weaker H2 performance, causing shares to drop over 10%.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "City Developments Limited",
+          "ticker": null,
+          "listing_country": "SG"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1940,55 +1989,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-240",
-      "headline": "BEYOND Developments launches SHIONE, $817 million twin-building residential community at SIORA",
-      "headline_en": null,
-      "url": "https://economymiddleeast.com/news/beyond-developments-launches-shione-817-million-twin-building-residential-community-at-siora/?utm_source=rss&utm_medium=rss&utm_campaign=beyond-developments-launches-shione-817-million-twin-building-residential-community-at-siora",
-      "source_name": "Economy Middle East",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T10:51:24Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "BEYOND Developments launched an $817 million residential project, representing a significant capital investment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "BEYOND Developments launched an $817 million residential project, representing a significant capital investment.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BEYOND Developments",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -277723,9 +277723,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 230411,
-    "news_picked_today": 530,
-    "news_dropped_today": 1630
+    "news_seen_today": 242215,
+    "news_picked_today": 554,
+    "news_dropped_today": 1726
   },
   "book_momentum": {
     "live_count": 8,
