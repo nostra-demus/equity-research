@@ -14,11 +14,21 @@ import path from 'node:path'
 
 const REPO = fs.mkdtempSync(path.join(os.tmpdir(), 'completion-'))
 process.env.ENGINE_REPO_ROOT = REPO
+process.env.ENGINE_STATE_DIR = path.join(REPO, '.state')
 
 function write(rel: string, body: string) {
   const abs = path.join(REPO, rel)
   fs.mkdirSync(path.dirname(abs), { recursive: true })
   fs.writeFileSync(abs, body)
+}
+function retainedDraftFiles(ticker: string): string {
+  const archives = path.join(REPO, '.state/module-incomplete-drafts')
+  const dir = fs.readdirSync(archives).find((name) => {
+    const manifest = path.join(archives, name, 'manifest.json')
+    return fs.existsSync(manifest) && JSON.parse(fs.readFileSync(manifest, 'utf8')).ticker === ticker
+  })
+  assert.ok(dir, `raw rejected evidence retained for ${ticker}`)
+  return path.join(archives, dir, 'files')
 }
 const fm = (name: string, layer: number, extra = '') => `---\nname: ${name}\nlayer: ${layer}\n${extra}---\n# ${name}\nbody\n`
 
@@ -1070,6 +1080,62 @@ function exactScope(runRoot: string) {
   console.log('✅ invalid current synthesis stays incomplete and retries summary only')
 }
 
+// ---- 20e.1. rejected drafts survive approved cleanup without becoming reusable ----------------------
+{
+  const body = '# draft financial synthesis\n\n## Completion Status\nINCOMPLETE\n'
+  for (const ticker of ['DRAFTRESUME', 'DRAFTSTALE', 'DRAFTFAIL']) {
+    const root = `analyses/${ticker}_${TODAY}`
+    for (const file of ['01_alpha-thing.md', '02_alpha-new-check.md', '03_alpha-dependent-check.md']) {
+      write(`${root}/alpha/${file}`, `# completed ${file}\n`)
+    }
+    write(`${root}/alpha/99_alpha-synthesis.md`, body)
+    write(`${root}/alpha/alpha_declared.json`, '{"unfinished":true}\n')
+    write(`${root}/alpha/nested/aux.csv`, 'metric,value\nprofit,42\n')
+    poolFile(ticker, 'filing.pdf', -3)
+    const plan = thesisPlan(ticker)
+    assert.equal(plan.modules.find((entry) => entry.module === 'alpha')!.state, 'partial',
+      'explicit incomplete synthesis is not finished despite valid structure')
+    if (ticker === 'DRAFTSTALE') plan.modules.find((entry) => entry.module === 'alpha')!.staleReason = 'reviewed evidence generation changed'
+    const archiveDir = path.join(REPO, '.state/module-incomplete-drafts')
+    if (ticker === 'DRAFTFAIL') {
+      const backup = `${archiveDir}-fixture-backup`
+      fs.renameSync(archiveDir, backup)
+      fs.symlinkSync(path.join(REPO, 'unsafe-archive-target'), archiveDir)
+      try {
+        assert.throws(() => prepareModuleResume(ticker, 'alpha', undefined, plan), /unsafe|ENOENT|EEXIST/,
+          'retention failure precedes approved resume replacement')
+        assert.equal(fs.readFileSync(path.join(REPO, root, 'alpha/99_alpha-synthesis.md'), 'utf8'), body)
+        assert.equal(fs.readFileSync(path.join(REPO, root, 'alpha/alpha_declared.json'), 'utf8'), '{"unfinished":true}\n')
+      } finally {
+        fs.unlinkSync(archiveDir)
+        fs.renameSync(backup, archiveDir)
+      }
+    }
+    const prepared = prepareModuleResume(ticker, 'alpha', undefined, plan)
+    const retained = retainedDraftFiles(ticker)
+    assert.equal(fs.readFileSync(path.join(retained, '99_alpha-synthesis.md'), 'utf8'), body)
+    assert.equal(fs.readFileSync(path.join(retained, 'alpha_declared.json'), 'utf8'), '{"unfinished":true}\n')
+    assert.equal(fs.readFileSync(path.join(retained, 'nested/aux.csv'), 'utf8'), 'metric,value\nprofit,42\n')
+    assert.ok(!fs.existsSync(path.join(REPO, root, 'alpha/99_alpha-synthesis.md')),
+      'approved preparation clears the rejected canonical synthesis only after durable retention')
+    assert.equal(prepared.discardedStaleOrbs, ticker === 'DRAFTSTALE')
+    if (ticker !== 'DRAFTSTALE') assert.deepEqual(prepared.doneOrbKeys,
+      ['alpha/01_alpha-thing', 'alpha/02_alpha-new-check', 'alpha/03_alpha-dependent-check'])
+  }
+
+  const backupTicker = 'DRAFTSWAP'
+  write(`analyses/${backupTicker}_${TODAY}/alpha/01_alpha-thing.md`, '# replacement paid check\n')
+  write(`analyses/.resume-backup-${backupTicker}_${TODAY}-alpha/99_alpha-synthesis.md`, body)
+  write(`analyses/.resume-backup-${backupTicker}_${TODAY}-alpha/aux.json`, '{"crash":true}\n')
+  poolFile(backupTicker, 'filing.pdf', -3)
+  thesisPlan(backupTicker)
+  assert.ok(!fs.existsSync(path.join(REPO, `analyses/.resume-backup-${backupTicker}_${TODAY}-alpha`)))
+  const crashArchive = retainedDraftFiles(backupTicker)
+  assert.equal(fs.readFileSync(path.join(crashArchive, '99_alpha-synthesis.md'), 'utf8'), body)
+  assert.equal(fs.readFileSync(path.join(crashArchive, 'aux.json'), 'utf8'), '{"crash":true}\n')
+  console.log('✅ rejected drafts survive approved resume, stale clean, retention failure, and crash-backup cleanup')
+}
+
 // ---- 20f. an upstream module-only refresh persistently invalidates old downstream synthesis ------------
 {
   // Alpha was rerun alone today and completed. Beta's otherwise complete 99 is from yesterday, so a fresh
@@ -1360,6 +1426,9 @@ function exactScope(runRoot: string) {
   // The protected record still names beta, but its current bytes no longer match. It becomes payable in the
   // SAME root; no generic Full target is created and no presence-skip survives private preparation.
   write(`${root}/beta/01_beta-thing.md`, '# tampered beta\n')
+  const unfinishedBeta = '# unfinished beta synthesis\n\n## Completion Status\nINCOMPLETE\n'
+  write(`${root}/beta/99_beta-synthesis.md`, unfinishedBeta)
+  write(`${root}/beta/beta_aux.json`, '{"unpublished":true}\n')
   const changed = thesisPlan('LINEAGE', undefined, undefined, undefined, { provider: 'claude' }, reviewedScope)
   assert.equal(changed.targetRunRoot, root)
   assert.equal(changed.continuationReceipt.action, 'continue')
@@ -1380,6 +1449,11 @@ function exactScope(runRoot: string) {
 
   const tx = fs.mkdtempSync(path.join(REPO, '.lineage-private-'))
   const prepared = prepareThesisPlanPrivately('LINEAGE', changed, tx)
+  const privateArchive = retainedDraftFiles('LINEAGE')
+  assert.equal(fs.readFileSync(path.join(privateArchive, '99_beta-synthesis.md'), 'utf8'), unfinishedBeta)
+  assert.equal(fs.readFileSync(path.join(privateArchive, 'beta_aux.json'), 'utf8'), '{"unpublished":true}\n')
+  assert.equal(fs.readFileSync(path.join(REPO, root, 'beta/99_beta-synthesis.md'), 'utf8'), unfinishedBeta,
+    'private preparation retains original canonical draft as well as its protected archive')
   assert.ok(!fs.existsSync(path.join(prepared.stagingRootAbs, 'beta')),
     'unbound current bytes are absent from the privately prepared root, so the provider cannot skip them')
   assert.ok(fs.existsSync(path.join(prepared.stagingRootAbs, 'alpha/99_alpha-synthesis.md')),
@@ -1458,7 +1532,9 @@ function exactScope(runRoot: string) {
   const targetAbs = path.join(REPO, migrated.targetRunRoot)
   fs.mkdirSync(path.dirname(targetAbs), { recursive: true })
   fs.renameSync(prepared.stagingRootAbs, targetAbs)
-  write(`${migrated.targetRunRoot}/beta/00_unsealed-triage.md`, '# crashed paid child\n')
+  const rejectedChild = '# crashed paid child\n\n## Completion Status\nINCOMPLETE\n'
+  write(`${migrated.targetRunRoot}/beta/00_unsealed-triage.md`, rejectedChild)
+  write(`${migrated.targetRunRoot}/beta/unpublished_aux.json`, '{"retained":true}\n')
   const synthesisRel = 'alpha/99_alpha-synthesis.md'
   const synthesisSha = `sha256:${createHash('sha256')
     .update(fs.readFileSync(path.join(targetAbs, synthesisRel))).digest('hex')}`
@@ -1474,6 +1550,9 @@ function exactScope(runRoot: string) {
   ]) assert.ok(fs.existsSync(path.join(targetAbs, 'alpha', file)), `sealed migrated orb ${file} survives recovery`)
   assert.ok(!fs.existsSync(path.join(targetAbs, 'beta/00_unsealed-triage.md')),
     'an unsealed crashed-child artifact is removed before the exact recovery child starts')
+  const recoveredArchive = retainedDraftFiles('LEGACY')
+  assert.equal(fs.readFileSync(path.join(recoveredArchive, '00_unsealed-triage.md'), 'utf8'), rejectedChild)
+  assert.equal(fs.readFileSync(path.join(recoveredArchive, 'unpublished_aux.json'), 'utf8'), '{"retained":true}\n')
 
   fs.appendFileSync(path.join(REPO, root, 'alpha/01_alpha-thing.md'), 'changed after admission\n')
   assert.throws(
