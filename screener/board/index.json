@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-12T15:05:34Z",
+  "generated_at": "2026-11-12T15:16:49Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261112-821",
+      "headline": "COASTAL GL (01124): JOINT ANNOUNCEMENT (I) MANDATORY CONDITIONAL CASH OFFER BY QUAM SECURITIES LIMITED FOR AND ON BEHALF OF DEEP WATER STRATEGY LIMITED TO ACQUIRE ALL THE ISSUED SHARES OF COASTAL GREENLAND LIMITED (OTHER THAN THOSE ALREADY OWNED OR AGREED TO BE ACQUIRED BY DEEP WATER STRATEGY LIMITED AND MR. CAO AND PARTIES ACTING IN CONCERT WITH ANY OF THEM); AND (II) RESUMPTION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1112/2026111201636.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-12T14:59:00Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Mandatory conditional cash offer to acquire shares and resumption of trading.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Mandatory conditional cash offer to acquire shares and resumption of trading.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Coastal Greenland Limited",
+          "ticker": "01124",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261112-794",
       "headline": "SCIENTECH (02291): MAJOR AND CONNECTED TRANSACTION ACQUISITION OF 54.2384% EQUITY INTEREST IN SHANGHAI MINWEI BIOTECHNOLOGY CO., LTD.",
@@ -987,25 +1036,25 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261112-810",
-      "headline": "Nvidia stock falls 13% as CEO Jensen Huang announces resignation",
+      "inbox_id": "INB-20261112-835",
+      "headline": "Jensen Huang Has Been Ousted as Nvidia CEO",
       "headline_en": null,
-      "url": "https://www.cnbc.com/2026/11/12/nvidia-nvda-jensen-huang-second-affair.html",
-      "source_name": "CNBC",
+      "url": "https://www.wsj.com/business/nvidia-is-preparing-to-oust-nvidia-ceo-jensen-huang-30f421ad?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
       "input_nature": "news_headline",
-      "found_at": "2026-11-12T14:31:06Z",
+      "found_at": "2026-11-12T15:04:00Z",
       "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Nvidia stock fell 13% following the CEO's resignation.",
+      "prelim_note": "Jensen Huang has been ousted as Nvidia CEO.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Nvidia stock fell 13% following the CEO's resignation.",
+      "triage_reason": "Jensen Huang has been ousted as Nvidia CEO.",
       "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 85,
+      "materiality_pre_score": 90,
       "rank_factors": {
-        "materiality": 85,
+        "materiality": 90,
         "source_tier": 0,
         "scope": 6,
         "event": 5,
@@ -1036,20 +1085,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261112-808",
-      "headline": "Nvidia CEO Jensen Huang resigns in wake of affair, spy scandal",
+      "inbox_id": "INB-20261112-834",
+      "headline": "Nvidia stock falls nearly 10% as CEO Jensen Huang announces resignation",
       "headline_en": null,
-      "url": "https://www.cbsnews.com/news/nvidia-ceo-jensen-huang-resigns/",
-      "source_name": "CBS MoneyWatch",
+      "url": "https://www.cnbc.com/2026/11/12/nvidia-nvda-jensen-huang-second-affair.html",
+      "source_name": "CNBC",
       "input_nature": "news_headline",
-      "found_at": "2026-11-12T14:30:10Z",
+      "found_at": "2026-11-12T14:39:34Z",
       "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "The CEO of a mega-cap company resigned unexpectedly amid scandal.",
+      "prelim_note": "Nvidia stock fell nearly 10% as CEO Jensen Huang announced his resignation.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "The CEO of a mega-cap company resigned unexpectedly amid scandal.",
+      "triage_reason": "Nvidia stock fell nearly 10% as CEO Jensen Huang announced his resignation.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 90,
@@ -1061,6 +1110,55 @@
         "size": 2,
         "recency": 5,
         "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-818",
+      "headline": "Nvidia CEO resigns amid scandal; CFO named interim",
+      "headline_en": null,
+      "url": "https://www.cfodive.com/news/nvidia-ceo-resigns-scandal-cfo-named-interim-ceo-ai/874479/",
+      "source_name": "CFO Dive",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T14:17:33Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "CEO resigns amid scandal, with CFO named interim.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CEO resigns amid scandal, with CFO named interim.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -1870,106 +1968,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-607",
-      "headline": "Oil India Q2 results: Profit falls 21% to ₹2,259 crore; margin contracts; interim dividend declared",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/oil-india-share-price-q2-results-net-profit-falls-ebitda-margin-contracts-interim-dividend-declared-20032620.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T11:28:32Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Oil India reported a 21% profit decline to ₹2,259 crore with margin contraction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Oil India reported a 21% profit decline to ₹2,259 crore with margin contraction.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "dividend_cut"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Oil India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-580",
-      "headline": "Nvidia board weighs temporary CEO, starts search for potential replacement after Jensen Huang affairs",
-      "headline_en": null,
-      "url": "https://www.datacenterdynamics.com/en/news/nvidia-board-weighs-temporary-ceo-starts-search-for-potential-replacements-after-jensen-huang-affairs/",
-      "source_name": "DataCenterDynamics",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T10:59:00Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Nvidia board is reportedly considering a temporary CEO and searching for a replacement for Jensen Huang, representing a major leadership risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia board is reportedly considering a temporary CEO and searching for a replacement for Jensen Huang, representing a major leadership risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management",
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -277050,9 +277048,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1408811,
-    "news_picked_today": 1995,
-    "news_dropped_today": 14589
+    "news_seen_today": 1424584,
+    "news_picked_today": 2031,
+    "news_dropped_today": 14649
   },
   "book_momentum": {
     "live_count": 8,
