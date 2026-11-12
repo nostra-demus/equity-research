@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T03:39:44Z",
+  "generated_at": "2026-11-12T03:42:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20261112-346",
@@ -296,6 +296,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261112-403",
+      "headline": "Nvidia on lookout for new CEO as more Jensen Huang affairs surface",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/people/nvidia-on-lookout-for-new-ceo-as-more-jensen-huang-affairs-surface-11794453682860.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T03:26:44Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Reports of a potential CEO ouster due to serious misconduct and espionage allegations represent a critical governance and continuity risk for Nvidia.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Reports of a potential CEO ouster due to serious misconduct and espionage allegations represent a critical governance and continuity risk for Nvidia.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management",
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261112-394",
       "headline": "ReNew to invest ₹29,500 cr in 2 new projects in Andhra Pradesh",
       "headline_en": null,
@@ -340,6 +390,56 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-405",
+      "headline": "Nvidia board prepares to fire CEO Jensen Huang as 'affairs' with employee, 'Chinese spy' come to light",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/world/us/nvidia-board-prepares-to-fire-ceo-jensen-huang-as-affairs-with-employee-chinese-spy-come-to-light-4215494",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T03:06:11Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Reports of the board preparing to fire the CEO due to misconduct and espionage allegations are a critical event for the company's leadership and market stability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Reports of the board preparing to fire the CEO due to misconduct and espionage allegations are a critical event for the company's leadership and market stability.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management",
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1886,104 +1986,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-288",
-      "headline": "Taylor Wimpey lowers outlook amid ‘challenging’ autumn",
-      "headline_en": null,
-      "url": "https://www.independent.co.uk/news/business/taylor-wimpey-lloyds-bank-of-england-shares-holly-williams-b3082952.html",
-      "source_name": "The Independent — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T09:09:11Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Taylor Wimpey has lowered its financial outlook citing challenging market conditions.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Taylor Wimpey has lowered its financial outlook citing challenging market conditions.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Taylor Wimpey",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-293",
-      "headline": "Bajaj Hindusthan Sugar Q2: Net Loss Widens To Rs 121 Crore, Revenue Falls 16%",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/business/bajaj-hindusthan-sugar-q2-net-loss-widens-to-rs-121-crore-revenue-falls-16-12311964#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T09:06:11Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Bajaj Hindusthan Sugar reported a net loss of Rs 121 crore and a 16% revenue decline for Q2.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Bajaj Hindusthan Sugar reported a net loss of Rs 121 crore and a 16% revenue decline for Q2.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bajaj Hindusthan Sugar",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -277719,9 +277721,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 322495,
-    "news_picked_today": 777,
-    "news_dropped_today": 2367
+    "news_seen_today": 327692,
+    "news_picked_today": 782,
+    "news_dropped_today": 2386
   },
   "book_momentum": {
     "live_count": 8,
