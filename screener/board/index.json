@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T00:34:59Z",
+  "generated_at": "2026-11-12T00:42:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20261112-008",
@@ -95,6 +95,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-111",
+      "headline": "LH, 광명시흥·용인반도체에 2조원 추가 투입…'국가 핵심사업' 속도전",
+      "headline_en": "LH to invest an additional 2 trillion won in Gwangmyeong-Siheung and Yongin Semiconductor projects to accelerate national core initiatives.",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=281070",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T00:02:41Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Korea Land and Housing Corporation (LH) is injecting 2 trillion KRW into national core projects in Gwangmyeong-Siheung and Yongin Semiconductor clusters.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Korea Land and Housing Corporation (LH) is injecting 2 trillion KRW into national core projects in Gwangmyeong-Siheung and Yongin Semiconductor clusters.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Korea Land and Housing Corporation",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1046,6 +1095,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261112-109",
+      "headline": "Commonwealth Bank sued by ASIC for overcharging business customers",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/financial-services/commonwealth-bank-sued-by-asic-over-business-account-fees-20261112-p61dgz?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T00:23:25Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "ASIC enforcement action alleges Commonwealth Bank overcharged business customers; settlement amount and financial penalty unknown.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "ASIC enforcement action alleges Commonwealth Bank overcharged business customers; settlement amount and financial penalty unknown.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 62,
+      "rank_factors": {
+        "materiality": 62,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 8,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Commonwealth Bank of Australia",
+          "ticker": "CBA",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-110",
+      "headline": "Rural internet service provider Xplore granted creditor protection",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/business/article-rural-internet-service-provider-xplore-granted-creditor-protection/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T00:01:20Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Rural Canadian ISP Xplore granted creditor protection; insolvency/restructuring event affecting equity holders and creditors.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Rural Canadian ISP Xplore granted creditor protection; insolvency/restructuring event affecting equity holders and creditors.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Xplore",
+          "ticker": null,
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261112-084",
       "headline": "Stock Market Today, Nov. 11: CoreWeave Surges 25% on Beat-and-Raise Quarter",
       "headline_en": null,
@@ -1674,6 +1821,65 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261112-107",
+      "headline": "MSCI Rejig: LIC, Coforge, Adani Green, Meesho make the cut while PI Industries dropped; Details here",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/msci-rejig-lic-coforge-adani-green-meesho-pi-industries-share-price-standard-index-smallcap-rebalancing-date-20031984.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T00:12:03Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "MSCI index rebalance adds LIC, Coforge, Adani Green, Meesho and removes PI Industries; creates mechanical buying/selling flows for affected large-cap Indian stocks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "MSCI index rebalance adds LIC, Coforge, Adani Green, Meesho and removes PI Industries; creates mechanical buying/selling flows for affected large-cap Indian stocks.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "index_rebalance",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "index_rebalance"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [
+        {
+          "name": "Life Insurance Corporation of India (LIC)",
+          "ticker": "LICIINDIA",
+          "listing_country": "IN"
+        },
+        {
+          "name": "Coforge Limited",
+          "ticker": "COFORGE",
+          "listing_country": "IN"
+        },
+        {
+          "name": "Adani Green Energy Limited",
+          "ticker": "ADANIGREEN",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261112-064",
       "headline": "India bans export of lithium-ion battery recycled material",
       "headline_en": null,
@@ -1761,202 +1967,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-015",
-      "headline": "‘It looks bad from every single angle’: Investors and analysts react to report Nvidia planning to oust CEO Huang",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/investing/article-it-looks-bad-from-every-single-angle-investors-and-analysts-react-to/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T23:52:43Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Market reaction to reports of potential CEO ouster reflects significant investor concern regarding leadership stability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 78,
-      "triage_reason": "Market reaction to reports of potential CEO ouster reflects significant investor concern regarding leadership stability.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-094",
-      "headline": "Franco-Nevada Q3 Profit Rises 38%",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/franco-nevada-q3-profit-rises-38",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T22:56:00Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Franco-Nevada Q3 net profit up 38% year-on-year; real earnings report from a commodity-sensitive producer, but beat/miss context and guidance implications absent.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 76,
-      "triage_reason": "Franco-Nevada Q3 net profit up 38% year-on-year; real earnings report from a commodity-sensitive producer, but beat/miss context and guidance implications absent.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Franco-Nevada",
-          "ticker": "FVN",
-          "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-035",
-      "headline": "AAU: Application for quotation of securities - AAU",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AAU?key=2924-03160946-2A1710212",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-11T23:25:46Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Company applying to list securities on exchange; preliminary capital action with no size, structure, or timeline disclosed yet.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 74,
-      "triage_reason": "Company applying to list securities on exchange; preliminary capital action with no size, structure, or timeline disclosed yet.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AAU",
-          "ticker": "AAU",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-074",
-      "headline": "Wall Street’s Newest Teradyne Bull Just Sent a $2 Billion Signal That the Stock’s 56% Crash Went Too Far",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/11/11/wall-streets-newest-teradyne-bull-just-sent-a-2-billion-signal-that-the-stocks-56-crash-went-too-far/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T23:07:32Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "A significant analyst upgrade and capital signal suggests a potential valuation floor for Teradyne.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 73,
-      "triage_reason": "A significant analyst upgrade and capital signal suggests a potential valuation floor for Teradyne.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "ownership_activist",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Teradyne",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -277693,9 +277703,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 46813,
-    "news_picked_today": 101,
-    "news_dropped_today": 283
+    "news_seen_today": 54360,
+    "news_picked_today": 115,
+    "news_dropped_today": 365
   },
   "book_momentum": {
     "live_count": 8,
