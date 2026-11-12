@@ -1,29 +1,29 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-10-18T22:11:27Z",
+  "archived_at": "2026-11-12T10:13:24Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-4c694dbd5e98",
-    "idea_version": "IDEAV-1a5a6ab2f4672341",
-    "idea_version_started_at": "2026-10-16T04:22:07Z",
-    "ticker": "01119",
-    "company": "iDreamSky",
-    "exchange": "HKEX",
+    "idea_id": "IDEA-727dc9220763",
+    "idea_version": "IDEAV-d200ac5ab3f11d2f",
+    "idea_version_started_at": "2026-11-09T12:07:50Z",
+    "ticker": "SIPCHEM",
+    "company": "Sipchem",
+    "exchange": "TADAWUL",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "short",
     "pair_with": null,
-    "reason": "The announcement of a new share placement under a general mandate will cause immediate equity dilution for existing shareholders.",
-    "why_now": "The filing was released on 2026-10-15, making the dilution effect immediate.",
-    "conviction": 70,
+    "reason": "Net losses deepened by 173% in 9M-26, indicating severe margin compression or demand issues in their chemical segments.",
+    "why_now": "The 9M-26 financial results were published on November 9, 2026.",
+    "conviction": 60,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
-      "evidence": 25,
-      "impact": 16,
+      "evidence": 14,
+      "impact": 20,
       "specificity": 7,
       "timing": 10,
       "expression": 0,
@@ -36,7 +36,7 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
-      "priced-in risk",
+      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -48,31 +48,31 @@
       "basis": "not_enough_outcomes",
       "evidenceIds": []
     },
-    "priced_in": "priced",
+    "priced_in": "room",
     "thesis_type": "company_specific",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-397249f4ba38"
+      "EVT-e307b54b864b"
     ],
-    "primary_source_event_id": "EVT-397249f4ba38",
+    "primary_source_event_id": "EVT-e307b54b864b",
     "source_headlines": [
-      "IDREAMSKY (01119): PLACING OF NEW SHARES UNDER GENERAL MANDATE"
+      "Sipchem’s net losses deepen 173% in 9M-26 results"
     ],
-    "source_headline": "IDREAMSKY (01119): PLACING OF NEW SHARES UNDER GENERAL MANDATE",
-    "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1016/2026101600003.pdf",
-    "source_name": "HKEXnews (HK Exchange Filing)",
-    "materiality_max": 87,
-    "newest_source_at": "2026-10-15T22:04:00Z",
+    "source_headline": "Sipchem’s net losses deepen 173% in 9M-26 results",
+    "source_url": "http://english.mubasher.info/news/4698715/Sipchem-s-net-losses-deepen-173-in-9M-26-results",
+    "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
+    "materiality_max": 100,
+    "newest_source_at": "2026-11-09T07:10:10Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-10-16T04:22:07Z",
-    "updated_at": "2026-10-16T04:22:07Z",
-    "decay_at": "2026-10-17T10:04:00Z",
+    "surfaced_at": "2026-11-09T12:07:50Z",
+    "updated_at": "2026-11-09T12:07:50Z",
+    "decay_at": "2026-11-10T19:10:10Z",
     "status": "live",
     "promoted_signal_id": null
   }
