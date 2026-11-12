@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-12T05:15:08Z",
+  "generated_at": "2026-11-12T05:20:08Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261112-421",
+      "headline": "HYPEBEAST (00150): POSITIVE PROFIT ALERT - SUPPLEMENTAL ANNOUNCEMENT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1112/2026111200187.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-12T04:03:00Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Hypebeast issued a positive profit alert, indicating improved financial performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Hypebeast issued a positive profit alert, indicating improved financial performance.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hypebeast",
+          "ticker": "00150",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261112-346",
       "headline": "HFCL Limited: HFCL Limited has informed the Exchange about \"HFCL secures Export Orders worth INR 834.36 crore approx. (equivalent to USD 88.94 million approx.) for supply of Optical Fiber Cables (OFC)\"",
@@ -1938,55 +1987,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-169",
-      "headline": "CDL flags ‘significantly weaker’ performance for H2 2026",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/cdl-flags-significantly-weaker-performance-h2-2026",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T11:32:29Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "CDL issued a profit warning, flagging 'significantly weaker' performance for H2 2026.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "CDL issued a profit warning, flagging 'significantly weaker' performance for H2 2026.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CDL",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -277722,9 +277722,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 419984,
-    "news_picked_today": 1110,
-    "news_dropped_today": 3930
+    "news_seen_today": 424602,
+    "news_picked_today": 1119,
+    "news_dropped_today": 4089
   },
   "book_momentum": {
     "live_count": 8,
