@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T02:43:03Z",
+  "generated_at": "2026-11-12T02:48:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20261112-189",
@@ -1744,6 +1744,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261112-334",
+      "headline": "RWE, KKR To Build 2.8 GW Of New Offshore Wind Project In UK With £12 Bln Investment",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/rwe-kkr-build-28-gw-new-offshore-wind-project-uk-ps12-bln-investment",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T07:33:40Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "RWE and KKR announced a 2.8 GW offshore wind project in the UK with a £12 billion investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "RWE and KKR announced a 2.8 GW offshore wind project in the UK with a £12 billion investment.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "RWE",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "KKR",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261112-208",
       "headline": "AD Ports Group delivers record $265.49 million net profit ‎in Q3 2026, up 64 percent",
       "headline_en": null,
@@ -1932,60 +1986,6 @@
           "name": "First Abu Dhabi Bank",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-164",
-      "headline": "Air India H1 losses estimated at ₹10,800 crore as Singapore Airlines absorbs S$361.7 million hit",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/business/air-india-h1-losses-estimated-at-rs-10800-crore-as-singapore-airlines-absorbs-361-million-singapore-dollar-hit-20031701.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T11:35:48Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Air India reported estimated H1 losses of ₹10,800 crore, with Singapore Airlines absorbing a S$361.7 million hit.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Air India reported estimated H1 losses of ₹10,800 crore, with Singapore Airlines absorbing a S$361.7 million hit.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Air India",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Singapore Airlines",
-          "ticker": null,
-          "listing_country": "SG"
         }
       ],
       "size_bucket": "large",
@@ -277723,9 +277723,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 242215,
-    "news_picked_today": 554,
-    "news_dropped_today": 1726
+    "news_seen_today": 253815,
+    "news_picked_today": 578,
+    "news_dropped_today": 1750
   },
   "book_momentum": {
     "live_count": 8,
