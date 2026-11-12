@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-11-12T11:10:53Z",
+  "generated_at": "2026-11-12T11:11:53Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261112-565",
+      "headline": "Oil India Limited: Oil India Limited has informed the Exchange regarding a press release dated November 12, 2026, titled \"OIL reported 20% growth in crude oil production resulting to 116% growth in Standalone PAT during Q2 FY27\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/OIL_12112026160024_PRESSRELEASE_Signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-12T10:30:32Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Oil India reported 20% growth in crude oil production and 116% growth in standalone PAT for Q2 FY27.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Oil India reported 20% growth in crude oil production and 116% growth in standalone PAT for Q2 FY27.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Oil India Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-567",
+      "headline": "BJ ENERGY INTL (00686): (1) MAJOR TRANSACTIONS IN RELATION TO ENGINEERING, PROCUREMENT AND CONSTRUCTION CONTRACTS FOR THE FACILITIES RELATING TO A 50MW WIND FARM PROJECT LOCATED IN YUQIAO TOWN, DONGGUANG COUNTY, CANGZHOU CITY, HEBEI PROVINCE, THE PRC, AND A 50MW WIND FARM PROJECT LOCATED IN ZHAOWANG TOWN, DONGGUANG COUNTY, CANGZHOU CITY, HEBEI PROVINCE, THE PRC; AND (2) NOTICE OF SPECIAL GENERAL MEETING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1112/2026111200927.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-12T10:28:00Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Beijing Energy International announced major EPC contracts for two 50MW wind farm projects in Hebei, China.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Beijing Energy International announced major EPC contracts for two 50MW wind farm projects in Hebei, China.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Beijing Energy International",
+          "ticker": "00686",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261112-555",
       "headline": "Jana Small Finance Bank Limited: Jana Small Finance Bank Limited has informed the Exchange regarding - 'Pursuant to Regulation 30 and 51 of the SEBI LODR Regulations, 2015, as amended, we hereby inform you that M/s. Jana Small Finance Bank Ltd.. ( Our Company ) has, on November 11, 2026, received a copy of the Order passed by the Hon'ble National Company Law Tribunal, Division Bench II, Chennai, approving the Scheme of Amalgamation between Jana Holdings Limited (\"Transferor Company\") with Jana C",
@@ -1873,105 +1971,6 @@
           "name": "ReNew Power",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-405",
-      "headline": "Nvidia board prepares to fire CEO Jensen Huang as 'affairs' with employee, 'Chinese spy' come to light",
-      "headline_en": null,
-      "url": "https://www.deccanherald.com/world/us/nvidia-board-prepares-to-fire-ceo-jensen-huang-as-affairs-with-employee-chinese-spy-come-to-light-4215494",
-      "source_name": "Deccan Herald",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T03:06:11Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Reports of the board preparing to fire the CEO due to misconduct and espionage allegations are a critical event for the company's leadership and market stability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Reports of the board preparing to fire the CEO due to misconduct and espionage allegations are a critical event for the company's leadership and market stability.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management",
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-389",
-      "headline": "TUI Group airline to liquidate and shut down over jet fuel costs",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/travel/tui-group-airline-to-liquidate-and-shut-down-over-jet-fuel-costs",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T02:57:18Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "TUI Group is liquidating an airline subsidiary due to rising fuel costs, indicating a significant operational contraction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "TUI Group is liquidating an airline subsidiary due to rising fuel costs, indicating a significant operational contraction.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TUI Group",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -276701,9 +276700,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1018022,
-    "news_picked_today": 1583,
-    "news_dropped_today": 10729
+    "news_seen_today": 1024771,
+    "news_picked_today": 1587,
+    "news_dropped_today": 10773
   },
   "book_momentum": {
     "live_count": 8,
