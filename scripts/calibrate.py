@@ -21,8 +21,8 @@ WHAT IT COMPUTES (each gated by its own floor; withheld, never faked, below it)
     bet's direction (a long that merely rode a rising market did not hit) — never a raw return.
   • Selected − Rejected basket spread (the §2 North Star; scoring the rejections ~doubles effective N).
   • Sequential e-process (anytime-valid): a mixture e-value of the directional hit rate vs p=0.5, so a
-    monthly check carries NO peeking penalty (unlike a fixed-N p-value). Skill is declared only when
-    the e-value crosses 1/α — and never below the floor.
+    monthly check carries NO peeking penalty (unlike a fixed-N p-value). The proxy threshold is reported
+    only above its sample/independence floors; neither reported return family establishes verified skill.
   • Cluster / effective-N: forecasts within one run/ticker are not independent bets; the conservative
     effective N (distinct tickers) is reported alongside the raw count so significance is not overstated.
   • Months-to-significance + a standing honesty statement printed every run: WHEN a real verdict
@@ -82,6 +82,7 @@ import re
 import statistics
 import sys
 from datetime import datetime, timezone
+from decimal import Decimal, InvalidOperation, ROUND_HALF_EVEN
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(REPO, "scripts"))
@@ -610,7 +611,15 @@ def match_resolved_forecasts(record, reviews):
     return out
 
 
-def _review_rel(review):
+def _return_finite_num(value):
+    """Return-only guard: an oversized JSON integer must withhold a mark, not abort a report."""
+    try:
+        return _finite_num(value)
+    except (OverflowError, TypeError, ValueError):
+        return None
+
+
+def _legacy_review_rel(review):
     """The BENCHMARK-relative return (%) for a review, or None. Recovers the TRACKING-PRICE (null-entry)
     case — the whole point of the tracking_price flow (BG): a null-entry review leaves the entry-derived
     `benchmark_relative_return_pct` null but still fills `absolute_return_pct` (from the tracking price)
@@ -621,48 +630,308 @@ def _review_rel(review):
     mislabel it (the schema tracks the two baselines separately)."""
     if not review:
         return None
-    r = _finite_num(review.get("benchmark_relative_return_pct"))  # NaN/inf → None (would corrupt hit scoring)
+    r = _return_finite_num(review.get("benchmark_relative_return_pct"))  # NaN/inf → None (would corrupt hit scoring)
     if r is not None:
         return r
-    a, b = _finite_num(review.get("absolute_return_pct")), _finite_num(review.get("benchmark_return_pct"))
+    a, b = _return_finite_num(review.get("absolute_return_pct")), _return_finite_num(review.get("benchmark_return_pct"))
     if a is not None and b is not None:
-        return round(a - b, 6)
+        return _return_finite_num(round(a - b, 6))
     return None
 
 
-def directional_hit(record, review):
-    """Did the call beat its OWN benchmark in the bet's direction? Returns 1 / 0 / None (no bet or no
-    computable relative return). A long (Selected) hits on a POSITIVE benchmark-relative return; a
-    Rejected/Short hits on a NEGATIVE one (the avoided/shorted name lagged). Never a raw return — riding
-    a rising market is not skill.
+RETURN_MEASUREMENT_VERSION = "reported-return-points/v1"
+RETURN_MEASUREMENT_BASIS = "price_return_ex_distributions_and_costs"
+_RETURN_SCALE = Decimal("0.0001")
+_RETURN_TOLERANCE = Decimal("0.00005") + Decimal("0.000000000001")
+_RETURN_LIMITATION = (
+    "Reported raw-price proxies only; not verified source content, official closing observations, "
+    "publication availability, session completeness, dividends/costs, execution, exact decision "
+    "horizons, portfolio returns or stock-selection skill."
+)
 
-    Direction is read from the §18-CAPPED basket (`basket_of`, which prefers post_mortem_basket) FIRST —
-    a Selected run capped to Watchlist by a terminal pre-mortem is a basket the engine no longer holds,
-    so it is NOT a directional bet (returns None). The raw `decision` is only a FALLBACK when the basket
-    does not classify (missing / unrecognised) — it is never re-capped, so it must not override the
-    capped basket, and it must not let a Rejected-basket Buy be scored as a long."""
-    rel = _review_rel(review)
+
+def _text(value):
+    return value.strip() if isinstance(value, str) and value.strip() else None
+
+
+def _reported_date(value):
+    # No timestamp-prefix truncation: the helper's date precision cannot prove a session or timezone.
+    if not isinstance(value, str) or not re.fullmatch(r"\d{4}-\d{2}-\d{2}", value):
+        return None
+    try:
+        return datetime.strptime(value, "%Y-%m-%d").date()
+    except ValueError:
+        return None
+
+
+def _canonical_return(value):
+    result = float(value.quantize(_RETURN_SCALE, rounding=ROUND_HALF_EVEN))
+    if not math.isfinite(result):
+        raise ValueError("non-finite price change")
+    return result
+
+
+def _directional_from_relative(record, rel):
+    """Use the post-mortem capped basket before the raw decision. Explicit Watchlist, insufficient
+    data and hedge baskets cannot be resurrected as directional calls by a stale Buy decision."""
     if rel is None:
         return None
     basket = _norm(basket_of(record))
     if basket == "selected":
-        return 1 if rel > 0 else 0
+        return int(rel > 0)
     if basket in ("rejected", "short"):
-        return 1 if rel < 0 else 0
+        return int(rel < 0)
     if (basket == "watchlist" or basket.startswith("insufficient")
             or basket.startswith("pair") or "hedge" in basket):
-        return None  # an EXPLICIT non-directional basket — Watchlist, any 'Insufficient…' the engine
-                     # refused to rate, or a 'Pair Trade / Hedge Required' hedged output (§18, an allowed
-                     # decision that is NOT a standalone long/short). The raw decision must NOT resurrect
-                     # any of these as a directional long.
-    # basket absent ("unclassified" = the basket_of default for a missing field) or unrecognised → fall
-    # back to the raw decision; a genuinely non-directional basket above has already returned None
+        return None
     decision = _norm(record.get("decision"))
     if decision in ("strong buy", "buy", "starter position only"):
-        return 1 if rel > 0 else 0
+        return int(rel > 0)
     if decision in ("avoid", "short candidate"):
-        return 1 if rel < 0 else 0
+        return int(rel < 0)
     return None
+
+
+def resolve_return_measurement(record, review, reviews=None):
+    """Resolve supplied price-point consistency, never source truth or execution eligibility.
+
+    Wholly legacy histories retain their as-reported proxies. Once ANY measurement block is authored,
+    the latest standing full review must carry supported facts; missing/invalid facts cannot recover an
+    older return. Forecast review selection is deliberately outside this function.
+    """
+    record = record if isinstance(record, dict) else {}
+    review = review if isinstance(review, dict) else {}
+    history = [r for r in (reviews if reviews is not None else ([review] if review else [])) if isinstance(r, dict)]
+    history = sorted(history, key=lambda r: (_norm(r.get("review_date")), _window_rank(r.get("review_window")),
+                                            r.get("_version") if isinstance(r.get("_version"), int) else 1))
+    opted_in = "return_measurement" in review or any("return_measurement" in r for r in history)
+    result = {
+        "state": "legacy_label_only", "lane": "legacy", "reasons": [],
+        "relative_return_pct": None, "absolute_return_pct": None, "benchmark_return_pct": None,
+        "sector_return_pct": None, "sector_relative_return_pct": None,
+        "as_reported_relative_return_pct": _legacy_review_rel(review),
+        "actual_start_date": None, "actual_end_date": None, "actual_elapsed_calendar_days": None,
+        "group_key": None, "limitations": _RETURN_LIMITATION,
+    }
+    if not opted_in:
+        result["relative_return_pct"] = _legacy_review_rel(review)
+        result["reasons"] = ["Actual endpoint dates and return basis are unverified; only checkpoint labels match."]
+        return result
+
+    result.update({"state": "not_assessable", "lane": None})
+    facts = review.get("return_measurement")
+    if not isinstance(facts, dict):
+        result["reasons"] = ["Structured measurement is absent after opt-in; no older return fallback."]
+        return result
+    if facts.get("schema_version") != RETURN_MEASUREMENT_VERSION:
+        result["reasons"] = ["Missing or unsupported reported-return measurement version."]
+        return result
+    if facts.get("return_basis") != RETURN_MEASUREMENT_BASIS:
+        result["reasons"] = ["Missing or unsupported price-return basis; no dividends/costs assumption."]
+        return result
+
+    missing, conflicts = [], []
+    if _reported_date(review.get("review_date")) is None:
+        missing.append("Review date is unknown or is not a strict reported calendar date.")
+    anchor = None
+    if record.get("entry_price") is not None:
+        expected_anchor = "entry_price"
+        anchor = {"price": record.get("entry_price"), "as_of": record.get("entry_price_timestamp"),
+                  "source": record.get("entry_price_source"), "currency": record.get("currency")}
+        if review.get("entry_price") is not None:
+            alias = _return_finite_num(review.get("entry_price"))
+            frozen = _return_finite_num(record.get("entry_price"))
+            if alias is None or frozen is None or Decimal(str(review["entry_price"])) != Decimal(str(record["entry_price"])):
+                conflicts.append("Review entry price contradicts the frozen record.")
+    else:
+        expected_anchor = "earliest_tracking_price"
+        for old in history:
+            candidate = old.get("tracking_price") if isinstance(old, dict) else None
+            if isinstance(candidate, dict) and candidate.get("price") is not None:
+                anchor = candidate
+                break
+        if anchor is not None:
+            current = review.get("tracking_price")
+            if (current != anchor or not isinstance(current, dict)
+                    or _return_finite_num(current.get("price")) is None):
+                conflicts.append("Tracking price does not preserve the earliest established block verbatim.")
+    if facts.get("anchor_kind") != expected_anchor:
+        if facts.get("anchor_kind") is None:
+            missing.append("Anchor kind is unknown.")
+        else:
+            conflicts.append("Measurement selects a different frozen/tracking anchor.")
+    if not isinstance(anchor, dict):
+        missing.append("No frozen entry or earliest tracking anchor is established.")
+        anchor = {}
+    anchor_value = _return_finite_num(anchor.get("price"))
+    anchor_date = _reported_date(anchor.get("as_of"))
+    anchor_source = _text(anchor.get("source"))
+    anchor_currency = _text(anchor.get("currency"))
+    if anchor_value is None or anchor_value <= 0 or anchor_date is None or not anchor_source or not anchor_currency:
+        missing.append("Frozen anchor value/date/source/currency is incomplete or its date precision is ambiguous.")
+
+    def point(raw, name, issues, gaps):
+        if not isinstance(raw, dict):
+            gaps.append(f"{name} point is missing.")
+            return None
+        date, value, source = _reported_date(raw.get("date")), _return_finite_num(raw.get("value")), _text(raw.get("source"))
+        if raw.get("date") is None:
+            gaps.append(f"{name} date is missing.")
+        elif date is None:
+            issues.append(f"{name} date is not a strict reported calendar date.")
+        if raw.get("value") is None:
+            gaps.append(f"{name} value is missing.")
+        elif value is None or value <= 0:
+            issues.append(f"{name} value is not finite and positive.")
+        if not source:
+            gaps.append(f"{name} dated source locator is missing.")
+        if date is None or value is None or value <= 0 or not source:
+            return None
+        return {"date": date, "value": Decimal(str(raw["value"])), "source": source}
+
+    def leg(raw, name, frozen_id, stock=False, issues=None, gaps=None):
+        issues = conflicts if issues is None else issues
+        gaps = missing if gaps is None else gaps
+        if not isinstance(raw, dict):
+            gaps.append(f"{name} evidence is missing.")
+            return None
+        identity, expected = _text(raw.get("id")), _text(frozen_id)
+        if not identity or not expected:
+            gaps.append(f"{name} identity is unknown.")
+        if raw.get("identity_mapping") is not None:
+            mapping = raw.get("identity_mapping")
+            if not isinstance(mapping, dict):
+                gaps.append(f"{name} supplied identity mapping is incomplete.")
+            else:
+                mapped_frozen, mapped_reported = _text(mapping.get("frozen_id")), _text(mapping.get("reported_id"))
+                if mapped_frozen and expected and _norm(mapped_frozen) != _norm(expected):
+                    issues.append(f"{name} identity mapping contradicts the frozen comparator/listing.")
+                if mapped_reported and identity and _norm(mapped_reported) != _norm(identity):
+                    issues.append(f"{name} identity mapping contradicts the reported identity.")
+                if not mapped_frozen or not mapped_reported or not _text(mapping.get("source")):
+                    gaps.append(f"{name} supplied identity mapping is incomplete.")
+        elif identity and expected and _norm(identity) != _norm(expected):
+            gaps.append(f"{name} identity lacks a mapping to the frozen comparator/listing.")
+        currency = _text(raw.get("currency"))
+        if not currency or not re.fullmatch(r"[A-Za-z]{3}", currency):
+            gaps.append(f"{name} currency is unknown.")
+        elif anchor_currency and currency.upper() != anchor_currency.upper():
+            issues.append(f"{name} currency contradicts the frozen anchor; no FX is assumed.")
+        if stock:
+            venue, frozen_venue = _text(raw.get("venue")), _text(record.get("exchange"))
+            if not venue or not frozen_venue:
+                gaps.append("Stock venue is unknown.")
+            elif _norm(venue) != _norm(frozen_venue):
+                issues.append("Stock venue differs from the frozen listed line.")
+        bases = {"unadjusted_price"} if stock else {"price_index", "unadjusted_price"}
+        if not isinstance(raw.get("level_basis"), str) or raw["level_basis"] not in bases:
+            gaps.append(f"{name} level basis is unsupported; no normalization or total-return bridge is invented.")
+        a, b = point(raw.get("start"), name + " start", issues, gaps), point(raw.get("end"), name + " end", issues, gaps)
+        if a and b and b["date"] <= a["date"]:
+            issues.append(f"{name} interval is zero-length or reversed.")
+        written = _reported_date(review.get("review_date"))
+        if b and written and b["date"] > written:
+            issues.append(f"{name} endpoint is later than the reported review date.")
+        return {"start": a, "end": b, "currency": currency, "id": identity} if a and b else None
+
+    stock = leg(facts.get("stock"), "Stock", record.get("ticker"), stock=True)
+    benchmark = leg(facts.get("benchmark"), "Benchmark", record.get("benchmark"))
+    if stock:
+        result.update({"actual_start_date": stock["start"]["date"].isoformat(),
+                       "actual_end_date": stock["end"]["date"].isoformat(),
+                       "actual_elapsed_calendar_days": (stock["end"]["date"] - stock["start"]["date"]).days})
+        if anchor_date and stock["start"]["date"] != anchor_date:
+            conflicts.append("Stock start date contradicts the immutable anchor date.")
+        if anchor_value is not None and stock["start"]["value"] != Decimal(str(anchor["price"])):
+            conflicts.append("Stock start value contradicts the immutable raw anchor; no normalization is assumed.")
+        if anchor_source and stock["start"]["source"] != anchor_source:
+            conflicts.append("Stock start source differs from the immutable anchor source.")
+        if review.get("review_price") is not None:
+            review_price = _return_finite_num(review.get("review_price"))
+            if review_price is None or Decimal(str(review["review_price"])) != stock["end"]["value"]:
+                conflicts.append("Review price contradicts the stock endpoint for this reported window.")
+    if stock and benchmark and (stock["start"]["date"] != benchmark["start"]["date"]
+                                or stock["end"]["date"] != benchmark["end"]["date"]):
+        conflicts.append("Stock and benchmark actual observation dates do not match.")
+
+    def pct(series):
+        return (series["end"]["value"] / series["start"]["value"] - Decimal(1)) * Decimal(100)
+
+    if stock and benchmark:
+        try:
+            absolute, bench = pct(stock), pct(benchmark)
+            relative = absolute - bench
+            canonical_absolute, canonical_bench, canonical_relative = map(_canonical_return, (absolute, bench, relative))
+            for field, computed in (("absolute_return_pct", absolute), ("benchmark_return_pct", bench),
+                                    ("benchmark_relative_return_pct", relative)):
+                supplied = review.get(field)
+                if supplied is not None:
+                    number = _return_finite_num(supplied)
+                    if number is None or abs(Decimal(str(supplied)) - Decimal(str(_canonical_return(computed)))) > _RETURN_TOLERANCE:
+                        conflicts.append(f"{field} disagrees with the canonical four-decimal price-point arithmetic.")
+        except (InvalidOperation, ArithmeticError, ValueError, OverflowError):
+            conflicts.append("Price-point arithmetic is not finite or representable.")
+    if conflicts or missing:
+        result["state"] = "reported_inconsistent" if conflicts else "not_assessable"
+        result["reasons"] = conflicts + missing
+        return result
+    result.update({"state": "reported_consistent", "lane": "reported", "reasons": [],
+                   "absolute_return_pct": canonical_absolute,
+                   "benchmark_return_pct": canonical_bench,
+                   "relative_return_pct": canonical_relative})
+    group = [RETURN_MEASUREMENT_VERSION, RETURN_MEASUREMENT_BASIS, "unadjusted_price",
+             anchor_currency.upper(), expected_anchor, result["actual_elapsed_calendar_days"]]
+    result["group_key"] = json.dumps(group, separators=(",", ":"))
+    # Optional sector facts cannot invalidate an otherwise usable stock/benchmark comparison.
+    sector_missing, sector_conflicts = [], []
+    sector = leg(facts.get("sector"), "Sector", record.get("sector_benchmark"),
+                 issues=sector_conflicts, gaps=sector_missing) if facts.get("sector") is not None else None
+    if sector and (sector["start"]["date"] != stock["start"]["date"] or sector["end"]["date"] != stock["end"]["date"]):
+        sector_conflicts.append("Sector actual observation dates do not match the stock window.")
+    if sector and not sector_missing and not sector_conflicts:
+        try:
+            sector_change = pct(sector)
+            sector_values = {"sector_return_pct": _canonical_return(sector_change),
+                             "sector_relative_return_pct": _canonical_return(absolute - sector_change)}
+            for field, computed in sector_values.items():
+                supplied = review.get(field)
+                if supplied is not None and (_return_finite_num(supplied) is None
+                        or abs(Decimal(str(supplied)) - Decimal(str(computed))) > _RETURN_TOLERANCE):
+                    sector_conflicts.append(f"{field} disagrees with the reported sector points.")
+            if not sector_conflicts:
+                result.update(sector_values)
+        except (InvalidOperation, ArithmeticError, ValueError, OverflowError):
+            sector_conflicts.append("Sector arithmetic is not representable.")
+    result["sector_reasons"] = sector_conflicts + sector_missing or ([] if sector else [_text(facts.get("sector_gap")) or "Sector comparison unavailable."])
+    return result
+
+
+def select_return_measurement(record, reviews):
+    """Return-only selection; never changes latest_review or forecast status snapshots."""
+    history = [r for r in (reviews or []) if isinstance(r, dict)]
+    if any(isinstance(r, dict) and "return_measurement" in r for r in history):
+        history = sorted(history, key=lambda r: (_norm(r.get("review_date")), _window_rank(r.get("review_window")),
+                                                r.get("_version") if isinstance(r.get("_version"), int) else 1))
+        standing = standing_reviews(history)
+        selected = latest_review(standing)
+    else:
+        selected = latest_priced_review(history)
+    return selected, resolve_return_measurement(record, selected, history)
+
+
+def _review_rel(review):
+    # A structured block must never bypass anchor/history checks through this legacy scalar helper.
+    return None if isinstance(review, dict) and "return_measurement" in review else _legacy_review_rel(review)
+
+
+def directional_hit(record, review, reviews=None):
+    """Basket-signed reported-price proxy, not verified stock-selection skill.
+
+    Callers with review history must pass it so a stripped post-opt-in block cannot recover legacy
+    scalars. build uses the same resolver's already-selected disposition; forecast selection is separate.
+    """
+    resolved = resolve_return_measurement(record, review, reviews)
+    return _directional_from_relative(record, resolved["relative_return_pct"])
 
 
 # ════════════════════════════════════════════════════════════════════════════════════════════════
@@ -710,7 +979,9 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
     cluster_by_ticker = {}       # ticker -> total resolved-forecast count (for effective-N; a ticker's
                                  # forecasts across runs are one correlated cluster, not independent bets)
     basket_dist, conf_scores, ds_scores = {}, [], []
-    pipeline_returns = []        # provider/profile + basket + exact review horizon; never pooled across horizons
+    pipeline_returns = []        # LEGACY provider/profile + checkpoint-label proxies only
+    reported_returns = []        # structured reported points; grouped separately by actual reported interval
+    measurement_counts = {state: 0 for state in ("legacy_label_only", "reported_consistent", "not_assessable", "reported_inconsistent")}
     provider_error_tax = {}      # whole-pipeline provider cohort -> §20 counts (counts are honest at any N)
     profile_error_tax = {}       # whole-pipeline execution profile -> §20 counts
 
@@ -724,7 +995,8 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
             continue
         reviews = reviews_provider(run_root)
         rev = latest_review(reviews)                  # latest of ANY kind — for forecast resolution & status
-        priced_rev = latest_priced_review(reviews)    # latest with a computable return — for return scoring
+        priced_rev, return_measurement = select_return_measurement(rec, reviews)
+        legacy_lane = return_measurement["lane"] == "legacy"
         basket = basket_of(rec)
         conf, conf_field = confidence_of(rec)
         execution = _execution_identity(rec, entry.get("legacy_provider_evidence"))
@@ -757,8 +1029,10 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
             # from being silently credited wholesale to whichever provider wrote the final JSON.
             pair["execution_author_provider"] = execution["author_provider"]
             pair["execution_author_profile"] = execution["author_profile"]
-        dh = directional_hit(rec, priced_rev)  # score the direction on the latest PRICED review, not any
-        if dh is not None:
+        rel = return_measurement["relative_return_pct"]
+        dh = _directional_from_relative(rec, rel)
+        measurement_counts[return_measurement["state"]] += 1
+        if dh is not None and legacy_lane:
             # Integrity-BLIND cohort: every resolved directional call, provisional or not. Used ONLY for the
             # all-published-calls shadow hit rate — never for the gated skill numbers.
             directional_all.append({"ticker": tkr, "hit": dh})
@@ -769,7 +1043,7 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
         if not provisional:
             for p in pairs:
                 all_pairs.append(p)
-            if dh is not None:
+            if dh is not None and legacy_lane:
                 directional.append({"ticker": tkr, "hit": dh, "basket": basket,
                                     "review_date": priced_rev.get("review_date") if priced_rev else None,
                                     "pipeline_provider": execution["pipeline_provider"],
@@ -778,12 +1052,20 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
             # pairs AND a directional call. Counting only forecast pairs let a run resolve a directional hit
             # (returns settle before forecast outcomes, or a decision has no forecast ledger) while reporting
             # effective_n = 0, so the advisory failed to flag a hit-rate CI/e-value built on correlated bets.
-            scored_here = len(pairs) + (1 if dh is not None else 0)
+            scored_here = len(pairs) + (1 if dh is not None and legacy_lane else 0)
             if scored_here:
                 cluster_by_ticker[_norm(tkr)] = cluster_by_ticker.get(_norm(tkr), 0) + scored_here
 
-        rel = _review_rel(priced_rev)  # returns from the latest PRICED review (tracking-price-aware)
-        if rel is not None:
+        if rel is not None and return_measurement["lane"] == "reported":
+            reported_returns.append({
+                "ticker": _norm(tkr), "basket": basket, "hit": dh,
+                "review_date": priced_rev.get("review_date") if priced_rev else None,
+                "measurement": return_measurement, "provisional": provisional,
+                "value": -rel if _norm(basket) == "short" else rel,
+                "pipeline_provider": execution["pipeline_provider"],
+                "pipeline_profile": execution["pipeline_profile"],
+            })
+        if rel is not None and legacy_lane:
             # cohort_returns is a POSITION return (positive = the paper position made money). For a Short,
             # the position P&L is the INVERSE of the underlying's benchmark-relative move (a name that
             # underperformed made the short money), so invert before aggregating — otherwise a profitable
@@ -863,6 +1145,7 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
             "thesis_status": rev.get("thesis_status") if rev else None,
             "review_benchmark_relative_return_pct": rel if isinstance(rel, (int, float)) else None,
             "directional_hit": dh,
+            "return_measurement": return_measurement,
         })
 
     n_decisions = len(inventory)
@@ -873,6 +1156,14 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
     out = {
         "schema_version": "2.0",
         "provider_calibration_schema_version": "1.0",
+        "return_measurement": {
+            "schema_version": RETURN_MEASUREMENT_VERSION,
+            "policy": "Per-record structured opt-in; no invented calendar activation date. Legacy headline proxies never pool with reported-point groups.",
+            "state_counts": measurement_counts, "limitations": _RETURN_LIMITATION,
+            "headline_lane": "legacy_label_only",
+        },
+        "reported_return_groups": {},
+        "n_reported_directional_calls_resolved": sum(1 for r in reported_returns if r["hit"] is not None and not r["provisional"]),
         "generated_at": now,
         "scope": scope or "all",
         "n_decisions": n_decisions,
@@ -908,8 +1199,9 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
         "calibration_by_execution_profile": {},
         "provider_comparison": {},
         "operational_aggregate_label": (
-            "Global production-system aggregate across all execution cohorts. It preserves historical "
-            "continuity but cannot establish that Claude or Codex is calibrated or better."
+            "Forecast aggregates preserve their probability/status semantics. Top-level return metrics are "
+            "legacy label-only proxies; reported-point return groups are separate. No return family "
+            "establishes verified stock-selection skill or that Claude or Codex is better."
         ),
         "reliability_bands": None,
         "sequential_test": {},
@@ -922,7 +1214,7 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
             # is read for price/tracking backfill but is NOT yet wired into hit/basket scoring (that needs
             # a ticker→benchmark symbol map). Say so honestly whether or not a feed is present, so the label
             # never implies feed-backed skill numbers the scoreboard is not actually computing.
-            "returns_used": "review-time benchmark-relative (each review's own benchmark_relative_return_pct)",
+            "returns_used": "Legacy headlines: as-reported review scalars, window labels only. Structured reported price points are resolved separately; neither family verifies source truth or execution.",
             "return_basis": ("market feed present (data/_market), but directional scoring still uses each "
                              "review's benchmark-relative return; a feed-backed beta-adjusted excess is not "
                              "yet wired into scoring (pending a ticker→benchmark symbol map, EXTERNAL_DATA §7A)"
@@ -1006,13 +1298,13 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
             "metric": "benchmark-adjusted directional hit rate vs p0=0.5 (coin-flip on beating the benchmark)",
             "k_hits": k, "n": n_directional, "n_distinct_tickers": n_dir_tickers,
             "e_value": ev, "skill_threshold": round(1.0 / E_ALPHA, 1),
-            "skill_declared": bool(declared),
+            "proxy_threshold_met": bool(declared),
+            "skill_declared": False,
+            "measurement_scope": "legacy label-only reported-price proxy",
             "anytime_valid": True,
-            "note": ("e-value below 1/α, and/or below the N floor, and/or fewer than "
-                     f"{MIN_DIRECTIONAL_HITS} distinct names — no skill claim (correct at this sample)."
-                     if not declared
-                     else f"e-value crossed 1/α above the floor across ≥{MIN_DIRECTIONAL_HITS} distinct "
-                     "names — benchmark-beating skill is statistically supported."),
+            "note": ("Mathematical proxy threshold met, including raw-N and distinct-ticker floors. "
+                     if declared else "Mathematical proxy threshold/floors not met. ") +
+                    "Reported review scalars and checkpoint labels do not verify actual windows, source truth or stock-selection skill.",
         }
         if n_directional >= MIN_DIRECTIONAL_HITS:
             out["hit_rate"] = round(k / n_directional, 4)
@@ -1120,6 +1412,7 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
         forecast_key="execution_author_profile", pipeline_key="pipeline_profile",
     )
     out["provider_comparison"] = _provider_comparison(out["calibration_by_provider"])
+    out["reported_return_groups"] = _reported_return_groups(reported_returns)
     out["legacy_provider_sensitivity"] = {
         "legacy_inferred_claude": sum(
             1 for row in inventory if row.get("execution_provenance_status") == "legacy_inferred_claude"),
@@ -1134,7 +1427,8 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
 
     out["data_sufficiency_note"] = (
         f"N={n_decisions} decisions; {n_reviews} reviews filed; {n_resolved} forecasts resolved; "
-        f"{n_directional} directional calls resolved. Floors: Brier ≥{MIN_RESOLVED_FORECASTS} resolved, "
+        f"{n_directional} legacy proxy directional calls resolved; "
+        f"{out['n_reported_directional_calls_resolved']} structured reported-point directional observations kept separately. Floors: Brier ≥{MIN_RESOLVED_FORECASTS} resolved, "
         f"cohort ≥{MIN_REVIEWED_PER_BASKET}/basket, hit rate ≥{MIN_DIRECTIONAL_HITS} directional. "
         f"Anything below its floor is withheld, not estimated (CLAUDE.md §11). "
         f"{out['excluded_provisional']['n']} run(s) excluded from the above as truth-integrity "
@@ -1143,6 +1437,82 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
     )
     out["honesty_statement"] = _honesty(out)
     out["verdict"] = _verdict(out)
+    return out
+
+
+def _reported_return_groups(rows):
+    """Conditional reported-price diagnostics; never pool these with legacy label-only proxies."""
+    grouped = {}
+    for row in rows:
+        grouped.setdefault(row["measurement"]["group_key"], []).append(row)
+    out = {}
+    for key, all_rows in sorted(grouped.items()):
+        usable = [r for r in all_rows if not r["provisional"]]
+        directional = [r for r in usable if r["hit"] is not None]
+        blind_directional = [r for r in all_rows if r["hit"] is not None]
+        by_basket, blind_baskets = {}, {}
+        for r in all_rows:
+            blind_baskets.setdefault(r["basket"], []).append(r["value"])
+        for r in usable:
+            by_basket.setdefault(r["basket"], []).append(r["value"])
+
+        def cohort_metrics(groups):
+            return {b: {"n": len(values), "mean_benchmark_relative_pct": (
+                        round(statistics.mean(values), 3) if len(values) >= MIN_REVIEWED_PER_BASKET else None),
+                        "status": "available" if len(values) >= MIN_REVIEWED_PER_BASKET else "insufficient"}
+                    for b, values in sorted(groups.items())}
+
+        def sequential(observations):
+            n, k = len(observations), sum(r["hit"] for r in observations)
+            tickers = len({r["ticker"] for r in observations})
+            ev = e_value_hit_rate(k, n, 0.5) if n else None
+            threshold_met = n >= MIN_DIRECTIONAL_HITS and tickers >= MIN_DIRECTIONAL_HITS and ev >= 1.0 / E_ALPHA
+            dates = [r["review_date"] for r in observations if isinstance(r.get("review_date"), str) and r["review_date"].strip()]
+            span = _month_span(min(dates), max(dates)) if len(dates) >= 2 else 0.0
+            return {"k_hits": k, "n": n, "n_distinct_tickers": tickers, "e_value": ev,
+                    "skill_threshold": round(1.0 / E_ALPHA, 1), "proxy_threshold_met": bool(threshold_met),
+                    "skill_declared": False, "measurement_scope": "reported price-point proxy",
+                    "months_to_proxy_threshold": months_to_significance(k, n, span, 0.5),
+                    "note": _RETURN_LIMITATION}
+
+        spread = None
+        selected, rejected = by_basket.get("Selected", []), by_basket.get("Rejected", [])
+        if len(selected) >= MIN_REVIEWED_PER_BASKET and len(rejected) >= MIN_REVIEWED_PER_BASKET:
+            spread = round(statistics.mean(selected) - statistics.mean(rejected), 3)
+        execution_rows = [dict(r, window=key) for r in usable]
+
+        def attribution(field):
+            result = {}
+            for identity in sorted({r[field] for r in execution_rows}):
+                attributed = [r for r in execution_rows if r[field] == identity]
+                result[identity] = {
+                    "pipeline_directional": _directional_execution_metric([r for r in attributed if r["hit"] is not None]),
+                    "pipeline_returns_by_reported_group": _return_execution_metrics(attributed, "reported interval/basis/currency/anchor proxy group"),
+                    "measurement_scope": "reported point proxies only; no author-forecast calibration or provider ranking",
+                }
+            return result
+
+        first = all_rows[0]["measurement"]
+        clusters = {}
+        for r in directional:
+            clusters[r["ticker"]] = clusters.get(r["ticker"], 0) + 1
+        out[key] = {
+            "n": len(usable), "n_all_published": len(all_rows),
+            "n_provisional_excluded": len(all_rows) - len(usable),
+            "group_key_parts": json.loads(key),
+            "actual_elapsed_calendar_days": first["actual_elapsed_calendar_days"],
+            "measurement_scope": "reported date-resolution raw-price proxy; not exact/final or verified performance",
+            "directional": _directional_execution_metric(directional),
+            "cohort_returns": cohort_metrics(by_basket),
+            "selected_minus_rejected_pct": spread,
+            "sequential_test": sequential(directional),
+            "effective_sample": effective_n(list(clusters.values())),
+            "integrity_blind_directional": _directional_execution_metric(blind_directional),
+            "integrity_blind_cohort_returns": cohort_metrics(blind_baskets),
+            "by_provider": attribution("pipeline_provider"),
+            "by_execution_profile": attribution("pipeline_profile"),
+            "limitations": _RETURN_LIMITATION,
+        }
     return out
 
 
@@ -1233,7 +1603,7 @@ def _directional_execution_metric(rows):
     return result
 
 
-def _return_execution_metrics(rows):
+def _return_execution_metrics(rows, measurement_scope="legacy checkpoint-label proxy"):
     groups = {}
     for row in rows:
         basket = row.get("basket") or "unclassified"
@@ -1248,10 +1618,14 @@ def _return_execution_metrics(rows):
             "status": "available" if available else "insufficient",
             "n": n,
             "n_tickers": n_tickers,
-            "floor": {"n": MIN_REVIEWED_PER_BASKET, "matched_horizon_required": True},
+            "floor": {"n": MIN_REVIEWED_PER_BASKET, "matched_horizon_required": True,
+                      "matched_review_label_required": True},
             "mean_benchmark_relative_pct": (
                 round(statistics.mean(row["value"] for row in cohort), 3) if available else None
             ),
+            "measurement_scope": measurement_scope,
+            "horizon_key_note": ("matched_horizon_required is a deprecated compatibility alias: legacy keys match "
+                                 "checkpoint labels only, not verified actual windows; reported keys match the declared proxy group."),
         }
     return result
 
@@ -1315,7 +1689,7 @@ def _provider_comparison(slices):
         "policy": (
             "No blended provider hit rate. Each recorded cohort is reported separately. A metric is "
             "comparable only when Claude and Codex independently clear that metric's existing floor at "
-            "a matched horizon. No automated superiority ranking or confidence haircut is produced."
+            "the same reported grouping key. Legacy keys match checkpoint labels only, not actual market windows. No automated superiority ranking or confidence haircut is produced."
         ),
         "forecast_calibration": {
             "comparison_ready": forecast_ready,
@@ -1351,29 +1725,26 @@ def _month_span(d0, d1):
 
 def _honesty(out):
     n_dir, n_res = out["n_directional_calls_resolved"], out["n_resolved_forecasts"]
-    mts = out.get("months_to_significance") or {}
-    brier_ready = isinstance(out["calibration"], dict)  # Brier IS computed (n_resolved ≥ floor)
+    brier_ready = isinstance(out["calibration"], dict)
+    text = ("Legacy headline return statistics use as-reported checkpoint labels, not verified actual "
+            "market windows. Structured reported-point groups remain separate. Neither return family "
+            "establishes stock-selection skill, execution or portfolio performance. ")
     if out["hit_rate"] is not None:
-        s = (f"Hit rate {out['hit_rate']:.0%} on {n_dir} directional calls, 95% CI "
-             f"[{out['hit_rate_ci95'][0]:.0%}, {out['hit_rate_ci95'][1]:.0%}] (exact). "
-             f"Skill {'IS' if out['sequential_test'].get('skill_declared') else 'is NOT yet'} statistically supported.")
-        if brier_ready:
-            s += f" Brier {out['calibration']['brier']} over {out['calibration']['n']} resolved forecasts."
-        return s
+        text += (f"Legacy proxy hit rate {out['hit_rate']:.0%} on {n_dir} calls; conditional exact-binomial "
+                 f"95% CI [{out['hit_rate_ci95'][0]:.0%}, {out['hit_rate_ci95'][1]:.0%}]. ")
+    else:
+        text += f"Legacy proxy hit rate withheld ({n_dir} calls; floor {MIN_DIRECTIONAL_HITS}). "
     if brier_ready:
-        # the first real Brier signal has arrived even though the DIRECTIONAL hit rate is still below floor —
-        # report it rather than falsely claiming everything is withheld (the JSON already carries it)
-        return (f"Brier calibration IS available: {out['calibration']['brier']} over {out['calibration']['n']} "
-                f"resolved forecasts (calibration / reliability computed). The benchmark-adjusted HIT RATE is "
-                f"still withheld ({n_dir} directional calls < the {MIN_DIRECTIONAL_HITS} floor), as is the "
-                f"Selected−Rejected spread — those await more resolved directional bets.")
+        text += (f"Brier calibration IS available: {out['calibration']['brier']} over "
+                 f"{out['calibration']['n']} separately resolved probability forecasts; numeric review-return "
+                 "fields do not automatically resolve those statuses. ")
+    else:
+        text += f"Probability-forecast Brier/reliability withheld ({n_res}; floor {MIN_RESOLVED_FORECASTS}). "
+    mts = out.get("months_to_significance") or {}
     if mts.get("projectable"):
-        return (f"No skill verdict yet: {n_dir} directional / {n_res} forecast resolutions. At the current "
-                f"hit rate and ~{mts['rate_per_month']:.1f} resolutions/month, a real verdict is ~"
-                f"{mts['months_to_significance']:.0f} months away. Until then every skill metric is withheld.")
-    return (f"No skill verdict is possible yet: {n_dir} directional and {n_res} forecast resolutions, both below "
-            f"floor. This is expected for a young ledger — the honest state is 'not yet knowable', and every "
-            f"skill metric (hit rate, Brier, basket spread) is withheld rather than estimated (CLAUDE.md §1/§11).")
+        text += (f"Conditional legacy proxy-threshold projection: ~{mts['months_to_significance']:.0f} months "
+                 "at the observed arrival rate, not a prediction of future source validity or investment skill.")
+    return text
 
 
 def _verdict(out):
@@ -1383,17 +1754,16 @@ def _verdict(out):
     if below:
         return (f"Pre-data — {out['n_decisions']} decisions, {out['n_reviews']} reviews, {n_res} resolved "
                 f"forecasts, {n_dir} resolved directional calls. Inventory, process metrics, and the flat "
-                f"error/pre-mortem tallies are reported; every skill metric (hit rate, Brier, Selected−Rejected "
-                f"spread) is below floor and explicitly withheld, not estimated.")
+                f"error/pre-mortem tallies are reported. Legacy proxy and probability-forecast headline metrics "
+                f"are below their floors and withheld; inspect separately grouped reported-point diagnostics. "
+                f"No proxy stock-selection skill is declared.")
     parts = [f"{out['n_decisions']} decisions · {out['n_reviews']} reviews"]
     if out["hit_rate"] is not None:
-        parts.append(f"hit rate {out['hit_rate']:.0%} (95% CI [{out['hit_rate_ci95'][0]:.0%},{out['hit_rate_ci95'][1]:.0%}])")
+        parts.append(f"legacy proxy hit rate {out['hit_rate']:.0%} (95% CI [{out['hit_rate_ci95'][0]:.0%},{out['hit_rate_ci95'][1]:.0%}])")
     if isinstance(out["calibration"], dict):
         parts.append(f"Brier {out['calibration']['brier']}")
     if out["selected_minus_rejected_pct"] is not None:
-        parts.append(f"Selected−Rejected {out['selected_minus_rejected_pct']:+.1f}pp")
-    if out["sequential_test"].get("skill_declared"):
-        parts.append("skill statistically supported (e-value crossed 1/α)")
+        parts.append(f"legacy checkpoint-label Selected−Rejected proxy {out['selected_minus_rejected_pct']:+.1f}pp")
     return " · ".join(parts) + "."
 
 
@@ -1430,12 +1800,14 @@ def render_markdown(out):
     es = out["effective_sample"]
     L.append(f"- Effective sample: **{es['effective_n']}** independent (of {es['n_raw']} raw across {es['n_clusters']} tickers)")
     mf = out["market_feed"]
-    L.append(f"- Return basis: **review-time benchmark-relative**"
+    L.append(f"- Legacy return basis: **as-reported benchmark-relative checkpoint-label proxy**"
              + (f" (market feed present [{', '.join(mf['providers'])}] but not yet used for scoring)" if mf['available'] else " (no market feed)"))
     L.append("")
-    L.append("## Skill metrics (withheld below floor — this is the point)")
+    L.append("## Legacy reported-price proxy diagnostics and independent forecast calibration")
+    L.append("> Legacy return windows match checkpoint labels only; reported price-point groups below are separate. "
+             "Neither return family establishes exact/final windows, execution, portfolio returns or stock-selection skill.")
     hr = "withheld" if out["hit_rate"] is None else f"{out['hit_rate']:.0%} (95% CI [{out['hit_rate_ci95'][0]:.0%}, {out['hit_rate_ci95'][1]:.0%}])"
-    L.append(f"- Benchmark-adjusted hit rate (integrity-gated): **{hr}**")
+    L.append(f"- Legacy reported benchmark-relative proxy hit rate (integrity-gated): **{hr}**")
     ib = out.get("integrity_blind_hit_rate") or {}
     if ib.get("n_provisional_excluded_from_gated"):
         ibhr = "withheld" if ib.get("hit_rate") is None else f"{ib['hit_rate']:.0%}"
@@ -1443,7 +1815,7 @@ def render_markdown(out):
         L.append(f"- ↳ All-published-calls hit rate (integrity-blind, {ib['n_provisional_excluded_from_gated']} provisional included): **{ibhr}**{div}")
     st = out["sequential_test"]
     if st:
-        L.append(f"- Sequential e-value vs coin-flip: **{st['e_value']}** (skill at ≥{st['skill_threshold']}) — {st['note']}")
+        L.append(f"- Legacy proxy e-value vs coin-flip: **{st['e_value']}** (mathematical proxy threshold ≥{st['skill_threshold']}) — {st['note']}")
     br = out["calibration"]
     L.append(f"- Brier / reliability: **{br if isinstance(br, str) else br['brier']}**")
     ibc = out.get("integrity_blind_calibration") or {}
@@ -1452,7 +1824,7 @@ def render_markdown(out):
         divb = "" if ibc.get("divergence") is None else f" — gate moved it {ibc['divergence']:+.4f}; confirm every exclusion pre-dates the forecast's first scored outcome"
         L.append(f"- ↳ All-published-calls Brier (integrity-blind, {ibc['n_provisional_excluded_from_gated']} provisional included): **{ibbr}**{divb}")
     smr = out["selected_minus_rejected_pct"]
-    L.append(f"- Selected − Rejected spread: **{'withheld' if smr is None else f'{smr:+.1f}pp'}**")
+    L.append(f"- Legacy checkpoint-label Selected − Rejected proxy spread: **{'withheld' if smr is None else f'{smr:+.1f}pp'}**")
     ibcr = out.get("integrity_blind_cohort_returns") or {}
     for basket, row in sorted(ibcr.items()):
         if isinstance(row, dict) and row.get("n_provisional_excluded_from_gated"):
@@ -1462,13 +1834,20 @@ def render_markdown(out):
                      f"**{row['mean_benchmark_relative_pct']:+.2f}pp**{divr}")
     mts = out.get("months_to_significance") or {}
     if mts.get("projectable"):
-        L.append(f"- Months to a real verdict (at current rate): **~{mts['months_to_significance']:.0f}**")
+        L.append(f"- Months to a conditional proxy threshold (at current rate): **~{mts['months_to_significance']:.0f}**")
+    L.append("")
+    L.append("## Reported price-point groups (actual reported intervals; never mixed with legacy proxies)")
+    L.append("> " + _RETURN_LIMITATION)
+    L.append(f"- Measurement inventory (all records): {(out.get('return_measurement') or {}).get('state_counts', {})}.")
+    for key, group in sorted((out.get("reported_return_groups") or {}).items()):
+        L.append(f"- Group `{key}`: {group['n']} non-provisional observation(s), {group['directional']['n']} directional; "
+                 f"reported interval {group['actual_elapsed_calendar_days']} calendar days; cohort proxies {group['cohort_returns']}.")
     L.append("")
     L.append("## Provider calibration (recorded cohorts only; never blended)")
     comparison = out.get("provider_comparison") or {}
     L.append(f"> {comparison.get('policy', 'Provider comparison unavailable.')}")
     L.append("")
-    L.append("| Provider | Forecast calibration | Directional hit rate |")
+    L.append("| Provider | Forecast calibration | Legacy proxy directional hit rate |")
     L.append("|---|---|---|")
     for provider in ("claude", "codex"):
         row = (out.get("calibration_by_provider") or {}).get(provider) or {}

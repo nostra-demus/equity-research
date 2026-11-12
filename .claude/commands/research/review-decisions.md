@@ -137,6 +137,80 @@ Pull from the decision record: `decision`, `basket`, `entry_price`, `entry_price
 
 Use WebSearch/WebFetch ONLY for current/review prices, benchmark/sector returns, or specific outcome facts (did the catalyst happen, did the risk materialize). If web access is unavailable, the review is **still created** with `null` return fields and a clear caveat in `lessons` plus an entry in the record's-gaps narrative.
 
+**Reported-point evidence — extend Step 5, do not replace the frozen anchor.** Every newly authored or
+corrected full review also carries `return_measurement` under `DECISION_LEDGER.md` §8:
+`schema_version: "reported-return-points/v1"`, `anchor_kind: "entry_price"` or
+`"earliest_tracking_price"` (null when unknown), and
+`return_basis: "price_return_ex_distributions_and_costs"`. The top-level review schema stays `"1.0"`.
+Use only facts the existing source/helper actually supplies. Record the helper-returned date, value
+and source; never turn the requested date into the actual observation date. A function named
+`market_prices.total_return` that computes a close ratio supplies a **price change**, not proof of
+dividend-inclusive total return. The genuine-total-return requests above remain source requirements;
+do not compare a stock's price-only change with a dividend-inclusive benchmark or relabel this new
+raw-price family as economic total/net return.
+
+- `stock` has `{id, venue, currency, level_basis, start, end}`. The id/venue/currency match the frozen
+  listing and anchor through existing source evidence; `level_basis` is `unadjusted_price`.
+- `benchmark` has `{id, currency, level_basis, start, end}`. Preserve the frozen comparator or a
+  specific evidence-backed variant mapping, never a replacement selected after its outcome.
+  `level_basis` is `price_index` or `unadjusted_price`, in the same currency as the stock.
+- If a leg uses a reported id different from its frozen id, include that leg's
+  `identity_mapping: {frozen_id, reported_id, source}` with the exact corresponding ids and specific
+  existing mapping evidence. Matching ids need no alias block. This does not verify the claimed source
+  or authorize a comparator switch after seeing the result.
+- Each point is `{date, value, source}`: strict reported `YYYY-MM-DD`, finite positive JSON number
+  excluding bool, and a specific dated existing source/provider/locator. The stock start repeats the
+  original raw anchor value, source, currency and unambiguous reported date. Do not move the anchor,
+  strip timestamp precision, invent an FX/split adjustment or replace the earliest tracking block.
+- If supplied alongside the structured points, `review_price` is the same raw stock end observation
+  and must be a finite positive, non-boolean value exactly equal to `stock.end.value` under
+  `Decimal(str(value))`, not the percentage-rounding tolerance. Put any distinct current quote in
+  separately dated and source-labelled notes; never substitute it while the structured dates/returns
+  describe another price.
+- Stock and benchmark must have matching **actual** start/end dates and a positive interval. `sector`
+  is null with `sector_gap`, or the same comparator shape with matching facts; it never substitutes for
+  a missing benchmark. Missing or contradictory sector facts withhold only the sector return/excess
+  and are exposed in `sector_reasons`; they do not block an otherwise supported benchmark pair.
+- Keep the checkpoint label, writing date and actual interval distinct. A late-written review is
+  allowed. Matched 94-day observations under a `90d` label remain a reported 94-day comparison, not an
+  exact 90-day or official-checkpoint result. No expected-session, official-close, availability,
+  capture-time or executable-entry policy is inferred from these date-only facts.
+- Use the §8 canonical arithmetic: `Decimal(str(value))`, raw percentage changes and their relative
+  difference before final four-decimal `ROUND_HALF_EVEN` rounding. A supplied corresponding scalar
+  must reconcile within `0.00005` percentage point plus `1e-12`; do not silently repair a conflicting
+  original number or assume an old rounding convention.
+
+When facts are absent, emit an explicit unknown block rather than inventing them:
+
+```json
+"return_measurement": {
+  "schema_version": "reported-return-points/v1",
+  "anchor_kind": null,
+  "return_basis": "price_return_ex_distributions_and_costs",
+  "stock": null,
+  "benchmark": null,
+  "sector": null,
+  "sector_gap": "No matched sector observations were supplied."
+}
+```
+
+Name missing stock/benchmark/anchor facts in `lessons`. This records an unavailable comparison; it is
+not a failed company forecast, an adverse finding, a zero return, a cash position or a request for paid
+data. The consumer, not an author-supplied `eligible`/`verified` bit, resolves `legacy_label_only`,
+`reported_consistent`, `not_assessable` or `reported_inconsistent`. Once any review in the record's
+history carries a `return_measurement` key, including null/unsupported content, a later missing block
+cannot restore the old legacy lane. Preserve older reviews and descriptive values; append a full
+correction when evidence changes instead of overwriting history or resurrecting an older return.
+
+**Carry a complete forecast snapshot through every review and correction.** Do not append a
+measurement-only latest review with empty/omitted `forecast_results`: the existing probability
+resolver reads the latest full review. Retain every original forecast identity/probability and carry
+its current independently justified status, evidence and `as_of`, following Step 6. Return metadata
+alone never confirms/falsifies a forecast or suppresses probability-forecast Brier/reliability. This
+extension changes no Step 4C/eight-point haircut/scorer rules, Qualified-Ideas evidence contract, source
+spending authority or existing offprice-baseline prerequisite. A consistent reported proxy is still
+not official-close, execution, portfolio or stock-selection skill evidence.
+
 ## 6. Resolve forecasts (`forecast_results`)
 
 For each item in the record's `forecast_ledger`, produce one `forecast_results` entry classifying its `status` as one of:
@@ -287,6 +361,12 @@ Use the **exact** outcome-review schema from `DECISION_LEDGER.md` §8 (do not dr
 ```
 
 Fill: `ticker`, `original_decision_date` (= record `decision_date`), `review_date` (= `<TODAY>`), `review_window`, `original_decision` (= the final frozen published call, including a decision-time post-mortem cap when present), `basket` (= the matching final frozen basket), `entry_price` (= record `entry_price`, unchanged), `tracking_price` (the Step-5 review-side anchor block for a null-entry call — carried forward verbatim from the earliest prior review that established it, or newly established here; `null` when `entry_price` exists or no usable price was found), the fields produced in Steps 5–10, all four decision-memory blocks above, `pre_mortem_check` = the full §8 block built in Step 7A (required for reviews filed on/after 2026-07-17), and `memo_delta` = the full §8 block built in Step 11 (required for reviews filed on/after 2026-06-10). `lessons` is an array of short strings (the §7 answers, web-source labels, and the single most important takeaway).
+
+Also include the Step-5 `return_measurement` block, using explicit unknowns when necessary. It is an
+additive factual block; do not omit the full `forecast_results` snapshot or any other required review
+content to file a price-only correction. Keep the old scalar fields visible with their actual stated
+basis; contradictory/unsupported reported-point facts cannot make those scalars a newly verified
+return contribution.
 
 Conventions (must hold): valid JSON; no markdown fences; no comments; no trailing commas; `null` for unknown numbers; `""` for unknown strings; `[]` for empty arrays; `{}` for empty objects. Never fabricate a value.
 
