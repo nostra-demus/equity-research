@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T08:17:13Z",
+  "generated_at": "2026-11-12T08:25:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20261112-477",
@@ -340,6 +340,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-505",
+      "headline": "The Works lifts profit guidance again on 10% sales growth",
+      "headline_en": null,
+      "url": "https://ukinvestormagazine.co.uk/the-works-lifts-profit-guidance-again-on-10-sales-growth/",
+      "source_name": "UK Investor Magazine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T07:36:00Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "The Works raises profit guidance for the second time on 10% sales growth, confirming accelerating retail momentum.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The Works raises profit guidance for the second time on 10% sales growth, confirming accelerating retail momentum.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "The Works",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1902,55 +1951,6 @@
       "triage_score": 100,
       "triage_reason": "Shares fell 8% following reports that the board is weighing the exit of the CEO.",
       "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-178",
-      "headline": "Nvidia working with outside firm to identify CEO candidates",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/telcos-media-tech/nvidia-working-outside-firm-identify-ceo-candidates",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T00:54:01Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Confirmation that Nvidia is working with an outside firm to identify CEO candidates signals a potential leadership transition.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Confirmation that Nvidia is working with an outside firm to identify CEO candidates signals a potential leadership transition.",
-      "region": "GLOBAL",
       "relevance": "material",
       "materiality_pre_score": 80,
       "rank_factors": {
@@ -276638,9 +276638,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 657646,
-    "news_picked_today": 1427,
-    "news_dropped_today": 8845
+    "news_seen_today": 682946,
+    "news_picked_today": 1442,
+    "news_dropped_today": 8878
   },
   "book_momentum": {
     "live_count": 8,
