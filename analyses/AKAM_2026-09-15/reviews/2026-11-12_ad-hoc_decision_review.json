@@ -1,0 +1,270 @@
+{
+  "schema_version": "1.0",
+  "ticker": "AKAM",
+  "original_decision_date": "2026-09-15",
+  "review_date": "2026-11-12",
+  "review_window": "ad-hoc",
+  "original_decision": "Avoid",
+  "basket": "Rejected",
+  "entry_price": 106.79,
+  "tracking_price": null,
+  "review_price": null,
+  "absolute_return_pct": null,
+  "benchmark_return_pct": null,
+  "sector_return_pct": null,
+  "benchmark_relative_return_pct": null,
+  "sector_relative_return_pct": null,
+  "thesis_status": "at-risk",
+  "forecast_results": [
+    {
+      "forecast_id": "FC-AKAM-Q3REV-2026",
+      "prediction": "Q3 FY2026 reported revenue is at least $1,123.7 million.",
+      "status": "falsified",
+      "evidence": "Reported unaudited consolidated revenue for the three months ended September 30, 2026 is $1,121,961 thousand / 1,000 = $1,121.961 million. $1,121.961m - $1,123.700m = -$1.739m, so the original at-least test fails. The $3,295.253m nine-month figure and constant-currency growth are excluded. The November 5 release and November 6 filing precede this review and the unchanged November 15 deadline. This does not establish a consensus miss: revenue exceeds the original September consensus snapshot of $1,118.153m by $3.808m and lies inside the original $1,105m-$1,130m guide; final pre-release consensus was not verified. [Q3 FY2026 Form 10-Q, filed 2026-11-06, p. 5, Condensed Consolidated Statements of Income; https://www.ir.akamai.com/static-files/43875539-fc3e-467d-9485-427ada2e70e6; Akamai Q3 FY2026 earnings release, 2026-11-05, pp. 1-2, 5-6; https://www.ir.akamai.com/static-files/4ada0aec-10d9-437a-ab86-10e17fef0b4a; analyses/AKAM_2026-09-15/decision_record.json and final_thesis.md, frozen 2026-09-15, forecast_ledger]",
+      "as_of": "2026-11-12"
+    },
+    {
+      "forecast_id": "FC-AKAM-Q3EPS-2026",
+      "prediction": "Q3 FY2026 company-defined normalized or non-GAAP EPS is at least $1.70.",
+      "status": "confirmed",
+      "evidence": "The company reports Q3 FY2026 non-GAAP diluted EPS of $1.77, above $1.70 by $0.07. This confirms only the explicitly company-defined non-GAAP alternative in the original forecast; GAAP diluted EPS is $0.77, and the vendor-normalized definition is not declared equivalent. The release is within the original October 15-November 15 window. No FY2026 guide-retention or stock-bullish conjunction is inferred from this EPS leg alone. [Akamai Q3 FY2026 earnings release, 2026-11-05, pp. 1-2, 5-6; https://www.ir.akamai.com/static-files/4ada0aec-10d9-437a-ab86-10e17fef0b4a, p. 1; analyses/AKAM_2026-09-15/decision_record.json and final_thesis.md, frozen 2026-09-15, forecast_ledger]",
+      "as_of": "2026-11-12"
+    },
+    {
+      "forecast_id": "FC-AKAM-Q3GM-2026",
+      "prediction": "Q3 FY2026 GAAP gross margin remains below the Q3 FY2025 comparable of 59.3%.",
+      "status": "confirmed",
+      "evidence": "Using the same filed cost-of-revenue line as the original comparable, Q3 FY2026 GAAP-derived gross margin is (1,121.961 - 504.690) / 1,121.961 = 55.02%, below the frozen 59.3% Q3 FY2025 threshold. The prior-year matched calculation is (1,054.630 - 429.532) / 1,054.630 = 59.27%, which rounds to 59.3%. This line excludes separately presented acquired-intangible amortization; no cash or non-GAAP gross margin is substituted. Both are quarter-only consolidated amounts. [Q3 FY2026 Form 10-Q, filed 2026-11-06, p. 5, Condensed Consolidated Statements of Income; https://www.ir.akamai.com/static-files/43875539-fc3e-467d-9485-427ada2e70e6; analyses/AKAM_2026-09-15/decision_record.json and final_thesis.md, frozen 2026-09-15, forecast_ledger; analyses/AKAM_2026-09-15/earnings/03_margin-drivers.md, 2026-09-15, gross/operating-margin line definitions]",
+      "as_of": "2026-11-12"
+    },
+    {
+      "forecast_id": "FC-AKAM-FCF-2027Q2",
+      "prediction": "LTM strict free cash flow reaches at least $736.8 million by the Q2 FY2027 filing.",
+      "status": "still open",
+      "evidence": "The original Q2 FY2027 filing window is July 1-August 15, 2027 and has not arrived. Q3 FY2026 quarterly CFO of $433.037m less cash purchases of equipment plus capitalized software of $605.155m is -$172.118m; the year-ago quarter was $441.832m - $195.016m = $246.816m. These quarter amounts do not resolve the future LTM $736.8m test, prove permanent investment losses, or replace its strict definition. [Akamai Q3 FY2026 earnings release, 2026-11-05, pp. 1-2, 5-6; https://www.ir.akamai.com/static-files/4ada0aec-10d9-437a-ab86-10e17fef0b4a, p. 6; analyses/AKAM_2026-09-15/decision_record.json and final_thesis.md, frozen 2026-09-15, forecast_ledger]",
+      "as_of": "2026-11-12"
+    }
+  ],
+  "catalyst_results": [
+    {
+      "catalyst": "Q3 results and FY2026 guidance",
+      "status": "materialized",
+      "evidence": "The Q3 release arrived November 5 and the 10-Q November 6, replacing the original vendor-expected November 3 date. Revenue misses the bullish revenue leg and clears the bearish revenue floor; company non-GAAP EPS clears $1.70. The original Q4 deployment-timing and full guide-comparison legs are not resolved here. [Akamai Q3 FY2026 earnings release, 2026-11-05, pp. 1-2, 5-6; https://www.ir.akamai.com/static-files/4ada0aec-10d9-437a-ab86-10e17fef0b4a; Q3 FY2026 Form 10-Q, filed 2026-11-06, p. 5, Condensed Consolidated Statements of Income; https://www.ir.akamai.com/static-files/43875539-fc3e-467d-9485-427ada2e70e6]",
+      "as_of": "2026-11-12"
+    },
+    {
+      "catalyst": "Q3 2033-Note conversion window ended September 30",
+      "status": "not assessable",
+      "evidence": "The calendar date passed, but this review did not inspect the debt-note settlement evidence. Do not infer no conversion from silence. [analyses/AKAM_2026-09-15/decision_record.json and final_thesis.md, frozen 2026-09-15, Catalyst Calendar]",
+      "as_of": "2026-11-12"
+    },
+    {
+      "catalyst": "Original CIS deployments, Q4 FY2026-Q1 FY2027",
+      "status": "pending",
+      "evidence": "Q3 CIS revenue is $109m, up 34% reported, but that aggregate does not identify the two original deployments or prove their promised timing. The Q4 total-company revenue guide of $1,145m-$1,170m is not a deployment receipt. [Akamai Q3 FY2026 earnings release, 2026-11-05, pp. 1-2, 5-6; https://www.ir.akamai.com/static-files/4ada0aec-10d9-437a-ab86-10e17fef0b4a, pp. 1-2; analyses/AKAM_2026-09-15/decision_record.json and final_thesis.md, frozen 2026-09-15, Catalyst Calendar]",
+      "as_of": "2026-11-12"
+    },
+    {
+      "catalyst": "Expanded CIS demand and future company growth projections",
+      "status": "pending",
+      "evidence": "Management reports more than $14bn of signed multi-year CIS commitments and projects 2027 CIS revenue of $1.1bn-$1.3bn, 17%-22% total-company constant-currency growth in 2027, and total 2028 revenue above $7bn. These are commitments and management forecasts, not Q3 recognized revenue, cash collected, or achieved returns. [Akamai Q3 FY2026 earnings release, 2026-11-05, pp. 1-2, 5-6; https://www.ir.akamai.com/static-files/4ada0aec-10d9-437a-ab86-10e17fef0b4a, pp. 1-2]",
+      "as_of": "2026-11-12"
+    },
+    {
+      "catalyst": "2027 Notes freely convertible, May 2027",
+      "status": "pending",
+      "evidence": "The original future calendar remains; this bounded review has not reverified or updated the financing terms. [analyses/AKAM_2026-09-15/decision_record.json and final_thesis.md, frozen 2026-09-15, Catalyst Calendar]",
+      "as_of": "2026-11-12"
+    },
+    {
+      "catalyst": "Buyback authorization expiry, June 2027",
+      "status": "pending",
+      "evidence": "The original future calendar remains; this bounded review has not reverified or updated the financing terms. [analyses/AKAM_2026-09-15/decision_record.json and final_thesis.md, frozen 2026-09-15, Catalyst Calendar]",
+      "as_of": "2026-11-12"
+    },
+    {
+      "catalyst": "2027 Notes maturity, September 2027",
+      "status": "pending",
+      "evidence": "The original future calendar remains; this bounded review has not reverified or updated the financing terms. [analyses/AKAM_2026-09-15/decision_record.json and final_thesis.md, frozen 2026-09-15, Catalyst Calendar]",
+      "as_of": "2026-11-12"
+    }
+  ],
+  "risk_results": [
+    {
+      "risk": "RF-CAP-004 — Acquisition returns",
+      "status": "not assessable",
+      "evidence": "This original High flag has not been fully reverified or resolved by the limited earnings excerpts. Retain its original qualifier and cap; an uninspected disclosure is not proof of absence. [analyses/AKAM_2026-09-15/decision_record.json and final_thesis.md, frozen 2026-09-15, red_flags]",
+      "as_of": "2026-11-12"
+    },
+    {
+      "risk": "RF-SHR-001 — Shareholder-rights vote (inherited unverified observation)",
+      "status": "not assessable",
+      "evidence": "This is an inherited public-source observation explicitly unverified in the original bound pool, not new company-specific misconduct or rating-lock evidence. It is not reverified in this review and cannot independently raise conviction or add a lock. [analyses/AKAM_2026-09-15/decision_record.json and final_thesis.md, frozen 2026-09-15, red_flags]",
+      "as_of": "2026-11-12"
+    },
+    {
+      "risk": "RF-DISC-002 — Recurring adjusted exclusions",
+      "status": "materialized",
+      "evidence": "The narrow recurring-exclusion observation persists: reported GAAP diluted EPS is $0.77 while company non-GAAP diluted EPS is $1.77. The release gives GAAP operating income about $109m versus non-GAAP about $286m. This is an adjusted-reporting gap, not proof of misconduct; its complete adjustment composition is not re-audited here. [Akamai Q3 FY2026 earnings release, 2026-11-05, pp. 1-2, 5-6; https://www.ir.akamai.com/static-files/4ada0aec-10d9-437a-ab86-10e17fef0b4a, pp. 1-2]",
+      "as_of": "2026-11-12"
+    },
+    {
+      "risk": "RF-AUD-007 — Auditor quality-control history (inherited unverified observation; no issuer link proven)",
+      "status": "not assessable",
+      "evidence": "This is an inherited public-source observation explicitly unverified in the original bound pool, not new company-specific misconduct or rating-lock evidence. It is not reverified in this review and cannot independently raise conviction or add a lock. [analyses/AKAM_2026-09-15/decision_record.json and final_thesis.md, frozen 2026-09-15, red_flags]",
+      "as_of": "2026-11-12"
+    },
+    {
+      "risk": "RF-FIN-003 — Lease commitments",
+      "status": "not assessable",
+      "evidence": "This original High flag has not been fully reverified or resolved by the limited earnings excerpts. Retain its original qualifier and cap; an uninspected disclosure is not proof of absence. [analyses/AKAM_2026-09-15/decision_record.json and final_thesis.md, frozen 2026-09-15, red_flags]",
+      "as_of": "2026-11-12"
+    },
+    {
+      "risk": "RF-CL-001 — Lease exposure relative to capital",
+      "status": "not assessable",
+      "evidence": "This original High flag has not been fully reverified or resolved by the limited earnings excerpts. Retain its original qualifier and cap; an uninspected disclosure is not proof of absence. [analyses/AKAM_2026-09-15/decision_record.json and final_thesis.md, frozen 2026-09-15, red_flags]",
+      "as_of": "2026-11-12"
+    },
+    {
+      "risk": "EARNINGS-MATERIAL-CONCERNS — Earnings material-concern register",
+      "status": "not assessable",
+      "evidence": "This original High flag has not been fully reverified or resolved by the limited earnings excerpts. Retain its original qualifier and cap; an uninspected disclosure is not proof of absence. [analyses/AKAM_2026-09-15/decision_record.json and final_thesis.md, frozen 2026-09-15, red_flags]",
+      "as_of": "2026-11-12"
+    },
+    {
+      "risk": "FORENSIC-MOSAIC-RF-EQ-001-RF-DISC-002-RF-OBS-001 — Cross-module accounting/obligation mosaic",
+      "status": "not assessable",
+      "evidence": "This original High flag has not been fully reverified or resolved by the limited earnings excerpts. Retain its original qualifier and cap; an uninspected disclosure is not proof of absence. [analyses/AKAM_2026-09-15/decision_record.json and final_thesis.md, frozen 2026-09-15, red_flags]",
+      "as_of": "2026-11-12"
+    },
+    {
+      "risk": "Reported-profit compression",
+      "status": "materialized",
+      "evidence": "Q3 reported revenue rose from $1,054.630m to $1,121.961m (+6.38%), but GAAP operating income fell from $166.024m to $108.721m (-34.51%). Operating margin fell from 15.74% to 9.69%, about 605bp. This confirms quarter-specific profit pressure, not the full Avoid valuation. [Q3 FY2026 Form 10-Q, filed 2026-11-06, p. 5, Condensed Consolidated Statements of Income; https://www.ir.akamai.com/static-files/43875539-fc3e-467d-9485-427ada2e70e6]",
+      "as_of": "2026-11-12"
+    },
+    {
+      "risk": "Cost-before-cash and cloud-investment recovery",
+      "status": "pending",
+      "evidence": "Quarter CFO less total cash capex including capitalized software is -$172.118m versus +$246.816m in the year-ago quarter. The spending is observed; its eventual returns, category allocation, funding and collections are not settled by one quarter. [Akamai Q3 FY2026 earnings release, 2026-11-05, pp. 1-2, 5-6; https://www.ir.akamai.com/static-files/4ada0aec-10d9-437a-ab86-10e17fef0b4a, p. 6]",
+      "as_of": "2026-11-12"
+    },
+    {
+      "risk": "Delivery pricing and solution economics",
+      "status": "pending",
+      "evidence": "Delivery and other cloud applications revenue is $391m, down 3% reported, while Security is $622m (+9%) and CIS $109m (+34%). $622m + $391m + $109m = $1,122m, $0.039m above exact consolidated revenue because of rounding. The combined category is not Delivery alone; these excerpts do not establish exact price/volume contributions, category profit or cash returns. [Akamai Q3 FY2026 earnings release, 2026-11-05, pp. 1-2, 5-6; https://www.ir.akamai.com/static-files/4ada0aec-10d9-437a-ab86-10e17fef0b4a, p. 1]",
+      "as_of": "2026-11-12"
+    },
+    {
+      "risk": "Killer risk: conditional model misses faster profitable cash conversion and a lower required return",
+      "status": "pending",
+      "evidence": "New management growth projections and commitments challenge stale demand assumptions, while observed profit/cash pressure points the other way. This review has no current independent valuation or complete cash/funding/share bridge. It therefore does not resolve the Avoid killer risk. [Akamai Q3 FY2026 earnings release, 2026-11-05, pp. 1-2, 5-6; https://www.ir.akamai.com/static-files/4ada0aec-10d9-437a-ab86-10e17fef0b4a, pp. 1-2, 5-6; analyses/AKAM_2026-09-15/decision_record.json and final_thesis.md, frozen 2026-09-15, pre-mortem and valuation limits; analyses/AKAM_2026-09-15/reviews/2026-10-19_30d_decision_review.json, 2026-10-19; inherited review context, not newly verified primary evidence]",
+      "as_of": "2026-11-12"
+    },
+    {
+      "risk": "Strict leverage, covenant and funding uncertainty",
+      "status": "not assessable",
+      "evidence": "No matched current strict debt/cash/GAAP-derived LTM EBITDA calculation, executed covenant formula, or complete new funding/contingent-dilution bridge was completed. Cash plus marketable securities must not be called strict net cash. [analyses/AKAM_2026-09-15/decision_record.json and final_thesis.md, frozen 2026-09-15, missing_data; Akamai Q3 FY2026 earnings release, 2026-11-05, pp. 1-2, 5-6; https://www.ir.akamai.com/static-files/4ada0aec-10d9-437a-ab86-10e17fef0b4a, p. 2; analyses/AKAM_2026-09-15/reviews/2026-10-19_30d_decision_review.json, 2026-10-19; inherited review context, not newly verified primary evidence]",
+      "as_of": "2026-11-12"
+    }
+  ],
+  "decision_quality": "not assessable",
+  "error_taxonomy": [],
+  "lessons": [
+    "The frozen Avoid / Rejected call was neither an entry nor a Short Candidate; there is no executed paper trade. Three resolved forecast statements are correlated observations within one issuer-quarter, not three independent cases or proof of forecast skill.",
+    "The original 30-day review remains unchanged. Its at-risk finding reflected changed post-decision demand, spending and contingent equity inputs. This review retains that uncertainty rather than treating weaker quarterly cash flow as full thesis validation. [analyses/AKAM_2026-09-15/reviews/2026-10-19_30d_decision_review.json, 2026-10-19; inherited review context, not newly verified primary evidence]",
+    "The original revenue probability remains 45%, EPS 55%, gross margin 75% and later FCF 35%, all judgment. A realized outcome does not by itself prove the original probability or process wrong. No aggregate calibration or memory promotion is performed. [analyses/AKAM_2026-09-15/decision_record.json and final_thesis.md, frozen 2026-09-15, forecast_ledger]",
+    "No local market feed is available and the original benchmark and sector_benchmark symbols are blank. The public history page was still marked Market open at 15:40 EST on November 11; its same-day row is not certified as a completed closing observation. Its September 14 close also differs from the frozen vendor price, an unreconciled source/date-basis gap. Preserve entry_price $106.79 and its original source rather than substituting a new anchor. All review-price and return fields remain null. [Web: Stock Analysis AKAM history, read 2026-11-11, indicative/unverified, page marked 2026-11-11 15:40 EST Market open; https://stockanalysis.com/stocks/akam/history/; analyses/AKAM_2026-09-15/decision_record.json and final_thesis.md, frozen 2026-09-15, entry_price and entry_price_timestamp]",
+    "Post-decision disclosures support outcome assessment only; they are not evidence that the September 15 reasoning should have known those outcomes. No new decision-time process error, false-negative call or current conviction score is inferred. [analyses/AKAM_2026-09-15/decision_record.json and final_thesis.md, frozen 2026-09-15; Akamai Q3 FY2026 earnings release, 2026-11-05, pp. 1-2, 5-6; https://www.ir.akamai.com/static-files/4ada0aec-10d9-437a-ab86-10e17fef0b4a]",
+    "The November 5 release and November 6 filing are within the original October 15-November 15, 2026 event window and precede the November 11, 2026 21:06:59 UTC observation cutoff. The July 1-August 15, 2027 cash-flow window is unchanged.",
+    "Source limitation: frozen official primary-reader excerpts with source/page metadata were reused; direct PDF and alternate HTML requests returned 403. No raw-source archive or visual verification is claimed. The absent local pool and limited excerpts cannot certify absence of a disclosure in the full filing.",
+    "Retrospective source checking does not establish historical first usable availability, immutable pre-event publication, independence from historical LLM knowledge, investment-return ranking, prospective skill or annual portfolio performance. Investment returns: not measured yet."
+  ],
+  "module_calibration_notes": {
+    "most_responsible": "valuation: the frozen Avoid rests on a conditional single-method cash model, and the prior review already identified post-decision input changes.",
+    "most_accurate_so_far": "Earnings gross-margin pressure is observed in Q3, while its revenue threshold is not met and its company non-GAAP EPS threshold is met; no independent module ranking or weight change is justified.",
+    "key_variable": "Current cash collections, capex financing, deployment timing and diluted-share basis must be bridged to a current valuation. Aggregate commitments and revenue growth do not establish investment returns.",
+    "confidence_basis": "Frozen effective conviction is 40, from raw 50 less a 10-point pre-mortem haircut; the raw decision_record confidence field is not used as the published final conviction.",
+    "information_partition": "Outcome facts are November disclosures. The original process assessment is limited to the frozen September evidence; no hindsight process downgrade or self-authored lesson activation."
+  },
+  "action_now": {
+    "label": "Keep watching",
+    "reason": "The original rating was Avoid, not a short; current cash, funding, dilution and independent valuation evidence remains insufficient to turn its old fair-value range into a present entry or short recommendation."
+  },
+  "confidence_update": {
+    "before": 40,
+    "after": null,
+    "change_reason": "Mixed reported-quarter evidence and changed future growth/funding assumptions do not support a calibrated replacement conviction; the frozen final 50 minus 10 equals 40 remains historical."
+  },
+  "next_check": {
+    "date": "2026-12-14",
+    "label": "Scheduled 90-day checkpoint: CIS deployment and cash/funding evidence",
+    "trigger": "Seek dated billable-deployment and cash-collection evidence for the original Q4 FY2026-Q1 FY2027 projects, a matched current cash/funding/diluted-share bridge and independent valuation; missing evidence cannot lift conviction. The separate LTM strict FCF threshold remains a Q2 FY2027 filing test."
+  },
+  "learning": {
+    "why_right_or_wrong": "Three near-term fundamental forecasts are mixed; the future cash and valuation thesis remains unresolved. Missing matched return evidence prevents classifying the Avoid as investment skill, luck or a genuine miss.",
+    "error_source": "",
+    "rule_for_future": "Match the reported metric, quarter, definition and threshold, then keep fundamental forecast outcomes separate from stock performance and current valuation. Post-decision facts cannot prove a decision-time process error.",
+    "future_research_check": "For AKAM, reconcile billable CIS deployment, cash collections, total cash capex, financing and contingent diluted shares into a current independent valuation before presenting the September Avoid or its fair-value range as a current recommendation."
+  },
+  "pre_mortem_check": {
+    "pre_mortem_file": "analyses/AKAM_2026-09-15/pre_mortem.json",
+    "pre_mortem_verdict": "Survives with haircut",
+    "pre_mortem_confidence_haircut": 10,
+    "outcome_vs_verdict": "partial",
+    "notes": "Explicit mixed-case override: at-risk describes changed inputs and model applicability, not a resolved wrong Avoid. The audit anticipated faster cash conversion plus model-anchor vulnerability; Q3 profit/cash pressure and new management demand projections point in different directions, so neither vindication nor a resolved false-comfort conclusion is supported."
+  },
+  "memo_delta": {
+    "summary": "Three Q3 forecast statements can now be compared with reported results: revenue is below its threshold, company non-GAAP EPS is above its threshold, and matched-basis gross margin is below its threshold. Profit and quarter cash-after-capex weakened despite revenue growth. Management commitments and future growth projections leave the changed-input valuation challenge unresolved; the original Avoid is not a current short or a proven investment success.",
+    "thesis_delta_verdict": "weakened",
+    "stage_one_comment": "The frozen rating was Avoid, not a recommendation to short. The Q3 revenue threshold was not reached, while the company-defined non-GAAP EPS threshold was reached and the matched GAAP-derived gross margin remained below its year-earlier bar. Those three observations belong to one company quarter. Revenue grew, but reported operating profit fell and cash spent on equipment and capitalized software exceeded operating cash flow. That supports the near-term cost-pressure concern without proving permanent investment losses. Management also reports expanded multi-year cloud commitments and stronger future growth projections. Commitments and guidance are not achieved cash returns, and the cash, funding, share-count and valuation assumptions need a current bridge. Keep watching rather than treat the old fair-value range as current advice. The later cash-flow forecast remains open. No matched closing-price and benchmark return evidence was established, so this review cannot judge investment performance or claim skill.",
+    "changed_sections": [
+      {
+        "section": "What Would Change Our Mind / Q3 forecast ledger",
+        "original_claim": "Three Q3 judgment forecasts awaited reported revenue, company non-GAAP EPS and matched GAAP gross margin.",
+        "new_evidence": "Reported revenue $1,121.961m is below $1,123.7m; company non-GAAP EPS $1.77 is above $1.70; gross margin on the named cost-of-revenue basis is 55.02%, below 59.3%. The compound earnings kill criterion is not met; the other kill criteria remain unresolved, and the whole Avoid is not proven correct.",
+        "evidence_source": "Q3 FY2026 Form 10-Q, filed 2026-11-06, p. 5, Condensed Consolidated Statements of Income; https://www.ir.akamai.com/static-files/43875539-fc3e-467d-9485-427ada2e70e6; Akamai Q3 FY2026 earnings release, 2026-11-05, pp. 1-2, 5-6; https://www.ir.akamai.com/static-files/4ada0aec-10d9-437a-ab86-10e17fef0b4a",
+        "materiality_score": 70,
+        "impact_direction": "mixed",
+        "impacted_modules": [
+          "earnings"
+        ],
+        "rerun_recommended": false,
+        "rerun_reason": "",
+        "rerun_command": ""
+      },
+      {
+        "section": "Valuation & Fair Value / cloud cash conversion",
+        "original_claim": "The pre-announcement conditional cash model and investment-return case needed current demand, funding and dilution evidence.",
+        "new_evidence": "Q3 quarterly CFO minus total cash capex is -$172.118m versus +$246.816m a year earlier, alongside management-reported commitments and future growth projections. This combination does not rebuild the model or identify sustainable free cash flow.",
+        "evidence_source": "Akamai Q3 FY2026 earnings release, 2026-11-05, pp. 1-2, 5-6; https://www.ir.akamai.com/static-files/4ada0aec-10d9-437a-ab86-10e17fef0b4a; analyses/AKAM_2026-09-15/reviews/2026-10-19_30d_decision_review.json, 2026-10-19; inherited review context, not newly verified primary evidence",
+        "materiality_score": 80,
+        "impact_direction": "mixed",
+        "impacted_modules": [
+          "valuation",
+          "earnings",
+          "balance-sheet-survival"
+        ],
+        "rerun_recommended": true,
+        "rerun_reason": "Reported cash spending and expanded future growth assumptions require a matched current operating-cash, financing and diluted-share bridge before the old conditional fair-value range is reused. Recommendation only; no paid or production rerun authorized or launched.",
+        "rerun_command": "/research:valuation AKAM"
+      }
+    ],
+    "watch_items": [
+      "Original Q4 FY2026-Q1 FY2027 deployment schedule: identify actual billable projects, collections and timing; aggregate CIS revenue does not settle it.",
+      "Q2 FY2027 LTM strict FCF: CFO minus cash equipment and capitalized-software expenditure must reach $736.8m; original July 1-August 15, 2027 window remains.",
+      "Current debt, funding, cash, contingent diluted shares and an independent matched valuation before using the old Avoid range as current.",
+      "Verify post-window 2033-note conversions and updated covenant definitions; uninspected settlement evidence is not a no-conversion conclusion.",
+      "Reconcile the original price-source/date basis and establish completed-session review prices plus explicit benchmark/sector conventions before measuring returns.",
+      "Next scheduled 90-day review is December 14, 2026; this event review does not consume or replace it."
+    ],
+    "management_questions": [
+      "Which original CIS deployments are billable, on what dates, and with what cash collection schedule?",
+      "How much total cash capex is covered by customer funding versus debt or internal cash?",
+      "What operating profit and sustainable cash return does each major deployment earn after its full capital cost?",
+      "What matched diluted-share and contingent-equity basis should a current per-share valuation use?"
+    ],
+    "memo_delta_file": "analyses/AKAM_2026-09-15/reviews/2026-11-12_ad-hoc_memo_delta.md"
+  }
+}
