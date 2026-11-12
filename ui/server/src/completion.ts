@@ -640,7 +640,7 @@ function mentionsExactOutputFile(text: string, file: string): boolean {
  *  growth zero-touch: when a new specialist becomes an input to an older specialist, the older saved output
  *  is not reused before it has had a chance to read the new work. Cross-module inputs are intentionally cut
  *  off at their labelled clause; those are handled by module dependencies/carrying instead. */
-function specialistDependencies(module: ModuleNode, swarmId: string): Map<string, Set<string>> {
+export function specialistDependencies(module: ModuleNode, swarmId: string): Map<string, Set<string>> {
   const expected = specialistOutputFiles(module)
   const out = new Map<string, Set<string>>()
   const promptDir = modulePromptDir(module, swarmId)

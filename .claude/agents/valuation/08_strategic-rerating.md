@@ -31,7 +31,7 @@ event, not the master synthesizer's bull-case probability.
 # RUNTIME INPUTS
 
 - `TICKER`, `DATA_PATH`, `DATE`, `OUTPUT_PATH = analyses/{TICKER}_{DATE}/valuation/08_strategic-rerating.md`
-- `UPSTREAM_INPUTS`:
+- `UPSTREAM_INPUTS` — `01_price-and-capital-structure.md`, `02_multiples-own-history.md`, `03_relative-valuation-peers.md`, `05_reverse-dcf.md`, `06_sum-of-the-parts.md`, `07_scenario-and-fair-value.md` (module-local basenames on this line so the reuse-freshness planner in `ui/server/src/completion.ts` reads them; full run-root paths and purpose below):
   - `analyses/{TICKER}_{DATE}/valuation/01_price-and-capital-structure.md` — REQUIRED anchor
   - `analyses/{TICKER}_{DATE}/valuation/02_multiples-own-history.md` — REQUIRED historical basis
   - `analyses/{TICKER}_{DATE}/valuation/03_relative-valuation-peers.md` — REQUIRED peer / sector check
