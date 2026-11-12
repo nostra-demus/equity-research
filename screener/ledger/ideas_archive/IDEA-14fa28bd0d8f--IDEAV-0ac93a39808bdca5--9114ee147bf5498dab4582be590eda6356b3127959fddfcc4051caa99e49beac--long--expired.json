@@ -1,0 +1,81 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-11-12T05:40:07Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-14fa28bd0d8f",
+    "idea_version": "IDEAV-0ac93a39808bdca5",
+    "idea_version_started_at": "2026-11-09T04:15:43Z",
+    "ticker": "4185",
+    "company": "JSR Corporation",
+    "exchange": "TSE",
+    "ticker_verified": false,
+    "listing_verified": false,
+    "liquidity_verified": false,
+    "listing_verification_source": null,
+    "direction": "long",
+    "pair_with": null,
+    "reason": "Mitsui Chemicals is acquiring JSR for 1.84 trillion yen, providing a clear arbitrage opportunity based on the announced deal terms.",
+    "why_now": "The acquisition was officially announced on 2026-11-09.",
+    "conviction": 85,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 45,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 21,
+      "specificity": 7,
+      "timing": 10,
+      "expression": 0,
+      "corroboration": 7,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "watch_only",
+    "missing_checks": [
+      "verified listed ticker",
+      "verified listing",
+      "live liquidity",
+      "dated catalyst",
+      "priced-in risk",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "priced",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-f7239ab3c238",
+      "EVT-41e1a3c939bf"
+    ],
+    "primary_source_event_id": "EVT-f7239ab3c238",
+    "source_headlines": [
+      "BREAKING NEWS: Mitsui Chemicals to buy chip material supplier JSR for 1.84 tril. yen",
+      "Mitsui Chemicals to Acquire JSR With Development Bank of Japan for $8.8 Billion"
+    ],
+    "source_headline": "BREAKING NEWS: Mitsui Chemicals to buy chip material supplier JSR for 1.84 tril. yen",
+    "source_url": "https://english.kyodonews.net/articles/-/90786",
+    "source_name": "Kyodo News (Japan Wire)",
+    "materiality_max": 100,
+    "newest_source_at": "2026-11-09T03:32:00Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-11-09T04:15:43Z",
+    "updated_at": "2026-11-09T04:15:43Z",
+    "decay_at": "2026-11-10T15:32:00Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}
