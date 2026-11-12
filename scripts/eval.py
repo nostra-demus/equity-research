@@ -2556,6 +2556,36 @@ if scope=="selftest":
         ("2026-10-05",{"ticker":"BABA","exchange":"NYSE (ADR; also HKEX-listed)","currency":"USD"},_bg_th("Decision line: BABA · NYSE · USD\nThe ADR trades at a 1% premium to the HKEX line.\nTrailing dividend yield 1.1%, ex-date 2026-12-01; net margin rose.\n"),["gross/net-of-withholding"]),
         # ...while a real "gross of withholding" statement PASSES (so does the existing "net of 10% withholding").
         ("2026-10-05",{"ticker":"BABA","exchange":"NYSE (ADR; also HKEX-listed)","currency":"USD"},_bg_th("Decision line: BABA · NYSE · USD\nThe ADR trades at a 1% premium to the HKEX line.\nTrailing dividend yield 1.1% gross of withholding, ex-date 2026-12-01.\n"),[]),
+        # ── PR #754 Codex review of f253e81e (each red on f253e81e, green after; controls stay clean) ──
+        # r4542387620 (P1): a bare "withholding" / "depositary fee" topic mention does not say whether the
+        #   depositary-line yield is gross or net of it — an affirmative "gross of"/"net of" is required.
+        ("2026-10-05",{"ticker":"BABA","exchange":"NYSE (ADR; also HKEX-listed)","currency":"USD"},_bg_th("Decision line: BABA · NYSE · USD\nThe ADR trades at a 1% premium to the HKEX line.\nTrailing dividend yield 3.1%, ex-date 2026-12-01, withholding treatment unknown.\n"),["gross/net-of-withholding"]),
+        ("2026-10-05",{"ticker":"BABA","exchange":"NYSE (ADR; also HKEX-listed)","currency":"USD"},_bg_th("Decision line: BABA · NYSE · USD\nThe ADR trades at a 1% premium to the HKEX line.\nTrailing dividend yield 3.1%, ex-date 2026-12-01, depositary fee not stated.\n"),["gross/net-of-withholding"]),
+        ("2026-10-05",{"ticker":"BABA","exchange":"NYSE (ADR; also HKEX-listed)","currency":"USD"},_bg_th("Decision line: BABA · NYSE · USD\nThe ADR trades at a 1% premium to the HKEX line.\nTrailing dividend yield 3.1% net of withholding and depositary fees, ex-date 2026-12-01.\n"),[]),
+        # r4542387635 (P2): the canonical label parenthetical pushes "unavailable" past the old 24-char window,
+        #   so a denied decision line passed as a declaration; the value after the label is now parsed.
+        ("2026-10-05",_bg_d,_bg_th("Decision line (ticker · venue · currency): unavailable — AKAM · NasdaqGS · USD\n"),["no 'Decision line"]),
+        ("2026-10-05",_bg_d,_bg_th("| **Decision line (ticker · venue · currency)** | **Unavailable — AKAM · NasdaqGS · USD** |\n"),["no 'Decision line"]),
+        # r4542387645 (P2): a premium/discount clause that names only the DECISION instrument (here the ADR
+        #   itself, with a DCF discount rate) is not a cross-line comparison; one naming the other line passes.
+        ("2026-10-05",{"ticker":"BABA","exchange":"NYSE (ADR; also HKEX-listed)","currency":"USD"},_bg_th("Decision line: BABA · NYSE · USD\nThe ADR uses a 10% discount rate in the DCF.\n"),["cross-line premium/discount (a figure"]),
+        ("2026-10-05",{"ticker":"BABA","exchange":"NYSE (ADR; also HKEX-listed)","currency":"USD"},_bg_th("Decision line: BABA · NYSE · USD\nThe ADR trades at a 10% premium to its 52-week low.\n"),["cross-line premium/discount (a figure"]),
+        ("2026-10-05",{"ticker":"BABA","exchange":"NYSE (ADR; also HKEX-listed)","currency":"USD"},_bg_th("Decision line: BABA · NYSE · USD\nThe ADR trades at a 1% premium to the ordinary shares.\n"),[]),
+        # r4542387663 (P2): ordinary negations of reason-to-own language are recognised (no false flag)...
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3.1%, ex-date 2025-08-14; a buyer today does not receive it, so it should not be considered a reason to own.\n"),[]),
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3.1%, ex-date 2025-08-14; a buyer today does not receive it and it cannot be treated as a reason to own.\n"),[]),
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3.1%, ex-date 2025-08-14; a buyer today does not receive it, so it is no longer a reason to own.\n"),[]),
+        #   ...while a negation elsewhere in the clause does not cancel an affirmative reason-to-own.
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3.1%, ex-date 2025-08-14; a buyer today does not receive it and it is a reason to own.\n"),["still presents it as a reason to own"]),
+        # r4542387670 (P1): every yield in a clause is validated on its own — a valid first yield must not
+        #   mask a second yield whose ex-date is unparseable.
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"The trailing dividend yield is 3.0%, ex-date 2026-12-01, while the forward dividend yield is 4.0%, ex-date TBD, and is a reason to own.\n"),["no parseable"]),
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"The trailing dividend yield is 3.0%, ex-date 2026-12-01, while the forward dividend yield is 4.0%, ex-date 2027-03-01.\n"),[]),
+        # r4542387682 (P1): a currency AFTER a range ("100–120 EUR", "100 to 120 EUR") is parsed like the
+        #   single-value form, so a valuation in another currency than the decision line is caught.
+        ("2026-10-05",_bg_d,_bg_th("Decision line: AKAM · NasdaqGS · USD\nFair-value range: 100–120 EUR\n"),["not in the decision line's currency"]),
+        ("2026-10-05",_bg_d,_bg_th("Decision line: AKAM · NasdaqGS · USD\nFair-value range: 100 to 120 EUR\n"),["not in the decision line's currency"]),
+        ("2026-10-05",_bg_d,_bg_th("Decision line: AKAM · NasdaqGS · USD\nFair-value range: 100–120 USD\n"),[]),
     ]
     bgbad=0
     for _bgc in _bg_cases:
