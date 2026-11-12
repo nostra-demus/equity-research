@@ -1,0 +1,11 @@
+{
+  "schema": "corrections/v1",
+  "errata": [
+    {
+      "field": "forecast_ledger[0].causal_steps",
+      "kind": "note_clear",
+      "reason": "Source-review correction, 2026-11-11: SMPL-FCST-001 attaches an unsupported causal sequence to its otherwise unchanged FQ4 FY2026 in-range forecast. The saved steps place deliberate under-shipment in FQ3 and Q4 shipment normalization after that reset. The cited July 9 CFO remarks instead describe management's belief that it would slightly undership consumption in FQ4 to enter FY2027 with correctly organized and sized customer inventories; part related to expected OWYN distribution losses. This is a planned FQ4 shipment gap, not demonstrated execution, a completed FQ3 reset, a quantified inventory effect, or evidence of Q4 demand recovery. Q4 normalization is not proven by the cited sources. This documentation-only note does not replace the causal_steps, change the published 60% probability, guidance ranges, triggers, dates, decision, conviction, or any outcome review. It does not supersede the call or establish better forecasting or investment performance.",
+      "evidence": "The Simply Good Foods Company, Q3 2026 Earnings Call, Jul 09, 2026, CFO Christopher James Bealer prepared remarks and Q&A with Peter K. Grom (retained transcript; canonical decoded text logical lines 176, 198, 201). analyses/SMPL_2026-08-06/earnings/04_guidance-consensus.md line 100; analyses/SMPL_2026-08-06/earnings/99_earnings-synthesis.md lines 61, 103; analyses/SMPL_2026-08-06/final_thesis.md Forecast Ledger line 461; analyses/SMPL_2026-08-06/decision_record.json forecast_ledger[0], evidence_today and causal_steps, lines 220, 235-236. Git file-add commit a69e93e75b580fac6666618f7b1c4adbd3183eb1 already contains the contradiction; within-commit writer identity remains unknown."
+    }
+  ]
+}

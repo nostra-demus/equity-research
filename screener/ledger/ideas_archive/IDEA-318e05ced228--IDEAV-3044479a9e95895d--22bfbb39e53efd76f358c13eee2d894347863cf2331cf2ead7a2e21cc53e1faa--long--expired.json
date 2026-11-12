@@ -1,0 +1,79 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-11-12T09:30:26Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-318e05ced228",
+    "idea_version": "IDEAV-3044479a9e95895d",
+    "idea_version_started_at": "2026-11-09T12:22:52Z",
+    "ticker": "BAMI",
+    "company": "Banco BPM",
+    "exchange": "BIT",
+    "ticker_verified": false,
+    "listing_verified": false,
+    "liquidity_verified": false,
+    "listing_verification_source": null,
+    "direction": "long",
+    "pair_with": null,
+    "reason": "Crédit Agricole is actively pursuing a merger with Banco BPM, which typically forces a premium valuation for the target bank as consolidation in the Italian financial sector accelerates.",
+    "why_now": "The proposal was reported on November 9, 2026, and is currently in the pitch phase.",
+    "conviction": 65,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 45,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 19,
+      "specificity": 7,
+      "timing": 10,
+      "expression": 0,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "watch_only",
+    "missing_checks": [
+      "verified listed ticker",
+      "verified listing",
+      "live liquidity",
+      "dated catalyst",
+      "independent confirmation",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-f16253cbd985"
+    ],
+    "primary_source_event_id": "EVT-f16253cbd985",
+    "source_headlines": [
+      "Crédit Agricole pitches merger of Italian business with Banco BPM"
+    ],
+    "source_headline": "Crédit Agricole pitches merger of Italian business with Banco BPM",
+    "source_url": "https://www.ft.com/content/5301558f-d31b-4399-ac36-cc790837db1b?syn-25a6b1a6=1",
+    "source_name": "Financial Times",
+    "materiality_max": 100,
+    "newest_source_at": "2026-11-09T07:36:43Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-11-09T12:22:52Z",
+    "updated_at": "2026-11-09T12:22:52Z",
+    "decay_at": "2026-11-10T19:36:43Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}
