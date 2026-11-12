@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-12T02:59:38Z",
+  "generated_at": "2026-11-12T03:03:03Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261112-346",
+      "headline": "HFCL Limited: HFCL Limited has informed the Exchange about \"HFCL secures Export Orders worth INR 834.36 crore approx. (equivalent to USD 88.94 million approx.) for supply of Optical Fiber Cables (OFC)\"",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/AHMED_12112026080428_HFCL_STX_Announcement_12112026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-12T02:35:06Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Company secured export orders worth INR 834.36 crore (approx. USD 88.94 million).",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company secured export orders worth INR 834.36 crore (approx. USD 88.94 million).",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HFCL Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261112-189",
       "headline": "HUBEONE@EC2708A (18898): EXCHANGE NOTICE - SUSPENSION OF TRADING",
@@ -1940,55 +1989,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-296",
-      "headline": "Rüstung: Tschechischer Munitionskonzern CSG nimmt Gewinnprognose zurück – Aktie bricht ein",
-      "headline_en": "Defense: Czech munitions company CSG withdraws profit forecast — stock crashes",
-      "url": "https://www.handelsblatt.com/unternehmen/industrie/industrie-tschechischer-ruestungskonzern-csg-nimmt-gewinnprognose-zurueck/100269028.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T08:57:26Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Czech munitions company CSG withdrew profit forecast and stock crashed, signaling profit deterioration.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Czech munitions company CSG withdrew profit forecast and stock crashed, signaling profit deterioration.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 74,
-      "rank_factors": {
-        "materiality": 74,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 11,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CSG",
-          "ticker": null,
-          "listing_country": "CZ"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -277723,9 +277723,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 271309,
-    "news_picked_today": 614,
-    "news_dropped_today": 1810
+    "news_seen_today": 288820,
+    "news_picked_today": 621,
+    "news_dropped_today": 1827
   },
   "book_momentum": {
     "live_count": 8,
