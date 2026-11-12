@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-50f379c78b21",
-  "idea_version": "IDEAV-5f346408b53f54ca",
-  "idea_version_started_at": "2026-11-12T11:51:50Z",
+  "idea_version": "IDEAV-3cb14052b151b224",
+  "idea_version_started_at": "2026-11-12T17:06:09Z",
   "ticker": "NVDA",
   "company": "Nvidia",
   "exchange": "NASDAQ",
@@ -11,19 +11,19 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "short",
   "pair_with": null,
-  "reason": "Management instability and potential leadership changes create significant execution risk for the company's growth strategy.",
-  "why_now": "Multiple reports on 2026-11-12 indicate the board is actively weighing the CEO's future.",
-  "conviction": 65,
+  "reason": "The sudden resignation of Jensen Huang, the architect of Nvidia's AI strategy, creates significant leadership uncertainty and potential strategic drift during a critical period for the company's growth.",
+  "why_now": "The resignation was announced today, November 12, 2026, triggering an immediate and sharp decline in share price.",
+  "conviction": 85,
   "conviction_basis": "pre_edge_proxy",
-  "trade_score": 74,
+  "trade_score": 80,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 14,
-    "impact": 21,
+    "impact": 24,
     "specificity": 15,
     "timing": 10,
     "expression": 7,
-    "corroboration": 7,
+    "corroboration": 10,
     "learning_adjustment": 0
   },
   "trade_readiness": "needs_data",
@@ -46,19 +46,26 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-391a7c65cc58",
-    "EVT-c29c0371754c"
+    "EVT-27f4c66804d9",
+    "EVT-37dae785d262",
+    "EVT-ac0157da8a0c",
+    "EVT-d3c6a1ee99be",
+    "EVT-5bc8b7886bc7",
+    "EVT-6416f70b4e5f",
+    "EVT-6e15b8b611af"
   ],
-  "primary_source_event_id": "EVT-391a7c65cc58",
+  "primary_source_event_id": "EVT-27f4c66804d9",
   "source_headlines": [
-    "Nvidia shares sink 8.6% as second affair report puts Jensen Huang’s job at risk",
-    "FirstFT: Nvidia board weighs Huang’s future as scandal deepens"
+    "Huang resigns as Nvidia shares plunge again",
+    "NVIDIA CEO Jensen Huang resigns; Colette Kress to lead company for now",
+    "Nvidia CEO Jensen Huang to step down in big blow to AI boom",
+    "Nvidia boss Jensen Huang resigns and shares plunge 10% - taking losses this week to $730bn"
   ],
-  "source_headline": "Nvidia shares sink 8.6% as second affair report puts Jensen Huang’s job at risk",
-  "source_url": "https://gulfnews.com/business/second-affair-steeper-sell-off-nvidia-ceo-jensen-huang-under-fire-1.500744501",
-  "source_name": "Gulf News",
+  "source_headline": "Huang resigns as Nvidia shares plunge again",
+  "source_url": "https://www.afr.com/politics/federal/australia-news-live-updates-nvidia-shares-plunge-again-as-default-risk-nears-record-high-20261113-p61dtm?ref=rss&utm_medium=rss&utm_source=rss_feed",
+  "source_name": "Australian Financial Review",
   "materiality_max": 100,
-  "newest_source_at": "2026-11-12T05:31:16Z",
+  "newest_source_at": "2026-11-12T15:04:00Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
@@ -66,8 +73,8 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-11-07T15:09:40Z",
-  "updated_at": "2026-11-12T11:51:50Z",
-  "decay_at": "2026-11-13T17:31:16Z",
+  "updated_at": "2026-11-12T17:06:09Z",
+  "decay_at": "2026-11-14T03:04:00Z",
   "status": "live",
   "promoted_signal_id": null
 }
