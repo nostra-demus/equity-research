@@ -2457,6 +2457,31 @@ if scope=="selftest":
         ("2026-11-06", _bh_th("Company-defined net cash is $10 billion."), ["no basis label"]),
         # …but a company definition that states its contents is a valid §15 label.
         ("2026-11-06", _bh_th("Net cash is $10 billion (company-defined: cash less borrowings and lease liabilities)."), []),
+        # ── Codex r4 (PR #781, automated PR-review) regression cases — each flips vs the pre-fix matcher ──
+        # R4a (term-first basis phrase): "on a broad basis" sits BETWEEN the term and the amount. Pre-fix
+        # _BH_QUAL skipped only parentheticals / incl-excl clauses, so _BH_CONN could not cross "on a broad
+        # basis" and the figure never attached → silent pass. Now the figure attaches and, labelled broad with
+        # no strict figure, flags "never names the strict" (§15: investment-inclusive never without the strict).
+        ("2026-11-06", _bh_th("Net cash on a broad basis was $10 billion."), ["never names the strict"]),
+        ("2026-11-06", _bh_th("Net cash on a broad basis was $10 billion; strict net cash is $0.2 billion."), []),
+        # …and a term-first strict phrase sitting on its own amount is a labelled strict figure (no false positive).
+        ("2026-11-06", _bh_th("Net cash on a strict basis was $10 billion."), []),
+        # R4b (global currency codes, §27): a CHF/HKD/AUD/NOK… prefix is a stated amount. Pre-fix _BH_MONEY's
+        # code list stopped at USD/EUR/GBP/INR/CNY/RMB/JPY/AED/SAR/Rs, so the code sat between the connector and
+        # the digits and the amount never attached → an unlabelled non-US net-debt figure shipped CLEAN.
+        ("2026-11-06", _bh_th("Net debt was CHF 10 billion."), ["no basis label"]),
+        ("2026-11-06", _bh_th("Net debt was HKD 50 billion."), ["no basis label"]),
+        ("2026-11-06", _bh_th("Net debt was AUD 2.3 billion."), ["no basis label"]),
+        # …and the same non-US figure with a §15 basis label stays clean (no false positive).
+        ("2026-11-06", _bh_th("Net debt (strict, debt − cash & equivalents) was CHF 10 billion."), []),
+        # R4c (hard-wrapped prose): a single newline inside a paragraph must not break figure↔term adjacency
+        # (false negative) nor strand the basis label on the continuation line (false positive). Pre-fix the
+        # check iterated physical lines; now intra-paragraph newlines collapse to spaces (blank-line paragraph
+        # breaks preserved, ';'/sentence-boundary clause split intact).
+        ("2026-11-06", _bh_th("Net debt was\n$9.3 billion."), ["no basis label"]),           # FN: term/amount wrapped apart
+        ("2026-11-06", _bh_th("Net debt is $9.3 billion on a\nstrict basis."), []),           # FP: label on the continuation line
+        # …and a blank-line paragraph break still separates clauses (the unlabelled figure flags).
+        ("2026-11-06", _bh_th("Net debt was $9.3 billion.\n\nSeparately, liquidity is ample."), ["no basis label"]),
     ]
     bhbad=0
     for dt_,th_,exp in bhcases:

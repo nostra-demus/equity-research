@@ -919,7 +919,8 @@ def eval_ak_red_flag_severity_reconciliation(decision_date, d, thesis, module_te
 # valuation module's job (price-and-capital-structure); this only stops a bare number reaching the reader.
 BH_DATE = "2026-11-06"  # forward-looking; committed runs predate it → N/A
 _BH_NET = r"\bnet[\s‑-]*(?:cash|debt)\b"
-_BH_MONEY = (r"(?:[$€£¥₹]|\b(?:US\$|USD|EUR|GBP|INR|CNY|RMB|JPY|AED|SAR|Rs\.?)\s?)\s?\d[\d,]*(?:\.\d+)?"
+_BH_MONEY = (r"(?:[$€£¥₹]|\b(?:US\$|USD|EUR|GBP|INR|CNY|RMB|JPY|AED|SAR|Rs\.?"
+             r"|CHF|HKD|SGD|AUD|CAD|NZD|NOK|SEK|DKK|BRL|ZAR|MXN|KRW)\s?)\s?\d[\d,]*(?:\.\d+)?"
              r"|\b\d[\d,]*(?:\.\d+)?\s?(?:bn|mn|million|billion|trillion|crore|cr|lakh|[BMK])\b")
 # An amount counts as "the net-cash figure" only when it is attached to the term: the term, then plain
 # connectors, then the amount ("net debt doubled to $9.3 billion") — or the amount, then at most a few
@@ -936,7 +937,8 @@ _BH_CONN = (r"(?:[\s,:(~≈=\-—]|\b(?:of|at|to|from|was|is|were|are|be|been|st
 # figure attached, so the label/strict-figure tests below actually see it (Codex r3, PR #781).
 _BH_QUAL = (r"(?:\s*\([^()]{0,80}\)"
             r"|,?\s+(?:incl|excl|including|excluding|includes|excludes)\w*\.?\s+(?:[\w-]+\s+){0,4}?"
-            r"(?:investments?|treasury|securities|deposits|funds)\b,?)?")
+            r"(?:investments?|treasury|securities|deposits|funds)\b,?"
+            r"|,?\s+on\s+(?:an?|the)\s+(?:broad|strict|gross[\s-]*liquidity)\s+basis\b)?")
 # "Net debt was zero." / "Net cash was nil." is a stated net-cash AMOUNT too (strict nil and broad nil are
 # different claims), so a nil/zero value attached to the term needs the same label (Codex r3, PR #781).
 _BH_A = re.compile(_BH_NET + _BH_QUAL + _BH_CONN + "(?:" + _BH_MONEY + r"|\b(?:nil|zero)\b)", re.I)
@@ -999,9 +1001,15 @@ def eval_bh_net_debt_basis_label(decision_date, thesis):
         return None
     if not isinstance(thesis, str) or not thesis.strip():
         return []
-    part1 = _part_one(thesis)
+    part1 = _part_one(thesis).replace("\r\n", "\n").replace("\r", "\n")
     det, nonstrict, strict_fig = [], False, False
-    for line in part1.splitlines():
+    # A hard-wrapped sentence — a single newline inside a paragraph — must not break the figure↔term
+    # adjacency _BH_A/_BH_B rely on ("Net debt was\n$9.3 billion."), nor strand a basis label on the
+    # continuation line ("…$9.3 billion on a\nstrict basis." → a false PROVISIONAL). Collapse intra-paragraph
+    # newlines to spaces, keeping blank-line paragraph breaks as separators and the ';'/sentence-boundary
+    # clause split below intact (Codex r4, PR #781).
+    for para in re.split(r"\n[ \t]*\n", part1):
+        line = re.sub(r"[ \t]*\n[ \t]*", " ", para)
         # Split into clauses. A basis label discharges the §15 duty only for a figure in its OWN clause,
         # so an independent clause after ';' is always its own segment (a borrowed label there — "…; leverage
         # on a strict basis is 2.1x", "…net cash; its cash and cash equivalents sit offshore" — must NOT
