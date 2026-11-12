@@ -1,13 +1,13 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-10-17T21:55:48Z",
+  "archived_at": "2026-11-12T00:06:12Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-edc3bf4b7b70",
-    "idea_version": "IDEAV-35705391f7c3c226",
-    "idea_version_started_at": "2026-10-15T08:41:58Z",
-    "ticker": "VNDA",
-    "company": "Vanda Pharmaceuticals",
+    "idea_id": "IDEA-c3fce5a7fa01",
+    "idea_version": "IDEAV-1ad56b20f02a4ed6",
+    "idea_version_started_at": "2026-11-08T23:44:25Z",
+    "ticker": "SHOP",
+    "company": "Shopify",
     "exchange": "NASDAQ",
     "ticker_verified": true,
     "listing_verified": true,
@@ -15,15 +15,15 @@
     "listing_verification_source": "yahoo_symbol_directory",
     "direction": "short",
     "pair_with": null,
-    "reason": "The failure of the late-stage study for its anxiety drug removes a key pipeline asset and future revenue driver, forcing the company to halt the program.",
-    "why_now": "The clinical trial failure was announced on 2026-10-14.",
-    "conviction": 85,
+    "reason": "The company met earnings expectations but the market reaction suggests underlying concerns regarding growth sustainability or margin quality.",
+    "why_now": "The earnings report was released on 2026-11-08, and the negative price action following the release indicates a potential shift in investor sentiment.",
+    "conviction": 50,
     "conviction_basis": "pre_edge_proxy",
-    "trade_score": 67,
+    "trade_score": 60,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
       "evidence": 14,
-      "impact": 21,
+      "impact": 19,
       "specificity": 15,
       "timing": 10,
       "expression": 7,
@@ -34,6 +34,7 @@
     "missing_checks": [
       "live liquidity",
       "dated catalyst",
+      "priced-in risk",
       "independent confirmation",
       "live price, liquidity, and consensus"
     ],
@@ -46,31 +47,31 @@
       "basis": "not_enough_outcomes",
       "evidenceIds": []
     },
-    "priced_in": "room",
+    "priced_in": "priced",
     "thesis_type": "company_specific",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-f6aeabfd32d2"
+      "EVT-154d8abe7837"
     ],
-    "primary_source_event_id": "EVT-f6aeabfd32d2",
+    "primary_source_event_id": "EVT-154d8abe7837",
     "source_headlines": [
-      "Vanda says anxiety drug failed main goal of late-stage study, puts program on hold"
+      "Shopify just hit its numbers, and that was the problem"
     ],
-    "source_headline": "Vanda says anxiety drug failed main goal of late-stage study, puts program on hold",
-    "source_url": "https://www.reuters.com/business/healthcare-pharmaceuticals/vanda-says-anxiety-drug-failed-main-goal-late-stage-study-puts-program-hold-2026-10-14/",
-    "source_name": "Reuters — Latest (news sitemap)",
-    "materiality_max": 95,
-    "newest_source_at": "2026-10-14T21:40:20Z",
+    "source_headline": "Shopify just hit its numbers, and that was the problem",
+    "source_url": "https://www.thestreet.com/investing/shopify-just-hit-its-numbers-and-that-was-the-problem",
+    "source_name": "TheStreet",
+    "materiality_max": 100,
+    "newest_source_at": "2026-11-08T23:37:00Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-10-15T08:41:58Z",
-    "updated_at": "2026-10-15T08:41:58Z",
-    "decay_at": "2026-10-16T09:40:20Z",
+    "surfaced_at": "2026-11-08T23:44:25Z",
+    "updated_at": "2026-11-08T23:44:25Z",
+    "decay_at": "2026-11-10T11:37:00Z",
     "status": "live",
     "promoted_signal_id": null
   }
