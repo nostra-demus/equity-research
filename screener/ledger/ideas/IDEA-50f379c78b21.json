@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-50f379c78b21",
-  "idea_version": "IDEAV-0a58ea12abc3f646",
-  "idea_version_started_at": "2026-11-12T00:06:04Z",
+  "idea_version": "IDEAV-5f346408b53f54ca",
+  "idea_version_started_at": "2026-11-12T11:51:50Z",
   "ticker": "NVDA",
   "company": "Nvidia",
   "exchange": "NASDAQ",
@@ -11,11 +11,11 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "short",
   "pair_with": null,
-  "reason": "The potential ouster of CEO Jensen Huang due to personal conduct allegations creates significant leadership uncertainty and governance risk for the company's strategic direction.",
-  "why_now": "Multiple reports emerged on 2026-11-11 regarding board preparations to remove the CEO.",
-  "conviction": 75,
+  "reason": "Management instability and potential leadership changes create significant execution risk for the company's growth strategy.",
+  "why_now": "Multiple reports on 2026-11-12 indicate the board is actively weighing the CEO's future.",
+  "conviction": 65,
   "conviction_basis": "pre_edge_proxy",
-  "trade_score": 60,
+  "trade_score": 74,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 14,
@@ -23,14 +23,13 @@
     "specificity": 15,
     "timing": 10,
     "expression": 7,
-    "corroboration": 10,
+    "corroboration": 7,
     "learning_adjustment": 0
   },
   "trade_readiness": "needs_data",
   "missing_checks": [
     "live liquidity",
     "dated catalyst",
-    "priced-in risk",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -42,31 +41,24 @@
     "basis": "not_enough_outcomes",
     "evidenceIds": []
   },
-  "priced_in": "priced",
-  "thesis_type": "governance_turnaround",
+  "priced_in": "room",
+  "thesis_type": "company_specific",
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-ae867166d950",
-    "EVT-11572816c556",
-    "EVT-3846dfd08b6d",
-    "EVT-5d3809215aa1",
-    "EVT-7bcedc438675",
-    "EVT-bf591f7f6258",
-    "EVT-f33044d5789e"
+    "EVT-391a7c65cc58",
+    "EVT-c29c0371754c"
   ],
-  "primary_source_event_id": "EVT-ae867166d950",
+  "primary_source_event_id": "EVT-391a7c65cc58",
   "source_headlines": [
-    "Nvidia stock faces rare downgrades as board investigates CEO Jensen Huang's admitted affair",
-    "Nvidia preparing to oust CEO Jensen Huang who had second affair: reports",
-    "Nvidia preparing to oust CEO amid reports of a second affair",
-    "Nvidia shares sink 9% amid reports of possible CEO Jensen Huang ouster"
+    "Nvidia shares sink 8.6% as second affair report puts Jensen Huang’s job at risk",
+    "FirstFT: Nvidia board weighs Huang’s future as scandal deepens"
   ],
-  "source_headline": "Nvidia stock faces rare downgrades as board investigates CEO Jensen Huang's admitted affair",
-  "source_url": "https://www.foxbusiness.com/markets/nvidia-stock-faces-rare-downgrades-board-investigates-ceo-jensen-huangs-admitted-affair",
-  "source_name": "Fox Business — Markets",
+  "source_headline": "Nvidia shares sink 8.6% as second affair report puts Jensen Huang’s job at risk",
+  "source_url": "https://gulfnews.com/business/second-affair-steeper-sell-off-nvidia-ceo-jensen-huang-under-fire-1.500744501",
+  "source_name": "Gulf News",
   "materiality_max": 100,
-  "newest_source_at": "2026-11-11T23:45:00Z",
+  "newest_source_at": "2026-11-12T05:31:16Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
@@ -74,8 +66,8 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-11-07T15:09:40Z",
-  "updated_at": "2026-11-12T00:06:04Z",
-  "decay_at": "2026-11-13T11:45:00Z",
+  "updated_at": "2026-11-12T11:51:50Z",
+  "decay_at": "2026-11-13T17:31:16Z",
   "status": "live",
   "promoted_signal_id": null
 }
