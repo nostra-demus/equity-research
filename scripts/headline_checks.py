@@ -904,3 +904,193 @@ def eval_ak_red_flag_severity_reconciliation(decision_date, d, thesis, module_te
     # The rating-cap DENIAL check ran earlier (before the `if not declared` return) so it also covers
     # record-level Criticals with no module declaration (Codex r3) — nothing further to add here.
     return det
+
+
+# ── Check BH (net-cash / net-debt basis label in Part I, CLAUDE.md §15) ──
+# §15: "whenever a net-cash / net-debt figure departs from the strict basis ... label the basis inline
+# every time the figure appears (strict / broad / gross-liquidity), and never present an
+# investment-inclusive figure as bare 'net cash' without also showing the strict figure." synthesizer.md
+# Part I item 6 restates it for the headline ("Any net cash / net debt framing ... must state its basis").
+# Nothing opened final_thesis.md to verify it — the same prompt-only gap AI/AJ/AK closed for their rules.
+# It is not hypothetical: INDIAMART_2026-08-14's Part I says "~₹31 billion of net cash" with no label,
+# while its own valuation file shows the broad figure is ₹33,670 mn and the STRICT figure is ₹152 mn —
+# a ~220x basis gap in the one sentence a reader sees. BG_2026-06-01, TMCV_2026-06-07 and UBER_2026-08-06
+# carry the same unlabeled-figure shape. Presence/shape only: whether the label is TRUE is the
+# valuation module's job (price-and-capital-structure); this only stops a bare number reaching the reader.
+BH_DATE = "2026-11-06"  # forward-looking; committed runs predate it → N/A
+# "net cash flow(s)" is the cash-flow-statement line, NOT the §15 net-cash / net-debt BALANCE-SHEET
+# position (debt − cash) this check governs. Without the lookahead, _BH_B matches "$5bn of net cash"
+# inside "$5bn of net cash flow" and raises a false PROVISIONAL on a correct thesis (§17: a gate must be
+# capable of passing legitimately). Ratios ("net debt / EBITDA") and framing ("a net-cash balance sheet")
+# are already out of scope; this keeps the CF-statement line out too (PR #781 false-positive fix).
+_BH_NET = r"\bnet[\s‑-]*(?:cash|debt)\b(?!\s+flows?\b)"
+_BH_MONEY = (r"(?:[$€£¥₹]|\b(?:US\$|USD|EUR|GBP|INR|CNY|RMB|JPY|AED|SAR|Rs\.?"
+             r"|CHF|HKD|SGD|AUD|CAD|NZD|NOK|SEK|DKK|BRL|ZAR|MXN|KRW)\s?)\s?\d[\d,]*(?:\.\d+)?"
+             # Any ISO-4217-shaped code (§27: any market), case-SENSITIVE so re.I does not match "the"/"was";
+             # a magnitude word is required so a date like "FYE 2026" is not read as an amount (PR #781).
+             r"|\b(?-i:[A-Z]{3})\s?\d[\d,]*(?:\.\d+)?\s?(?:bn|mn|million|billion|trillion|crore|cr|lakh)\b"
+             r"|\b\d[\d,]*(?:\.\d+)?\s?(?:bn|mn|million|billion|trillion|crore|cr|lakh|[BMK])\b")
+# An amount counts as "the net-cash figure" only when it is attached to the term: the term, then plain
+# connectors, then the amount ("net debt doubled to $9.3 billion") — or the amount, then at most a few
+# filler words, then the term ("₹31 billion of net cash"). "net cash even after $53.8B of new debt" is NOT
+# attached (the amount belongs to something else), which keeps unrelated figures in the same clause out.
+_BH_CONN = (r"(?:[\s,:(~≈=\-—]|\b(?:of|at|to|from|was|is|were|are|be|been|stood|stands|jumped|rose|fell|doubled|"
+            r"tripled|up|down|about|around|roughly|approximately|approx|over|under|nearly|almost|only|just|"
+            r"already|by|c|in|now|currently|presently|totals?|totall?ed|totall?ing|reach(?:es|ed|ing)?|"
+            r"amounts?|amounted|amounting|positions?|came|comes?|coming|sits?|sat|sitting|registered|registers|"
+            r"printed|prints|clocked|remains?|remained|holds?|held|ends?|ended|equals?|equall?ed|swung|grew|"
+            r"climbed|rising|falling|widened|narrowed|ballooned|surged|swelled)\b\.?)*")
+# A qualifier may sit BETWEEN the term and its amount — a parenthetical ("Net cash (strict) of …") or an
+# including/excluding clause ("Net cash including investments is $10 billion"). Skipping it keeps the
+# figure attached, so the label/strict-figure tests below actually see it (Codex r3, PR #781).
+_BH_QUAL = (r"(?:\s*\([^()]{0,80}\)"
+            r"|,?\s+(?:incl|excl|including|excluding|includes|excludes)\w*\.?\s+(?:[\w-]+\s+){0,4}?"
+            r"(?:investments?|treasury|securities|deposits|funds)\b,?"
+            r"|,?\s+on\s+(?:an?|the)\s+(?:broad|strict|gross[\s-]*liquidity)\s+basis\b)?")
+# "Net debt was zero." / "Net cash was nil." is a stated net-cash AMOUNT too (strict nil and broad nil are
+# different claims), so a nil/zero value attached to the term needs the same label (Codex r3, PR #781).
+_BH_A = re.compile(_BH_NET + _BH_QUAL + _BH_CONN + "(?:" + _BH_MONEY + r"|\b(?:nil|zero)\b)", re.I)
+_BH_B = re.compile("(?:" + _BH_MONEY + r")(?:\s+(?:of|its|the|a|total|reported|group|consolidated|year-end|"
+                   r"in|held\s+as|worth\s+of|pro[\s-]*forma|(?:post|pre)-\w+))*\s+" + _BH_NET, re.I)
+# A basis label: the §15 words, the "cash & equivalents" definition of strict, an explicit
+# including/excluding-investments clause, or an explicit company-defined figure.
+# "strict" labels the figure only where it is USED as a basis word — "strict net cash", "strict-basis",
+# "on a strict basis", "(strict", "strict:" — not an unrelated "strict" elsewhere in the clause ("under
+# strict covenant tests", Codex r3). The canonical §15 definition "debt − cash equivalents" counts with or
+# without "cash and". A company-defined label counts only when it states what the measure contains
+# (§15: "unless the company defines it differently (then state it)") — a bare "company-defined" does not.
+_BH_STRICT_LBL = (r"\bstrict(?:[\s-]+basis)?[\s-]+net[\s‑-]*(?:cash|debt)\b|\bstrict[\s-]+basis\b"
+                  r"|\(\s*strict\b|\bstrict\s*[:,)]|\bnet[\s‑-]*(?:cash|debt)\s*[-–—,]?\s*strict\b")
+_BH_DEFN = r"(?:,?\s*(?:[\w'-]+\s+){0,3}?(?:incl|excl|compris|consist|net\s+of|less\b|minus\b|after\b|before\b|[=:(—–]))"
+_BH_BASIS = re.compile(
+    _BH_STRICT_LBL + r"|\bbroad\b|gross[\s-]*liquidity"
+    # A cash-and-equivalents phrase is a basis label only as the subtracted term of a definition ("debt
+    # less cash and cash equivalents"), not as any mention of cash equivalents in the clause ("…and cash
+    # and cash equivalents yielded 4%" defines nothing — Codex r5, PR #781).
+    r"|(?:less|minus|net\s+of|[−–-])\s*(?:total\s+|group\s+)?cash\s*(?:&|and)\s*(?:cash[\s-]*)?equivalents"
+    r"|debt\s*(?:[−–-]|less|minus)\s*(?:cash[\s-]*)?equivalents"
+    r"|\b(?:incl|excl)\w*\.?\s+(?:[\w-]+\s+){0,4}?(?:investments?|treasury|securities|deposits|funds)"
+    r"|(?:company[\s-]*defined|(?:company|management)'?s?\s+(?:own\s+)?(?:definition|figure)"
+    r"|as defined by (?:the )?company)" + _BH_DEFN, re.I)
+_BH_NONSTRICT = re.compile(
+    r"\bbroad\b|gross[\s-]*liquidity|\b(?:incl|including|includes)\w*\.?\s+(?:[\w-]+\s+){0,4}?"
+    r"(?:investments?|treasury|securities|deposits|funds)", re.I)
+# The STRICT FIGURE that §15 wants beside a broad one: a value ("₹0.15 bn", or nil / zero) that a
+# "strict" token sits directly on — "strict net cash is ₹0.15 bn", "₹0.15 bn on a strict basis",
+# "(strict: ₹0.15 bn)". Used where a bare "strict" anywhere in the segment is not enough: a segment that
+# also carries the broad label (the "strict" must quote its OWN amount, not the broad one — "Net cash of
+# ₹33.7 bn on the broad basis, held under strict treasury rules" shows no strict figure), and an
+# elliptical ';' continuation of a net-cash clause ("…incl. investments; ₹0.15 bn strict").
+_BH_VAL = r"(?:(?:" + _BH_MONEY + r")(?:\s?(?:bn|mn|million|billion|trillion|crore|cr|lakh)\b)?|\b(?:nil|zero)\b)"
+_BH_STRICT_FIG = re.compile(
+    r"\bstrict\b[\w-]*(?:[\s,:()=~≈–—-]+[\w&'.-]+){0,4}?[\s,:()=~≈–—-]+" + _BH_VAL
+    + "|" + _BH_VAL + r"(?:[\s,()]+[\w'.-]+){0,2}?[\s,(]+strict\b", re.I)
+_BH_VAL_RE = re.compile(_BH_VAL, re.I)
+# Markdown emphasis / table punctuation (**bold**, *italic*, _under_, `code`, | table |) is presentational
+# noise that must not defeat the figure↔term adjacency _BH_A/_BH_B rely on: a bolded or table-celled bare
+# net-cash figure is the SAME §15 defect as a plain one, and bolding the headline number is idiomatic in
+# these theses, so a gate that a **₹31 billion** figure slips past is a §17 rubber stamp. Normalise it to
+# spaces for MATCHING only; the violation message still quotes the original segment.
+_BH_MD = re.compile(r"[*`_|]")
+# A Markdown table row, list item, heading or quote line is its own block: joining it onto the line above
+# as if it were a hard-wrapped sentence would let one row's "strict" label excuse an unlabelled amount in
+# the row before it (Codex r5, PR #781). Only genuine prose wraps are joined.
+_BH_BLOCK = re.compile(r"^\s*(?:\||[-*+]\s|\d+[.)]\s|#|>)")
+# Period / as-of tokens that tie a figure to its reporting date. A strict companion discharges a broad
+# figure only for an overlapping (or unstated) period — a FY25 strict figure does not cover a FY26 broad
+# one (Codex r5, PR #781).
+_BH_PERIOD = re.compile(r"\b(?:FY|CY)\s?'?\d{2,4}\b|\b[QH][1-4]\s?(?:FY|CY)?\s?'?\d{2,4}\b"
+                        r"|\b9M\s?(?:FY|CY)?\s?'?\d{2,4}\b|\b(?:19|20)\d{2}\b", re.I)
+
+
+def _bh_periods(seg):
+    return frozenset(re.sub(r"[\s']", "", m.group(0)).upper() for m in _BH_PERIOD.finditer(seg))
+
+
+def _bh_units(para):
+    """Lines of one paragraph regrouped into clause-bearing units: prose hard-wraps joined with a space,
+    every table row / list item / heading / quote line kept as its own unit."""
+    units = []
+    for ln in para.split("\n"):
+        if not ln.strip():
+            continue
+        if units and not _BH_BLOCK.match(ln) and not _BH_BLOCK.match(units[-1][0]):
+            units[-1][1].append(ln.strip())
+        else:
+            units.append((ln, [ln.strip()]))
+    return [" ".join(parts) for _, parts in units]
+
+
+def _part_one(thesis):
+    """Part I ('# PART I — INVESTMENT COMMITTEE DECISION') up to Part II; the text before Part II when
+    there is no explicit Part I heading; the whole document only when neither heading exists."""
+    m = re.search(r"(?ims)^#\s+PART\s+I\b(?!I).*?(?=^#\s+PART\s+II\b|\Z)", thesis)
+    if m: return m.group(0)
+    return re.split(r"(?im)^#\s+PART\s+II\b", thesis)[0]
+
+
+def eval_bh_net_debt_basis_label(decision_date, thesis):
+    """Core of check BH. Returns None (N/A — pre-gate) or a list of violation strings (empty = pass).
+    A sentence in Part I that states a net-cash / net-debt AMOUNT (a currency amount attached to the
+    term) must carry a basis label in the same sentence; and where any such sentence labels its figure
+    broad / gross-liquidity / investment-inclusive, the strict figure must also be named in Part I (§15:
+    never an investment-inclusive number as bare net cash). Ratios ('net debt / EBITDA 1.2x') and
+    unquantified framing ('a net-cash balance sheet') are out of scope. Pure and defensive: no I/O."""
+    if not (isdate(decision_date) and decision_date >= BH_DATE):
+        return None
+    if not isinstance(thesis, str) or not thesis.strip():
+        return []
+    part1 = _part_one(thesis).replace("\r\n", "\n").replace("\r", "\n")
+    det, broad_keys, strict_keys = [], [], []
+    # A hard-wrapped sentence — a single newline inside a paragraph — must not break the figure↔term
+    # adjacency _BH_A/_BH_B rely on ("Net debt was\n$9.3 billion."), nor strand a basis label on the
+    # continuation line ("…$9.3 billion on a\nstrict basis." → a false PROVISIONAL). Collapse intra-paragraph
+    # newlines to spaces, keeping blank-line paragraph breaks as separators and the ';'/sentence-boundary
+    # clause split below intact (Codex r4, PR #781).
+    for line in (u for para in re.split(r"\n[ \t]*\n", part1) for u in _bh_units(para)):
+        # Split into clauses. A basis label discharges the §15 duty only for a figure in its OWN clause,
+        # so an independent clause after ';' is always its own segment (a borrowed label there — "…; leverage
+        # on a strict basis is 2.1x", "…net cash; its cash and cash equivalents sit offshore" — must NOT
+        # cover the figure). Sentence breaks (. ! ?) still require a following capital/quote so a decimal or
+        # "Inc." is not split; ';' needs no such guard because it always separates independent clauses.
+        prev_net = False  # the previous ';'-clause on this line quoted a net-cash / net-debt amount
+        prev_key = frozenset()
+        for seg in re.split(r"(?<=;)\s*|(?<=[.!?])\s+(?=[A-Z*(\[‘\"])", line):
+            # Match on markdown-normalised text so **bold**, `code`, _under_ and | table | punctuation cannot
+            # break the figure↔term adjacency _BH_A/_BH_B require (§15). The report below still quotes the
+            # original seg; the ';'-structure check below also keeps the original (normalisation never adds ';').
+            nseg = _BH_MD.sub(" ", seg)
+            has_net = bool(_BH_A.search(nseg) or _BH_B.search(nseg))
+            continuation = prev_net and not has_net
+            key = _bh_periods(nseg) or (prev_key if continuation else frozenset())
+            prev_net = has_net and seg.rstrip().endswith(";")
+            prev_key = key if has_net else frozenset()
+            if not has_net:
+                # An elliptical ';' continuation of a net-cash clause ("…incl. investments; ₹0.15 bn strict")
+                # names the strict figure only when "strict" sits on its own amount.
+                if continuation and _BH_STRICT_FIG.search(nseg):
+                    strict_keys.append(key)
+                continue
+            # §15 requires the STRICT FIGURE alongside an investment-inclusive one — so "strict" only
+            # discharges that duty when it sits in a segment that itself quotes a net-cash/net-debt
+            # AMOUNT (a quantified strict figure), not as a bare token borrowed from "strict leverage".
+            # Where the same segment ALSO carries the broad label, "strict" must sit on a second, distinct
+            # amount — one amount cannot be both the broad figure and the strict one.
+            if re.search(r"\bstrict\b", nseg, re.I):
+                if not _BH_NONSTRICT.search(nseg):
+                    strict_keys.append(key)
+                elif len(_BH_VAL_RE.findall(nseg)) >= 2 and _BH_STRICT_FIG.search(nseg):
+                    strict_keys.append(key)
+            if _BH_BASIS.search(nseg):
+                if _BH_NONSTRICT.search(nseg):
+                    broad_keys.append((key, seg.strip()[:160]))
+            else:
+                det.append("Part I states a net cash / net debt amount with no basis label "
+                           f"(strict / broad / gross-liquidity, CLAUDE.md §15): {seg.strip()[:160]!r}")
+    for bkey, bseg in broad_keys:
+        if not any(not bkey or not skey or (bkey & skey) for skey in strict_keys):
+            det.append("Part I labels a net cash / net debt figure broad / gross-liquidity but never names the "
+                       "strict (debt − cash & equivalents) figure alongside it for the same period "
+                       f"(CLAUDE.md §15): {bseg!r}")
+            break
+    return det

@@ -10,6 +10,7 @@ Two jobs:
 
 Run: python3 scripts/test_calibrate.py   (exit 0 = all pass)
 """
+import copy
 import os
 import sys
 import uuid
@@ -120,6 +121,77 @@ def test_fraction_slip_excluded():
     rec = {"forecast_ledger": [{"prediction": "a", "probability": 0.8, "owner_module": "earnings"}]}
     reviews = [{"forecast_results": [{"prediction": "a", "status": "confirmed"}]}]
     check(C.match_resolved_forecasts(rec, reviews) == [], "probability 0.8 (mis-scaled fraction) → excluded, not scored as 0.008")
+
+
+def test_forecast_join_terminal_sentence_period():
+    prediction = "Q1 FY27 revenue below INR 7,340.9M"
+    for ledger_text, review_text in ((prediction, prediction + "."), (prediction + ".", prediction)):
+        rec = {"forecast_ledger": [
+            {"prediction": "Debt rises", "probability": 90, "owner_module": "balance-sheet"},
+            {"prediction": ledger_text, "probability": 55, "owner_module": "earnings"}]}
+        reviews = [{"forecast_results": [{"prediction": review_text, "status": "confirmed"}]}]
+        got = C.match_resolved_forecasts(rec, reviews)
+        check(len(got) == 1 and got[0]["prob"] == 0.55 and got[0]["owner_module"] == "earnings",
+              f"one terminal full stop preserves the unique forecast identity: {review_text!r}")
+
+
+def test_forecast_period_fallback_rejects_changed_claims():
+    prediction = "Q1 FY27 revenue below INR 7,340.9M"
+    rec = {"forecast_ledger": [{"prediction": prediction, "probability": 55}]}
+    changed = ["Q1 FY27 revenue below INR 7,340.8M.",
+               "Q1 FY27 revenue above INR 7,340.9M.",
+               "Q2 FY27 revenue below INR 7,340.9M.",
+               "Q1 FY28 revenue below INR 7,340.9M.",
+               "Q1 FY27 revenue not below INR 7,340.9M.",
+               "Q1 FY27 revenue materially below INR 7,340.9M.",
+               prediction + "!", prediction + "..", prediction + " ."]
+    for text in changed:
+        reviews = [{"forecast_results": [{"prediction": text, "status": "confirmed"}]}]
+        check(C.match_resolved_forecasts(rec, reviews) == [], f"changed claim stays unmatched: {text!r}")
+    for text in (None, [], {}, "", "."):
+        reviews = [{"forecast_results": [{"prediction": text, "status": "confirmed"}]}]
+        check(C.match_resolved_forecasts(rec, reviews) == [], f"empty/malformed prediction stays unmatched: {text!r}")
+    operators = {"forecast_ledger": [{"prediction": "Revenue < 100", "probability": 55}]}
+    inclusive = [{"forecast_results": [{"prediction": "Revenue <= 100.", "status": "confirmed"}]}]
+    check(C.match_resolved_forecasts(operators, inclusive) == [], "changing < to <= cannot be a punctuation match")
+    for token in ("!", "?", "$", "--", "()", ">="):
+        punctuation = {"forecast_ledger": [{"prediction": token, "probability": 55}]}
+        reviews = [{"forecast_results": [{"prediction": token + ".", "status": "confirmed"}]}]
+        check(C.match_resolved_forecasts(punctuation, reviews) == [],
+              f"punctuation-only ledger text cannot use the period fallback: {token!r}")
+
+
+def test_forecast_period_fallback_preserves_ambiguity_and_references():
+    rec = {"forecast_ledger": [
+        {"prediction": "Margin expands", "probability": 80},
+        {"prediction": "Margin expands", "probability": 20}]}
+    plain = [{"forecast_results": [{"prediction": "Margin expands.", "status": "confirmed"}]}]
+    check(C.match_resolved_forecasts(rec, plain) == [], "terminal-period fallback cannot bypass duplicate text")
+    rec["forecast_ledger"][1]["probability"] = 0.8
+    check(C.match_resolved_forecasts(rec, plain) == [], "an invalid-probability duplicate still blocks fallback")
+    rec["forecast_ledger"][1]["probability"] = 20
+    referred = [{"forecast_results": [{"prediction": "Margin expands.", "forecast_index": 2,
+                                      "status": "confirmed"}]}]
+    got = C.match_resolved_forecasts(rec, referred)
+    check(len(got) == 1 and got[0]["prob"] == 0.20, "explicit reference resolves duplicate period variants")
+    rec["forecast_ledger"][1]["prediction"] = "Debt rises"
+    got = C.match_resolved_forecasts(rec, referred)
+    check(len(got) == 1 and got[0]["prob"] == 0.20, "explicit reference takes priority over new period fallback")
+
+
+def test_forecast_period_variants_count_once():
+    rec = {"forecast_ledger": [{"prediction": "EPS up", "probability": 70}]}
+    reviews = [{"forecast_results": [
+        {"prediction": "EPS up.", "status": "confirmed"},
+        {"prediction": "EPS up", "status": "confirmed"},
+        {"prediction": "see ledger", "forecast_index": 1, "status": "confirmed"}]}]
+    check(len(C.match_resolved_forecasts(rec, reviews)) == 1,
+          "period, exact and explicit references to one forecast count once")
+    rec["forecast_ledger"][0]["probability"] = 0.8
+    check(C.match_resolved_forecasts(rec, reviews) == [], "period fallback preserves invalid-probability exclusion")
+    rec["forecast_ledger"][0]["probability"] = 70
+    unresolved = [{"forecast_results": [{"prediction": "EPS up.", "status": "not assessable"}]}]
+    check(C.match_resolved_forecasts(rec, unresolved) == [], "period fallback cannot score an unresolved outcome")
 
 
 def test_effective_n_clusters_by_ticker():
@@ -853,8 +925,8 @@ def test_superseded_priced_review_not_resurrected():
 
 
 def test_skill_declaration_needs_distinct_tickers():
-    # Codex r11: 10 correlated directional calls on ONE ticker must NOT declare skill (effective N = 1) even
-    # though the e-value crosses; 10 across distinct names may.
+    # Keep the mathematical threshold and distinct-ticker guard even though reported-price proxies
+    # cannot establish verified stock-selection skill.
     mono, revs = [], {}
     for i in range(10):
         rr = f"analyses/MONO_2026-06-{i+1:02d}"
@@ -864,6 +936,8 @@ def test_skill_declaration_needs_distinct_tickers():
     st = C.build(standing=mono, today="2026-08-01", reviews_provider=lambda r: revs.get(r, []))["sequential_test"]
     check(st["n"] == 10 and st["n_distinct_tickers"] == 1, f"10 calls, 1 distinct name (got n={st.get('n')}, tickers={st.get('n_distinct_tickers')})")
     check(st["skill_declared"] is False, "skill NOT declared on 10 correlated calls from one ticker (effective N=1)")
+    check(st["proxy_threshold_met"] is False,
+          "ten correlated legacy proxy calls cannot clear the distinct-ticker threshold")
     multi, revs2 = [], {}
     for i in range(10):
         rr = f"analyses/MUL{i}_2026-06-01"
@@ -872,8 +946,10 @@ def test_skill_declaration_needs_distinct_tickers():
         revs2[rr] = [{"review_window": "30d", "review_date": "2026-07-01", "benchmark_relative_return_pct": 5.0}]
     st2 = C.build(standing=multi, today="2026-08-01", reviews_provider=lambda r: revs2.get(r, []))["sequential_test"]
     check(st2["n_distinct_tickers"] == 10, f"10 distinct names counted (got {st2.get('n_distinct_tickers')})")
-    check(st2["skill_declared"] == (st2["e_value"] >= st2["skill_threshold"]),
-          "with 10 distinct names, the ticker gate no longer blocks — skill_declared tracks the e-value alone")
+    check(st2["proxy_threshold_met"] == (st2["e_value"] >= st2["skill_threshold"]),
+          "with ten distinct names, the mathematical proxy threshold still tracks the e-value")
+    check(st2["skill_declared"] is False,
+          "a crossed legacy proxy threshold is not verified stock-selection skill")
 
 
 def test_spread_matched_by_horizon():
@@ -1255,6 +1331,12 @@ def test_provider_metric_floors_match_the_published_contract():
     ])
     check(returns["Selected"]["30d"]["status"] == "available",
           "basket provider slices require N>=5 at one matched horizon, not five distinct tickers")
+    check(returns["Selected"]["30d"]["floor"]["matched_horizon_required"] is True
+          and returns["Selected"]["30d"]["floor"]["matched_review_label_required"] is True,
+          "legacy provider floors retain their compatibility alias while naming label-only matching")
+    check("label" in str(returns["Selected"]["30d"]["measurement_scope"]).lower()
+          or "legacy" in str(returns["Selected"]["30d"]["measurement_scope"]).lower(),
+          "provider proxy-return scope does not claim an independently matched market window")
     unmatched = C._return_execution_metrics([
         {"ticker": "ONE", "basket": "Selected", "window": "unmatched", "value": float(i)}
         for i in range(5)
@@ -1268,11 +1350,284 @@ def test_provider_metric_floors_match_the_published_contract():
           "Brier provider slices retain the independent five-distinct-ticker floor")
 
 
+def _reported_return_fixture():
+    """One fictional fixture; date variants are dependent regressions, not investment observations."""
+    source = "Fixture raw stock feed, as of 2026-06-02, retained start row"
+    entry = {"run_root": "analyses/HORIZON_FIXTURE_2026-06-02", "record": {
+        "ticker": "HORIZON_FIXTURE", "exchange": "TEST", "currency": "USD",
+        "benchmark": "HORIZON_BENCH_PRICE", "decision": "Buy", "decision_date": "2026-06-02",
+        "basket": "Selected", "entry_price": 100.0, "entry_price_timestamp": "2026-06-02",
+        "entry_price_source": source, "confidence_score": 70, "data_sufficiency_score": 75,
+        "forecast_ledger": []}, "integrity": {"status": "unaudited"}}
+    review = {"schema_version": "1.0", "ticker": "HORIZON_FIXTURE", "review_date": "2026-09-07",
+              "review_window": "90d", "basket": "Selected", "entry_price": 100.0,
+              "review_price": 108.0, "tracking_price": None, "absolute_return_pct": 8.0,
+              "benchmark_return_pct": 3.0, "benchmark_relative_return_pct": 5.0,
+              "forecast_results": [], "return_measurement": {
+                  "schema_version": "reported-return-points/v1", "anchor_kind": "entry_price",
+                  "return_basis": "price_return_ex_distributions_and_costs",
+                  "stock": {"id": "HORIZON_FIXTURE", "venue": "TEST", "currency": "USD",
+                            "level_basis": "unadjusted_price",
+                            "start": {"date": "2026-06-02", "value": 100.0, "source": source},
+                            "end": {"date": "2026-08-31", "value": 108.0,
+                                    "source": "Fixture raw stock feed, snapshot 2026-09-07, retained end row"}},
+                  "benchmark": {"id": "HORIZON_BENCH_PRICE", "currency": "USD",
+                                "level_basis": "price_index",
+                                "start": {"date": "2026-06-02", "value": 100.0,
+                                          "source": "Fixture price benchmark feed, as of 2026-06-02, retained start row"},
+                                "end": {"date": "2026-08-31", "value": 103.0,
+                                        "source": "Fixture price benchmark feed, snapshot 2026-09-07, retained end row"}},
+                  "sector": None}}
+    return entry, review
+
+
+class _EmptyReportedTestFeed:
+    providers = []
+
+    def available(self):
+        return False
+
+
+def _reported_test_build(entry, reviews):
+    return C.build(standing=[copy.deepcopy(entry)], today="2026-09-08",
+                   reviews_provider=lambda rr: copy.deepcopy(reviews), feed=_EmptyReportedTestFeed())
+
+
+def test_reported_return_controls_and_actual_intervals():
+    entry, review = _reported_return_fixture()
+    control = C.resolve_return_measurement(entry["record"], review, reviews=[review])
+    check(control["state"] == "reported_consistent" and control["relative_return_pct"] == 5.0,
+          "complete reported control retains the recomputed 8%-3%=5% price proxy")
+    check(control["actual_elapsed_calendar_days"] == 90,
+          "late-authored review retains its actual June2-August31 ninety-day interval")
+    later = copy.deepcopy(review)
+    for leg in ("stock", "benchmark"):
+        later["return_measurement"][leg]["end"]["date"] = "2026-09-04"
+    long_result = C.resolve_return_measurement(entry["record"], later, reviews=[later])
+    check(long_result["state"] == "reported_consistent"
+          and long_result["actual_elapsed_calendar_days"] == 94,
+          "matching later prices retain their reported94-day interval without rejecting late authorship")
+    check(long_result["group_key"] != control["group_key"],
+          "actual94-day and90-day proxies do not share a group merely because both labels say90d")
+    out = _reported_test_build(entry, [review])
+    check(out["n_decisions"] == 1 and out["n_directional_calls_resolved"] == 0,
+          "reported contribution remains in inventory and is not mixed into legacy directional counts")
+    groups = out["reported_return_groups"]
+    check(sum(g["n"] for g in groups.values()) == 1,
+          "the valid reported control contributes once to its separate reported group")
+    check(out["inventory"][0]["return_measurement"]["state"] == "reported_consistent",
+          "inventory carries the same common-resolver disposition")
+
+
+def test_reported_return_date_anchor_and_scalar_contradictions():
+    entry, review = _reported_return_fixture()
+    cases = []
+    stale = copy.deepcopy(review)
+    for leg in ("stock", "benchmark"):
+        stale["return_measurement"][leg]["start"]["date"] = "2026-05-28"
+    cases.append(("moved anchor", stale))
+    mismatch = copy.deepcopy(review)
+    mismatch["return_measurement"]["benchmark"]["end"]["date"] = "2026-08-28"
+    cases.append(("unequal stock/benchmark dates", mismatch))
+    scalar = copy.deepcopy(review)
+    scalar["benchmark_relative_return_pct"] = 6.0
+    cases.append(("unreconciled stated excess", scalar))
+    alias = copy.deepcopy(review)
+    alias["review_price"] = 107.0
+    cases.append(("review price disagrees with structured end", alias))
+    for label, rv in cases:
+        result = C.resolve_return_measurement(entry["record"], rv, reviews=[rv])
+        check(result["state"] == "reported_inconsistent" and result["relative_return_pct"] is None,
+              label + " withholds the relative comparison rather than reusing its finite scalar")
+        check(bool(result["reasons"]), label + " has a visible reason")
+        check(C.directional_hit(entry["record"], rv) is None,
+              label + " cannot bypass the resolver through directional_hit")
+        out = _reported_test_build(entry, [rv])
+        check(out["n_decisions"] == 1 and not out["reported_return_groups"]
+              and out["n_directional_calls_resolved"] == 0,
+              label + " preserves the record without a legacy or reported contribution")
+
+
+def test_reported_return_unknown_legacy_and_version_selection():
+    entry, review = _reported_return_fixture()
+    missing = copy.deepcopy(review)
+    for leg in ("stock", "benchmark"):
+        for point in ("start", "end"):
+            missing["return_measurement"][leg][point]["date"] = None
+    result = C.resolve_return_measurement(entry["record"], missing, reviews=[missing])
+    check(result["state"] == "not_assessable" and result["relative_return_pct"] is None,
+          "opted-in missing dates are unknown, not an inferred interval or zero return")
+    legacy = copy.deepcopy(review)
+    legacy.pop("return_measurement")
+    _, old = C.select_return_measurement(entry["record"], [legacy])
+    check(old["state"] == "legacy_label_only" and old["relative_return_pct"] == 5.0,
+          "wholly legacy history retains its labelled as-reported price proxy")
+    legacy_out = _reported_test_build(entry, [legacy])
+    check(legacy_out["n_directional_calls_resolved"] == 1 and not legacy_out["reported_return_groups"],
+          "legacy scalar contributes only to the legacy lane")
+    stripped = copy.deepcopy(legacy)
+    stripped["review_date"] = "2026-09-08"
+    selected, current = C.select_return_measurement(entry["record"], [review, stripped])
+    check(selected["review_date"] == "2026-09-08" and current["state"] == "not_assessable"
+          and current["relative_return_pct"] is None,
+          "a later stripped block cannot downgrade opted-in history into the legacy lane")
+    v1 = copy.deepcopy(review)
+    v1["_version"] = 1
+    v2 = copy.deepcopy(review)
+    v2["_version"] = 2
+    v2["return_measurement"]["stock"]["start"]["value"] = 99.0
+    _, corrected = C.select_return_measurement(entry["record"], [v1, v2])
+    check(corrected["state"] == "reported_inconsistent" and corrected["relative_return_pct"] is None,
+          "a rejected same-key corrected version never resurrects its older valid return")
+    out = _reported_test_build(entry, [v1, v2])
+    check(out["n_decisions"] == 1 and out["n_reviews"] == 2 and not out["reported_return_groups"],
+          "correction history stays visible without double-counting or fallback")
+
+
+def test_reported_return_identity_basis_finite_and_rounding():
+    entry, review = _reported_return_fixture()
+    variants = []
+    # Bare different ids are unproven aliases, not proof that the economic identity is different.
+    # The initial stricter expectations and their failures are retained in the experiment evidence.
+    for leg, key, value, label, state in (("stock", "id", "OTHER_STOCK", "stock identity", "not_assessable"),
+                                         ("benchmark", "id", "OTHER_INDEX", "benchmark identity", "not_assessable"),
+                                         ("benchmark", "currency", "EUR", "currency", "reported_inconsistent")):
+        rv = copy.deepcopy(review)
+        rv["return_measurement"][leg][key] = value
+        variants.append((label, rv, state))
+    for label, rv, state in variants:
+        result = C.resolve_return_measurement(entry["record"], rv, reviews=[rv])
+        check(result["state"] == state and result["relative_return_pct"] is None,
+              label + " conflict cannot be replaced by another finite comparator")
+    mappings = (("stock", "STOCK_ALIAS", "WRONG_FROZEN", "STOCK_ALIAS"),
+                ("benchmark", "BENCH_ALIAS", "HORIZON_BENCH_PRICE", "WRONG_REPORTED"),
+                ("stock", "HORIZON_FIXTURE", "WRONG_FROZEN", "HORIZON_FIXTURE"),
+                ("benchmark", "HORIZON_BENCH_PRICE", "HORIZON_BENCH_PRICE", "WRONG_REPORTED"))
+    for leg, identity, frozen_id, reported_id in mappings:
+        rv = copy.deepcopy(review)
+        rv["return_measurement"][leg]["id"] = identity
+        rv["return_measurement"][leg]["identity_mapping"] = {
+            "frozen_id": frozen_id, "reported_id": reported_id,
+            "source": "Fixture identity mapping, retained source assertion"}
+        result = C.resolve_return_measurement(entry["record"], rv, reviews=[rv])
+        check(result["state"] == "reported_inconsistent" and result["relative_return_pct"] is None,
+              "a supplied contradictory identity mapping is rejected even when direct ids already match")
+    valid_alias = copy.deepcopy(review)
+    valid_alias["return_measurement"]["stock"]["id"] = "STOCK_ALIAS"
+    valid_alias["return_measurement"]["stock"]["identity_mapping"] = {
+        "frozen_id": "HORIZON_FIXTURE", "reported_id": "STOCK_ALIAS",
+        "source": "Fixture identity mapping, retained matching assertion"}
+    result = C.resolve_return_measurement(entry["record"], valid_alias, reviews=[valid_alias])
+    check(result["state"] == "reported_consistent" and result["relative_return_pct"] == 5.0,
+          "a complete internally consistent alias mapping retains the reported control")
+    optional_null = copy.deepcopy(review)
+    for leg in ("stock", "benchmark"):
+        optional_null["return_measurement"][leg]["identity_mapping"] = None
+    result = C.resolve_return_measurement(entry["record"], optional_null, reviews=[optional_null])
+    check(result["state"] == "reported_consistent" and result["relative_return_pct"] == 5.0,
+          "direct matching identities do not require an unused optional alias mapping")
+    unsupported = copy.deepcopy(review)
+    unsupported["return_measurement"]["stock"]["level_basis"] = "split_adjusted_price"
+    result = C.resolve_return_measurement(entry["record"], unsupported, reviews=[unsupported])
+    check(result["state"] == "not_assessable" and result["relative_return_pct"] is None,
+          "an unsupported adjusted anchor is not assumed to have a factor-one raw-price bridge")
+    for malformed_basis in ([], {}):
+        rv = copy.deepcopy(review)
+        rv["return_measurement"]["stock"]["level_basis"] = malformed_basis
+        result = C.resolve_return_measurement(entry["record"], rv, reviews=[rv])
+        check(result["state"] == "not_assessable" and result["relative_return_pct"] is None,
+              "a non-string level basis is unsupported rather than a set-membership crash")
+    future_version = copy.deepcopy(review)
+    future_version["return_measurement"]["schema_version"] = "reported-return-points/v999"
+    result = C.resolve_return_measurement(entry["record"], future_version, reviews=[future_version])
+    check(result["state"] == "not_assessable" and result["relative_return_pct"] is None,
+          "unknown structured version cannot fall back into legacy arithmetic")
+    for value in (True, 0, -1, float("nan"), float("inf"), 10 ** 1000):
+        rv = copy.deepcopy(review)
+        rv["return_measurement"]["stock"]["end"]["value"] = value
+        result = C.resolve_return_measurement(entry["record"], rv, reviews=[rv])
+        check(result["relative_return_pct"] is None and bool(result["reasons"]),
+              f"unsupported reported level ({type(value).__name__}) is withheld visibly")
+    for value, accepted in ((5.00004, True), (5.00005, True), (5.000051, False)):
+        rv = copy.deepcopy(review)
+        rv["benchmark_relative_return_pct"] = value
+        result = C.resolve_return_measurement(entry["record"], rv, reviews=[rv])
+        check((result["state"] == "reported_consistent") == accepted,
+              f"scalar {value} follows the pinned half-last-place rounding allowance")
+    extreme_entry = copy.deepcopy(entry)
+    extreme = copy.deepcopy(review)
+    extreme_entry["record"]["entry_price"] = 1e-300
+    extreme["return_measurement"]["stock"]["start"]["value"] = 1e-300
+    extreme["return_measurement"]["stock"]["end"]["value"] = 1e300
+    result = C.resolve_return_measurement(extreme_entry["record"], extreme, reviews=[extreme])
+    check(result["relative_return_pct"] is None and bool(result["reasons"]),
+          "unrepresentable finite-level ratio is visibly withheld without crash, infinity or invented zero")
+
+
+def test_reported_return_earliest_tracking_anchor():
+    entry, review = _reported_return_fixture()
+    entry["record"]["entry_price"] = None
+    tracking = {"price": 100.0, "source": entry["record"]["entry_price_source"],
+                "as_of": "2026-06-02", "currency": "USD", "established_at_window": "30d"}
+    first = {"review_date": "2026-06-15", "review_window": "30d", "tracking_price": tracking,
+             "forecast_results": [], "benchmark_relative_return_pct": None}
+    review["entry_price"] = None
+    review["tracking_price"] = copy.deepcopy(tracking)
+    review["return_measurement"]["anchor_kind"] = "earliest_tracking_price"
+    _, result = C.select_return_measurement(entry["record"], [first, review])
+    check(result["state"] == "reported_consistent" and result["relative_return_pct"] == 5.0,
+          "null-entry review uses the earliest unchanged tracking anchor")
+    moved = copy.deepcopy(review)
+    moved["tracking_price"]["price"] = 101.0
+    moved["return_measurement"]["stock"]["start"]["value"] = 101.0
+    _, result = C.select_return_measurement(entry["record"], [first, moved])
+    check(result["state"] == "reported_inconsistent" and result["relative_return_pct"] is None,
+          "later review cannot move the earliest tracking anchor")
+
+
+def test_reported_return_changes_preserve_forecast_calibration():
+    entry, review = _reported_return_fixture()
+    forecasts = [{"forecast_id": f"FIXTURE-F{i:02d}", "prediction": f"Fictional forecast {i}",
+                  "probability": 75, "owner_module": "earnings", "forecast_type": "earnings_eps"}
+                 for i in range(10)]
+    results = [{"forecast_id": f["forecast_id"], "prediction": f["prediction"],
+                "status": "confirmed" if i % 2 == 0 else "falsified"}
+               for i, f in enumerate(forecasts)]
+    entry["record"]["forecast_ledger"] = forecasts
+    review["forecast_results"] = results
+    baseline_pairs = C.match_resolved_forecasts(entry["record"], [review])
+    variants = [copy.deepcopy(review)]
+    for kind in ("mismatch", "unknown", "legacy"):
+        rv = copy.deepcopy(review)
+        if kind == "mismatch":
+            rv["return_measurement"]["benchmark"]["end"]["date"] = "2026-08-28"
+        elif kind == "unknown":
+            rv["return_measurement"]["stock"]["start"]["date"] = None
+        else:
+            rv.pop("return_measurement")
+        variants.append(rv)
+    baseline = _reported_test_build(entry, [variants[0]])
+    fields = ("calibration", "calibration_by_module", "calibration_by_forecast_type", "calibration_by_thesis_type")
+    for rv in variants:
+        record_before, review_before = copy.deepcopy(entry), copy.deepcopy(rv)
+        out = _reported_test_build(entry, [rv])
+        check(C.match_resolved_forecasts(entry["record"], [rv]) == baseline_pairs
+              and len(baseline_pairs) == 10 and out["n_resolved_forecasts"] == 10,
+              "return-only evidence changes do not erase or change the ten dependent forecast pairs")
+        check(all(out[k] == baseline[k] for k in fields)
+              and out["calibration"]["brier"] == 0.3125,
+              "return-only changes preserve Brier0.3125 and all forecast calibration slices")
+        check(entry == record_before and rv == review_before,
+              "return resolution leaves original forecast/record/review inputs unchanged")
+
+
 def main():
     print("test_calibrate.py")
     for fn in (test_incomplete_beta, test_clopper_pearson, test_brier_and_murphy, test_e_value,
                test_effective_n, test_months_to_significance_honesty, test_forecast_join_never_misscores,
                test_fraction_slip_excluded, test_effective_n_clusters_by_ticker, test_all_reviews_tallied,
+               test_forecast_join_terminal_sentence_period, test_forecast_period_fallback_rejects_changed_claims,
+               test_forecast_period_fallback_preserves_ambiguity_and_references, test_forecast_period_variants_count_once,
                test_false_comfort_named, test_brier_ready_not_reported_withheld, test_scoped_output_isolated,
                test_expired_is_a_settled_miss, test_tracking_price_return_recovered,
                test_effective_n_counts_directional_only_runs, test_reviews_sort_by_horizon_not_text,
@@ -1296,7 +1651,13 @@ def main():
                test_provisional_run_excluded_from_skill_scoring, test_markdown_names_excluded_and_shadow,
                test_no_integrity_field_behaves_as_before, test_execution_identity_is_conservative,
                test_provider_calibration_attribution_floors_and_refusal,
-               test_provider_metric_floors_match_the_published_contract):
+               test_provider_metric_floors_match_the_published_contract,
+               test_reported_return_controls_and_actual_intervals,
+               test_reported_return_date_anchor_and_scalar_contradictions,
+               test_reported_return_unknown_legacy_and_version_selection,
+               test_reported_return_identity_basis_finite_and_rounding,
+               test_reported_return_earliest_tracking_anchor,
+               test_reported_return_changes_preserve_forecast_calibration):
         print(f"[{fn.__name__}]")
         fn()
     print()

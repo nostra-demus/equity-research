@@ -52,7 +52,7 @@ import {
   appendExecutionAttempt, artifactIsFresh, attestParitySnapshotAtPublication,
   canonicalManifestJsonl, canonicalManifestPath, decisionArtifacts,
   EXECUTION_PROVENANCE_RECEIPT, receiptPath, recordAdmittedProviderSelection, recordProviderInterruptionAuthority,
-  parsePublicationSchemaContract, readPublicationSchemaContract,
+  parsePublicationSchemaContract, publicationSchemaContractArgs, readPublicationSchemaContract,
   protectedInterruptedExecutionLineage, readProviderInterruptionAuthority, recordRecoveredPublicationAuthority, releaseExecutionEpochAfterPublication,
   releaseParityRegistration, resolveParityBindingPath, supersedeIncompleteDecisionAuthorAttempt, writeExecutionReceipt,
 } from './execution-provenance'
@@ -7198,7 +7198,7 @@ async function assertFreshSwarmSchemasPublishable(run: RunState, ledger: SignalL
   const args = [path.join(REPO_ROOT, 'scripts', 'decision_publication_gate.py'), '--repo', REPO_ROOT]
   let contract: ReturnType<typeof parsePublicationSchemaContract>
   try {
-    const result = await execa('python3', [...args, '--schema-contract', run.runRoot], {
+    const result = await execa('python3', [...args, ...publicationSchemaContractArgs(run)], {
       cwd: REPO_ROOT, reject: true, timeout: 20_000, maxBuffer: 1024 * 1024,
     })
     contract = parsePublicationSchemaContract(result.stdout, run.runRoot, swarm.id)
@@ -7206,7 +7206,8 @@ async function assertFreshSwarmSchemasPublishable(run: RunState, ledger: SignalL
     const detail = (String(error?.stderr ?? '').trim() || String(error?.message || error).trim()).slice(0, 1000)
     throw new Error(`cockpit publication schema contract could not be verified before mutation: ${detail}`)
   }
-  if (!contract.declared) return () => {} // known legacy contracts retain their existing, stronger publication checks
+  // Explicit legacy contracts and registered auxiliary contexts retain their existing publication checks.
+  if (!contract.declared) return () => {}
   const selected: Array<{ path: string; absolute: string; bytes: Buffer; sha256: string }> = []
   for (const item of contract.artifacts) {
     const relative = item.relative

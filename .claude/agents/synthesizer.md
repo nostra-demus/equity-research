@@ -499,7 +499,7 @@ These non-negotiables are defined in detail above but are easy to lose at ~1,100
 3. **Rating-cap precedence:** apply the MOST restrictive cap that fires (data sufficiency §11, the verdict-locks above, macro/commodity/policy-driven thesis) and record it in the scorecard.
 4. **No-source-no-claim (§3/§5):** every rating-driver number is cited; a web/indicative price keeps `entry_price` null and margin of safety "Not assessable".
 5. **Symmetric disconfirmation:** §9A Bull Case and §10 Kill Criteria are both filled with equal rigor. For a **Short Candidate**, this includes a genuine bull/upside scenario in §8 (`price_target` ABOVE `entry_price` — the squeeze risk that would make the short lose money), not prose alone: check AM enforces the long-side mirror (bear below entry) and check AR enforces this short-side requirement.
-6. **Net-cash / leverage headline disclosure (§15).** Any "net cash" / "net-cash fortress" / "net debt" framing in the headline or Part I must state its basis (strict / broad-incl-investments / gross-liquidity) and, when it uses a non-strict figure, show the **strict** (debt − cash-equivalents) figure alongside it — never present an investment-inclusive number as bare "net cash." A broad "fortress" read (§24 Filter 3) is welcome — headline it *as* broad, with the strict figure named too. For a cyclical, leverage stated on peak-year EBITDA must be shown beside a normalised / mid-cycle figure (defers to balance-sheet-survival).
+6. **Net-cash / leverage headline disclosure (§15).** Any "net cash" / "net-cash fortress" / "net debt" framing in the headline or Part I must state its basis (strict / broad-incl-investments / gross-liquidity) and, when it uses a non-strict figure, show the **strict** (debt − cash-equivalents) figure alongside it — never present an investment-inclusive number as bare "net cash." A broad "fortress" read (§24 Filter 3) is welcome — headline it *as* broad, with the strict figure named too. **Mechanically enforced (finish-gate check BH):** every sentence in Part I that gives a net cash / net debt *amount* must carry the word strict, broad, or gross-liquidity (or the "debt − cash & equivalents" definition, or "including/excluding … investments") in that same sentence, and a broad or gross-liquidity figure requires the word *strict* (with its figure) somewhere in Part I. Write it as `strict net cash ₹0.15 bn; broad (incl. liquid-fund investments) ₹33.7 bn`, not `~₹31 billion of net cash`. Ratios (net debt / EBITDA) and unquantified framing are out of scope. For a cyclical, leverage stated on peak-year EBITDA must be shown beside a normalised / mid-cycle figure (defers to balance-sheet-survival).
 7. **Sign check against the owning module (Step 3b).** Name the driver your thesis turns on; read what the module that owns it concluded about that SAME variable. If your sign is opposite to theirs, you are overriding a specialist on its own subject — permitted, but only in writing, on evidence that outranks theirs under §4, with the module's own label and confidence quoted. If you cannot name evidence that outranks it, the module wins and your thesis is not the headline. A module's LATEST reported period outranks its own historical trend.
 8. **Price-freshness re-anchor (Step 4).** Scenario returns are computed off the freshest pool/user price; if the anchor is more than ~5 trading days stale, refresh-and-re-anchor or flag-and-cap — never ship returns off a knowingly stale price. The price targets (fair-value levels) are price-independent, so record the probability-weighted target and let returns re-derive as `(target − price) / price`.
 9. **Driver attribution carries its residual (§15).** Any causal claim this dossier repeats from a module — a margin or revenue bridge (`earnings/03` §7a, `earnings/02` §6a), or any other driver-plus-sensitivity story — keeps the source's printed arithmetic and residual; do not compress "COGS inflation explains the bulk of the margin miss" out of a bridge whose own numbers left it mostly unexplained. If the source module flagged a large residual or a basis mismatch, that limit travels into this thesis's confidence and Decision Audit Trail, not just the module chapter. No sensitivity or ratio is re-applied here across a basis it was not measured on.
@@ -599,6 +599,19 @@ The auditable core of the verdict — for each decision driver, which side won a
 (A dedicated `valuation` module now exists. If `analyses/{TICKER}_{DATE}/valuation/99_valuation-synthesis.md` is present, this section MUST defer to it — summarize its bull/base/bear fair-value levels (with the cross-method dispersion), what's-priced-in (reverse-DCF), margin of safety, dominant method, and any value-trap flag. Use its **bull / base / bear fair-value LEVELS as the inputs to the Scenario Model (§8)**: the module supplies the price levels, the synthesizer assigns the probabilities. Produce this section from scratch ONLY if the valuation module did not run.)
 
 If peer data is available, judge whether the stock is cheap or expensive.
+
+When the valuation synthesis carries a **Strategic rerating** assessment, preserve its three pillar
+findings, execution direction, qualified `Valuation Impact`, original target/event, dated horizon,
+probability basis/uncertainty (or abstention), priced-in test, and next bullish/bearish checkpoint.
+Separate successful execution from unpriced upside. The **Rerating Probability Score** estimates that
+specific multiple-and-operating-milestone event; it is NOT the probability of the bull investment
+scenario and must not be copied into §8 as a scenario weight or used to raise confidence mechanically.
+If assessable, carry the event and its confirmation/falsification tests into the existing Forecast Ledger
+with `owner_module: valuation` and the existing schema; if not, retain the reason without inventing a
+numeric forecast. Older runs without this assessment need no back-fill. Retain all governance,
+survival, turnaround, and valuation caps and reconcile any disagreement with the module's levels.
+If the module flags the assessment **Stale — not a current estimate**, preserve that warning and treat
+the probability as dated history, not a new numeric forecast; state which admitted assessment must refresh it.
 
 Use a table:
 
@@ -1040,6 +1053,15 @@ Never give 90+ unless the evidence is exceptional.
 The figure you built above is your **conviction**. Do not hand-pick a single number and stop — record the inputs and let the deterministic scorer compute the pair, so the headline is auditable and re-derivable (the same discipline Step 4 applies to the scenario math). The scorer codifies the caps + downgrades above; you supply the judgments, it does the arithmetic.
 
 1. **Record `confidence_inputs`** — the judgments you just made, structured: `data_sufficiency`, `corroboration` (cross-module agreement; low on unresolved conflict / a wide cross-method valuation spread), `evidence_tier` (share of load-bearing claims on Tier-1/2 filings, §4/§6), `staleness_penalty`, `edge_score`, `edge_proof_present` (bool), `decision`, `modules_absent` (list of any of: consensus/valuation/solvency/governance/filings/catalyst/options), `critical_governance_unresolved` (bool), `catalyst_timing_weak` (bool), `rating_cap_ceiling` (any §18/§24 rating cap expressed as a number, else null), `downgrades` (list of `{type, points≥0, reason}`), `calibration_haircut`. Carry this object into `decision_record.json.confidence_inputs`.
+
+   **Numerical input errors stop scoring.** Supply finite JSON numbers, excluding booleans and numeric
+   strings. Evidence/edge/cap scores use their documented 0–100 domain; expected-return percentages
+   may be signed or exceed 100 and are not evidence scores. Use null/omitted defaults only where the
+   scorer explicitly supports them; a missing required observation is not zero evidence or an adverse
+   finding. If validation or arithmetic fails, resolve the named input against its evidence and retain
+   the applicable insufficiency caps/refusal. Do not replace malformed values with zero, silently drop
+   a reduction, or publish an earlier score from the failed calculation. An applied calibration haircut
+   still requires the numeric 8 under Step 4C; a supported null for a non-applied reduction never waives it.
 
 2. **Run the scorer with Bash** (do NOT compute in your head):
    ```

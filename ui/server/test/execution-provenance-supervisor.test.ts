@@ -1,19 +1,22 @@
 process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
 import assert from 'node:assert/strict'
-import { spawnSync } from 'node:child_process'
+import { spawn, spawnSync } from 'node:child_process'
 import { createHash, randomUUID } from 'node:crypto'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import { isDeepStrictEqual } from 'node:util'
+import { fileURLToPath } from 'node:url'
+import { gzipSync } from 'node:zlib'
 import { REPO_ROOT, STATE_DIR } from '../src/config'
 import {
   EXECUTION_PROVENANCE_RECEIPT as EXECUTION_RECEIPT_NAME, artifactIsFresh, beginExecutionAttempt, canonicalManifestPath, executionEpochAttemptCount,
   projectionLineageRows, readLastProviderSelection, readProviderInterruptionAuthority, readProviderPreSpawnFailureAuthority,
+  readPublicationSchemaContract,
   recordAdmittedProviderSelection, releaseExecutionEpochAfterPublication,
   sealProviderPreSpawnFailureAuthority,
 } from '../src/execution-provenance'
-import { createRun, finishRun } from '../src/registry'
+import { createRun, finishRun, type RunState } from '../src/registry'
 import { writeRunMarker } from '../src/outputs'
 import {
   __setPostReviewCalibration, __setPublicationAuthoritySealer, __setSupersededPublicationProbe,
@@ -21,6 +24,15 @@ import {
   SUPERVISOR_CONTROL_MARKERS, supersededPublicationPaths, drainPublicationIntents, finalizeRunOnClose, listReadyPublicationFailures, listSupersededReadyPublications, queuePublicationIntent, recoverReadyPublications, requiresSupervisorPublication,
   supervisePublication, trackedTerminalDeletionDisposition,
 } from '../src/launcher'
+
+if (process.env.ENGINE_SCHEMA_ACCEPTANCE_CHILD === '1') {
+  await schemaAcceptanceChild()
+  process.exit(0)
+}
+if (process.env.ENGINE_SCHEMA_ACCEPTANCE_ONLY === '1') {
+  await isolatedSchemaAcceptance()
+  process.exit(0)
+}
 
 const resumedDeletion = {
   kind: 'rerun' as const, swarmId: 'research', chained: true,
@@ -78,8 +90,461 @@ const decisionFixture = (fields: Record<string, unknown>): string => JSON.string
 // rather than keeping a minimal fake thesis and weakening admission to accommodate it.
 function screenerFixture(name: 'intake' | 'signal_payload' | 'thesis_record' | 'thesis_integrity_review' | 'candidates', signalId: string): any {
   const fixtureId = 'SIG-20260610-a3f2c81d'
-  return JSON.parse(fs.readFileSync(path.join(REPO_ROOT, 'screener', 'runs', fixtureId, `${name}.json`), 'utf8')
+  const sourceRoot = process.env.ENGINE_SCHEMA_ACCEPTANCE_SOURCE_ROOT || REPO_ROOT
+  return JSON.parse(fs.readFileSync(path.join(sourceRoot, 'screener', 'runs', fixtureId, `${name}.json`), 'utf8')
     .replaceAll(fixtureId, signalId))
+}
+
+// Run the real writers and no-push commit helper in a private, small repository. The committer seam
+// supplies the hermetic helper environment; schema/snapshot admission and the default verifier run.
+// This does not establish validation before an earlier deterministic writer's own writes.
+async function isolatedSchemaAcceptance(): Promise<void> {
+  const outputs = path.join(REPO_ROOT, '.cache', 'test-output')
+  fs.mkdirSync(outputs, { recursive: true })
+  // Intentionally retain this ignored checkout-local fixture on pass and failure: its acceptance
+  // report, frozen packets and real Git evidence must remain available for inspection.
+  const fixtureRoot = fs.mkdtempSync(path.join(outputs, 'publication-schema-acceptance-'))
+  const copy = (relative: string) => {
+    const target = path.join(fixtureRoot, relative)
+    fs.mkdirSync(path.dirname(target), { recursive: true })
+    fs.copyFileSync(path.join(REPO_ROOT, relative), target)
+  }
+  // The local import closure is under 1 MiB; there is no dependency/source-tree copy.
+  for (const name of [
+    'canonical_json', 'commodity_decision_archive', 'commodity_evidence_links',
+    'commodity_forecast_contract', 'commodity_profile_coverage', 'connector_contract',
+    'connector_vintages', 'corrections_prewrite_gate', 'data_need_contract', 'decision_publication_gate',
+    'execution_provenance', 'ledger_records', 'market_prices', 'recover_idea_board_history',
+    'repo_mutation', 'screener_emit_checkpoints', 'supersession_integrity_checks',
+    'supervisor_publication', 'update_board_index', 'validate_data_catalogue', 'validate_screener_json',
+  ]) copy(`scripts/${name}.py`)
+  copy('scripts/append-ndjson.sh')
+  copy('scripts/commit-run.sh')
+  copy('.claude/agents/screener/SWARM.md')
+  const futureManifest = path.join(fixtureRoot, '.claude', 'agents', 'schema-future', 'SWARM.md')
+  fs.mkdirSync(path.dirname(futureManifest), { recursive: true })
+  fs.writeFileSync(futureManifest, [
+    '---', 'id: schema-future', 'unit: signal', 'run_root_template: screener/future-runs/{SIG_ID}',
+    'placeholder: SIG_ID', 'runs_root: screener/future-runs', 'decision_artifacts: [signal_payload.json]',
+    'schemas_root: frameworks/screener', 'publication_schemas:',
+    '  - "run:signal_payload.json=signal_payload.schema.json"', 'publication_auxiliary_roots:',
+    '  - "review=screener/future-reviews/REV-*"', '---', '',
+  ].join('\n'))
+  copy('frameworks/memory/phase0/catalogue.json')
+  for (const name of fs.readdirSync(path.join(REPO_ROOT, 'frameworks', 'screener')))
+    if (name.endsWith('.schema.json')) copy(`frameworks/screener/${name}`)
+  fs.writeFileSync(path.join(fixtureRoot, '.gitignore'), '.cache/\n__pycache__/\n')
+  const git = (...args: string[]) => {
+    const result = spawnSync('git', args, { cwd: fixtureRoot, encoding: 'utf8' })
+    assert.equal(result.status, 0, result.stderr)
+    return result.stdout.trim()
+  }
+  git('init', '--quiet')
+  git('config', 'user.name', 'Schema Fixture')
+  git('config', 'user.email', 'schema-fixture@example.invalid')
+  git('config', 'commit.gpgsign', 'false')
+  git('config', 'core.hooksPath', '/dev/null')
+  git('add', '.')
+  // This is an isolated fixture commit, never a commit in the actual checkout or its branch.
+  git('-c', 'user.name=Schema Fixture', '-c', 'user.email=schema-fixture@example.invalid',
+    '-c', 'commit.gpgsign=false', '-c', 'core.hooksPath=/dev/null', 'commit', '--quiet', '-m', 'fixture program')
+  const source = spawnSync('git', ['rev-parse', 'HEAD'], { cwd: REPO_ROOT, encoding: 'utf8' })
+  assert.equal(source.status, 0, source.stderr)
+  const status = await new Promise<number | null>((resolve, reject) => {
+    const child = spawn(process.execPath, [...process.execArgv, fileURLToPath(import.meta.url)], {
+      cwd: fixtureRoot, stdio: 'inherit', env: {
+        ...process.env, ENGINE_TEST_RUN: '1', ENGINE_ACTIVITY_LOG_DISABLED: '1',
+        ENGINE_SCHEMA_ACCEPTANCE_CHILD: '1', ENGINE_SCHEMA_ACCEPTANCE_SOURCE_ROOT: REPO_ROOT,
+        ENGINE_SCHEMA_ACCEPTANCE_SOURCE_SHA: source.stdout.trim(), ENGINE_REPO_ROOT: fixtureRoot,
+        ENGINE_STATE_DIR: path.join(fixtureRoot, '.cache', 'state'),
+        ENGINE_TEST_RUN_VIOLATIONS: path.join(fixtureRoot, '.cache', 'violations.tsv'),
+      },
+    })
+    child.once('error', reject)
+    child.once('exit', resolve)
+  })
+  const reportPath = path.join(fixtureRoot, '.cache', 'acceptance.json')
+  let report: any
+  if (fs.existsSync(reportPath)) {
+    const bytes = fs.readFileSync(reportPath)
+    const compressed = gzipSync(bytes, { level: 9 })
+    // Keep CI evidence bounded, lossless and recoverable even after a partial child failure. The report
+    // contains synthetic case metadata/hashes and helper verdicts, never credentials or environment dumps.
+    assert.ok(bytes.length <= 16 * 1024 * 1024 && compressed.length <= 256 * 1024,
+      `acceptance export exceeds its explicit size limit; full local report retained at ${reportPath}`)
+    try { report = JSON.parse(bytes.toString('utf8')) } catch { /* export exact partial bytes before failing below */ }
+    const digest = `sha256:${createHash('sha256').update(bytes).digest('hex')}`
+    const encoded = compressed.toString('base64')
+    const chunks = encoded.match(/.{1,8192}/g)!
+    const metadata = {
+      encoding: 'gzip+base64', sha256: digest, uncompressed_bytes: bytes.length,
+      gzip_bytes: compressed.length, chunks: chunks.length, source_revision: source.stdout.trim(),
+      test_source_sha256: report?.test_source?.sha256, complete: report?.complete === true,
+      json_valid: report !== undefined,
+    }
+    const envelope = [
+      `PUBLICATION_SCHEMA_ACCEPTANCE_EXPORT_BEGIN ${JSON.stringify(metadata)}`,
+      ...chunks.map((chunk, index) => `PUBLICATION_SCHEMA_ACCEPTANCE_EXPORT_CHUNK ${index + 1}/${chunks.length} ${chunk}`),
+      `PUBLICATION_SCHEMA_ACCEPTANCE_EXPORT_END ${JSON.stringify({ sha256: digest, chunks: chunks.length })}`,
+      '',
+    ].join('\n')
+    // Await the write: focused mode exits immediately after this function, and console buffering could
+    // otherwise truncate a large evidence envelope when stdout is a CI pipe.
+    await new Promise<void>((resolve, reject) => process.stdout.write(envelope, error => error ? reject(error) : resolve()))
+  } else {
+    console.log(`PUBLICATION_SCHEMA_ACCEPTANCE_EXPORT_MISSING ${JSON.stringify({ source_revision: source.stdout.trim(), child_status: status })}`)
+  }
+  assert.equal(status, 0, `isolated schema acceptance failed; retained fixture: ${fixtureRoot}`)
+  assert.ok(report, `acceptance report is missing or invalid; retained fixture: ${fixtureRoot}`)
+  assert.equal(report.complete, true)
+  assert.equal(report.cases.length, 48, 'the shared 24-case matrix runs for both simulated providers')
+  assert.equal(report.compatibility_cases.length, 16, 'both providers exercise all eight root/context compatibility cases')
+  console.log(`PASS: isolated schema acceptance (48 schema + 16 compatibility provider cases); report=${fixtureRoot}/.cache/acceptance.json`)
+}
+
+async function schemaAcceptanceChild(): Promise<void> {
+  assert.equal(process.env.ENGINE_TEST_RUN, '1')
+  assert.ok(REPO_ROOT.includes(`${path.sep}.cache${path.sep}test-output${path.sep}publication-schema-acceptance-`),
+    'derived-store tests must never run against the shared checkout')
+  const hash = (bytes: Buffer | string) => `sha256:${createHash('sha256').update(bytes).digest('hex')}`
+  const hashes = (directory: string): Record<string, string> => {
+    if (!fs.existsSync(directory)) return {}
+    const result: Record<string, string> = {}
+    const visit = (current: string) => {
+      for (const entry of fs.readdirSync(current, { withFileTypes: true })) {
+        const absolute = path.join(current, entry.name)
+        assert.equal(entry.isSymbolicLink(), false, 'acceptance stores contain only real files/directories')
+        if (entry.isDirectory()) visit(absolute)
+        else result[path.relative(REPO_ROOT, absolute).split(path.sep).join('/')] = hash(fs.readFileSync(absolute))
+      }
+    }
+    visit(directory)
+    return result
+  }
+  type Stages = Record<'intake' | 'signal_payload' | 'thesis_record' | 'candidates' | 'thesis_integrity_review', any>
+  const complete = (id: string): Stages => {
+    const stages = Object.fromEntries(['intake', 'signal_payload', 'thesis_record', 'candidates', 'thesis_integrity_review']
+      .map((name) => [name, screenerFixture(name as keyof Stages, id)])) as Stages
+    for (const candidate of stages.candidates.candidates) candidate.news_impact = {
+      applicable: false, mode: 'not_applicable', missing_reason: null, recurrence: 'not_applicable',
+      event_quantification: 'Synthetic schema acceptance fixture; no economic estimate.',
+      delta_value: 'Not assessed in this synthetic schema fixture.', implied_move_pct: null,
+      observed_move_pct: null, gap_read: 'not_applicable',
+      caveats: 'Synthetic correctness control; no investment evidence.', sources: [],
+    }
+    return stages
+  }
+  const cases: Array<{ id: string; artifact: keyof Stages; mutate: (stages: Stages) => void }> = [
+    { id: 'invalid16-event-id', artifact: 'signal_payload', mutate: stages => { stages.signal_payload.event_id = `EVT-${'a'.repeat(16)}` } },
+    { id: 'null-signal-entities-commodity', artifact: 'signal_payload', mutate: stages => { stages.signal_payload.entities.commodity = null } },
+  ]
+  const thesisPaths = [
+    ['M0_6_1', 'analyst_rating_distribution', 'missing_reason'],
+    ['M0_6_1', 'estimate_dispersion', 'missing_reason'],
+    ...['estimate_dispersion', 'estimate_revision_trajectory', 'implied_scenario_from_multiple',
+      'options_implied_move', 'short_interest_positioning'].map(name => ['M0_6_2', name, 'missing_reason']),
+    ['M0_6_6', 'override_justification'],
+  ]
+  for (const parts of thesisPaths) cases.push({
+    id: `null-thesis-${parts.join('-')}`, artifact: 'thesis_record', mutate: stages => {
+      const parent = parts.slice(0, -1).reduce((value, key) => value[key], stages.thesis_record)
+      const field = parts[parts.length - 1]
+      assert.equal(typeof parent[field], 'string', 'each null mutation starts from a schema-valid string')
+      parent[field] = null
+    },
+  })
+  cases.push({ id: 'short-thesis-M0_2-world_changes', artifact: 'thesis_record', mutate: stages => {
+    stages.thesis_record.M0_2.world_changes = stages.thesis_record.M0_2.world_changes.slice(0, 1)
+  } })
+  const canonical = complete('SIG-20990103-00000000')
+  assert.equal(canonical.candidates.candidates.length, 4, 'cover every candidate in the canonical fixture')
+  for (let index = 0; index < canonical.candidates.candidates.length; index++) {
+    for (const field of ['event_quantification', 'delta_value', 'caveats']) cases.push({
+      id: `null-candidate-${index}-news_impact-${field}`, artifact: 'candidates',
+      mutate: stages => { stages.candidates.candidates[index].news_impact[field] = null },
+    })
+  }
+  const testSourcePath = fileURLToPath(import.meta.url)
+  const report = {
+    complete: false, source_checkout_head: process.env.ENGINE_SCHEMA_ACCEPTANCE_SOURCE_SHA,
+    source_checkout_head_scope: 'Checkout HEAD identity only; exact executing test bytes (including any uncommitted supplement) identified separately.',
+    test_source: { path: testSourcePath, sha256: hash(fs.readFileSync(testSourcePath)) },
+    runtime_source_hashes: Object.fromEntries(['execution-provenance.ts', 'launcher.ts'].map(name => [
+      `ui/server/src/${name}`, hash(fs.readFileSync(path.resolve(path.dirname(testSourcePath), '../src', name))),
+    ])),
+    fixture_program_hashes: { ...hashes(path.join(REPO_ROOT, 'scripts')),
+      ...hashes(path.join(REPO_ROOT, '.claude')), ...hashes(path.join(REPO_ROOT, 'frameworks')) },
+    scope: [
+      'Both providers are simulated identities; no provider/model is invoked.',
+      'Real schema gate, provenance stamper, checkpoint/board builders and frozen snapshot admission execute.',
+      'Valid controls hand the exact supervisor snapshot to real commit-run with no push/remote/credentials and use the default HEAD/blob verifier.',
+      'Compatibility cases exercise direct begin/stamp with authoritative owner/kind/display-unit/root classification under both providers.',
+      'Canonical-first admission assumes the trusted schema-bearing owner context. The preexisting schema-free-owner early return remains; low-level callers and nonpublishing admin parity retain their owner/root contracts.',
+      'No-mutation assertions begin at supervisor invocation; earlier deterministic-writer own-prewrite validation remains untested.',
+    ], cases: [] as any[], compatibility_cases: [] as any[],
+  }
+  const reportPath = path.join(REPO_ROOT, '.cache', 'acceptance.json')
+  fs.mkdirSync(path.dirname(reportPath), { recursive: true })
+  try {
+    for (const test of [{ id: 'valid12-complete', artifact: 'signal_payload' as const, mutate: null }, ...cases]) {
+      for (const provider of ['claude', 'codex'] as const) {
+        const id = `SIG-20990103-${randomUUID().replaceAll('-', '').slice(0, 8)}`
+        const relative = `screener/runs/${id}`
+        const directory = path.join(REPO_ROOT, relative)
+        const thesisId = `THS-${id}-v1`
+        const ledgerRelative = `screener/ledger/theses/${thesisId}.json`
+        const ledger = path.join(REPO_ROOT, ledgerRelative)
+        fs.mkdirSync(directory, { recursive: true })
+        const selectedProfile = provider === 'claude'
+          ? { key: 'claude:sonnet:default', parentModel: 'sonnet', parentReasoning: 'default' }
+          : { key: 'codex:test', parentModel: 'gpt-test', parentReasoning: 'max' }
+        const live = createRun({
+          kind: 'signal', ticker: id, subjectId: id, swarmId: 'screener', unit: 'signal', provider,
+          executionProfile: selectedProfile, profileKey: selectedProfile.key, model: selectedProfile.parentModel,
+          reasoningLevel: selectedProfile.parentReasoning, prompt: '', user: 'test', userVia: 'local',
+          runRoot: relative, willCommitToMain: true, writeTargetsAbs: [directory, ledger],
+          coveredModules: [], readDepsAbs: [], closeWatcher: undefined, expected: new Map(),
+        })
+        const token = `schema-acceptance-${id}`
+        live.publicationToken = token
+        beginExecutionAttempt(live)
+        const stages = complete(id)
+        const write = () => {
+          for (const [name, value] of Object.entries(stages))
+            fs.writeFileSync(path.join(directory, `${name}.json`), `${JSON.stringify(value, null, 2)}\n`)
+        }
+        test.mutate?.(stages)
+        write()
+        const protectedState = () => ({
+          run: hashes(directory), ledger: hashes(path.join(REPO_ROOT, 'screener', 'ledger')),
+          board: hashes(path.join(REPO_ROOT, 'screener', 'board')), provenanceAndReceipts: hashes(STATE_DIR),
+          capability: { token: live.publicationToken, phase: live.publicationPhase,
+            requested: live.publicationRequested, completed: live.publicationCompleted,
+            hashes: live.publicationArtifactHashes, revision: live.publicationRevision },
+        })
+        const before = protectedState()
+        const row: any = {
+          provider, case_id: test.id, run_root: relative,
+          input_hashes: hashes(directory), schema_hashes: hashes(path.join(REPO_ROOT, 'frameworks', 'screener')),
+        }
+        report.cases.push(row)
+        try {
+          if (test.mutate) {
+            let refusal = ''
+            await assert.rejects(supervisePublication(live.runId, token, { phase: 'commit', pathspecs: [relative] }),
+              (error: any) => {
+                refusal = String(error?.message || error)
+                return refusal.includes('schema validation refused before mutation:')
+                  && refusal.includes(`${test.artifact}.json`)
+              }, `${provider}/${test.id}: the real schema checker refuses the one-field mutation`)
+            assert.deepEqual(protectedState(), before,
+              `${provider}/${test.id}: no ledger/checkpoint/conviction/board/receipt/provenance/capability mutation`)
+            row.refusal = refusal
+            row.protected_before = before
+            row.protected_after = protectedState()
+            Object.assign(stages, complete(id))
+            write()
+            const recovered = await supervisePublication(live.runId, token, { phase: 'stamp' })
+            assert.equal(recovered.ok, true, `${provider}/${test.id}: correction recovers with the same capability`)
+            assert.equal(fs.existsSync(ledger), true)
+            assert.deepEqual(hashes(path.join(REPO_ROOT, 'screener', 'board')), before.board,
+              'stamp recovery does not project the shared board')
+            row.recovery = { phase: 'stamp', same_capability: live.publicationToken === token,
+              artifact_hashes: recovered.artifactHashes }
+          } else {
+            assert.match(stages.signal_payload.event_id, /^EVT-[a-f0-9]{12}$/)
+            assert.ok(stages.candidates.candidates.every((candidate: any) => candidate.news_impact.missing_reason === null),
+              'the complete positive control preserves schema-permitted missing_reason:null')
+            let commits = 0
+            const committer = __setSupervisorCommitter(async (message, paths, env) => {
+              commits++
+              const snapshot = JSON.parse(fs.readFileSync(env.NOSTRA_SUPERVISOR_SNAPSHOT_MANIFEST!, 'utf8'))
+              for (const entry of snapshot.entries) assert.equal(hash(fs.readFileSync(entry.snapshot)), entry.sha256)
+              row.snapshot_paths = [...paths]
+              row.snapshot_hashes = Object.fromEntries(snapshot.entries.map((entry: any) => [entry.path, entry.sha256]))
+              const top = spawnSync('git', ['rev-parse', '--show-toplevel'], { cwd: REPO_ROOT, encoding: 'utf8' })
+              assert.equal(top.status, 0, top.stderr)
+              assert.equal(fs.realpathSync(top.stdout.trim()), fs.realpathSync(REPO_ROOT))
+              const remotes = spawnSync('git', ['remote'], { cwd: REPO_ROOT, encoding: 'utf8' })
+              assert.equal(remotes.status, 0, remotes.stderr)
+              assert.equal(remotes.stdout.trim(), '', 'the fixture has no push destination')
+              const noApp = path.join(REPO_ROOT, '.cache', 'no-app-credentials')
+              const temporary = path.join(REPO_ROOT, '.cache', 'tmp')
+              fs.mkdirSync(noApp, { recursive: true })
+              fs.mkdirSync(temporary, { recursive: true })
+              const localEnv: NodeJS.ProcessEnv = { ...env, ENGINE_NO_PUSH: '1', NOSTRA_ENGINE_CONFIG_DIR: noApp,
+                GIT_CONFIG_GLOBAL: '/dev/null', GIT_CONFIG_NOSYSTEM: '1', GIT_CONFIG_COUNT: '2',
+                GIT_CONFIG_KEY_0: 'credential.helper', GIT_CONFIG_VALUE_0: '',
+                GIT_CONFIG_KEY_1: 'core.hooksPath', GIT_CONFIG_VALUE_1: '/dev/null',
+                GIT_TERMINAL_PROMPT: '0', GIT_ASKPASS: '/usr/bin/false', TMPDIR: temporary,
+                GIT_AUTHOR_NAME: 'Schema Fixture', GIT_AUTHOR_EMAIL: 'schema-fixture@example.invalid',
+                GIT_COMMITTER_NAME: 'Schema Fixture', GIT_COMMITTER_EMAIL: 'schema-fixture@example.invalid' }
+              // The real helper's supported hermetic-test pattern drops the guard only for this one
+              // subprocess in the independently verified no-remote fixture (test_commit_run.py).
+              delete localEnv.ENGINE_TEST_RUN
+              delete localEnv.ENGINE_TEST_RUN_VIOLATIONS
+              const committed = spawnSync('bash', [path.join(REPO_ROOT, 'scripts', 'commit-run.sh'), message, '--', ...paths], {
+                cwd: REPO_ROOT, env: localEnv, encoding: 'utf8', maxBuffer: 4 * 1024 * 1024,
+              })
+              row.commit_helper = { status: committed.status, stdout: committed.stdout, stderr: committed.stderr,
+                no_push: localEnv.ENGINE_NO_PUSH, remotes: [], credential_config: noApp }
+              assert.equal(committed.status, 0, committed.stderr)
+              assert.match(committed.stdout, /(?:^|\n)COMMIT_SHA=[0-9a-f]{40}(?:\n|$)/)
+              assert.match(committed.stderr, /ENGINE_NO_PUSH=1.*NOT pushing/)
+              return committed.stdout
+            })
+            try {
+              const published = await supervisePublication(live.runId, token, { phase: 'commit', pathspecs: [relative] })
+              assert.equal(commits, 1)
+              assert.equal(live.publicationPhase, 'terminal-complete')
+              assert.equal(live.publicationCompleted, true)
+              assert.equal(live.publicationToken, undefined)
+              const head = spawnSync('git', ['rev-parse', 'HEAD'], { cwd: REPO_ROOT, encoding: 'utf8' })
+              assert.equal(head.status, 0, head.stderr)
+              assert.equal(live.publicationRevision, head.stdout.trim())
+              row.committed_head_hashes = {}
+              for (const name of row.snapshot_paths) {
+                const blob = spawnSync('git', ['show', `HEAD:${name}`], { cwd: REPO_ROOT, maxBuffer: 4 * 1024 * 1024 })
+                assert.equal(blob.status, 0, blob.stderr.toString('utf8'))
+                row.committed_head_hashes[name] = hash(blob.stdout)
+              }
+              assert.deepEqual(row.committed_head_hashes, row.snapshot_hashes,
+                'every actual committed HEAD blob equals the supervisor-produced snapshot, including derived stores and receipt')
+              const required = [
+                ...Object.keys(stages).map(name => `${relative}/${name}.json`), ledgerRelative,
+                `${relative}/${EXECUTION_RECEIPT_NAME}`, 'screener/board/index.json',
+                'screener/ledger/conviction/checkpoints.ndjson',
+                `screener/ledger/conviction/conviction_state/${thesisId}.json`,
+              ]
+              for (const name of required) assert.ok(row.snapshot_paths.includes(name), `complete snapshot includes ${name}`)
+              const checkpoints = fs.readFileSync(path.join(REPO_ROOT, 'screener/ledger/conviction/checkpoints.ndjson'), 'utf8')
+                .trim().split('\n').map(line => JSON.parse(line))
+              for (const [index, checkpoint] of checkpoints.entries())
+                assert.ok(checkpoint !== null && typeof checkpoint === 'object' && !Array.isArray(checkpoint),
+                  `checkpoint row ${index + 1} must be a non-null object`)
+              assert.ok(checkpoints.some(checkpoint => checkpoint.thesis_id === thesisId))
+              const conviction = JSON.parse(fs.readFileSync(path.join(REPO_ROOT, 'screener/ledger/conviction/conviction_state', `${thesisId}.json`), 'utf8'))
+              assert.equal(conviction.thesis_id, thesisId)
+              const board = JSON.parse(fs.readFileSync(path.join(REPO_ROOT, 'screener/board/index.json'), 'utf8'))
+              assert.ok(JSON.stringify(board).includes(thesisId), 'the real board builder includes the locked thesis')
+              assert.ok(JSON.parse(fs.readFileSync(ledger, 'utf8')).execution_provenance)
+              assert.ok(JSON.parse(fs.readFileSync(path.join(directory, 'thesis_record.json'), 'utf8')).execution_provenance)
+              assert.equal(readLastProviderSelection(relative, 'published')?.provider, provider)
+              row.publication = { phase: published.phase, revision: live.publicationRevision,
+                verifier: 'default supervisor HEAD/blob verifier', artifact_hashes: published.artifactHashes,
+                completed: live.publicationCompleted, checkpoint_rows: checkpoints.filter(checkpoint => checkpoint.thesis_id === thesisId).length }
+            } finally {
+              __setSupervisorCommitter(committer)
+            }
+          }
+          row.passed = true
+        } finally { finishRun(live, 'done') }
+      }
+    }
+    for (const provider of ['claude', 'codex'] as const) {
+      const selectedProfile = provider === 'claude'
+        ? { key: 'claude:sonnet:default', parentModel: 'sonnet', parentReasoning: 'default' }
+        : { key: 'codex:test', parentModel: 'gpt-test', parentReasoning: 'max' }
+      for (const test of [
+        { id: 'conviction-actual-root', kind: 'conviction', swarm: 'screener', root: 'checkpoint', action: 'auxiliary' },
+        { id: 'canonical-five-artifact-baselines', kind: 'signal', swarm: 'screener', root: 'canonical', action: 'canonical' },
+        { id: 'spoof-conviction-canonical-invalid16', kind: 'conviction', swarm: 'screener', root: 'canonical', action: 'invalid' },
+        { id: 'primary-kind-on-checkpoint-root', kind: 'signal', swarm: 'screener', root: 'checkpoint', action: 'refuse' },
+        { id: 'unknown-conviction-root', kind: 'conviction', swarm: 'screener', root: 'unknown', action: 'refuse' },
+        { id: 'future-registered-auxiliary-root', kind: 'review', swarm: 'schema-future', root: 'future-review', action: 'auxiliary' },
+        { id: 'future-primary-kind-on-auxiliary-root', kind: 'signal', swarm: 'schema-future', root: 'future-review', action: 'refuse' },
+        { id: 'future-canonical-spoof-invalid16', kind: 'review', swarm: 'schema-future', root: 'canonical', action: 'invalid' },
+      ] as const) {
+        const suffix = randomUUID().replaceAll('-', '').slice(0, 8)
+        const signalId = `SIG-20990104-${suffix}`
+        const relative = test.root === 'checkpoint' ? `screener/ledger/conviction/runs/CHK-${suffix}-01`
+          : test.root === 'unknown' ? `screener/ledger/conviction/unknown/CHK-${suffix}-01`
+            : test.root === 'future-review' ? `screener/future-reviews/REV-${suffix}`
+              : `${test.swarm === 'screener' ? 'screener/runs' : 'screener/future-runs'}/${signalId}`
+        const directory = path.join(REPO_ROOT, relative)
+        fs.mkdirSync(directory, { recursive: true })
+        const stages = complete(signalId)
+        if (test.root === 'canonical') {
+          for (const [name, value] of Object.entries(stages))
+            fs.writeFileSync(path.join(directory, `${name}.json`), `${JSON.stringify(value, null, 2)}\n`)
+        }
+        const live = createRun({
+          kind: test.kind as RunState['kind'], swarmId: test.swarm, unit: 'signal',
+          ticker: test.root === 'checkpoint' ? `THS-${signalId}-v1::CHK-${suffix}-01` : signalId,
+          provider, executionProfile: selectedProfile, profileKey: selectedProfile.key,
+          model: selectedProfile.parentModel, reasoningLevel: selectedProfile.parentReasoning,
+          prompt: '', user: 'test', userVia: 'local', runRoot: relative, willCommitToMain: true,
+          writeTargetsAbs: [directory], coveredModules: [], readDepsAbs: [], closeWatcher: undefined, expected: new Map(),
+        })
+        const token = `schema-compatibility-${suffix}`
+        live.publicationToken = token
+        const row: any = { provider, case_id: test.id, kind: live.kind, unit: live.unit,
+          swarm_id: live.swarmId, run_root: relative }
+        report.compatibility_cases.push(row)
+        try {
+          if (test.action === 'refuse') {
+            const stateBefore = hashes(STATE_DIR)
+            assert.throws(() => beginExecutionAttempt(live), /publication schema contract could not be verified/,
+              `${provider}/${test.id}: an unregistered kind/root cannot reach provider dispatch`)
+            assert.equal(live.currentExecutionAttempts, undefined)
+            assert.equal(live.publicationBaselines, undefined)
+            assert.deepEqual(hashes(STATE_DIR), stateBefore)
+            await assert.rejects(supervisePublication(live.runId, token, { phase: 'stamp' }),
+              /schema contract could not be verified before mutation/,
+              'terminal preflight applies the same authoritative root/context classification')
+            assert.equal(live.publicationRequested, undefined)
+            assert.equal(live.publicationPhase, undefined)
+            row.refused_at = ['beginExecutionAttempt', 'supervisePublication']
+          } else {
+            beginExecutionAttempt(live)
+            const contract = readPublicationSchemaContract(live)!
+            row.contract = contract
+            row.baselines = live.publicationBaselines
+            if (test.action === 'auxiliary') {
+              assert.equal(contract.classification, 'auxiliary')
+              assert.equal(contract.declared, false)
+              assert.deepEqual(contract.artifacts, [])
+              assert.deepEqual(live.publicationBaselines, {})
+              const stopped = await supervisePublication(live.runId, token, { phase: 'stamp' })
+              assert.deepEqual(stopped.artifacts, [])
+              assert.equal(stopped.ok, true, 'the legitimate production auxiliary tuple begins and stamps')
+            } else {
+              assert.equal(contract.classification, 'canonical')
+              assert.equal(contract.declared, true)
+              const expected = test.swarm === 'screener' ? Object.keys(stages).map(name => `${name}.json`) : ['signal_payload.json']
+              assert.deepEqual(Object.keys(live.publicationBaselines!).sort(), expected.sort())
+              for (const name of expected) {
+                assert.equal(live.publicationBaselines![name], hash(fs.readFileSync(path.join(directory, name))).replace(/^sha256:/, ''))
+                assert.equal(artifactIsFresh(live, name), false, 'canonical pre-spawn baselines retain all mapped stage identities')
+              }
+              if (test.action === 'invalid') {
+                stages.signal_payload.event_id = `EVT-${'a'.repeat(16)}`
+                const payloadPath = path.join(directory, 'signal_payload.json')
+                fs.writeFileSync(payloadPath, `${JSON.stringify(stages.signal_payload, null, 2)}\n`)
+                const before = { run: hashes(directory), ledger: hashes(path.join(REPO_ROOT, 'screener', 'ledger')),
+                  board: hashes(path.join(REPO_ROOT, 'screener', 'board')), state: hashes(STATE_DIR) }
+                await assert.rejects(supervisePublication(live.runId, token, { phase: 'stamp' }),
+                  /schema validation refused before mutation:.*signal_payload\.json/s,
+                  'canonical roots remain schema-gated when supplied an auxiliary kind')
+                assert.deepEqual({ run: hashes(directory), ledger: hashes(path.join(REPO_ROOT, 'screener', 'ledger')),
+                  board: hashes(path.join(REPO_ROOT, 'screener', 'board')), state: hashes(STATE_DIR) }, before)
+                assert.equal(live.publicationRequested, undefined)
+                assert.equal(live.publicationPhase, undefined)
+                row.refused_invalid16 = true
+                stages.signal_payload.event_id = `EVT-${'a'.repeat(12)}`
+                fs.writeFileSync(payloadPath, `${JSON.stringify(stages.signal_payload, null, 2)}\n`)
+              }
+              const stopped = await supervisePublication(live.runId, token, { phase: 'stamp' })
+              assert.equal(stopped.ok, true)
+              assert.deepEqual(stopped.artifacts, [], 'retained canonical history is not promoted to a fresh terminal thesis')
+            }
+          }
+          row.passed = true
+        } finally { finishRun(live, 'done') }
+      }
+    }
+    report.complete = true
+  } finally { fs.writeFileSync(reportPath, `${JSON.stringify(report, null, 2)}\n`) }
 }
 
 const root = `analyses/ZZPROVSUP_${Date.now()}`
@@ -1457,6 +1922,8 @@ try {
   finishRun(signal, 'done')
   fs.rmSync(signalAbsolute, { recursive: true, force: true })
   fs.rmSync(ledgerAbsolute, { force: true })
+
+  await isolatedSchemaAcceptance()
 
   const schemaSignal = (provider: 'claude' | 'codex', retainHistory = false) => {
     const id = `SIG-20990102-${randomUUID().replaceAll('-', '').slice(0, 8)}`
