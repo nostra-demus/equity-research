@@ -1,29 +1,29 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-10-29T21:41:39Z",
+  "archived_at": "2026-11-12T15:45:23Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-77b0931ae560",
-    "idea_version": "IDEAV-9d944fb084806f51",
-    "idea_version_started_at": "2026-10-27T01:59:31Z",
-    "ticker": "SNES",
-    "company": "SenesTech, Inc.",
-    "exchange": "NASDAQ",
+    "idea_id": "IDEA-d488a32dbbf5",
+    "idea_version": "IDEAV-28c31f4a623f8c99",
+    "idea_version_started_at": "2026-11-09T18:48:10Z",
+    "ticker": "RY",
+    "company": "Royal Bank of Canada",
+    "exchange": "NYSE",
     "ticker_verified": true,
     "listing_verified": true,
     "liquidity_verified": false,
     "listing_verification_source": "yahoo_symbol_directory",
     "direction": "long",
     "pair_with": null,
-    "reason": "The filing of a Schedule 13D indicates an activist investor has taken a significant stake, which often precedes efforts to influence corporate strategy or governance.",
-    "why_now": "The Schedule 13D was filed on 2026-10-26, signaling immediate potential for strategic changes or a buyout attempt.",
+    "reason": "Royal Bank of Canada is expanding its asset management business through the acquisition of Australia's Yarra Capital Management, which could contribute to future revenue growth.",
+    "why_now": "RBC signed the deal to acquire Yarra Capital Management today, November 9, 2026.",
     "conviction": 60,
     "conviction_basis": "pre_edge_proxy",
-    "trade_score": 70,
+    "trade_score": 66,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
-      "evidence": 25,
-      "impact": 13,
+      "evidence": 14,
+      "impact": 20,
       "specificity": 15,
       "timing": 10,
       "expression": 7,
@@ -34,6 +34,7 @@
     "missing_checks": [
       "live liquidity",
       "dated catalyst",
+      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -50,26 +51,26 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-ff82ad17b8da"
+      "EVT-4b41422e3e6e"
     ],
-    "primary_source_event_id": "EVT-ff82ad17b8da",
+    "primary_source_event_id": "EVT-4b41422e3e6e",
     "source_headlines": [
-      "SCHEDULE 13D - SenesTech, Inc. (0001680378) (Subject)"
+      "RBC signs deal to buy Australia’s Yarra Capital Management"
     ],
-    "source_headline": "SCHEDULE 13D - SenesTech, Inc. (0001680378) (Subject)",
-    "source_url": "https://www.sec.gov/Archives/edgar/data/1680378/000216182226000002/0002161822-26-000002-index.htm",
-    "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-    "materiality_max": 72,
-    "newest_source_at": "2026-10-26T18:27:45Z",
+    "source_headline": "RBC signs deal to buy Australia’s Yarra Capital Management",
+    "source_url": "https://www.theglobeandmail.com/business/article-rbc-signs-deal-to-buy-australias-yarra-capital-management/",
+    "source_name": "The Globe and Mail",
+    "materiality_max": 100,
+    "newest_source_at": "2026-11-09T15:26:27Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-10-27T01:59:31Z",
-    "updated_at": "2026-10-27T01:59:31Z",
-    "decay_at": "2026-10-28T06:27:45Z",
+    "surfaced_at": "2026-11-09T18:48:10Z",
+    "updated_at": "2026-11-09T18:48:10Z",
+    "decay_at": "2026-11-11T03:26:27Z",
     "status": "live",
     "promoted_signal_id": null
   }
