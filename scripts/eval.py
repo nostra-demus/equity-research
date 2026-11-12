@@ -2482,6 +2482,22 @@ if scope=="selftest":
         ("2026-11-06", _bh_th("Net debt is $9.3 billion on a\nstrict basis."), []),           # FP: label on the continuation line
         # …and a blank-line paragraph break still separates clauses (the unlabelled figure flags).
         ("2026-11-06", _bh_th("Net debt was $9.3 billion.\n\nSeparately, liquidity is ample."), ["no basis label"]),
+        # ── Codex r5 (PR #781, head 1c71c9ca) regression cases — each flips vs the pre-fix matcher ──
+        # R5a: a cash-and-equivalents mention that is not the subtracted term of a definition is not a basis
+        # label (pre-fix: any mention in the clause passed) …
+        ("2026-11-06", _bh_th("Net debt reached $9.3 billion and cash and cash equivalents yielded 4%."), ["no basis label"]),
+        # … while the canonical definition still counts, with or without "total".
+        ("2026-11-06", _bh_th("Net debt is $9.3 billion (total debt less cash and cash equivalents)."), []),
+        ("2026-11-06", _bh_th("Net debt of $9.3 billion, i.e. borrowings minus cash & cash equivalents."), []),
+        # R5b: adjacent table rows / list items are separate scopes — one row's strict label cannot excuse
+        # the unlabelled amount in the row above (pre-fix: rows were flattened into one segment).
+        ("2026-11-06", _bh_th("| A | Net debt $9.3 billion |\n| B | Strict net cash $2 billion |"), ["no basis label"]),
+        ("2026-11-06", _bh_th("- Net debt $9.3 billion\n- Strict net cash $2 billion"), ["no basis label"]),
+        # R5c: the strict companion must cover the broad figure's period (pre-fix: document-wide booleans).
+        ("2026-11-06", _bh_th("FY25 broad net cash was $10 billion; FY25 strict net cash was $2 billion. "
+                              "FY26 broad net cash was $12 billion."), ["never names the strict"]),
+        ("2026-11-06", _bh_th("FY25 broad net cash was $10 billion; FY25 strict net cash was $2 billion. "
+                              "FY26 broad net cash was $12 billion; FY26 strict net cash was $3 billion."), []),
     ]
     bhbad=0
     for dt_,th_,exp in bhcases:

@@ -955,7 +955,11 @@ _BH_STRICT_LBL = (r"\bstrict(?:[\s-]+basis)?[\s-]+net[\s‑-]*(?:cash|debt)\b|\b
                   r"|\(\s*strict\b|\bstrict\s*[:,)]|\bnet[\s‑-]*(?:cash|debt)\s*[-–—,]?\s*strict\b")
 _BH_DEFN = r"(?:,?\s*(?:[\w'-]+\s+){0,3}?(?:incl|excl|compris|consist|net\s+of|less\b|minus\b|after\b|before\b|[=:(—–]))"
 _BH_BASIS = re.compile(
-    _BH_STRICT_LBL + r"|\bbroad\b|gross[\s-]*liquidity|cash\s*(?:&|and)\s*(?:cash[\s-]*)?equivalents"
+    _BH_STRICT_LBL + r"|\bbroad\b|gross[\s-]*liquidity"
+    # A cash-and-equivalents phrase is a basis label only as the subtracted term of a definition ("debt
+    # less cash and cash equivalents"), not as any mention of cash equivalents in the clause ("…and cash
+    # and cash equivalents yielded 4%" defines nothing — Codex r5, PR #781).
+    r"|(?:less|minus|net\s+of|[−–-])\s*(?:total\s+|group\s+)?cash\s*(?:&|and)\s*(?:cash[\s-]*)?equivalents"
     r"|debt\s*(?:[−–-]|less|minus)\s*(?:cash[\s-]*)?equivalents"
     r"|\b(?:incl|excl)\w*\.?\s+(?:[\w-]+\s+){0,4}?(?:investments?|treasury|securities|deposits|funds)"
     r"|(?:company[\s-]*defined|(?:company|management)'?s?\s+(?:own\s+)?(?:definition|figure)"
@@ -980,6 +984,33 @@ _BH_VAL_RE = re.compile(_BH_VAL, re.I)
 # these theses, so a gate that a **₹31 billion** figure slips past is a §17 rubber stamp. Normalise it to
 # spaces for MATCHING only; the violation message still quotes the original segment.
 _BH_MD = re.compile(r"[*`_|]")
+# A Markdown table row, list item, heading or quote line is its own block: joining it onto the line above
+# as if it were a hard-wrapped sentence would let one row's "strict" label excuse an unlabelled amount in
+# the row before it (Codex r5, PR #781). Only genuine prose wraps are joined.
+_BH_BLOCK = re.compile(r"^\s*(?:\||[-*+]\s|\d+[.)]\s|#|>)")
+# Period / as-of tokens that tie a figure to its reporting date. A strict companion discharges a broad
+# figure only for an overlapping (or unstated) period — a FY25 strict figure does not cover a FY26 broad
+# one (Codex r5, PR #781).
+_BH_PERIOD = re.compile(r"\b(?:FY|CY)\s?'?\d{2,4}\b|\b[QH][1-4]\s?(?:FY|CY)?\s?'?\d{2,4}\b"
+                        r"|\b9M\s?(?:FY|CY)?\s?'?\d{2,4}\b|\b(?:19|20)\d{2}\b", re.I)
+
+
+def _bh_periods(seg):
+    return frozenset(re.sub(r"[\s']", "", m.group(0)).upper() for m in _BH_PERIOD.finditer(seg))
+
+
+def _bh_units(para):
+    """Lines of one paragraph regrouped into clause-bearing units: prose hard-wraps joined with a space,
+    every table row / list item / heading / quote line kept as its own unit."""
+    units = []
+    for ln in para.split("\n"):
+        if not ln.strip():
+            continue
+        if units and not _BH_BLOCK.match(ln) and not _BH_BLOCK.match(units[-1][0]):
+            units[-1][1].append(ln.strip())
+        else:
+            units.append((ln, [ln.strip()]))
+    return [" ".join(parts) for _, parts in units]
 
 
 def _part_one(thesis):
@@ -1002,20 +1033,20 @@ def eval_bh_net_debt_basis_label(decision_date, thesis):
     if not isinstance(thesis, str) or not thesis.strip():
         return []
     part1 = _part_one(thesis).replace("\r\n", "\n").replace("\r", "\n")
-    det, nonstrict, strict_fig = [], False, False
+    det, broad_keys, strict_keys = [], [], []
     # A hard-wrapped sentence — a single newline inside a paragraph — must not break the figure↔term
     # adjacency _BH_A/_BH_B rely on ("Net debt was\n$9.3 billion."), nor strand a basis label on the
     # continuation line ("…$9.3 billion on a\nstrict basis." → a false PROVISIONAL). Collapse intra-paragraph
     # newlines to spaces, keeping blank-line paragraph breaks as separators and the ';'/sentence-boundary
     # clause split below intact (Codex r4, PR #781).
-    for para in re.split(r"\n[ \t]*\n", part1):
-        line = re.sub(r"[ \t]*\n[ \t]*", " ", para)
+    for line in (u for para in re.split(r"\n[ \t]*\n", part1) for u in _bh_units(para)):
         # Split into clauses. A basis label discharges the §15 duty only for a figure in its OWN clause,
         # so an independent clause after ';' is always its own segment (a borrowed label there — "…; leverage
         # on a strict basis is 2.1x", "…net cash; its cash and cash equivalents sit offshore" — must NOT
         # cover the figure). Sentence breaks (. ! ?) still require a following capital/quote so a decimal or
         # "Inc." is not split; ';' needs no such guard because it always separates independent clauses.
         prev_net = False  # the previous ';'-clause on this line quoted a net-cash / net-debt amount
+        prev_key = frozenset()
         for seg in re.split(r"(?<=;)\s*|(?<=[.!?])\s+(?=[A-Z*(\[‘\"])", line):
             # Match on markdown-normalised text so **bold**, `code`, _under_ and | table | punctuation cannot
             # break the figure↔term adjacency _BH_A/_BH_B require (§15). The report below still quotes the
@@ -1023,12 +1054,14 @@ def eval_bh_net_debt_basis_label(decision_date, thesis):
             nseg = _BH_MD.sub(" ", seg)
             has_net = bool(_BH_A.search(nseg) or _BH_B.search(nseg))
             continuation = prev_net and not has_net
+            key = _bh_periods(nseg) or (prev_key if continuation else frozenset())
             prev_net = has_net and seg.rstrip().endswith(";")
+            prev_key = key if has_net else frozenset()
             if not has_net:
                 # An elliptical ';' continuation of a net-cash clause ("…incl. investments; ₹0.15 bn strict")
                 # names the strict figure only when "strict" sits on its own amount.
                 if continuation and _BH_STRICT_FIG.search(nseg):
-                    strict_fig = True
+                    strict_keys.append(key)
                 continue
             # §15 requires the STRICT FIGURE alongside an investment-inclusive one — so "strict" only
             # discharges that duty when it sits in a segment that itself quotes a net-cash/net-debt
@@ -1037,15 +1070,19 @@ def eval_bh_net_debt_basis_label(decision_date, thesis):
             # amount — one amount cannot be both the broad figure and the strict one.
             if re.search(r"\bstrict\b", nseg, re.I):
                 if not _BH_NONSTRICT.search(nseg):
-                    strict_fig = True
+                    strict_keys.append(key)
                 elif len(_BH_VAL_RE.findall(nseg)) >= 2 and _BH_STRICT_FIG.search(nseg):
-                    strict_fig = True
+                    strict_keys.append(key)
             if _BH_BASIS.search(nseg):
-                nonstrict = nonstrict or bool(_BH_NONSTRICT.search(nseg))
+                if _BH_NONSTRICT.search(nseg):
+                    broad_keys.append((key, seg.strip()[:160]))
             else:
                 det.append("Part I states a net cash / net debt amount with no basis label "
                            f"(strict / broad / gross-liquidity, CLAUDE.md §15): {seg.strip()[:160]!r}")
-    if nonstrict and not strict_fig:
-        det.append("Part I labels a net cash / net debt figure broad / gross-liquidity but never names the "
-                   "strict (debt − cash & equivalents) figure alongside it (CLAUDE.md §15)")
+    for bkey, bseg in broad_keys:
+        if not any(not bkey or not skey or (bkey & skey) for skey in strict_keys):
+            det.append("Part I labels a net cash / net debt figure broad / gross-liquidity but never names the "
+                       "strict (debt − cash & equivalents) figure alongside it for the same period "
+                       f"(CLAUDE.md §15): {bseg!r}")
+            break
     return det
