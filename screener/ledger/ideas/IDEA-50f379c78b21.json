@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-50f379c78b21",
-  "idea_version": "IDEAV-5f346408b53f54ca",
-  "idea_version_started_at": "2026-11-12T11:51:50Z",
+  "idea_version": "IDEAV-ef3b9ffcf3887e9b",
+  "idea_version_started_at": "2026-11-12T14:12:08Z",
   "ticker": "NVDA",
   "company": "Nvidia",
   "exchange": "NASDAQ",
@@ -11,11 +11,11 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "short",
   "pair_with": null,
-  "reason": "Management instability and potential leadership changes create significant execution risk for the company's growth strategy.",
-  "why_now": "Multiple reports on 2026-11-12 indicate the board is actively weighing the CEO's future.",
-  "conviction": 65,
+  "reason": "The potential departure of CEO Jensen Huang amid a deepening scandal creates significant leadership uncertainty and key-man risk for the company's strategic direction.",
+  "why_now": "Multiple reports on 2026-11-12 confirm the board is actively weighing a replacement and searching for a temporary CEO.",
+  "conviction": 75,
   "conviction_basis": "pre_edge_proxy",
-  "trade_score": 74,
+  "trade_score": 77,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 14,
@@ -23,7 +23,7 @@
     "specificity": 15,
     "timing": 10,
     "expression": 7,
-    "corroboration": 7,
+    "corroboration": 10,
     "learning_adjustment": 0
   },
   "trade_readiness": "needs_data",
@@ -46,19 +46,21 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-391a7c65cc58",
-    "EVT-c29c0371754c"
+    "EVT-c29c0371754c",
+    "EVT-52b2fc91ded8",
+    "EVT-c2e4fabdc472"
   ],
-  "primary_source_event_id": "EVT-391a7c65cc58",
+  "primary_source_event_id": "EVT-c29c0371754c",
   "source_headlines": [
-    "Nvidia shares sink 8.6% as second affair report puts Jensen Huang’s job at risk",
-    "FirstFT: Nvidia board weighs Huang’s future as scandal deepens"
+    "FirstFT: Nvidia board weighs Huang’s future as scandal deepens",
+    "Nvidia Board Considers Replacing CEO Jensen Huang",
+    "Nvidia board weighs temporary CEO, starts search for potential replacement after Jensen Huang affairs"
   ],
-  "source_headline": "Nvidia shares sink 8.6% as second affair report puts Jensen Huang’s job at risk",
-  "source_url": "https://gulfnews.com/business/second-affair-steeper-sell-off-nvidia-ceo-jensen-huang-under-fire-1.500744501",
-  "source_name": "Gulf News",
+  "source_headline": "FirstFT: Nvidia board weighs Huang’s future as scandal deepens",
+  "source_url": "https://www.ft.com/content/64198d59-7a03-4f1c-89c6-81ed8bdc5448?syn-25a6b1a6=1",
+  "source_name": "Financial Times",
   "materiality_max": 100,
-  "newest_source_at": "2026-11-12T05:31:16Z",
+  "newest_source_at": "2026-11-12T10:59:00Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
@@ -66,8 +68,8 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-11-07T15:09:40Z",
-  "updated_at": "2026-11-12T11:51:50Z",
-  "decay_at": "2026-11-13T17:31:16Z",
+  "updated_at": "2026-11-12T14:12:08Z",
+  "decay_at": "2026-11-13T22:59:00Z",
   "status": "live",
   "promoted_signal_id": null
 }
