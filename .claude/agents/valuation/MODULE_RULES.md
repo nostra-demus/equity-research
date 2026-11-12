@@ -21,6 +21,7 @@ This module DOES:
 - value the company on its own multiple history, on peer multiples, on intrinsic cash flows (DCF), on a reverse-DCF ("what's priced in"), and on a sum-of-the-parts basis
 - triangulate those methods into bull / base / bear fair-value **levels**
 - state the margin of safety and the implied up/downside
+- assess strategic-pivot execution and a defined rerating-event probability or abstention under Strategic Rerating Assessment below
 
 This module does NOT:
 - assign probabilities to scenarios, compute probability-weighted returns, or compute risk/reward — the **master synthesizer** owns that
@@ -29,6 +30,8 @@ This module does NOT:
 - re-run earnings or business-model work — it consumes those modules' outputs
 
 **Boundary with the master synthesizer (read this twice).** This module produces fair-value *levels* — the answer to "what is it worth." The master synthesizer turns those levels into a *bet* — probabilities, probability-weighted target price, risk/reward, positioning, and the final rating. Produce the levels and the margin of safety; stop there. Do not assign scenario probabilities, do not compute a probability-weighted price target, and do not recommend a position.
+
+The separate rerating-event assessment below does not change that investment-scenario boundary.
 
 ---
 
@@ -60,6 +63,26 @@ This module does NOT:
 When the deck is bullish and the filing is cautious, trust the filing.
 
 ---
+
+## Strategic Rerating Assessment
+
+`08_strategic-rerating` integrates existing business-model, earnings, survival, governance, and valuation
+evidence into a three-pillar pivot assessment: strategic execution, margin/capital efficiency, and legacy
+cannibalization/disruption. It is a separate analytical read, not a sixth valuation method. `07` remains
+the owner of fair-value levels; `99` reconciles any disagreement without changing method weights to count
+`08` as independent corroboration.
+
+The **Rerating Probability Score** is a narrowly defined event probability: a named tradable line meets
+a specified multiple threshold AND operating-quality milestones within a stated horizon. This is the
+only specialist probability here; the master still owns investment-scenario probabilities, weighted
+returns, and position sizing. State its empirical/reference-class/judgment basis, uncertainty, and
+complement. Never derive it by averaging pillar scores or equate it with the master's bull case. Retain
+all existing caps and rejection flags. No evidenced pivot means Not applicable; missing essential pillar
+evidence, a testable event, or a pool-verified price means a numeric probability is Not assessable.
+Neutral due to insufficient evidence must be labelled as such. A positive execution read may still be
+Neutral when already priced in. `99` and the master preserve these qualifications, the event definition,
+horizon, basis, and original milestones at every handoff. Existing runs without `08` stay valid; this
+addition never authorizes editing historical analyses, changing ledger schemas, or launching monitoring.
 
 ## Evidence Citation Format
 

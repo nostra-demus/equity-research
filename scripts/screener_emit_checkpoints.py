@@ -26,7 +26,9 @@ import os
 import re
 import sys
 from datetime import datetime, timedelta, timezone
+from pathlib import Path
 
+from decision_publication_gate import GateError, admit_schema_records, canonical_relative, read_beneath
 from repo_mutation import append_ndjson, atomic_write_json, repository_mutation
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -164,7 +166,7 @@ def parse_count_threshold(text: str):
     return None, "na"
 
 
-def emit_for(rec: dict, mutation) -> str | None:
+def seed_plan(rec: dict) -> tuple | None:
     meta = rec.get("meta", {})
     tid = meta.get("thesis_id")
     if not tid:
@@ -256,9 +258,6 @@ def emit_for(rec: dict, mutation) -> str | None:
         trigger_type="scheduled", cadence=cadence,
         wire_keywords=keywords(m04.get("expiry_condition") or ""))
 
-    for cp in cps:
-        append_ndjson(mutation, APPEND, CHECKPOINTS, cp, "checkpoint_id", cp["checkpoint_id"])
-
     # ---- initial flat conviction_state ----
     state = STATE_FROM_STATUS.get(meta.get("status") or "", "watching")
     nxt = sorted([c for c in cps if c["due_at"]], key=lambda c: c["due_at"])
@@ -282,11 +281,7 @@ def emit_for(rec: dict, mutation) -> str | None:
         "conviction": edge, "sell_side_rating": RATING[state], "triggering_checkpoint_id": None,
         "evidence_refs": [], "plain_note": snap["plain_note"], "event_key": f"{tid}::seed",
     }
-    append_ndjson(mutation, APPEND, TICKS, seed, "event_key", seed["event_key"])
-    # conviction_state is a projection/commit marker, not a source ledger. Publish it whole and only
-    # when absent: re-running the seeder must never reset a thesis that rescore already advanced.
-    atomic_write_json(os.path.join(STATE_DIR, f"{tid}.json"), snap, create_only=True)
-    return tid
+    return tid, cps, seed, snap
 
 
 _INTEGRITY_VER = re.compile(r"thesis_integrity_review(?:_v(\d+))?\.json$")
@@ -308,7 +303,20 @@ def _run_dir_for(rec: dict) -> str | None:
     return os.path.join(RUNS, sig) if sig else None
 
 
-def latest_integrity_routing(rec: dict) -> str | None:
+def consumed_json(filename: str, consumed: dict[str, bytes]):
+    try:
+        relative = Path(filename).relative_to(Path(REPO)).as_posix()
+    except ValueError as error:
+        raise GateError(f"schema input is outside the repository: {filename}") from error
+    canonical_relative(relative, "consumed schema input")
+    payload = read_beneath(Path(REPO), relative)
+    if relative in consumed and consumed[relative] != payload:
+        raise GateError(f"consumed schema input changed during planning: {relative}")
+    consumed[relative] = payload
+    return json.loads(payload)
+
+
+def latest_integrity_routing(rec: dict, consumed: dict[str, bytes]) -> str | None:
     """Routing of the LATEST thesis_integrity_review*.json in the thesis's run folder — the
     adversarial post-lock gate's verdict (base file = v1; _v2/_v3 are append-only re-reviews,
     highest version wins). The thesis-integrity module red-teams a locked provisional/full_machine
@@ -338,7 +346,9 @@ def latest_integrity_routing(rec: dict) -> str | None:
     if not best_path:
         return None  # module never ran / no review on disk — not a rejection
     try:
-        routing = json.load(open(best_path, encoding="utf-8")).get("routing")
+        routing = consumed_json(best_path, consumed).get("routing")
+    except GateError:
+        raise
     except Exception:  # noqa: BLE001
         routing = None
     # A review IS on disk: only an explicit "Proceed" clears the gate. A missing/garbled routing
@@ -346,7 +356,7 @@ def latest_integrity_routing(rec: dict) -> str | None:
     return routing if routing == "Proceed" else (routing or "unreadable_integrity_review")
 
 
-def archive_state(tid: str, routing: str, mutation) -> bool:
+def archive_plan(tid: str, routing: str, consumed: dict[str, bytes]) -> tuple | None:
     """A post-lock terminal integrity review (watchlist_integrity_*) rejects an ALREADY-seeded thesis:
     mark its conviction_state snapshot `archived` so conviction-dispatch stops selecting its checkpoints
     (dueCheckpoints/onWireItem key off `archived`). Without this, skipping re-emission alone leaves the
@@ -357,17 +367,18 @@ def archive_state(tid: str, routing: str, mutation) -> bool:
     deterministic identity binds the terminal routing to the immediately preceding serialized journal
     row. Therefore a crash after the append but before snapshot publication recovers idempotently, an
     older validation retry restores this later archive image, and an explicit restore can be followed by
-    a new archive transaction if the terminal review still stands. Returns True when a snapshot existed
-    and this call changed/recovered its published projection.
+    a new archive transaction if the terminal review still stands. Returns the planned snapshot,
+    optional new journal event, and whether the projection changes; writes wait for batch admission.
     """
     sp = os.path.join(STATE_DIR, f"{tid}.json")
     if not os.path.exists(sp):
-        return False
+        return None
     try:
-        with open(sp, encoding="utf-8") as f:
-            published_snap = json.load(f)
+        published_snap = consumed_json(sp, consumed)
+    except GateError:
+        raise
     except Exception:  # noqa: BLE001
-        return False
+        return None
 
     reason = f"latest thesis-integrity review routed {routing} (terminal)"
     events = [
@@ -406,8 +417,7 @@ def archive_state(tid: str, routing: str, mutation) -> bool:
         if not isinstance(projection, dict) or projection.get("archived") is not True:
             raise RuntimeError(f"terminal integrity event for {tid} has no valid recovery projection")
         changed = published_snap != projection
-        atomic_write_json(sp, projection)
-        return changed
+        return projection, None, changed
 
     predecessor = (json.dumps(latest, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
                    if latest is not None else "no-prior-conviction-event")
@@ -450,9 +460,7 @@ def archive_state(tid: str, routing: str, mutation) -> bool:
     snap["sell_side_rating"] = event["sell_side_rating"]
     snap["edge_score_live"] = event["edge_score_live"]
     event["state_projection"] = snap
-    append_ndjson(mutation, APPEND, TICKS, event, "event_key", event_key)
-    atomic_write_json(sp, snap)
-    return True
+    return snap, event, True
 
 
 def main(argv: list[str]) -> int:
@@ -469,10 +477,14 @@ def main_locked(argv: list[str], mutation) -> int:
     else:
         files = sorted(glob.glob(os.path.join(THESES, "*.json")))
     done = 0
+    consumed: dict[str, bytes] = {}
+    plans = []
+    proposed = []
     for fp in files:
         try:
-            with open(fp, encoding="utf-8") as f:
-                rec = json.load(f)
+            rec = consumed_json(fp, consumed)
+        except GateError:
+            raise
         except Exception as e:  # noqa: BLE001
             print(f"skip {os.path.basename(fp)}: {e}", file=sys.stderr)
             continue
@@ -483,7 +495,7 @@ def main_locked(argv: list[str], mutation) -> int:
         # thesis must not get a live conviction calendar or paid /screener:validate runs — mirror the
         # signal.md step-6 guard here so the backfill path and /screener:validate's "seed if state
         # absent" path can't bypass it (CONVICTION_LOOP.md; CLAUDE.md §24).
-        routing = latest_integrity_routing(rec)
+        routing = latest_integrity_routing(rec, consumed)
         tid0 = rec.get("meta", {}).get("thesis_id")
         status = rec.get("meta", {}).get("status") or ""
         # Fail-closed for an unchecked provisional/full_machine: those statuses MUST have passed the
@@ -496,15 +508,37 @@ def main_locked(argv: list[str], mutation) -> int:
                   f"adversarial gate MUST run before a conviction calendar (fail-closed, §24)", file=sys.stderr)
             continue
         if routing is not None and routing != "Proceed":
-            archived = archive_state(tid0, routing, mutation)
+            archive = archive_plan(tid0, routing, consumed)
+            if archive is not None:
+                snap, event, _ = archive
+                plans.append(("archive", tid0, [], event, snap))
             print(f"skip {tid0}: latest thesis-integrity review routed {routing!r} (terminal) — no "
-                  f"conviction calendar for a rejected thesis"
-                  + ("; archived its existing conviction_state" if archived else ""), file=sys.stderr)
+                  f"conviction calendar for a rejected thesis", file=sys.stderr)
             continue
-        tid = emit_for(rec, mutation)
-        if tid:
+        seed = seed_plan(rec)
+        if seed:
+            tid, cps, event, snap = seed
+            plans.append(("seed", tid, cps, event, snap))
             done += 1
+    # Freeze/judge the entire batch before its first domain mutation, including terminal archive and
+    # journal-recovery images. A malformed later thesis must not leave earlier checkpoint appends.
+    for mode, tid, _, _, snap in plans:
+        filename = os.path.join(STATE_DIR, f"{tid}.json")
+        proposed.append((Path(filename).relative_to(Path(REPO)).as_posix(),
+                         (json.dumps(snap, indent=2, ensure_ascii=False) + "\n").encode()))
+    if consumed or proposed:
+        admit_schema_records(Path(REPO), list(consumed.items()), proposed=proposed)
+    for mode, tid, cps, event, snap in plans:
+        for cp in cps:
+            append_ndjson(mutation, APPEND, CHECKPOINTS, cp, "checkpoint_id", cp["checkpoint_id"])
+        if event is not None:
+            append_ndjson(mutation, APPEND, TICKS, event, "event_key", event["event_key"])
+        # Existing seeded state remains untouched; archive/recovery replaces its complete projection.
+        atomic_write_json(os.path.join(STATE_DIR, f"{tid}.json"), snap, create_only=mode == "seed")
+        if mode == "seed":
             print(f"emitted checkpoints + state for {tid}")
+        else:
+            print(f"archived/recovered conviction_state for {tid}", file=sys.stderr)
     print(f"done — {done} thesis(es)")
     return 0
 

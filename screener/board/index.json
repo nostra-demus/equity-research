@@ -1,6 +1,110 @@
 {
-  "generated_at": "2026-11-12T15:25:42Z",
+  "generated_at": "2026-11-12T17:51:45Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261112-874",
+      "headline": "Elevate Campuses Limited: Monitoring Agency Report pursuant to Regulation 32 of Securities and Exchange Board of India (Listing Obligations and Disclosure Requirements) Regulations, 2015",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/ELEVATE_12112026212458_SE_Intimation_Monitoring_Agency_Signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-12T15:55:38Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Regulatory monitoring-agency report filed per SEBI LODR Reg 32 indicates the company is under official oversight for solvency, covenant, or asset-quality issues, altering refinancing risk and capital structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Regulatory monitoring-agency report filed per SEBI LODR Reg 32 indicates the company is under official oversight for solvency, covenant, or asset-quality issues, altering refinancing risk and capital structure.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Elevate Campuses Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-858",
+      "headline": "SCHEDULE 13G - Ayrton Capital LLC (0001698148) (Filed by)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1698148/000149315226051279/0001493152-26-051279-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-12T15:38:02Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "The NCLT admitted Bank of Baroda's plea against Alfara'a Infraprojects guarantor over a ₹2,957-crore default.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The NCLT admitted Bank of Baroda's plea against Alfara'a Infraprojects guarantor over a ₹2,957-crore default.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Alfara'a Infraprojects",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Bank Of Baroda",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261112-821",
       "headline": "COASTAL GL (01124): JOINT ANNOUNCEMENT (I) MANDATORY CONDITIONAL CASH OFFER BY QUAM SECURITIES LIMITED FOR AND ON BEHALF OF DEEP WATER STRATEGY LIMITED TO ACQUIRE ALL THE ISSUED SHARES OF COASTAL GREENLAND LIMITED (OTHER THAN THOSE ALREADY OWNED OR AGREED TO BE ACQUIRED BY DEEP WATER STRATEGY LIMITED AND MR. CAO AND PARTIES ACTING IN CONCERT WITH ANY OF THEM); AND (II) RESUMPTION OF TRADING",
@@ -194,6 +298,104 @@
         {
           "name": "CHI ECO LAND MT",
           "ticker": "08507",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-934",
+      "headline": "425 - Astrum Space Inc (0002152106) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/2152106/000121390026118405/0001213900-26-118405-index.htm",
+      "source_name": "SEC EDGAR — Latest 425 (M&A Business-Combination Communications)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-11-12T12:53:04Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Form 425 filings are used for communications related to business combinations, indicating a potential M&A event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Form 425 filings are used for communications related to business combinations, indicating a potential M&A event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Astrum Space Inc",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-936",
+      "headline": "NEW CONCEPTS (02221): INSIDE INFORMATION POSITIVE PROFIT ALERT TURNAROUND FROM LOSS TO PROFIT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1112/2026111201398.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-12T12:45:00Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "A profit alert indicating a turnaround from loss to profit is a significant event that can impact investor expectations and stock price.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A profit alert indicating a turnaround from loss to profit is a significant event that can impact investor expectations and stock price.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NEW CONCEPTS",
+          "ticker": "02221",
           "listing_country": "CN"
         }
       ],
@@ -1036,6 +1238,452 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261112-919",
+      "headline": "Jensen Huang resigns as Nvidia chief after alleged second affair",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/technology/artificial-intelligence/jensen-huang-resigns-as-nvidia-chief-after-alleged-second-affair",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T17:16:24Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Jensen Huang has resigned as CEO of Nvidia, a major leadership change for a mega-cap company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Jensen Huang has resigned as CEO of Nvidia, a major leadership change for a mega-cap company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-908",
+      "headline": "Children’s Place closing all its stores in Chapter 11 bankruptcy",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/retail/childrens-place-closing-all-its-stores-in-chapter-11-bankruptcy",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T16:43:29Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "The Children's Place is filing for Chapter 11 bankruptcy and closing all stores.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The Children's Place is filing for Chapter 11 bankruptcy and closing all stores.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "The Children's Place",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-909",
+      "headline": "Nvidia CEO Jensen Huang resigns amid Chinese spy scandal",
+      "headline_en": null,
+      "url": "https://www.cbsnews.com/video/nvidia-ceo-jensen-huang-resigns-amid-chinese-spy-scandal/",
+      "source_name": "CBS MoneyWatch",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T16:32:23Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Nvidia CEO Jensen Huang has resigned, a major leadership event for a mega-cap company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia CEO Jensen Huang has resigned, a major leadership event for a mega-cap company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-865",
+      "headline": "Nvidia stock pares morning losses after CEO Jensen Huang announces resignation",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/11/12/nvidia-nvda-jensen-huang-second-affair.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T16:23:35Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Confirmed resignation of the CEO of a mega-cap company is a critical event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Confirmed resignation of the CEO of a mega-cap company is a critical event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-932",
+      "headline": "Jensen Huang Resigns From Nvidia—Trump Says Tim Cook Should Replace Him",
+      "headline_en": null,
+      "url": "https://www.forbes.com/sites/maryroeloffs/2026/11/12/jensen-huang-resigns-from-nvidia-trump-says-tim-cook-should-replace-him/",
+      "source_name": "Forbes",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T16:13:43Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "The resignation of a high-profile CEO like Jensen Huang from Nvidia would be a major corporate event with significant market impact.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The resignation of a high-profile CEO like Jensen Huang from Nvidia would be a major corporate event with significant market impact.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-862",
+      "headline": "Nvidia default risk nears record high as board weighs CEO’s fate",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/nvidia-default-risk-nears-record-high-as-board-weighs-ceos-fate/articleshow/135775893.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T16:00:02Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Reports of record high default risk and board-level instability at a mega-cap company are highly material.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Reports of record high default risk and board-level instability at a mega-cap company are highly material.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "default_distress",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-853",
+      "headline": "Nvidia turns to CFO Colette Kress to steady ship after Jensen Huang exit",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/people/nvidia-turns-to-cfo-colette-kress-to-steady-ship-after-jensen-huang-exit-11794498763925.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T15:58:40Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "CFO Colette Kress takes over leadership following the sudden exit of founder-CEO Jensen Huang.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CFO Colette Kress takes over leadership following the sudden exit of founder-CEO Jensen Huang.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 95,
+      "rank_factors": {
+        "materiality": 95,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management",
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-854",
+      "headline": "Jensen Huang resigns: Meet the Nvidia board members who decided his fate after affair reports",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/people/jensen-huang-resigns-meet-the-nvidia-board-members-who-decided-his-fate-after-affair-reports-11794497815725.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T15:57:07Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Founder Jensen Huang resigns from Nvidia following reports of an affair, a major leadership crisis for the world's most valuable company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Founder Jensen Huang resigns from Nvidia following reports of an affair, a major leadership crisis for the world's most valuable company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 98,
+      "rank_factors": {
+        "materiality": 98,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-889",
+      "headline": "Nvidia Hit By Seven Downgrades In 24 Hours As Jensen Huang's Exit Rattles Wall Street",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/nvidia-hit-by-seven-downgrades-in-24-hours-as-jensen-huangs-exit-rattles-wall-street-12318623#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T15:06:46Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Nvidia received seven analyst downgrades following the exit of CEO Jensen Huang.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia received seven analyst downgrades following the exit of CEO Jensen Huang.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "credit_rating_downgrade",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "credit_rating_downgrade",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261112-835",
       "headline": "Jensen Huang Has Been Ousted as Nvidia CEO",
       "headline_en": null,
@@ -1184,6 +1832,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261112-875",
+      "headline": "Vodafone Idea Q2 Results: ARPU Hits Rs 198, Revenue Up Slightly, But Losses Balloon To Rs 5,975 Crore",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/vodafone-idea-q2-results-arpu-hits-rs-198-revenue-up-slightly-but-losses-balloon-to-rs-5-975-crore-12318273#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T14:57:20Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Vodafone Idea reported a net loss of Rs 5,975 crore for Q2.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Vodafone Idea reported a net loss of Rs 5,975 crore for Q2.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vodafone Idea",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261112-844",
       "headline": "Wall Street opens lower after Nvidia CEO Jensen Huang steps down",
       "headline_en": null,
@@ -1233,707 +1930,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261112-834",
-      "headline": "Nvidia stock falls nearly 10% as CEO Jensen Huang announces resignation",
+      "inbox_id": "INB-20261112-878",
+      "headline": "Jensen Huang Resigns as Nvidia CEO, With CFO Colette Kress Named Interim Chief",
       "headline_en": null,
-      "url": "https://www.cnbc.com/2026/11/12/nvidia-nvda-jensen-huang-second-affair.html",
-      "source_name": "CNBC",
+      "url": "https://decrypt.co/383134/jensen-huang-resigns-as-nvidia-ceo-with-cfo-colette-kress-named-interim-chief",
+      "source_name": "Decrypt — Crypto News",
       "input_nature": "news_headline",
-      "found_at": "2026-11-12T14:39:34Z",
+      "found_at": "2026-11-12T14:44:39Z",
       "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Nvidia stock fell nearly 10% as CEO Jensen Huang announced his resignation.",
+      "prelim_note": "Jensen Huang has resigned as CEO of Nvidia.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Nvidia stock fell nearly 10% as CEO Jensen Huang announced his resignation.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-818",
-      "headline": "Nvidia CEO resigns amid scandal; CFO named interim",
-      "headline_en": null,
-      "url": "https://www.cfodive.com/news/nvidia-ceo-resigns-scandal-cfo-named-interim-ceo-ai/874479/",
-      "source_name": "CFO Dive",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T14:17:33Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "CEO resigns amid scandal, with CFO named interim.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "CEO resigns amid scandal, with CFO named interim.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-781",
-      "headline": "Huang resigns as Nvidia shares plunge again",
-      "headline_en": null,
-      "url": "https://www.afr.com/politics/federal/australia-news-live-updates-nvidia-shares-plunge-again-as-default-risk-nears-record-high-20261113-p61dtm?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T14:05:31Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "CEO resignation of a mega-cap company is a major event affecting leadership and market valuation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "CEO resignation of a mega-cap company is a major event affecting leadership and market valuation.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-769",
-      "headline": "NVIDIA CEO Jensen Huang resigns; Colette Kress to lead company for now",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/technology/nvidia-ceo-jensen-huang-resigns-with-immediate-effect-cfo-colette-kress-named-interim-chief-20032811.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T14:04:23Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "CEO resignation of a mega-cap company is a major event affecting leadership and market valuation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "CEO resignation of a mega-cap company is a major event affecting leadership and market valuation.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-787",
-      "headline": "Nvidia boss Jensen Huang resigns and shares plunge 10% - taking losses this week to $730bn",
-      "headline_en": null,
-      "url": "https://www.thisismoney.co.uk/money/markets/article-16286281/Nvidia-shares-plunge-9-board-looks-set-oust-boss-affairs-taking-losses-week-640bn.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
-      "source_name": "This is Money (Daily Mail) — Markets",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T14:02:32Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "The resignation of a key CEO of a mega-cap company is a material event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The resignation of a key CEO of a mega-cap company is a material event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 95,
-      "rank_factors": {
-        "materiality": 95,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-767",
-      "headline": "Nvidia CEO Jensen Huang to step down in big blow to AI boom",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/people/nvidia-ceo-jensen-huang-to-step-down-in-big-blow-to-ai-boom-11794491910708.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T14:00:18Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "CEO resignation of a mega-cap company is a major event affecting leadership and market valuation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "CEO resignation of a mega-cap company is a major event affecting leadership and market valuation.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-778",
-      "headline": "Nvidia CEO Jensen Huang resigns as CEO in the wake of multiple affairs, Chinese spy allegations",
-      "headline_en": null,
-      "url": "https://www.tomshardware.com/tech-industry/nvidia-confirms-jensen-huang-has-resigned-as-ceo-colette-kress-executive-vice-president-and-chief-financial-officer-appointed-interim-ceo",
-      "source_name": "Tom's Hardware",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T13:58:41Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "CEO resignation of a mega-cap company is a major event affecting leadership and market valuation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "CEO resignation of a mega-cap company is a major event affecting leadership and market valuation.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-756",
-      "headline": "Nvidia CEO Jensen Huang resigns over scandal and is replaced by CFO Colette Kress on interim basis – follow live",
-      "headline_en": null,
-      "url": "https://www.theguardian.com/technology/live/2026/nov/12/nvidia-ceo-jensen-huang-affairs-share-price-plunges-live-latest",
-      "source_name": "The Guardian — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T13:57:26Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Founder CEO Jensen Huang resigns over personal scandal; CFO Colette Kress assumes interim CEO role, creating management continuity and governance credibility risk at mega-cap AI chipmaker.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Founder CEO Jensen Huang resigns over personal scandal; CFO Colette Kress assumes interim CEO role, creating management continuity and governance credibility risk at mega-cap AI chipmaker.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 88,
-      "rank_factors": {
-        "materiality": 88,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit",
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": "NVDA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-768",
-      "headline": "Nvidia CEO Jensen Huang resigns, tech giant appoints Colette Kress as Interim CEO",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/nvidia-ceo-jensen-huang-resigns-tech-giant-appoints-colette-kress-as-interim-ceo-report-11794491647631.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T13:55:53Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "CEO resignation of a mega-cap company is a major event affecting leadership and market valuation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "CEO resignation of a mega-cap company is a major event affecting leadership and market valuation.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-764",
-      "headline": "Nvidia set to lose over $600 billion as CEO faces possible ouster",
-      "headline_en": null,
-      "url": "https://www.cbsnews.com/news/nvidia-stock-nvda-ceo-jensen-huang/",
-      "source_name": "CBS MoneyWatch",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T13:51:59Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "CEO resignation of a mega-cap company is a major event affecting leadership and market valuation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "CEO resignation of a mega-cap company is a major event affecting leadership and market valuation.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-785",
-      "headline": "Huang, Face of the AI Boom, Ousted by Nvidia Board as CEO",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-12/jensen-huang-face-of-the-ai-boom-ousted-by-nvidia-board-as-ceo",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T13:50:41Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "CEO resignation of a mega-cap company is a major event affecting leadership and market valuation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "CEO resignation of a mega-cap company is a major event affecting leadership and market valuation.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-838",
-      "headline": "Nvidia CEO Jensen Huang resigns after affair raises national security concerns",
-      "headline_en": null,
-      "url": "https://www.cbc.ca/news/business/nvidia-ceo-huang-9.7418736?cmp=rss",
-      "source_name": "CBC — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T13:14:13Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Nvidia CEO Jensen Huang has resigned following a scandal, representing a critical leadership change.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia CEO Jensen Huang has resigned following a scandal, representing a critical leadership change.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": "NVDA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-793",
-      "headline": "Nvidia CEO Jensen Huang ousted as CEO, company says CFO to lead on interim basis",
-      "headline_en": null,
-      "url": "https://www.cbc.ca/news/business/nvidia-ceo-huang-9.7418736?cmp=rss",
-      "source_name": "CBC — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T13:14:13Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "The ousting of a key CEO of a mega-cap company is a material event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The ousting of a key CEO of a mega-cap company is a material event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 95,
-      "rank_factors": {
-        "materiality": 95,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-701",
-      "headline": "Nvidia Default Risk Nears Record High as Board Weighs CEO’s Fate",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-12/nvidia-default-risk-nears-record-high-as-board-weighs-ceo-s-fate",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T12:53:17Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Nvidia faces record high default risk amid board uncertainty regarding the CEO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia faces record high default risk amid board uncertainty regarding the CEO.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": "NVDA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-659",
-      "headline": "The Morning Risk Report: Nvidia is Preparing to Oust CEO Jensen Huang",
-      "headline_en": null,
-      "url": "https://www.wsj.com/risk-compliance-journal/the-morning-risk-report-nvidia-is-preparing-to-oust-ceo-jensen-huang-324bfbd1?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T12:29:00Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Reported potential ousting of CEO Jensen Huang represents a major management risk for a mega-cap company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Reported potential ousting of CEO Jensen Huang represents a major management risk for a mega-cap company.",
+      "triage_reason": "Jensen Huang has resigned as CEO of Nvidia.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 85,
@@ -1943,7 +1953,7 @@
         "scope": 6,
         "event": 5,
         "size": 2,
-        "recency": 5,
+        "recency": 4,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
@@ -233612,22 +233622,22 @@
   "ideas": [
     {
       "idea_id": "IDEA-50f379c78b21",
-      "idea_version": "IDEAV-ef3b9ffcf3887e9b",
-      "idea_version_started_at": "2026-11-12T14:12:08Z",
+      "idea_version": "IDEAV-3cb14052b151b224",
+      "idea_version_started_at": "2026-11-12T17:06:09Z",
       "ticker": "NVDA",
       "company": "Nvidia",
       "exchange": "NASDAQ",
       "direction": "short",
       "pair_with": null,
-      "reason": "The potential departure of CEO Jensen Huang amid a deepening scandal creates significant leadership uncertainty and key-man risk for the company's strategic direction.",
-      "why_now": "Multiple reports on 2026-11-12 confirm the board is actively weighing a replacement and searching for a temporary CEO.",
-      "conviction": 75,
+      "reason": "The sudden resignation of Jensen Huang, the architect of Nvidia's AI strategy, creates significant leadership uncertainty and potential strategic drift during a critical period for the company's growth.",
+      "why_now": "The resignation was announced today, November 12, 2026, triggering an immediate and sharp decline in share price.",
+      "conviction": 85,
       "conviction_basis": "pre_edge_proxy",
-      "trade_score": 77,
+      "trade_score": 80,
       "trade_score_basis": "event_driven_v3",
       "trade_score_breakdown": {
         "evidence": 14,
-        "impact": 21,
+        "impact": 24,
         "specificity": 15,
         "timing": 10,
         "expression": 7,
@@ -233654,21 +233664,26 @@
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
-        "EVT-c29c0371754c",
-        "EVT-52b2fc91ded8",
-        "EVT-c2e4fabdc472"
+        "EVT-27f4c66804d9",
+        "EVT-37dae785d262",
+        "EVT-ac0157da8a0c",
+        "EVT-d3c6a1ee99be",
+        "EVT-5bc8b7886bc7",
+        "EVT-6416f70b4e5f",
+        "EVT-6e15b8b611af"
       ],
-      "primary_source_event_id": "EVT-c29c0371754c",
+      "primary_source_event_id": "EVT-27f4c66804d9",
       "source_headlines": [
-        "FirstFT: Nvidia board weighs Huang’s future as scandal deepens",
-        "Nvidia Board Considers Replacing CEO Jensen Huang",
-        "Nvidia board weighs temporary CEO, starts search for potential replacement after Jensen Huang affairs"
+        "Huang resigns as Nvidia shares plunge again",
+        "NVIDIA CEO Jensen Huang resigns; Colette Kress to lead company for now",
+        "Nvidia CEO Jensen Huang to step down in big blow to AI boom",
+        "Nvidia boss Jensen Huang resigns and shares plunge 10% - taking losses this week to $730bn"
       ],
-      "source_headline": "FirstFT: Nvidia board weighs Huang’s future as scandal deepens",
-      "source_url": "https://www.ft.com/content/64198d59-7a03-4f1c-89c6-81ed8bdc5448?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
+      "source_headline": "Huang resigns as Nvidia shares plunge again",
+      "source_url": "https://www.afr.com/politics/federal/australia-news-live-updates-nvidia-shares-plunge-again-as-default-risk-nears-record-high-20261113-p61dtm?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
       "materiality_max": 100,
-      "newest_source_at": "2026-11-12T10:59:00Z",
+      "newest_source_at": "2026-11-12T15:04:00Z",
       "prior_coverage": {
         "has_run": false,
         "latest_run": null,
@@ -233676,8 +233691,8 @@
         "data_pool_present": false
       },
       "surfaced_at": "2026-11-07T15:09:40Z",
-      "updated_at": "2026-11-12T14:12:08Z",
-      "decay_at": "2026-11-13T22:59:00Z",
+      "updated_at": "2026-11-12T17:06:09Z",
+      "decay_at": "2026-11-14T03:04:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -234590,6 +234605,148 @@
       "surfaced_at": "2026-11-12T12:14:16Z",
       "updated_at": "2026-11-12T12:14:16Z",
       "decay_at": "2026-11-13T21:12:50Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-31ac6088f15f",
+      "idea_version": "IDEAV-9fb9aceec602a756",
+      "idea_version_started_at": "2026-11-12T16:29:30Z",
+      "ticker": "00922",
+      "company": "Anxianyuan China",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company issued a positive profit alert, indicating stronger-than-expected earnings growth.",
+      "why_now": "The positive profit alert was filed on 2026-11-12.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6d46457b612f"
+      ],
+      "primary_source_event_id": "EVT-6d46457b612f",
+      "source_headlines": [
+        "ANXIANYUAN CH (00922): POSITIVE PROFIT ALERT"
+      ],
+      "source_headline": "ANXIANYUAN CH (00922): POSITIVE PROFIT ALERT",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1112/2026111201118.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-12T11:08:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-12T16:29:30Z",
+      "updated_at": "2026-11-12T16:29:30Z",
+      "decay_at": "2026-11-13T23:08:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-5880efc59f2d",
+      "idea_version": "IDEAV-75d5d0ba16547141",
+      "idea_version_started_at": "2026-11-12T16:29:30Z",
+      "ticker": "08507",
+      "company": "Chi Eco Land Mt",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a profit warning, signaling deteriorating financial performance and potential margin compression.",
+      "why_now": "The profit warning was filed on 2026-11-12.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e6f994dbaef2"
+      ],
+      "primary_source_event_id": "EVT-e6f994dbaef2",
+      "source_headlines": [
+        "CHI ECO LAND MT (08507): PROFIT WARNING"
+      ],
+      "source_headline": "CHI ECO LAND MT (08507): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1112/2026111201452.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-12T13:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-12T16:29:30Z",
+      "updated_at": "2026-11-12T16:29:30Z",
+      "decay_at": "2026-11-14T01:00:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -236033,293 +236190,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-044dc4e9fa5c",
-      "idea_version": "IDEAV-5951286fe5cddfd6",
-      "idea_version_started_at": "2026-11-11T06:27:58Z",
-      "ticker": "MMC",
-      "company": "Marsh & McLennan",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of Wilshire expands Marsh's footprint in investment advisory and data analytics, providing a new revenue stream in the financial services sector.",
-      "why_now": "The acquisition was announced today, November 11, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4f1c57b80817"
-      ],
-      "primary_source_event_id": "EVT-4f1c57b80817",
-      "source_headlines": [
-        "Marsh Agrees To Acquire Wilshire From CC Capital And Motive Partners"
-      ],
-      "source_headline": "Marsh Agrees To Acquire Wilshire From CC Capital And Motive Partners",
-      "source_url": "https://www.nasdaq.com/articles/marsh-agrees-acquire-wilshire-cc-capital-and-motive-partners",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-11T05:35:32Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-11T06:27:58Z",
-      "updated_at": "2026-11-11T06:27:58Z",
-      "decay_at": "2026-11-12T17:35:32Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-9be75c57aef2",
-      "idea_version": "IDEAV-55a01b1349106395",
-      "idea_version_started_at": "2026-11-11T06:27:58Z",
-      "ticker": "COCHINSHIP",
-      "company": "Cochin Shipyard",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company reported a 50% decline in Q2 profit, signaling significant margin compression and operational headwinds in its core defense shipbuilding business.",
-      "why_now": "The earnings release occurred today, November 11, 2026, and the stock is currently reacting to the negative surprise.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0cdd739dc3be"
-      ],
-      "primary_source_event_id": "EVT-0cdd739dc3be",
-      "source_headlines": [
-        "Cochin Shipyard shares crash 8%: Defence PSU stock Q2 profit drops 50% but declares ₹3 dividend- Still a stock to buy?"
-      ],
-      "source_headline": "Cochin Shipyard shares crash 8%: Defence PSU stock Q2 profit drops 50% but declares ₹3 dividend- Still a stock to buy?",
-      "source_url": "https://www.livemint.com/market/stock-market-news/cochin-shipyard-shares-crash-8-defence-psu-stock-q2-profit-drops-50-but-declares-rs-3-dividend-still-a-stock-to-buy-11794370626964.html",
-      "source_name": "Mint",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-11T04:38:24Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-10T11:30:45Z",
-      "updated_at": "2026-11-11T06:27:58Z",
-      "decay_at": "2026-11-12T16:38:24Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-8e6545d55d5f",
-      "idea_version": "IDEAV-521e07ad18a04557",
-      "idea_version_started_at": "2026-11-11T05:44:55Z",
-      "ticker": "02256",
-      "company": "Abbisko Therapeutics",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "FDA approval of pimicotinib for tenosynovial giant cell tumor (TGCT) validates the company's lead drug candidate and opens a significant commercial revenue stream in the U.S. market.",
-      "why_now": "The regulatory approval was announced on November 11, 2026.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2967d36dc001"
-      ],
-      "primary_source_event_id": "EVT-2967d36dc001",
-      "source_headlines": [
-        "ABBISKO-B (02256): INSIDE INFORMATION - PIMJETMI (pimicotinib) Receive U.S. FDA Approval for TGCT"
-      ],
-      "source_headline": "ABBISKO-B (02256): INSIDE INFORMATION - PIMJETMI (pimicotinib) Receive U.S. FDA Approval for TGCT",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1111/2026111100175.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-11T04:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-11T05:44:55Z",
-      "updated_at": "2026-11-11T05:44:55Z",
-      "decay_at": "2026-11-12T16:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-3e0ccff47789",
-      "idea_version": "IDEAV-0acad24986e16db6",
-      "idea_version_started_at": "2026-11-11T05:44:55Z",
-      "ticker": "MMFORGING",
-      "company": "MM Forgings",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company raised its FY27 revenue guidance to over ₹2,000 crore, signaling stronger-than-anticipated demand or improved operational capacity.",
-      "why_now": "The guidance update was released on November 11, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c013dcad6497"
-      ],
-      "primary_source_event_id": "EVT-c013dcad6497",
-      "source_headlines": [
-        "MM Forgings raises FY27 revenue target to over ₹2,000 crore"
-      ],
-      "source_headline": "MM Forgings raises FY27 revenue target to over ₹2,000 crore",
-      "source_url": "https://www.cnbctv18.com/market/earnings/mm-forgings-q2-results-revenue-target-2000-crore-volume-outlook-alpha-article-20031166.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 93,
-      "newest_source_at": "2026-11-11T04:31:51Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-11T05:44:55Z",
-      "updated_at": "2026-11-11T05:44:55Z",
-      "decay_at": "2026-11-12T16:31:51Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-996ced4a593f",
       "idea_version": "IDEAV-e3d62da7f720e495",
       "idea_version_started_at": "2026-11-10T09:55:29Z",
@@ -236598,76 +236468,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-52cfc7fb7402",
-      "idea_version": "IDEAV-d33178bd7b708f8a",
-      "idea_version_started_at": "2026-11-09T18:48:10Z",
-      "ticker": "NRG",
-      "company": "NRG Energy, Inc.",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "NRG Energy reported strong Q3 2026 results, announced a significant $4 billion asset sale, and initiated positive 2027 guidance, which should improve its financial outlook.",
-      "why_now": "The company released its Q3 results, asset sale announcement, and 2027 guidance today, November 9, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1f21f56fcf35"
-      ],
-      "primary_source_event_id": "EVT-1f21f56fcf35",
-      "source_headlines": [
-        "NRG Energy, Inc. Reports Third Quarter 2026 Results, Announces $4 billion Asset Sale, and Initiates 2027 Guidance"
-      ],
-      "source_headline": "NRG Energy, Inc. Reports Third Quarter 2026 Results, Announces $4 billion Asset Sale, and Initiates 2027 Guidance",
-      "source_url": "https://www.nasdaq.com/articles/nrg-energy-inc-reports-third-quarter-2026-results-announces-4-billion-asset-sale-and",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-09T14:32:26Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-09T17:16:12Z",
-      "updated_at": "2026-11-09T18:48:10Z",
-      "decay_at": "2026-11-11T02:32:26Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-99a574f2e453",
       "idea_version": "IDEAV-2b2f94acbab81903",
       "idea_version_started_at": "2026-11-09T18:28:29Z",
@@ -236808,76 +236608,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-d488a32dbbf5",
-      "idea_version": "IDEAV-28c31f4a623f8c99",
-      "idea_version_started_at": "2026-11-09T18:48:10Z",
-      "ticker": "RY",
-      "company": "Royal Bank of Canada",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Royal Bank of Canada is expanding its asset management business through the acquisition of Australia's Yarra Capital Management, which could contribute to future revenue growth.",
-      "why_now": "RBC signed the deal to acquire Yarra Capital Management today, November 9, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4b41422e3e6e"
-      ],
-      "primary_source_event_id": "EVT-4b41422e3e6e",
-      "source_headlines": [
-        "RBC signs deal to buy Australia’s Yarra Capital Management"
-      ],
-      "source_headline": "RBC signs deal to buy Australia’s Yarra Capital Management",
-      "source_url": "https://www.theglobeandmail.com/business/article-rbc-signs-deal-to-buy-australias-yarra-capital-management/",
-      "source_name": "The Globe and Mail",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-09T15:26:27Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-09T18:48:10Z",
-      "updated_at": "2026-11-09T18:48:10Z",
-      "decay_at": "2026-11-11T03:26:27Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-761bc81c97ac",
       "idea_version": "IDEAV-4b7534505bbe9318",
       "idea_version_started_at": "2026-11-09T18:28:29Z",
@@ -236942,76 +236672,6 @@
       "surfaced_at": "2026-11-09T18:28:29Z",
       "updated_at": "2026-11-09T18:28:29Z",
       "decay_at": "2026-11-11T05:41:53Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-458b3d1bfac2",
-      "idea_version": "IDEAV-87f5e3d2d1e772bb",
-      "idea_version_started_at": "2026-11-09T17:33:24Z",
-      "ticker": "IONS",
-      "company": "Ionis Pharmaceuticals",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company reported third-quarter results and explicitly lowered guidance for its key product, TRYNGOLZA, indicating a negative revision to revenue expectations.",
-      "why_now": "The guidance cut was announced on November 9, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-89274314e199"
-      ],
-      "primary_source_event_id": "EVT-89274314e199",
-      "source_headlines": [
-        "Ionis Pharmaceuticals Reports Third Quarter 2026 Financial Results and Lowers TRYNGOLZA Guidance"
-      ],
-      "source_headline": "Ionis Pharmaceuticals Reports Third Quarter 2026 Financial Results and Lowers TRYNGOLZA Guidance",
-      "source_url": "https://www.nasdaq.com/articles/ionis-pharmaceuticals-reports-third-quarter-2026-financial-results-and-lowers-tryngolza",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-09T15:32:02Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-09T17:33:24Z",
-      "updated_at": "2026-11-09T17:33:24Z",
-      "decay_at": "2026-11-11T03:32:02Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -237438,76 +237098,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-209357b6f242",
-      "idea_version": "IDEAV-6c60f2f4403ec4e9",
-      "idea_version_started_at": "2026-11-09T18:28:29Z",
-      "ticker": "TGTX",
-      "company": "TG Therapeutics",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported third-quarter results and raised its full-year revenue guidance, indicating stronger-than-anticipated product uptake.",
-      "why_now": "The guidance increase was reported on November 9, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 64,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a7fa36267c9e"
-      ],
-      "primary_source_event_id": "EVT-a7fa36267c9e",
-      "source_headlines": [
-        "TG Therapeutics Reports Third Quarter 2026 Financial Results and Raises Full-Year Revenue Guidance"
-      ],
-      "source_headline": "TG Therapeutics Reports Third Quarter 2026 Financial Results and Raises Full-Year Revenue Guidance",
-      "source_url": "https://www.nasdaq.com/articles/tg-therapeutics-reports-third-quarter-2026-financial-results-and-raises-full-year-revenue",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-09T16:12:08Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-09T18:28:29Z",
-      "updated_at": "2026-11-09T18:28:29Z",
-      "decay_at": "2026-11-11T04:12:08Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-2e5391db32b6",
       "idea_version": "IDEAV-93da71797e2a0728",
       "idea_version_started_at": "2026-11-11T03:59:14Z",
@@ -237856,6 +237446,221 @@
       "surfaced_at": "2026-11-11T08:18:47Z",
       "updated_at": "2026-11-11T08:18:47Z",
       "decay_at": "2026-11-12T15:21:06Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-044dc4e9fa5c",
+      "idea_version": "IDEAV-5951286fe5cddfd6",
+      "idea_version_started_at": "2026-11-11T06:27:58Z",
+      "ticker": "MMC",
+      "company": "Marsh & McLennan",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The acquisition of Wilshire expands Marsh's footprint in investment advisory and data analytics, providing a new revenue stream in the financial services sector.",
+      "why_now": "The acquisition was announced today, November 11, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4f1c57b80817"
+      ],
+      "primary_source_event_id": "EVT-4f1c57b80817",
+      "source_headlines": [
+        "Marsh Agrees To Acquire Wilshire From CC Capital And Motive Partners"
+      ],
+      "source_headline": "Marsh Agrees To Acquire Wilshire From CC Capital And Motive Partners",
+      "source_url": "https://www.nasdaq.com/articles/marsh-agrees-acquire-wilshire-cc-capital-and-motive-partners",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-11T05:35:32Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-11T06:27:58Z",
+      "updated_at": "2026-11-11T06:27:58Z",
+      "decay_at": "2026-11-12T17:35:32Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-9be75c57aef2",
+      "idea_version": "IDEAV-55a01b1349106395",
+      "idea_version_started_at": "2026-11-11T06:27:58Z",
+      "ticker": "COCHINSHIP",
+      "company": "Cochin Shipyard",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company reported a 50% decline in Q2 profit, signaling significant margin compression and operational headwinds in its core defense shipbuilding business.",
+      "why_now": "The earnings release occurred today, November 11, 2026, and the stock is currently reacting to the negative surprise.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0cdd739dc3be"
+      ],
+      "primary_source_event_id": "EVT-0cdd739dc3be",
+      "source_headlines": [
+        "Cochin Shipyard shares crash 8%: Defence PSU stock Q2 profit drops 50% but declares ₹3 dividend- Still a stock to buy?"
+      ],
+      "source_headline": "Cochin Shipyard shares crash 8%: Defence PSU stock Q2 profit drops 50% but declares ₹3 dividend- Still a stock to buy?",
+      "source_url": "https://www.livemint.com/market/stock-market-news/cochin-shipyard-shares-crash-8-defence-psu-stock-q2-profit-drops-50-but-declares-rs-3-dividend-still-a-stock-to-buy-11794370626964.html",
+      "source_name": "Mint",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-11T04:38:24Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-10T11:30:45Z",
+      "updated_at": "2026-11-11T06:27:58Z",
+      "decay_at": "2026-11-12T16:38:24Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-8e6545d55d5f",
+      "idea_version": "IDEAV-521e07ad18a04557",
+      "idea_version_started_at": "2026-11-11T05:44:55Z",
+      "ticker": "02256",
+      "company": "Abbisko Therapeutics",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "FDA approval of pimicotinib for tenosynovial giant cell tumor (TGCT) validates the company's lead drug candidate and opens a significant commercial revenue stream in the U.S. market.",
+      "why_now": "The regulatory approval was announced on November 11, 2026.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2967d36dc001"
+      ],
+      "primary_source_event_id": "EVT-2967d36dc001",
+      "source_headlines": [
+        "ABBISKO-B (02256): INSIDE INFORMATION - PIMJETMI (pimicotinib) Receive U.S. FDA Approval for TGCT"
+      ],
+      "source_headline": "ABBISKO-B (02256): INSIDE INFORMATION - PIMJETMI (pimicotinib) Receive U.S. FDA Approval for TGCT",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1111/2026111100175.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-11T04:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-11T05:44:55Z",
+      "updated_at": "2026-11-11T05:44:55Z",
+      "decay_at": "2026-11-12T16:00:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -239146,77 +238951,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-67edac5436ac",
-      "idea_version": "IDEAV-6e845f14ba205c1f",
-      "idea_version_started_at": "2026-11-09T18:28:29Z",
-      "ticker": "IVG",
-      "company": "Iveco Group N.V.",
-      "exchange": "EXM",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Tata Motors has initiated a voluntary tender offer for all common shares of Iveco Group, providing a floor and potential premium for shareholders.",
-      "why_now": "The tender offer was announced via exchange filing on November 9, 2026.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-747ea2dbfa37"
-      ],
-      "primary_source_event_id": "EVT-747ea2dbfa37",
-      "source_headlines": [
-        "Tata Motors Limited: Tata Motors Limited has informed the Exchange regarding a press release dated November 09, 2026, titled \"TML CV Holdings B.V., an Indirect Wholly Owned Subsidiary of Tata Motors Limited Voluntary Totalitarian Tender Offer for all the common shares of Iveco Group N.V.\"."
-      ],
-      "source_headline": "Tata Motors Limited: Tata Motors Limited has informed the Exchange regarding a press release dated November 09, 2026, titled \"TML CV Holdings B.V., an Indirect Wholly Owned Subsidiary of Tata Motors Limited Voluntary Totalitarian Tender Offer for all the common shares of Iveco Group N.V.\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/TMLCOMMERCIAL_09112026213031_nsebse_.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-09T16:00:39Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-07T07:11:04Z",
-      "updated_at": "2026-11-09T18:28:29Z",
-      "decay_at": "2026-11-11T04:00:39Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-b6cf94709327",
       "idea_version": "IDEAV-a59f9fea0656b4da",
       "idea_version_started_at": "2026-11-09T18:28:29Z",
@@ -239283,78 +239017,6 @@
       "surfaced_at": "2026-11-09T05:29:08Z",
       "updated_at": "2026-11-09T18:28:29Z",
       "decay_at": "2026-11-11T05:35:07Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-ddb51395a688",
-      "idea_version": "IDEAV-9f91ece9d92c28e1",
-      "idea_version_started_at": "2026-11-09T17:33:24Z",
-      "ticker": "IVC",
-      "company": "Iveco Group N.V.",
-      "exchange": "BIT",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Tata Motors has initiated a voluntary tender offer for all common shares of Iveco Group, which typically forces the stock price toward the offer price.",
-      "why_now": "The tender offer was announced via exchange filing on November 9, 2026.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-747ea2dbfa37"
-      ],
-      "primary_source_event_id": "EVT-747ea2dbfa37",
-      "source_headlines": [
-        "Tata Motors Limited: Tata Motors Limited has informed the Exchange regarding a press release dated November 09, 2026, titled \"TML CV Holdings B.V., an Indirect Wholly Owned Subsidiary of Tata Motors Limited Voluntary Totalitarian Tender Offer for all the common shares of Iveco Group N.V.\"."
-      ],
-      "source_headline": "Tata Motors Limited: Tata Motors Limited has informed the Exchange regarding a press release dated November 09, 2026, titled \"TML CV Holdings B.V., an Indirect Wholly Owned Subsidiary of Tata Motors Limited Voluntary Totalitarian Tender Offer for all the common shares of Iveco Group N.V.\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/TMLCOMMERCIAL_09112026213031_nsebse_.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-09T16:00:39Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-09T17:33:24Z",
-      "updated_at": "2026-11-09T17:33:24Z",
-      "decay_at": "2026-11-11T04:00:39Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -239647,6 +239309,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-3e0ccff47789",
+      "idea_version": "IDEAV-0acad24986e16db6",
+      "idea_version_started_at": "2026-11-11T05:44:55Z",
+      "ticker": "MMFORGING",
+      "company": "MM Forgings",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company raised its FY27 revenue guidance to over ₹2,000 crore, signaling stronger-than-anticipated demand or improved operational capacity.",
+      "why_now": "The guidance update was released on November 11, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c013dcad6497"
+      ],
+      "primary_source_event_id": "EVT-c013dcad6497",
+      "source_headlines": [
+        "MM Forgings raises FY27 revenue target to over ₹2,000 crore"
+      ],
+      "source_headline": "MM Forgings raises FY27 revenue target to over ₹2,000 crore",
+      "source_url": "https://www.cnbctv18.com/market/earnings/mm-forgings-q2-results-revenue-target-2000-crore-volume-outlook-alpha-article-20031166.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 93,
+      "newest_source_at": "2026-11-11T04:31:51Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-11T05:44:55Z",
+      "updated_at": "2026-11-11T05:44:55Z",
+      "decay_at": "2026-11-12T16:31:51Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-3e8500c230f0",
       "idea_version": "IDEAV-36792e8d3b02964d",
       "idea_version_started_at": "2026-11-10T01:19:46Z",
@@ -239870,14 +239604,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 549,
+    "total_count": 547,
     "shown_count": 499,
-    "hidden_count": 50,
+    "hidden_count": 48,
     "side_counts": {
       "long": {
-        "total_count": 285,
+        "total_count": 283,
         "shown_count": 250,
-        "hidden_count": 35
+        "hidden_count": 33
       },
       "short": {
         "total_count": 265,
@@ -239887,20 +239621,319 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1829,
-      "oldest_retained_at": "2026-10-17T20:31:00Z",
+      "evicted_count": 1835,
+      "oldest_retained_at": "2026-10-17T22:24:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 1199,
-          "oldest_retained_at": "2026-10-28T06:27:45Z"
+          "evicted_count": 1204,
+          "oldest_retained_at": "2026-10-28T11:54:00Z"
         },
         "short": {
-          "evicted_count": 631,
-          "oldest_retained_at": "2026-10-17T20:31:00Z"
+          "evicted_count": 632,
+          "oldest_retained_at": "2026-10-17T22:24:00Z"
         }
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-044dc4e9fa5c",
+        "idea_version": "IDEAV-5951286fe5cddfd6",
+        "idea_version_started_at": "2026-11-11T06:27:58Z",
+        "ticker": "MMC",
+        "company": "Marsh & McLennan",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The acquisition of Wilshire expands Marsh's footprint in investment advisory and data analytics, providing a new revenue stream in the financial services sector.",
+        "why_now": "The acquisition was announced today, November 11, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-4f1c57b80817"
+        ],
+        "primary_source_event_id": "EVT-4f1c57b80817",
+        "source_headlines": [
+          "Marsh Agrees To Acquire Wilshire From CC Capital And Motive Partners"
+        ],
+        "source_headline": "Marsh Agrees To Acquire Wilshire From CC Capital And Motive Partners",
+        "source_url": "https://www.nasdaq.com/articles/marsh-agrees-acquire-wilshire-cc-capital-and-motive-partners",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-11T05:35:32Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-11T06:27:58Z",
+        "updated_at": "2026-11-11T06:27:58Z",
+        "decay_at": "2026-11-12T17:35:32Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-12T17:35:32Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-9be75c57aef2",
+        "idea_version": "IDEAV-55a01b1349106395",
+        "idea_version_started_at": "2026-11-11T06:27:58Z",
+        "ticker": "COCHINSHIP",
+        "company": "Cochin Shipyard",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company reported a 50% decline in Q2 profit, signaling significant margin compression and operational headwinds in its core defense shipbuilding business.",
+        "why_now": "The earnings release occurred today, November 11, 2026, and the stock is currently reacting to the negative surprise.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-0cdd739dc3be"
+        ],
+        "primary_source_event_id": "EVT-0cdd739dc3be",
+        "source_headlines": [
+          "Cochin Shipyard shares crash 8%: Defence PSU stock Q2 profit drops 50% but declares ₹3 dividend- Still a stock to buy?"
+        ],
+        "source_headline": "Cochin Shipyard shares crash 8%: Defence PSU stock Q2 profit drops 50% but declares ₹3 dividend- Still a stock to buy?",
+        "source_url": "https://www.livemint.com/market/stock-market-news/cochin-shipyard-shares-crash-8-defence-psu-stock-q2-profit-drops-50-but-declares-rs-3-dividend-still-a-stock-to-buy-11794370626964.html",
+        "source_name": "Mint",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-11T04:38:24Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-10T11:30:45Z",
+        "updated_at": "2026-11-11T06:27:58Z",
+        "decay_at": "2026-11-12T16:38:24Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-12T16:38:24Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-3e0ccff47789",
+        "idea_version": "IDEAV-0acad24986e16db6",
+        "idea_version_started_at": "2026-11-11T05:44:55Z",
+        "ticker": "MMFORGING",
+        "company": "MM Forgings",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company raised its FY27 revenue guidance to over ₹2,000 crore, signaling stronger-than-anticipated demand or improved operational capacity.",
+        "why_now": "The guidance update was released on November 11, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 16,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-c013dcad6497"
+        ],
+        "primary_source_event_id": "EVT-c013dcad6497",
+        "source_headlines": [
+          "MM Forgings raises FY27 revenue target to over ₹2,000 crore"
+        ],
+        "source_headline": "MM Forgings raises FY27 revenue target to over ₹2,000 crore",
+        "source_url": "https://www.cnbctv18.com/market/earnings/mm-forgings-q2-results-revenue-target-2000-crore-volume-outlook-alpha-article-20031166.htm",
+        "source_name": "CNBC-TV18",
+        "materiality_max": 93,
+        "newest_source_at": "2026-11-11T04:31:51Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-11T05:44:55Z",
+        "updated_at": "2026-11-11T05:44:55Z",
+        "decay_at": "2026-11-12T16:31:51Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-12T16:31:51Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-8e6545d55d5f",
+        "idea_version": "IDEAV-521e07ad18a04557",
+        "idea_version_started_at": "2026-11-11T05:44:55Z",
+        "ticker": "02256",
+        "company": "Abbisko Therapeutics",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "FDA approval of pimicotinib for tenosynovial giant cell tumor (TGCT) validates the company's lead drug candidate and opens a significant commercial revenue stream in the U.S. market.",
+        "why_now": "The regulatory approval was announced on November 11, 2026.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-2967d36dc001"
+        ],
+        "primary_source_event_id": "EVT-2967d36dc001",
+        "source_headlines": [
+          "ABBISKO-B (02256): INSIDE INFORMATION - PIMJETMI (pimicotinib) Receive U.S. FDA Approval for TGCT"
+        ],
+        "source_headline": "ABBISKO-B (02256): INSIDE INFORMATION - PIMJETMI (pimicotinib) Receive U.S. FDA Approval for TGCT",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1111/2026111100175.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-11T04:00:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-11T05:44:55Z",
+        "updated_at": "2026-11-11T05:44:55Z",
+        "decay_at": "2026-11-12T16:00:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-12T16:00:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-ad6534db1fd8",
         "idea_version": "IDEAV-b28c901d720dfdfb",
@@ -243219,8 +243252,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-11T04:12:08Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-12T16:29:41Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -243293,8 +243326,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-11T04:00:39Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-12T16:29:41Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -243368,8 +243401,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-11T04:00:39Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-12T16:29:41Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -243441,8 +243474,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-11T03:32:02Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-12T15:45:23Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -243514,8 +243547,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-11T03:26:27Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-12T15:45:23Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -243587,8 +243620,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-11T02:32:26Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-12T15:45:23Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -268023,226 +268056,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-02984b43cedf",
-        "idea_version": "IDEAV-cf5baf852e9e803e",
-        "idea_version_started_at": "2026-10-30T01:26:14Z",
-        "ticker": "APG",
-        "company": "APi Group Corporation",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company reported record Q3 2026 net revenues of $2.6 billion and raised its full-year outlook, signaling strong operational momentum.",
-        "why_now": "The earnings release and guidance hike were published on October 29, 2026.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 65,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-736509f3628b"
-        ],
-        "primary_source_event_id": "EVT-736509f3628b",
-        "source_headlines": [
-          "APi Group Corporation Reports Record Third Quarter 2026 Net Revenues of $2.6 billion and Raises Full-Year Outlook"
-        ],
-        "source_headline": "APi Group Corporation Reports Record Third Quarter 2026 Net Revenues of $2.6 billion and Raises Full-Year Outlook",
-        "source_url": "https://www.nasdaq.com/articles/api-group-corporation-reports-record-third-quarter-2026-net-revenues-26-billion-and-raises",
-        "source_name": "Nasdaq",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-29T20:52:06Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-30T01:26:14Z",
-        "updated_at": "2026-10-30T01:26:14Z",
-        "decay_at": "2026-10-31T08:52:06Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-01T21:00:45Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-3321c8fee50b",
-        "idea_version": "IDEAV-3a89764434655041",
-        "idea_version_started_at": "2026-10-29T17:48:18Z",
-        "ticker": "ADT",
-        "company": "ADT Inc.",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "ADT is being acquired by Josh Kushner’s Thrive for $7.6 billion, which represents a clear valuation event for shareholders.",
-        "why_now": "The acquisition news was reported on October 29, 2026, providing a fresh catalyst for the stock.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 66,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-4ae3e6d5a57c"
-        ],
-        "primary_source_event_id": "EVT-4ae3e6d5a57c",
-        "source_headlines": [
-          "Josh Kushner’s Thrive to Buy ADT for $7.6 Billion"
-        ],
-        "source_headline": "Josh Kushner’s Thrive to Buy ADT for $7.6 Billion",
-        "source_url": "https://www.wsj.com/business/deals/josh-kushners-thrive-to-buy-adt-for-7-6-billion-55403c7a?mod=rss_markets_main",
-        "source_name": "The Wall Street Journal",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-29T14:20:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-29T17:48:18Z",
-        "updated_at": "2026-10-29T17:48:18Z",
-        "decay_at": "2026-10-31T02:20:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-01T14:21:05Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-4402530dd0df",
-        "idea_version": "IDEAV-aef2069d193d114a",
-        "idea_version_started_at": "2026-10-29T18:20:44Z",
-        "ticker": "03958",
-        "company": "DFZQ",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The SSE Review Committee has approved the acquisition of 100% of Shanghai Securities, which will consolidate market share and expand the company's brokerage and asset management footprint.",
-        "why_now": "The regulatory approval was announced via exchange filing on October 29, 2026.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-980f107a8da7"
-        ],
-        "primary_source_event_id": "EVT-980f107a8da7",
-        "source_headlines": [
-          "DFZQ (03958): MAJOR TRANSACTION - THE PROPOSED ACQUISITION OF 100% EQUITY INTERESTS IN SHANGHAI SECURITIES BY WAY OF ISSUE OF CONSIDERATION A SHARES UNDER SPECIFIC MANDATE AND PAYMENT OF CASH APPROVAL FROM SSE REVIEW COMMITTEE IN RESPECT OF THE PROPOSED TRANSACTION"
-        ],
-        "source_headline": "DFZQ (03958): MAJOR TRANSACTION - THE PROPOSED ACQUISITION OF 100% EQUITY INTERESTS IN SHANGHAI SECURITIES BY WAY OF ISSUE OF CONSIDERATION A SHARES UNDER SPECIFIC MANDATE AND PAYMENT OF CASH APPROVAL FROM SSE REVIEW COMMITTEE IN RESPECT OF THE PROPOSED TRANSACTION",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1029/2026102901637.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-29T13:04:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-29T18:20:44Z",
-        "updated_at": "2026-10-29T18:20:44Z",
-        "decay_at": "2026-10-31T01:04:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-01T14:01:26Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-c6f1a0d27ff6",
         "idea_version": "IDEAV-a015e0f4e4c355d7",
         "idea_version_started_at": "2026-10-29T16:12:50Z",
@@ -276946,86 +276759,12 @@
         "archived_at": "2026-10-22T00:53:39Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-c2d6ddb1545f",
-        "idea_version": "IDEAV-61d9912074e7dbf7",
-        "idea_version_started_at": "2026-10-18T17:51:37Z",
-        "ticker": "IDBI.NS",
-        "company": "IDBI Bank",
-        "exchange": "NSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "IDBI Bank's net profit slumped 39% in Q2, indicating significant operational or market challenges impacting its earnings.",
-        "why_now": "The Q2 profit slump and ongoing Fairfax deal discussions present immediate factors for investors to consider.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 65,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-fb6b2b22003e"
-        ],
-        "primary_source_event_id": "EVT-fb6b2b22003e",
-        "source_headlines": [
-          "What’s next for IDBI Bank stock after Q2 net profit slumps 39%, massive Fairfax deal? Key factors investors should watch"
-        ],
-        "source_headline": "What’s next for IDBI Bank stock after Q2 net profit slumps 39%, massive Fairfax deal? Key factors investors should watch",
-        "source_url": "https://www.livemint.com/market/stock-market-news/whats-next-for-idbi-bank-stock-after-q2-net-profit-slumps-39-massive-fairfax-deal-key-factors-investors-should-watch-11792335797516.html",
-        "source_name": "Mint",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-18T15:57:23Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-18T17:51:37Z",
-        "updated_at": "2026-10-18T17:51:37Z",
-        "decay_at": "2026-10-20T03:57:23Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-21T19:59:57Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2417,
-    "live_count": 38,
+    "surfaced_total": 2419,
+    "live_count": 36,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -277044,9 +276783,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1432573,
-    "news_picked_today": 2041,
-    "news_dropped_today": 14687
+    "news_seen_today": 1637122,
+    "news_picked_today": 2226,
+    "news_dropped_today": 16926
   },
   "book_momentum": {
     "live_count": 8,
