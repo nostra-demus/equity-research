@@ -3,11 +3,14 @@
 from __future__ import annotations
 
 import json
+import hashlib
 import math
 import os
 import subprocess
 
-from canonical_json import MAX_SAFE_INTEGER, canonical_json, canonical_sha256
+from canonical_json import (
+    MAX_SAFE_INTEGER, _checked_string, canonical_json, canonical_json_bytes, canonical_sha256,
+)
 
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -62,7 +65,89 @@ def expect_rejected(value):
     raise AssertionError(f"canonicalizer accepted forbidden value: {value!r}")
 
 
+def expect_error(call, error_type, message):
+    try:
+        call()
+    except error_type as error:
+        assert str(error) == message, (type(error), str(error))
+        return
+    raise AssertionError(f"expected {error_type.__name__}: {message}")
+
+
+def check_string_contract():
+    ascii_expected = (
+        '"\\u0000\\u0001\\u0002\\u0003\\u0004\\u0005\\u0006\\u0007'
+        '\\b\\t\\n\\u000b\\f\\r\\u000e\\u000f'
+        '\\u0010\\u0011\\u0012\\u0013\\u0014\\u0015\\u0016\\u0017'
+        '\\u0018\\u0019\\u001a\\u001b\\u001c\\u001d\\u001e\\u001f'
+        " !\\\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\\\]"
+        '^_`abcdefghijklmnopqrstuvwxyz{|}~\x7f"'
+    )
+    accepted = [
+        ("", '""'), ("a", '"a"'),
+        ("a" * 64, '"' + "a" * 64 + '"'),
+        ("a" * 4096, '"' + "a" * 4096 + '"'),
+        ("".join(map(chr, range(128))), ascii_expected),
+        ("é", '"é"'), ("नमस्ते", '"नमस्ते"'),
+        ("\ud7ff\ue000", '"\ud7ff\ue000"'), ("😀", '"😀"'),
+        ("aéन😀", '"aéन😀"'),
+    ]
+
+    class Ordinary(str):
+        pass
+
+    class PretendASCII(str):
+        def isascii(self):
+            return True
+
+    class RaisingASCII(str):
+        def isascii(self):
+            raise AssertionError("subclass isascii must not run")
+
+    class SurrogateIterator(str):
+        def __iter__(self):
+            return iter("\ud800")
+
+    class IteratorFailure(RuntimeError):
+        pass
+
+    class RaisingIterator(str):
+        def __iter__(self):
+            raise IteratorFailure("fixed iterator failure")
+
+    accepted.extend([(Ordinary("ascii"), '"ascii"'), (RaisingASCII("ascii"), '"ascii"')])
+    for value, expected in accepted:
+        assert _checked_string(value) is value
+        assert canonical_json(value) == expected
+        assert canonical_json({value: 0}) == "{" + expected + ":0}"
+
+    surrogate_message = "canonical JSON strings must not contain lone UTF-16 surrogates"
+    rejected = ["\ud83d\ude00", "\ude00\ud83d", PretendASCII("\ud800"), SurrogateIterator("ascii")]
+    for surrogate in ("\ud800", "\udbff", "\udc00", "\udfff"):
+        rejected.extend([surrogate, "before" + surrogate + "after"])
+    for value in rejected:
+        for call in (lambda: _checked_string(value), lambda: canonical_json(value),
+                     lambda: canonical_json({value: 0})):
+            expect_error(call, ValueError, surrogate_message)
+    value = RaisingIterator("ascii")
+    for call in (lambda: _checked_string(value), lambda: canonical_json(value),
+                 lambda: canonical_json({value: 0})):
+        expect_error(call, IteratorFailure, "fixed iterator failure")
+    expect_error(lambda: _checked_string(b"a"), TypeError,
+                 "ord() expected string of length 1, but int found")
+    expect_error(lambda: _checked_string(1), TypeError, "'int' object is not iterable")
+
+    nested = {"\ue000": "BMP", "😀": "astral", "a\n": 'quote"\\',
+              "é": ["नमस्ते", "\ud7ff", "😀"]}
+    expected = '{"a\\n":"quote\\\"\\\\","é":["नमस्ते","\ud7ff","😀"],"😀":"astral","\ue000":"BMP"}'
+    expected_bytes = expected.encode("utf-8")
+    assert canonical_json(nested) == expected
+    assert canonical_json_bytes(nested) == expected_bytes
+    assert canonical_sha256(nested) == hashlib.sha256(expected_bytes).hexdigest()
+
+
 def main():
+    check_string_contract()
     with open(FIXTURE, encoding="utf-8") as handle:
         fixture = json.load(handle)
     assert fixture["schema_version"] == "idea-canonical-json-parity/v1"

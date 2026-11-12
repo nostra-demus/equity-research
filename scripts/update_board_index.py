@@ -31,6 +31,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from canonical_json import canonical_sha256
+from decision_publication_gate import GateError, admit_schema_records, binding_for, read_beneath, schema_bindings
+from repo_mutation import repository_mutation
 from recover_idea_board_history import (
     ARCHIVE_FILE_RE as IDEA_ARCHIVE_FILE_RE,
     IDEA_ARCHIVE_MAX_DIRECTORY_ENTRIES_READ,
@@ -143,10 +145,33 @@ def machine_grade_status(sig_status_val, integrity_routing):
     return sig_status_val or ""
 
 
-def read_json(path: str):
+def read_json(path: str, consumed=None, bindings=None, *, require_mapping=False):
+    relative = Path(path).relative_to(Path(REPO)).as_posix() if consumed is not None else None
+    mapped = consumed is not None and binding_for(os.fsencode(relative), bindings) is not None
+    if require_mapping and not mapped:
+        raise GateError(f"board input has no trusted schema mapping: {relative}")
     try:
-        with open(path, encoding="utf-8") as f:
-            return json.load(f)
+        payload = read_beneath(Path(REPO), relative) if mapped else Path(path).read_bytes()
+    except GateError as error:
+        # Missing optional state is benign; any existing unreadable/linked mapped input is refused.
+        cause = error
+        while cause.__cause__ is not None:
+            cause = cause.__cause__
+        if isinstance(cause, FileNotFoundError):
+            return None
+        raise
+    except FileNotFoundError:
+        return None
+    except Exception:
+        if mapped:
+            raise GateError(f"board schema input is unreadable: {relative}")
+        return None
+    if mapped:
+        if relative in consumed and consumed[relative] != payload:
+            raise GateError(f"board input changed during build: {relative}")
+        consumed[relative] = payload
+    try:
+        return json.loads(payload)
     except Exception:
         return None
 
@@ -966,13 +991,13 @@ def firehose_counts(today: str) -> tuple[int, int, int]:
     return seen, picked, dropped
 
 
-def build() -> dict:
+def build(consumed=None, bindings=None) -> dict:
     now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
     # ---- inbox ----
     inbox_rows: list[dict] = []
     for fp in sorted(glob.glob(os.path.join(INBOX, "*_sweep.json")), reverse=True):
-        doc = read_json(fp) or {}
+        doc = read_json(fp, consumed, bindings) or {}
         for row in doc.get("rows", []):
             if not isinstance(row, dict):
                 continue
@@ -1031,7 +1056,7 @@ def build() -> dict:
     thesis_by_signal: dict[str, dict] = {}
     candidates_by_thesis: dict[str, dict] = {}
     for fp in sorted(glob.glob(os.path.join(LEDGER, "candidates", "*.json"))):
-        doc = read_json(fp)
+        doc = read_json(fp, consumed, bindings)
         if doc and doc.get("thesis_id"):
             candidates_by_thesis[doc["thesis_id"]] = doc
 
@@ -1046,7 +1071,7 @@ def build() -> dict:
     today_day = now[:10]
 
     for fp in sorted(glob.glob(os.path.join(LEDGER, "theses", "*.json")), reverse=True):
-        rec = read_json(fp)
+        rec = read_json(fp, consumed, bindings, require_mapping=consumed is not None)
         if not rec:
             continue
         meta = rec.get("meta", {})
@@ -1127,7 +1152,8 @@ def build() -> dict:
                     entry["override_stale"] = True
         # Phase 3: fold in the engine-owned conviction snapshot (rung, live edge, momentum,
         # sparkline points) — the board reads it; the locked thesis JSON is never touched.
-        cs = read_json(os.path.join(CONV_STATE, f"{thesis_id}.json"))
+        cs = read_json(os.path.join(CONV_STATE, f"{thesis_id}.json"), consumed, bindings,
+                       require_mapping=consumed is not None)
         if isinstance(cs, dict):
             if not cs.get("archived"):
                 cs["stale"] = bool(cs.get("stale")) or any(
@@ -1266,7 +1292,7 @@ def build() -> dict:
           "machine_confirmed": 0, "machine_passed": 0, "machine_pending": 0,
           "up_votes": 0, "down_votes": 0}
     for fp in sorted(glob.glob(os.path.join(IDEAS, "*.json"))):
-        rec = read_json(fp)
+        rec = read_json(fp, consumed, bindings)
         if isinstance(rec, dict) and idea_blocked_by_withdrawal(rec):
             continue
         projected = project_board_idea(rec, idea_fb, now) if isinstance(rec, dict) else None
@@ -1694,7 +1720,16 @@ def main(argv: list | None = None) -> int:
         print(f"update_board_index.py: unknown argument(s): {' '.join(unknown)}", file=sys.stderr)
         print(USAGE, file=sys.stderr)
         return 2
-    idx = build()
+    # Keep the actual parsed source bytes stable across build, admission and publication. Do not
+    # validate a second mutable reopen or retrovalidate the generated board's historical rows.
+    with repository_mutation(REPO):
+        return main_locked(args)
+
+
+def main_locked(args: list) -> int:
+    consumed: dict[str, bytes] = {}
+    bindings = schema_bindings(Path(REPO))
+    idx = build(consumed, bindings)
     if "--check" in args:
         try:
             with open(BOARD, encoding="utf-8") as f:
@@ -1711,6 +1746,10 @@ def main(argv: list | None = None) -> int:
             return 0
         print(f"STALE {os.path.relpath(BOARD, REPO)} — rerun without --check to rebuild")
         return 1
+    if consumed:
+        admit_schema_records(Path(REPO), list(consumed.items()))
+    else:
+        print("SCHEMA-ADMISSION: N/A — no mapped JSON inputs consumed; unmapped stores are outside this check", file=sys.stderr)
     write_board_index(idx)
     c = idx["counts"]
     print(

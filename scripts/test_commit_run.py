@@ -1785,6 +1785,222 @@ def test_manifest_schema_publication_uses_frozen_and_staged_bytes():
               refused_state.returncode == 1 and b"conviction" in refused_state.stderr, repr(refused_state.stderr))
 
 
+def test_manifest_schema_publication_acceptance_matrix():
+    """One-field schema counterexamples use complete, real frozen/index publication packets.
+
+    This is synthetic admission evidence, not an end-to-end provider/derived-store run. The TS
+    supervisor tests exercise that earlier lifecycle; deterministic conviction writers' own earlier
+    writes remain outside the guard proved here.
+    """
+    cache = Path(REPO_ROOT, ".cache", "publication-schema-tests")
+    cache.mkdir(parents=True, exist_ok=True)
+    evidence = Path(tempfile.mkdtemp(prefix="acceptance-matrix-", dir=cache))
+    first_failure = len(_fails)
+    baseline_revision = "d4c67db2c132307d2eeaab58ec52c3c2ab1dc468"
+    delivered_revision = "42b37db9d1da5bf9893031be65162c5f354686a3"
+    candidate_revision = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=REPO_ROOT).decode().strip()
+    names = ("intake", "signal_payload", "candidates", "thesis_record", "thesis_integrity_review")
+    run_root = "screener/runs/SIG-20260610-a3f2c81d"
+    documents = {name: json.loads(Path(REPO_ROOT, run_root, name + ".json").read_text()) for name in names}
+    for candidate in documents["candidates"]["candidates"]:
+        candidate["news_impact"] = {
+            "applicable": False, "mode": "not_applicable", "missing_reason": None,
+            "recurrence": "not_applicable",
+            "event_quantification": "Synthetic schema acceptance fixture; no economic estimate.",
+            "delta_value": "Not assessed in this synthetic schema fixture.",
+            "implied_move_pct": None, "observed_move_pct": None, "gap_read": "not_applicable",
+            "caveats": "Synthetic correctness control; no investment evidence.", "sources": [],
+        }
+    missing_reasons = (
+        "M0_6_1.analyst_rating_distribution.missing_reason",
+        "M0_6_1.estimate_dispersion.missing_reason",
+        "M0_6_2.estimate_dispersion.missing_reason",
+        "M0_6_2.estimate_revision_trajectory.missing_reason",
+        "M0_6_2.implied_scenario_from_multiple.missing_reason",
+        "M0_6_2.options_implied_move.missing_reason",
+        "M0_6_2.short_interest_positioning.missing_reason",
+    )
+    cases = [
+        ("valid12-complete", None, (), None),
+        ("invalid16-event-id", "signal_payload", ("event_id",), "EVT-0123456789abcdef"),
+        ("null-signal-entities-commodity", "signal_payload", ("entities", "commodity"), None),
+        *[("null-thesis-" + field.replace(".", "-"), "thesis_record", tuple(field.split(".")), None)
+          for field in (*missing_reasons, "M0_6_6.override_justification")],
+        ("short-thesis-M0_2-world_changes", "thesis_record", ("M0_2", "world_changes"),
+         documents["thesis_record"]["M0_2"]["world_changes"][:1]),
+        *[(f"null-candidate-{index}-news_impact-{field}", "candidates",
+           ("candidates", index, "news_impact", field), None)
+          for index in range(len(documents["candidates"]["candidates"]))
+          for field in ("event_quantification", "delta_value", "caveats")],
+    ]
+    ledger_path = "screener/ledger/theses/" + documents["candidates"]["thesis_id"] + ".json"
+
+    def packet(values):
+        files = {f"{run_root}/{name}.json": (json.dumps(values[name], indent=2) + "\n").encode() for name in names}
+        files[ledger_path] = files[f"{run_root}/thesis_record.json"]
+        return files
+
+    def digest(payload):
+        return "sha256:" + hashlib.sha256(payload).hexdigest()
+
+    def outcome(result):
+        return {"returncode": result.returncode,
+                "stdout": result.stdout.decode() if isinstance(result.stdout, bytes) else result.stdout,
+                "stderr": result.stderr.decode() if isinstance(result.stderr, bytes) else result.stderr}
+
+    # Report source identity without making a shallow CI checkout depend on retained Git history.
+    source_paths = ["scripts/decision_publication_gate.py", "scripts/execution_provenance.py",
+                    "scripts/validate_screener_json.py", "scripts/commit-run.sh",
+                    ".claude/agents/screener/SWARM.md",
+                    *[f"frameworks/screener/{name}.schema.json" for name in names]]
+    identities = {}
+    for relative in source_paths:
+        current = Path(REPO_ROOT, relative).read_bytes()
+        historical = subprocess.run(["git", "show", f"{delivered_revision}:{relative}"],
+                                    cwd=REPO_ROOT, capture_output=True)
+        identities[relative] = {"current_sha256": digest(current),
+                                "delivered_reference_sha256": digest(historical.stdout) if historical.returncode == 0 else None,
+                                "matches_delivered_reference": current == historical.stdout if historical.returncode == 0 else None}
+    baseline = subprocess.run(["git", "show", f"{baseline_revision}:scripts/decision_publication_gate.py"],
+                              cwd=REPO_ROOT, capture_output=True)
+    baseline_gate = evidence / "baseline_decision_publication_gate.py"
+    if baseline.returncode == 0:
+        check("the matched d4 baseline uses its pinned exact gate script",
+              hashlib.sha256(baseline.stdout).hexdigest() == "5323ecfb95e01c23eb59993c23518e995c2900ceabdff357fc1c2721446f8d38")
+        baseline_gate.write_bytes(baseline.stdout)
+    report = {
+        "experiment": "screening-new-publication-schema-admission-v1", "supplement": "explicit-acceptance-matrix",
+        "classification": "Synthetic schema correctness; no investment-performance evidence.",
+        "baseline_revision": baseline_revision, "runtime_candidate_revision": candidate_revision,
+        "candidate_program_bytes": "Exact working-tree program hashes below; HEAD alone does not identify uncommitted source.",
+        "delivered_reference_revision": delivered_revision,
+        "test_checkout_head": candidate_revision,
+        "test_source_sha256": digest(Path(__file__).read_bytes()),
+        "baseline_gate_sha256": digest(baseline.stdout) if baseline.returncode == 0 else None,
+        "source_identity": identities,
+        "boundary": "Real shared frozen-byte CLI and real commit-run.sh protected-index admission in isolated Git repositories.",
+        "limits": ["Protected stores are retained synthetic sentinels, not outputs of a complete provider lifecycle.",
+                   "No provider, checkpoint producer, board builder, or receipt signer is simulated by this Python test.",
+                   "Deterministic conviction producers' own earlier-write prewrite enforcement remains unresolved."],
+        "positive_nullable_fields": [f"candidates.candidates[{index}].news_impact.missing_reason"
+                                     for index in range(len(documents["candidates"]["candidates"]))],
+        "cases": [],
+    }
+    with tempfile.TemporaryDirectory(prefix="acceptance-repo-", dir=cache) as tmp:
+        _, agent, env = setup_stale_local_main_scenario(tmp)
+        manifest = Path(agent, ".claude/agents/screener/SWARM.md")
+        manifest.parent.mkdir(parents=True)
+        manifest.write_bytes(Path(REPO_ROOT, ".claude/agents/screener/SWARM.md").read_bytes())
+        schema_root = Path(agent, "frameworks/screener")
+        schema_root.mkdir(parents=True)
+        for source in Path(REPO_ROOT, "frameworks/screener").glob("*.schema.json"):
+            shutil.copy2(source, schema_root / source.name)
+        schema_env = dict(no_push_env(env), PYTHONPATH=os.path.join(REPO_ROOT, "scripts"))
+        protected_paths = (
+            "screener/ledger/theses/THS-ACCEPTANCE-EXISTING-v1.json",
+            "screener/ledger/conviction/checkpoints.ndjson",
+            "screener/ledger/conviction/conviction_state/THS-ACCEPTANCE-EXISTING-v1.json",
+            "screener/board/index.json", f"{run_root}/execution_provenance.receipt.json",
+        )
+        for relative in protected_paths:
+            write_text(agent, relative, '{"synthetic_retained_sentinel":true}\n')
+        run(["git", "add", *protected_paths], cwd=agent, env=env)
+        run(["git", "commit", "-qm", "fixture: retained publication stores"], cwd=agent, env=env)
+
+        def retained_state():
+            return {
+                "head": run(["git", "rev-parse", "HEAD"], cwd=agent, env=env).stdout.strip(),
+                "stores": {relative: digest(Path(agent, relative).read_bytes()) for relative in protected_paths},
+                "proposed_ledger": digest(Path(agent, ledger_path).read_bytes()) if Path(agent, ledger_path).exists() else None,
+                "worktree": {f"{run_root}/{name}.json": digest(Path(agent, run_root, name + ".json").read_bytes()) for name in names},
+            }
+
+        valid_packet = packet(documents)
+        _, _, control_pairs = make_protected_snapshot(evidence, "positive-preflight", valid_packet)
+        control_fresh = run_gate(["--repo", agent, "--schema-records"], control_pairs, env=schema_env)
+        control_frozen = run_gate(["--repo", agent, "--records"], control_pairs, env=schema_env)
+        check("validate the complete canonical positive packet before constructing any counterexample",
+              control_fresh.returncode == control_frozen.returncode == 0
+              and b"6 declared schema artifact(s) validated" in control_fresh.stdout
+              and b"6 declared schema artifact(s) validated" in control_frozen.stdout,
+              repr(control_fresh.stderr + control_frozen.stderr))
+        report["positive_preflight"] = {"fresh_schema_gate": outcome(control_fresh), "frozen_gate": outcome(control_frozen)}
+        # Run all refusals before publishing the valid control, so every packet is a NEW publication.
+        for case_id, name, field_path, value in [*cases[1:], cases[0]]:
+            values = json.loads(json.dumps(documents))
+            if name:
+                parent = values[name]
+                for key in field_path[:-1]:
+                    parent = parent[key]
+                parent[field_path[-1]] = value
+            files = packet(values)
+            snapshot, paths, pairs = make_protected_snapshot(evidence, case_id, files)
+            # The negative's mutable substitutes are valid. The positive's mutable signal is invalid.
+            for relative, payload in valid_packet.items():
+                if relative != ledger_path:
+                    Path(agent, relative).parent.mkdir(parents=True, exist_ok=True)
+                    Path(agent, relative).write_bytes(payload)
+            if name is None:
+                mutable = dict(documents["signal_payload"], event_id="EVT-0123456789abcdef")
+                write_json(agent, f"{run_root}/signal_payload.json", mutable)
+            before = retained_state()
+            fresh = run_gate(["--repo", agent, "--schema-records"], pairs, env=schema_env)
+            frozen = run_gate(["--repo", agent, "--records"], pairs, env=schema_env)
+            after_frozen = retained_state()
+            historical = None
+            if baseline.returncode == 0:
+                historical = subprocess.run(["python3", str(baseline_gate), "--repo", agent, "--records"],
+                                            input=pairs, capture_output=True, env=schema_env)
+                check(f"{case_id}: matched baseline ignores the same six screener artifacts",
+                      historical.returncode == 0 and b"0 new terminal decision record(s) validated" in historical.stdout,
+                      repr(historical.stderr))
+            published = run(["bash", COMMIT_RUN, "test: " + case_id, "--", *paths], cwd=agent,
+                            env=dict(schema_env, NOSTRA_SUPERVISOR_SNAPSHOT_MANIFEST=snapshot), check_rc=False)
+            after_index = retained_state()
+            if name:
+                token = str(field_path[-1]).encode()
+                check(f"{case_id}: exact frozen packet rejects one schema field despite valid mutable substitutes",
+                      fresh.returncode == frozen.returncode == 1
+                      and token in fresh.stderr and token in frozen.stderr, repr(fresh.stderr + frozen.stderr))
+                check(f"{case_id}: exact protected index refuses without any commit",
+                      published.returncode == 5 and "COMMIT_SHA=" not in published.stdout
+                      and token.decode() in published.stderr, published.stderr)
+                check(f"{case_id}: HEAD, ledger, checkpoint, conviction, board, receipt and mutable bytes remain unchanged",
+                      before == after_frozen == after_index, repr((before, after_frozen, after_index)))
+            else:
+                check("valid12-complete: all five canonical artifacts and proposed thesis pass with permitted candidate nulls",
+                      fresh.returncode == frozen.returncode == 0
+                      and b"6 declared schema artifact(s) validated" in fresh.stdout
+                      and b"6 declared schema artifact(s) validated" in frozen.stdout, repr(fresh.stderr + frozen.stderr))
+                committed = {relative: subprocess.check_output(["git", "show", f"HEAD:{relative}"], cwd=agent)
+                             for relative in paths} if published.returncode == 0 else {}
+                check("valid12-complete: every committed index byte equals the frozen packet despite invalid mutable signal",
+                      published.returncode == 0 and "COMMIT_SHA=" in published.stdout and committed == files,
+                      published.stderr)
+                check("valid12-complete: read-only gates and final admission preserve all retained stores and mutable bytes",
+                      before == after_frozen and before["head"] != after_index["head"]
+                      and before["stores"] == after_index["stores"]
+                      and before["worktree"] == after_index["worktree"]
+                      and after_index["proposed_ledger"] is None, repr(after_index))
+            row = {
+                "case_id": case_id, "source_document": name, "field_path": list(field_path),
+                "source_field": name + "." + ".".join(map(str, field_path)) if name else None,
+                "mutated_value": value, "thesis_replicated_to_ledger": name == "thesis_record",
+                "payload_sha256": {relative: digest(payload) for relative, payload in files.items()},
+                "schema_sha256": {relative: identities[f"frameworks/screener/{artifact}.schema.json"]["current_sha256"]
+                                  for relative, artifact in [(f"{run_root}/{artifact}.json", artifact) for artifact in names]
+                                  + [(ledger_path, "thesis_record")]},
+                "snapshot_manifest": snapshot, "before": before, "after_frozen": after_frozen,
+                "after_index": after_index, "fresh_schema_gate": outcome(fresh), "frozen_gate": outcome(frozen),
+                "index_publication": outcome(published), "matched_baseline_gate": outcome(historical) if historical else None,
+            }
+            report["cases"].append(row)
+    report["failures"] = _fails[first_failure:]
+    report_path = evidence / "report.json"
+    report_path.write_text(json.dumps(report, indent=2) + "\n")
+    print(f"  evidence: {report_path}")
+
+
 def test_manifest_schema_contract_is_generic_and_fails_closed():
     cache = Path(REPO_ROOT, ".cache", "publication-schema-tests")
     cache.mkdir(parents=True, exist_ok=True)
@@ -1874,6 +2090,273 @@ def test_manifest_schema_contract_is_generic_and_fails_closed():
               and b"UTF-8" not in linked_manifest.stderr, repr(linked_manifest.stderr))
 
 
+def test_manifest_auxiliary_roots_require_exact_context():
+    cache = Path(REPO_ROOT, ".cache", "publication-schema-tests")
+    cache.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(prefix="auxiliary-contracts-", dir=cache) as tmp:
+        root = Path(tmp)
+        schema = root / "frameworks/future/verdict.schema.json"
+        schema.parent.mkdir(parents=True)
+        schema.write_text('{"type":"object","required":["answer"],"properties":{"answer":{"const":"ok"}}}')
+        manifest = root / ".claude/agents/future/SWARM.md"
+        manifest.parent.mkdir(parents=True)
+        base = ("---\nid: future\nunit: issuer\nruns_root: future/runs\n"
+                "run_root_template: future/runs/{ID}/current\nplaceholder: ID\n"
+                "schemas_root: frameworks/future\npublication_schemas:\n"
+                "  - run:verdict.json=verdict.schema.json\npublication_auxiliary_roots:\n"
+                "  - audit=future/audits/AUD-*\n  - audit=future/runs/*/current\n---\n")
+        manifest.write_text(base)
+        canonical = "future/runs/subject/current"
+        auxiliary = "future/audits/AUD-one"
+        context = ["--schema-swarm", "future", "--schema-kind", "audit", "--schema-unit", "issuer"]
+
+        def resolve(relative, supplied=context):
+            return run_gate(["--repo", str(root), "--schema-contract", relative, *supplied])
+
+        accepted = resolve(auxiliary)
+        check("a future auxiliary kind shares its parent's display unit without requiring a canonical run root",
+              accepted.returncode == 0 and json.loads(accepted.stdout) == {
+                  "swarm_id": "future", "run_root": auxiliary, "classification": "auxiliary",
+                  "declared": False, "artifacts": [],
+              }, repr(accepted.stderr))
+        primary = resolve(canonical)
+        check("canonical-root precedence keeps schema artifacts even with a spoofed auxiliary kind",
+              primary.returncode == 0 and json.loads(primary.stdout)["classification"] == "canonical"
+              and json.loads(primary.stdout)["declared"] is True
+              and [row["relative"] for row in json.loads(primary.stdout)["artifacts"]] == ["verdict.json"],
+              repr(primary.stderr))
+        frozen = root / "frozen.json"
+        frozen.write_text('{"answer":"malformed"}')
+        pairs = os.fsencode(canonical + "/verdict.json") + b"\0" + os.fsencode(frozen)
+        check("a canonical artifact remains rejected after auxiliary-kind classification was requested",
+              run_gate(["--repo", str(root), "--schema-records"], pairs).returncode == 1)
+        for label, relative, supplied in [
+            ("raw auxiliary without context", auxiliary, []),
+            ("primary kind at an auxiliary root", auxiliary, [*context[:3], "signal", *context[4:]]),
+            ("wrong parent owner", auxiliary, ["--schema-swarm", "other", *context[2:]]),
+            ("wrong display unit", auxiliary, [*context[:-1], "different"]),
+            ("canonical owner mismatch", canonical, ["--schema-swarm", "other", *context[2:]]),
+            ("canonical display unit mismatch", canonical, [*context[:-1], "different"]),
+            ("unknown auxiliary root", "future/unknown/AUD-one", context),
+            ("incomplete owner context", auxiliary, context[:2]),
+            ("incomplete unit context", auxiliary, context[:4]),
+            ("traversing requested root", "future/audits/../AUD-one", context),
+        ]:
+            refused = resolve(relative, supplied)
+            check(f"auxiliary classification refuses {label}", refused.returncode == 2, repr(refused.stderr))
+        for label, body in [
+            ("scalar", base.replace("publication_auxiliary_roots:\n  - audit=future/audits/AUD-*", "publication_auxiliary_roots: false")),
+            ("malformed inline", base.replace("publication_auxiliary_roots:\n  - audit=future/audits/AUD-*", "publication_auxiliary_roots: [")),
+            ("mixed inline/block", base.replace("publication_auxiliary_roots:", "publication_auxiliary_roots: [] # explicit list")),
+            ("null block", base.replace("  - audit=future/audits/AUD-*\n  - audit=future/runs/*/current\n", "")),
+            ("traversal", base.replace("future/audits/AUD-*", "future/../audits/AUD-*")),
+            ("absolute", base.replace("future/audits/AUD-*", "/future/audits/AUD-*")),
+            ("unresolved placeholder", base.replace("AUD-*", "{AUD_ID}")),
+            ("missing unit", base.replace("unit: issuer\n", "")),
+            ("duplicate declaration", base.replace("---\n", "---\n", 1).replace("  - audit=future/audits/AUD-*", "  - audit=future/audits/AUD-*\n  - audit=future/audits/AUD-*")),
+            ("ambiguous matching roots", base.replace("  - audit=future/audits/AUD-*", "  - audit=future/audits/AUD-*\n  - audit=future/audits/*")),
+        ]:
+            manifest.write_text(body)
+            refused = resolve(auxiliary)
+            check(f"declared {label} auxiliary contract fails closed", refused.returncode == 2, repr(refused.stderr))
+        manifest.write_text(base)
+        actual = root / "future/retained"
+        actual.mkdir(parents=True)
+        linked = root / "future/audits"
+        linked.symlink_to(actual, target_is_directory=True)
+        refused = resolve(auxiliary)
+        check("an absent auxiliary leaf beneath a linked declared ancestor is refused",
+              refused.returncode == 2 and b"linked" in refused.stderr, repr(refused.stderr))
+        linked.unlink()
+        manifest.write_text(base.replace("future/audits/AUD-*", "future/audits/*/leaf"))
+        linked.parent.joinpath("audits").mkdir()
+        linked = root / "future/audits/AUD-linked"
+        linked.symlink_to(actual, target_is_directory=True)
+        refused = resolve("future/audits/AUD-linked/leaf")
+        check("a missing leaf below a linked wildcard-matched ancestor cannot bypass containment",
+              refused.returncode == 2 and b"linked" in refused.stderr, repr(refused.stderr))
+        canonical_link = root / "future/runs"
+        canonical_link.symlink_to(actual, target_is_directory=True)
+        refused = resolve(canonical)
+        check("a missing canonical root below a linked parent is refused too",
+              refused.returncode == 2 and b"linked" in refused.stderr, repr(refused.stderr))
+
+        # Use the real manifest's source-proven auxiliary tuples, without running any producer.
+        for kind, relative in [("conviction", "screener/ledger/conviction/runs/CHK-a3f2c81d-01"),
+                               ("sweep", "screener/inbox"), ("handoff", "screener/ledger")]:
+            result = run_gate(["--repo", REPO_ROOT, "--schema-contract", relative,
+                               "--schema-swarm", "screener", "--schema-kind", kind, "--schema-unit", "signal"])
+            check(f"the real manifest admits only its declared {kind} execution root",
+                  result.returncode == 0 and json.loads(result.stdout)["classification"] == "auxiliary",
+                  repr(result.stderr))
+        state_path = "screener/ledger/conviction/conviction_state/THS-SIG-20260610-a3f2c81d-v1.json"
+        frozen.write_text(json.dumps({"thesis_id": "THS-SIG-20260610-a3f2c81d-v1", "state": "watching",
+                                      "edge_locked": 10, "edge_score_live": 10, "conviction": 101,
+                                      "validated": False, "updated_at": "2026-06-10T05:40:00Z"}))
+        selected = run_gate(["--repo", REPO_ROOT, "--select"], os.fsencode(state_path) + b"\0")
+        checked = run_gate(["--repo", REPO_ROOT, "--check", str(frozen), "--publication-path", state_path])
+        check("auxiliary classification never disables exact-index conviction-state leaf selection or validation",
+              selected.returncode == 0 and selected.stdout == os.fsencode(state_path) + b"\0"
+              and checked.returncode == 1 and b"conviction" in checked.stderr, repr(checked.stderr))
+
+
+def test_inprocess_schema_admission_uses_consumed_bytes_before_any_write():
+    import decision_publication_gate as gate
+    from unittest.mock import patch
+
+    cache = Path(REPO_ROOT, ".cache", "publication-schema-tests")
+    cache.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(prefix="consumed-admission-", dir=cache) as tmp:
+        _, agent, env = setup_stale_local_main_scenario(tmp)
+        repo = Path(agent)
+        manifest = repo / ".claude/agents/future/SWARM.md"
+        manifest.parent.mkdir(parents=True)
+        manifest.write_text("---\nid: future\nunit: issuer\nruns_root: future/runs\n"
+                            "run_root_template: future/runs/{ID}\nplaceholder: ID\n"
+                            "ledger_root: future/ledger\nschemas_root: frameworks/future\npublication_schemas:\n"
+                            "  - run:input.json=verdict.schema.json\n"
+                            "  - ledger:states/*.json=verdict.schema.json\n---\n")
+        schema = repo / "frameworks/future/verdict.schema.json"
+        schema.parent.mkdir(parents=True)
+        schema_bytes = b'{"type":"object","required":["answer"],"properties":{"answer":{"const":"ok"}}}'
+        schema.write_bytes(schema_bytes)
+        relative = "future/runs/subject/input.json"
+        output = "future/ledger/states/subject.json"
+        valid, invalid = b'{"answer":"ok"}\n', b'{"answer":null}\n'
+        source = repo / relative
+        source.parent.mkdir(parents=True)
+        source.write_bytes(valid)
+
+        def refuses(name, consumed, proposed=(), token="", target_repo=repo):
+            try:
+                gate.admit_schema_records(target_repo, consumed, proposed=proposed)
+            except gate.GateError as error:
+                check(name, token in str(error), str(error))
+            else:
+                check(name, False, "returned approval instead of GateError")
+
+        head = run(["git", "rev-parse", "HEAD"], cwd=agent, env=env).stdout
+        counts = gate.admit_schema_records(repo, [(relative, valid)], proposed=[(output, valid)])
+        check("the shared callable judges changed consumed bytes and strict proposed bytes without writing them",
+              counts == {"checked_inputs": 1, "unchanged_inputs": 0, "checked_outputs": 1}
+              and not (repo / output).exists() and source.read_bytes() == valid
+              and run(["git", "rev-parse", "HEAD"], cwd=agent, env=env).stdout == head)
+        source.write_bytes(invalid)
+        refuses("consumed bytes cannot be replaced by a later live substitute", [(relative, valid)], token="changed")
+        refuses("invalid actual consumed input is not masked by a valid proposed state",
+                [(relative, invalid)], [(output, valid)], "consumed input")
+        run(["git", "add", relative], cwd=agent, env=env)
+        run(["git", "commit", "-qm", "fixture: immutable malformed history"], cwd=agent, env=env)
+        counts = gate.admit_schema_records(repo, [(relative, invalid)], proposed=[(output, valid)])
+        check("HEAD-identical malformed input is preserved while a new recovery image is still checked",
+              counts == {"checked_inputs": 0, "unchanged_inputs": 1, "checked_outputs": 1})
+        refuses("a proposed recovery image never inherits its input's historical exemption",
+                [(relative, invalid)], [(relative, invalid)], "proposed output")
+        (repo / output).parent.mkdir(parents=True)
+        (repo / output).write_bytes(invalid)
+        run(["git", "add", output], cwd=agent, env=env)
+        run(["git", "commit", "-qm", "fixture: old state image"], cwd=agent, env=env)
+        refuses("a HEAD-identical invalid planned state is strict even with no consumed inputs",
+                [], [(output, invalid)], "proposed output")
+        (repo / output).write_bytes(valid)
+        counts = gate.admit_schema_records(repo, [(output, valid)], proposed=[(output, valid)])
+        check("one state may be both an old consumed input and a planned output",
+              counts == {"checked_inputs": 1, "unchanged_inputs": 0, "checked_outputs": 1})
+        source.chmod(0o755)
+        run(["git", "add", relative], cwd=agent, env=env)
+        run(["git", "commit", "-qm", "fixture: non-publication file mode"], cwd=agent, env=env)
+        refuses("executable HEAD bytes do not receive the regular100644 history exemption",
+                [(relative, invalid)], token="consumed input")
+        source.chmod(0o644)
+        source.write_bytes(valid)
+        for label, consumed, proposed, token in [
+            ("empty", [], [], "requires"),
+            ("unmapped input", [("future/runs/subject/unknown.json", valid)], [], "no declared"),
+            ("unmapped output", [(relative, valid)], [("future/ledger/unknown.json", valid)], "no declared"),
+            ("non-bytes input", [(relative, {"answer": "ok"})], [], "exact bytes"),
+            ("duplicate input", [(relative, valid), (relative, valid)], [], "duplicate"),
+            ("duplicate output", [(relative, valid)], [(output, valid), (output, valid)], "duplicate"),
+            ("empty proposed bytes", [(relative, valid)], [(output, b"")], "cannot judge"),
+            ("malformed pair", [(relative,)], [], "pair"),
+            ("traversal", [("future/../escape.json", valid)], [], "canonical"),
+        ]:
+            refuses(f"explicit {label} cannot count as schema approval", consumed, proposed, token)
+        source.unlink()
+        refuses("a consumed source that disappeared cannot be approved", [(relative, valid)], token="unreadable")
+        source.write_bytes(valid)
+        retained = source.with_suffix(".retained")
+        source.rename(retained)
+        source.symlink_to(retained)
+        refuses("linked consumed input is refused even when its bytes match", [(relative, valid)], token="linked")
+        source.unlink()
+        retained.rename(source)
+        state_dir = (repo / output).parent
+        retained_dir = state_dir.with_name("retained")
+        state_dir.rename(retained_dir)
+        state_dir.symlink_to(retained_dir, target_is_directory=True)
+        refuses("a missing proposed leaf below a linked parent is refused", [(relative, valid)],
+                [("future/ledger/states/new.json", valid)], "linked")
+        state_dir.unlink()
+        retained_dir.rename(state_dir)
+        linked_output = state_dir / "linked.json"
+        linked_output.symlink_to(source)
+        refuses("an existing linked proposed target is refused", [(relative, valid)],
+                [("future/ledger/states/linked.json", valid)], "linked")
+        linked_output.unlink()
+        original_validate = gate.validate_schema_document
+
+        def changed_source(binding, document):
+            errors = original_validate(binding, document)
+            source.write_bytes(invalid)
+            return errors
+
+        with patch.object(gate, "validate_schema_document", side_effect=changed_source):
+            refuses("source mutation during validation is refused by the final exact-byte recheck",
+                    [(relative, valid)], [(output, valid)], "changed")
+        source.write_bytes(valid)
+
+        def changed_history_source(binding, document):
+            errors = original_validate(binding, document)
+            (repo / output).write_bytes(valid)
+            return errors
+
+        (repo / output).write_bytes(invalid)  # this regular100644 image is identical to its committed HEAD
+        with patch.object(gate, "validate_schema_document", side_effect=changed_history_source):
+            refuses("history-exempt input is still rechecked after proposed-output validation",
+                    [(output, invalid)], [(relative, valid)], "changed")
+        (repo / output).write_bytes(valid)
+
+        def changed_contract(binding, document):
+            errors = original_validate(binding, document)
+            schema.write_bytes(b'{"type":"object"}')
+            return errors
+
+        with patch.object(gate, "validate_schema_document", side_effect=changed_contract):
+            refuses("schema program mutation during validation cannot authorize a write",
+                    [(relative, valid)], [(output, valid)], "contract changed")
+        schema.write_bytes(schema_bytes)
+        changed = []
+
+        def changed_head(binding, document):
+            errors = original_validate(binding, document)
+            if not changed:
+                changed.append(True)
+                write_text(agent, "future/head-marker.txt", "new isolated HEAD\n")
+                run(["git", "add", "future/head-marker.txt"], cwd=agent, env=env)
+                run(["git", "commit", "-qm", "fixture: concurrent HEAD advance"], cwd=agent, env=env)
+            return errors
+
+        with patch.object(gate, "validate_schema_document", side_effect=changed_head):
+            refuses("a HEAD advance cannot change history semantics halfway through admission",
+                    [(relative, valid)], [(output, valid)], "HEAD changed")
+        schema.rename(schema.with_suffix(".retained"))
+        refuses("a missing declared schema fails visibly before any write", [(relative, valid)], token="unreadable")
+        schema.with_suffix(".retained").rename(schema)
+        unborn = Path(tmp) / "unborn"
+        run(["git", "init", "-q", "-b", "codex/unborn", str(unborn)], cwd=tmp, env=env)
+        refuses("a Git checkout without HEAD cannot grant proposed-output approval", [], [(output, valid)], target_repo=unborn)
+
+
 if __name__ == "__main__":
     print("== test_commit_run.py ==")
     test_fast_forward_push_from_non_main_branch_with_stale_local_main()
@@ -1913,7 +2396,10 @@ if __name__ == "__main__":
     test_preseal_decision_gate_reaches_commit_runs_verdict_on_the_same_frozen_bytes()
     test_preseal_decision_gate_fails_closed()
     test_manifest_schema_publication_uses_frozen_and_staged_bytes()
+    test_manifest_schema_publication_acceptance_matrix()
     test_manifest_schema_contract_is_generic_and_fails_closed()
+    test_manifest_auxiliary_roots_require_exact_context()
+    test_inprocess_schema_admission_uses_consumed_bytes_before_any_write()
     test_cockpit_publication_delegates_to_supervisor_and_never_trusts_child_manifest()
     test_supervisor_snapshot_stages_fixed_bytes_not_mutable_worktree()
     if _fails:

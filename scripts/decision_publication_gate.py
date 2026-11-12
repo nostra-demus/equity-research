@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Creation-time gate for terminal research records and declared swarm JSON contracts.
 
-One definition, two callers, so they cannot drift:
+One definition for publication and deterministic prewrite admission:
 
 * ``scripts/commit-run.sh`` applies it to the exact Git index it is about to commit (``--select`` +
   ``--check``). It keeps its own index handling and its own messages; only WHICH staged paths are
@@ -9,6 +9,9 @@ One definition, two callers, so they cannot drift:
 * The cockpit supervisor applies it to a frozen publication snapshot BEFORE that snapshot is sealed
   into an immutable ready receipt (``--records``). A sealed record this gate rejects can never
   publish: commit-run.sh reaches the same verdict on the same bytes at every retry.
+* Deterministic writers call ``admit_schema_records`` while holding their repository mutation lease.
+  It judges exact consumed bytes and strict proposed state bytes before the first domain write,
+  then rechecks consumed files, the schema contract and HEAD before returning.
 
 The research data-needs gate judges a top-level ``analyses/<RUN>/decision_record.json``, and
 only when this publication would actually change it. The exact path shape excludes module outputs,
@@ -31,6 +34,8 @@ boards are intentionally not declared: a new publication never regrades unchange
 ``--schema-contract`` describes run artifacts for the supervisor's freshness selection, and
 ``--schema-records`` judges every explicitly supplied pair before any durable mutation, without a
 HEAD exemption. The later ``--records``/staged gate retains its unchanged-history exemption.
+Declared auxiliary execution roots require trusted parent/kind/display-unit context; canonical roots
+always retain their schema contract regardless of that execution kind.
 
 Exit codes. Callers refuse on ANY non-zero exit: an unjudged record is exactly what must not be
 committed or sealed, so the distinctions below are for the reader of a log, not for control flow.
@@ -43,6 +48,7 @@ could not be launched. ``--select``: 0.
 from __future__ import annotations
 
 import argparse
+from collections.abc import Sequence
 import json
 import os
 import pathlib
@@ -86,15 +92,38 @@ def pattern_regex(pattern: str) -> re.Pattern:
     return re.compile("^" + re.escape(pattern).replace(r"\*", "[^/]*").replace(r"\?", "[^/]") + "$")
 
 
-def schema_bindings(repo: pathlib.Path) -> list[dict]:
-    """Resolve only trusted manifest mappings; payloads never select their own schema."""
+def existing_root_directories(repo: pathlib.Path, relative: str, pattern: bool = False) -> None:
+    """Refuse linked/non-directory ancestors even when the requested leaf does not exist yet."""
+    parts = canonical_relative(relative, "run root").split("/")
+    for index, part in enumerate(parts):
+        if pattern and any(character in part for character in "*?"):
+            break
+        prefix = "/".join(parts[:index + 1])
+        try:
+            os.lstat(repo / prefix)
+        except FileNotFoundError:
+            break
+        except OSError as error:
+            raise GateError(f"run root ancestor is unreadable: {prefix}: {error}") from error
+        read_beneath(repo, prefix, directory=True)
+
+
+def swarm_contracts(repo: pathlib.Path) -> tuple[dict, ...]:
     try:
-        contracts = discover_swarm_contracts(repo)
+        return discover_swarm_contracts(repo)
     except (OSError, ValueError, ProvenanceError) as error:
         raise GateError(f"cannot discover publication contracts: {error}") from error
+
+
+def schema_bindings(repo: pathlib.Path, contracts: tuple[dict, ...] | None = None) -> list[dict]:
+    """Resolve only trusted manifest mappings; payloads never select their own schema."""
+    if contracts is None:
+        contracts = swarm_contracts(repo)
     bindings = []
     patterns = set()
     for contract in contracts:
+        for auxiliary in contract["publication_auxiliary_roots"]:
+            existing_root_directories(repo, auxiliary["pattern"], pattern=True)
         mappings = contract.get("publication_schemas")
         if mappings is None and not contract.get("schemas_root"):
             continue
@@ -156,18 +185,41 @@ def binding_for(relative: bytes, bindings: list[dict]) -> dict | None:
     return matches[0] if matches else None
 
 
-def schema_contract(repo: pathlib.Path, run_root: str) -> dict:
-    canonical_relative(run_root, "run root")
-    if os.path.lexists(repo / run_root):
-        read_beneath(repo, run_root, directory=True)
-    bindings = schema_bindings(repo)
-    contracts = {row["id"]: row for row in discover_swarm_contracts(repo)
-                 if pattern_regex(row["run_glob"]).fullmatch(run_root)}
-    if not contracts and is_terminal_decision_path(os.fsencode(run_root + "/decision_record.json")):
-        return {"swarm_id": "research", "run_root": run_root, "declared": False, "artifacts": []}
-    if len(contracts) != 1:
+def schema_contract(repo: pathlib.Path, run_root: str, owner: str | None = None,
+                    kind: str | None = None, unit: str | None = None) -> dict:
+    context = (owner, kind, unit)
+    if any(value is not None for value in context) and not all(
+        isinstance(value, str) and value.strip() == value and value for value in context
+    ):
+        raise GateError("schema contract context requires owner, kind, and unit together")
+    existing_root_directories(repo, run_root)
+    contracts = swarm_contracts(repo)
+    bindings = schema_bindings(repo, contracts)
+    canonical = [row for row in contracts if pattern_regex(row["run_glob"]).fullmatch(run_root)]
+    research = not canonical and is_terminal_decision_path(os.fsencode(run_root + "/decision_record.json"))
+    if not canonical and not research:
+        # Only trusted exact execution context can select a declared auxiliary root. An arbitrary
+        # unknown root remains an error, and canonical roots always take precedence over this branch.
+        parents = [row for row in contracts if row["id"] == owner]
+        if len(parents) != 1 or unit != parents[0].get("unit"):
+            raise GateError(f"expected exactly one declared schema contract for run root: {run_root}")
+        auxiliary = [row for row in parents[0]["publication_auxiliary_roots"]
+                     if row["kind"] == kind and pattern_regex(row["pattern"]).fullmatch(run_root)]
+        if len(auxiliary) != 1:
+            raise GateError(f"expected exactly one declared auxiliary kind/root contract: {run_root}")
+        return {"swarm_id": owner, "run_root": run_root, "classification": "auxiliary",
+                "declared": False, "artifacts": []}
+    if research:
+        if owner is not None and owner != "research":
+            raise GateError(f"schema contract owner does not match canonical run root: {run_root}")
+        return {"swarm_id": "research", "run_root": run_root, "classification": "canonical",
+                "declared": False, "artifacts": []}
+    if len(canonical) != 1:
         raise GateError(f"expected exactly one declared schema contract for run root: {run_root}")
-    contract = next(iter(contracts.values()))
+    contract = canonical[0]
+    if owner is not None and (owner != contract["id"]
+                              or (contract.get("unit") is not None and unit != contract["unit"])):
+        raise GateError(f"schema contract context does not match canonical run root: {run_root}")
     artifacts = {}
     for row in bindings:
         if row["contract"]["id"] != contract["id"] or row["scope"] != "run":
@@ -184,18 +236,15 @@ def schema_contract(repo: pathlib.Path, run_root: str) -> dict:
                 raise GateError(f"unmapped publication schema artifact: {path}")
             artifacts[path] = {"path": path, "relative": path[len(run_root) + 1:]}
     return {"swarm_id": contract["id"], "run_root": run_root,
+            "classification": "canonical",
             "declared": bool(contract.get("publication_schemas")),
             "artifacts": [artifacts[path] for path in sorted(artifacts)]}
 
 
-def validate_schema_bytes(binding: dict, frozen: str) -> list[str]:
+def validate_schema_document(binding: dict, document: bytes) -> list[str]:
+    """Judge pinned program/document bytes with the existing canonical schema checker."""
     from validate_screener_json import validate
     try:
-        descriptor = os.open(frozen, os.O_RDONLY | os.O_NOFOLLOW)
-        with os.fdopen(descriptor, "rb") as handle:
-            if not stat.S_ISREG(os.fstat(handle.fileno()).st_mode):
-                raise GateError("frozen schema artifact is not a regular file")
-            document = handle.read()
         # Pin both inputs before the existing canonical checker opens them. Program or provider writes
         # cannot make this check judge a different schema/doc from the bytes selected above.
         with tempfile.TemporaryDirectory(prefix="publication-schema-") as directory:
@@ -206,6 +255,18 @@ def validate_schema_bytes(binding: dict, frozen: str) -> list[str]:
             return validate(str(schema_file), str(document_file))
     except (OSError, ValueError, KeyError, TypeError, RecursionError) as error:
         raise GateError(f"cannot validate declared publication schema {binding['schema']}: {error}") from error
+
+
+def validate_schema_bytes(binding: dict, frozen: str) -> list[str]:
+    try:
+        descriptor = os.open(frozen, os.O_RDONLY | os.O_NOFOLLOW)
+        with os.fdopen(descriptor, "rb") as handle:
+            if not stat.S_ISREG(os.fstat(handle.fileno()).st_mode):
+                raise GateError("frozen schema artifact is not a regular file")
+            document = handle.read()
+    except OSError as error:
+        raise GateError(f"cannot read frozen schema artifact: {frozen}: {error}") from error
+    return validate_schema_document(binding, document)
 
 
 def is_terminal_decision_path(relative: bytes) -> bool:
@@ -231,9 +292,9 @@ def run_validator(repo: pathlib.Path, record: str, capture: bool) -> subprocess.
         raise GateError(f"cannot launch the data-needs validator: {error}") from error
 
 
-def git(repo: pathlib.Path, *args: "str | bytes") -> bytes:
+def git(repo: pathlib.Path, *args: "str | bytes", input: bytes | None = None) -> bytes:
     try:
-        return subprocess.check_output(["git", "-C", str(repo), *args], stderr=subprocess.PIPE)
+        return subprocess.check_output(["git", "-C", str(repo), *args], input=input, stderr=subprocess.PIPE)
     except (OSError, subprocess.CalledProcessError) as error:
         detail = ""
         if isinstance(error, subprocess.CalledProcessError):
@@ -249,9 +310,92 @@ def differs_from_head(repo: pathlib.Path, relative: bytes, frozen: str) -> bool:
     differs from HEAD exactly when HEAD's tree entry is anything other than that mode, type and OID.
     """
     oid = git(repo, "hash-object", "--", frozen).strip()
+    return differs_from_head_oid(repo, relative, oid)
+
+
+def differs_from_head_oid(repo: pathlib.Path, relative: bytes, oid: bytes, head: str = "HEAD") -> bool:
     # The path goes to git as the bytes it arrived as: no decode, so no locale can change which entry is read.
-    listed = git(repo, "--literal-pathspecs", "ls-tree", "-z", "HEAD", "--", relative)
+    listed = git(repo, "--literal-pathspecs", "ls-tree", "-z", head, "--", relative)
     return [entry for entry in listed.split(b"\0") if entry] != [b"100644 blob " + oid + b"\t" + relative]
+
+
+def admit_schema_records(repo: pathlib.Path, consumed: Sequence[tuple[str, bytes]], *,
+                         proposed: Sequence[tuple[str, bytes]] = ()) -> dict[str, int]:
+    """Admit a deterministic transaction before its first write, while its caller holds the lease.
+
+    Consumed bytes must be exactly those parsed by the caller. Only regular 100644 HEAD-identical inputs
+    retain the publication gate's history exemption. Proposed mapped outputs are always checked strictly,
+    including recovery images. Explicit unmapped pairs and empty calls are errors, never schema approval.
+    The caller keeps its repository mutation lease from reading/planning through this call and writing.
+    """
+    repo = pathlib.Path(repo).resolve()
+    try:
+        groups = (list(consumed), list(proposed))
+    except TypeError as error:
+        raise GateError("expected consumed/proposed (logical path, exact bytes) pairs") from error
+    if not any(groups):
+        raise GateError("schema admission requires consumed or proposed mapped records")
+    head = git(repo, "rev-parse", "--verify", "HEAD^{commit}").strip().decode("ascii")
+    bindings = schema_bindings(repo)
+    normalized = []
+    for label, pairs in zip(("consumed input", "proposed output"), groups):
+        seen = set()
+        rows = []
+        for pair in pairs:
+            if not isinstance(pair, (tuple, list)) or len(pair) != 2:
+                raise GateError(f"expected {label} (logical path, exact bytes) pair")
+            relative, document = pair
+            canonical_relative(relative, label)
+            if not isinstance(document, bytes):
+                raise GateError(f"{label} must supply exact bytes: {relative}")
+            if relative in seen:
+                raise GateError(f"duplicate {label}: {relative}")
+            seen.add(relative)
+            binding = binding_for(os.fsencode(relative), bindings)
+            if binding is None:
+                raise GateError(f"no declared publication schema for {label}: {relative}")
+            rows.append((relative, document, binding))
+        normalized.append(rows)
+
+    def verify_consumed_and_targets() -> None:
+        for relative, document, _ in normalized[0]:
+            if read_beneath(repo, relative) != document:
+                raise GateError(f"consumed schema input changed before mutation: {relative}")
+        for relative, _, _ in normalized[1]:
+            parent = relative.rpartition("/")[0]
+            if parent:
+                existing_root_directories(repo, parent)
+            try:
+                os.lstat(repo / relative)
+            except FileNotFoundError:
+                continue
+            except OSError as error:
+                raise GateError(f"proposed schema target is unreadable: {relative}: {error}") from error
+            read_beneath(repo, relative)  # existing target must remain a contained non-linked regular file
+
+    verify_consumed_and_targets()
+    counts = {"checked_inputs": 0, "unchanged_inputs": 0, "checked_outputs": 0}
+    for index, rows in enumerate(normalized):
+        for relative, document, binding in rows:
+            if index == 0:
+                oid = git(repo, "hash-object", "--stdin", input=document).strip()
+                if not differs_from_head_oid(repo, os.fsencode(relative), oid, head):
+                    counts["unchanged_inputs"] += 1
+                    continue
+            try:
+                errors = validate_schema_document(binding, document)
+            except GateError as error:
+                raise GateError(f"cannot judge schema record {relative}: {error}") from error
+            if errors:
+                raise GateError(f"schema rejected {'consumed input' if index == 0 else 'proposed output'} "
+                                f"{relative}\n" + "\n".join(errors))
+            counts["checked_inputs" if index == 0 else "checked_outputs"] += 1
+    if schema_bindings(repo) != bindings:
+        raise GateError("publication schema contract changed before mutation")
+    if git(repo, "rev-parse", "--verify", "HEAD^{commit}").strip().decode("ascii") != head:
+        raise GateError("repository HEAD changed during schema admission")
+    verify_consumed_and_targets()
+    return counts
 
 
 def select(raw: bytes, repo: pathlib.Path | None = None) -> bytes:
@@ -346,6 +490,9 @@ def parse_args() -> argparse.Namespace:
     )
     mode.add_argument("--check", metavar="RECORD", help="judge one decision record's bytes")
     mode.add_argument("--schema-contract", metavar="RUN_ROOT", help="describe trusted schema-bearing run artifacts as JSON")
+    parser.add_argument("--schema-swarm", help="trusted parent swarm for an execution-scoped schema contract")
+    parser.add_argument("--schema-kind", help="trusted execution kind; supplied with --schema-swarm and --schema-unit")
+    parser.add_argument("--schema-unit", help="trusted manifest display unit, never a primary/auxiliary kind discriminator")
     mode.add_argument("--schema-records", action="store_true", help="validate every explicitly supplied mapped (path, bytes file) pair before durable mutation")
     mode.add_argument(
         "--records", action="store_true",
@@ -362,6 +509,10 @@ def main() -> int:
     args = parse_args()
     repo = pathlib.Path(args.repo).resolve()
     try:
+        if args.schema_contract is None and any(
+            value is not None for value in (args.schema_swarm, args.schema_kind, args.schema_unit)
+        ):
+            raise GateError("schema execution context is only valid with --schema-contract")
         if args.select:
             sys.stdout.buffer.write(select(sys.stdin.buffer.read(), repo))
             sys.stdout.buffer.flush()
@@ -369,7 +520,8 @@ def main() -> int:
         if args.check is not None:
             return check(repo, args.check, args.publication_path)
         if args.schema_contract is not None:
-            print(json.dumps(schema_contract(repo, args.schema_contract)))
+            print(json.dumps(schema_contract(repo, args.schema_contract, args.schema_swarm,
+                                             args.schema_kind, args.schema_unit)))
             return 0
         return records(repo, sys.stdin.buffer.read(), schema_only=args.schema_records)
     except GateError as error:
