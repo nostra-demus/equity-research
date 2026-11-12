@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T19:43:01Z",
+  "generated_at": "2026-11-12T19:43:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20261112-874",
@@ -233627,15 +233627,15 @@
   "ideas": [
     {
       "idea_id": "IDEA-50f379c78b21",
-      "idea_version": "IDEAV-03448fef28fff6b0",
-      "idea_version_started_at": "2026-11-12T19:23:01Z",
+      "idea_version": "IDEAV-2732a58d81ea1739",
+      "idea_version_started_at": "2026-11-12T19:43:22Z",
       "ticker": "NVDA",
       "company": "Nvidia",
       "exchange": "NASDAQ",
       "direction": "short",
       "pair_with": null,
-      "reason": "The sudden resignation of CEO Jensen Huang amid a scandal creates significant leadership uncertainty and potential regulatory or geopolitical fallout for the company's core operations.",
-      "why_now": "The CEO resigned on November 12, 2026, and is scheduled to testify before Congress regarding the scandal.",
+      "reason": "The sudden ouster of a visionary founder-CEO amid scandal creates significant leadership uncertainty and potential disruption to the company's AI-centric strategic roadmap.",
+      "why_now": "The CEO resigned effective immediately on 2026-11-12, triggering an immediate management transition to an interim CEO.",
       "conviction": 85,
       "conviction_basis": "pre_edge_proxy",
       "trade_score": 79,
@@ -233669,27 +233669,29 @@
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
-        "EVT-3e81914eb6d8",
-        "EVT-da7d489ba9f7",
-        "EVT-0c3399d25a6f",
-        "EVT-1fb96fc9aa83",
-        "EVT-3bca96f85ac4",
-        "EVT-01450749ca1f",
-        "EVT-3ce146fccadb",
-        "EVT-611fc2e3ceff"
+        "EVT-a648b67cba79",
+        "EVT-b0da998070da",
+        "EVT-35a6f8636e63",
+        "EVT-80a37e2bed0d",
+        "EVT-1498f7b5da7b",
+        "EVT-388a1cbf24a5",
+        "EVT-5afe21958444",
+        "EVT-80fb2e42461b",
+        "EVT-c3843daca87e",
+        "EVT-ec8a896869b9"
       ],
-      "primary_source_event_id": "EVT-3e81914eb6d8",
+      "primary_source_event_id": "EVT-a648b67cba79",
       "source_headlines": [
-        "Nvidia default risk nears record high as board weighs CEO’s fate",
-        "Nvidia stock pares morning losses after CEO Jensen Huang announces resignation",
-        "Nvidia CEO Jensen Huang resigns amid Chinese spy scandal",
-        "Jensen Huang Resigns From Nvidia—Trump Says Tim Cook Should Replace Him"
+        "Nvidia CEO Jensen Huang steps down, more affair details revealed",
+        "Nvidia’s Jensen Huang Resigns. Is This Top AI Stock Still a Buy?",
+        "Jensen Huang Resigns From Nvidia Amid Affairs and Alleged Spy Scandal",
+        "Nvidia Names Colette Kress as Interim CEO"
       ],
-      "source_headline": "Nvidia default risk nears record high as board weighs CEO’s fate",
-      "source_url": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/nvidia-default-risk-nears-record-high-as-board-weighs-ceos-fate/articleshow/135775893.cms",
-      "source_name": "The Economic Times",
+      "source_headline": "Nvidia CEO Jensen Huang steps down, more affair details revealed",
+      "source_url": "https://www.aljazeera.com/video/newsfeed/2026/11/12/nvidia-ceo-jensen-huang-steps-down-more-affair-details-revealed?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
       "materiality_max": 100,
-      "newest_source_at": "2026-11-12T18:05:02Z",
+      "newest_source_at": "2026-11-12T19:07:18Z",
       "prior_coverage": {
         "has_run": false,
         "latest_run": null,
@@ -233697,8 +233699,8 @@
         "data_pool_present": false
       },
       "surfaced_at": "2026-11-07T15:09:40Z",
-      "updated_at": "2026-11-12T19:23:01Z",
-      "decay_at": "2026-11-14T06:05:02Z",
+      "updated_at": "2026-11-12T19:43:22Z",
+      "decay_at": "2026-11-14T07:07:18Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -233839,6 +233841,76 @@
       "surfaced_at": "2026-11-12T10:13:12Z",
       "updated_at": "2026-11-12T10:13:12Z",
       "decay_at": "2026-11-13T15:40:04Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-8d133c0c68da",
+      "idea_version": "IDEAV-f9aaa84e233df334",
+      "idea_version_started_at": "2026-11-12T19:43:22Z",
+      "ticker": "MBGAF",
+      "company": "Mercedes-Benz",
+      "exchange": "OTC Markets",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Halting investment and signaling potential plant closures in its home market reflects severe margin pressure and structural challenges in the European automotive manufacturing sector.",
+      "why_now": "The announcement of the investment halt and closure warnings occurred on 2026-11-12.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "sector_cycle",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9473e39e8284"
+      ],
+      "primary_source_event_id": "EVT-9473e39e8284",
+      "source_headlines": [
+        "Mercedes-Benz halts investment in Germany, warns of plant closures"
+      ],
+      "source_headline": "Mercedes-Benz halts investment in Germany, warns of plant closures",
+      "source_url": "https://gulfnews.com/auto/news/mercedes-benz-halts-investment-in-germany-warns-of-plant-closures-1.500745605",
+      "source_name": "Gulf News",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-12T18:32:53Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-12T19:43:22Z",
+      "updated_at": "2026-11-12T19:43:22Z",
+      "decay_at": "2026-11-14T06:32:53Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -234119,6 +234191,76 @@
       "surfaced_at": "2026-11-12T12:14:16Z",
       "updated_at": "2026-11-12T12:14:16Z",
       "decay_at": "2026-11-13T20:07:13Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-905257f7a80a",
+      "idea_version": "IDEAV-c568c0f0d4eba6f1",
+      "idea_version_started_at": "2026-11-12T19:43:22Z",
+      "ticker": "SFTBY",
+      "company": "SoftBank Group",
+      "exchange": "OTC Markets",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A $3.7 billion charge related to scrapped turbine orders indicates significant capital misallocation and potential underlying financial distress despite management's denial of default.",
+      "why_now": "The news broke on 2026-11-12 regarding the specific financial charge, contradicting previous management assurances.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1b663c59a434"
+      ],
+      "primary_source_event_id": "EVT-1b663c59a434",
+      "source_headlines": [
+        "SoftBank CFO Says “There Is No Such Default” After Musk’s Turbine Claim, But a $3.7B Charge on Scrapped Turbine Orders Suggests Elon Was Onto Something"
+      ],
+      "source_headline": "SoftBank CFO Says “There Is No Such Default” After Musk’s Turbine Claim, But a $3.7B Charge on Scrapped Turbine Orders Suggests Elon Was Onto Something",
+      "source_url": "https://247wallst.com/investing/2026/11/12/softbank-cfo-says-there-is-no-such-default-after-musks-turbine-claim-but-a-3-7b-charge-on-scrapped-turbine-orders-suggests-elon-was-onto-something/",
+      "source_name": "24/7 Wall St.",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-12T18:43:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-12T19:43:22Z",
+      "updated_at": "2026-11-12T19:43:22Z",
+      "decay_at": "2026-11-14T06:43:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -276560,8 +276702,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2422,
-    "live_count": 35,
+    "surfaced_total": 2424,
+    "live_count": 37,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
