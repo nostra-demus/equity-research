@@ -1,0 +1,77 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-11-12T15:45:23Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-458b3d1bfac2",
+    "idea_version": "IDEAV-87f5e3d2d1e772bb",
+    "idea_version_started_at": "2026-11-09T17:33:24Z",
+    "ticker": "IONS",
+    "company": "Ionis Pharmaceuticals",
+    "exchange": "NASDAQ",
+    "ticker_verified": true,
+    "listing_verified": true,
+    "liquidity_verified": false,
+    "listing_verification_source": "yahoo_symbol_directory",
+    "direction": "short",
+    "pair_with": null,
+    "reason": "The company reported third-quarter results and explicitly lowered guidance for its key product, TRYNGOLZA, indicating a negative revision to revenue expectations.",
+    "why_now": "The guidance cut was announced on November 9, 2026.",
+    "conviction": 70,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 66,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 20,
+      "specificity": 15,
+      "timing": 10,
+      "expression": 7,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "needs_data",
+    "missing_checks": [
+      "live liquidity",
+      "dated catalyst",
+      "independent confirmation",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-89274314e199"
+    ],
+    "primary_source_event_id": "EVT-89274314e199",
+    "source_headlines": [
+      "Ionis Pharmaceuticals Reports Third Quarter 2026 Financial Results and Lowers TRYNGOLZA Guidance"
+    ],
+    "source_headline": "Ionis Pharmaceuticals Reports Third Quarter 2026 Financial Results and Lowers TRYNGOLZA Guidance",
+    "source_url": "https://www.nasdaq.com/articles/ionis-pharmaceuticals-reports-third-quarter-2026-financial-results-and-lowers-tryngolza",
+    "source_name": "Nasdaq",
+    "materiality_max": 100,
+    "newest_source_at": "2026-11-09T15:32:02Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-11-09T17:33:24Z",
+    "updated_at": "2026-11-09T17:33:24Z",
+    "decay_at": "2026-11-11T03:32:02Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}
