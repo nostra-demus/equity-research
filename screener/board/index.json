@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T15:31:52Z",
+  "generated_at": "2026-11-12T15:45:38Z",
   "inbox": [
     {
       "inbox_id": "INB-20261112-821",
@@ -233612,22 +233612,22 @@
   "ideas": [
     {
       "idea_id": "IDEA-50f379c78b21",
-      "idea_version": "IDEAV-ef3b9ffcf3887e9b",
-      "idea_version_started_at": "2026-11-12T14:12:08Z",
+      "idea_version": "IDEAV-a6b3f3eb4aae4399",
+      "idea_version_started_at": "2026-11-12T15:45:19Z",
       "ticker": "NVDA",
       "company": "Nvidia",
       "exchange": "NASDAQ",
       "direction": "short",
       "pair_with": null,
-      "reason": "The potential departure of CEO Jensen Huang amid a deepening scandal creates significant leadership uncertainty and key-man risk for the company's strategic direction.",
-      "why_now": "Multiple reports on 2026-11-12 confirm the board is actively weighing a replacement and searching for a temporary CEO.",
-      "conviction": 75,
+      "reason": "The sudden resignation of CEO Jensen Huang amid allegations of misconduct and espionage creates significant leadership instability and potential regulatory/legal fallout for the company.",
+      "why_now": "The resignation was confirmed today, November 12, 2026, triggering immediate market volatility and a reassessment of the company's governance and risk profile.",
+      "conviction": 85,
       "conviction_basis": "pre_edge_proxy",
-      "trade_score": 77,
+      "trade_score": 79,
       "trade_score_basis": "event_driven_v3",
       "trade_score_breakdown": {
         "evidence": 14,
-        "impact": 21,
+        "impact": 23,
         "specificity": 15,
         "timing": 10,
         "expression": 7,
@@ -233654,21 +233654,26 @@
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
-        "EVT-c29c0371754c",
-        "EVT-52b2fc91ded8",
-        "EVT-c2e4fabdc472"
+        "EVT-84a31cf2fb4d",
+        "EVT-d31a486b646b",
+        "EVT-074bb58cbda6",
+        "EVT-27f4c66804d9",
+        "EVT-2eada4b39351",
+        "EVT-37dae785d262",
+        "EVT-3c533b8f954d"
       ],
-      "primary_source_event_id": "EVT-c29c0371754c",
+      "primary_source_event_id": "EVT-84a31cf2fb4d",
       "source_headlines": [
-        "FirstFT: Nvidia board weighs Huang’s future as scandal deepens",
-        "Nvidia Board Considers Replacing CEO Jensen Huang",
-        "Nvidia board weighs temporary CEO, starts search for potential replacement after Jensen Huang affairs"
+        "The Morning Risk Report: Nvidia is Preparing to Oust CEO Jensen Huang",
+        "Nvidia Default Risk Nears Record High as Board Weighs CEO’s Fate",
+        "Huang, Face of the AI Boom, Ousted by Nvidia Board as CEO",
+        "Huang resigns as Nvidia shares plunge again"
       ],
-      "source_headline": "FirstFT: Nvidia board weighs Huang’s future as scandal deepens",
-      "source_url": "https://www.ft.com/content/64198d59-7a03-4f1c-89c6-81ed8bdc5448?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
+      "source_headline": "The Morning Risk Report: Nvidia is Preparing to Oust CEO Jensen Huang",
+      "source_url": "https://www.wsj.com/risk-compliance-journal/the-morning-risk-report-nvidia-is-preparing-to-oust-ceo-jensen-huang-324bfbd1?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
       "materiality_max": 100,
-      "newest_source_at": "2026-11-12T10:59:00Z",
+      "newest_source_at": "2026-11-12T14:05:31Z",
       "prior_coverage": {
         "has_run": false,
         "latest_run": null,
@@ -233676,8 +233681,8 @@
         "data_pool_present": false
       },
       "surfaced_at": "2026-11-07T15:09:40Z",
-      "updated_at": "2026-11-12T14:12:08Z",
-      "decay_at": "2026-11-13T22:59:00Z",
+      "updated_at": "2026-11-12T15:45:19Z",
+      "decay_at": "2026-11-14T02:05:31Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -236598,76 +236603,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-52cfc7fb7402",
-      "idea_version": "IDEAV-d33178bd7b708f8a",
-      "idea_version_started_at": "2026-11-09T18:48:10Z",
-      "ticker": "NRG",
-      "company": "NRG Energy, Inc.",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "NRG Energy reported strong Q3 2026 results, announced a significant $4 billion asset sale, and initiated positive 2027 guidance, which should improve its financial outlook.",
-      "why_now": "The company released its Q3 results, asset sale announcement, and 2027 guidance today, November 9, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1f21f56fcf35"
-      ],
-      "primary_source_event_id": "EVT-1f21f56fcf35",
-      "source_headlines": [
-        "NRG Energy, Inc. Reports Third Quarter 2026 Results, Announces $4 billion Asset Sale, and Initiates 2027 Guidance"
-      ],
-      "source_headline": "NRG Energy, Inc. Reports Third Quarter 2026 Results, Announces $4 billion Asset Sale, and Initiates 2027 Guidance",
-      "source_url": "https://www.nasdaq.com/articles/nrg-energy-inc-reports-third-quarter-2026-results-announces-4-billion-asset-sale-and",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-09T14:32:26Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-09T17:16:12Z",
-      "updated_at": "2026-11-09T18:48:10Z",
-      "decay_at": "2026-11-11T02:32:26Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-99a574f2e453",
       "idea_version": "IDEAV-2b2f94acbab81903",
       "idea_version_started_at": "2026-11-09T18:28:29Z",
@@ -236808,76 +236743,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-d488a32dbbf5",
-      "idea_version": "IDEAV-28c31f4a623f8c99",
-      "idea_version_started_at": "2026-11-09T18:48:10Z",
-      "ticker": "RY",
-      "company": "Royal Bank of Canada",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Royal Bank of Canada is expanding its asset management business through the acquisition of Australia's Yarra Capital Management, which could contribute to future revenue growth.",
-      "why_now": "RBC signed the deal to acquire Yarra Capital Management today, November 9, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4b41422e3e6e"
-      ],
-      "primary_source_event_id": "EVT-4b41422e3e6e",
-      "source_headlines": [
-        "RBC signs deal to buy Australia’s Yarra Capital Management"
-      ],
-      "source_headline": "RBC signs deal to buy Australia’s Yarra Capital Management",
-      "source_url": "https://www.theglobeandmail.com/business/article-rbc-signs-deal-to-buy-australias-yarra-capital-management/",
-      "source_name": "The Globe and Mail",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-09T15:26:27Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-09T18:48:10Z",
-      "updated_at": "2026-11-09T18:48:10Z",
-      "decay_at": "2026-11-11T03:26:27Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-761bc81c97ac",
       "idea_version": "IDEAV-4b7534505bbe9318",
       "idea_version_started_at": "2026-11-09T18:28:29Z",
@@ -236942,76 +236807,6 @@
       "surfaced_at": "2026-11-09T18:28:29Z",
       "updated_at": "2026-11-09T18:28:29Z",
       "decay_at": "2026-11-11T05:41:53Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-458b3d1bfac2",
-      "idea_version": "IDEAV-87f5e3d2d1e772bb",
-      "idea_version_started_at": "2026-11-09T17:33:24Z",
-      "ticker": "IONS",
-      "company": "Ionis Pharmaceuticals",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company reported third-quarter results and explicitly lowered guidance for its key product, TRYNGOLZA, indicating a negative revision to revenue expectations.",
-      "why_now": "The guidance cut was announced on November 9, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-89274314e199"
-      ],
-      "primary_source_event_id": "EVT-89274314e199",
-      "source_headlines": [
-        "Ionis Pharmaceuticals Reports Third Quarter 2026 Financial Results and Lowers TRYNGOLZA Guidance"
-      ],
-      "source_headline": "Ionis Pharmaceuticals Reports Third Quarter 2026 Financial Results and Lowers TRYNGOLZA Guidance",
-      "source_url": "https://www.nasdaq.com/articles/ionis-pharmaceuticals-reports-third-quarter-2026-financial-results-and-lowers-tryngolza",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-09T15:32:02Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-09T17:33:24Z",
-      "updated_at": "2026-11-09T17:33:24Z",
-      "decay_at": "2026-11-11T03:32:02Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -239870,33 +239665,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 549,
+    "total_count": 546,
     "shown_count": 499,
-    "hidden_count": 50,
+    "hidden_count": 47,
     "side_counts": {
       "long": {
-        "total_count": 285,
+        "total_count": 283,
         "shown_count": 250,
-        "hidden_count": 35
+        "hidden_count": 33
       },
       "short": {
-        "total_count": 265,
+        "total_count": 264,
         "shown_count": 250,
-        "hidden_count": 15
+        "hidden_count": 14
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1829,
-      "oldest_retained_at": "2026-10-17T20:31:00Z",
+      "evicted_count": 1832,
+      "oldest_retained_at": "2026-10-17T22:24:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 1199,
-          "oldest_retained_at": "2026-10-28T06:27:45Z"
+          "evicted_count": 1201,
+          "oldest_retained_at": "2026-10-28T09:28:00Z"
         },
         "short": {
-          "evicted_count": 631,
-          "oldest_retained_at": "2026-10-17T20:31:00Z"
+          "evicted_count": 632,
+          "oldest_retained_at": "2026-10-17T22:24:00Z"
         }
       }
     },
@@ -243441,8 +243236,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-11T03:32:02Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-12T15:45:23Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -243514,8 +243309,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-11T03:26:27Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-12T15:45:23Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -243587,8 +243382,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-11T02:32:26Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-12T15:45:23Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -277044,7 +276839,7 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1448381,
+    "news_seen_today": 1472318,
     "news_picked_today": 2053,
     "news_dropped_today": 14723
   },
