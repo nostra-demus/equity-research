@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T09:29:54Z",
+  "generated_at": "2026-11-12T09:33:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20261112-477",
@@ -233628,22 +233628,22 @@
   "ideas": [
     {
       "idea_id": "IDEA-50f379c78b21",
-      "idea_version": "IDEAV-9667a4adbda35530",
-      "idea_version_started_at": "2026-11-12T05:39:59Z",
+      "idea_version": "IDEAV-5238ada1fa26bd3c",
+      "idea_version_started_at": "2026-11-12T09:30:10Z",
       "ticker": "NVDA",
       "company": "Nvidia",
       "exchange": "NASDAQ",
       "direction": "short",
       "pair_with": null,
-      "reason": "The potential ouster of CEO Jensen Huang amid multiple allegations of misconduct creates significant leadership uncertainty and key-man risk for the company's strategic direction.",
-      "why_now": "Multiple reports confirm the board is actively meeting and working with outside firms to identify potential CEO candidates as of 2026-11-12.",
-      "conviction": 80,
+      "reason": "The potential ousting of CEO Jensen Huang due to personal conduct allegations creates significant leadership uncertainty and governance risk for the company.",
+      "why_now": "Multiple reports indicate the board may vote on the CEO's removal as early as 2026-11-12.",
+      "conviction": 70,
       "conviction_basis": "pre_edge_proxy",
-      "trade_score": 79,
+      "trade_score": 77,
       "trade_score_basis": "event_driven_v3",
       "trade_score_breakdown": {
         "evidence": 14,
-        "impact": 23,
+        "impact": 21,
         "specificity": 15,
         "timing": 10,
         "expression": 7,
@@ -233666,27 +233666,30 @@
         "evidenceIds": []
       },
       "priced_in": "room",
-      "thesis_type": "company_specific",
+      "thesis_type": "governance_turnaround",
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
-        "EVT-55af1ada2843",
-        "EVT-90ca00df38ea",
-        "EVT-d564d9ab3f87",
-        "EVT-534f9980f584"
+        "EVT-0568379e217d",
+        "EVT-44213e021b55",
+        "EVT-48e8a42ece9e",
+        "EVT-60d7f64e6de4",
+        "EVT-77f5833eda9f",
+        "EVT-b49f81d41d72",
+        "EVT-06e6f80aaa05"
       ],
-      "primary_source_event_id": "EVT-55af1ada2843",
+      "primary_source_event_id": "EVT-0568379e217d",
       "source_headlines": [
-        "Nvidia's stock dives as board weighs move to oust Jensen Huang",
-        "Nvidia Board Meets on Huang’s Fate After Affair With Alleged Spy",
-        "Nvidia's Jensen Huang accused of second affair with staffer, board considers ouster",
-        "Nvidia working with outside firm to identify CEO candidates"
+        "Nvidia may oust Jensen Huang after second affair with employee, board working with outside firm to identify successor",
+        "Nasdaq futures fall as Nvidia sinks 8% after hours on report board may oust Huang",
+        "Nvidia board to decide Jensen Huang’s fate after revelation of affair with subordinate",
+        "Cramer's stance on Nvidia's stock amid reports that CEO Jensen Huang may be ousted"
       ],
-      "source_headline": "Nvidia's stock dives as board weighs move to oust Jensen Huang",
-      "source_url": "https://www.cbsnews.com/news/nvidia-stock-dives-report-board-prepares-oust-jensen-huang/",
-      "source_name": "CBS MoneyWatch",
+      "source_headline": "Nvidia may oust Jensen Huang after second affair with employee, board working with outside firm to identify successor",
+      "source_url": "https://www.livemint.com/companies/news/nvidia-may-oust-jensen-huang-after-second-affair-with-employee-board-working-with-outside-firm-to-identify-successor-11794445527518.html",
+      "source_name": "Mint",
       "materiality_max": 100,
-      "newest_source_at": "2026-11-12T00:54:01Z",
+      "newest_source_at": "2026-11-12T01:25:02Z",
       "prior_coverage": {
         "has_run": false,
         "latest_run": null,
@@ -233694,8 +233697,8 @@
         "data_pool_present": false
       },
       "surfaced_at": "2026-11-07T15:09:40Z",
-      "updated_at": "2026-11-12T05:39:59Z",
-      "decay_at": "2026-11-13T12:54:01Z",
+      "updated_at": "2026-11-12T09:30:10Z",
+      "decay_at": "2026-11-13T13:25:02Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -234115,6 +234118,222 @@
       "surfaced_at": "2026-11-11T03:59:14Z",
       "updated_at": "2026-11-11T03:59:14Z",
       "decay_at": "2026-11-12T10:29:15Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-8ea0a530abda",
+      "idea_version": "IDEAV-96e9dde47de68ef1",
+      "idea_version_started_at": "2026-11-12T09:30:10Z",
+      "ticker": "AEM",
+      "company": "AEM Holdings",
+      "exchange": "SGX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported a surge in Q3 earnings to S$42 million and doubled revenue, prompting an upward revision to full-year profit guidance.",
+      "why_now": "The guidance upgrade and earnings report were released on 2026-11-12.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8549cbca16e0"
+      ],
+      "primary_source_event_id": "EVT-8549cbca16e0",
+      "source_headlines": [
+        "AEM ups full-year profit guidance as Q3 earnings surges to S$42 million, revenue doubles"
+      ],
+      "source_headline": "AEM ups full-year profit guidance as Q3 earnings surges to S$42 million, revenue doubles",
+      "source_url": "https://www.businesstimes.com.sg/companies-markets/aem-ups-full-year-profit-guidance-q3-earnings-surges-s42-million-revenue-doubles",
+      "source_name": "The Business Times (Singapore)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-12T01:01:01Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-12T09:30:10Z",
+      "updated_at": "2026-11-12T09:30:10Z",
+      "decay_at": "2026-11-13T13:01:01Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-c8f18a4931e6",
+      "idea_version": "IDEAV-4fead7ea9f4884ae",
+      "idea_version_started_at": "2026-11-12T09:30:10Z",
+      "ticker": "PDN",
+      "company": "Paladin Energy",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is executing a large A$525M equity raising, which will significantly dilute existing shareholders.",
+      "why_now": "The capital raising was announced via official filing on 2026-11-12.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-858b244d2066"
+      ],
+      "primary_source_event_id": "EVT-858b244d2066",
+      "source_headlines": [
+        "PDN: A$525M Fully Underwritten Equity Raising - Presentation"
+      ],
+      "source_headline": "PDN: A$525M Fully Underwritten Equity Raising - Presentation",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PDN?key=2924-03160986-6A1354752",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-12T00:30:21Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-12T09:30:10Z",
+      "updated_at": "2026-11-12T09:30:10Z",
+      "decay_at": "2026-11-13T12:30:21Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-fca8d6c889e5",
+      "idea_version": "IDEAV-bfc4d36af02f8402",
+      "idea_version_started_at": "2026-11-12T09:30:10Z",
+      "ticker": "C09",
+      "company": "City Developments Limited",
+      "exchange": "SGX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a profit warning for the second half of the year, citing significantly weaker performance expectations.",
+      "why_now": "The guidance warning was released on 2026-11-12.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-398f4a024cd9",
+        "EVT-f53eecc2dd76"
+      ],
+      "primary_source_event_id": "EVT-398f4a024cd9",
+      "source_headlines": [
+        "CDL shares fall 8% after developer warns of significantly weaker second half",
+        "CDL shares slide more than 10% after warning of ‘significantly weaker’ H2 performance"
+      ],
+      "source_headline": "CDL shares fall 8% after developer warns of significantly weaker second half",
+      "source_url": "https://www.straitstimes.com/business/cdl-shares-fall-8-after-developer-warns-of-significantly-weaker-second-half",
+      "source_name": "The Straits Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-12T02:23:50Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-12T09:30:10Z",
+      "updated_at": "2026-11-12T09:30:10Z",
+      "decay_at": "2026-11-13T14:23:50Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -238809,78 +239028,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-318e05ced228",
-      "idea_version": "IDEAV-3044479a9e95895d",
-      "idea_version_started_at": "2026-11-09T12:22:52Z",
-      "ticker": "BAMI",
-      "company": "Banco BPM",
-      "exchange": "BIT",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Crédit Agricole is actively pursuing a merger with Banco BPM, which typically forces a premium valuation for the target bank as consolidation in the Italian financial sector accelerates.",
-      "why_now": "The proposal was reported on November 9, 2026, and is currently in the pitch phase.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f16253cbd985"
-      ],
-      "primary_source_event_id": "EVT-f16253cbd985",
-      "source_headlines": [
-        "Crédit Agricole pitches merger of Italian business with Banco BPM"
-      ],
-      "source_headline": "Crédit Agricole pitches merger of Italian business with Banco BPM",
-      "source_url": "https://www.ft.com/content/5301558f-d31b-4399-ac36-cc790837db1b?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-09T07:36:43Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-09T12:22:52Z",
-      "updated_at": "2026-11-09T12:22:52Z",
-      "decay_at": "2026-11-10T19:36:43Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": "up",
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-a5d98d6d2638",
       "idea_version": "IDEAV-16b71a732c8d2e1c",
       "idea_version_started_at": "2026-11-09T12:22:52Z",
@@ -239462,14 +239609,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 551,
+    "total_count": 550,
     "shown_count": 499,
-    "hidden_count": 52,
+    "hidden_count": 51,
     "side_counts": {
       "long": {
-        "total_count": 285,
+        "total_count": 284,
         "shown_count": 250,
-        "hidden_count": 35
+        "hidden_count": 34
       },
       "short": {
         "total_count": 267,
@@ -239479,12 +239626,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1817,
+      "evicted_count": 1818,
       "oldest_retained_at": "2026-10-17T09:26:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 1190,
-          "oldest_retained_at": "2026-10-27T22:37:05Z"
+          "evicted_count": 1191,
+          "oldest_retained_at": "2026-10-27T23:01:31Z"
         },
         "short": {
           "evicted_count": 628,
@@ -243256,8 +243403,8 @@
         "promoted_signal_id": null,
         "feedback": "up",
         "stale": true,
-        "archived_at": "2026-11-10T19:36:43Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-12T09:30:26Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -276617,13 +276764,13 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2399,
-    "live_count": 30,
+    "surfaced_total": 2402,
+    "live_count": 33,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
     "machine_pending": 0,
-    "up_votes": 1,
+    "up_votes": 0,
     "down_votes": 0,
     "resolved": 0
   },
