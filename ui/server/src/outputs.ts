@@ -503,8 +503,10 @@ function reviewForecastLinks(forecastLedger: unknown, reviews: ReviewForecastSou
   }
   const version = (b: string) => { const m = /_v(\d+)\.json$/i.exec(b); return m ? Number(m[1]) : 1 }
   const cmp = (a: string, b: string) => (a < b ? -1 : a > b ? 1 : 0)
-  const ordered = [...reviews].sort((a, b) =>
-    cmp(a.review_date, b.review_date) || version(a.basename) - version(b.basename) || cmp(a.basename, b.basename))
+  const ordered = reviews
+    .map(r => ({ r, date: r.review_date || '', ver: version(r.basename), base: r.basename || '' }))
+    .sort((a, b) => cmp(a.date, b.date) || a.ver - b.ver || cmp(a.base, b.base))
+    .map(d => d.r)
   for (const r of ordered) {
     if (!Array.isArray(r.forecast_results)) continue
     for (const row of r.forecast_results as any[]) {
