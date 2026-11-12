@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T09:18:13Z",
+  "generated_at": "2026-11-12T09:29:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20261112-477",
@@ -340,6 +340,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-521",
+      "headline": "Nvidia Board Considers Replacing CEO Jensen Huang",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-11-12/daybreak-europe-11-12-2026-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T08:43:36Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Reports that Nvidia's board is considering replacing CEO Jensen Huang represent a major leadership risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Reports that Nvidia's board is considering replacing CEO Jensen Huang represent a major leadership risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1931,55 +1980,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-251",
-      "headline": "Nvidia shares fall 8% after hours as board reportedly weighs Jensen Huang's 'exit'",
-      "headline_en": null,
-      "url": "https://timesofindia.indiatimes.com/business/international-business/nvidia-shares-fall-8-after-hours-as-board-reportedly-weighs-jensen-huangs-exit/articleshow/135751718.cms",
-      "source_name": "The Times of India (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T00:59:36Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Shares fell 8% following reports that the board is weighing the exit of the CEO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Shares fell 8% following reports that the board is weighing the exit of the CEO.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -235622,148 +235622,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-93aee0a73666",
-      "idea_version": "IDEAV-2fb9ca0578035525",
-      "idea_version_started_at": "2026-11-10T22:24:17Z",
-      "ticker": "FLT",
-      "company": "Flight Centre Travel Group",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Flight Centre Travel Group's AGM presentation included a trading update and guidance that is likely to be perceived negatively by the market, despite the neutral server direction.",
-      "why_now": "The company released its price-sensitive AGM presentation with a trading update and guidance on November 10, 2026.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-eb394938ae83"
-      ],
-      "primary_source_event_id": "EVT-eb394938ae83",
-      "source_headlines": [
-        "FLT: AGM Presentation (inc trading update & guidance) [price-sensitive]"
-      ],
-      "source_headline": "FLT: AGM Presentation (inc trading update & guidance) [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FLT?key=2924-03160298-2A1709916",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-10T21:21:41Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-10T22:24:17Z",
-      "updated_at": "2026-11-10T22:24:17Z",
-      "decay_at": "2026-11-12T09:21:41Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-b492220bad93",
-      "idea_version": "IDEAV-d9fb0cfe0062cd47",
-      "idea_version_started_at": "2026-11-11T05:20:27Z",
-      "ticker": "MI6",
-      "company": "MI6",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "MI6 can start production because its capex is fully funded, which should boost its revenue and profit margins.",
-      "why_now": "The ASX filing dated 2026-11-10 shows the funding is now in place, providing an immediate catalyst.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d77904fb0124"
-      ],
-      "primary_source_event_id": "EVT-d77904fb0124",
-      "source_headlines": [
-        "MI6: Bullabulling Fully Funded to First Production [price-sensitive]"
-      ],
-      "source_headline": "MI6: Bullabulling Fully Funded to First Production [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MI6?key=2924-03160304-6A1354489",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 97,
-      "newest_source_at": "2026-11-10T21:22:31Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-11T05:20:27Z",
-      "updated_at": "2026-11-11T05:20:27Z",
-      "decay_at": "2026-11-12T09:22:31Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-c9b7224cbdda",
       "idea_version": "IDEAV-9500e4dab8bdeaa4",
       "idea_version_started_at": "2026-11-11T04:24:11Z",
@@ -237445,6 +237303,77 @@
       "surfaced_at": "2026-11-09T16:04:27Z",
       "updated_at": "2026-11-09T16:04:27Z",
       "decay_at": "2026-11-10T23:57:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-93aee0a73666",
+      "idea_version": "IDEAV-2fb9ca0578035525",
+      "idea_version_started_at": "2026-11-10T22:24:17Z",
+      "ticker": "FLT",
+      "company": "Flight Centre Travel Group",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Flight Centre Travel Group's AGM presentation included a trading update and guidance that is likely to be perceived negatively by the market, despite the neutral server direction.",
+      "why_now": "The company released its price-sensitive AGM presentation with a trading update and guidance on November 10, 2026.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-eb394938ae83"
+      ],
+      "primary_source_event_id": "EVT-eb394938ae83",
+      "source_headlines": [
+        "FLT: AGM Presentation (inc trading update & guidance) [price-sensitive]"
+      ],
+      "source_headline": "FLT: AGM Presentation (inc trading update & guidance) [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FLT?key=2924-03160298-2A1709916",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-10T21:21:41Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-10T22:24:17Z",
+      "updated_at": "2026-11-10T22:24:17Z",
+      "decay_at": "2026-11-12T09:21:41Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -239167,6 +239096,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-b492220bad93",
+      "idea_version": "IDEAV-d9fb0cfe0062cd47",
+      "idea_version_started_at": "2026-11-11T05:20:27Z",
+      "ticker": "MI6",
+      "company": "MI6",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "MI6 can start production because its capex is fully funded, which should boost its revenue and profit margins.",
+      "why_now": "The ASX filing dated 2026-11-10 shows the funding is now in place, providing an immediate catalyst.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d77904fb0124"
+      ],
+      "primary_source_event_id": "EVT-d77904fb0124",
+      "source_headlines": [
+        "MI6: Bullabulling Fully Funded to First Production [price-sensitive]"
+      ],
+      "source_headline": "MI6: Bullabulling Fully Funded to First Production [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MI6?key=2924-03160304-6A1354489",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 97,
+      "newest_source_at": "2026-11-10T21:22:31Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-11T05:20:27Z",
+      "updated_at": "2026-11-11T05:20:27Z",
+      "decay_at": "2026-11-12T09:22:31Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-3de812988305",
       "idea_version": "IDEAV-4ff53507a3ff4c5b",
       "idea_version_started_at": "2026-11-10T01:51:56Z",
@@ -239462,19 +239462,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 549,
+    "total_count": 551,
     "shown_count": 499,
-    "hidden_count": 50,
+    "hidden_count": 52,
     "side_counts": {
       "long": {
-        "total_count": 284,
+        "total_count": 285,
         "shown_count": 250,
-        "hidden_count": 34
+        "hidden_count": 35
       },
       "short": {
-        "total_count": 266,
+        "total_count": 267,
         "shown_count": 250,
-        "hidden_count": 16
+        "hidden_count": 17
       }
     },
     "retention": {
@@ -239493,6 +239493,154 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-b492220bad93",
+        "idea_version": "IDEAV-d9fb0cfe0062cd47",
+        "idea_version_started_at": "2026-11-11T05:20:27Z",
+        "ticker": "MI6",
+        "company": "MI6",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "MI6 can start production because its capex is fully funded, which should boost its revenue and profit margins.",
+        "why_now": "The ASX filing dated 2026-11-10 shows the funding is now in place, providing an immediate catalyst.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-d77904fb0124"
+        ],
+        "primary_source_event_id": "EVT-d77904fb0124",
+        "source_headlines": [
+          "MI6: Bullabulling Fully Funded to First Production [price-sensitive]"
+        ],
+        "source_headline": "MI6: Bullabulling Fully Funded to First Production [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MI6?key=2924-03160304-6A1354489",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 97,
+        "newest_source_at": "2026-11-10T21:22:31Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-11T05:20:27Z",
+        "updated_at": "2026-11-11T05:20:27Z",
+        "decay_at": "2026-11-12T09:22:31Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-12T09:22:31Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-93aee0a73666",
+        "idea_version": "IDEAV-2fb9ca0578035525",
+        "idea_version_started_at": "2026-11-10T22:24:17Z",
+        "ticker": "FLT",
+        "company": "Flight Centre Travel Group",
+        "exchange": "ASX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Flight Centre Travel Group's AGM presentation included a trading update and guidance that is likely to be perceived negatively by the market, despite the neutral server direction.",
+        "why_now": "The company released its price-sensitive AGM presentation with a trading update and guidance on November 10, 2026.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-eb394938ae83"
+        ],
+        "primary_source_event_id": "EVT-eb394938ae83",
+        "source_headlines": [
+          "FLT: AGM Presentation (inc trading update & guidance) [price-sensitive]"
+        ],
+        "source_headline": "FLT: AGM Presentation (inc trading update & guidance) [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FLT?key=2924-03160298-2A1709916",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-10T21:21:41Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-10T22:24:17Z",
+        "updated_at": "2026-11-10T22:24:17Z",
+        "decay_at": "2026-11-12T09:21:41Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-12T09:21:41Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-1df7f3990165",
         "idea_version": "IDEAV-655bb51e14372798",
@@ -268053,80 +268201,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-f71ecb5c2907",
-        "idea_version": "IDEAV-1b60731801d1b517",
-        "idea_version_started_at": "2026-10-29T02:54:08Z",
-        "ticker": "PRUDENT",
-        "company": "Prudent Corporate Advisory Services Limited",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company reported a 42.4% YoY increase in operating profit for Q2 FY27, signaling strong momentum in its financial services and distribution business.",
-        "why_now": "The earnings release was filed on October 28, 2026, providing immediate fundamental validation for the stock.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-14a50e7c1689"
-        ],
-        "primary_source_event_id": "EVT-14a50e7c1689",
-        "source_headlines": [
-          "Prudent Corporate Advisory Services Limited: Prudent Corporate Advisory Services Limited has informed the Exchange regarding a press release dated October 28, 2026, titled \"Prudent's Operating Profit Rises 42.4% YoY in Q2 FY27;Records Highest-Ever Equity Net Sales of ₹4,138 Crore\"."
-        ],
-        "source_headline": "Prudent Corporate Advisory Services Limited: Prudent Corporate Advisory Services Limited has informed the Exchange regarding a press release dated October 28, 2026, titled \"Prudent's Operating Profit Rises 42.4% YoY in Q2 FY27;Records Highest-Ever Equity Net Sales of ₹4,138 Crore\".",
-        "source_url": "https://nsearchives.nseindia.com/corporate/PRUDENT9992_28102026155330_Intimation.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-28T10:23:39Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-29T02:54:08Z",
-        "updated_at": "2026-10-29T02:54:08Z",
-        "decay_at": "2026-10-29T22:23:39Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-31T11:39:58Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-4c854ef51212",
         "idea_version": "IDEAV-5742d7e49be3f677",
         "idea_version_started_at": "2026-10-28T18:19:07Z",
@@ -276539,87 +276613,12 @@
         "archived_at": "2026-10-21T12:30:15Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-c9b7224cbdda",
-        "idea_version": "IDEAV-9335a9181d1a0b34",
-        "idea_version_started_at": "2026-10-18T04:01:13Z",
-        "ticker": "MQG",
-        "company": "Macquarie Group",
-        "exchange": "ASX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The departure of a senior veteran amid broader staff cuts suggests internal instability or a strategic pivot that may impact near-term earnings power.",
-        "why_now": "The news of the executive exit and restructuring was reported on 2026-10-18.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 14,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-17b7876884db"
-        ],
-        "primary_source_event_id": "EVT-17b7876884db",
-        "source_headlines": [
-          "Macquarie Capital veteran exits amid further staff cuts"
-        ],
-        "source_headline": "Macquarie Capital veteran exits amid further staff cuts",
-        "source_url": "https://www.afr.com/companies/financial-services/macquarie-capital-veteran-exits-amid-further-staff-cuts-20261018-p616g4?ref=rss&utm_medium=rss&utm_source=rss_feed",
-        "source_name": "Australian Financial Review",
-        "materiality_max": 88,
-        "newest_source_at": "2026-10-18T03:31:59Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-18T04:01:13Z",
-        "updated_at": "2026-10-18T04:01:13Z",
-        "decay_at": "2026-10-19T15:31:59Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-21T03:43:35Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 2399,
-    "live_count": 32,
+    "live_count": 30,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -276638,9 +276637,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 784043,
-    "news_picked_today": 1451,
-    "news_dropped_today": 9397
+    "news_seen_today": 803921,
+    "news_picked_today": 1471,
+    "news_dropped_today": 9473
   },
   "book_momentum": {
     "live_count": 8,
