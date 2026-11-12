@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-12T06:30:17Z",
+  "generated_at": "2026-11-12T06:50:01Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261112-477",
+      "headline": "RCT: Compulsory acquisition notice lodged by Iris",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RCT?key=2924-03161155-2A1710314",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-12T05:50:32Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Iris has initiated a compulsory acquisition of RCT, indicating a completed takeover process.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Iris has initiated a compulsory acquisition of RCT, indicating a completed takeover process.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Reef Casino Trust",
+          "ticker": "RCT",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261112-421",
       "headline": "HYPEBEAST (00150): POSITIVE PROFIT ALERT - SUPPLEMENTAL ANNOUNCEMENT",
@@ -1930,55 +1979,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-203",
-      "headline": "(LEAD) Naver Q3 operating profit down over 20 pct on AI investments",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20261112001451320",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T00:25:42Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Naver reported a Q3 operating profit decline of over 20 percent due to AI investment costs, impacting earnings expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Naver reported a Q3 operating profit decline of over 20 percent due to AI investment costs, impacting earnings expectations.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Naver",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -276637,9 +276637,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 489261,
-    "news_picked_today": 1308,
-    "news_dropped_today": 5316
+    "news_seen_today": 503214,
+    "news_picked_today": 1329,
+    "news_dropped_today": 6039
   },
   "book_momentum": {
     "live_count": 8,
