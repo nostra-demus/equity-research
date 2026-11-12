@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T01:48:52Z",
+  "generated_at": "2026-11-12T01:53:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20261112-189",
@@ -1450,6 +1450,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261112-255",
+      "headline": "Nashik: Pi-Semicon Proposes ₹40,000 Crore Investment, 12,750 Jobs Expected",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/pune/nashik-pi-semicon-proposes-40000-crore-investment-12750-jobs-expected",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T10:22:14Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Pi-Semicon proposes a ₹40,000 crore investment in Nashik, creating 12,750 jobs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Pi-Semicon proposes a ₹40,000 crore investment in Nashik, creating 12,750 jobs.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pi-Semicon",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261112-208",
       "headline": "AD Ports Group delivers record $265.49 million net profit ‎in Q3 2026, up 64 percent",
       "headline_en": null,
@@ -1491,6 +1540,55 @@
           "name": "AD Ports Group",
           "ticker": null,
           "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-254",
+      "headline": "SIA Q2 net profit quadruples to S$209.7 million on better unit revenue, lower Air India losses",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/sia-q2-net-profit-quadruples-s209-7-million-better-unit-revenue-lower-air-india-losses",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T10:22:19Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Singapore Airlines reported a Q2 net profit of S$209.7 million, a fourfold increase.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Singapore Airlines reported a Q2 net profit of S$209.7 million, a fourfold increase.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Singapore Airlines",
+          "ticker": null,
+          "listing_country": "SG"
         }
       ],
       "size_bucket": "large",
@@ -1891,104 +1989,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-221",
-      "headline": "Mold-Tek Technologies Q2 FY27 Profit Soars 197% To Record Rs 9.62 Crore; Revenue Jumps 51% To Rs 60.81 Crore",
-      "headline_en": null,
-      "url": "https://www.outlookbusiness.com/spotlight/news-wire/mold-tek-technologies-q2-fy27-profit-soars-197-to-record-rs-962-crore-revenue-jumps-51-to-rs-6081-crore",
-      "source_name": "Outlook Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T11:02:53Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Mold-Tek Technologies reported a 197% increase in profit to Rs 9.62 crore and a 51% revenue jump to Rs 60.81 crore for Q2 FY27.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Mold-Tek Technologies reported a 197% increase in profit to Rs 9.62 crore and a 51% revenue jump to Rs 60.81 crore for Q2 FY27.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mold-Tek Technologies",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-010",
-      "headline": "SLING GROUP (08285): COMPOSITE DOCUMENT RELATING TO MANDATORY UNCONDITIONAL CASH OFFER BY SANFULL SECURITIES LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED BY THE OFFEROR AND/OR PARTIES ACTING IN CONCERT WITH IT)",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1112/2026111200001.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-11T22:03:00Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Sling Group issued a composite document regarding a mandatory unconditional cash offer for all issued shares.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Sling Group issued a composite document regarding a mandatory unconditional cash offer for all issued shares.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sling Group",
-          "ticker": "08285",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -277723,9 +277723,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 161326,
-    "news_picked_today": 337,
-    "news_dropped_today": 1007
+    "news_seen_today": 174502,
+    "news_picked_today": 359,
+    "news_dropped_today": 1081
   },
   "book_momentum": {
     "live_count": 8,
