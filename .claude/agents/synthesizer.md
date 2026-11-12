@@ -600,6 +600,19 @@ The auditable core of the verdict — for each decision driver, which side won a
 
 If peer data is available, judge whether the stock is cheap or expensive.
 
+When the valuation synthesis carries a **Strategic rerating** assessment, preserve its three pillar
+findings, execution direction, qualified `Valuation Impact`, original target/event, dated horizon,
+probability basis/uncertainty (or abstention), priced-in test, and next bullish/bearish checkpoint.
+Separate successful execution from unpriced upside. The **Rerating Probability Score** estimates that
+specific multiple-and-operating-milestone event; it is NOT the probability of the bull investment
+scenario and must not be copied into §8 as a scenario weight or used to raise confidence mechanically.
+If assessable, carry the event and its confirmation/falsification tests into the existing Forecast Ledger
+with `owner_module: valuation` and the existing schema; if not, retain the reason without inventing a
+numeric forecast. Older runs without this assessment need no back-fill. Retain all governance,
+survival, turnaround, and valuation caps and reconcile any disagreement with the module's levels.
+If the module flags the assessment **Stale — not a current estimate**, preserve that warning and treat
+the probability as dated history, not a new numeric forecast; state which admitted assessment must refresh it.
+
 Use a table:
 
 | Metric | Company | Peer Median | Premium / Discount | Interpretation |
