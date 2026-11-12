@@ -3,7 +3,7 @@ name: valuation-synthesis
 depends_on: [business-model, earnings, balance-sheet-survival, management-governance]
 description: Reads ALL upstream valuation module outputs and produces the final Valuation module report — Abstract, Verdict block (with 6 scores and the bull/base/bear fair-value levels plus cross-method dispersion), Specialist roll-up, Reconciliation, Score Cap application, Note to Final Synthesizer, and Simple Summary. The master synthesizer at .claude/agents/synthesizer.md reads this output and defers its valuation section to it.
 tools: Read, Glob, Grep, Bash
-layer: 5
+layer: 6
 memory_profile:
   version: 1
   task: valuation.valuation-synthesis
@@ -74,6 +74,7 @@ If any upstream output is missing, list which ones and proceed with what's avail
   6. `05_reverse-dcf.md` — what's priced in
   7. `06_sum-of-the-parts.md` — breakup value
   8. `07_scenario-and-fair-value.md` — the triangulated fair-value levels (your primary input)
+  9. `08_strategic-rerating.md` — pivot execution vs expectations, valuation impact, and a defined rerating-event probability or abstention; this is not another value-producing method
 
 # REPORT STRUCTURE
 
@@ -138,12 +139,30 @@ Three to five lines, evidence-cited — a required test the verdict must survive
 | reverse-dcf | | |
 | sum-of-the-parts | | |
 | scenario-and-fair-value | | |
+| strategic-rerating | | |
 
 ## 3. Reconciliation
 
 If two methods disagreed on fair value, list the disagreement, the value each produced, and the reconciled view. If the high-to-low spread exceeds 40%, lead with it and explain which method you trust most for this company. If no material disagreements, write *"Methods broadly agree — fair value clusters at {base point}; dispersion {low–high}."*
 
 **Sector Cycle Reality Test roll-up (MODULE_RULES → Scenario Construction & Method-Weighting Policy §3).** State whether `02` and/or `03` flagged their reference point cycle-elevated/depressed, or marked the check "Not assessable." If both flagged the SAME direction, state plainly that their apparent agreement is one shared sector cycle counted twice, not independent corroboration — this is the case the Score Cap row below exists for.
+
+**Strategic rerating roll-up.** When `08` is present, retain its three pillar findings, execution direction,
+exact `Valuation Impact` qualification, original event/target, horizon, probability basis and uncertainty,
+and `Rerating Probability Score` (including Not applicable / Not assessable and their reasons). Reconcile
+disagreement with `07` explicitly; `08` cannot silently change its levels or enter the method weights.
+Carry the new-vs-legacy profit bridge with its components and residual when it drives the conclusion,
+what changed since the earlier assessment, and the next bullish/bearish checkpoint with its comparable.
+Do not turn strong execution into upside when the improvement is priced in. The event probability is
+not a scenario weight, valuation-confidence score, or authority to lift any existing cap. If `08` is
+absent in an older/partial run, say so; do not back-fill a probability from other specialist scores.
+
+**Freshness on partial reruns.** Compare `08`'s evidence cutoff, cited periods and milestones with the
+current upstream evidence; a matching filename/date alone is not proof of freshness. If relevant new
+evidence or revised upstream assumptions were not assessed by `08`, label its event probability **Stale —
+not a current estimate**, retain the original dated estimate only as history, and name the missing update.
+Request a fresh `strategic-rerating` assessment through the existing admitted rerun flow; do not launch
+one, silently refresh the probability yourself, or present the old probability as an updated forecast.
 
 ## 4. Score Cap Application
 
@@ -178,6 +197,7 @@ Bullet list, no prose paragraphs. **Surface what the numbers MEAN — do not res
 
 - The bull/base/bear fair-value levels (and the base point) and the dominant method behind them
 - What the price implies and whether it's achievable (from reverse-DCF)
+- Strategic rerating, if assessed: the three-pillar result, qualified valuation impact, defined event and probability with horizon/basis (or abstention), priced-in limitation, changes since prior assessment, and next falsifiable checkpoint; carry this to the master's valuation discussion and forecast ledger without substituting it for a scenario probability
 - The margin of safety (discount to base fair value) AND the downside-to-bear / bear-case value (the downside anchor)
 - Whether this is genuine value or value-trap risk, with the warranted-multiple reasoning — including any structurally misaligned controlling owner (RF-OWN-004, §24 Filter 6) that makes the cheapness a trap rather than a margin of safety
 - Which method to trust and which to discount for THIS company

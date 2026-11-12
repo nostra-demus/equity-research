@@ -30,7 +30,7 @@ from ledger_records import load_standing_records
 # free; scripts/eval.py itself cannot be imported here, it runs its whole suite and sys.exit()s at
 # module scope). Same two checks, live, without waiting for someone to run /research:eval by hand —
 # byte-identical due-date rule to the TypeScript port in ui/server/src/outputs.ts.
-from overdue_checks import eval_as_forecast_overdue, eval_aw_kill_criteria_overdue
+from overdue_checks import eval_as_forecast_overdue, eval_aw_kill_criteria_overdue, load_run_reviews
 SCOPE = (os.environ.get("SCOPE") or "all").strip() or "all"
 today = subprocess.check_output(["date", "+%F"]).decode().strip()
 
@@ -117,7 +117,9 @@ for _e in load_standing_records():
     integrity = _e.get("integrity") or {}
     # checks AS / AW, live — same two checks eval.py otherwise only reports in retrospective_advisories
     # when someone runs /research:eval by hand.
-    _fc_overdue = eval_as_forecast_overdue(d.get("forecast_ledger"), today) or []
+    # Pass the run's filed reviews: decision_record.json is immutable, so a forecast is resolved in
+    # reviews/*.json forecast_results — without them every resolved forecast reads "overdue" forever.
+    _fc_overdue = eval_as_forecast_overdue(d.get("forecast_ledger"), today, load_run_reviews(run_root)) or []
     _kc_overdue = eval_aw_kill_criteria_overdue(d.get("kill_criteria"), today) or []
     calls.append({
         "ticker": d.get("ticker"), "company": d.get("company_name"), "decision_date": d.get("decision_date"),
