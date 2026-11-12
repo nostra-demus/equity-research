@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T06:00:24Z",
+  "generated_at": "2026-11-12T06:03:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20261112-421",
@@ -389,6 +389,56 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-448",
+      "headline": "FirstFT: Nvidia board weighs Huang’s future as scandal deepens",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/64198d59-7a03-4f1c-89c6-81ed8bdc5448?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T05:31:16Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Potential departure of a key founder/CEO at a mega-cap company is a material governance and operational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Potential departure of a key founder/CEO at a mega-cap company is a material governance and operational risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management",
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1922,56 +1972,6 @@
         {
           "name": "Nvidia",
           "ticker": "NVDA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-065",
-      "headline": "Nvidia's Jensen Huang accused of second affair with staffer, board considers ouster",
-      "headline_en": null,
-      "url": "https://www.datacenterdynamics.com/en/news/nvidias-jensen-huang-accused-of-second-affair-with-staffer-board-considers-ouster/",
-      "source_name": "DataCenterDynamics",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T23:27:37Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Nvidia's board is considering the ouster of CEO Jensen Huang following new allegations of misconduct.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia's board is considering the ouster of CEO Jensen Huang following new allegations of misconduct.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management",
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
           "listing_country": "US"
         }
       ],
@@ -276634,9 +276634,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 464846,
-    "news_picked_today": 1215,
-    "news_dropped_today": 4929
+    "news_seen_today": 468548,
+    "news_picked_today": 1224,
+    "news_dropped_today": 4944
   },
   "book_momentum": {
     "live_count": 8,
