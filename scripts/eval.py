@@ -2439,6 +2439,24 @@ if scope=="selftest":
         # …and a correctly-LABELLED figure stays clean through the same markdown (no new false positive).
         ("2026-11-06", _bh_th("Net cash (strict) of **₹31 billion**."), []),
         ("2026-11-06", _bh_th("| Net cash (strict) | ₹0.15 bn | broad | ₹33.7 bn |"), []),
+        # ── Codex r3 (PR #781, head 40b880ae) regression cases — each flips vs the pre-fix matcher ──
+        # R1: an unrelated "strict" in the figure's clause is not a basis label (pre-fix: silent pass).
+        ("2026-11-06", _bh_th("Net debt of $9.3 billion is tested under strict covenant tests."), ["no basis label"]),
+        ("2026-11-06", _bh_th("Net debt is $9.3 billion on a strict basis."), []),
+        # R2: a nil/zero net-cash amount is still a stated figure (pre-fix: no digits → never matched).
+        ("2026-11-06", _bh_th("Net debt was zero."), ["no basis label"]),
+        ("2026-11-06", _bh_th("Net cash was nil."), ["no basis label"]),
+        ("2026-11-06", _bh_th("Strict net debt was zero."), []),
+        # R3: a qualifier between the term and the amount keeps the figure attached, so the broad figure
+        # still requires the strict figure beside it (pre-fix: the figure was never seen → silent pass).
+        ("2026-11-06", _bh_th("Net cash including investments is $10 billion."), ["never names the strict"]),
+        ("2026-11-06", _bh_th("Net cash including investments is $10 billion; strict net cash is $0.2 billion."), []),
+        # R4: the canonical strict definition "debt − cash equivalents" counts without "cash and" (pre-fix: false flag).
+        ("2026-11-06", _bh_th("Net debt (debt − cash equivalents) is $9.3 billion."), []),
+        # R5: a bare "company-defined" label does not state what the measure contains (pre-fix: silent pass)…
+        ("2026-11-06", _bh_th("Company-defined net cash is $10 billion."), ["no basis label"]),
+        # …but a company definition that states its contents is a valid §15 label.
+        ("2026-11-06", _bh_th("Net cash is $10 billion (company-defined: cash less borrowings and lease liabilities)."), []),
     ]
     bhbad=0
     for dt_,th_,exp in bhcases:

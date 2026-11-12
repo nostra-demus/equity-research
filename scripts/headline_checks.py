@@ -931,16 +931,33 @@ _BH_CONN = (r"(?:[\s,:(~≈=\-—]|\b(?:of|at|to|from|was|is|were|are|be|been|st
             r"amounts?|amounted|amounting|positions?|came|comes?|coming|sits?|sat|sitting|registered|registers|"
             r"printed|prints|clocked|remains?|remained|holds?|held|ends?|ended|equals?|equall?ed|swung|grew|"
             r"climbed|rising|falling|widened|narrowed|ballooned|surged|swelled)\b\.?)*")
-_BH_A = re.compile(_BH_NET + _BH_CONN + "(?:" + _BH_MONEY + ")", re.I)
+# A qualifier may sit BETWEEN the term and its amount — a parenthetical ("Net cash (strict) of …") or an
+# including/excluding clause ("Net cash including investments is $10 billion"). Skipping it keeps the
+# figure attached, so the label/strict-figure tests below actually see it (Codex r3, PR #781).
+_BH_QUAL = (r"(?:\s*\([^()]{0,80}\)"
+            r"|,?\s+(?:incl|excl|including|excluding|includes|excludes)\w*\.?\s+(?:[\w-]+\s+){0,4}?"
+            r"(?:investments?|treasury|securities|deposits|funds)\b,?)?")
+# "Net debt was zero." / "Net cash was nil." is a stated net-cash AMOUNT too (strict nil and broad nil are
+# different claims), so a nil/zero value attached to the term needs the same label (Codex r3, PR #781).
+_BH_A = re.compile(_BH_NET + _BH_QUAL + _BH_CONN + "(?:" + _BH_MONEY + r"|\b(?:nil|zero)\b)", re.I)
 _BH_B = re.compile("(?:" + _BH_MONEY + r")(?:\s+(?:of|its|the|a|total|reported|group|consolidated|year-end|"
                    r"in|held\s+as|worth\s+of|pro[\s-]*forma|(?:post|pre)-\w+))*\s+" + _BH_NET, re.I)
 # A basis label: the §15 words, the "cash & equivalents" definition of strict, an explicit
 # including/excluding-investments clause, or an explicit company-defined figure.
+# "strict" labels the figure only where it is USED as a basis word — "strict net cash", "strict-basis",
+# "on a strict basis", "(strict", "strict:" — not an unrelated "strict" elsewhere in the clause ("under
+# strict covenant tests", Codex r3). The canonical §15 definition "debt − cash equivalents" counts with or
+# without "cash and". A company-defined label counts only when it states what the measure contains
+# (§15: "unless the company defines it differently (then state it)") — a bare "company-defined" does not.
+_BH_STRICT_LBL = (r"\bstrict(?:[\s-]+basis)?[\s-]+net[\s‑-]*(?:cash|debt)\b|\bstrict[\s-]+basis\b"
+                  r"|\(\s*strict\b|\bstrict\s*[:,)]|\bnet[\s‑-]*(?:cash|debt)\s*[-–—,]?\s*strict\b")
+_BH_DEFN = r"(?:,?\s*(?:[\w'-]+\s+){0,3}?(?:incl|excl|compris|consist|net\s+of|less\b|minus\b|after\b|before\b|[=:(—–]))"
 _BH_BASIS = re.compile(
-    r"\bstrict\b|\bbroad\b|gross[\s-]*liquidity|cash\s*(?:&|and)\s*(?:cash[\s-]*)?equivalents"
+    _BH_STRICT_LBL + r"|\bbroad\b|gross[\s-]*liquidity|cash\s*(?:&|and)\s*(?:cash[\s-]*)?equivalents"
+    r"|debt\s*(?:[−–-]|less|minus)\s*(?:cash[\s-]*)?equivalents"
     r"|\b(?:incl|excl)\w*\.?\s+(?:[\w-]+\s+){0,4}?(?:investments?|treasury|securities|deposits|funds)"
-    r"|company[\s-]*defined|(?:company|management)'?s?\s+(?:own\s+)?(?:definition|figure)"
-    r"|as defined by (?:the )?company", re.I)
+    r"|(?:company[\s-]*defined|(?:company|management)'?s?\s+(?:own\s+)?(?:definition|figure)"
+    r"|as defined by (?:the )?company)" + _BH_DEFN, re.I)
 _BH_NONSTRICT = re.compile(
     r"\bbroad\b|gross[\s-]*liquidity|\b(?:incl|including|includes)\w*\.?\s+(?:[\w-]+\s+){0,4}?"
     r"(?:investments?|treasury|securities|deposits|funds)", re.I)
@@ -952,7 +969,7 @@ _BH_NONSTRICT = re.compile(
 # elliptical ';' continuation of a net-cash clause ("…incl. investments; ₹0.15 bn strict").
 _BH_VAL = r"(?:(?:" + _BH_MONEY + r")(?:\s?(?:bn|mn|million|billion|trillion|crore|cr|lakh)\b)?|\b(?:nil|zero)\b)"
 _BH_STRICT_FIG = re.compile(
-    r"\bstrict\b[\w-]*(?:[\s,:()=~≈–—-]+[\w&'.-]+){0,4}?[\s,:(=~≈–—-]+" + _BH_VAL
+    r"\bstrict\b[\w-]*(?:[\s,:()=~≈–—-]+[\w&'.-]+){0,4}?[\s,:()=~≈–—-]+" + _BH_VAL
     + "|" + _BH_VAL + r"(?:[\s,()]+[\w'.-]+){0,2}?[\s,(]+strict\b", re.I)
 _BH_VAL_RE = re.compile(_BH_VAL, re.I)
 # Markdown emphasis / table punctuation (**bold**, *italic*, _under_, `code`, | table |) is presentational
