@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-568ff94c6eb6",
-  "idea_version": "IDEAV-d611d85c8bb5f4ae",
-  "idea_version_started_at": "2026-11-09T21:23:50Z",
+  "idea_version": "IDEAV-54b9542838a02244",
+  "idea_version_started_at": "2026-11-12T19:23:01Z",
   "ticker": "PLCE",
   "company": "The Children's Place",
   "exchange": "NASDAQ",
@@ -11,9 +11,9 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "short",
   "pair_with": null,
-  "reason": "The company has filed for bankruptcy protection, which typically results in a total loss of equity value for common shareholders as the capital structure is reorganized.",
-  "why_now": "The filing was announced on 2026-11-09, making the equity effectively worthless as the company seeks a buyer or liquidation.",
-  "conviction": 90,
+  "reason": "The company has filed for Chapter 11 bankruptcy and is closing all retail locations, signaling a total loss of equity value for shareholders.",
+  "why_now": "The bankruptcy filing and store closure announcement occurred on November 12, 2026.",
+  "conviction": 95,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 60,
   "trade_score_basis": "event_driven_v3",
@@ -48,17 +48,17 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-21eb39242d5d"
+    "EVT-232b059d895d"
   ],
-  "primary_source_event_id": "EVT-21eb39242d5d",
+  "primary_source_event_id": "EVT-232b059d895d",
   "source_headlines": [
-    "Children’s Place files for bankruptcy protection, seeks buyer"
+    "Children’s Place closing all its stores in Chapter 11 bankruptcy"
   ],
-  "source_headline": "Children’s Place files for bankruptcy protection, seeks buyer",
-  "source_url": "https://www.cnbc.com/2026/11/09/childrens-place-chapter-11-sale.html",
-  "source_name": "CNBC",
+  "source_headline": "Children’s Place closing all its stores in Chapter 11 bankruptcy",
+  "source_url": "https://www.thestreet.com/retail/childrens-place-closing-all-its-stores-in-chapter-11-bankruptcy",
+  "source_name": "TheStreet",
   "materiality_max": 100,
-  "newest_source_at": "2026-11-09T20:57:46Z",
+  "newest_source_at": "2026-11-12T16:43:29Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
@@ -66,8 +66,8 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-11-09T19:22:55Z",
-  "updated_at": "2026-11-09T21:23:50Z",
-  "decay_at": "2026-11-11T08:57:46Z",
+  "updated_at": "2026-11-12T19:23:01Z",
+  "decay_at": "2026-11-14T04:43:29Z",
   "status": "live",
   "promoted_signal_id": null
 }
