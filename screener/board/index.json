@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T02:48:03Z",
+  "generated_at": "2026-11-12T02:51:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20261112-189",
@@ -1945,47 +1945,52 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261112-007",
-      "headline": "UAE’s largest bank FAB plans $4.1bn share sale at 30% discount",
+      "inbox_id": "INB-20261112-339",
+      "headline": "RWE, KKR Join Forces on $16 Billion of U.K. Wind-Power Projects",
       "headline_en": null,
-      "url": "https://www.arabianbusiness.com/finance/banking/uaes-largest-bank-fab-plans-4-1bn-share-sale-at-30-discount",
-      "source_name": "Arabian Business",
+      "url": "https://www.wsj.com/business/deals/rwe-kkr-join-forces-on-16-billion-of-u-k-wind-power-projects-4b489bce?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
       "input_nature": "news_headline",
-      "found_at": "2026-11-11T23:21:17Z",
+      "found_at": "2026-11-11T07:22:00Z",
       "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "The UAE's largest bank is planning a $4.1 billion share sale at a 30% discount, which is highly dilutive and suggests significant capital needs.",
+      "prelim_note": "RWE and KKR announced a $16 billion investment in UK wind-power projects.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "The UAE's largest bank is planning a $4.1 billion share sale at a 30% discount, which is highly dilutive and suggests significant capital needs.",
-      "region": "OTHER",
+      "triage_score": 99,
+      "triage_reason": "RWE and KKR announced a $16 billion investment in UK wind-power projects.",
+      "region": "GB",
       "relevance": "material",
-      "materiality_pre_score": 70,
+      "materiality_pre_score": 75,
       "rank_factors": {
-        "materiality": 70,
+        "materiality": 75,
         "source_tier": 0,
-        "scope": 6,
-        "event": 0,
+        "scope": 5,
+        "event": 6,
         "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
+        "recency": 1,
+        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "multi_name",
         "source_tier_id": "news",
-        "event_id": null,
+        "event_id": "capex",
         "size_bucket": "large"
       },
       "event_types": [
-        "capital_actions"
+        "capex"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "First Abu Dhabi Bank",
+          "name": "RWE",
           "ticker": null,
-          "listing_country": null
+          "listing_country": "DE"
+        },
+        {
+          "name": "KKR",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -277723,9 +277728,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 253815,
-    "news_picked_today": 578,
-    "news_dropped_today": 1750
+    "news_seen_today": 259573,
+    "news_picked_today": 585,
+    "news_dropped_today": 1767
   },
   "book_momentum": {
     "live_count": 8,
