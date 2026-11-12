@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-12T12:43:07Z",
+  "generated_at": "2026-11-12T13:36:25Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261112-671",
+      "headline": "CHI ECO LAND MT (08507): PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1112/2026111201452.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-12T13:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Company issued a profit warning.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company issued a profit warning.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CHI ECO LAND MT",
+          "ticker": "08507",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261112-644",
       "headline": "SAMSONITE (01910): Quarterly Results Announcement for the Periods Ended September 30, 2026",
@@ -781,6 +830,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-701",
+      "headline": "Nvidia Default Risk Nears Record High as Board Weighs CEO’s Fate",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-12/nvidia-default-risk-nears-record-high-as-board-weighs-ceo-s-fate",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T12:53:17Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Nvidia faces record high default risk amid board uncertainty regarding the CEO.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia faces record high default risk amid board uncertainty regarding the CEO.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1871,109 +1969,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-447",
-      "headline": "Blackstone puts up $1.5 billion for Pfizer obesity drug studies",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/blackstone-puts-up-15-billion-for-pfizer-obesity-drug-studies/article71692286.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T05:02:33Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Blackstone is investing $1.5 billion into Pfizer's obesity drug studies.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Blackstone is investing $1.5 billion into Pfizer's obesity drug studies.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Blackstone",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Pfizer",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-455",
-      "headline": "Nvidia shares sink 8.6% as second affair report puts Jensen Huang’s job at risk",
-      "headline_en": null,
-      "url": "https://gulfnews.com/business/second-affair-steeper-sell-off-nvidia-ceo-jensen-huang-under-fire-1.500744501",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T04:55:24Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Nvidia shares dropped 8.6% following reports regarding CEO Jensen Huang, indicating high market sensitivity to leadership risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia shares dropped 8.6% following reports regarding CEO Jensen Huang, indicating high market sensitivity to leadership risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -234042,6 +234037,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-e1d40a598d73",
+      "idea_version": "IDEAV-896aa4599f6ab45d",
+      "idea_version_started_at": "2026-11-12T13:36:01Z",
+      "ticker": "SZG.DE",
+      "company": "Salzgitter",
+      "exchange": "XETRA",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a downward revision to its FY26 guidance, signaling deteriorating earnings expectations.",
+      "why_now": "The guidance update was announced on November 12, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-22048ffb244a"
+      ],
+      "primary_source_event_id": "EVT-22048ffb244a",
+      "source_headlines": [
+        "Salzgitter Announces Revised FY26 Guidance - Update"
+      ],
+      "source_headline": "Salzgitter Announces Revised FY26 Guidance - Update",
+      "source_url": "https://www.nasdaq.com/articles/salzgitter-announces-revised-fy26-guidance-update",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-12T10:45:22Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-12T13:36:01Z",
+      "updated_at": "2026-11-12T13:36:01Z",
+      "decay_at": "2026-11-13T22:45:22Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-0c58fc228db1",
       "idea_version": "IDEAV-9555e4ef22d3581d",
       "idea_version_started_at": "2026-11-12T11:51:50Z",
@@ -234387,6 +234452,78 @@
       "surfaced_at": "2026-11-12T12:14:16Z",
       "updated_at": "2026-11-12T12:14:16Z",
       "decay_at": "2026-11-13T21:12:50Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-3ebff2cb046d",
+      "idea_version": "IDEAV-09aa700544623c42",
+      "idea_version_started_at": "2026-11-12T13:36:01Z",
+      "ticker": "MANINFRA.NS",
+      "company": "Man Industries",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Strong Q2 performance with 122% net profit growth and 45% revenue increase indicates operational momentum.",
+      "why_now": "The results were reported on November 12, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3cecbb9fc76b"
+      ],
+      "primary_source_event_id": "EVT-3cecbb9fc76b",
+      "source_headlines": [
+        "Man Industries Q2 results: Net profit rises 122% to ₹82 crore, revenue up 45%"
+      ],
+      "source_headline": "Man Industries Q2 results: Net profit rises 122% to ₹82 crore, revenue up 45%",
+      "source_url": "https://www.cnbctv18.com/market/earnings/man-industries-q2-results-net-profit-rises-122pc-to-rs82-crore-revenue-up-45pc-20032534.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-12T10:17:19Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-12T13:36:01Z",
+      "updated_at": "2026-11-12T13:36:01Z",
+      "decay_at": "2026-11-13T22:17:19Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -235969,149 +236106,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-a6b4b796e78e",
-      "idea_version": "IDEAV-136eec4b7b6674e7",
-      "idea_version_started_at": "2026-11-11T03:59:14Z",
-      "ticker": "ASB",
-      "company": "Austal",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Commencement of production on a $5 billion Landing Craft project provides long-term revenue visibility and confirms the company's order book execution.",
-      "why_now": "The company announced the start of production on 2026-11-11.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7465b8b54030"
-      ],
-      "primary_source_event_id": "EVT-7465b8b54030",
-      "source_headlines": [
-        "ASB: Austal commences production on $5B Landing Craft Projects"
-      ],
-      "source_headline": "ASB: Austal commences production on $5B Landing Craft Projects",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ASB?key=2924-03160507-6A1354557",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-11T01:03:37Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-11T03:59:14Z",
-      "updated_at": "2026-11-11T03:59:14Z",
-      "decay_at": "2026-11-12T13:03:37Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-c9b7224cbdda",
-      "idea_version": "IDEAV-9500e4dab8bdeaa4",
-      "idea_version_started_at": "2026-11-11T04:24:11Z",
-      "ticker": "MQG",
-      "company": "Macquarie Group",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Macquarie Bank, a subsidiary of Macquarie Group, will pay a $14 million penalty for misleading customers with a 'welcome rate' promotion, impacting its reputation and potentially future regulatory scrutiny.",
-      "why_now": "The penalty and its details were reported on November 11, 2026, making the regulatory action current.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-700f1447ef68"
-      ],
-      "primary_source_event_id": "EVT-700f1447ef68",
-      "source_headlines": [
-        "Macquarie Bank to pay $14m penalty after confusing ‘welcome rate’ promotion"
-      ],
-      "source_headline": "Macquarie Bank to pay $14m penalty after confusing ‘welcome rate’ promotion",
-      "source_url": "https://www.theguardian.com/australia-news/2026/nov/11/macquarie-bank-14m-penalty-welcome-rate-savings-account",
-      "source_name": "The Guardian — World news",
-      "materiality_max": 95,
-      "newest_source_at": "2026-11-11T01:23:39Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-11T04:24:11Z",
-      "updated_at": "2026-11-11T04:24:11Z",
-      "decay_at": "2026-11-12T13:23:39Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-3e0ccff47789",
       "idea_version": "IDEAV-0acad24986e16db6",
       "idea_version_started_at": "2026-11-11T05:44:55Z",
@@ -236596,76 +236590,6 @@
       "surfaced_at": "2026-11-07T18:45:39Z",
       "updated_at": "2026-11-09T18:28:29Z",
       "decay_at": "2026-11-11T05:41:02Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-49dc08133904",
-      "idea_version": "IDEAV-d6be874b042d60df",
-      "idea_version_started_at": "2026-11-09T17:16:12Z",
-      "ticker": "ARGX",
-      "company": "argenx SE",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of Unnatural Products, Inc. for $1.15 billion expands argenx's pipeline and R&D capabilities in a high-value therapeutic space.",
-      "why_now": "The acquisition agreement was announced today, November 9, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6bb7a15aefbb"
-      ],
-      "primary_source_event_id": "EVT-6bb7a15aefbb",
-      "source_headlines": [
-        "argenx SE Announces Agreement to Acquire Unnatural Products, Inc. for Up to Approximately $1.15 billion"
-      ],
-      "source_headline": "argenx SE Announces Agreement to Acquire Unnatural Products, Inc. for Up to Approximately $1.15 billion",
-      "source_url": "https://www.nasdaq.com/articles/argenx-se-announces-agreement-acquire-unnatural-products-inc-approximately-115-billion",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-09T13:12:37Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-09T12:48:09Z",
-      "updated_at": "2026-11-09T17:16:12Z",
-      "decay_at": "2026-11-11T01:12:37Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -237867,6 +237791,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-a6b4b796e78e",
+      "idea_version": "IDEAV-136eec4b7b6674e7",
+      "idea_version_started_at": "2026-11-11T03:59:14Z",
+      "ticker": "ASB",
+      "company": "Austal",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Commencement of production on a $5 billion Landing Craft project provides long-term revenue visibility and confirms the company's order book execution.",
+      "why_now": "The company announced the start of production on 2026-11-11.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7465b8b54030"
+      ],
+      "primary_source_event_id": "EVT-7465b8b54030",
+      "source_headlines": [
+        "ASB: Austal commences production on $5B Landing Craft Projects"
+      ],
+      "source_headline": "ASB: Austal commences production on $5B Landing Craft Projects",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ASB?key=2924-03160507-6A1354557",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-11T01:03:37Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-11T03:59:14Z",
+      "updated_at": "2026-11-11T03:59:14Z",
+      "decay_at": "2026-11-12T13:03:37Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-1e80e6023e62",
       "idea_version": "IDEAV-c3e94f6a5fb0ae2a",
       "idea_version_started_at": "2026-11-10T23:42:15Z",
@@ -238575,77 +238570,6 @@
       "surfaced_at": "2026-11-10T11:30:45Z",
       "updated_at": "2026-11-10T11:30:45Z",
       "decay_at": "2026-11-11T21:37:09Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-9219a32f6160",
-      "idea_version": "IDEAV-a5479e17b5b2b324",
-      "idea_version_started_at": "2026-11-10T10:55:57Z",
-      "ticker": "01897",
-      "company": "Millionhope Ind",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company issued a positive profit alert, signaling improved earnings performance compared to the prior period.",
-      "why_now": "The profit alert was filed on November 9, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-312713824be1"
-      ],
-      "primary_source_event_id": "EVT-312713824be1",
-      "source_headlines": [
-        "MILLIONHOPE IND (01897): Positive Profit Alert"
-      ],
-      "source_headline": "MILLIONHOPE IND (01897): Positive Profit Alert",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1109/2026110901151.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-09T12:57:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-10T10:55:57Z",
-      "updated_at": "2026-11-10T10:55:57Z",
-      "decay_at": "2026-11-11T00:57:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -239436,6 +239360,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-c9b7224cbdda",
+      "idea_version": "IDEAV-9500e4dab8bdeaa4",
+      "idea_version_started_at": "2026-11-11T04:24:11Z",
+      "ticker": "MQG",
+      "company": "Macquarie Group",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Macquarie Bank, a subsidiary of Macquarie Group, will pay a $14 million penalty for misleading customers with a 'welcome rate' promotion, impacting its reputation and potentially future regulatory scrutiny.",
+      "why_now": "The penalty and its details were reported on November 11, 2026, making the regulatory action current.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-700f1447ef68"
+      ],
+      "primary_source_event_id": "EVT-700f1447ef68",
+      "source_headlines": [
+        "Macquarie Bank to pay $14m penalty after confusing ‘welcome rate’ promotion"
+      ],
+      "source_headline": "Macquarie Bank to pay $14m penalty after confusing ‘welcome rate’ promotion",
+      "source_url": "https://www.theguardian.com/australia-news/2026/nov/11/macquarie-bank-14m-penalty-welcome-rate-savings-account",
+      "source_name": "The Guardian — World news",
+      "materiality_max": 95,
+      "newest_source_at": "2026-11-11T01:23:39Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-11T04:24:11Z",
+      "updated_at": "2026-11-11T04:24:11Z",
+      "decay_at": "2026-11-12T13:23:39Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-3de812988305",
       "idea_version": "IDEAV-4ff53507a3ff4c5b",
       "idea_version_started_at": "2026-11-10T01:51:56Z",
@@ -239736,24 +239732,24 @@
     "hidden_count": 50,
     "side_counts": {
       "long": {
-        "total_count": 286,
+        "total_count": 285,
         "shown_count": 250,
-        "hidden_count": 36
+        "hidden_count": 35
       },
       "short": {
-        "total_count": 264,
+        "total_count": 265,
         "shown_count": 250,
-        "hidden_count": 14
+        "hidden_count": 15
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1825,
+      "evicted_count": 1827,
       "oldest_retained_at": "2026-10-17T20:31:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 1195,
-          "oldest_retained_at": "2026-10-28T02:08:22Z"
+          "evicted_count": 1197,
+          "oldest_retained_at": "2026-10-28T03:38:32Z"
         },
         "short": {
           "evicted_count": 631,
@@ -239762,6 +239758,155 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-c9b7224cbdda",
+        "idea_version": "IDEAV-9500e4dab8bdeaa4",
+        "idea_version_started_at": "2026-11-11T04:24:11Z",
+        "ticker": "MQG",
+        "company": "Macquarie Group",
+        "exchange": "ASX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Macquarie Bank, a subsidiary of Macquarie Group, will pay a $14 million penalty for misleading customers with a 'welcome rate' promotion, impacting its reputation and potentially future regulatory scrutiny.",
+        "why_now": "The penalty and its details were reported on November 11, 2026, making the regulatory action current.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 15,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-700f1447ef68"
+        ],
+        "primary_source_event_id": "EVT-700f1447ef68",
+        "source_headlines": [
+          "Macquarie Bank to pay $14m penalty after confusing ‘welcome rate’ promotion"
+        ],
+        "source_headline": "Macquarie Bank to pay $14m penalty after confusing ‘welcome rate’ promotion",
+        "source_url": "https://www.theguardian.com/australia-news/2026/nov/11/macquarie-bank-14m-penalty-welcome-rate-savings-account",
+        "source_name": "The Guardian — World news",
+        "materiality_max": 95,
+        "newest_source_at": "2026-11-11T01:23:39Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-11T04:24:11Z",
+        "updated_at": "2026-11-11T04:24:11Z",
+        "decay_at": "2026-11-12T13:23:39Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-12T13:23:39Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-a6b4b796e78e",
+        "idea_version": "IDEAV-136eec4b7b6674e7",
+        "idea_version_started_at": "2026-11-11T03:59:14Z",
+        "ticker": "ASB",
+        "company": "Austal",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Commencement of production on a $5 billion Landing Craft project provides long-term revenue visibility and confirms the company's order book execution.",
+        "why_now": "The company announced the start of production on 2026-11-11.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-7465b8b54030"
+        ],
+        "primary_source_event_id": "EVT-7465b8b54030",
+        "source_headlines": [
+          "ASB: Austal commences production on $5B Landing Craft Projects"
+        ],
+        "source_headline": "ASB: Austal commences production on $5B Landing Craft Projects",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ASB?key=2924-03160507-6A1354557",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-11T01:03:37Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-11T03:59:14Z",
+        "updated_at": "2026-11-11T03:59:14Z",
+        "decay_at": "2026-11-12T13:03:37Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-12T13:03:37Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-3c2ee1fd18a5",
         "idea_version": "IDEAV-acd8aa6b482c32c9",
@@ -243371,8 +243516,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-11T01:12:37Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-12T13:36:11Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -243445,8 +243590,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-11T00:57:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-12T13:36:11Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -267955,80 +268100,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-4e1c2a6541fa",
-        "idea_version": "IDEAV-75b85ef2e3caa8c6",
-        "idea_version_started_at": "2026-10-29T18:20:44Z",
-        "ticker": "VEDANTA",
-        "company": "Vedanta Power Limited",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company reported a 122% increase in EBITDA and 38% revenue growth for Q2 FY27, signaling significant operational efficiency gains.",
-        "why_now": "The performance results were officially released on October 29, 2026.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-cc430a2dc104"
-        ],
-        "primary_source_event_id": "EVT-cc430a2dc104",
-        "source_headlines": [
-          "Vedanta Power Limited: Vedanta Power Limited has informed the Exchange regarding a press release dated October 29, 2026, titled \"Vedanta Power Reports Highest-Ever Quarterly Performance in Q2 FY27, Backed by Strong Operational Excellence; EBITDA Soars 122% and Revenue Rises 38% YoY\"."
-        ],
-        "source_headline": "Vedanta Power Limited: Vedanta Power Limited has informed the Exchange regarding a press release dated October 29, 2026, titled \"Vedanta Power Reports Highest-Ever Quarterly Performance in Q2 FY27, Backed by Strong Operational Excellence; EBITDA Soars 122% and Revenue Rises 38% YoY\".",
-        "source_url": "https://nsearchives.nseindia.com/corporate/VedantaPower_29102026172455_VPLIRPRessReleaseFinalsigned.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-29T11:55:03Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-29T18:20:44Z",
-        "updated_at": "2026-10-29T18:20:44Z",
-        "decay_at": "2026-10-30T23:55:03Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-01T11:56:02Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-c6f1a0d27ff6",
         "idea_version": "IDEAV-a015e0f4e4c355d7",
         "idea_version_started_at": "2026-10-29T16:12:50Z",
@@ -276806,86 +276877,11 @@
         "archived_at": "2026-10-21T19:59:57Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-747e80dbcb22",
-        "idea_version": "IDEAV-f2178b72b82247ae",
-        "idea_version_started_at": "2026-10-18T13:36:43Z",
-        "ticker": "MOUWASAT",
-        "company": "Mouwasat Medical Services",
-        "exchange": "TADAWUL",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company faces a significant commercial claim of SAR 335.4 million, which represents a material negative surprise to earnings and cash flow.",
-        "why_now": "The claim was reported today, October 18, 2026, and the market has not yet fully adjusted for the potential legal liability.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 18,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-b9d777c96a1a"
-        ],
-        "primary_source_event_id": "EVT-b9d777c96a1a",
-        "source_headlines": [
-          "‎Mouwasat faces commercial claim of SAR 335.4M"
-        ],
-        "source_headline": "‎Mouwasat faces commercial claim of SAR 335.4M",
-        "source_url": "https://www.argaam.com/en/article/articledetail/id/1944845",
-        "source_name": "Argaam — Main News (English)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-18T09:03:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-18T13:36:43Z",
-        "updated_at": "2026-10-18T13:36:43Z",
-        "decay_at": "2026-10-19T21:03:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-21T12:30:15Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2411,
+    "surfaced_total": 2413,
     "live_count": 36,
     "promoted_total": 0,
     "machine_confirmed": 0,
@@ -276905,9 +276901,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1168965,
-    "news_picked_today": 1743,
-    "news_dropped_today": 12297
+    "news_seen_today": 1262066,
+    "news_picked_today": 1808,
+    "news_dropped_today": 13072
   },
   "book_momentum": {
     "live_count": 8,

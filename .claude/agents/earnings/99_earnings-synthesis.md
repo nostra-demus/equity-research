@@ -54,6 +54,7 @@ If any upstream output is missing, list which ones and proceed with what's avail
 1. Read the repo root `CLAUDE.md` (cross-cutting rules including git policy and global investing standards), then read `.claude/agents/earnings/MODULE_RULES.md` (operating rules specific to this module), and apply both.
 2. Read every upstream specialist output. Note each one's verdict line and biggest finding.
 3. Reconcile disagreements. If two specialists disagree on a fact or direction, prefer the more conservative reading and note the disagreement.
+   Before composing, identify the upstream build and limits of each material calculation or comparison you will carry forward. Preserve its current and comparison totals, change and common denominator, itemised components and residual. Where an upstream report gives both a company-defined metric and an alternative construction, carry both bases and the named adjustments explaining their difference; do not compress them into an unexplained "presentation difference." A selected-pool measure keeps its material inclusion/exclusion rules, currency and ownership basis, and what it does not measure. Put the necessary build in the relevant roll-up, reconciliation or key-number entry, with its upstream citation; keep the basis and qualifier when restating the finding. This is a completeness check against the supplied reports, not permission to redo specialist work, invent missing operands or reproduce immaterial tables. If the upstream build is incomplete, say what cannot be reconstructed and limit the inference.
 4. Apply partial-data caps.
 5. Compose the verdict block and scores.
 6. Compose the Abstract LAST — after the verdict block is finalized.
@@ -251,6 +252,7 @@ Bullet list, no prose paragraphs. **Surface what the scores MEAN — do not rest
 - [ ] Final verdict is consistent with revenue trend, margin trend, quality, AND consensus setup — not driven by one in isolation.
 - [ ] The synthesis does not overstate confidence if consensus or cash flow data is missing.
 - [ ] No new analysis appears that wasn't in upstream outputs.
+- [ ] Material calculations can be rebuilt from the figures carried here: comparison totals, changes, common denominator, components and residual survive. Company-defined and alternative constructions retain their named differences; selected-pool measures retain their material exclusions and scope. Missing upstream detail stays unknown rather than being filled in. These checks preserve decision-relevant evidence, not a target word count or a favourable verdict.
 - [ ] Any margin or revenue bridge carried into this synthesis keeps its residual, not just its named driver — a large unexplained residual from `03_margin-drivers` §7a or `02_revenue-drivers` §6a is stated here as a limit on the driver read, never compressed into "driven by X" (MODULE_RULES "Driver Attribution" / `CLAUDE.md` §15). No sensitivity or ratio is repeated across a basis it was not measured on.
 - [ ] No banned phrases.
 
