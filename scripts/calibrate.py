@@ -519,7 +519,9 @@ def match_resolved_forecasts(record, reviews):
     an EXPLICIT deliberate reference — a `forecast_index` field or a 'forecast #N' / 'prediction #N' token
     (1-based into forecast_ledger). NEVER the positional index of the results array: forecast_results is
     routinely a re-ordered subset, so a positional guess would score a probability against the WRONG
-    prediction (§24 — prefer omission to a mis-scored commission). An unmatchable entry is excluded. Only
+    prediction (§24 — prefer omission to a mis-scored commission). Finally, legacy text may differ by
+    one terminal sentence period, only when that key is unique across the entire ledger. No other
+    punctuation, wording or financial input is normalized. An unmatchable entry is excluded. Only
     the LATEST review per run is used (a later review supersedes an earlier read). Returns matched pairs."""
     ledger = record.get("forecast_ledger", []) or []
     # Build the text→entry map, but DROP any prediction text carried by more than one ledger row: a
@@ -527,18 +529,25 @@ def match_resolved_forecasts(record, reviews):
     # scoring it against the first row is a mis-scored commission (§24 — prefer omission). An ambiguous
     # text then falls through to _by_reference (an explicit forecast_index / '#N' still resolves), and
     # is otherwise excluded — never guessed. Eval checks that `prediction` exists, not that it is unique.
-    text_counts = {}
+    text_counts, sentence_counts = {}, {}
     for e in ledger:
         if isinstance(e, dict):
             k = _norm(e.get("prediction"))
             if k:
                 text_counts[k] = text_counts.get(k, 0) + 1
-    by_text = {}
+                sentence = k.removesuffix(".")
+                if sentence:
+                    sentence_counts[sentence] = sentence_counts.get(sentence, 0) + 1
+    by_text, by_sentence = {}, {}
     for e in ledger:
         if isinstance(e, dict):
             k = _norm(e.get("prediction"))
-            if k and text_counts[k] == 1:  # unique text only — duplicates are ambiguous, not first-wins
-                by_text[k] = e
+            if k:
+                if text_counts[k] == 1:  # unique text only — duplicates are ambiguous, not first-wins
+                    by_text[k] = e
+                sentence = k.removesuffix(".")
+                if sentence and sentence_counts[sentence] == 1 and any(ch.isalnum() for ch in sentence):
+                    by_sentence[sentence] = e
 
     def _by_reference(result):
         """A DELIBERATE 1-based reference into forecast_ledger, or None. Honours an explicit
@@ -568,7 +577,12 @@ def match_resolved_forecasts(record, reviews):
         y = _realized(r.get("status"))
         if y is None:
             continue  # unresolved — excluded
-        src = by_text.get(_norm(r.get("prediction"))) or _by_reference(r)
+        norm_pred = _norm(r.get("prediction"))
+        src = by_text.get(norm_pred) or _by_reference(r)
+        if src is None:
+            # Count every ledger row above, including invalid probabilities: a second possible
+            # identity must not disappear merely because its probability cannot be scored.
+            src = by_sentence.get(norm_pred.removesuffix("."))
         if src is None:
             continue  # neither text nor an explicit reference matched → not Brier-scorable, never positional-guessed
         if id(src) in seen:

@@ -600,6 +600,19 @@ The auditable core of the verdict — for each decision driver, which side won a
 
 If peer data is available, judge whether the stock is cheap or expensive.
 
+When the valuation synthesis carries a **Strategic rerating** assessment, preserve its three pillar
+findings, execution direction, qualified `Valuation Impact`, original target/event, dated horizon,
+probability basis/uncertainty (or abstention), priced-in test, and next bullish/bearish checkpoint.
+Separate successful execution from unpriced upside. The **Rerating Probability Score** estimates that
+specific multiple-and-operating-milestone event; it is NOT the probability of the bull investment
+scenario and must not be copied into §8 as a scenario weight or used to raise confidence mechanically.
+If assessable, carry the event and its confirmation/falsification tests into the existing Forecast Ledger
+with `owner_module: valuation` and the existing schema; if not, retain the reason without inventing a
+numeric forecast. Older runs without this assessment need no back-fill. Retain all governance,
+survival, turnaround, and valuation caps and reconcile any disagreement with the module's levels.
+If the module flags the assessment **Stale — not a current estimate**, preserve that warning and treat
+the probability as dated history, not a new numeric forecast; state which admitted assessment must refresh it.
+
 Use a table:
 
 | Metric | Company | Peer Median | Premium / Discount | Interpretation |
@@ -1040,6 +1053,15 @@ Never give 90+ unless the evidence is exceptional.
 The figure you built above is your **conviction**. Do not hand-pick a single number and stop — record the inputs and let the deterministic scorer compute the pair, so the headline is auditable and re-derivable (the same discipline Step 4 applies to the scenario math). The scorer codifies the caps + downgrades above; you supply the judgments, it does the arithmetic.
 
 1. **Record `confidence_inputs`** — the judgments you just made, structured: `data_sufficiency`, `corroboration` (cross-module agreement; low on unresolved conflict / a wide cross-method valuation spread), `evidence_tier` (share of load-bearing claims on Tier-1/2 filings, §4/§6), `staleness_penalty`, `edge_score`, `edge_proof_present` (bool), `decision`, `modules_absent` (list of any of: consensus/valuation/solvency/governance/filings/catalyst/options), `critical_governance_unresolved` (bool), `catalyst_timing_weak` (bool), `rating_cap_ceiling` (any §18/§24 rating cap expressed as a number, else null), `downgrades` (list of `{type, points≥0, reason}`), `calibration_haircut`. Carry this object into `decision_record.json.confidence_inputs`.
+
+   **Numerical input errors stop scoring.** Supply finite JSON numbers, excluding booleans and numeric
+   strings. Evidence/edge/cap scores use their documented 0–100 domain; expected-return percentages
+   may be signed or exceed 100 and are not evidence scores. Use null/omitted defaults only where the
+   scorer explicitly supports them; a missing required observation is not zero evidence or an adverse
+   finding. If validation or arithmetic fails, resolve the named input against its evidence and retain
+   the applicable insufficiency caps/refusal. Do not replace malformed values with zero, silently drop
+   a reduction, or publish an earlier score from the failed calculation. An applied calibration haircut
+   still requires the numeric 8 under Step 4C; a supported null for a non-applied reduction never waives it.
 
 2. **Run the scorer with Bash** (do NOT compute in your head):
    ```

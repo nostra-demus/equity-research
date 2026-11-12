@@ -1,0 +1,260 @@
+{
+  "schema_version": "1.0",
+  "ticker": "ORCL",
+  "original_decision_date": "2026-08-14",
+  "review_date": "2026-11-12",
+  "review_window": "90d",
+  "original_decision": "Watchlist",
+  "basket": "Watchlist",
+  "entry_price": 153.94,
+  "tracking_price": null,
+  "review_price": null,
+  "absolute_return_pct": null,
+  "benchmark_return_pct": null,
+  "sector_return_pct": null,
+  "benchmark_relative_return_pct": null,
+  "sector_relative_return_pct": null,
+  "thesis_status": "on-track",
+  "forecast_results": [
+    {
+      "prediction": "Oracle's FQ1 FY2027 revenue print (due 2026-09-04) will land within or below management's own guided range of +27%–29% CC/USD growth, not accelerate toward the ~51% YoY pace the current $153.94 share price already requires per the reverse-DCF.",
+      "forecast_index": 1,
+      "status": "not assessable",
+      "evidence": "The company reported 30% revenue growth on September 10. The frozen confirmation ceiling is 29% and falsification threshold is greater than 35%;30% is between them. The release is also outside the frozen September 4 window. No threshold/date is rewritten. [Oracle Q1 FY 2027 earnings release, 2026-09-10, pp. 1 and 5, official primary page read through the built-in reader (raw download returned 429); https://investor.oracle.com/files/content_files/1q27-pressrelease-September_FINAL.pdf]",
+      "as_of": "2026-11-12",
+      "forecast_id": "FC-ORCL-FQ1FY27-REVENUE-2026Q3"
+    },
+    {
+      "prediction": "Oracle's FQ1 FY2027 GAAP gross margin will show further quarter-over-quarter compression versus FQ4 FY2026, consistent with management's own guided FY2027 margin step-down, rather than the recovery the bull case requires.",
+      "forecast_index": 2,
+      "status": "not assessable",
+      "evidence": "The reported quarter is available after the frozen September 4 timing assumption, but a matched Q4-to-Q1 GAAP gross-margin definition and source bridge was not established. The vendor-based old denominator is not promoted into primary-source proof.",
+      "as_of": "2026-11-12",
+      "forecast_id": "FC-ORCL-FQ1FY27-GROSSMARGIN-2026Q3"
+    },
+    {
+      "prediction": "Oracle's 2026 DEF 14A Proxy Statement (due on or before 2026-09-28) will disclose CEO/co-CEO compensation metrics that are primarily revenue- or size-based rather than per-share or returns-based, continuing the pattern already disclosed for the new CFO's performance stock options.",
+      "forecast_index": 3,
+      "status": "confirmed",
+      "evidence": "The proxy arrived September 25, within the September 28 deadline. Its financially performance-conditioned co-CEO equity uses non-GAAP revenue, not per-share/ROIC/FCF-per-share. The 20%/80% award split is preserved: confirmation applies to the performance-conditioned slice, not a claim that most total equity is revenue-conditioned. [Oracle 2026 DEF 14A, 2026-09-25, Compensation Discussion and Analysis pp. 55-56, Fiscal 2026 Equity Awards/PSOs; primary SEC page read through built-in reader (raw SEC download 403); https://www.sec.gov/Archives/edgar/data/1341439/000119312526402816/orcl-20260925.htm]",
+      "as_of": "2026-11-12",
+      "forecast_id": "FC-ORCL-PROXY-PAYMETRICS-2026Q3"
+    },
+    {
+      "prediction": "Oracle's strict net debt/EBITDA will be reported at or above 4.46x as of the FQ1 FY2027 balance-sheet date (2026-08-31), continuing to rise rather than stabilizing, as the ~$70bn FY2027 capex program continues.",
+      "forecast_index": 4,
+      "status": "not assessable",
+      "evidence": "No matched strict-debt/LTM EBITDA definition and source reconciliation was established for the frozen 4.46 x/4.20 x test. The actual release came after its frozen September 4 window. No vendor EBITDA is silently recast as company-reported or covenant EBITDA.",
+      "as_of": "2026-11-12",
+      "forecast_id": "FC-ORCL-NETLEVERAGE-FQ1FY27"
+    },
+    {
+      "prediction": "Oracle's guided ~$70bn FY2027 net capex figure will not be cut by more than 10% by the time of the FQ2 FY2027 print (~late November 2026), i.e. management maintains the capital program rather than retrenching in response to funding pressure.",
+      "forecast_index": 5,
+      "status": "still open",
+      "evidence": "The inclusive November 30 window remains open. This review does not certify maintained full-year net-capex guidance from silence or substitute a gross-capex number.",
+      "as_of": "2026-11-12",
+      "forecast_id": "FC-ORCL-FY27CAPEX-FQ2FY27"
+    }
+  ],
+  "catalyst_results": [
+    {
+      "catalyst": "Annual General Meeting",
+      "status": "pending",
+      "evidence": "The September 25 proxy cover schedules the 2026 annual meeting for November 18; the original August 25 date is stale. Its say-on-pay outcome is not yet observable. [Oracle 2026 DEF 14A, 2026-09-25, Compensation Discussion and Analysis pp. 55-56, Fiscal 2026 Equity Awards/PSOs; primary SEC page read through built-in reader (raw SEC download 403); https://www.sec.gov/Archives/edgar/data/1341439/000119312526402816/orcl-20260925.htm]",
+      "as_of": "2026-11-12"
+    },
+    {
+      "catalyst": "FQ1 FY 2027 earnings release (single most important catalyst)",
+      "status": "materialized",
+      "evidence": "The quarterly release was published September 10, later than the frozen September 4 date. [Oracle Q1 FY 2027 earnings release, 2026-09-10, pp. 1 and 5, official primary page read through the built-in reader (raw download returned 429); https://investor.oracle.com/files/content_files/1q27-pressrelease-September_FINAL.pdf]",
+      "as_of": "2026-11-12"
+    },
+    {
+      "catalyst": "Deadline for defendants to respond to the OCI securities class action",
+      "status": "pending",
+      "evidence": "No matched primary completion/trigger evidence was established for this catalyst at this checkpoint. An elapsed estimated date alone does not resolve it.",
+      "as_of": "2026-11-12"
+    },
+    {
+      "catalyst": "2026 DEF 14A proxy statement expected filed",
+      "status": "materialized",
+      "evidence": "The proxy was filed September 25; its performance-award scope is qualified in forecast_results. [Oracle 2026 DEF 14A, 2026-09-25, Compensation Discussion and Analysis pp. 55-56, Fiscal 2026 Equity Awards/PSOs; primary SEC page read through built-in reader (raw SEC download 403); https://www.sec.gov/Archives/edgar/data/1341439/000119312526402816/orcl-20260925.htm]",
+      "as_of": "2026-11-12"
+    },
+    {
+      "catalyst": "$3.3 bn Oracle guarantee of a data-center lessor's borrowing matures",
+      "status": "pending",
+      "evidence": "No matched primary completion/trigger evidence was established for this catalyst at this checkpoint. An elapsed estimated date alone does not resolve it.",
+      "as_of": "2026-11-12"
+    },
+    {
+      "catalyst": "Netherlands Supreme Court GDPR ruling (biggest bearish catalyst)",
+      "status": "pending",
+      "evidence": "No matched primary completion/trigger evidence was established for this catalyst at this checkpoint. An elapsed estimated date alone does not resolve it.",
+      "as_of": "2026-11-12"
+    },
+    {
+      "catalyst": "$2,250 mn senior notes / $4,645 mn Term Loan mature",
+      "status": "pending",
+      "evidence": "No matched primary completion/trigger evidence was established for this catalyst at this checkpoint. An elapsed estimated date alone does not resolve it.",
+      "as_of": "2026-11-12"
+    },
+    {
+      "catalyst": "$260,000 mn of additional data-center lease commitments begin converting on-balance-sheet",
+      "status": "pending",
+      "evidence": "No matched primary completion/trigger evidence was established for this catalyst at this checkpoint. An elapsed estimated date alone does not resolve it.",
+      "as_of": "2026-11-12"
+    }
+  ],
+  "risk_results": [
+    {
+      "risk": "Unresolved securities class action (filed 2026-02-03) alleging Oracle and named executives overstated the AI-infrastructure deal growth outlook; pre-motion-to-dismiss; not cleared, not proven. Caps management quality/candor at 60 and the rating at no better than Watchlist.",
+      "status": "not assessable",
+      "evidence": "The frozen Critical restriction remains unresolved; no new primary evidence establishing materialization or clearance was obtained for this exact risk. A narrow forecast outcome does not clear the broader restriction.",
+      "as_of": "2026-11-12",
+      "risk_id": "RF-MGT-005"
+    },
+    {
+      "risk": "Dividend and total uses of capital not covered by free cash flow; FY 2026 FCF/dividend coverage -409.4%; cumulative uses of capital FY 2022-2026 equal 233% of cumulative CFO; total debt +53.7% in FY 2026 to $167.4 bn; S&P downgrade to BBB- on 2026-07-09.",
+      "status": "not assessable",
+      "evidence": "The frozen Critical restriction remains unresolved; no new primary evidence establishing materialization or clearance was obtained for this exact risk. A narrow forecast outcome does not clear the broader restriction.",
+      "as_of": "2026-11-12",
+      "risk_id": "RF-CAP-003"
+    },
+    {
+      "risk": "$260,000 mn of additional, not-yet-on-balance-sheet data-center lease commitments (15-19 year terms, commencing FY 2027-FY 2029), roughly 1.9 x Oracle's entire current all-in gross debt stack.",
+      "status": "not assessable",
+      "evidence": "The frozen High restriction remains unresolved; no new primary evidence establishing materialization or clearance was obtained for this exact risk. A narrow forecast outcome does not clear the broader restriction.",
+      "as_of": "2026-11-12",
+      "risk_id": "RF-OBS-001"
+    },
+    {
+      "risk": "Prepared-remarks framing ('tremendous quarter', 'overdelivering') describes uniformly strong delivery while the clean (ex one-off) operating beat rate over the trailing four quarters is 50%, close to a coin flip.",
+      "status": "not assessable",
+      "evidence": "The frozen High restriction remains unresolved; no new primary evidence establishing materialization or clearance was obtained for this exact risk. A narrow forecast outcome does not clear the broader restriction.",
+      "as_of": "2026-11-12",
+      "risk_id": "RF-DISC-001"
+    },
+    {
+      "risk": "Restructuring charges have recurred as excluded 'one-offs' under two consecutive, separately named plans (2024 Plan $374 mn; 2026 Plan $1,838 mn).",
+      "status": "not assessable",
+      "evidence": "The frozen High restriction remains unresolved; no new primary evidence establishing materialization or clearance was obtained for this exact risk. A narrow forecast outcome does not clear the broader restriction.",
+      "as_of": "2026-11-12",
+      "risk_id": "RF-DISC-002"
+    },
+    {
+      "risk": "FY 2026 capex guidance overshoot of ~$15 bn disclosed one quarter after the prior forecast; stock fell 10.8% the same week.",
+      "status": "not assessable",
+      "evidence": "The frozen High restriction remains unresolved; no new primary evidence establishing materialization or clearance was obtained for this exact risk. A narrow forecast outcome does not clear the broader restriction.",
+      "as_of": "2026-11-12",
+      "risk_id": "RF-CAP-001"
+    },
+    {
+      "risk": "Buybacks have stopped offsetting dilution for three straight years; FY 2026 buyback spend is 1.9% of stock-based compensation expense; diluted share count rising again (+5.3% off the FY 2023 trough).",
+      "status": "not assessable",
+      "evidence": "The frozen High restriction remains unresolved; no new primary evidence establishing materialization or clearance was obtained for this exact risk. A narrow forecast outcome does not clear the broader restriction.",
+      "as_of": "2026-11-12",
+      "risk_id": "RF-CAP-002"
+    },
+    {
+      "risk": "Two CFO-seat changes in 8 months (Sept 2025-Apr 2026), landing in the same fiscal year total debt rose 54% to $167.4 bn.",
+      "status": "not assessable",
+      "evidence": "The frozen High restriction remains unresolved; no new primary evidence establishing materialization or clearance was obtained for this exact risk. A narrow forecast outcome does not clear the broader restriction.",
+      "as_of": "2026-11-12",
+      "risk_id": "RF-MGT-001"
+    },
+    {
+      "risk": "earnings/08_earnings-red-flags.md: 23 triggered red flags (11 High, 11 Medium, 2 Low, 1 Unclear) — 'Material concerns' verdict; gross-margin compression, EBITDA-margin D&A flattery, the 39-42% GAAP-to-non-GAAP gap, and customer/counterparty concentration are the dominant High-severity cluster.",
+      "status": "not assessable",
+      "evidence": "The frozen High restriction remains unresolved; no new primary evidence establishing materialization or clearance was obtained for this exact risk. A narrow forecast outcome does not clear the broader restriction.",
+      "as_of": "2026-11-12",
+      "risk_id": "RF-EARN-08-MATERIAL"
+    }
+  ],
+  "decision_quality": "not assessable",
+  "error_taxonomy": [],
+  "lessons": [
+    "The original decision is Watchlist, including its pre-mortem cap; this was not an entry call or a paper position.",
+    "This review is filed early November 12 IST, before the November 11 US close. Retrieved pages show inconsistent dates/prices; no finished-session quote and matched benchmark/sector total-return series were verified. Return fields remain null.",
+    "The frozen revenue triggers leave an undecided region; no later analyst may turn that region into a hit by changing the threshold or extending the deadline.",
+    "The co-CEO performance-conditioned equity test is separable from the total-equity mix. Time-vesting options are not relabelled revenue-conditioned.",
+    "Raw Oracle release access returned 429; raw SEC returned 403. Built-in primary-reader representations support the cited outcome facts. The official CDN payload obtained is a selected filing representation, not an archive of the full Compensation Discussion and Analysis.",
+    "The saved vendor-EBITDA/cash sensitivity does not establish sustainable cash conversion or contractual covenant headroom; do not clear funding restrictions from it.",
+    "Outcome disclosures are post-decision evidence. They do not prove the original analyst should have known them; no hindsight process penalty or fabricated numeric conviction is assigned."
+  ],
+  "module_calibration_notes": {
+    "original_decision_drivers": "Valuation, earnings and unresolved risk restrictions in the frozen memo.",
+    "most_accurate_so_far": "One narrow forecast result is observable; this is not a whole-module accuracy ranking.",
+    "missed_key_variable": "Not established from this bounded review.",
+    "decision_time_process_judgment": "No post-decision information is used to label the original process bad. No automated memory activation or per-module score/haircut follows.",
+    "scope_boundary": "Operating results and disclosure outcomes are separate from price/benchmark results; no claim of skill or return improvement."
+  },
+  "action_now": {
+    "label": "Keep watching",
+    "reason": "The original Watchlist remains the published call; new facts do not clear the valuation, source and risk restrictions required for entry."
+  },
+  "confidence_update": {
+    "before": 47.0,
+    "after": null,
+    "change_reason": "New outcome evidence is narrow; no full current valuation/risk reassessment supports a numeric conviction update."
+  },
+  "next_check": {
+    "date": "2026-11-30",
+    "label": "FY27 net-capex update and outstanding legal/funding evidence",
+    "trigger": "By the original November 30 deadline, identify an explicit same-basis net-capex update; independently verify legal/guarantee outcomes rather than infer resolution from silence."
+  },
+  "learning": {
+    "why_right_or_wrong": "A narrow operating/disclosure test is resolved, while the overall thesis and benchmark-relative price outcome remain unproved. Watchlist is not re-described as an entry.",
+    "error_source": "",
+    "rule_for_future": "Preserve the original metric, reporting scope, award denominator and inclusive outcome window; use unresolved categories when evidence does not match.",
+    "future_research_check": "Before answering on Oracle, recheck exact EBITDA/cash definitions, funding terms and current proxy equity mix; keep performance-conditioned awards separate from time-based options and retain unresolved legal restrictions."
+  },
+  "pre_mortem_check": {
+    "pre_mortem_file": "analyses/ORCL_2026-08-14/pre_mortem.json",
+    "pre_mortem_verdict": "Survives with haircut",
+    "pre_mortem_confidence_haircut": 4,
+    "outcome_vs_verdict": "too_early",
+    "notes": "The overall thesis and named killer risk remain unresolved. A pay-metric disclosure outcome does not vindicate or contradict the pre-mortem’s customer/funding-risk verdict."
+  },
+  "memo_delta": {
+    "summary": "The proxy resolves the narrow pay-metric disclosure test, with its performance-conditioned slice explicitly separated from time-vesting options. Revenue remains between the frozen thresholds, and the margin/leverage tests lack matched proof. The original Watchlist and unresolved legal/funding restrictions remain in place.",
+    "thesis_delta_verdict": "unchanged",
+    "stage_one_comment": "ORCL remains Watchlist, with current action keep watching. The proxy resolves the narrow pay-metric disclosure test, with its performance-conditioned slice explicitly separated from time-vesting options. Revenue remains between the frozen thresholds, and the margin/leverage tests lack matched proof. The original Watchlist and unresolved legal/funding restrictions remain in place. The review preserves the original memo, model and forecasts. It assigns only the outcomes supported by the exact period, threshold and reporting scope; missing evidence is not treated as a favourable outcome or an adverse company fact. Prices and benchmark total returns could not be matched to the review window, so no return or skill conclusion is made. The original publication and risk restrictions remain binding. Before any entry discussion, obtain the specific missing source bridges, test the unresolved financial conditions, and use an authorized new research snapshot for any model update. This is a dated outcome review, not a new investment call or a trading instruction.",
+    "changed_sections": [
+      {
+        "section": "Earnings / catalyst calendar / source definitions",
+        "original_claim": "The September proxy would disclose primarily revenue/size metrics for financially performance-conditioned co-CEO equity; the memo also expected an August 25 annual meeting.",
+        "new_evidence": "The September 25 proxy ties the co-CEOs’ performance-conditioned options to FY 2028 non-GAAP revenue. That slice is 20% of intended equity value; the other 80% is time-vesting options, not revenue-conditioned equity. The actual annual meeting is November 18, so its vote outcome remains pending.",
+        "evidence_source": "Oracle 2026 DEF 14A, 2026-09-25, Compensation Discussion and Analysis pp. 55-56, Fiscal 2026 Equity Awards/PSOs; primary SEC page read through built-in reader (raw SEC download 403); https://www.sec.gov/Archives/edgar/data/1341439/000119312526402816/orcl-20260925.htm; cover/Notice of Annual Meeting, 2026-09-25",
+        "materiality_score": 65,
+        "impact_direction": "mixed",
+        "impacted_modules": [
+          "management-governance",
+          "catalyst"
+        ],
+        "rerun_recommended": true,
+        "rerun_reason": "A new primary quarterly or proxy disclosure changes the inputs behind the memo; this review does not rerun the model.",
+        "rerun_command": "/research:management-governance ORCL"
+      }
+    ],
+    "watch_items": [
+      "Use the actual November 18 annual-meeting date disclosed in the September 25 proxy; the original August 25 calendar entry is stale.",
+      "Reconcile the GAAP gross-margin source/definition and strict net debt against a matched LTM EBITDA before resolving those forecasts.",
+      "Check FY27 net-capex guidance through the inclusive November 30 deadline; distinguish gross spending, customer funding and spending timing.",
+      "Obtain original court/guarantee disposition evidence before clearing legal, lessor or customer-concentration risks."
+    ],
+    "management_questions": [
+      "What is the exact company-to-vendor bridge for the EBITDA used in leverage and covenant sensitivities?",
+      "What cash restrictions, refund terms and fulfillment costs apply to customer funding?",
+      "Will future performance equity include per-share returns or capital-return metrics, rather than only total revenue?"
+    ],
+    "memo_delta_file": "analyses/ORCL_2026-08-14/reviews/2026-11-12_90d_memo_delta.md"
+  },
+  "evidence_notes": [
+    {
+      "id": "E1",
+      "evidence": "Revenue rose 30% and cloud infrastructure revenue rose 121%. The original revenue-growth test confirms at 29% or below and falsifies above 35%, leaving 30% inconclusive. [Web: Oracle Q1 FY27 release, 2026-09-10, retrieved 2026-09-15 (indicative/unverified; outside the original frozen pool): https://investor.oracle.com/investor-news/news-details/2026/Oracle-Announces-Q1-Results-Driven-by-Triple-Digit-Growth-in-Cloud-Infrastructure-Revenues/default.aspx]"
+    }
+  ]
+}

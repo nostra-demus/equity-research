@@ -18,6 +18,7 @@ from data_need_contract import (
 )
 from overdue_checks import (
     eval_as_forecast_overdue as _overdue_as_forecast_overdue,
+    load_run_reviews as _load_run_reviews,
     eval_aw_kill_criteria_overdue as _overdue_aw_kill_criteria_overdue,
 )
 scope = (sys.argv[1] if len(sys.argv)>1 else "").strip() or "all"
@@ -655,10 +656,11 @@ TODAY = os.environ.get("EVAL_TODAY") or datetime.date.today().isoformat()
 # `decision_date` is accepted but unused (dead parameter carried over from before this
 # extraction — overdue_checks.py's due-date extraction never reads it) — kept here only so this
 # module's existing call sites and selftest fixtures below need no signature change.
-def eval_as_forecast_overdue(decision_date, forecast_ledger, today):
+def eval_as_forecast_overdue(decision_date, forecast_ledger, today, reviews=None):
     """Check AS: a forecast_ledger entry whose window has ELAPSED with no resolution (§19: "a
-    forecast that cannot be checked later is not a forecast"). None = N/A; [] = nothing due."""
-    r = _overdue_as_forecast_overdue(forecast_ledger, today)
+    forecast that cannot be checked later is not a forecast"). None = N/A; [] = nothing due.
+    `reviews`: the run's parsed outcome reviews — a forecast a filed review resolved is not owed."""
+    r = _overdue_as_forecast_overdue(forecast_ledger, today, reviews)
     return None if r is None else [x["description"] for x in r]
 
 def eval_aw_kill_criteria_overdue(decision_date, kill_criteria, today):
@@ -2771,6 +2773,43 @@ if scope=="selftest":
         print(("  [ok] " if ok else "  [BAD] ")+f"AS({_dd!r},today={_td!r}) -> {got!r} (want {_want!r})")
         if not ok: bad+=1
 
+    # ---- check AS × filed reviews: the ledger is immutable, so a forecast is resolved in reviews/ ----
+    # 2026-11-12: 12 of 44 "unresolved" AS advisories (NHY x4, TSLA x2, V x2, AMZN, BG, SMPL, UBER) had
+    # already been resolved by a filed review. Link rules: explicit forecast_index, '#N' token, or text
+    # identical to exactly one ledger row; latest review wins; a walked-back resolution is a CONTRADICTION.
+    _asL=[{"prediction":"Rev beats","status":"open","time_window":"2026-07-31"},
+          {"prediction":"Margin holds","status":"open","time_window":"2026-07-31"},
+          {"prediction":"Dup","status":"open","time_window":"2026-07-31"},
+          {"prediction":"dup","status":"open","time_window":"2026-07-31"}]
+    def _asR(date,rows,base=None): return {"review_date":date,"forecast_results":rows,"_basename":base or f"{date}_90d_decision_review.json"}
+    asrcases=[
+        # exact text (case/space-folded) resolves; the other three stay owed
+        ([_asR("2026-08-05",[{"prediction":"  rev   BEATS ","status":"Confirmed"}])],3,["forecast_ledger[1]","forecast_ledger[2]","forecast_ledger[3]"],[]),
+        # explicit 1-based forecast_index resolves even with a short reference text
+        ([_asR("2026-08-05",[{"prediction":"see ledger","forecast_index":2,"status":"falsified"}])],3,["forecast_ledger[0]"],[]),
+        # '#N' token resolves; positional order is NEVER used (row 0 of results ≠ ledger[0])
+        ([_asR("2026-08-05",[{"prediction":"forecast #2","status":"expired"},{"prediction":"other","status":"confirmed"}])],3,["forecast_ledger[0]"],[]),
+        # duplicated ledger text is ambiguous → never resolved by text
+        ([_asR("2026-08-05",[{"prediction":"DUP","status":"confirmed"}])],4,["forecast_ledger[2]","forecast_ledger[3]"],[]),
+        # unresolved review status keeps it owed, annotated with the last read
+        ([_asR("2026-08-05",[{"prediction":"Rev beats","status":"not assessable"}])],4,["last reviewed 2026-08-05: not assessable"],[]),
+        # latest review wins: confirmed, then walked back → still owed AND flagged as contradiction
+        ([_asR("2026-09-01",[{"prediction":"Rev beats","status":"not assessable"}]),_asR("2026-08-05",[{"prediction":"Rev beats","status":"confirmed"}])],4,["CONTRADICTION — the 2026-08-05 review recorded 'confirmed'"],[]),
+        # ...and a still-later resolution clears it
+        ([_asR("2026-08-05",[{"prediction":"Rev beats","status":"confirmed"}]),_asR("2026-09-01",[{"prediction":"Rev beats","status":"still open"}]),_asR("2026-10-01",[{"prediction":"Rev beats","status":"falsified"}])],3,[],["CONTRADICTION"]),
+        # same-day _v2 correction supersedes the original
+        ([_asR("2026-08-05",[{"prediction":"Rev beats","status":"confirmed"}]),_asR("2026-08-05",[{"prediction":"Rev beats","status":"not assessable"}],"2026-08-05_90d_decision_review_v2.json")],4,["CONTRADICTION"],[]),
+        # malformed reviews / rows / out-of-range index / bool index → ignored, never crash, never resolve
+        (["junk",_asR("2026-08-05","nope"),_asR("2026-08-05",[5,{"forecast_index":9,"status":"confirmed"},{"forecast_index":True,"status":"confirmed"}])],4,[],[]),
+        (None,4,[],["last reviewed"]),
+    ]
+    for _rv,_n,_must,_mustnot in asrcases:
+        got=eval_as_forecast_overdue("2026-07-10",_asL,"2026-11-12",_rv) or []
+        j="\n".join(got)
+        ok=len(got)==_n and all(m in j for m in _must) and not any(m in j for m in _mustnot)
+        print(("  [ok] " if ok else "  [BAD] ")+f"AS+reviews -> {len(got)} owed (want {_n}) {_must!r}")
+        if not ok: bad+=1
+
     # ---- check AW: a kill criterion whose own monitor event ELAPSED and was never checked (advisory) ----
     _aw_open      = {"criterion":"c1","monitor":"FY2026 results release (~March 2027)"}
     _aw_iso       = {"criterion":"c2","monitor":"resolves 2026-07-22"}
@@ -4536,7 +4575,7 @@ for drp in runs:
                       "note":f"retrospective — decision_date {ddte!r} predates AY_DATE ({AY_DATE}); informational only, does not affect pass/gate_eligible/suite_pass; resolve with a data commit (rerun the affected module + downstream synthesis), not a code change"})
     # AS: forecasts whose window has ELAPSED and were never resolved. Advisory by construction — see the
     # function's own note: overdue-ness is made by the calendar, not by a defect in the run.
-    _asr=eval_as_forecast_overdue(ddte,d.get("forecast_ledger"),TODAY)
+    _asr=eval_as_forecast_overdue(ddte,d.get("forecast_ledger"),TODAY,_load_run_reviews(run))
     if _asr:
         retro.append({"check":"AS_forecast_overdue","status":"DUE","detail":"; ".join(_asr),
                       "note":"the ledger owes a resolution — run /research:review-decisions for this ticker "
@@ -4599,11 +4638,13 @@ FRAMEWORK_CONTRACTS={
  ".claude/agents/earnings/06_earnings-quality.md":["Lead with normalised operating FCF","RF-EQ-001","RF-EQ-002"],
  ".claude/agents/earnings/99_earnings-synthesis.md":["RF-EQ-001","RF-EQ-002","FORENSIC TAG PROPAGATION"],
  ".claude/agents/balance-sheet-survival/05_off-balance-sheet-and-contingencies.md":["RF-OBS-001"],
- ".claude/agents/balance-sheet-survival/99_balance-sheet-survival-synthesis.md":["RF-OBS-001"],
+ ".claude/agents/balance-sheet-survival/99_balance-sheet-survival-synthesis.md":["RF-OBS-001","Cash-finance-cost bridge","cash finance costs absent from the chosen FCF"],
  ".claude/agents/management-governance/06_candor-and-disclosure-quality.md":["RF-DISC-001","RF-DISC-002","RF-REG-002","Standalone tag emission"],
  ".claude/agents/valuation/07_scenario-and-fair-value.md":["true through-cycle trough"],
  ".claude/agents/business-model/08_competitive-map.md":["Profitability / return on capital"],
- ".claude/agents/balance-sheet-survival/06_downside-stress-test.md":["Pending acquisition (pro-forma) check"],
+ ".claude/agents/balance-sheet-survival/06_downside-stress-test.md":["Pending acquisition (pro-forma) check","cash-finance-cost bridge","cash finance costs absent from the chosen FCF"],
+ ".claude/agents/balance-sheet-survival/02_maturity-wall-and-refinancing.md":["cash-finance-cost bridge","does not depend on a later `03` output"],
+ ".claude/agents/balance-sheet-survival/03_liquidity-runway.md":["cash interest classification","cash finance costs absent from the chosen FCF","Unknown classification","do not silently annualise"],
  ".claude/agents/balance-sheet-survival/01_capital-structure-and-leverage.md":["state it with its basis (CLAUDE.md §15)","Net debt (strict, §15)"],
  ".claude/agents/valuation/04_intrinsic-dcf.md":["benchmarked against peer-normal AND the company","Working capital scales with revenue"],
  ".claude/agents/business-model/01_disqualifier-scan.md":["Integrity note","Filter 1","RF-DISQ-001","Near-miss compounding signal"],
@@ -4613,7 +4654,7 @@ FRAMEWORK_CONTRACTS={
  ".claude/agents/management-governance/01_management-and-track-record.md":["Turnaround","Filter 2","RF-MGT-005"],
  ".claude/agents/management-governance/99_management-governance-synthesis.md":["RF-MGT-005","RF-DISC-001","RF-DISC-002","RF-REG-002","Forensic tag propagation"],
  ".claude/agents/management-governance/04_ownership-and-insider-behavior.md":["RF-OWN-004","Filter 6"],
- ".claude/agents/balance-sheet-survival/MODULE_RULES.md":["Net cash is a strategic asset","Filter 3","Label the cycle position of the EBITDA","the **strict** basis (CLAUDE.md §15)"],
+ ".claude/agents/balance-sheet-survival/MODULE_RULES.md":["Net cash is a strategic asset","Filter 3","Label the cycle position of the EBITDA","the **strict** basis (CLAUDE.md §15)","cash interest classification must be reconciled","cash finance costs absent from the chosen FCF","unknown is not zero"],
  ".claude/agents/valuation/MODULE_RULES.md":["RF-OWN-004","Filter 6","value trap","benchmarked against BOTH a peer-normal margin"],
  ".claude/agents/synthesizer.md":["Avoid-Big-Risks","§24","DEFER to the catalyst module","Net-cash / leverage headline disclosure","business_type","primary_valuation_method","forecast_type","RF-MGT-005","calibration_feedback","Calibration feedback check","flagged_forecast_types","calibration_by_thesis_type","flagged_thesis_types","leading_error_categories_flagged","error_defense_evidence","no defense evidence found","eval_aq_forensic_mosaic_cap","Cross-module forensic mosaic","eval_ar_short_bull_case_sanity","genuine loss to the short","RF-DISQ-001","RF-RFS-001","data_needs_schema_version","entry_orbs","expected_impact","decision value"],
  ".claude/agents/catalyst/MODULE_RULES.md":["§17 Catalyst Discipline","Catalyst Category Checklist","No proven catalyst yet"],

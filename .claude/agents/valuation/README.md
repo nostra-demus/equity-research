@@ -6,7 +6,7 @@ A module of a multi-module equity research system. This module answers:
 
 It produces triangulated **bull / base / bear fair-value levels** (points, with cross-method dispersion shown separately) from multiples vs own history, peer comps, DCF, reverse-DCF, and sum-of-the-parts, an explicit read of **what the current price implies**, and the **downside** to a bear-case value.
 
-It does NOT assign scenario probabilities, compute probability-weighted returns or risk/reward, size positions, or issue a Buy/Sell rating — those live in the **master synthesizer**. This module produces the fair-value *levels*; the synthesizer turns them into a *bet*.
+It does NOT assign investment-scenario probabilities, compute probability-weighted returns or risk/reward, size positions, or issue a Buy/Sell rating — those live in the **master synthesizer**. This module produces the fair-value *levels*; the synthesizer turns them into a *bet*. Its Strategic Rerating specialist separately estimates a defined, time-bound rerating event when the evidence supports one; that event probability is not a scenario weight.
 
 ## Where things live
 
@@ -49,6 +49,7 @@ The master synthesizer reads `99_valuation-synthesis.md` and, per its own instru
 | 05 | `reverse-dcf` | 01, 04 | What's priced in at today's price (inverts 04's model) |
 | 06 | `sum-of-the-parts` | 01 | Segment-by-segment breakup value |
 | 07 | `scenario-and-fair-value` | 02–06 | Triangulated bull/base/bear fair-value levels |
+| 08 | `strategic-rerating` | 01–03, 05–07; upstream module context | Three-pillar pivot assessment, priced-in test, update history, valuation impact and rerating-event probability or abstention |
 | 99 | `valuation-synthesis` | ALL | Verdict + bull/base/bear fair-value levels (+ dispersion) + scores |
 
 ## Execution layers
@@ -58,7 +59,14 @@ The master synthesizer reads `99_valuation-synthesis.md` and, per its own instru
 - **Layer 2** (parallel, depend on 01): `multiples-own-history`, `relative-valuation-peers`, `intrinsic-dcf`, `sum-of-the-parts`
 - **Layer 3** (depends on 04 — inverts the same model): `reverse-dcf`
 - **Layer 4** (triangulation): `scenario-and-fair-value`
-- **Layer 5**: `valuation-synthesis`
+- **Layer 5** (after fair-value levels): `strategic-rerating`
+- **Layer 6**: `valuation-synthesis`
+
+The cockpit discovers `08_strategic-rerating.md` as an orb under Valuation without engine/UI wiring.
+Run it for an existing unsealed run through `/research:agent valuation strategic-rerating TICKER` once its
+required upstream outputs exist, or as part of `/research:valuation TICKER` / `/research:full TICKER`.
+It assesses evidence available to that admitted run; it does not create an automatic news monitor.
+New evidence follows the existing intake/rerun path. Historical outputs are never back-filled.
 
 ## Cross-module inputs
 
