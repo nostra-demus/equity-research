@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T18:26:58Z",
+  "generated_at": "2026-11-12T18:30:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20261112-874",
@@ -1288,6 +1288,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261112-951",
+      "headline": "Nvidia’s Jensen Huang Resigns. Is This Top AI Stock Still a Buy?",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/nvidias-jensen-huang-resigns-top-ai-stock-still-buy",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T17:40:01Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Jensen Huang, the long-time CEO of Nvidia, has resigned, which is a major leadership transition for a mega-cap company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Jensen Huang, the long-time CEO of Nvidia, has resigned, which is a major leadership transition for a mega-cap company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261112-950",
       "headline": "Nvidia CEO Jensen Huang steps down, more affair details revealed",
       "headline_en": null,
@@ -1927,55 +1976,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-875",
-      "headline": "Vodafone Idea Q2 Results: ARPU Hits Rs 198, Revenue Up Slightly, But Losses Balloon To Rs 5,975 Crore",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/vodafone-idea-q2-results-arpu-hits-rs-198-revenue-up-slightly-but-losses-balloon-to-rs-5-975-crore-12318273#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T14:57:20Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Vodafone Idea reported a net loss of Rs 5,975 crore for Q2.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Vodafone Idea reported a net loss of Rs 5,975 crore for Q2.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vodafone Idea",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -276784,9 +276784,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1704123,
-    "news_picked_today": 2241,
-    "news_dropped_today": 18207
+    "news_seen_today": 1710522,
+    "news_picked_today": 2258,
+    "news_dropped_today": 18214
   },
   "book_momentum": {
     "live_count": 8,
