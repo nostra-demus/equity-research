@@ -117,4 +117,35 @@ await check('the top-level needs_attention list is ranked oldest-due-date first,
     assert.ok(idxE < idxD, 'the earlier (more overdue) due date must rank first')
 })
 
+await check('a forecast resolved by a filed review is not overdue; a walked-back resolution is flagged', async () => {
+    const root = mkCallDir('ZZATTF', {
+      ticker: 'ZZATTF', company_name: 'Attention Co F', decision_date: DATE, decision: 'Watchlist',
+      forecast_ledger: [
+        { prediction: 'Revenue beats', status: 'open', time_window: 'By 2020-02-01' }, // resolved by text
+        { prediction: 'Margin holds', status: 'open', time_window: 'By 2020-02-01' },  // resolved by forecast_index
+        { prediction: 'Capex cut', status: 'open', time_window: 'By 2020-02-01' },     // confirmed, then walked back
+        { prediction: 'Dup', status: 'open', time_window: 'By 2020-02-01' },           // ambiguous text — never linked
+        { prediction: 'dup', status: 'open', time_window: 'By 2020-02-01' },
+      ],
+    })
+    const review = (date: string, rows: unknown[], suffix = '') =>
+      files.set(`${root}/reviews/${date}_30d_decision_review${suffix}.json`,
+        Buffer.from(JSON.stringify({ review_date: date, review_window: '30d', forecast_results: rows })))
+    review('2020-03-01', [
+      { prediction: '  revenue   BEATS ', status: 'Confirmed' },
+      { prediction: 'see ledger', forecast_index: 2, status: 'falsified' },
+      { prediction: 'Capex cut', status: 'confirmed' },
+      { prediction: 'DUP', status: 'confirmed' },
+    ])
+    review('2020-03-01', [{ prediction: 'forecast #3', status: 'not assessable' }], '_v2')
+    const { calls } = await listAllCalls(authority())
+    const c = calls.find((c: any) => c.ticker === 'ZZATTF')
+    const owed = c.needs_attention.forecasts_overdue
+    assert.deepEqual(owed.map((o: any) => o.description.match(/forecast_ledger\[(\d+)\]/)[1]), ['2', '3', '4'])
+    assert.match(owed[0].description, /CONTRADICTION — the 2020-03-01 review recorded 'confirmed'/)
+    assert.deepEqual(owed[0].contradicted_resolution, { status: 'confirmed', date: '2020-03-01' })
+    assert.deepEqual(owed[0].last_review, { date: '2020-03-01', status: 'not assessable' })
+    assert.equal(owed[1].last_review, undefined, 'ambiguous duplicate text is never linked')
+})
+
 console.log(`\n${passed} checks passed${process.exitCode ? ' (with failures)' : ''}`)

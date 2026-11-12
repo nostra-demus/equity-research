@@ -18,6 +18,7 @@ from data_need_contract import (
 )
 from overdue_checks import (
     eval_as_forecast_overdue as _overdue_as_forecast_overdue,
+    load_run_reviews as _load_run_reviews,
     eval_aw_kill_criteria_overdue as _overdue_aw_kill_criteria_overdue,
 )
 scope = (sys.argv[1] if len(sys.argv)>1 else "").strip() or "all"
@@ -650,10 +651,11 @@ TODAY = os.environ.get("EVAL_TODAY") or datetime.date.today().isoformat()
 # `decision_date` is accepted but unused (dead parameter carried over from before this
 # extraction — overdue_checks.py's due-date extraction never reads it) — kept here only so this
 # module's existing call sites and selftest fixtures below need no signature change.
-def eval_as_forecast_overdue(decision_date, forecast_ledger, today):
+def eval_as_forecast_overdue(decision_date, forecast_ledger, today, reviews=None):
     """Check AS: a forecast_ledger entry whose window has ELAPSED with no resolution (§19: "a
-    forecast that cannot be checked later is not a forecast"). None = N/A; [] = nothing due."""
-    r = _overdue_as_forecast_overdue(forecast_ledger, today)
+    forecast that cannot be checked later is not a forecast"). None = N/A; [] = nothing due.
+    `reviews`: the run's parsed outcome reviews — a forecast a filed review resolved is not owed."""
+    r = _overdue_as_forecast_overdue(forecast_ledger, today, reviews)
     return None if r is None else [x["description"] for x in r]
 
 def eval_aw_kill_criteria_overdue(decision_date, kill_criteria, today):
@@ -2602,6 +2604,43 @@ if scope=="selftest":
         print(("  [ok] " if ok else "  [BAD] ")+f"AS({_dd!r},today={_td!r}) -> {got!r} (want {_want!r})")
         if not ok: bad+=1
 
+    # ---- check AS × filed reviews: the ledger is immutable, so a forecast is resolved in reviews/ ----
+    # 2026-11-12: 12 of 44 "unresolved" AS advisories (NHY x4, TSLA x2, V x2, AMZN, BG, SMPL, UBER) had
+    # already been resolved by a filed review. Link rules: explicit forecast_index, '#N' token, or text
+    # identical to exactly one ledger row; latest review wins; a walked-back resolution is a CONTRADICTION.
+    _asL=[{"prediction":"Rev beats","status":"open","time_window":"2026-07-31"},
+          {"prediction":"Margin holds","status":"open","time_window":"2026-07-31"},
+          {"prediction":"Dup","status":"open","time_window":"2026-07-31"},
+          {"prediction":"dup","status":"open","time_window":"2026-07-31"}]
+    def _asR(date,rows,base=None): return {"review_date":date,"forecast_results":rows,"_basename":base or f"{date}_90d_decision_review.json"}
+    asrcases=[
+        # exact text (case/space-folded) resolves; the other three stay owed
+        ([_asR("2026-08-05",[{"prediction":"  rev   BEATS ","status":"Confirmed"}])],3,["forecast_ledger[1]","forecast_ledger[2]","forecast_ledger[3]"],[]),
+        # explicit 1-based forecast_index resolves even with a short reference text
+        ([_asR("2026-08-05",[{"prediction":"see ledger","forecast_index":2,"status":"falsified"}])],3,["forecast_ledger[0]"],[]),
+        # '#N' token resolves; positional order is NEVER used (row 0 of results ≠ ledger[0])
+        ([_asR("2026-08-05",[{"prediction":"forecast #2","status":"expired"},{"prediction":"other","status":"confirmed"}])],3,["forecast_ledger[0]"],[]),
+        # duplicated ledger text is ambiguous → never resolved by text
+        ([_asR("2026-08-05",[{"prediction":"DUP","status":"confirmed"}])],4,["forecast_ledger[2]","forecast_ledger[3]"],[]),
+        # unresolved review status keeps it owed, annotated with the last read
+        ([_asR("2026-08-05",[{"prediction":"Rev beats","status":"not assessable"}])],4,["last reviewed 2026-08-05: not assessable"],[]),
+        # latest review wins: confirmed, then walked back → still owed AND flagged as contradiction
+        ([_asR("2026-09-01",[{"prediction":"Rev beats","status":"not assessable"}]),_asR("2026-08-05",[{"prediction":"Rev beats","status":"confirmed"}])],4,["CONTRADICTION — the 2026-08-05 review recorded 'confirmed'"],[]),
+        # ...and a still-later resolution clears it
+        ([_asR("2026-08-05",[{"prediction":"Rev beats","status":"confirmed"}]),_asR("2026-09-01",[{"prediction":"Rev beats","status":"still open"}]),_asR("2026-10-01",[{"prediction":"Rev beats","status":"falsified"}])],3,[],["CONTRADICTION"]),
+        # same-day _v2 correction supersedes the original
+        ([_asR("2026-08-05",[{"prediction":"Rev beats","status":"confirmed"}]),_asR("2026-08-05",[{"prediction":"Rev beats","status":"not assessable"}],"2026-08-05_90d_decision_review_v2.json")],4,["CONTRADICTION"],[]),
+        # malformed reviews / rows / out-of-range index / bool index → ignored, never crash, never resolve
+        (["junk",_asR("2026-08-05","nope"),_asR("2026-08-05",[5,{"forecast_index":9,"status":"confirmed"},{"forecast_index":True,"status":"confirmed"}])],4,[],[]),
+        (None,4,[],["last reviewed"]),
+    ]
+    for _rv,_n,_must,_mustnot in asrcases:
+        got=eval_as_forecast_overdue("2026-07-10",_asL,"2026-11-12",_rv) or []
+        j="\n".join(got)
+        ok=len(got)==_n and all(m in j for m in _must) and not any(m in j for m in _mustnot)
+        print(("  [ok] " if ok else "  [BAD] ")+f"AS+reviews -> {len(got)} owed (want {_n}) {_must!r}")
+        if not ok: bad+=1
+
     # ---- check AW: a kill criterion whose own monitor event ELAPSED and was never checked (advisory) ----
     _aw_open      = {"criterion":"c1","monitor":"FY2026 results release (~March 2027)"}
     _aw_iso       = {"criterion":"c2","monitor":"resolves 2026-07-22"}
@@ -4352,7 +4391,7 @@ for drp in runs:
                       "note":f"retrospective — decision_date {ddte!r} predates AY_DATE ({AY_DATE}); informational only, does not affect pass/gate_eligible/suite_pass; resolve with a data commit (rerun the affected module + downstream synthesis), not a code change"})
     # AS: forecasts whose window has ELAPSED and were never resolved. Advisory by construction — see the
     # function's own note: overdue-ness is made by the calendar, not by a defect in the run.
-    _asr=eval_as_forecast_overdue(ddte,d.get("forecast_ledger"),TODAY)
+    _asr=eval_as_forecast_overdue(ddte,d.get("forecast_ledger"),TODAY,_load_run_reviews(run))
     if _asr:
         retro.append({"check":"AS_forecast_overdue","status":"DUE","detail":"; ".join(_asr),
                       "note":"the ledger owes a resolution — run /research:review-decisions for this ticker "
