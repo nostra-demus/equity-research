@@ -2586,6 +2586,44 @@ if scope=="selftest":
         ("2026-10-05",_bg_d,_bg_th("Decision line: AKAM · NasdaqGS · USD\nFair-value range: 100–120 EUR\n"),["not in the decision line's currency"]),
         ("2026-10-05",_bg_d,_bg_th("Decision line: AKAM · NasdaqGS · USD\nFair-value range: 100 to 120 EUR\n"),["not in the decision line's currency"]),
         ("2026-10-05",_bg_d,_bg_th("Decision line: AKAM · NasdaqGS · USD\nFair-value range: 100–120 USD\n"),[]),
+        # ── PR #754 Codex review of 24f46623 (each red on 24f46623, green after; controls stay clean) ──
+        # r4544983893 (P1): each depositary yield states its OWN gross/net basis — a second yield's "net of
+        #   withholding and depositary fees" on the same line no longer discharges the first yield.
+        ("2026-10-05",{"ticker":"BABA","exchange":"NYSE (ADR; also HKEX-listed)","currency":"USD"},_bg_th("Decision line: BABA · NYSE · USD\nThe ADR trades at a 1% premium to the HKEX line.\nTrailing dividend yield 3.0%, ex-date 2026-12-01; forward dividend yield 4.0% net of withholding and depositary fees, ex-date 2027-03-01.\n"),["gross/net-of-withholding"]),
+        ("2026-10-05",{"ticker":"BABA","exchange":"NYSE (ADR; also HKEX-listed)","currency":"USD"},_bg_th("Decision line: BABA · NYSE · USD\nThe ADR trades at a 1% premium to the HKEX line.\nTrailing dividend yield 3.0% net of withholding and depositary fees, ex-date 2026-12-01; forward dividend yield 4.0% net of withholding and depositary fees, ex-date 2027-03-01.\n"),[]),
+        # r4544983910 (P2): the declaration's venue is parsed apart from a trailing same-row comparison, so
+        #   INDIAMART · BSE (not a listed instrument) FLAGS even when the row also names NSE; 542726 · BSE passes.
+        ("2026-10-05",{"ticker":"INDIAMART","exchange":"NSE (also listed BSE:542726)","currency":"INR"},_bg_th("Decision line: INDIAMART · BSE · INR — the BSE line trades at a 0.1% premium to the NSE line\n"),["that venue's own ticker"]),
+        ("2026-10-05",{"ticker":"INDIAMART","exchange":"NSE (also listed BSE:542726)","currency":"INR"},_bg_th("Decision line: 542726 · BSE · INR — the BSE line trades at a 0.1% premium to the NSE line\n"),[]),
+        # r4544983914 (P2): only the valuation-anchored comparison is dropped — a clause with a real cross-line
+        #   premium AND a discount to fair value passes; a fair-value discount alone still FLAGS.
+        ("2026-10-05",{"ticker":"BABA","exchange":"NYSE (ADR; also HKEX-listed)","currency":"USD"},_bg_th("Decision line: BABA · NYSE · USD\nThe ADR trades at a 1% premium to the HKEX line and at a 10% discount to fair value.\n"),[]),
+        ("2026-10-05",{"ticker":"BABA","exchange":"NYSE (ADR; also HKEX-listed)","currency":"USD"},_bg_th("Decision line: BABA · NYSE · USD\nThe ADR trades at a 10% discount to fair value and the HKEX line exists.\n"),["cross-line premium/discount (a figure"]),
+        # r4544983919 (P1): a hyphenated "dividend-yield" label is a quoted yield.
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend-yield 3.1%, ex-date 2025-08-14, is a reason to own.\n"),["still presents it as a reason to own"]),
+        # r4544983929 (P1): a peers' "no dividend yield" does not exempt the quoted stale yield sharing its chunk; a
+        #   no-yield construction that IS the quoted expression ("Dividend yield: n/a, …" above) still does.
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3.1%, ex-date 2025-08-14, is a reason to own although peers offer no dividend yield.\n"),["still presents it as a reason to own"]),
+        # r4544983936 (P1): a non-dividend corporate-action date — around an ex-date as well as a record date,
+        #   before or after the marker — does not establish entitlement; an explicit "ex-dividend" marker does.
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3.1%, rights issue ex-date 2027-01-10.\n"),["an ex-/record-date"]),
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3.1%, record date for the AGM 2027-01-10.\n"),["an ex-/record-date"]),
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3.1%, ex-dividend 2027-01-10 subject to AGM approval.\n"),[]),
+        # r4544983940 (P2): the two concrete venues cited (TSE Prime, SIX Swiss Exchange) now resolve, so they
+        #   FLAG against a Nasdaq record (the 7203 · TSE Prime · JPY Tokyo-record control above still passes).
+        ("2026-10-05",_bg_d,_bg_th("Decision line: AKAM · TSE Prime · USD\n"),["venue that does not match"]),
+        ("2026-10-05",_bg_d,_bg_th("Decision line: AKAM · SIX Swiss Exchange · USD\n"),["venue that does not match"]),
+        # r4544983948 (P1): EVERY currency-marked value in a headline cell is read — a trailing EUR scenario
+        #   behind a leading USD one FLAGS; a parenthetical FX conversion in the cell does not.
+        ("2026-10-05",_bg_d,_bg_th("Decision line: AKAM · NasdaqGS · USD\nFair-value range: USD 80 / EUR 120\n"),["not in the decision line's currency"]),
+        ("2026-10-05",_bg_d,_bg_th("Decision line: AKAM · NasdaqGS · USD\n| Fair-value range | USD 80–120 / EUR 70–100 |\n"),["not in the decision line's currency"]),
+        ("2026-10-05",{"ticker":"INDIAMART","exchange":"NSE (also listed BSE:542726)","currency":"INR"},_bg_th("Decision line: INDIAMART · NSE · INR — the BSE line trades at a 0.1% premium to the NSE line\nCurrent price: ₹2,450 (US$29.4 at ₹83.3/USD)\n"),[]),
+        # r4544983956 (P2): a cross-line gap quantified as a currency AMOUNT counts like a percentage.
+        ("2026-10-05",{"ticker":"BABA","exchange":"NYSE (ADR; also HKEX-listed)","currency":"USD"},_bg_th("Decision line: BABA · NYSE · USD\nThe ADR trades at a USD 2 premium to the HKEX line.\n"),[]),
+        # r4544983962 (P2): a later field's "unavailable" does not negate the declaration (short ticker), while
+        #   a declaration that is itself "unavailable" still does.
+        ("2026-10-05",{"ticker":"V","exchange":"New York Stock Exchange","currency":"USD"},_bg_th("Decision line: V · NYSE · USD; price unavailable\n"),[]),
+        ("2026-10-05",{"ticker":"V","exchange":"New York Stock Exchange","currency":"USD"},_bg_th("Decision line: unavailable — V · NYSE · USD\n"),["no 'Decision line"]),
     ]
     bgbad=0
     for _bgc in _bg_cases:

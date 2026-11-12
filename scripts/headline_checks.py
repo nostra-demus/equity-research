@@ -927,8 +927,8 @@ BG_DATE = "2026-10-05"
 # the % must follow a connector (of/is/at/sits at/=/:), so "Dividend yield unavailable, withholding tax is 15%"
 # still does not bind (the window was NOT simply widened — PR #754 review 6718647404, case A).
 _BG_YIELD_QUOTED = re.compile(
-    r"(?:dividend|distribution)\s+yield\b[^.\n]{0,24}?\d[\d.,]*\s*%|"
-    r"(?:dividend|distribution)\s+yield\b\s*(?:,[^,;.\n]{0,40},|\([^)\n]{0,40}\)|"
+    r"(?:dividend|distribution)[\s\-]+yield\b[^.\n]{0,24}?\d[\d.,]*\s*%|"
+    r"(?:dividend|distribution)[\s\-]+yield\b\s*(?:,[^,;.\n]{0,40},|\([^)\n]{0,40}\)|"
     r"(?:on|for)\s+(?:(?!unavailable|not\b|n/?a\b|none\b|nil\b|no\b)[^,;.\n%]){0,40}?\s)\s*"
     r"(?:(?:currently|now|still)\s+)?(?:of|is|was|at|sits\s+at|stands\s+at|=|:)\s*"
     r"(?:~|about\s+|roughly\s+|approximately\s+|around\s+|c\.\s*)?\d[\d.,]*\s*%|"
@@ -938,15 +938,15 @@ _BG_YIELD_QUOTED = re.compile(
     # presented as a reason to own ships clean. Restricted to basis/qualifier words so it never swallows an
     # unrelated "revenue rose 5% while the dividend yield …".
     r"\d[\d.,]*\s*%\s+(?:(?:trailing|forward|ttm|ltm|ntm|gross|net|annuali[sz]ed|current|indicative|"
-    r"prospective|est(?:imated)?\.?|expected|headline|reported)\s+){0,3}(?:dividend|distribution)\s+yield\b", re.I)
+    r"prospective|est(?:imated)?\.?|expected|headline|reported)\s+){0,3}(?:dividend|distribution)[\s\-]+yield\b", re.I)
 # An explicit "no yield quoted" disclosure — never subject to the basis/date requirement. It must be a
 # real no-yield CONSTRUCTION ("yield: none", "yield n/a", "yield unavailable", "no dividend yield", "does
 # not pay a dividend"), not a "none"/"n/a" merely near the word "yield" — "yield 3%, none in its peer set
 # higher" is a quoted yield (PR #754 review 6718647404, case B).
 _BG_YIELD_NONE = re.compile(
-    r"(?:dividend|distribution)\s+yield\b\s*(?:\([^)\n]{0,40}\)\s*)?(?:[:=\-\u2013\u2014]\s*|(?:is|was)\s+)?"
+    r"(?:dividend|distribution)[\s\-]+yield\b\s*(?:\([^)\n]{0,40}\)\s*)?(?:[:=\-\u2013\u2014]\s*|(?:is|was)\s+)?"
     r"(?:unavailable\b|not\s+(?:quoted|disclosed|applicable|available)\b|n/?a\b|none\b|nil\b)|"
-    r"\bno\s+(?:dividend|distribution)\s+yield|"
+    r"\bno\s+(?:dividend|distribution)[\s\-]+yield|"
     r"\b(?:does|did)\s+not\s+pay\s+(?:a\s+|any\s+)?(?:dividend|distribution)s?\b|"
     r"\bpays\s+no\s+(?:dividend|distribution)s?\b", re.I)
 # A basis must say WHICH period the yield represents — trailing/backward or forward. "annualized" is
@@ -976,10 +976,14 @@ _BG_ISO = re.compile(r"\b(20\d{2}-\d{2}-\d{2})\b")
 # (Codex r3), and neither is the bare LABEL "cross-line premium/discount" with no value beside it, e.g.
 # "Cross-line premium/discount: Not assessed" (Codex r1 round 2) — so the label-only form was dropped and
 # a number is required. "the" is optional and separators flexible via the %-proximity form (gemini r2).
+# The figure may be a percentage or a currency AMOUNT ("a USD 2 premium to the HKEX line", "HK$1.5
+# discount") — both quantify the gap (PR #754 r4544983956).
+_BG_FIG = (r"(?:\d[\d.,]*\s*%|(?:US\$|HK\$|[$€£₹¥]|\b(?:USD|EUR|GBP|INR|HKD|JPY|CNY|RMB|CAD|AUD|SGD|CHF)\s?)"
+           r"\s?\d[\d.,]*)")
 _BG_CROSS_CMP = re.compile(
     # "discount rate" (a DCF input) is never a cross-line discount (PR #754 r4542387645).
-    r"(?:premium|discount(?!\s+rates?\b))[^.\n]{0,40}\d[\d.,]*\s*%|"
-    r"\d[\d.,]*\s*%[^.\n]{0,40}(?:premium|discount(?!\s+rates?\b))", re.I)
+    r"(?:premium|discount(?!\s+rates?\b))[^.\n]{0,40}" + _BG_FIG + r"|"
+    + _BG_FIG + r"[^.\n]{0,40}(?:premium|discount(?!\s+rates?\b))", re.I)
 # ...and the premium/discount must be tied to the OTHER tradable line, not to an unrelated number such
 # as a DCF discount rate. A cross-line statement counts only when the same clause also references the
 # other INSTRUMENT (Codex r3 round 3). The bare words "line"/"listing"/"listed" are too generic ("the
@@ -1009,7 +1013,7 @@ _VENUE_CANON = [
     ("NSE-IN",   [r"\bnse\b", r"national stock exchange of india"]),
     ("BSE-IN",   [r"\bbse\b", r"bombay stock exchange"]),
     ("HKEX",     [r"\bhkex\b", r"\bsehk\b", r"\bhkse\b", r"hong kong (?:stock )?exchange"]),
-    ("TSE-TYO",  [r"tokyo stock exchange"]),
+    ("TSE-TYO",  [r"tokyo stock exchange", r"\btse\s+(?:prime|standard|growth)\b"]),
     ("SSE-SH",   [r"\bshse\b", r"shanghai stock exchange", r"\bsse\b"]),
     ("SZSE",     [r"\bszse\b", r"shenzhen stock exchange"]),
     ("TSX",      [r"\btsx\b", r"toronto stock exchange"]),
@@ -1022,6 +1026,7 @@ _VENUE_CANON = [
     ("JSE-ZA",   [r"\bjse\b", r"johannesburg stock exchange"]),
     ("DFM",      [r"\bdfm\b", r"dubai financial market"]),
     ("OSLO",     [r"oslo b\w+rs", r"oslo stock exchange", r"\bose\b"]),
+    ("SIX",      [r"\bsix\s+swiss\s+exchange\b", r"\bsix\s+exchange\b"]),
 ]
 
 
@@ -1063,7 +1068,10 @@ def _has_cross_cmp(part1, line_v=(), alt_tickers=(), own_refs=frozenset()):
     # bare '.', so a decimal percentage like "22.5%" is not torn apart.
     alt_re = [re.compile(r"(?<![A-Za-z0-9])" + re.escape(t) + r"(?![A-Za-z0-9])") for t in alt_tickers if t]
     for seg in re.split(r"[\n;]|\.\s", part1):
-        if not _BG_CROSS_CMP.search(seg) or _BG_CMP_NON_LINE.search(seg):
+        # Blank out ONLY the valuation-anchored comparison ("discount to fair value"), so a clause that also
+        # carries a real cross-line gap still counts (PR #754 r4544983914).
+        seg = _BG_CMP_NON_LINE.sub(" ", seg)
+        if not _BG_CROSS_CMP.search(seg):
             continue
         seg_v = _venue_canons(seg)
         # an alternate venue, or two venues compared in one clause ("BSE trades at a 0.1% premium to NSE")
@@ -1079,7 +1087,9 @@ def _has_cross_cmp(part1, line_v=(), alt_tickers=(), own_refs=frozenset()):
 _BG_DL_NEG = re.compile(
     # The optional canonical label parenthetical and the label/value separator (':' or a table '|') are
     # skipped first, so the 24-char window is measured on the VALUE (PR #754 r4542387635).
-    r"decision line\s*(?:\([^)\n]{0,60}\))?[\s*:=|]*[^|\n]{0,24}(?:unavailable|not\s+(?:available|established|determined|set)|undetermined|"
+    # The window also stops at a field separator (· ; ,), so a later field ("V · NYSE · USD; price
+    # unavailable") is not read as negating the declaration itself (PR #754 r4544983962).
+    r"decision line\s*(?:\([^)\n]{0,60}\))?[\s*:=|]*[^|\n·;,]{0,24}(?:unavailable|not\s+(?:available|established|determined|set)|undetermined|"
     r"unknown|\bn/?a\b|none|pending|could\s+not|cannot\s+be)", re.I)
 # The finish-gate PROVISIONAL banner (a leading '>' blockquote quoting BG's own diagnostics). Only THIS
 # banner is stripped before the scan — stripping every blockquote (the round-3 over-fix) would also hide
@@ -1181,19 +1191,27 @@ def _bg_ccy_set(tok):
     return None
 
 
+_BG_CCY_ANY = re.compile(
+    r"(?<![A-Za-z0-9$])(US\$|HK\$|AU?\$|CA?\$|SG?\$|NZ\$|R\$|MX\$|NT\$|\$|€|£|₹|¥|Rs\.?(?=\s*\d)|[A-Z]{3}(?=\s*\d))\s*\d|"
+    r"\d[\d.,]*\s*(?:bn|billion|m|mn|million|cr|crore|k)?\s*([A-Z]{3})\b")
+
+
 def _bg_headline_ccy_mismatch(part1, cur):
     """Headline price / fair-value cells in Part I whose currency marker cannot be the record currency.
     Only a value that LEADS with (or is immediately suffixed by) a recognised currency marker is read; a
-    bare number, an unknown marker, or a '$' against any dollar currency is never flagged (thread 22)."""
+    bare number, an unknown marker, or a '$' against any dollar currency is never flagged (thread 22).
+    EVERY currency-marked value in the cell is read, not only the first, so "USD 80 / EUR 120" cannot hide
+    the EUR scenario behind a leading USD one (PR #754 r4544983948). The cell ends at a table '|', a line
+    end or a new clause; a parenthetical aside (a stated FX conversion, "₹2,450 (US$29.4)") is skipped."""
     out = []
     for m in _BG_PRICE_LABEL.finditer(part1):
-        v = part1[m.end():m.end() + 40]
-        lm = _BG_CCY_LEAD.match(v) or _BG_CCY_TRAIL.match(v)
-        if not lm:
-            continue
-        cs = _bg_ccy_set(lm.group(1))
-        if cs and cur not in cs and not (cur == "CNY" and "CNY" in cs):
-            out.append(f"{m.group(0).strip(' *|:=;.>-')} {lm.group(0).strip(' *')}")
+        v = re.split(r"\||\n|;\s|\.\s", part1[m.end():m.end() + 160], 1)[0]
+        v = re.sub(r"\([^)]*\)", " ", v)
+        for cm in _BG_CCY_ANY.finditer(v):
+            cs = _bg_ccy_set(cm.group(1) or cm.group(2))
+            if cs and cur not in cs and not (cur == "CNY" and "CNY" in cs):
+                out.append(f"{m.group(0).strip(' *|:=;.>-')} {v.strip(' *')[:60]}")
+                break
     return out
 
 
@@ -1260,9 +1278,14 @@ def _bg_div_markers(seg):
     out = []
     for m in _BG_EX_RECORD.finditer(seg):
         is_ex = m.group(0).lower().lstrip().startswith("ex")
-        if not is_ex:
+        # The marker's whole comma-field — before AND after it — is checked for a non-dividend event, for
+        # ex-dates as well as record dates ("rights issue ex-date …", "record date for the AGM …") (PR #754
+        # r4544983936). A marker that itself names the dividend ("ex-dividend", "ex-div") is never dropped.
+        if not re.match(r"ex[\s\-_]*di", m.group(0), re.I):
             fstart = seg.rfind(",", 0, m.start()) + 1
-            if _BG_NON_DIV_EVENT.search(seg[fstart:m.start()]):
+            fend = seg.find(",", m.end())
+            fld = seg[fstart:m.start()] + " " + seg[m.end():fend if fend >= 0 else len(seg)]
+            if _BG_NON_DIV_EVENT.search(fld):
                 continue
         out.append((m, is_ex))
     return out
@@ -1322,10 +1345,16 @@ def eval_bg_tradable_line_and_yield(decision_date, d, thesis, listed_lines_text=
         _pairs = _bg_exchange_pairs(exch if isinstance(exch, str) else "")
         # Only when EVERY venue the line names is a paired alternate venue (a line naming the primary venue
         # too — e.g. a same-row cross-line note — keeps the record-ticker rule).
-        pair_need = {_pairs[c] for c in line_v if c in _pairs} if line_v and all(c in _pairs for c in line_v) else set()
+        # The venue is read from the DECLARATION itself — the value up to a dash / ';' / cell end — so a
+        # trailing same-row comparison naming the primary venue cannot switch the rule off (PR #754 r4544983910).
+        decl = " ".join(re.split(r"\s[—–-]\s|;|\|",
+                                 re.sub(r"(?i)^.*?decision line\s*(?:\([^)\n]*\))?[\s*:=|]*", "", dl), 1)[0]
+                        for dl in dl_lines)
+        decl_v = _venue_canons(decl) or line_v
+        pair_need = {_pairs[c] for c in decl_v if c in _pairs} if decl_v and all(c in _pairs for c in decl_v) else set()
         if pair_need and not (isinstance(tk, str) and tk.strip() in pair_need):
-            if not any(_has_tok(t) for t in pair_need):
-                det.append(f"the Decision line names venue {'/'.join(c for c in line_v)} but not that venue's own ticker "
+            if not any(re.search(r"(?<![A-Za-z0-9])" + re.escape(t) + r"(?![A-Za-z0-9])", decl) for t in pair_need):
+                det.append(f"the Decision line names venue {'/'.join(c for c in decl_v)} but not that venue's own ticker "
                            f"{'/'.join(sorted(pair_need))!r} from the record's exchange {exch.strip()!r} — ticker and venue "
                            f"must be one listed line (CLAUDE.md §16)")
         elif isinstance(tk, str) and tk.strip() and not _has_tok(tk.strip()):
@@ -1396,7 +1425,10 @@ def eval_bg_tradable_line_and_yield(decision_date, d, thesis, listed_lines_text=
 
     for l in thesis.splitlines():  # `thesis` already has the finish-gate banner stripped (above)
         for seg in (ch for s_ in re.split(r"[;]|\.\s", l) for ch in _yield_chunks(s_)):
-            if _BG_YIELD_NONE.search(seg):
+            # Exempt only when the no-yield construction IS this chunk's quoted yield expression (overlaps
+            # it) — a peers' "no dividend yield" elsewhere in the chunk must not suppress it (r4544983929).
+            q = _BG_YIELD_QUOTED.search(seg)
+            if any(n.start() < q.end() and q.start() < n.end() for n in _BG_YIELD_NONE.finditer(seg)):
                 continue
             missing = []
             if not _bg_period_ok(seg):
@@ -1404,7 +1436,9 @@ def eval_bg_tradable_line_and_yield(decision_date, d, thesis, listed_lines_text=
             markers = _bg_div_markers(seg)
             if not markers:
                 missing.append("an ex-/record-date (a payment or pay date does not establish a buyer's entitlement)")
-            if depositary and not _BG_GROSS_NET.search(l):
+            # The yield's OWN chunk, not the whole line: a second yield's treatment must not discharge the
+            # first's (PR #754 r4544983893).
+            if depositary and not _BG_GROSS_NET.search(seg):
                 missing.append("a gross/net-of-withholding statement (required on a depositary line)")
             if missing:
                 det.append(f"a dividend/distribution yield is quoted without {' or '.join(missing)} in its own "
