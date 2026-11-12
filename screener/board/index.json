@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T13:54:06Z",
+  "generated_at": "2026-11-12T14:12:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20261112-671",
@@ -233617,18 +233617,18 @@
   "ideas": [
     {
       "idea_id": "IDEA-50f379c78b21",
-      "idea_version": "IDEAV-5f346408b53f54ca",
-      "idea_version_started_at": "2026-11-12T11:51:50Z",
+      "idea_version": "IDEAV-ef3b9ffcf3887e9b",
+      "idea_version_started_at": "2026-11-12T14:12:08Z",
       "ticker": "NVDA",
       "company": "Nvidia",
       "exchange": "NASDAQ",
       "direction": "short",
       "pair_with": null,
-      "reason": "Management instability and potential leadership changes create significant execution risk for the company's growth strategy.",
-      "why_now": "Multiple reports on 2026-11-12 indicate the board is actively weighing the CEO's future.",
-      "conviction": 65,
+      "reason": "The potential departure of CEO Jensen Huang amid a deepening scandal creates significant leadership uncertainty and key-man risk for the company's strategic direction.",
+      "why_now": "Multiple reports on 2026-11-12 confirm the board is actively weighing a replacement and searching for a temporary CEO.",
+      "conviction": 75,
       "conviction_basis": "pre_edge_proxy",
-      "trade_score": 74,
+      "trade_score": 77,
       "trade_score_basis": "event_driven_v3",
       "trade_score_breakdown": {
         "evidence": 14,
@@ -233636,7 +233636,7 @@
         "specificity": 15,
         "timing": 10,
         "expression": 7,
-        "corroboration": 7,
+        "corroboration": 10,
         "learning_adjustment": 0
       },
       "trade_readiness": "needs_data",
@@ -233659,19 +233659,21 @@
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
-        "EVT-391a7c65cc58",
-        "EVT-c29c0371754c"
+        "EVT-c29c0371754c",
+        "EVT-52b2fc91ded8",
+        "EVT-c2e4fabdc472"
       ],
-      "primary_source_event_id": "EVT-391a7c65cc58",
+      "primary_source_event_id": "EVT-c29c0371754c",
       "source_headlines": [
-        "Nvidia shares sink 8.6% as second affair report puts Jensen Huang’s job at risk",
-        "FirstFT: Nvidia board weighs Huang’s future as scandal deepens"
+        "FirstFT: Nvidia board weighs Huang’s future as scandal deepens",
+        "Nvidia Board Considers Replacing CEO Jensen Huang",
+        "Nvidia board weighs temporary CEO, starts search for potential replacement after Jensen Huang affairs"
       ],
-      "source_headline": "Nvidia shares sink 8.6% as second affair report puts Jensen Huang’s job at risk",
-      "source_url": "https://gulfnews.com/business/second-affair-steeper-sell-off-nvidia-ceo-jensen-huang-under-fire-1.500744501",
-      "source_name": "Gulf News",
+      "source_headline": "FirstFT: Nvidia board weighs Huang’s future as scandal deepens",
+      "source_url": "https://www.ft.com/content/64198d59-7a03-4f1c-89c6-81ed8bdc5448?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
       "materiality_max": 100,
-      "newest_source_at": "2026-11-12T05:31:16Z",
+      "newest_source_at": "2026-11-12T10:59:00Z",
       "prior_coverage": {
         "has_run": false,
         "latest_run": null,
@@ -233679,8 +233681,8 @@
         "data_pool_present": false
       },
       "surfaced_at": "2026-11-07T15:09:40Z",
-      "updated_at": "2026-11-12T11:51:50Z",
-      "decay_at": "2026-11-13T17:31:16Z",
+      "updated_at": "2026-11-12T14:12:08Z",
+      "decay_at": "2026-11-13T22:59:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -233751,6 +233753,76 @@
       "surfaced_at": "2026-11-12T10:13:12Z",
       "updated_at": "2026-11-12T10:13:12Z",
       "decay_at": "2026-11-13T15:40:04Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-c9c03eb598fe",
+      "idea_version": "IDEAV-355cab7269ed5708",
+      "idea_version_started_at": "2026-11-12T14:12:08Z",
+      "ticker": "SIEGY",
+      "company": "Siemens AG",
+      "exchange": "OTC Markets",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Record order intake driven by AI infrastructure demand has allowed the company to raise its long-term growth targets.",
+      "why_now": "The guidance hike was announced on 2026-11-12 following the release of record order data.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5a38cceba99c"
+      ],
+      "primary_source_event_id": "EVT-5a38cceba99c",
+      "source_headlines": [
+        "Siemens Raises Growth Goals After AI Boom Drives Record Orders"
+      ],
+      "source_headline": "Siemens Raises Growth Goals After AI Boom Drives Record Orders",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-11-12/siemens-raises-growth-goals-after-ai-boom-drives-record-orders",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-12T06:07:58Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-12T14:12:08Z",
+      "updated_at": "2026-11-12T14:12:08Z",
+      "decay_at": "2026-11-13T18:07:58Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -234387,6 +234459,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-b1db4cfd6b4d",
+      "idea_version": "IDEAV-9bedcfb4b9fb6e4c",
+      "idea_version_started_at": "2026-11-12T14:12:08Z",
+      "ticker": "RYCEY",
+      "company": "Rolls-Royce",
+      "exchange": "OTC Markets",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Strong order growth and the initiation of a £1.5 billion share buyback program signal robust cash flow generation and management confidence.",
+      "why_now": "The buyback and order update were confirmed on 2026-11-12.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3e630df5d39f"
+      ],
+      "primary_source_event_id": "EVT-3e630df5d39f",
+      "source_headlines": [
+        "Rolls-Royce 9-Month Orders Climb; Confirms FY26 View; Plans £1.5 Bln Interim Buyback; Shares Up"
+      ],
+      "source_headline": "Rolls-Royce 9-Month Orders Climb; Confirms FY26 View; Plans £1.5 Bln Interim Buyback; Shares Up",
+      "source_url": "https://www.nasdaq.com/articles/rolls-royce-9-month-orders-climb-confirms-fy26-view-plans-ps15-bln-interim-buyback-shares",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-12T08:56:42Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-12T14:12:08Z",
+      "updated_at": "2026-11-12T14:12:08Z",
+      "decay_at": "2026-11-13T20:56:42Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-75e2e4285cbd",
       "idea_version": "IDEAV-f569e04b884cd3bd",
       "idea_version_started_at": "2026-11-12T12:14:16Z",
@@ -234452,6 +234595,152 @@
       "surfaced_at": "2026-11-12T12:14:16Z",
       "updated_at": "2026-11-12T12:14:16Z",
       "decay_at": "2026-11-13T21:12:50Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-592b06bbc851",
+      "idea_version": "IDEAV-31e51e00d854597a",
+      "idea_version_started_at": "2026-11-12T14:12:08Z",
+      "ticker": "PAGEIND",
+      "company": "Page Industries",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Weak operating performance in Q2 indicates margin compression and potential demand headwinds for the apparel manufacturer.",
+      "why_now": "The earnings report was released on 2026-11-12, triggering a nearly 10% decline in the stock.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4a4d375b4016"
+      ],
+      "primary_source_event_id": "EVT-4a4d375b4016",
+      "source_headlines": [
+        "Page Industries Q2 Results: Stock falls nearly 10% after weak operating performance; Dividend declared"
+      ],
+      "source_headline": "Page Industries Q2 Results: Stock falls nearly 10% after weak operating performance; Dividend declared",
+      "source_url": "https://www.cnbctv18.com/market/page-industries-q2-results-revenue-ebitda-margin-volume-growth-fema-regulation-rbi-impact-share-price-crash-20032495.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-12T09:12:50Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-12T14:12:08Z",
+      "updated_at": "2026-11-12T14:12:08Z",
+      "decay_at": "2026-11-13T21:12:50Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-7c0521e054d8",
+      "idea_version": "IDEAV-7459d739f5534044",
+      "idea_version_started_at": "2026-11-12T14:12:08Z",
+      "ticker": "HAL",
+      "company": "Hindustan Aeronautics Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "A 15.48% jump in net profit and revenue exceeding ₹13,100 crore demonstrates strong execution in the defense sector.",
+      "why_now": "The Q2 earnings results were reported on 2026-11-12.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-547e743e635b"
+      ],
+      "primary_source_event_id": "EVT-547e743e635b",
+      "source_headlines": [
+        "HAL Q2 Earnings Soar To New Heights, Net Profit Jumps 15.48% As Revenue Crosses ₹13,100 Crore"
+      ],
+      "source_headline": "HAL Q2 Earnings Soar To New Heights, Net Profit Jumps 15.48% As Revenue Crosses ₹13,100 Crore",
+      "source_url": "https://www.freepressjournal.in/business/hal-q2-earnings-soar-to-new-heights-net-profit-jumps-1548-as-revenue-crosses-13100-crore",
+      "source_name": "Free Press Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-12T08:22:45Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-12T14:12:08Z",
+      "updated_at": "2026-11-12T14:12:08Z",
+      "decay_at": "2026-11-13T20:22:45Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -237156,76 +237445,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-75faeacb3b26",
-      "idea_version": "IDEAV-3425d52bca5cbb71",
-      "idea_version_started_at": "2026-11-09T17:16:12Z",
-      "ticker": "TLRY",
-      "company": "Tilray",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Tilray has raised its annual guidance, suggesting better-than-expected operational momentum in its core segments.",
-      "why_now": "The guidance revision was announced today, November 9, 2026.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f8c19103ab47"
-      ],
-      "primary_source_event_id": "EVT-f8c19103ab47",
-      "source_headlines": [
-        "Tilray Raises Its Guidance for the Year. Is the Stock Finally Headed on the Right Track?"
-      ],
-      "source_headline": "Tilray Raises Its Guidance for the Year. Is the Stock Finally Headed on the Right Track?",
-      "source_url": "https://www.nasdaq.com/articles/tilray-raises-its-guidance-year-stock-finally-headed-right-track",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-09T13:46:02Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-09T17:16:12Z",
-      "updated_at": "2026-11-09T17:16:12Z",
-      "decay_at": "2026-11-11T01:46:02Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-f69a276b003b",
       "idea_version": "IDEAV-847c049549bca2de",
       "idea_version_started_at": "2026-11-10T03:26:43Z",
@@ -238932,77 +239151,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-a93036eeaeb1",
-      "idea_version": "IDEAV-9b68358b5b3232f4",
-      "idea_version_started_at": "2026-11-09T18:48:10Z",
-      "ticker": "02885",
-      "company": "Peiport Holdings Ltd",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Peiport Holdings is subject to a possible unconditional mandatory cash offer, which typically provides a premium to the current market price for shareholders.",
-      "why_now": "The joint announcement of the sale and purchase agreement and the possible cash offer was made today, November 9, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5282eea3d3e7"
-      ],
-      "primary_source_event_id": "EVT-5282eea3d3e7",
-      "source_headlines": [
-        "PEIPORT HOLD (02885): JOINT ANNOUNCEMENT - (1) SALE AND PURCHASE AGREEMENT BETWEEN THE OFFEROR AND THE VENDOR; (2) POSSIBLE UNCONDITIONAL MANDATORY CASH OFFER BY SHENWAN HONGYUAN CAPITAL (H.K.) LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR, ITS BENEFICIAL OWNERS AND PARTIES ACTING IN CONCERT WITH ANY OF THEM); (3) APPOINTMENT OF INDEPENDENT FINANCIAL ADVISER;"
-      ],
-      "source_headline": "PEIPORT HOLD (02885): JOINT ANNOUNCEMENT - (1) SALE AND PURCHASE AGREEMENT BETWEEN THE OFFEROR AND THE VENDOR; (2) POSSIBLE UNCONDITIONAL MANDATORY CASH OFFER BY SHENWAN HONGYUAN CAPITAL (H.K.) LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR, ITS BENEFICIAL OWNERS AND PARTIES ACTING IN CONCERT WITH ANY OF THEM); (3) APPOINTMENT OF INDEPENDENT FINANCIAL ADVISER;",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1109/2026110901215.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-09T13:59:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-09T18:48:10Z",
-      "updated_at": "2026-11-09T18:48:10Z",
-      "decay_at": "2026-11-11T01:59:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-67edac5436ac",
       "idea_version": "IDEAV-6e845f14ba205c1f",
       "idea_version_started_at": "2026-11-09T18:28:29Z",
@@ -239727,14 +239875,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 549,
+    "total_count": 547,
     "shown_count": 499,
-    "hidden_count": 50,
+    "hidden_count": 48,
     "side_counts": {
       "long": {
-        "total_count": 285,
+        "total_count": 283,
         "shown_count": 250,
-        "hidden_count": 35
+        "hidden_count": 33
       },
       "short": {
         "total_count": 265,
@@ -239744,12 +239892,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1827,
+      "evicted_count": 1829,
       "oldest_retained_at": "2026-10-17T20:31:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 1197,
-          "oldest_retained_at": "2026-10-28T03:38:32Z"
+          "evicted_count": 1199,
+          "oldest_retained_at": "2026-10-28T06:27:45Z"
         },
         "short": {
           "evicted_count": 631,
@@ -243370,8 +243518,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-11T01:59:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-12T14:12:28Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -243443,8 +243591,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-11T01:46:02Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-12T14:12:28Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -276881,8 +277029,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2413,
-    "live_count": 36,
+    "surfaced_total": 2417,
+    "live_count": 40,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -276901,9 +277049,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1285214,
-    "news_picked_today": 1856,
-    "news_dropped_today": 13336
+    "news_seen_today": 1323365,
+    "news_picked_today": 1873,
+    "news_dropped_today": 13751
   },
   "book_momentum": {
     "live_count": 8,
