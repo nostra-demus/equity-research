@@ -1,29 +1,29 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-10-29T11:34:51Z",
+  "archived_at": "2026-11-12T05:40:07Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-7341145bef23",
-    "idea_version": "IDEAV-556103c626fe9c59",
-    "idea_version_started_at": "2026-10-26T12:14:09Z",
-    "ticker": "IOB",
-    "company": "Indian Overseas Bank",
-    "exchange": "NSE",
+    "idea_id": "IDEA-d75ab3a03107",
+    "idea_version": "IDEAV-28284785c1988330",
+    "idea_version_started_at": "2026-11-09T04:50:45Z",
+    "ticker": "AVL",
+    "company": "Australian Vanadium Limited",
+    "exchange": "ASX",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "long",
     "pair_with": null,
-    "reason": "The bank reported a 56% jump in net profit and a 26% increase in net interest income, driven by improved asset quality.",
-    "why_now": "Q2 results were released today, October 26, 2026.",
-    "conviction": 70,
+    "reason": "The company received a $15 million government grant, providing non-dilutive capital to support project development and infrastructure.",
+    "why_now": "The grant was officially announced via exchange filing on November 9, 2026.",
+    "conviction": 75,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
-      "evidence": 14,
-      "impact": 20,
+      "evidence": 25,
+      "impact": 18,
       "specificity": 7,
       "timing": 10,
       "expression": 0,
@@ -36,7 +36,6 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
-      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -53,26 +52,26 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-81dd6e1903f5"
+      "EVT-14fa8bf1676a"
     ],
-    "primary_source_event_id": "EVT-81dd6e1903f5",
+    "primary_source_event_id": "EVT-14fa8bf1676a",
     "source_headlines": [
-      "Indian Overseas Bank Q2 Results: Net Profit Jumps 56% To Rs 1,912 Crore, NII Up 26% YoY; Asset Quality Improves"
+      "AVL: AVL Awarded $15 million WA Government Grant Funding [price-sensitive]"
     ],
-    "source_headline": "Indian Overseas Bank Q2 Results: Net Profit Jumps 56% To Rs 1,912 Crore, NII Up 26% YoY; Asset Quality Improves",
-    "source_url": "https://www.ndtvprofit.com/markets/indian-overseas-bank-q2-results-net-profit-jumps-56-to-rs-1-912-crore-nii-up-26-yoy-asset-quality-improves-12236522#publisher=newsstand",
-    "source_name": "NDTV Profit",
-    "materiality_max": 100,
-    "newest_source_at": "2026-10-26T07:41:19Z",
+    "source_headline": "AVL: AVL Awarded $15 million WA Government Grant Funding [price-sensitive]",
+    "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AVL?key=2924-03159618-6A1354169",
+    "source_name": "ASX (Australia Exchange Filing)",
+    "materiality_max": 95,
+    "newest_source_at": "2026-11-09T04:22:52Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-10-26T12:14:09Z",
-    "updated_at": "2026-10-26T12:14:09Z",
-    "decay_at": "2026-10-27T19:41:19Z",
+    "surfaced_at": "2026-11-09T04:50:45Z",
+    "updated_at": "2026-11-09T04:50:45Z",
+    "decay_at": "2026-11-10T16:22:52Z",
     "status": "live",
     "promoted_signal_id": null
   }

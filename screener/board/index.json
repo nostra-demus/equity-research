@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T05:39:44Z",
+  "generated_at": "2026-11-12T05:40:20Z",
   "inbox": [
     {
       "inbox_id": "INB-20261112-421",
@@ -233634,6 +233634,81 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-50f379c78b21",
+      "idea_version": "IDEAV-9667a4adbda35530",
+      "idea_version_started_at": "2026-11-12T05:39:59Z",
+      "ticker": "NVDA",
+      "company": "Nvidia",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The potential ouster of CEO Jensen Huang amid multiple allegations of misconduct creates significant leadership uncertainty and key-man risk for the company's strategic direction.",
+      "why_now": "Multiple reports confirm the board is actively meeting and working with outside firms to identify potential CEO candidates as of 2026-11-12.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 79,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 23,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 10,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-55af1ada2843",
+        "EVT-90ca00df38ea",
+        "EVT-d564d9ab3f87",
+        "EVT-534f9980f584"
+      ],
+      "primary_source_event_id": "EVT-55af1ada2843",
+      "source_headlines": [
+        "Nvidia's stock dives as board weighs move to oust Jensen Huang",
+        "Nvidia Board Meets on Huang’s Fate After Affair With Alleged Spy",
+        "Nvidia's Jensen Huang accused of second affair with staffer, board considers ouster",
+        "Nvidia working with outside firm to identify CEO candidates"
+      ],
+      "source_headline": "Nvidia's stock dives as board weighs move to oust Jensen Huang",
+      "source_url": "https://www.cbsnews.com/news/nvidia-stock-dives-report-board-prepares-oust-jensen-huang/",
+      "source_name": "CBS MoneyWatch",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-12T00:54:01Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-07T15:09:40Z",
+      "updated_at": "2026-11-12T05:39:59Z",
+      "decay_at": "2026-11-13T12:54:01Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-bba477b08d48",
       "idea_version": "IDEAV-133966263598619c",
       "idea_version_started_at": "2026-11-11T01:14:09Z",
@@ -233983,85 +234058,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-50f379c78b21",
-      "idea_version": "IDEAV-0a58ea12abc3f646",
-      "idea_version_started_at": "2026-11-12T00:06:04Z",
-      "ticker": "NVDA",
-      "company": "Nvidia",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The potential ouster of CEO Jensen Huang due to personal conduct allegations creates significant leadership uncertainty and governance risk for the company's strategic direction.",
-      "why_now": "Multiple reports emerged on 2026-11-11 regarding board preparations to remove the CEO.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 10,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "governance_turnaround",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ae867166d950",
-        "EVT-11572816c556",
-        "EVT-3846dfd08b6d",
-        "EVT-5d3809215aa1",
-        "EVT-7bcedc438675",
-        "EVT-bf591f7f6258",
-        "EVT-f33044d5789e"
-      ],
-      "primary_source_event_id": "EVT-ae867166d950",
-      "source_headlines": [
-        "Nvidia stock faces rare downgrades as board investigates CEO Jensen Huang's admitted affair",
-        "Nvidia preparing to oust CEO Jensen Huang who had second affair: reports",
-        "Nvidia preparing to oust CEO amid reports of a second affair",
-        "Nvidia shares sink 9% amid reports of possible CEO Jensen Huang ouster"
-      ],
-      "source_headline": "Nvidia stock faces rare downgrades as board investigates CEO Jensen Huang's admitted affair",
-      "source_url": "https://www.foxbusiness.com/markets/nvidia-stock-faces-rare-downgrades-board-investigates-ceo-jensen-huangs-admitted-affair",
-      "source_name": "Fox Business — Markets",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-11T23:45:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-07T15:09:40Z",
-      "updated_at": "2026-11-12T00:06:04Z",
-      "decay_at": "2026-11-13T11:45:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-2e5391db32b6",
       "idea_version": "IDEAV-93da71797e2a0728",
       "idea_version_started_at": "2026-11-11T03:59:14Z",
@@ -234126,6 +234122,77 @@
       "surfaced_at": "2026-11-11T03:59:14Z",
       "updated_at": "2026-11-11T03:59:14Z",
       "decay_at": "2026-11-12T10:29:15Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-763ea1ab86a4",
+      "idea_version": "IDEAV-11cd3deb37a220bf",
+      "idea_version_started_at": "2026-11-12T05:39:59Z",
+      "ticker": "CU6",
+      "company": "Clarity Pharmaceuticals",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The FDA Breakthrough Therapy designation for its PSMA PET imaging agent significantly accelerates the regulatory pathway and potential commercialization timeline for its lead oncology asset.",
+      "why_now": "The designation was officially announced in an ASX filing on 2026-11-11.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9336cf996352"
+      ],
+      "primary_source_event_id": "EVT-9336cf996352",
+      "source_headlines": [
+        "CU6: First FDA Breakthrough Therapy designation in PSMA PET [price-sensitive]"
+      ],
+      "source_headline": "CU6: First FDA Breakthrough Therapy designation in PSMA PET [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CU6?key=2924-03160944-2A1710206",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-11T23:17:01Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-12T05:39:59Z",
+      "updated_at": "2026-11-12T05:39:59Z",
+      "decay_at": "2026-11-13T11:17:01Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -235917,146 +235984,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-8b7cb506ef42",
-      "idea_version": "IDEAV-8ff0f950e82d96c4",
-      "idea_version_started_at": "2026-11-09T05:11:05Z",
-      "ticker": "AVL.AX",
-      "company": "Australian Vanadium Limited",
-      "exchange": "Australian",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company received a $15 million government grant, providing non-dilutive capital to support project development and capital expenditure.",
-      "why_now": "The grant award was announced in an official exchange filing on November 9, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 75,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 18,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-14fa8bf1676a"
-      ],
-      "primary_source_event_id": "EVT-14fa8bf1676a",
-      "source_headlines": [
-        "AVL: AVL Awarded $15 million WA Government Grant Funding [price-sensitive]"
-      ],
-      "source_headline": "AVL: AVL Awarded $15 million WA Government Grant Funding [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AVL?key=2924-03159618-6A1354169",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 95,
-      "newest_source_at": "2026-11-09T04:22:52Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-09T05:11:05Z",
-      "updated_at": "2026-11-09T05:11:05Z",
-      "decay_at": "2026-11-10T16:22:52Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-7260c8f0b174",
-      "idea_version": "IDEAV-509322daaf9e3636",
-      "idea_version_started_at": "2026-11-09T10:01:10Z",
-      "ticker": "CPNG",
-      "company": "Coupang",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company has been hit with a 300 billion won antitrust fine for unfair business practices, which will directly impact net income and future operating margins.",
-      "why_now": "The fine was announced on 2026-11-09 and represents a material regulatory penalty.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 74,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-be1f6a422883",
-        "EVT-45929bd0a058"
-      ],
-      "primary_source_event_id": "EVT-be1f6a422883",
-      "source_headlines": [
-        "Baemin, Coupang Eats hit with record W632b antitrust penalty",
-        "(LEAD) FTC to fine Baemin 331 bln won, Coupang 300 bln won for unfair practices"
-      ],
-      "source_headline": "Baemin, Coupang Eats hit with record W632b antitrust penalty",
-      "source_url": "https://www.koreaherald.com/article/10930770",
-      "source_name": "The Korea Herald — Business",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-09T05:30:35Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-09T10:01:10Z",
-      "updated_at": "2026-11-09T10:01:10Z",
-      "decay_at": "2026-11-10T17:30:35Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-d96cfa97ad42",
       "idea_version": "IDEAV-bcf8154f79d20eed",
       "idea_version_started_at": "2026-11-10T01:51:56Z",
@@ -237037,76 +236964,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-ebfbd0cbbc7c",
-      "idea_version": "IDEAV-75acc0c8f763da0c",
-      "idea_version_started_at": "2026-11-09T04:15:43Z",
-      "ticker": "MSFT",
-      "company": "Microsoft",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Large-scale layoffs of 60,000 employees and internal pushback against the current AI strategy suggest significant operational friction and potential execution delays in the company's primary growth engine.",
-      "why_now": "The restructuring announcement and internal dissent surfaced on 2026-11-09.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9e5d615032d8"
-      ],
-      "primary_source_event_id": "EVT-9e5d615032d8",
-      "source_headlines": [
-        "Microsoft employees urge rethink of AI strategy as company offers buyouts to 60,000 workers"
-      ],
-      "source_headline": "Microsoft employees urge rethink of AI strategy as company offers buyouts to 60,000 workers",
-      "source_url": "https://www.cnbctv18.com/technology/microsoft-employees-urge-rethink-of-ai-strategy-as-company-offers-buyouts-to-60000-workers-20030046.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-09T03:19:43Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-09T04:15:43Z",
-      "updated_at": "2026-11-09T04:15:43Z",
-      "decay_at": "2026-11-10T15:19:43Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-f69a276b003b",
       "idea_version": "IDEAV-847c049549bca2de",
       "idea_version_started_at": "2026-11-10T03:26:43Z",
@@ -237171,76 +237028,6 @@
       "surfaced_at": "2026-11-10T03:26:43Z",
       "updated_at": "2026-11-10T03:26:43Z",
       "decay_at": "2026-11-11T13:30:43Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-1ce8545fe8eb",
-      "idea_version": "IDEAV-2ad5df6ca983f9db",
-      "idea_version_started_at": "2026-11-09T01:59:29Z",
-      "ticker": "DIN",
-      "company": "Dine Brands Global",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is closing 208 restaurants, signaling a contraction in its footprint and potential underlying weakness in consumer demand for its Applebee's and IHOP brands.",
-      "why_now": "The closure announcement occurred on November 9, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-633365030280"
-      ],
-      "primary_source_event_id": "EVT-633365030280",
-      "source_headlines": [
-        "Applebee’s and IHOP parent closes 208 restaurants"
-      ],
-      "source_headline": "Applebee’s and IHOP parent closes 208 restaurants",
-      "source_url": "https://www.thestreet.com/restaurants/applebees-and-ihop-parent-closes-208-restaurants",
-      "source_name": "TheStreet",
-      "materiality_max": 91,
-      "newest_source_at": "2026-11-09T01:17:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-09T01:59:29Z",
-      "updated_at": "2026-11-09T01:59:29Z",
-      "decay_at": "2026-11-10T13:17:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -239244,79 +239031,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-5cd4c21d808e",
-      "idea_version": "IDEAV-cf8727f472ae5846",
-      "idea_version_started_at": "2026-11-09T12:07:50Z",
-      "ticker": "005740",
-      "company": "Lotte Chilsung",
-      "exchange": "KRX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Operating profit plunged 37.9% in Q3, highlighting significant weakness in core business segments despite growth in the liquor division.",
-      "why_now": "The Q3 earnings report was released on November 9, 2026.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-36f04521dad6"
-      ],
-      "primary_source_event_id": "EVT-36f04521dad6",
-      "source_headlines": [
-        "Lotte Chilsung, Q3 operating profit plunges 37.9%... Liquor division grows alone"
-      ],
-      "source_headline": "롯데칠성, 3분기 영업익 37.9% 급감...주류 부문은 홀로 성장",
-      "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=280811",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-09T05:23:48Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-09T12:07:50Z",
-      "updated_at": "2026-11-09T12:07:50Z",
-      "decay_at": "2026-11-10T17:23:48Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-727dc9220763",
       "idea_version": "IDEAV-d200ac5ab3f11d2f",
       "idea_version_started_at": "2026-11-09T12:07:50Z",
@@ -239383,298 +239097,6 @@
       "surfaced_at": "2026-11-09T12:07:50Z",
       "updated_at": "2026-11-09T12:07:50Z",
       "decay_at": "2026-11-10T19:10:10Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-80f5e4a3f467",
-      "idea_version": "IDEAV-98ff0a4aa1b169ac",
-      "idea_version_started_at": "2026-11-09T12:07:50Z",
-      "ticker": "GLAND",
-      "company": "Gland Pharma",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported a 58% jump in profit and 23% revenue growth YoY, signaling strong operational momentum.",
-      "why_now": "The Q2 earnings results were released on November 9, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-903bd847ae7c"
-      ],
-      "primary_source_event_id": "EVT-903bd847ae7c",
-      "source_headlines": [
-        "Gland Pharma shares jump 4% after Q2 profit jumps 58%, revenue rises 23% YoY"
-      ],
-      "source_headline": "Gland Pharma shares jump 4% after Q2 profit jumps 58%, revenue rises 23% YoY",
-      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/gland-pharma-shares-jump-4-as-q2-profit-jumps-58-revenue-rises-23-yoy/articleshow/135671961.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-09T05:26:55Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-09T12:07:50Z",
-      "updated_at": "2026-11-09T12:07:50Z",
-      "decay_at": "2026-11-10T17:26:55Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-a0a7c959fc3d",
-      "idea_version": "IDEAV-929af2b2d6197294",
-      "idea_version_started_at": "2026-11-09T05:29:08Z",
-      "ticker": "ADNOCDIST",
-      "company": "ADNOC Distribution",
-      "exchange": "ADX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported a 36.6% to 37% surge in profit driven by record fuel volumes and the addition of 71 new service stations.",
-      "why_now": "The earnings results were released on November 9, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-612235557206",
-        "EVT-a0ad0b02e2a1"
-      ],
-      "primary_source_event_id": "EVT-612235557206",
-      "source_headlines": [
-        "Adnoc Distribution 9-month profit jumps 36.6% as company adds 71 new stations",
-        "ADNOC Distribution profit surges 37% on record fuel volumes"
-      ],
-      "source_headline": "Adnoc Distribution 9-month profit jumps 36.6% as company adds 71 new stations",
-      "source_url": "https://www.khaleejtimes.com/business/adnoc-distribution-9-month-profit-jumps-366-as-company-adds-71-new-stations",
-      "source_name": "Khaleej Times — Business",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-09T05:02:31Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-09T05:29:08Z",
-      "updated_at": "2026-11-09T05:29:08Z",
-      "decay_at": "2026-11-10T17:02:31Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-14fa28bd0d8f",
-      "idea_version": "IDEAV-0ac93a39808bdca5",
-      "idea_version_started_at": "2026-11-09T04:15:43Z",
-      "ticker": "4185",
-      "company": "JSR Corporation",
-      "exchange": "TSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Mitsui Chemicals is acquiring JSR for 1.84 trillion yen, providing a clear arbitrage opportunity based on the announced deal terms.",
-      "why_now": "The acquisition was officially announced on 2026-11-09.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f7239ab3c238",
-        "EVT-41e1a3c939bf"
-      ],
-      "primary_source_event_id": "EVT-f7239ab3c238",
-      "source_headlines": [
-        "BREAKING NEWS: Mitsui Chemicals to buy chip material supplier JSR for 1.84 tril. yen",
-        "Mitsui Chemicals to Acquire JSR With Development Bank of Japan for $8.8 Billion"
-      ],
-      "source_headline": "BREAKING NEWS: Mitsui Chemicals to buy chip material supplier JSR for 1.84 tril. yen",
-      "source_url": "https://english.kyodonews.net/articles/-/90786",
-      "source_name": "Kyodo News (Japan Wire)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-09T03:32:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-09T04:15:43Z",
-      "updated_at": "2026-11-09T04:15:43Z",
-      "decay_at": "2026-11-10T15:32:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-79276c19db88",
-      "idea_version": "IDEAV-7c3174b0f1956350",
-      "idea_version_started_at": "2026-11-09T02:44:17Z",
-      "ticker": "LLC",
-      "company": "Lendlease",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The failure of the Italy project sale results in a direct $160 million hit to the balance sheet, negatively impacting earnings and capital liquidity.",
-      "why_now": "The deal collapse was reported on November 9, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-40917698e383"
-      ],
-      "primary_source_event_id": "EVT-40917698e383",
-      "source_headlines": [
-        "Lendlease faces hit of $160m after Italy project sale falls through"
-      ],
-      "source_headline": "Lendlease faces hit of $160m after Italy project sale falls through",
-      "source_url": "https://www.afr.com/property/commercial/lendlease-faces-hit-of-160m-after-italy-project-sale-falls-through-20261109-p61cij?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-09T02:04:32Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-09T02:44:17Z",
-      "updated_at": "2026-11-09T02:44:17Z",
-      "decay_at": "2026-11-10T14:04:32Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -239824,362 +239246,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-d75ab3a03107",
-      "idea_version": "IDEAV-28284785c1988330",
-      "idea_version_started_at": "2026-11-09T04:50:45Z",
-      "ticker": "AVL",
-      "company": "Australian Vanadium Limited",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company received a $15 million government grant, providing non-dilutive capital to support project development and infrastructure.",
-      "why_now": "The grant was officially announced via exchange filing on November 9, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-14fa8bf1676a"
-      ],
-      "primary_source_event_id": "EVT-14fa8bf1676a",
-      "source_headlines": [
-        "AVL: AVL Awarded $15 million WA Government Grant Funding [price-sensitive]"
-      ],
-      "source_headline": "AVL: AVL Awarded $15 million WA Government Grant Funding [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AVL?key=2924-03159618-6A1354169",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 95,
-      "newest_source_at": "2026-11-09T04:22:52Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-09T04:50:45Z",
-      "updated_at": "2026-11-09T04:50:45Z",
-      "decay_at": "2026-11-10T16:22:52Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-fd1631c93a35",
-      "idea_version": "IDEAV-5842ca7572a2065c",
-      "idea_version_started_at": "2026-11-09T05:11:05Z",
-      "ticker": "DIVI.NS",
-      "company": "Divi's Laboratories",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Upgrades from major brokerages and raised earnings estimates following strong Q2 results indicate improved margin and revenue visibility.",
-      "why_now": "The analyst upgrades and earnings revisions were released today, November 9, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f02d332a434c"
-      ],
-      "primary_source_event_id": "EVT-f02d332a434c",
-      "source_headlines": [
-        "Divi's Laboratories shares gain 6% after JPMorgan upgrade; Goldman raises earnings estimates after strong Q2"
-      ],
-      "source_headline": "Divi's Laboratories shares gain 6% after JPMorgan upgrade; Goldman raises earnings estimates after strong Q2",
-      "source_url": "https://www.cnbctv18.com/market/divis-laboratories-share-price-surges-muhurat-trading-day-motilal-oswal-remains-on-the-sidelines-20029968.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 94,
-      "newest_source_at": "2026-11-09T04:02:04Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-09T05:11:05Z",
-      "updated_at": "2026-11-09T05:11:05Z",
-      "decay_at": "2026-11-10T16:02:04Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-9aea1559a27b",
-      "idea_version": "IDEAV-a2c4ff7e6b1821e1",
-      "idea_version_started_at": "2026-11-09T05:11:05Z",
-      "ticker": "ARX.AX",
-      "company": "Argenica Therapeutics",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Confirmation of US CMS reimbursement rates for the Symphony outpatient program provides revenue certainty and validates the commercial model for the company's service.",
-      "why_now": "The CMS confirmation was released in a primary filing on November 9, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-587bd590d4b3"
-      ],
-      "primary_source_event_id": "EVT-587bd590d4b3",
-      "source_headlines": [
-        "ARX: US CMS Confirms Symphony Outpatient Reimbursement Rate"
-      ],
-      "source_headline": "ARX: US CMS Confirms Symphony Outpatient Reimbursement Rate",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ARX?key=2924-03159622-2A1709578",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 93,
-      "newest_source_at": "2026-11-09T04:32:07Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-09T05:11:05Z",
-      "updated_at": "2026-11-09T05:11:05Z",
-      "decay_at": "2026-11-10T16:32:07Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-c0568b1557e0",
-      "idea_version": "IDEAV-1ce697aa5a20d02f",
-      "idea_version_started_at": "2026-11-09T04:50:45Z",
-      "ticker": "ARX",
-      "company": "Ardent Leisure Group",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Confirmation of the US CMS outpatient reimbursement rate removes a significant regulatory overhang and provides clarity on future revenue streams for the Symphony business.",
-      "why_now": "The CMS confirmation was released in an official filing on November 9, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-587bd590d4b3"
-      ],
-      "primary_source_event_id": "EVT-587bd590d4b3",
-      "source_headlines": [
-        "ARX: US CMS Confirms Symphony Outpatient Reimbursement Rate"
-      ],
-      "source_headline": "ARX: US CMS Confirms Symphony Outpatient Reimbursement Rate",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ARX?key=2924-03159622-2A1709578",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 93,
-      "newest_source_at": "2026-11-09T04:32:07Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-09T04:50:45Z",
-      "updated_at": "2026-11-09T04:50:45Z",
-      "decay_at": "2026-11-10T16:32:07Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-acb9597b938e",
-      "idea_version": "IDEAV-6a94f7dfd950d119",
-      "idea_version_started_at": "2026-11-09T00:20:58Z",
-      "ticker": "DUG",
-      "company": "DUG Technology",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company secured a US$33.7 million contract for software and high-performance computing infrastructure, providing a significant revenue boost and validation of its service offerings.",
-      "why_now": "The contract award was announced via official exchange filing on 2026-11-09.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c69d407fd2ba"
-      ],
-      "primary_source_event_id": "EVT-c69d407fd2ba",
-      "source_headlines": [
-        "DUG: US$33.7 million Software and HPC Infrastructure Award [price-sensitive]"
-      ],
-      "source_headline": "DUG: US$33.7 million Software and HPC Infrastructure Award [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.DUG?key=2924-03159549-6A1354155",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 93,
-      "newest_source_at": "2026-11-09T00:12:27Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-09T00:20:58Z",
-      "updated_at": "2026-11-09T00:20:58Z",
-      "decay_at": "2026-11-10T12:12:27Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-3e8500c230f0",
       "idea_version": "IDEAV-36792e8d3b02964d",
       "idea_version_started_at": "2026-11-10T01:19:46Z",
@@ -240322,149 +239388,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-24c2f9751ec7",
-      "idea_version": "IDEAV-b1e925a9043aca93",
-      "idea_version_started_at": "2026-11-09T03:31:35Z",
-      "ticker": "329180",
-      "company": "HD Hyundai Heavy Industries",
-      "exchange": "KRX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Securing a 662.9 billion won order for two LNG carriers provides a clear, immediate boost to the company's order backlog and revenue visibility.",
-      "why_now": "The contract was announced on November 9, 2026, providing a fresh catalyst for the stock.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-74d3b1a7054e"
-      ],
-      "primary_source_event_id": "EVT-74d3b1a7054e",
-      "source_headlines": [
-        "HD Hyundai Heavy Industries secures 662.9 bln-won order for 2 LNG carriers"
-      ],
-      "source_headline": "HD Hyundai Heavy Industries secures 662.9 bln-won order for 2 LNG carriers",
-      "source_url": "https://en.yna.co.kr/view/AEN20261109003800320",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "materiality_max": 88,
-      "newest_source_at": "2026-11-09T02:09:39Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-09T03:31:35Z",
-      "updated_at": "2026-11-09T03:31:35Z",
-      "decay_at": "2026-11-10T14:09:39Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-b389eaf2374b",
-      "idea_version": "IDEAV-72aefa6e58ce6c97",
-      "idea_version_started_at": "2026-11-09T00:20:58Z",
-      "ticker": "02105",
-      "company": "Laekna",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Successful completion of a Phase I single ascending dose study for LAE103 in obesity patients provides clinical validation for its pipeline, potentially increasing the company's valuation.",
-      "why_now": "The results were released in a voluntary announcement on 2026-11-09.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 13,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-bb7f12eafd4a"
-      ],
-      "primary_source_event_id": "EVT-bb7f12eafd4a",
-      "source_headlines": [
-        "LAEKNA-B (02105): VOLUNTARY ANNOUNCEMENT SUCCESSFUL COMPLETION OF PHASE I SAD STUDY OF LAE103 IN OVERWEIGHT OR OBESE PARTICIPANTS"
-      ],
-      "source_headline": "LAEKNA-B (02105): VOLUNTARY ANNOUNCEMENT SUCCESSFUL COMPLETION OF PHASE I SAD STUDY OF LAE103 IN OVERWEIGHT OR OBESE PARTICIPANTS",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1109/2026110900049.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 88,
-      "newest_source_at": "2026-11-09T00:10:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-09T00:20:58Z",
-      "updated_at": "2026-11-09T00:20:58Z",
-      "decay_at": "2026-11-10T12:10:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-b2f2923b654d",
       "idea_version": "IDEAV-10da123e0d675503",
       "idea_version_started_at": "2026-11-10T00:22:09Z",
@@ -240546,33 +239469,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 565,
+    "total_count": 549,
     "shown_count": 499,
-    "hidden_count": 66,
+    "hidden_count": 50,
     "side_counts": {
       "long": {
-        "total_count": 295,
+        "total_count": 284,
         "shown_count": 250,
-        "hidden_count": 45
+        "hidden_count": 34
       },
       "short": {
-        "total_count": 271,
+        "total_count": 266,
         "shown_count": 250,
-        "hidden_count": 21
+        "hidden_count": 16
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1801,
-      "oldest_retained_at": "2026-10-16T10:36:44Z",
+      "evicted_count": 1817,
+      "oldest_retained_at": "2026-10-17T09:26:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 1179,
-          "oldest_retained_at": "2026-10-27T12:52:07Z"
+          "evicted_count": 1190,
+          "oldest_retained_at": "2026-10-27T22:37:05Z"
         },
         "short": {
-          "evicted_count": 623,
-          "oldest_retained_at": "2026-10-16T10:36:44Z"
+          "evicted_count": 628,
+          "oldest_retained_at": "2026-10-17T09:26:00Z"
         }
       }
     },
@@ -244341,8 +243264,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-10T17:30:35Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-12T05:40:07Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -244417,8 +243340,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-10T17:26:55Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-12T05:40:07Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -244493,8 +243416,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-10T17:23:48Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-12T05:40:07Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -244569,8 +243492,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-10T17:02:31Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-12T05:40:07Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -244643,8 +243566,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-10T16:32:07Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-12T05:40:07Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -244717,8 +243640,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-10T16:32:07Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-12T05:40:07Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -244789,8 +243712,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-10T16:22:52Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-12T05:40:07Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -244863,8 +243786,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-10T16:22:52Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-12T05:40:07Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -244938,8 +243861,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-10T16:02:04Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-12T05:40:07Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -245015,8 +243938,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-10T15:32:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-12T05:40:07Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -245088,8 +244011,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-10T15:19:43Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-12T05:40:07Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -245163,8 +244086,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-10T14:09:39Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-12T05:40:07Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -245238,8 +244161,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-10T14:04:32Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-12T05:40:07Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -245311,8 +244234,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-10T13:17:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-12T05:40:07Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -245385,8 +244308,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-10T12:12:27Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-12T05:40:07Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -245459,8 +244382,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-10T12:10:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-12T05:40:07Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -277702,8 +276625,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2398,
-    "live_count": 31,
+    "surfaced_total": 2399,
+    "live_count": 32,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,

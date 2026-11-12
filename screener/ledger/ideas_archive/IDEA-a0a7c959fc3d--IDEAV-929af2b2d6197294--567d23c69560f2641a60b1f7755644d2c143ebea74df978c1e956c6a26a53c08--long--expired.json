@@ -1,23 +1,23 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-10-18T09:21:28Z",
+  "archived_at": "2026-11-12T05:40:07Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-85576f21dc9f",
-    "idea_version": "IDEAV-69cdc7b7ed2d2638",
-    "idea_version_started_at": "2026-10-15T10:07:38Z",
-    "ticker": "FBR",
-    "company": "Famous Brands",
-    "exchange": "JSE",
+    "idea_id": "IDEA-a0a7c959fc3d",
+    "idea_version": "IDEAV-929af2b2d6197294",
+    "idea_version_started_at": "2026-11-09T05:29:08Z",
+    "ticker": "ADNOCDIST",
+    "company": "ADNOC Distribution",
+    "exchange": "ADX",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
-    "direction": "short",
+    "direction": "long",
     "pair_with": null,
-    "reason": "The company issued a profit warning indicating an expected drop of up to 33% in interim earnings, reflecting significant margin compression or revenue headwinds.",
-    "why_now": "The warning was issued on October 15, 2026, and the market has yet to fully digest the impact on the full-year outlook.",
-    "conviction": 70,
+    "reason": "The company reported a 36.6% to 37% surge in profit driven by record fuel volumes and the addition of 71 new service stations.",
+    "why_now": "The earnings results were released on November 9, 2026.",
+    "conviction": 75,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "event_driven_v3",
@@ -27,7 +27,7 @@
       "specificity": 7,
       "timing": 10,
       "expression": 0,
-      "corroboration": 0,
+      "corroboration": 7,
       "learning_adjustment": 0
     },
     "trade_readiness": "watch_only",
@@ -36,7 +36,6 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
-      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -53,26 +52,28 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-6be73d502c2e"
+      "EVT-612235557206",
+      "EVT-a0ad0b02e2a1"
     ],
-    "primary_source_event_id": "EVT-6be73d502c2e",
+    "primary_source_event_id": "EVT-612235557206",
     "source_headlines": [
-      "Famous Brands warns of up to 33% drop in interim earnings"
+      "Adnoc Distribution 9-month profit jumps 36.6% as company adds 71 new stations",
+      "ADNOC Distribution profit surges 37% on record fuel volumes"
     ],
-    "source_headline": "Famous Brands warns of up to 33% drop in interim earnings",
-    "source_url": "https://www.moneyweb.co.za/news/companies-and-deals/famous-brands-warns-of-up-to-33-drop-in-interim-earnings/",
-    "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
+    "source_headline": "Adnoc Distribution 9-month profit jumps 36.6% as company adds 71 new stations",
+    "source_url": "https://www.khaleejtimes.com/business/adnoc-distribution-9-month-profit-jumps-366-as-company-adds-71-new-stations",
+    "source_name": "Khaleej Times — Business",
     "materiality_max": 100,
-    "newest_source_at": "2026-10-15T08:09:36Z",
+    "newest_source_at": "2026-11-09T05:02:31Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-10-15T10:07:38Z",
-    "updated_at": "2026-10-15T10:07:38Z",
-    "decay_at": "2026-10-16T20:09:36Z",
+    "surfaced_at": "2026-11-09T05:29:08Z",
+    "updated_at": "2026-11-09T05:29:08Z",
+    "decay_at": "2026-11-10T17:02:31Z",
     "status": "live",
     "promoted_signal_id": null
   }
