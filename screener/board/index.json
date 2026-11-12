@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T06:09:35Z",
+  "generated_at": "2026-11-12T06:18:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20261112-421",
@@ -694,6 +694,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-475",
+      "headline": "Sharon AI shrugs off chaos to attract big backers for $4.7b debt deal",
+      "headline_en": null,
+      "url": "https://www.afr.com/street-talk/huang-it-sharon-ai-attracts-global-heavyweights-for-4-7b-financing-20261112-p61dm4?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T04:10:22Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Sharon AI secured a $4.7 billion debt financing deal despite market volatility.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Sharon AI secured a $4.7 billion debt financing deal despite market volatility.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sharon AI",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1925,55 +1974,6 @@
       "companies": [
         {
           "name": "Naver",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-111",
-      "headline": "LH, 광명시흥·용인반도체에 2조원 추가 투입…'국가 핵심사업' 속도전",
-      "headline_en": "LH to invest an additional 2 trillion won in Gwangmyeong-Siheung and Yongin Semiconductor projects to accelerate national core initiatives.",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=281070",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T00:02:41Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Korea Land and Housing Corporation (LH) is injecting 2 trillion KRW into national core projects in Gwangmyeong-Siheung and Yongin Semiconductor clusters.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Korea Land and Housing Corporation (LH) is injecting 2 trillion KRW into national core projects in Gwangmyeong-Siheung and Yongin Semiconductor clusters.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Korea Land and Housing Corporation",
           "ticker": null,
           "listing_country": "KR"
         }
@@ -276637,9 +276637,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 472226,
-    "news_picked_today": 1241,
-    "news_dropped_today": 5023
+    "news_seen_today": 475779,
+    "news_picked_today": 1276,
+    "news_dropped_today": 5156
   },
   "book_momentum": {
     "live_count": 8,
