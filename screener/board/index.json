@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T00:10:31Z",
+  "generated_at": "2026-11-12T00:34:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20261112-008",
@@ -51,20 +51,118 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261112-013",
-      "headline": "Nvidia's board preparing to oust CEO Jensen Huang, sources say",
+      "inbox_id": "INB-20261112-036",
+      "headline": "CU6: First FDA Breakthrough Therapy designation in PSMA PET [price-sensitive]",
       "headline_en": null,
-      "url": "https://www.cbsnews.com/video/nvidias-board-preparing-oust-ceo-jensen-huang-sources-say/",
-      "source_name": "CBS MoneyWatch",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T23:48:52Z",
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CU6?key=2924-03160944-2A1710206",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-11T23:17:01Z",
       "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Reports of the board preparing to oust the CEO of a mega-cap company represent a major governance and leadership crisis.",
+      "prelim_note": "Received first FDA Breakthrough Therapy designation for PSMA PET imaging modality, advancing regulatory pathway and revenue expectations.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Reports of the board preparing to oust the CEO of a mega-cap company represent a major governance and leadership crisis.",
+      "triage_reason": "Received first FDA Breakthrough Therapy designation for PSMA PET imaging modality, advancing regulatory pathway and revenue expectations.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CU6",
+          "ticker": "CU6",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-067",
+      "headline": "EQT appoints sell-side advisers for $5b Icon Cancer Care sale",
+      "headline_en": null,
+      "url": "https://www.afr.com/street-talk/eqt-appoints-sell-side-advisers-for-5b-icon-cancer-care-sale-20261112-p61dk3?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T00:02:03Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "EQT is initiating a $5 billion sale process for Icon Cancer Care, representing a major divestment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "EQT is initiating a $5 billion sale process for Icon Cancer Care, representing a major divestment.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EQT",
+          "ticker": null,
+          "listing_country": "SE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-050",
+      "headline": "Nvidia's stock dives as board weighs move to oust Jensen Huang",
+      "headline_en": null,
+      "url": "https://www.cbsnews.com/news/nvidia-stock-dives-report-board-prepares-oust-jensen-huang/",
+      "source_name": "CBS MoneyWatch",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T23:56:19Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Nvidia board is reportedly weighing the ouster of CEO Jensen Huang, creating significant management uncertainty.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia board is reportedly weighing the ouster of CEO Jensen Huang, creating significant management uncertainty.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 90,
@@ -84,13 +182,14 @@
         "size_bucket": "mega"
       },
       "event_types": [
+        "management",
         "executive_exit"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
           "name": "Nvidia",
-          "ticker": null,
+          "ticker": "NVDA",
           "listing_country": "US"
         }
       ],
@@ -149,6 +248,215 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261112-059",
+      "headline": "Nvidia Board Meets on Huang’s Fate After Affair With Alleged Spy",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-11/nvidia-board-meets-on-huang-s-fate-after-affair-with-alleged-spy",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T23:28:56Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Nvidia board is actively meeting to decide the fate of CEO Jensen Huang amid allegations of an affair with an alleged spy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia board is actively meeting to decide the fate of CEO Jensen Huang amid allegations of an affair with an alleged spy.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management",
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-065",
+      "headline": "Nvidia's Jensen Huang accused of second affair with staffer, board considers ouster",
+      "headline_en": null,
+      "url": "https://www.datacenterdynamics.com/en/news/nvidias-jensen-huang-accused-of-second-affair-with-staffer-board-considers-ouster/",
+      "source_name": "DataCenterDynamics",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T23:27:37Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Nvidia's board is considering the ouster of CEO Jensen Huang following new allegations of misconduct.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia's board is considering the ouster of CEO Jensen Huang following new allegations of misconduct.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management",
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-029",
+      "headline": "Nvidia and Alphabet Just Agreed to Buy $10 Billion Each of Anthropic Stock at Its IPO Price",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/11/11/nvidia-and-alphabet-just-agreed-to-buy-usd10-billion-each-of-anthropic-stock-at-its-ipo-price/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T22:47:01Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Nvidia and Alphabet are each investing $10 billion in Anthropic, a major capital allocation event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia and Alphabet are each investing $10 billion in Anthropic, a major capital allocation event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Alphabet",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-025",
+      "headline": "CAE raises earnings forecast even as profits fall",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/business/article-cae-raises-earnings-forecast-even-as-profits-fall/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T22:40:29Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "CAE raised its earnings forecast despite a reported profit decline, signaling a shift in analyst expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CAE raised its earnings forecast despite a reported profit decline, signaling a shift in analyst expectations.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CAE",
+          "ticker": null,
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261112-018",
       "headline": "Pizza franchisee files Chapter 11 bankruptcy, chain cut 239 units",
       "headline_en": null,
@@ -193,100 +501,55 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261112-005",
-      "headline": "Nvidia preparing to oust CEO Jensen Huang who had second affair: reports",
+      "inbox_id": "INB-20261112-024",
+      "headline": "BC Partners to Buy Investcorp BDC Amid Private Credit Shakeout",
       "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/international/global/nvidia-preparing-oust-ceo-jensen-huang-who-had-second-affair-reports",
-      "source_name": "The Business Times (Singapore)",
+      "url": "https://www.bloomberg.com/news/articles/2026-11-11/bc-partners-to-buy-investcorp-bdc-amid-private-credit-shakeout",
+      "source_name": "Bloomberg",
       "input_nature": "news_headline",
-      "found_at": "2026-11-11T23:02:58Z",
+      "found_at": "2026-11-11T22:03:25Z",
       "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Reports of a potential ousting of the CEO of a mega-cap company due to personal scandal represent a major management and governance risk.",
+      "prelim_note": "BC Partners is acquiring an Investcorp BDC, representing a significant M&A event in the private credit sector.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Reports of a potential ousting of the CEO of a mega-cap company due to personal scandal represent a major management and governance risk.",
+      "triage_reason": "BC Partners is acquiring an Investcorp BDC, representing a significant M&A event in the private credit sector.",
       "region": "GLOBAL",
       "relevance": "material",
       "materiality_pre_score": 75,
       "rank_factors": {
         "materiality": 75,
         "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
         "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "multi_name",
         "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
+        "event_id": "mna",
+        "size_bucket": "unknown"
       },
       "event_types": [
-        "management",
-        "executive_exit"
+        "mna"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Nvidia",
+          "name": "BC Partners",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Investcorp",
           "ticker": null,
           "listing_country": null
         }
       ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-019",
-      "headline": "Nvidia’s stock drops as the board reportedly prepares to remove CEO Jensen Huang",
-      "headline_en": null,
-      "url": "https://www.marketwatch.com/bulletins/redirect/go?g=e5452e7e-073e-4c9a-8aa8-abdfe88a0ea1&mod=mw_rss_bulletins",
-      "source_name": "MarketWatch",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T22:52:41Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Stock price decline linked to reports of potential CEO removal highlights the market's sensitivity to leadership continuity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Stock price decline linked to reports of potential CEO removal highlights the market's sensitivity to leadership continuity.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -336,6 +599,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-096",
+      "headline": "Eli Lilly Just Raised Its 2026 Sales Forecast to as Much as $92 Billion. But Is Viking Therapeutics the Next Big Obesity Winner?",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/eli-lilly-just-raised-its-2026-sales-forecast-much-92-billion-viking-therapeutics-next-big",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T22:54:00Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Eli Lilly raises 2026 sales guidance to $92 billion; quantified upward revenue revision that resets analyst expectations and moves investor models.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Eli Lilly raises 2026 sales guidance to $92 billion; quantified upward revenue revision that resets analyst expectations and moves investor models.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Eli Lilly",
+          "ticker": "LLY",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -404,55 +716,6 @@
       "launched_signal_id": null,
       "triage_score": 97,
       "triage_reason": "Market sell-off driven by concerns over the potential departure of the CEO highlights significant leadership risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-021",
-      "headline": "Nvidia preparing to oust CEO Jensen Huang after affairs: WSJ",
-      "headline_en": null,
-      "url": "https://cointelegraph.com/news/nvidia-preparing-to-oust-ceo-jensen-huang-reports?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source_name": "Cointelegraph",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T22:44:47Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Continued reporting on the potential ouster of the CEO maintains high uncertainty regarding company leadership.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Continued reporting on the potential ouster of the CEO maintains high uncertainty regarding company leadership.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 80,
@@ -586,6 +849,154 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261112-061",
+      "headline": "Brazil fines Facebook $1.3 million for failing to comply with court orders during election",
+      "headline_en": null,
+      "url": "https://mainichi.jp/english/articles/20261112/p2g/00m/0bu/008000c",
+      "source_name": "The Mainichi",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T23:28:11Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Meta (Facebook) was fined $1.3 million by Brazilian authorities for non-compliance with court orders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Meta (Facebook) was fined $1.3 million by Brazilian authorities for non-compliance with court orders.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meta Platforms",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-087",
+      "headline": "Nissan trims losses and vows to return to profit for the full year",
+      "headline_en": null,
+      "url": "https://japantoday.com/category/business/japanese-automaker-nissan-reduces-red-ink-and-vows-to-return-to-profit-for-the-full-year",
+      "source_name": "Japan Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T21:57:13Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Nissan announced a reduction in losses and reaffirmed its commitment to full-year profitability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Nissan announced a reduction in losses and reaffirmed its commitment to full-year profitability.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nissan",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-049",
+      "headline": "Naver Quarterly Profit Falls on Year, Missing Expectations",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/earnings/naver-quarterly-profit-falls-on-year-missing-expectations-d394a172?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T23:50:00Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Naver reported a quarterly profit decline that missed analyst expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Naver reported a quarterly profit decline that missed analyst expectations.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Naver",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261112-009",
       "headline": "NEXTEER (01316): VOLUNTARY ANNOUNCEMENT APPROVAL OF UP TO US$60 MILLION SHARE REPURCHASE PROGRAMME",
       "headline_en": null,
@@ -635,6 +1046,252 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261112-084",
+      "headline": "Stock Market Today, Nov. 11: CoreWeave Surges 25% on Beat-and-Raise Quarter",
+      "headline_en": null,
+      "url": "https://www.fool.com/coverage/stock-market-today/2026/11/11/stock-market-today-nov-11-coreweave-surges-25-on-beat-and-raise-quarter/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T21:54:11Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "CoreWeave beat earnings consensus and raised full-year guidance, driving a 25% intraday stock move.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "CoreWeave beat earnings consensus and raised full-year guidance, driving a 25% intraday stock move.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CoreWeave",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-032",
+      "headline": "ESK: US Telco Project Expansion [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ESK?key=2924-03160960-2A1710223",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-11T23:53:51Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Company announced a project expansion in the US, which is explicitly flagged as price-sensitive.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Company announced a project expansion in the US, which is explicitly flagged as price-sensitive.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ESK",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-072",
+      "headline": "Adani to finance Chile copper project to secure long-term supply for Mundra smelter",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/markets/commodities/adani-group-partners-chiles-codelco-for-copper-exploration-project/article71691417.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T23:18:02Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Adani is financing a new copper project to secure supply chain vertical integration.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Adani is financing a new copper project to secure supply chain vertical integration.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adani",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-093",
+      "headline": "Commonwealth Bank sued by ASIC over business account fees",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/financial-services/commonwealth-bank-sued-by-asic-over-business-account-fees-20261112-p61dgz?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T22:08:54Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Commonwealth Bank sued by ASIC over business account fees; regulatory enforcement action by the regulator that may affect profitability, compliance costs, and reputation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Commonwealth Bank sued by ASIC over business account fees; regulatory enforcement action by the regulator that may affect profitability, compliance costs, and reputation.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Commonwealth Bank",
+          "ticker": "CBA",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-046",
+      "headline": "Swiftdata, owner of Nvidia-linked Megaspeed, lists address occupied by interior design firm",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/swiftdata-owner-nvidia-linked-megaspeed-lists-address-occupied-interior-design-firm",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T23:45:28Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Reports of a company linked to Nvidia occupying a suspicious address raise governance and fraud concerns.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Reports of a company linked to Nvidia occupying a suspicious address raise governance and fraud concerns.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "secondary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261112-006",
       "headline": "Rep. DelBene: Nvidia, Huang Should Face Investigation",
       "headline_en": null,
@@ -671,6 +1328,153 @@
         "regulatory"
       ],
       "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-055",
+      "headline": "MSCI says Indonesia’s Barito Pacific will be removed from its indexes",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/companies-markets/msci-says-indonesias-barito-pacific-will-be-removed-from-its-indexes",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T23:25:00Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Barito Pacific is being removed from MSCI indexes, which will trigger mechanical selling by index-tracking funds.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Barito Pacific is being removed from MSCI indexes, which will trigger mechanical selling by index-tracking funds.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "index_rebalance",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "index_rebalance"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Barito Pacific",
+          "ticker": null,
+          "listing_country": "ID"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-092",
+      "headline": "Feds arrest top official of healthcare company, alleging illegal drug importation",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/11/11/canarx-official-arrested-drug-importation.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T22:58:11Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Federal law enforcement arrested a top official of an unnamed healthcare company for alleged illegal drug importation; confirmed enforcement action by official source, but specific company and financial impact unidentified.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Federal law enforcement arrested a top official of an unnamed healthcare company for alleged illegal drug importation; confirmed enforcement action by official source, but specific company and financial impact unidentified.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Healthcare company (unnamed)",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-077",
+      "headline": "Lutnick stalled Trump crackdown on diversion of Nvidia chips to China: report",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/international/lutnick-stalled-trump-crackdown-diversion-nvidia-chips-china-report",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T22:46:46Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Report suggests potential political interference in export controls regarding high-end chips to China.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Report suggests potential political interference in export controls regarding high-end chips to China.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "secondary",
       "companies": [
         {
           "name": "Nvidia",
@@ -827,6 +1631,141 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261112-063",
+      "headline": "Cabinet approves Rs 62,370 crore fertiliser subsidy for rabi season",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/india/cabinet-approves-rs-62-370-cr-fertiliser-subsidy-for-rabi-season-2-4215161",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T23:33:36Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "The Indian government approved a Rs 62,370 crore fertiliser subsidy, impacting the agricultural and chemical sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "The Indian government approved a Rs 62,370 crore fertiliser subsidy, impacting the agricultural and chemical sector.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-064",
+      "headline": "India bans export of lithium-ion battery recycled material",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/business/india-bans-export-of-lithium-ion-battery-recycled-material-4215205",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T23:27:32Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "India has banned the export of recycled lithium-ion battery materials, impacting the battery supply chain.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "India has banned the export of recycled lithium-ion battery materials, impacting the battery supply chain.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-098",
+      "headline": "Why Gevo Stock Rocketed Higher Today",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/11/11/why-gevo-stock-rocketed-higher-today/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T22:23:40Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Significant stock price movement for Gevo warrants investor attention regarding underlying catalysts.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 79,
+      "triage_reason": "Significant stock price movement for Gevo warrants investor attention regarding underlying catalysts.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Gevo",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261112-015",
       "headline": "‘It looks bad from every single angle’: Investors and analysts react to report Nvidia planning to oust CEO Huang",
       "headline_en": null,
@@ -876,74 +1815,80 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261112-017",
-      "headline": "Fed Rate Hike Expectations Boost the Dollar",
+      "inbox_id": "INB-20261112-094",
+      "headline": "Franco-Nevada Q3 Profit Rises 38%",
       "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/fed-rate-hike-expectations-boost-dollar",
+      "url": "https://www.nasdaq.com/articles/franco-nevada-q3-profit-rises-38",
       "source_name": "Nasdaq",
       "input_nature": "news_headline",
-      "found_at": "2026-11-11T22:55:48Z",
+      "found_at": "2026-11-11T22:56:00Z",
       "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Fed rate hike expectations are a primary driver of currency market volatility and broader asset pricing.",
+      "prelim_note": "Franco-Nevada Q3 net profit up 38% year-on-year; real earnings report from a commodity-sensitive producer, but beat/miss context and guidance implications absent.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 66,
-      "triage_reason": "Fed rate hike expectations are a primary driver of currency market volatility and broader asset pricing.",
-      "region": "US",
+      "triage_score": 76,
+      "triage_reason": "Franco-Nevada Q3 net profit up 38% year-on-year; real earnings report from a commodity-sensitive producer, but beat/miss context and guidance implications absent.",
+      "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 60,
       "rank_factors": {
         "materiality": 60,
         "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
         "recency": 4,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "policy",
+        "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
       },
       "event_types": [
-        "macro_sector"
+        "earnings_revenue_margin"
       ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Franco-Nevada",
+          "ticker": "FVN",
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261112-003",
-      "headline": "ZNO: Update - Proposed issue of securities - ZNO",
+      "inbox_id": "INB-20261112-035",
+      "headline": "AAU: Application for quotation of securities - AAU",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ZNO?key=2924-03160940-2A1710204",
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AAU?key=2924-03160946-2A1710212",
       "source_name": "ASX (Australia Exchange Filing)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-11-11T23:01:46Z",
+      "found_at": "2026-11-11T23:25:46Z",
       "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Routine update regarding a proposed issue of securities.",
+      "prelim_note": "Company applying to list securities on exchange; preliminary capital action with no size, structure, or timeline disclosed yet.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "Routine update regarding a proposed issue of securities.",
+      "triage_score": 74,
+      "triage_reason": "Company applying to list securities on exchange; preliminary capital action with no size, structure, or timeline disclosed yet.",
       "region": "OTHER",
       "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
+      "materiality_pre_score": 55,
       "rank_factors": {
-        "materiality": 40,
+        "materiality": 55,
         "source_tier": 8,
         "scope": 6,
         "event": 0,
         "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 5,
+        "recency": 5,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -957,9 +1902,9 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "ZNO",
-          "ticker": null,
-          "listing_country": null
+          "name": "AAU",
+          "ticker": "AAU",
+          "listing_country": "AU"
         }
       ],
       "size_bucket": "unknown",
@@ -968,93 +1913,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261112-012",
-      "headline": "Regulator unveils steps to boost fairness, transparency in CEO selection for bank holding firms",
+      "inbox_id": "INB-20261112-074",
+      "headline": "Wall Street’s Newest Teradyne Bull Just Sent a $2 Billion Signal That the Stock’s 56% Crash Went Too Far",
       "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20261112001000320",
-      "source_name": "Yonhap News Agency — All News (English)",
+      "url": "https://247wallst.com/investing/2026/11/11/wall-streets-newest-teradyne-bull-just-sent-a-2-billion-signal-that-the-stocks-56-crash-went-too-far/",
+      "source_name": "24/7 Wall St.",
       "input_nature": "news_headline",
-      "found_at": "2026-11-11T23:30:01Z",
+      "found_at": "2026-11-11T23:07:32Z",
       "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "New regulatory steps for CEO selection in bank holding firms may impact governance and operational compliance.",
+      "prelim_note": "A significant analyst upgrade and capital signal suggests a potential valuation floor for Teradyne.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 61,
-      "triage_reason": "New regulatory steps for CEO selection in bank holding firms may impact governance and operational compliance.",
-      "region": "KR",
+      "triage_score": 73,
+      "triage_reason": "A significant analyst upgrade and capital signal suggests a potential valuation floor for Teradyne.",
+      "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 50,
+      "materiality_pre_score": 55,
       "rank_factors": {
-        "materiality": 50,
+        "materiality": 55,
         "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-011",
-      "headline": "Sylogist Announces Third Quarter 2026 Results | SYZLF Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/SYZLF/sylogist-announces-third-quarter-2026-0m4w6z4ai5dg.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-11-11T23:55:00Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Sylogist reported Q3 2026 financial results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 49,
-      "triage_reason": "Sylogist reported Q3 2026 financial results.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
         "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
+        "source_tier_id": "news",
+        "event_id": "ownership_activist",
+        "size_bucket": "large"
       },
       "event_types": [
-        "earnings_revenue_margin"
+        "ownership_activist"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Sylogist",
-          "ticker": "SYZLF",
+          "name": "Teradyne",
+          "ticker": null,
           "listing_country": "US"
         }
       ],
-      "size_bucket": "small",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -276782,7 +277684,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4749,
+    "inbox_unconsumed": 4767,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -276791,9 +277693,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 15839,
-    "news_picked_today": 22,
-    "news_dropped_today": 26
+    "news_seen_today": 46813,
+    "news_picked_today": 101,
+    "news_dropped_today": 283
   },
   "book_momentum": {
     "live_count": 8,
