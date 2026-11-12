@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-12T11:20:53Z",
+  "generated_at": "2026-11-12T11:22:52Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261112-569",
+      "headline": "Clean Max Enviro Energy Solutions Limited: Clean Max Enviro Energy Solutions Limited has informed the Exchange regarding a press release dated November 12, 2026, titled \"CleanMax Signs MoU with Andhra Pradesh to Invest Approx INR 50,000 crore in an Integrated Clean Energy Complex to Power a 2 GW Compute Factory\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/CLEANMAX_12112026160851_Press_Release.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-12T10:39:00Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "CleanMax signed an MoU to invest approximately INR 50,000 crore in an integrated clean energy complex in Andhra Pradesh.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CleanMax signed an MoU to invest approximately INR 50,000 crore in an integrated clean energy complex in Andhra Pradesh.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Clean Max Enviro Energy Solutions Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261112-565",
       "headline": "Oil India Limited: Oil India Limited has informed the Exchange regarding a press release dated November 12, 2026, titled \"OIL reported 20% growth in crude oil production resulting to 116% growth in Standalone PAT during Q2 FY27\".",
@@ -1925,55 +1974,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-394",
-      "headline": "ReNew to invest ₹29,500 cr in 2 new projects in Andhra Pradesh",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/renew-to-invest-29500-cr-in-2-new-projects-in-andhra-pradesh/article71692210.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T03:09:46Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "ReNew Power commits ₹29,500 crore (~$3.6 billion USD) capex for two new generation projects in Andhra Pradesh; material capacity expansion by India's largest independent renewable operator.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "ReNew Power commits ₹29,500 crore (~$3.6 billion USD) capex for two new generation projects in Andhra Pradesh; material capacity expansion by India's largest independent renewable operator.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ReNew Power",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -276700,9 +276700,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1031472,
-    "news_picked_today": 1588,
-    "news_dropped_today": 11228
+    "news_seen_today": 1037668,
+    "news_picked_today": 1591,
+    "news_dropped_today": 11249
   },
   "book_momentum": {
     "live_count": 8,
