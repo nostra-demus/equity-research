@@ -27,6 +27,7 @@ import sys
 import tempfile
 import time
 from pathlib import Path
+from unittest.mock import patch
 
 _HERE = Path(__file__).resolve().parent
 _FX = _HERE / "testdata" / "extract_bench"
@@ -854,6 +855,287 @@ def test_readiness_replaces_partial_ocr_before_freezing() -> None:
               and summary["generation_digest"] == complete["generation"]["digest"]
               and complete.get("vision_mode") is False,
               repr(summary))
+
+
+def _synthetic_pdf(path, pages):
+    """Tiny native / truly blank / image / vector pages; no rendering dependency."""
+    from pypdf import PdfWriter
+    from pypdf.generic import DictionaryObject, NameObject, NumberObject, DecodedStreamObject
+    writer = PdfWriter()
+    font = DictionaryObject({NameObject("/Type"): NameObject("/Font"),
+                             NameObject("/Subtype"): NameObject("/Type1"),
+                             NameObject("/BaseFont"): NameObject("/Helvetica")})
+    for kind, value in pages:
+        page = writer.add_blank_page(width=200, height=200)
+        if kind == "blank":
+            continue
+        stream = DecodedStreamObject()
+        if kind == "text":
+            page[NameObject("/Resources")] = DictionaryObject({
+                NameObject("/Font"): DictionaryObject({NameObject("/F1"): font})})
+            stream.set_data(f"BT /F1 10 Tf 10 100 Td ({value}) Tj ET".encode())
+        elif kind == "image":
+            image = DecodedStreamObject()
+            image.set_data(b"\x00")
+            image.update({NameObject("/Type"): NameObject("/XObject"),
+                          NameObject("/Subtype"): NameObject("/Image"),
+                          NameObject("/Width"): NumberObject(1), NameObject("/Height"): NumberObject(1),
+                          NameObject("/ColorSpace"): NameObject("/DeviceGray"),
+                          NameObject("/BitsPerComponent"): NumberObject(8)})
+            page[NameObject("/Resources")] = DictionaryObject({
+                NameObject("/XObject"): DictionaryObject({NameObject("/Im0"): writer._add_object(image)})})
+            stream.set_data(b"q 100 0 0 100 0 0 cm /Im0 Do Q")
+        else:
+            stream.set_data(b"0 0 100 100 re f")
+        page[NameObject("/Contents")] = writer._add_object(stream)
+    with open(path, "wb") as handle:
+        writer.write(handle)
+
+
+def test_pdf_physical_page_coverage() -> None:
+    """A mixed PDF's readable text is diagnostic, never corpus/readiness evidence."""
+    scratch = _HERE.parents[1] / ".cache" / "extract-pdf-tests"
+    scratch.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(dir=scratch) as td, patch.object(ep, "_OCR_ENABLED", False):
+        root = Path(td); pool = root / "data" / "PDFTEST"; pool.mkdir(parents=True)
+        out = root / "out"; corpus = root / "corpus.txt"
+        _synthetic_pdf(pool / "native.pdf", [("text", "NATIVE-CONTROL-OK"), ("blank", "")])
+        _synthetic_pdf(pool / "mixed.pdf", [("text", "PARTIAL-PDF-DIAGNOSTIC"),
+                                             ("image", ""), ("blank", ""), ("vector", "")])
+        with patch.object(ep, "_read_scanned_pdf", side_effect=AssertionError("mixed PDF must not spend")):
+            partial, err, _ = ep._read_pdf(str(pool / "mixed.pdf"))
+            head, head_err, _ = ep._read_pdf(str(pool / "mixed.pdf"), max_pages=1)
+        check("PDF coverage: mixed raster/vector pages are named physically",
+              "PARTIAL-PDF-DIAGNOSTIC" in partial and "physical pages 2, 4" in (err or ""), repr(err))
+        check("PDF coverage: bounded header sniff stays usable and visual-free",
+              "PARTIAL-PDF-DIAGNOSTIC" in head and head_err is None, repr(head_err))
+        with patch.object(ep.subprocess, "run", side_effect=FileNotFoundError("no Poppler")):
+            fallback, fallback_err = ep._read_pdf_text(str(pool / "mixed.pdf"))
+        check("PDF coverage: pure-Python fallback carries the same incomplete-page error",
+              "PARTIAL-PDF-DIAGNOSTIC" in fallback and "physical pages 2, 4" in (fallback_err or ""))
+        manifest = ep.extract_pool(str(pool), str(out), force=True, corpus_path=str(corpus), vision=False)
+        by = {row["file"]: row for row in manifest["sources"]}
+        failed = by["mixed.pdf"]
+        diagnostic = out / failed["extract"]
+        check("PDF coverage: native + intentional blank accepted; mixed is fail + bound diagnostic",
+              by["native.pdf"]["status"] == "ok" and failed["status"] == "fail"
+              and "PARTIAL-PDF-DIAGNOSTIC" in diagnostic.read_text()
+              and diagnostic.relative_to(out / ep._GENERATION_DIR_NAME / manifest["generation"]["digest"]).as_posix()
+                  in manifest["generation"]["artifacts"], repr(by))
+        check("PDF coverage: corpus excludes diagnostic partial text",
+              "NATIVE-CONTROL-OK" in corpus.read_text() and "PARTIAL-PDF-DIAGNOSTIC" not in corpus.read_text())
+        check("PDF coverage: Markdown shows the exact error alongside the diagnostic reference",
+              "physical pages 2, 4" in (out / "manifest.md").read_text()
+              and "diagnostic only" in (out / "manifest.md").read_text())
+        summary = ep.readiness_summary(str(pool), str(out))
+        check("PDF coverage: readiness excludes partial PDF and surfaces exact pages",
+              summary["usable_count"] == 1 and any("physical pages 2, 4" in issue.get("evidence", "")
+                                                         for issue in summary["issues"]), repr(summary))
+        # Inspection availability and page-level exceptions fail closed even with Poppler text.
+        poppler = subprocess.CompletedProcess([], 0, "NATIVE-CONTROL-OK\f", "")
+        with patch.dict(sys.modules, {"pypdf": None}), patch.object(ep.subprocess, "run", return_value=poppler):
+            unread, unavailable, _ = ep._read_pdf(str(pool / "native.pdf"))
+        check("PDF coverage: unavailable inspection retains diagnostic but never reports success",
+              bool(unread) and "inspection unavailable/failed" in (unavailable or ""), repr(unavailable))
+        with patch("pypdf.PdfReader", return_value=type("ZeroPages", (), {"pages": []})()), \
+                patch.object(ep.subprocess, "run", return_value=poppler):
+            unread, zero_pages, _ = ep._read_pdf(str(pool / "native.pdf"))
+        check("PDF coverage: zero physical pages cannot certify nonempty fallback text",
+              bool(unread) and "no verifiable physical pages" in (zero_pages or ""), repr(zero_pages))
+        with patch("pypdf.PdfReader", return_value=type("ZeroPages", (), {"pages": []})()), \
+                patch.object(ep, "_OCR_ENABLED", True), \
+                patch.object(ep, "_render_pdf_pages", side_effect=AssertionError("invalid PDF must not render")):
+            _, _, invalid_scan = ep._read_scanned_pdf(str(pool / "native.pdf"))
+        check("PDF coverage: invalid physical count is inspection failure, not a blank scan",
+              "no verifiable physical pages" in (invalid_scan or "") and "blank" not in invalid_scan,
+              repr(invalid_scan))
+        from pypdf import PageObject
+        if shutil.which("pdftotext"):
+            for decoder in (lambda *_args, **_kwargs: "", lambda *_args, **_kwargs: (_ for _ in ()).throw(ValueError("semantic decoder"))):
+                with patch.object(PageObject, "extract_text", decoder):
+                    primary, primary_err, _ = ep._read_pdf(str(_FX / "textlayer.pdf"))
+                check("PDF coverage: verified primary page survives secondary empty/error decoder",
+                      "Total Revenue 42" in primary and primary_err is None, repr(primary_err))
+            with patch.object(PageObject, "extract_text", side_effect=ValueError("semantic decoder")):
+                certified = ep.extract_pool(str(pool), str(root / "primary-out"), force=True, vision=False)
+                # Mixed pages still fail, while the native + real blank control remains usable.
+                native_row = next(row for row in certified["sources"] if row["file"] == "native.pdf")
+                native_only = root / "native-only"; native_only.mkdir()
+                (native_only / "native.pdf").write_bytes((pool / "native.pdf").read_bytes())
+                native_out = root / "native-certified"
+                native_manifest = ep.extract_pool(str(native_only), str(native_out), force=True, vision=False)
+                reused = ep._reuse_frozen_generation(str(native_only), str(native_out), native_manifest["generation"]["digest"])
+            check("PDF coverage: primary decoder coverage survives full admission and bound reuse",
+                  native_row["status"] == "ok" and reused["sources"][0]["status"] == "ok")
+        with patch.object(PageObject, "extract_text", side_effect=ValueError("bad page")), \
+                patch.object(ep.subprocess, "run", return_value=poppler):
+            _, page_err, _ = ep._read_pdf(str(pool / "native.pdf"))
+        check("PDF coverage: per-page extraction failures are not swallowed",
+              "failed on physical pages 1" in (page_err or ""), repr(page_err))
+
+
+def test_pdf_visual_completeness() -> None:
+    """All visual calls are mocked; capped/partial/cache text cannot become complete."""
+    scratch = _HERE.parents[1] / ".cache" / "extract-pdf-tests"
+    scratch.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(dir=scratch) as td:
+        root = Path(td); source = root / "scan.pdf"
+        _synthetic_pdf(source, [("image", ""), ("blank", ""), ("vector", "")])
+        cache = root / "cache"; cache.mkdir()
+        def rendered(_path, directory):
+            paths = []
+            for number in (1, 2, 3):
+                png = Path(directory) / f"pg-{number}.png"; png.write_bytes(b"fixture")
+                paths.append(str(png))
+            return paths
+        with patch.object(ep, "_OCR_ENABLED", True), patch.object(ep, "_vision_on", False), \
+                patch.object(ep, "_ocr_deadline", None), patch.object(ep, "_OCR_CACHE_DIR", str(cache)), \
+                patch.object(ep.shutil, "which", return_value="mock-tool"), \
+                patch.object(ep, "_render_pdf_pages", side_effect=rendered) as render, \
+                patch.object(ep, "_tesseract_pngs", return_value=("COMPLETE LOCAL OCR", [])) as ocr:
+            with patch.object(ep, "_OCR_MAX_PAGES", 2):
+                _, _, cap_err = ep._read_scanned_pdf(str(source))
+            check("PDF visuals: page cap names omitted physical page before any OCR",
+                  "physical pages 3" in (cap_err or "") and not render.called and not ocr.called, repr(cap_err))
+            with patch.object(ep, "_render_pdf_pages", return_value=[str(root / "pg-1.png")]):
+                _, _, omitted_err = ep._read_scanned_pdf(str(source))
+            check("PDF visuals: incomplete rasterisation cannot be accepted",
+                  "physical pages 3" in (omitted_err or "") and not ocr.called, repr(omitted_err))
+            def partial_ocr(paths):
+                return "PARTIAL OCR DIAGNOSTIC", [paths[-1]]
+            with patch.object(ep, "_tesseract_pngs", side_effect=partial_ocr):
+                partial, _, partial_err = ep._read_scanned_pdf(str(source))
+            check("PDF visuals: partial OCR is diagnostic with exact failed physical page",
+                  partial == "PARTIAL OCR DIAGNOSTIC" and "physical pages 3" in (partial_err or "")
+                  and not list(cache.glob("*.txt")), repr(partial_err))
+            both_pool = root / "data" / "PARTIALS"; both_pool.mkdir(parents=True)
+            (both_pool / "scan.pdf").write_bytes(source.read_bytes())
+            def partial_vision(paths, _label=""):
+                failure = RuntimeError("vision batch truncated")
+                failure.partial_text = "RETAIN VISION PARTIAL"
+                failure.unread_paths = paths[-1:]
+                raise failure
+            both_out = root / "partial-out"; both_corpus = root / "partial-corpus.txt"
+            with patch.object(ep, "_vision_configured", return_value=True), \
+                    patch.object(ep, "_vision_transcribe", side_effect=partial_vision), \
+                    patch.object(ep, "_tesseract_pngs", side_effect=partial_ocr):
+                both = ep.extract_pool(str(both_pool), str(both_out), force=True, vision=False, corpus_path=str(both_corpus))
+            both_row = both["sources"][0]
+            both_text = (both_out / both_row["extract"]).read_text()
+            check("PDF visuals: failed vision + failed OCR retain both labelled diagnostic sections",
+                  both_row["status"] == "fail" and "RETAIN VISION PARTIAL" in both_text
+                  and "PARTIAL OCR DIAGNOSTIC" in both_text and both_text.count("DIAGNOSTIC ONLY") == 2
+                  and "vision batch truncated" in both_row["error"] and "physical pages 3" in both_row["error"]
+                  and not both_corpus.read_text() and not list(cache.glob("*.txt")), repr(both_row))
+            text, note, complete_err = ep._read_scanned_pdf(str(source))
+            check("PDF visuals: complete per-page local OCR accounts for intentional blank",
+                  text == "COMPLETE LOCAL OCR" and complete_err is None and "every nonblank" in note
+                  and len(ocr.call_args.args[0]) == 2)
+            saved = Path(ep._read_cache_path(str(source), "tesseract"))
+            saved.with_name(saved.name + ".coverage.json").unlink()
+            ocr.reset_mock(); render.reset_mock()
+            legacy, _, legacy_err = ep._read_scanned_pdf(str(source))
+            check("PDF visuals: legacy cache is diagnostic without implicit retry",
+                  legacy == text and "no valid page-coverage proof" in (legacy_err or "")
+                  and not ocr.called and not render.called, repr(legacy_err))
+            with patch.object(ep, "_vision_configured", return_value=True), \
+                    patch.object(ep, "_vision_transcribe", side_effect=AssertionError("legacy cache must not repay")):
+                alternate, _, alternate_err = ep._read_scanned_pdf(str(source))
+            check("PDF visuals: provider upgrade cannot silently repay an unproved existing cache",
+                  alternate == text and "no valid page-coverage proof" in (alternate_err or ""))
+            ep._write_pdf_visual_cache(str(saved), str(source), text, ep._inspect_pdf_pages(str(source)), "tesseract")
+            scan_pool = root / "data" / "SCAN"; scan_pool.mkdir(parents=True)
+            (scan_pool / "scan.pdf").write_bytes(source.read_bytes())
+            scan_out = root / "out"
+            certified = ep.extract_pool(str(scan_pool), str(scan_out), force=True, vision=False)
+            with patch.object(ep, "_read_scanned_pdf", side_effect=AssertionError("frozen reuse must not OCR")), \
+                    patch.object(ep, "_complete_pool_inventory", side_effect=AssertionError("must not read live pool")):
+                reused = ep._reuse_frozen_generation(str(scan_pool), str(scan_out), certified["generation"]["digest"])
+            check("PDF visuals: complete coverage proof is digest-bound and reusable without OCR/live pool",
+                  reused["sources"][0]["status"] == "ok"
+                  and reused["sources"][0]["pdf_page_coverage"]["required_pages"] == [1, 3])
+        with patch.object(ep.subprocess, "run", side_effect=[
+                subprocess.CompletedProcess([], 0, "FIRST PAGE", ""),
+                subprocess.TimeoutExpired("tesseract", 1)]):
+            partial, missing = ep._tesseract_pngs(["pg-1.png", "pg-3.png"])
+        check("PDF visuals: local per-file timeout cannot silently return partial success",
+              partial == "FIRST PAGE" and missing == ["pg-3.png"], repr(missing))
+        # Preserve the existing batches; prove submitted inputs and reject a truncated batch.
+        images = []
+        for number in (1, 3, 4):
+            image = root / f"pg-{number}.png"; image.write_bytes(b"fixture"); images.append(str(image))
+        class Response:
+            def __init__(self, text, stop="end_turn"):
+                self.payload = {"stop_reason": stop, "content": [{"type": "text", "text": text}]}
+            def __enter__(self):
+                return self
+            def __exit__(self, *_args):
+                pass
+            def read(self):
+                return json.dumps(self.payload).encode()
+        with patch.object(ep, "_anthropic_key", return_value="offline-fixture"), \
+                patch.object(ep, "_VISION_BATCH_PAGES", 2):
+            with patch.object(ep.urllib.request, "urlopen", side_effect=[Response("batch1"), Response("batch2")]) as provider:
+                vision_text = ep._vision_transcribe(images)
+            submitted = [json.loads(call.args[0].data) for call in provider.call_args_list]
+            check("PDF visuals: existing batching submits every nonblank physical page without extra calls",
+                  provider.call_count == 2 and vision_text == "batch1\n\nbatch2"
+                  and sum(sum(block.get("type") == "image" for block in body["messages"][0]["content"])
+                          for body in submitted) == 3)
+            truncated = None
+            with patch.object(ep.urllib.request, "urlopen", side_effect=[Response("batch1"), Response("cut", "max_tokens")]):
+                try:
+                    ep._vision_transcribe(images)
+                except RuntimeError as exc:
+                    truncated = exc
+            check("PDF visuals: truncated batch fails and preserves partial transcription diagnostically",
+                  truncated is not None and truncated.partial_text == "batch1\n\ncut"
+                  and truncated.unread_paths == images[2:])
+            with patch.object(ep.urllib.request, "urlopen") as provider:
+                try:
+                    ep._vision_transcribe([str(root / "absent.png")])
+                    unreadable_failed = False
+                except RuntimeError:
+                    unreadable_failed = True
+            check("PDF visuals: unreadable image cannot be silently skipped or sent",
+                  unreadable_failed and not provider.called)
+
+
+def test_pdf_old_generation_coverage() -> None:
+    """Guard upgrade rebuilds live verdicts, retaining old generation bytes unchanged."""
+    scratch = _HERE.parents[1] / ".cache" / "extract-pdf-tests"
+    scratch.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(dir=scratch) as td, patch.object(ep, "_OCR_ENABLED", False):
+        root = Path(td); pool = root / "data" / "PDFOLD"; pool.mkdir(parents=True); out = root / "out"
+        source = pool / "mixed.pdf"
+        _synthetic_pdf(source, [("text", "OLD PARTIAL TEXT"), ("image", "")])
+        with patch.object(ep, "_CACHE_GUARD_VERSION", 3), \
+                patch.object(ep, "_read_pdf", return_value=("OLD PARTIAL TEXT", None, None)):
+            old = ep.extract_pool(str(pool), str(out), force=True, vision=False)
+        old_dir = out / ep._GENERATION_DIR_NAME / old["generation"]["digest"]
+        before = {path.relative_to(old_dir).as_posix(): path.read_bytes() for path in old_dir.rglob("*") if path.is_file()}
+        fresh = ep.extract_pool(str(pool), str(out), vision=False)
+        check("PDF cache: guard revision rebuilds old partial success as failed new generation",
+              fresh["sources"][0]["status"] == "fail" and fresh["generation"]["digest"] != old["generation"]["digest"])
+        frozen_error = ""
+        try:
+            ep._reuse_frozen_generation(str(pool), str(out), old["generation"]["digest"])
+        except ep.FrozenPoolGenerationError as exc:
+            frozen_error = str(exc)
+        check("PDF cache: old frozen success refuses unverified coverage without rewriting",
+              "frozen PDF page coverage unverified" in frozen_error and "physical pages 2" in frozen_error,
+              frozen_error)
+        check("PDF cache: prior immutable generation remains byte-for-byte unchanged",
+              before == {path.relative_to(old_dir).as_posix(): path.read_bytes() for path in old_dir.rglob("*") if path.is_file()})
+        native_pool = root / "data" / "NATIVE"; native_pool.mkdir()
+        _synthetic_pdf(native_pool / "native.pdf", [("text", "OLD NATIVE TEXT"), ("blank", "")])
+        native_out = root / "native-out"
+        with patch.object(ep, "_pdf_visual_cache_proof", return_value=None):
+            native = ep.extract_pool(str(native_pool), str(native_out), force=True, vision=False)
+        with patch.object(ep, "_complete_pool_inventory", side_effect=AssertionError("must not read live pool")):
+            native_reused = ep._reuse_frozen_generation(str(native_pool), str(native_out), native["generation"]["digest"])
+        check("PDF cache: old native + intentional blank can be revalidated from bound raw and extract",
+              native_reused["sources"][0]["status"] == "ok")
 
 
 def test_durable_relationship_artifact() -> None:
@@ -1989,6 +2271,10 @@ def main() -> int:
     test_provenance_is_parsed_from_the_captured_snapshot()
     print("== readiness freezes only complete provider-neutral OCR ==")
     test_readiness_replaces_partial_ocr_before_freezing()
+    print("== physical PDF page coverage and diagnostic-only partial reads ==")
+    test_pdf_physical_page_coverage()
+    test_pdf_visual_completeness()
+    test_pdf_old_generation_coverage()
     print("== extraction output lease is bounded and cancellable ==")
     test_output_lease_is_bounded_and_cancellable()
     print("== supply-chain relationship graph crosses the cache/deployment boundary ==")

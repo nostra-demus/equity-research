@@ -18,6 +18,9 @@ text layer is absent — image-only/scanned PDFs AND standalone images (screensh
 tables, charts). Those visual sources are transcribed to Markdown by Claude vision (best; verbatim
 tables/charts) when ANTHROPIC_API_KEY is set, else by tesseract OCR (offline floor). Results are cached
 per (file + method + model), so the cost — and any token spend — is paid once per file, ever.
+Full PDF reads account for physical text-bearing, genuinely blank and unresolved visual pages.
+Incomplete reads retain diagnostic text with EXTRACT-FAIL and cannot enter the research corpus.
+This is page coverage, not semantic verification of images within text-bearing pages or of OCR accuracy.
 
 ANY LANGUAGE, TRANSCRIBED VERBATIM. Non-English filings (Arabic, Mandarin, Japanese, …) are extracted
 exactly like English ones — the vision/OCR transcriber reproduces the ORIGINAL script verbatim and
@@ -999,20 +1002,85 @@ def _read_pdf_text(path, max_pages=None):
     # poppler is absent or yields nothing, so PDF extraction never hard-depends on a system
     # binary. [fix DD-16 — live-validated on the TMCV pool, where Homebrew lacked pdftotext
     # and all 8 statutory PDFs (annual reports + transcripts) produced zero extracts.]
+    poppler_text = ""
+    poppler_error = None
     try:
         cmd = ["pdftotext"] + (["-l", str(max_pages)] if max_pages else []) + ["-layout", path, "-"]
         r = subprocess.run(cmd, capture_output=True, text=True, timeout=120)
         if r.returncode == 0 and r.stdout.strip():
-            return r.stdout, None
-        # poppler present but produced no text (image-only scan, or a soft error) — try pypdf
-        txt, err = _read_pdf_py(path, max_pages)
-        return (txt, None) if txt.strip() else ("", err or f"pdftotext rc={r.returncode}; pypdf produced no text")
-    except FileNotFoundError:
-        # poppler not installed at all — pure-Python fallback
-        txt, err = _read_pdf_py(path, max_pages)
-        return (txt, None) if txt.strip() else ("", err or "pdftotext not installed and pypdf produced no text")
+            # Header sniffing stays bounded and never invokes visual readers.
+            if max_pages is not None:
+                return r.stdout, None
+            poppler_text = r.stdout
+        else:
+            poppler_error = f"pdftotext rc={r.returncode}"
     except Exception as e:  # noqa
-        return "", f"{type(e).__name__}: {e}"
+        poppler_error = f"pdftotext: {type(e).__name__}: {e}"
+    layout_pages = None
+    if poppler_text:
+        layout_pages = poppler_text.split("\f")
+        if layout_pages and not layout_pages[-1].strip():
+            layout_pages.pop()
+    inspected = _inspect_pdf_pages(path, max_pages, primary_pages=layout_pages)
+    # Verified primary page text is sufficient. Empty primary pages alone need
+    # semantic fallback/blank inspection; the two decoders need not agree.
+    txt = inspected["text"] or poppler_text
+    return txt, inspected["error"] or (None if txt.strip() else poppler_error or "PDF has no extractable text")
+
+
+def _inspect_pdf_pages(path, max_pages=None, primary_pages=None):
+    """Account for physical pages, not semantic completeness within text-bearing pages.
+
+    Empty content (or only nonpainting operators) is an intentional-blank control.
+    Textless paint, images, annotations and unknown operators require a visual read;
+    extraction/inspection exceptions are never treated as blanks. This does NOT
+    verify images embedded in pages that already have extractable text.
+    """
+    result = {"text": "", "page_texts": [], "page_count": None, "required_pages": [], "failed_pages": [], "error": None}
+    # The complement is deliberately conservative: unknown operators cannot prove a blank.
+    nonpainting = set(b"q Q cm w J j M d ri i gs CS cs SC SCN sc scn G g RG rg K k m l c v y h re W W* n BT ET Tc Tw Tz TL Tf Tr Ts Td TD Tm T* d0 d1 MP DP BMC BDC EMC BX EX".split())
+    try:
+        import pypdf
+        reader = pypdf.PdfReader(path)
+        result["page_count"] = len(reader.pages)
+        if result["page_count"] < 1:
+            raise ValueError("PDF has no verifiable physical pages")
+        count = min(max_pages, len(reader.pages)) if max_pages is not None else len(reader.pages)
+        primary_verified = primary_pages is not None and len(primary_pages) == result["page_count"]
+        parts = []
+        for index in range(count):
+            try:
+                page = reader.pages[index]
+                text = primary_pages[index] if primary_verified else ""
+                painted = False
+                if not text.strip():
+                    contents = page.get_contents()
+                    painted = bool(page.get("/Annots")) or (contents is not None and any(
+                        operator not in nonpainting for _operands, operator in contents.operations))
+                    if painted:
+                        text = page.extract_text() or ""
+                parts.append(text)
+                if text.strip():
+                    continue
+                if painted:
+                    result["required_pages"].append(index + 1)
+            except Exception:
+                if len(parts) <= index:
+                    parts.append("")
+                result["failed_pages"].append(index + 1)
+        result["page_texts"] = parts
+        result["text"] = "\f".join(parts)
+        errors = []
+        if result["required_pages"]:
+            errors.append("textless nonblank physical pages " + ", ".join(map(str, result["required_pages"])))
+        if result["failed_pages"]:
+            errors.append("inspection/extraction failed on physical pages " + ", ".join(map(str, result["failed_pages"])))
+        if errors:
+            result["error"] = "PDF page coverage incomplete: " + "; ".join(errors)
+    except Exception as e:
+        result["page_count"] = None
+        result["error"] = f"PDF page coverage inspection unavailable/failed ({type(e).__name__}: {e})"
+    return result
 
 
 def _read_pdf_py(path, max_pages=None):
@@ -1020,22 +1088,8 @@ def _read_pdf_py(path, max_pages=None):
     Poppler's `pdftotext -layout` is preferred for table alignment; this keeps the engine
     working on machines without poppler. An image-only / scanned PDF still yields no text here
     (the caller marks it image-only) — that is a real limitation, not a fallback failure."""
-    try:
-        import pypdf
-    except Exception as e:
-        return "", f"pypdf unavailable ({e}); run .claude/tools/setup-tools.sh"
-    try:
-        reader = pypdf.PdfReader(path)
-        pages = reader.pages[:max_pages] if max_pages else reader.pages
-        out = []
-        for pg in pages:
-            try:
-                out.append(pg.extract_text() or "")
-            except Exception:
-                continue  # one bad page shouldn't sink the whole document
-        return "\n".join(out), None
-    except Exception as e:
-        return "", f"pypdf: {type(e).__name__}: {e}"
+    inspected = _inspect_pdf_pages(path, max_pages)
+    return inspected["text"], inspected["error"]
 
 
 # ---------- visual reading for image-only PDFs + standalone images ----------
@@ -1203,29 +1257,39 @@ def _ocr_available():
 def _render_pdf_pages(path, out_dir):
     """Rasterise up to _OCR_MAX_PAGES pages to PNG via pdftoppm (poppler). Shared by vision + OCR."""
     prefix = os.path.join(out_dir, "pg")
-    subprocess.run(
+    rendered = subprocess.run(
         ["pdftoppm", "-png", "-r", str(_OCR_DPI), "-f", "1", "-l", str(_OCR_MAX_PAGES), path, prefix],
         capture_output=True, timeout=_OCR_PER_FILE_TIMEOUT,
     )
+    if rendered.returncode != 0:
+        raise RuntimeError(f"pdftoppm rc={rendered.returncode}; page rendering incomplete")
     return sorted(glob.glob(prefix + "*.png"))
 
 
 def _tesseract_pngs(pngs):
-    """OCR a list of pre-rendered PNGs, bounded by one wall-clock deadline across the loop."""
+    """Return diagnostic text and unsuccessful page paths; a deadline is not success."""
     deadline = _time.monotonic() + _OCR_PER_FILE_TIMEOUT
     parts = []
-    for png in pngs:
+    failed = []
+    for index, png in enumerate(pngs):
         remaining = deadline - _time.monotonic()
         if remaining < 3:
-            break  # out of time — keep what we OCR'd; the rest come on the next (cached) pass
+            failed.extend(pngs[index:])
+            break
         try:
             r = subprocess.run(["tesseract", png, "stdout", "--psm", "1"],
                                capture_output=True, text=True, timeout=remaining)
         except subprocess.TimeoutExpired:
+            failed.extend(pngs[index:])
             break
-        if r.returncode == 0 and r.stdout.strip():
+        except Exception:
+            failed.extend(pngs[index:])
+            break
+        if r.stdout.strip():
             parts.append(r.stdout)
-    return "\n".join(parts)
+        if r.returncode != 0 or not r.stdout.strip():
+            failed.append(png)
+    return "\n".join(parts), failed
 
 
 def _normalize_image_to_png(path, out_dir):
@@ -1260,17 +1324,26 @@ def _vision_transcribe(png_paths, label=""):
     if not key or not png_paths:
         return ""
     out = []
+    def incomplete(message, partial=""):
+        error = RuntimeError(message)
+        error.partial_text = "\n\n".join(out + ([partial] if partial.strip() else []))
+        error.unread_paths = png_paths[i:]
+        return error
     for i in range(0, len(png_paths), max(1, _VISION_BATCH_PAGES)):
         batch = png_paths[i:i + max(1, _VISION_BATCH_PAGES)]
         content = []
         for j, pp in enumerate(batch):
             try:
                 b = open(pp, "rb").read()
-            except Exception:
-                continue
+            except Exception as e:
+                raise incomplete(f"vision input image unreadable: {os.path.basename(pp)}") from e
+            if not b:
+                raise incomplete(f"vision input image empty: {os.path.basename(pp)}")
             content.append({"type": "image", "source": {"type": "base64", "media_type": "image/png",
                             "data": base64.b64encode(b).decode("ascii")}})
-            content.append({"type": "text", "text": f"— page {i + j + 1} —"})
+            physical = re.search(r"pg-(\d+)\.png$", pp)
+            number = int(physical.group(1)) if physical else i + j + 1
+            content.append({"type": "text", "text": f"— page {number} —"})
         if not content:
             continue
         content.append({"type": "text", "text": "Transcribe the page(s) above to Markdown, verbatim."})
@@ -1292,13 +1365,14 @@ def _vision_transcribe(png_paths, label=""):
                 detail = e.read().decode("utf-8", "ignore")[:200]
             except Exception:
                 pass
-            raise RuntimeError(f"anthropic HTTP {e.code}: {detail}")
+            raise incomplete(f"anthropic HTTP {e.code}: {detail}")
         except Exception as e:  # noqa
-            raise RuntimeError(f"anthropic {type(e).__name__}: {e}")
+            raise incomplete(f"anthropic {type(e).__name__}: {e}")
         blocks = data.get("content") or []
         txt = "".join(b.get("text", "") for b in blocks if isinstance(b, dict) and b.get("type") == "text")
-        if txt.strip():
-            out.append(txt)
+        if data.get("stop_reason") != "end_turn" or not txt.strip():
+            raise incomplete("vision batch empty, truncated, or did not finish normally", txt)
+        out.append(txt)
     return "\n\n".join(out)
 
 
@@ -1316,12 +1390,46 @@ def _read_scanned_pdf(path):
     Returns (text, note, err)."""
     if not _OCR_ENABLED:
         return "", None, None
+    inspected = _inspect_pdf_pages(path)
+    required = inspected["required_pages"]
+    if inspected["page_count"] is None or inspected["failed_pages"]:
+        return "", None, inspected["error"]
+    if not required:
+        return "", None, "PDF has no extractable text; all inspected physical pages are blank"
+    page_list = ", ".join(map(str, required))
     tag = f"claude:{_VISION_MODEL}" if _vision_configured() else "tesseract"
     cache = _read_cache_path(path, tag)
     hit = _cache_read(cache)
+    # An unproved cache from the other existing method is not permission to
+    # buy another transcription during a provider upgrade or key change.
+    if hit is None:
+        alternate = "tesseract" if tag.startswith("claude") else f"claude:{_VISION_MODEL}"
+        alternate_cache = _read_cache_path(path, alternate)
+        alternate_text = _cache_read(alternate_cache)
+        if alternate_text is not None:
+            try:
+                with open(alternate_cache + ".coverage.json", encoding="utf-8") as handle:
+                    alternate_proof = json.load(handle)
+                if alternate_proof != _pdf_visual_cache_proof(path, alternate_text, inspected, alternate):
+                    raise ValueError("coverage binding differs")
+            except Exception:
+                cache, hit, tag = alternate_cache, alternate_text, alternate
     if hit is not None:
-        return hit, ("read via Claude vision (was image-only scan; cached)" if tag.startswith("claude")
-                     else "OCR'd (was image-only scan; cached)"), None
+        try:
+            with open(cache + ".coverage.json", encoding="utf-8") as handle:
+                proof = json.load(handle)
+            if proof != _pdf_visual_cache_proof(path, hit, inspected, tag):
+                raise ValueError("coverage binding differs")
+        except Exception:
+            return hit, None, ("PDF page coverage unproven: cached visual text has no valid page-coverage proof; "
+                               f"physical pages {page_list}. Cached text retained diagnostically; "
+                               "no automatic paid retry. Revalidate explicitly with a complete local read.")
+        return hit, ("read via Claude vision (cached; complete page-image submission, not semantic verification)"
+                     if tag.startswith("claude") else "OCR'd (cached; every nonblank physical page processed)"), None
+    beyond_cap = [page for page in required if page > _OCR_MAX_PAGES]
+    if beyond_cap:
+        return "", None, (f"PDF page coverage incomplete: OCR/vision page cap {_OCR_MAX_PAGES} omits physical pages "
+                          + ", ".join(map(str, beyond_cap)))
     if _ocr_deadline is not None and _time.monotonic() > _ocr_deadline:
         return "", None, ("image-only/scanned PDF — visual read deferred (pre-flight time budget); "
                           "it will be read automatically when the run starts")
@@ -1330,29 +1438,77 @@ def _read_scanned_pdf(path):
     try:
         with tempfile.TemporaryDirectory() as td:
             pages = _render_pdf_pages(path, td)
-            if not pages:
-                return "", None, "image-only/scanned PDF — could not rasterise pages"
+            numbered = {}
+            for png in pages:
+                match = re.search(r"-(\d+)\.png$", png)
+                if not match or int(match.group(1)) in numbered:
+                    return "", None, f"PDF page coverage incomplete: ambiguous rasterised physical pages {page_list}"
+                numbered[int(match.group(1))] = png
+            omitted = [page for page in required if page not in numbered]
+            if omitted:
+                return "", None, ("PDF page coverage incomplete: could not rasterise physical pages "
+                                  + ", ".join(map(str, omitted)))
+            pages = [numbered[page] for page in required]
+            vision_partial, vision_error, unread_paths = "", None, pages
             if _vision_configured():
                 try:
                     txt = _vision_transcribe(pages, os.path.basename(path))
                     if txt.strip():
-                        _cache_write(cache, txt)
-                        return txt, "read via Claude vision (was image-only scan)", None
-                except Exception:
-                    pass  # fall through to the tesseract floor
+                        _write_pdf_visual_cache(cache, path, txt, inspected, tag)
+                        return txt, "read via Claude vision (complete page-image submission, not semantic verification)", None
+                except Exception as e:
+                    vision_partial, vision_error = getattr(e, "partial_text", ""), str(e)
+                    unread_paths = getattr(e, "unread_paths", pages)
             if shutil.which("tesseract"):
-                txt = _tesseract_pngs(pages)
+                txt, failed = _tesseract_pngs(pages)
+                if failed:
+                    missing = [page for page in required if numbered[page] in failed]
+                    error = ("PDF page coverage incomplete: OCR failed, empty, or timed out on physical pages "
+                             + ", ".join(map(str, missing)))
+                    if vision_partial:
+                        vision_missing = [page for page in required if numbered[page] in unread_paths]
+                        txt = ("# DIAGNOSTIC ONLY — incomplete Claude vision transcription\n" + vision_partial
+                               + "\n\n# DIAGNOSTIC ONLY — incomplete local OCR transcription\n" + txt)
+                        error += (f"; Claude vision also incomplete ({vision_error}); physical pages "
+                                  + ", ".join(map(str, vision_missing)))
+                    return txt, None, error
                 if txt.strip():
-                    _cache_write(_read_cache_path(path, "tesseract"), txt)
-                    return txt, "OCR'd (was image-only scan)", None
+                    _write_pdf_visual_cache(_read_cache_path(path, "tesseract"), path, txt, inspected, "tesseract")
+                    note = "OCR'd (every nonblank physical page processed)"
+                    if vision_error:
+                        note += "; Claude vision failed, used existing local OCR fallback"
+                    return txt, note, None
+            if vision_error:
+                missing = [page for page in required if numbered[page] in unread_paths]
+                return vision_partial, None, (f"PDF page coverage incomplete: {vision_error}; physical pages "
+                                              + ", ".join(map(str, missing)))
     except subprocess.TimeoutExpired:
-        return "", None, f"image-only/scanned PDF — visual read timed out after {_OCR_PER_FILE_TIMEOUT}s"
+        return "", None, (f"PDF page coverage incomplete: visual read timed out after {_OCR_PER_FILE_TIMEOUT}s; "
+                          f"physical pages {page_list}")
     except Exception as e:  # noqa
-        return "", None, f"image-only/scanned PDF — visual read failed ({type(e).__name__}: {e})"
+        return "", None, (f"PDF page coverage incomplete: visual read failed ({type(e).__name__}: {e}); "
+                          f"physical pages {page_list}")
     # a reader ran but found nothing (blank/graphic pages) vs no reader available at all
     if _vision_configured() or shutil.which("tesseract"):
         return "", None, "image-only/scanned PDF — no readable text found (blank or pure-graphic pages?)"
     return "", None, _no_reader_note("image-only/scanned PDF")
+
+
+def _pdf_visual_cache_proof(path, text, inspected, tag):
+    identity = (f"sha256:{hashlib.sha256(path).hexdigest()}|size:{len(path)}"
+                if isinstance(path, bytes) else _visual_source_identity(path))
+    return {"version": 1, "source": identity, "method": tag,
+            "page_count": inspected["page_count"], "required_pages": inspected["required_pages"],
+            "text_sha256": hashlib.sha256(text.encode("utf-8")).hexdigest()}
+
+
+def _write_pdf_visual_cache(cache, path, text, inspected, tag):
+    if cache:
+        _cache_write(cache, text)
+        try:
+            _atomic_json(cache + ".coverage.json", _pdf_visual_cache_proof(path, text, inspected, tag))
+        except Exception:
+            pass  # this completed read is usable; a cache without proof will fail closed next time
 
 
 def _read_image_file(path):
@@ -1399,16 +1555,18 @@ def _read_pdf(path, max_pages=None):
     """Extract PDF text. Returns (text, err, note). Tries pdftotext -> pypdf; on a FULL read
     (max_pages is None — not the fast header sniff) that yields nothing, transcribes the scan
     (Claude vision or tesseract) once and caches it, so an image-only PDF becomes usable everywhere
-    instead of a permanent 'needs OCR' fail. The header-sniff path (max_pages set) never does this."""
+    instead of a permanent 'needs OCR' fail. Text plus an error is diagnostic only;
+    nonempty text does not erase incomplete physical-page coverage. The header-sniff
+    path (max_pages set) never invokes visual reading."""
     txt, err = _read_pdf_text(path, max_pages)
     if txt.strip():
-        return txt, None, None
+        return txt, err, None
     if max_pages is None:
         vtxt, note, verr = _read_scanned_pdf(path)
         if vtxt.strip():
-            return vtxt, None, note
+            return vtxt, verr, note
         if verr:
-            err = verr
+            err = "; ".join(dict.fromkeys(reason for reason in (err, verr) if reason))
     return "", err, None
 
 
@@ -1642,10 +1800,9 @@ def _pool_output_lease(out_dir, timeout_s=None, cancelled=None):
         if fd is not None:
             os.close(fd)
 
-# v3: _file_guard_identity dropped ctime_ns (a Drive xattr touch on one file was discarding the
-# whole cached manifest). The shape changed, so every v2 guard must be treated as stale rather than
-# compared field-by-field against a differently-shaped dict.
-_CACHE_GUARD_VERSION = 3
+# v4: full PDF reads now require physical-page coverage. Rebuild live caches;
+# immutable old generations are never rewritten (frozen reuse validates separately).
+_CACHE_GUARD_VERSION = 4
 
 def _complete_pool_inventory(data_path):
     """Return every safe pool file, or fail if traversal was incomplete.
@@ -2153,6 +2310,56 @@ def _reuse_frozen_generation(
         data_path, out_dir, digest, require_complete=True,
         binding_out_dir=binding_out_dir,
     )
+    # A historical digest authenticates its old verdict, not today's reader quality.
+    # Revalidate only exact bound bytes, with no live-pool access or OCR/provider calls.
+    generation = manifest["generation"]
+    for source in manifest.get("sources", []):
+        if source.get("kind") != "pdf" or source.get("status") not in USABLE_STATUSES:
+            continue
+        raw_rel = f"{generation['raw_prefix']}/{source.get('path') or source['file']}"
+        raw = _read_bound_generation_artifact(out_dir, manifest, raw_rel)
+        reference = source.get("extract", "")
+        prefix = f"{_GENERATION_DIR_NAME}/{digest}/"
+        text = _read_bound_generation_artifact(out_dir, manifest, reference[len(prefix):]).decode("utf-8")
+        proof = source.get("pdf_page_coverage")
+        primary_pages = text.split("\f")
+        # Only a bound native receipt permits treating retained text as primary
+        # decoder output. Legacy OCR text cannot certify itself by being nonempty.
+        native_bound = (isinstance(proof, dict) and proof.get("method") == "native"
+                        and proof.get("required_pages") == []
+                        and proof.get("page_count") == len(primary_pages)
+                        and proof.get("source") == f"sha256:{hashlib.sha256(raw).hexdigest()}|size:{len(raw)}"
+                        and proof.get("text_sha256") == hashlib.sha256(text.encode("utf-8")).hexdigest())
+        inspected = _inspect_pdf_pages(io.BytesIO(raw), primary_pages=primary_pages if native_bound else None)
+        if inspected["error"]:
+            expected = {"version": 1, "source": f"sha256:{hashlib.sha256(raw).hexdigest()}|size:{len(raw)}",
+                        "method": proof.get("method") if isinstance(proof, dict) else None,
+                        "page_count": inspected["page_count"], "required_pages": inspected["required_pages"],
+                        "text_sha256": hashlib.sha256(text.encode("utf-8")).hexdigest()}
+            if (inspected["failed_pages"] or inspected["page_count"] is None
+                    or not isinstance(proof, dict) or proof != expected
+                    or not (proof["method"] == "tesseract" or str(proof["method"]).startswith("claude:"))):
+                raise FrozenPoolGenerationError(
+                    f"frozen PDF page coverage unverified for {source['file']}: {inspected['error']}; "
+                    "perform fresh readiness outside the frozen binding to create a new generation"
+                )
+        elif not (isinstance(proof, dict) and proof.get("method") == "native"
+                  and proof == _pdf_visual_cache_proof(raw, text, inspected, "native")):
+            # Old native extracts lack a coverage receipt. Require each inspected
+            # page's text in the exact bound extract; layout disagreements abstain.
+            normalized = "".join(text.split())
+            position = 0
+            for page in inspected["page_texts"]:
+                page = "".join(page.split())
+                if not page:
+                    continue
+                found = normalized.find(page, position)
+                if found < 0:
+                    raise FrozenPoolGenerationError(
+                        f"frozen PDF extract page coverage unverified for {source['file']}; "
+                        "perform fresh readiness outside the frozen binding to create a new generation"
+                    )
+                position = found + len(page)
     if corpus_path:
         _atomic_bytes(
             corpus_path,
@@ -2243,6 +2450,9 @@ def _cache_guard_snapshot(data_path, out_dir, manifest, *, captured=None, extrac
             cache = _visual_cache_path(path, tag)
             if os.path.isfile(cache):
                 visual_caches[f"{rel}|{tag}"] = _file_guard_identity(cache, content_hash=True)
+            proof_path = cache + ".coverage.json"
+            if os.path.isfile(proof_path):
+                visual_caches[f"{rel}|{tag}|coverage"] = _file_guard_identity(proof_path, content_hash=True)
 
     approved_extracts = {}
     for source in (manifest or {}).get("sources", []):
@@ -2282,6 +2492,11 @@ def _cache_guard_snapshot(data_path, out_dir, manifest, *, captured=None, extrac
             _file_guard_identity(policy_path, content_hash=True)
             if os.path.isfile(policy_path) else {"missing": True}
         )
+    try:
+        import pypdf
+        pypdf_version = pypdf.__version__
+    except Exception:
+        pypdf_version = None
     return {
         "version": _CACHE_GUARD_VERSION,
         "pool_inputs": pool_inputs,
@@ -2289,6 +2504,8 @@ def _cache_guard_snapshot(data_path, out_dir, manifest, *, captured=None, extrac
         "visual_caches": visual_caches,
         "policy_modules": policy_modules,
         "reader_state": {
+            "pypdf": pypdf_version,
+            "pdftotext": _tool_guard_identity("pdftotext"),
             "ocr_enabled": bool(_OCR_ENABLED),
             "tesseract": _tool_guard_identity("tesseract"),
             "pdftoppm": _tool_guard_identity("pdftoppm"),
@@ -2717,22 +2934,26 @@ def _extract_pool_locked(
                 out_name = _unique(used, stem) + ".txt"
                 _atomic_text(os.path.join(build_out_dir, out_name), txt)
                 n_written += 1
-                src = {"file": base, "ext": ext, "kind": kind, "status": "ok",
+                src = {"file": base, "ext": ext, "kind": kind, "status": "fail" if err else "ok",
                        "extract": out_name, "chars": len(txt)}
+                if err:
+                    n_fail += 1
+                    src["error"] = err
+                elif kind == "pdf":
+                    tag = (f"claude:{_VISION_MODEL}" if note and note.startswith("read via Claude")
+                           else "tesseract" if note else "native")
+                    inspected = _inspect_pdf_pages(p, primary_pages=txt.split("\f") if tag == "native" else None)
+                    src["pdf_page_coverage"] = _pdf_visual_cache_proof(p, txt, inspected, tag)
                 if note:
                     src["note"] = note  # e.g. "OCR'd (was image-only scan)"
                 _add(src)
             else:
                 n_fail += 1
-                # A valid PDF that yields no text is image-only/scanned. Keep any SPECIFIC visual-read
-                # reason (vision/OCR/timeout/key hint); only synthesize the generic needs-OCR row for the
-                # bare low-level "no text layer" case, so the fix is one command away.
-                if kind == "pdf":
-                    low = (err or "").lower()
-                    if not any(w in low for w in ("ocr", "vision", "anthropic_api_key", "tesseract",
-                                                   "deferred", "timed out", "rasterise")):
-                        err = ("image-only/scanned PDF — no extractable text layer (needs OCR; "
-                               "run .claude/tools/setup-tools.sh to install tesseract, then re-check)")
+                # Preserve page-inspection and visual-reader errors verbatim. Only
+                # a reader with no specific error gets the generic setup hint.
+                if kind == "pdf" and not err:
+                    err = ("image-only/scanned PDF — no extractable text layer (needs OCR; "
+                           "run .claude/tools/setup-tools.sh to install tesseract, then re-check)")
                 _add({"file": base, "ext": ext, "kind": kind,
                                 "status": "fail", "error": err})
 
@@ -3050,7 +3271,9 @@ def _manifest_md(m):
                 lines.append(f"| {display} | {kind} | {sh['name']} | "
                              f"{sh['rows']}×{sh['cols']} | {sh['cells']} | `{sh['extract']}` |")
         else:
-            note = s.get("extract", s.get("error", "—"))
+            note = s.get("error") or s.get("extract", "—")
+            if s.get("error") and s.get("extract"):
+                note += f" — diagnostic only: `{s['extract']}`"
             if prov:
                 note = f"{note} — {prov}"
             lines.append(f"| {display} | {s['kind']} ({s['status']}) | — | — | — | {note} |")

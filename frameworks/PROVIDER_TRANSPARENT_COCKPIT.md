@@ -38,6 +38,12 @@ live Drive pool again, rebuild the extracts, reopen admission, or pause later wo
 Parallel children share one single-flight assessment and, when the pool is actually empty, one visible
 decision owner; refresh or reconnect must not reveal hidden sibling gates.
 
+Hash validity alone does not prove that every material PDF page was read. Frozen reuse must validate
+page coverage against the bound raw PDF and retained extract, or use coverage evidence bound to that
+generation. If coverage cannot be established, surface a technical reading failure without rewriting the
+generation, reopening the live pool, silently repeating paid OCR, or asking for another human data decision.
+Newly recorded partial-source failures remain research findings handled by the existing triage and caps.
+
 Only a proven empty pool or a pool with zero non-empty inputs may ask the user to act. Missing document types,
 partially unreadable files, entity warnings, and module insufficiency are research findings: they continue into
 the declared triage, conviction caps, and—when evidence cannot carry a rating—`Insufficient Data — Refuse To
