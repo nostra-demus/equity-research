@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-50f379c78b21",
-  "idea_version": "IDEAV-5f346408b53f54ca",
-  "idea_version_started_at": "2026-11-12T11:51:50Z",
+  "idea_version": "IDEAV-a6b3f3eb4aae4399",
+  "idea_version_started_at": "2026-11-12T15:45:19Z",
   "ticker": "NVDA",
   "company": "Nvidia",
   "exchange": "NASDAQ",
@@ -11,19 +11,19 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "short",
   "pair_with": null,
-  "reason": "Management instability and potential leadership changes create significant execution risk for the company's growth strategy.",
-  "why_now": "Multiple reports on 2026-11-12 indicate the board is actively weighing the CEO's future.",
-  "conviction": 65,
+  "reason": "The sudden resignation of CEO Jensen Huang amid allegations of misconduct and espionage creates significant leadership instability and potential regulatory/legal fallout for the company.",
+  "why_now": "The resignation was confirmed today, November 12, 2026, triggering immediate market volatility and a reassessment of the company's governance and risk profile.",
+  "conviction": 85,
   "conviction_basis": "pre_edge_proxy",
-  "trade_score": 74,
+  "trade_score": 79,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 14,
-    "impact": 21,
+    "impact": 23,
     "specificity": 15,
     "timing": 10,
     "expression": 7,
-    "corroboration": 7,
+    "corroboration": 10,
     "learning_adjustment": 0
   },
   "trade_readiness": "needs_data",
@@ -46,19 +46,26 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-391a7c65cc58",
-    "EVT-c29c0371754c"
+    "EVT-84a31cf2fb4d",
+    "EVT-d31a486b646b",
+    "EVT-074bb58cbda6",
+    "EVT-27f4c66804d9",
+    "EVT-2eada4b39351",
+    "EVT-37dae785d262",
+    "EVT-3c533b8f954d"
   ],
-  "primary_source_event_id": "EVT-391a7c65cc58",
+  "primary_source_event_id": "EVT-84a31cf2fb4d",
   "source_headlines": [
-    "Nvidia shares sink 8.6% as second affair report puts Jensen Huang’s job at risk",
-    "FirstFT: Nvidia board weighs Huang’s future as scandal deepens"
+    "The Morning Risk Report: Nvidia is Preparing to Oust CEO Jensen Huang",
+    "Nvidia Default Risk Nears Record High as Board Weighs CEO’s Fate",
+    "Huang, Face of the AI Boom, Ousted by Nvidia Board as CEO",
+    "Huang resigns as Nvidia shares plunge again"
   ],
-  "source_headline": "Nvidia shares sink 8.6% as second affair report puts Jensen Huang’s job at risk",
-  "source_url": "https://gulfnews.com/business/second-affair-steeper-sell-off-nvidia-ceo-jensen-huang-under-fire-1.500744501",
-  "source_name": "Gulf News",
+  "source_headline": "The Morning Risk Report: Nvidia is Preparing to Oust CEO Jensen Huang",
+  "source_url": "https://www.wsj.com/risk-compliance-journal/the-morning-risk-report-nvidia-is-preparing-to-oust-ceo-jensen-huang-324bfbd1?mod=pls_whats_news_us_business_f",
+  "source_name": "The Wall Street Journal",
   "materiality_max": 100,
-  "newest_source_at": "2026-11-12T05:31:16Z",
+  "newest_source_at": "2026-11-12T14:05:31Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
@@ -66,8 +73,8 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-11-07T15:09:40Z",
-  "updated_at": "2026-11-12T11:51:50Z",
-  "decay_at": "2026-11-13T17:31:16Z",
+  "updated_at": "2026-11-12T15:45:19Z",
+  "decay_at": "2026-11-14T02:05:31Z",
   "status": "live",
   "promoted_signal_id": null
 }
