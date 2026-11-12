@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T09:33:48Z",
+  "generated_at": "2026-11-12T09:37:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20261112-477",
@@ -345,6 +345,155 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261112-528",
+      "headline": "Adani Group's ₹26,000 crore Evos deal: What the Dutch firm's acquisition means for its global ports business",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/adani-groups-rs-26-000-crore-evos-deal-what-the-dutch-firms-acquisition-means-for-its-global-ports-business-11794473176610.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T09:16:17Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Adani Group is acquiring a Dutch firm for ₹26,000 crore to expand its global ports business.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Adani Group is acquiring a Dutch firm for ₹26,000 crore to expand its global ports business.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adani Group",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-523",
+      "headline": "Page Industries Q2 Results: Stock falls nearly 10% after weak operating performance; Dividend declared",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/page-industries-q2-results-revenue-ebitda-margin-volume-growth-fema-regulation-rbi-impact-share-price-crash-20032495.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T09:12:50Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Page Industries shares fell nearly 10% following weak operating performance in Q2 results.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Page Industries shares fell nearly 10% following weak operating performance in Q2 results.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "dividend_cut"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Page Industries",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-527",
+      "headline": "Rolls-Royce 9-Month Orders Climb; Confirms FY26 View; Plans £1.5 Bln Interim Buyback; Shares Up",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/rolls-royce-9-month-orders-climb-confirms-fy26-view-plans-ps15-bln-interim-buyback-shares",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T08:56:42Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Rolls-Royce reported increased 9-month orders, confirmed FY26 guidance, and announced a £1.5 billion share buyback.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Rolls-Royce reported increased 9-month orders, confirmed FY26 guidance, and announced a £1.5 billion share buyback.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Rolls-Royce",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261112-521",
       "headline": "Nvidia Board Considers Replacing CEO Jensen Huang",
       "headline_en": null,
@@ -386,6 +535,104 @@
           "name": "Nvidia",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-535",
+      "headline": "HAL Q2 Earnings Soar To New Heights, Net Profit Jumps 15.48% As Revenue Crosses ₹13,100 Crore",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/hal-q2-earnings-soar-to-new-heights-net-profit-jumps-1548-as-revenue-crosses-13100-crore",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T08:22:45Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "HAL reported a 15.48% jump in net profit with revenue exceeding 13,100 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "HAL reported a 15.48% jump in net profit with revenue exceeding 13,100 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HAL",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-534",
+      "headline": "BAE Boosts Free Cash Flow Guidance 50% as Defense Spending Rises",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-12/bae-boosts-free-cash-flow-guidance-50-as-defense-spending-rises",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T08:07:13Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "BAE Systems raised its free cash flow guidance by 50% due to increased defense spending.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "BAE Systems raised its free cash flow guidance by 50% due to increased defense spending.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BAE Systems",
+          "ticker": null,
+          "listing_country": "GB"
         }
       ],
       "size_bucket": "mega",
@@ -1728,258 +1975,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-340",
-      "headline": "Nvidia tanks 9% as investors consider future without CEO Jensen Huang",
-      "headline_en": null,
-      "url": "https://www.moneyweb.co.za/news/international/nvidia-tanks-10-as-investors-consider-future-without-ceo-jensen-huang/",
-      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T01:13:05Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "The potential departure of a key CEO at a mega-cap company like Nvidia would significantly impact market valuation and operational stability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The potential departure of a key CEO at a mega-cap company like Nvidia would significantly impact market valuation and operational stability.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": "NVDA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-249",
-      "headline": "Nasdaq futures fall as Nvidia sinks 8% after hours on report board may oust Huang",
-      "headline_en": null,
-      "url": "https://www.marketwatch.com/story/nasdaq-futures-fall-as-nvidia-sinks-8-after-hours-on-report-board-may-oust-huang-e99b898d?mod=mw_rss_topstories",
-      "source_name": "MarketWatch",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T01:12:00Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "A report suggesting the board may oust the CEO of a mega-cap company is a major governance event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A report suggesting the board may oust the CEO of a mega-cap company is a major governance event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-252",
-      "headline": "NAB back pays $170m in massive payroll failure",
-      "headline_en": null,
-      "url": "https://www.afr.com/work-and-careers/workplace/nab-back-pays-170m-in-massive-payroll-failure-20261112-p61djk?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T01:11:28Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "NAB will pay $170 million in back pay due to payroll failures.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "NAB will pay $170 million in back pay due to payroll failures.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "National Australia Bank",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-244",
-      "headline": "Nvidia ‘preparing to oust’ Huang after second affair reported; Matos warns of ‘dangerous’ spending cycle; ASIC sues CBA",
-      "headline_en": null,
-      "url": "https://www.afr.com/markets/equity-markets/nvidia-preparing-to-oust-huang-after-second-affair-reported-matos-warns-of-dangerous-spending-cycle-asic-sues-cba-20261112-p61dld?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T01:08:11Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Reports of potential CEO ouster at Nvidia and a lawsuit against CBA are both high-impact events.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Reports of potential CEO ouster at Nvidia and a lawsuit against CBA are both high-impact events.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Commonwealth Bank of Australia",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-191",
-      "headline": "AEM ups full-year profit guidance as Q3 earnings surges to S$42 million, revenue doubles",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/aem-ups-full-year-profit-guidance-q3-earnings-surges-s42-million-revenue-doubles",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T01:01:01Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "AEM reported Q3 earnings of S$42 million and raised full-year profit guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "AEM reported Q3 earnings of S$42 million and raised full-year profit guidance.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AEM",
-          "ticker": null,
-          "listing_country": "SG"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -276784,9 +276779,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 803921,
-    "news_picked_today": 1471,
-    "news_dropped_today": 9473
+    "news_seen_today": 810709,
+    "news_picked_today": 1487,
+    "news_dropped_today": 9505
   },
   "book_momentum": {
     "live_count": 8,
