@@ -1054,6 +1054,15 @@ The figure you built above is your **conviction**. Do not hand-pick a single num
 
 1. **Record `confidence_inputs`** — the judgments you just made, structured: `data_sufficiency`, `corroboration` (cross-module agreement; low on unresolved conflict / a wide cross-method valuation spread), `evidence_tier` (share of load-bearing claims on Tier-1/2 filings, §4/§6), `staleness_penalty`, `edge_score`, `edge_proof_present` (bool), `decision`, `modules_absent` (list of any of: consensus/valuation/solvency/governance/filings/catalyst/options), `critical_governance_unresolved` (bool), `catalyst_timing_weak` (bool), `rating_cap_ceiling` (any §18/§24 rating cap expressed as a number, else null), `downgrades` (list of `{type, points≥0, reason}`), `calibration_haircut`. Carry this object into `decision_record.json.confidence_inputs`.
 
+   **Numerical input errors stop scoring.** Supply finite JSON numbers, excluding booleans and numeric
+   strings. Evidence/edge/cap scores use their documented 0–100 domain; expected-return percentages
+   may be signed or exceed 100 and are not evidence scores. Use null/omitted defaults only where the
+   scorer explicitly supports them; a missing required observation is not zero evidence or an adverse
+   finding. If validation or arithmetic fails, resolve the named input against its evidence and retain
+   the applicable insufficiency caps/refusal. Do not replace malformed values with zero, silently drop
+   a reduction, or publish an earlier score from the failed calculation. An applied calibration haircut
+   still requires the numeric 8 under Step 4C; a supported null for a non-applied reduction never waives it.
+
 2. **Run the scorer with Bash** (do NOT compute in your head):
    ```
    python3 -c "import json,sys; sys.path.insert(0,'scripts'); from confidence import ConfidenceInputs, compute; inp=json.loads(r'''<your confidence_inputs JSON>'''); print(json.dumps(compute(ConfidenceInputs(**inp)), indent=0))"

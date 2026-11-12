@@ -37,13 +37,16 @@ You DO NOT:
 
 If undrawn committed facilities are not disclosed: set liquidity = cash + liquid investments only and state that liquidity is understated. If no cash flow statement: proxy FCF from EBITDA − capex − cash interest − cash tax (flag the proxy) and cap the runway score per `MODULE_RULES.md`. Exclude uncommitted/uncommitted-line amounts from the headline figure regardless.
 
+If cash interest classification or existing FCF adjustments cannot be reconciled: unknown is not zero. State the missing cash-finance-cost bridge, use only source-supported bounds, and cap the self-funding conclusion rather than manufacture an exact runway. A proxy that already nets cash interest must not deduct that payment again.
+
 # WORKFLOW
 
 1. Read the repo root `CLAUDE.md`, then read `.claude/agents/balance-sheet-survival/MODULE_RULES.md`, and apply both.
 2. Assemble liquidity sources: cash + liquid short-term investments (from `01`) + committed, undrawn revolver/facility capacity (from the debt/liquidity note). Exclude uncommitted lines and flag any restricted cash.
 3. Assemble near-term (next-12-month) uses: debt maturities (from `02`), cash interest, maintenance capex, and committed dividends/buybacks.
-4. Compute the runway **in months** = liquidity ÷ **monthly** net cash burn, on ONE clean basis (per `MODULE_RULES` §8) — do not double-count, because FCF (= CFO − total capex, §15) already includes cash interest paid and all capex:
-   - **Net-of-FCF (FCF meaningful):** monthly net burn = [ (12-month debt maturities + committed dividends/buybacks) − FCF ] ÷ 12 — include only obligations NOT already inside FCF; **do not re-add cash interest or maintenance capex** (FCF carries them — re-adding overstates burn and shortens runway).
+4. Compute the runway **in months** = liquidity ÷ **monthly** net cash burn, on ONE clean basis (per `MODULE_RULES` Calculation Standards item 8). Reported FCF stays **CFO − total capex** (§15); cash interest classification must be reconciled before treating it as already deducted:
+   - Build the **cash-finance-cost bridge** from the source statement: cash paid in CFO versus outside CFO, less any amount already deducted through the chosen adjusted FCF / proxy or another use. Show reported FCF and any explicitly adjusted measure separately. Use cash paid, not accrued finance expense or its CFO add-back. Reconcile capitalised-interest, lease-interest/principal and maturity overlaps; do not subtract development-property spending again when already in CFO or add the whole financing cash-flow section.
+   - **Net-of-FCF (FCF meaningful):** monthly net burn = [ (12-month debt maturities + committed dividends/buybacks + cash finance costs absent from the chosen FCF) − FCF ] ÷ 12 — include only obligations NOT already inside FCF. **Do not re-add cash interest already deducted in that FCF, or maintenance capex already included in total capex**; either double-count would overstate burn and shorten runway. A financing-classified cash payment not already netted must enter once, through a separate use or an explicit FCF adjustment, never both. The interest-netted cash proxy in the partial-data rule already carries its stated payment.
    - **Gross-obligations (FCF negative/unreliable):** monthly burn = [ full 12-month uses from step 3 ] ÷ 12, with **no FCF subtraction**.
 
    Dividing liquidity by the *annual* burn gives a coverage **multiple**, not months (×12 to convert). If FCF covers obligations, state the annual surplus instead of a finite runway.
@@ -80,6 +83,7 @@ Rule: Total usable liquidity must EXCLUDE the revolver if availability is unknow
 |---|---:|---|
 | Debt maturities (from 02) | | |
 | Cash interest | | |
+| Cash finance costs absent from the chosen FCF (separate-use amount only) | | |
 | Maintenance capex | | |
 | Committed dividends / buybacks | | |
 | **Total near-term uses** | | |
@@ -90,12 +94,15 @@ Rule: Total usable liquidity must EXCLUDE the revolver if availability is unknow
 |---|---:|
 | Total committed liquidity | |
 | Annual FCF (or proxy) | |
+| Reported FCF versus explicitly adjusted FCF / proxy; source period | |
+| Cash-finance-cost bridge: paid inside CFO / outside CFO / already deducted / unresolved | |
+| Cash finance costs added once as a separate use | |
 | Basis used (net-of-FCF / gross-obligations) | |
 | Annual net cash burn (on the stated basis — see step 4) | |
 | Monthly net cash burn (annual burn ÷ 12) | |
 | **Liquidity runway (months) = liquidity ÷ monthly net cash burn** | |
 
-Show the formula and name the basis. On the **net-of-FCF** basis the annual burn is `(12-month maturities + committed dividends/buybacks) − FCF` — do NOT re-add cash interest or capex (FCF already includes them). On the **gross-obligations** basis it is the full 12-month uses with no FCF subtraction. Dividing liquidity by the *annual* burn gives a coverage multiple (e.g. 2.0× = two years), NOT months — the runway is liquidity ÷ **monthly** net burn (that multiple × 12). If FCF more than covers obligations, state the annual surplus instead of a finite runway.
+Show the formula and name the basis. On the **net-of-FCF** basis the annual burn is `(12-month maturities + committed dividends/buybacks + cash finance costs absent from the chosen FCF) − FCF`. Do NOT re-add cash interest already netted or capex already deducted; reconcile the source cash classification and every FCF adjustment so each payment appears exactly once. The near-term-uses table lists components, not automatically additive interest rows: use its cash-interest row in the gross-obligations method, and only its reconciled absent-from-FCF amount in the net-of-FCF method. On the **gross-obligations** basis it is the full 12-month uses with no FCF subtraction. Dividing liquidity by the *annual* burn gives a coverage multiple (e.g. 2.0× = two years), NOT months — the runway is liquidity ÷ **monthly** net burn (that multiple × 12). If FCF more than covers obligations, state the annual surplus instead of a finite runway. Carry unknown classification as a limit; do not treat it as a zero payment. Match periods before making a 12-month claim and do not silently annualise an interim cash payment.
 
 ### Seasonality / Peak Liquidity Need (Hard Check)
 
@@ -115,6 +122,7 @@ In 2–3 sentences: do internal sources (cash + FCF) cover the next 12 months, o
 - [ ] Liquidity uses committed facilities only; uncommitted lines are excluded and noted.
 - [ ] Restricted cash is flagged.
 - [ ] Near-term uses pull the 12-month maturity figure from `02`.
+- [ ] Cash interest classification, cash paid versus accruals, and reported versus adjusted FCF / proxy are reconciled; each finance payment, lease use and capex item is counted once. Unknown classification remains explicit, not zero.
 - [ ] The runway is expressed in months with the formula shown (or a surplus stated).
 - [ ] The split between in-hand liquidity and must-materialize FCF is stated.
 - [ ] If facilities or cash flow are missing, the partial-data rule and cap are applied.
