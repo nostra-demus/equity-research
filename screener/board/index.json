@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T02:03:24Z",
+  "generated_at": "2026-11-12T02:14:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20261112-189",
@@ -193,6 +193,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-260",
+      "headline": "Nvidia Board May Vote to Remove Jensen Huang as CEO Tonight. Here’s What Investors Need to Know.",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/nvidia-board-may-vote-remove-jensen-huang-ceo-tonight-heres-what-investors-need-know",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T01:25:02Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Potential removal of the CEO of a mega-cap company is a major governance event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Potential removal of the CEO of a mega-cap company is a major governance event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -491,55 +540,6 @@
           "name": "Commonwealth Bank of Australia",
           "ticker": null,
           "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-245",
-      "headline": "Nvidia Board May Vote to Remove Jensen Huang as CEO Tonight. Here’s What Investors Need to Know.",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/11/11/nvidia-board-may-vote-to-remove-jensen-huang-as-ceo-tonight-here-s-what-investors-need-to-know/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T01:05:02Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Potential removal of the CEO of a mega-cap company is a critical management event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Potential removal of the CEO of a mega-cap company is a critical management event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "mega",
@@ -1548,6 +1548,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261112-288",
+      "headline": "Taylor Wimpey lowers outlook amid ‘challenging’ autumn",
+      "headline_en": null,
+      "url": "https://www.independent.co.uk/news/business/taylor-wimpey-lloyds-bank-of-england-shares-holly-williams-b3082952.html",
+      "source_name": "The Independent — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T09:09:11Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Taylor Wimpey has lowered its financial outlook citing challenging market conditions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Taylor Wimpey has lowered its financial outlook citing challenging market conditions.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Taylor Wimpey",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-293",
+      "headline": "Bajaj Hindusthan Sugar Q2: Net Loss Widens To Rs 121 Crore, Revenue Falls 16%",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/business/bajaj-hindusthan-sugar-q2-net-loss-widens-to-rs-121-crore-revenue-falls-16-12311964#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T09:06:11Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Bajaj Hindusthan Sugar reported a net loss of Rs 121 crore and a 16% revenue decline for Q2.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bajaj Hindusthan Sugar reported a net loss of Rs 121 crore and a 16% revenue decline for Q2.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bajaj Hindusthan Sugar",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261112-208",
       "headline": "AD Ports Group delivers record $265.49 million net profit ‎in Q3 2026, up 64 percent",
       "headline_en": null,
@@ -1641,6 +1739,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-296",
+      "headline": "Rüstung: Tschechischer Munitionskonzern CSG nimmt Gewinnprognose zurück – Aktie bricht ein",
+      "headline_en": "Defense: Czech munitions company CSG withdraws profit forecast — stock crashes",
+      "url": "https://www.handelsblatt.com/unternehmen/industrie/industrie-tschechischer-ruestungskonzern-csg-nimmt-gewinnprognose-zurueck/100269028.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T08:57:26Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Czech munitions company CSG withdrew profit forecast and stock crashed, signaling profit deterioration.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Czech munitions company CSG withdrew profit forecast and stock crashed, signaling profit deterioration.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 74,
+      "rank_factors": {
+        "materiality": 74,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 11,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CSG",
+          "ticker": null,
+          "listing_country": "CZ"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1798,167 +1945,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261112-020",
-      "headline": "Nvidia board prepares to discuss ousting CEO Jensen Huang, WSJ reports",
+      "inbox_id": "INB-20261112-261",
+      "headline": "Nvidia working with external firm to explore new CEO candidates amid uncertainty over Jensen Huang",
       "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/info-tech/nvidia-board-prepares-to-discuss-ousting-ceo-jensen-huang-wsj-reports/article71691410.ece",
-      "source_name": "The Hindu BusinessLine",
+      "url": "https://www.cnbctv18.com/business/nvidia-working-with-external-firm-to-explore-new-ceo-candidates-amid-uncertainty-over-jensen-huang-20032020.htm",
+      "source_name": "CNBC-TV18",
       "input_nature": "news_headline",
-      "found_at": "2026-11-11T22:48:52Z",
+      "found_at": "2026-11-12T01:44:10Z",
       "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Continued reporting on the potential ouster of the CEO maintains high uncertainty regarding company leadership.",
+      "prelim_note": "Reports of a search for a new CEO confirm significant management uncertainty at a mega-cap company.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 97,
-      "triage_reason": "Continued reporting on the potential ouster of the CEO maintains high uncertainty regarding company leadership.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-022",
-      "headline": "Nvidia Falls as Investors Consider Future Without CEO Huang",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-11/nvidia-tumbles-as-investors-consider-future-without-ceo-huang",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T22:48:40Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Market sell-off driven by concerns over the potential departure of the CEO highlights significant leadership risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Market sell-off driven by concerns over the potential departure of the CEO highlights significant leadership risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-004",
-      "headline": "CBA: Commonwealth Bank acknowledges proceedings commenced by ASIC",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CBA?key=2924-03160939-2A1710205",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-11-11T23:00:46Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Commonwealth Bank faces legal proceedings initiated by the Australian Securities and Investments Commission (ASIC), creating regulatory and legal risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Commonwealth Bank faces legal proceedings initiated by the Australian Securities and Investments Commission (ASIC), creating regulatory and legal risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Commonwealth Bank",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-119",
-      "headline": "Nvidia board set to meet after revelations Huang had affair with top company executive",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/d3838274-a055-4d5d-a1ff-48f2979a08f0?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T22:56:26Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Board meeting triggered by CEO scandal indicates potential management turnover or governance crisis.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Board meeting triggered by CEO scandal indicates potential management turnover or governance crisis.",
+      "triage_reason": "Reports of a search for a new CEO confirm significant management uncertainty at a mega-cap company.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 80,
@@ -1968,7 +1968,7 @@
         "scope": 6,
         "event": 4,
         "size": 2,
-        "recency": 4,
+        "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
@@ -277723,9 +277723,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 181167,
-    "news_picked_today": 403,
-    "news_dropped_today": 1229
+    "news_seen_today": 194059,
+    "news_picked_today": 440,
+    "news_dropped_today": 1408
   },
   "book_momentum": {
     "live_count": 8,
