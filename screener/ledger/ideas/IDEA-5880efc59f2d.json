@@ -1,0 +1,73 @@
+{
+  "idea_id": "IDEA-5880efc59f2d",
+  "idea_version": "IDEAV-75d5d0ba16547141",
+  "idea_version_started_at": "2026-11-12T16:29:30Z",
+  "ticker": "08507",
+  "company": "Chi Eco Land Mt",
+  "exchange": "HKEX",
+  "ticker_verified": false,
+  "listing_verified": false,
+  "liquidity_verified": false,
+  "listing_verification_source": null,
+  "direction": "short",
+  "pair_with": null,
+  "reason": "The company issued a profit warning, signaling deteriorating financial performance and potential margin compression.",
+  "why_now": "The profit warning was filed on 2026-11-12.",
+  "conviction": 60,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 45,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 25,
+    "impact": 19,
+    "specificity": 7,
+    "timing": 10,
+    "expression": 0,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "watch_only",
+  "missing_checks": [
+    "verified listed ticker",
+    "verified listing",
+    "live liquidity",
+    "dated catalyst",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-e6f994dbaef2"
+  ],
+  "primary_source_event_id": "EVT-e6f994dbaef2",
+  "source_headlines": [
+    "CHI ECO LAND MT (08507): PROFIT WARNING"
+  ],
+  "source_headline": "CHI ECO LAND MT (08507): PROFIT WARNING",
+  "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1112/2026111201452.pdf",
+  "source_name": "HKEXnews (HK Exchange Filing)",
+  "materiality_max": 100,
+  "newest_source_at": "2026-11-12T13:00:00Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-11-12T16:29:30Z",
+  "updated_at": "2026-11-12T16:29:30Z",
+  "decay_at": "2026-11-14T01:00:00Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
