@@ -24,6 +24,9 @@ never read from the clock internally), it returns `None` when the input is absen
 inapplicable, or a list of overdue description strings (empty = nothing due).
 """
 import re
+import os
+import glob
+import json
 import datetime
 
 def isdate(s):
@@ -67,14 +70,123 @@ def _as_due_date(entry):
 
 AS_RESOLVED = ("confirmed", "falsified", "expired", "resolved", "closed", "superseded", "void", "withdrawn")
 
-def eval_as_forecast_overdue(forecast_ledger, today):
+# ---- review linkage (the learning loop's read-back) -------------------------------------------------
+# decision_record.json is immutable after publication (frameworks/DECISION_LEDGER.md), so its
+# forecast_ledger[].status stays `open` forever. The RESOLUTION of a forecast lives in the append-only
+# outcome reviews (`reviews/*_decision_review*.json`, `forecast_results[]`, written by
+# /research:review-decisions). A ledger-only AS can therefore never clear: on 2026-11-12 it reported 44
+# "unresolved" forecasts of which 12 had already been confirmed/falsified/expired by a filed review —
+# false alarms that bury the genuinely unchecked ones in the cockpit's "needs attention" list.
+#
+# The link is deliberately CONSERVATIVE (§24 — prefer omission to a mis-attributed resolution): a review
+# row resolves ledger entry i only through (a) an explicit 1-based `forecast_index`, (b) a deliberate
+# 'forecast #N' / 'prediction #N' token, or (c) prediction text identical (trimmed, case-folded) to
+# exactly ONE ledger row. No positional guess (forecast_results is routinely a re-ordered subset) and no
+# fuzzy text match. The same identity rule /research:calibrate uses (scripts/calibrate.py
+# match_resolved_forecasts), reimplemented here only because this module must stay dependency-free
+# (commit-run.sh's prewrite workspace copies just eval.py + data_need_contract.py + this file).
+#
+# The LATEST review that mentions an entry speaks for it (a later review supersedes an earlier read,
+# as in calibrate). If that latest read is unresolved but an EARLIER review had resolved it, the entry
+# stays flagged and the description names the contradiction — a resolution silently walked back is a
+# learning-loop defect a human must adjudicate (§3: do not average away contradictions), not a clear.
+
+def _review_norm(s):
+    return " ".join(s.split()).lower() if isinstance(s, str) else ""
+
+_REF_RE = re.compile(r"(?:forecast|prediction|fc)\s*#\s*(\d+)|^#\s*(\d+)$")
+
+def _review_version(name):
+    m = re.search(r"_v(\d+)\.json$", str(name or ""), re.I)
+    return int(m.group(1)) if m else 1
+
+def review_forecast_links(forecast_ledger, reviews):
+    """{ledger index: {"status", "review_date", "earlier_resolution": (status, date) | None}} for every
+    ledger entry some review row deliberately refers to. `reviews` is a list of parsed review dicts; an
+    optional `_basename` key orders same-day append-only corrections (`_v2`). Pure; never raises on
+    malformed input (a malformed row is simply unlinked)."""
+    if not isinstance(forecast_ledger, list) or not isinstance(reviews, list):
+        return {}
+    n = len(forecast_ledger)
+    counts = {}
+    for e in forecast_ledger:
+        k = _review_norm(e.get("prediction")) if isinstance(e, dict) else ""
+        if k:
+            counts[k] = counts.get(k, 0) + 1
+    by_text = {}
+    for i, e in enumerate(forecast_ledger):
+        k = _review_norm(e.get("prediction")) if isinstance(e, dict) else ""
+        if k and counts[k] == 1:
+            by_text[k] = i
+
+    def _target(row):
+        idx = row.get("forecast_index")
+        # integral float accepted for parity with the TS port (JSON `2.0` is the number 2 in JS)
+        if isinstance(idx, float) and idx.is_integer():
+            idx = int(idx)
+        if isinstance(idx, int) and not isinstance(idx, bool) and 1 <= idx <= n:
+            return idx - 1
+        k = _review_norm(row.get("prediction"))
+        if k in by_text:
+            return by_text[k]
+        m = _REF_RE.search(k)
+        if m:
+            j = int(m.group(1) or m.group(2))
+            if 1 <= j <= n:
+                return j - 1
+        return None
+
+    revs = [r for r in reviews if isinstance(r, dict)]
+    revs.sort(key=lambda r: (str(r.get("review_date") or ""), _review_version(r.get("_basename")),
+                             str(r.get("_basename") or "")))
+    out = {}
+    for r in revs:
+        date = str(r.get("review_date") or "")
+        rows = r.get("forecast_results")
+        if not isinstance(rows, list):
+            continue
+        for row in rows:
+            if not isinstance(row, dict):
+                continue
+            i = _target(row)
+            if i is None:
+                continue
+            st = _review_norm(row.get("status")) or "unset"
+            prev = out.get(i)
+            earlier = prev["earlier_resolution"] if prev else None
+            if prev and prev["status"] in AS_RESOLVED:
+                earlier = (prev["status"], prev["review_date"])
+            if st in AS_RESOLVED:
+                earlier = None
+            out[i] = {"status": st, "review_date": date, "earlier_resolution": earlier}
+    return out
+
+def load_run_reviews(run_root):
+    """Parsed `reviews/*_decision_review*.json` dicts for one run folder, each tagged with its
+    `_basename` (orders same-day `_vN` corrections). Unreadable / non-object files are skipped — a
+    malformed file is not a completed review. Reads only; never writes."""
+    out = []
+    for f in sorted(glob.glob(os.path.join(str(run_root or ""), "reviews", "*_decision_review*.json"))):
+        try:
+            with open(f, encoding="utf-8") as fh:
+                j = json.load(fh)
+        except Exception:
+            continue
+        if isinstance(j, dict):
+            out.append(dict(j, _basename=os.path.basename(f)))
+    return out
+
+def eval_as_forecast_overdue(forecast_ledger, today, reviews=None):
     """Check AS. Returns None (undateable / empty ledger) or a list of overdue descriptions (empty =
-    none due). Pure — `today` is injected so the result is deterministic and callers need no clock."""
+    none due). Pure — `today` is injected so the result is deterministic and callers need no clock.
+    `reviews` (optional list of parsed review dicts) lets a filed outcome review settle an entry —
+    see the review-linkage block above. Omitted → ledger-only behaviour, unchanged."""
     if forecast_ledger is not None and not isinstance(forecast_ledger, list):
         return None
     fl = forecast_ledger or []
     if not fl or not isdate(today):
         return None
+    links = review_forecast_links(fl, reviews) if reviews else {}
     out = []
     for i, e in enumerate(fl):
         if not isinstance(e, dict):
@@ -84,12 +196,28 @@ def eval_as_forecast_overdue(forecast_ledger, today):
         # (e.g. 'unresolved' contains 'resolved') would silently settle a still-open forecast.
         if status in AS_RESOLVED:
             continue
+        link = links.get(i)
+        if link and link["status"] in AS_RESOLVED:
+            continue  # resolved by a filed outcome review
         due = _as_due_date(e)
         if not due or due >= today:
             continue
         pred = str(e.get("prediction") or "")[:110]
-        out.append({"due_date": due,
-                    "description": f"forecast_ledger[{i}] came due {due} and is still unresolved (status {status or 'unset'}): {pred}"})
+        desc = f"forecast_ledger[{i}] came due {due} and is still unresolved (status {status or 'unset'}): {pred}"
+        if link:
+            desc += f" [last reviewed {link['review_date'] or 'undated'}: {link['status']}"
+            if link["earlier_resolution"]:
+                es, ed = link["earlier_resolution"]
+                desc += (f"; CONTRADICTION — the {ed or 'undated'} review recorded '{es}', "
+                         f"walked back by the later review; adjudicate")
+            desc += "]"
+        item = {"due_date": due, "description": desc}
+        if link:
+            item["last_review"] = {"date": link["review_date"] or None, "status": link["status"]}
+            if link["earlier_resolution"]:
+                item["contradicted_resolution"] = {"status": link["earlier_resolution"][0],
+                                                   "date": link["earlier_resolution"][1] or None}
+        out.append(item)
     return out
 
 def _kc_monitor_text(entry):

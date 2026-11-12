@@ -463,20 +463,97 @@ const AS_RESOLVED = new Set(['confirmed', 'falsified', 'expired', 'resolved', 'c
 interface OverdueItem {
   due_date: string
   description: string
+  last_review?: { date: string | null; status: string }
+  contradicted_resolution?: { status: string; date: string | null }
+}
+
+// ---- AS × filed reviews — the EXACT port of scripts/overdue_checks.py review_forecast_links() ----
+// decision_record.json is immutable, so a forecast is RESOLVED in reviews/*_decision_review*.json
+// forecast_results[], never in the ledger itself. Conservative link (no positional guess, no fuzzy
+// text): explicit 1-based forecast_index, a 'forecast #N' token, or prediction text identical
+// (whitespace-collapsed, case-folded) to exactly ONE ledger row. Latest review wins; a resolution a
+// later review walks back stays owed and is surfaced as a contradiction. Keep byte-identical with Python.
+interface ForecastLink { status: string; review_date: string; earlier_resolution: [string, string] | null }
+
+function reviewNorm(s: unknown): string {
+  return typeof s === 'string' ? s.split(/\s+/).filter(Boolean).join(' ').toLowerCase() : ''
+}
+
+const FORECAST_REF_RE = /(?:forecast|prediction|fc)\s*#\s*(\d+)|^#\s*(\d+)$/
+
+export interface ReviewForecastSource { review_date: string; basename: string; forecast_results: unknown }
+
+function reviewForecastLinks(forecastLedger: unknown, reviews: ReviewForecastSource[]): Map<number, ForecastLink> {
+  const out = new Map<number, ForecastLink>()
+  if (!Array.isArray(forecastLedger)) return out
+  const n = forecastLedger.length
+  const counts = new Map<string, number>()
+  const keyOf = (e: any) => (e && typeof e === 'object' && !Array.isArray(e) ? reviewNorm(e.prediction) : '')
+  for (const e of forecastLedger) { const k = keyOf(e); if (k) counts.set(k, (counts.get(k) || 0) + 1) }
+  const byText = new Map<string, number>()
+  forecastLedger.forEach((e, i) => { const k = keyOf(e); if (k && counts.get(k) === 1) byText.set(k, i) })
+  const target = (row: any): number | null => {
+    const idx = row.forecast_index
+    if (typeof idx === 'number' && Number.isInteger(idx) && idx >= 1 && idx <= n) return idx - 1
+    const k = reviewNorm(row.prediction)
+    if (byText.has(k)) return byText.get(k)!
+    const m = FORECAST_REF_RE.exec(k)
+    if (m) { const j = Number(m[1] ?? m[2]); if (j >= 1 && j <= n) return j - 1 }
+    return null
+  }
+  const version = (b: string) => { const m = /_v(\d+)\.json$/i.exec(b); return m ? Number(m[1]) : 1 }
+  const cmp = (a: string, b: string) => (a < b ? -1 : a > b ? 1 : 0)
+  const ordered = reviews
+    .map(r => ({ r, date: r.review_date || '', ver: version(r.basename), base: r.basename || '' }))
+    .sort((a, b) => cmp(a.date, b.date) || a.ver - b.ver || cmp(a.base, b.base))
+    .map(d => d.r)
+  for (const r of ordered) {
+    if (!Array.isArray(r.forecast_results)) continue
+    for (const row of r.forecast_results as any[]) {
+      if (!row || typeof row !== 'object' || Array.isArray(row)) continue
+      const i = target(row)
+      if (i === null) continue
+      const st = reviewNorm(row.status) || 'unset'
+      const prev = out.get(i)
+      let earlier = prev ? prev.earlier_resolution : null
+      if (prev && AS_RESOLVED.has(prev.status)) earlier = [prev.status, prev.review_date]
+      if (AS_RESOLVED.has(st)) earlier = null
+      out.set(i, { status: st, review_date: r.review_date, earlier_resolution: earlier })
+    }
+  }
+  return out
 }
 
 // check AS — CLAUDE.md §19: "a forecast that cannot be checked later is not a forecast."
-function forecastsOverdue(forecastLedger: unknown, today: string): OverdueItem[] {
+export function forecastsOverdue(forecastLedger: unknown, today: string, reviews: ReviewForecastSource[] = []): OverdueItem[] {
   if (!Array.isArray(forecastLedger) || !isISODate(today)) return []
+  const links = reviews.length ? reviewForecastLinks(forecastLedger, reviews) : new Map<number, ForecastLink>()
   const out: OverdueItem[] = []
   forecastLedger.forEach((e: any, i: number) => {
     if (!e || typeof e !== 'object') return
     const status = String(e.status ?? e.outcome ?? '').trim().toLowerCase()
     if (AS_RESOLVED.has(status)) return // already settled
+    const link = links.get(i)
+    if (link && AS_RESOLVED.has(link.status)) return // resolved by a filed outcome review
     const due = forecastDueDate(e)
     if (!due || due >= today) return // undateable, or not yet due
     const pred = String(e.prediction ?? '').slice(0, 110)
-    out.push({ due_date: due, description: `forecast_ledger[${i}] came due ${due} and is still unresolved (status ${status || 'unset'}): ${pred}` })
+    let description = `forecast_ledger[${i}] came due ${due} and is still unresolved (status ${status || 'unset'}): ${pred}`
+    const item: OverdueItem = { due_date: due, description }
+    if (link) {
+      description += ` [last reviewed ${link.review_date || 'undated'}: ${link.status}`
+      if (link.earlier_resolution) {
+        const [es, ed] = link.earlier_resolution
+        description += `; CONTRADICTION — the ${ed || 'undated'} review recorded '${es}', walked back by the later review; adjudicate`
+      }
+      description += ']'
+      item.description = description
+      item.last_review = { date: link.review_date || null, status: link.status }
+      if (link.earlier_resolution) {
+        item.contradicted_resolution = { status: link.earlier_resolution[0], date: link.earlier_resolution[1] || null }
+      }
+    }
+    out.push(item)
   })
   return out
 }
@@ -531,6 +608,8 @@ export interface ReviewFile {
   decision_quality: string | null
   forecasts_confirmed: number
   forecasts_falsified: number
+  // raw forecast_results rows — read only by the AS × reviews link (forecastsOverdue); never projected
+  forecast_results?: unknown
   // §8 memo_delta block (DECISION_LEDGER): the human-readable "what changed since the memo" tier.
   memo_delta_file: string | null
   stage_one_comment: string | null
@@ -653,6 +732,7 @@ function listReviewFiles(runRoot: string, authority: PublishedTreeAuthority): Re
       decision_quality: typeof j?.decision_quality === 'string' && j.decision_quality ? j.decision_quality : null,
       forecasts_confirmed: fc.confirmed,
       forecasts_falsified: fc.falsified,
+      forecast_results: j?.forecast_results,
       memo_delta_file: safeRunArtifact(md?.memo_delta_file, runRoot, authority.paths, 'reviews'),
       stage_one_comment: typeof md?.stage_one_comment === 'string' && md.stage_one_comment ? md.stage_one_comment : null,
       memo_delta_summary: typeof md?.summary === 'string' && md.summary.trim() ? md.summary.trim() : null,
@@ -1111,7 +1191,9 @@ async function projectAllCalls(authority: PublishedTreeAuthority) {
     const frozenConfidence = confidenceScore(d?.post_review_confidence_score)
       ?? confidenceScore(d?.confidence_score) ?? confidenceScore(d?.confidence)
     // checks AS / AW (scripts/eval.py) ported live — see the block above `isISODate`.
-    const forecastsDue = forecastsOverdue(d?.forecast_ledger, today)
+    const forecastsDue = forecastsOverdue(d?.forecast_ledger, today, reviews.map((r) => ({
+      review_date: r.review_date, basename: r.basename, forecast_results: r.forecast_results,
+    })))
     const killCriteriaDue = killCriteriaOverdue(d?.kill_criteria, today)
     const call = {
       ticker: d?.ticker ?? name.replace(/_\d{4}-\d{2}-\d{2}$/, ''),

@@ -102,6 +102,7 @@ Write this LAST.
   - Insufficient data
 - **Net leverage (net debt / EBITDA):** *(from 01, with basis)*
 - **Liquidity runway:** *(from 03)*
+- **Cash-finance-cost bridge:** *(from 03 — source classification, reported / adjusted FCF / proxy basis, cash finance costs absent from the chosen FCF, and unresolved limits; not a second interest deduction)*
 - **Maturity wall (% within 24 months):** *(from 02)*
 - **Tightest covenant + headroom:** *(from 04, or "Not assessable")*
 - **Stress break point (EBITDA decline that breaks it):** *(from 06)*
@@ -191,6 +192,7 @@ Bullet list, no prose paragraphs. **Surface what the numbers MEAN — do not res
 - The leverage level and direction, gross and net
 - The maturity wall timing and whether refinancing is secured or exposed
 - The liquidity runway and what it depends on
+- The cash-finance-cost bridge and any source-classification limit: carry the reported / adjusted FCF / proxy basis into the final thesis, with cash finance costs absent from the chosen FCF counted once. Do not drop the qualifier or label accounting FCF as cash after interest when the source has not deducted that payment.
 - The tightest covenant and its headroom (or that covenants are undisclosed)
 - The largest live off-balance-sheet / contingent exposure. If `05_off-balance-sheet-and-contingencies.md` emitted `RF-OBS-001 (contingent-liability spike)` as a standalone line, propagate it here as a standalone line too — even if this module's own solvency scores already absorbed it, the master synthesizer's cross-module forensic roll-up (synthesizer.md Pre-Write Gate step 4B; CLAUDE.md §13; eval check AQ) reads this tag to detect a compounding accounting-integrity mosaic that no single module's own cap would catch. Dropping a fired tag lets that cross-module check silently miss it (CLAUDE.md §11).
 - The stress break point — what fails first and at what EBITDA decline
