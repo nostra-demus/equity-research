@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T00:53:40Z",
+  "generated_at": "2026-11-12T01:00:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20261112-008",
@@ -658,6 +658,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261112-169",
+      "headline": "CDL flags ‘significantly weaker’ performance for H2 2026",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/cdl-flags-significantly-weaker-performance-h2-2026",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T11:32:29Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "CDL issued a profit warning, flagging 'significantly weaker' performance for H2 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CDL issued a profit warning, flagging 'significantly weaker' performance for H2 2026.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CDL",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261112-007",
       "headline": "UAE’s largest bank FAB plans $4.1bn share sale at 30% discount",
       "headline_en": null,
@@ -699,6 +748,60 @@
           "name": "First Abu Dhabi Bank",
           "ticker": null,
           "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-164",
+      "headline": "Air India H1 losses estimated at ₹10,800 crore as Singapore Airlines absorbs S$361.7 million hit",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/business/air-india-h1-losses-estimated-at-rs-10800-crore-as-singapore-airlines-absorbs-361-million-singapore-dollar-hit-20031701.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T11:35:48Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Air India reported estimated H1 losses of ₹10,800 crore, with Singapore Airlines absorbing a S$361.7 million hit.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Air India reported estimated H1 losses of ₹10,800 crore, with Singapore Airlines absorbing a S$361.7 million hit.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 5,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Air India",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Singapore Airlines",
+          "ticker": null,
+          "listing_country": "SG"
         }
       ],
       "size_bucket": "large",
@@ -1668,6 +1771,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261112-167",
+      "headline": "GE Vernova's Orders Jumped 96%. The Number Hiding Underneath Is Electrification's 9% Decline.",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/ge-vernovas-orders-jumped-96-number-hiding-underneath-electrifications-9-decline",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T11:35:00Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "GE Vernova reported a 96% jump in orders but a 9% decline in electrification, signaling mixed operational performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "GE Vernova reported a 96% jump in orders but a 9% decline in electrification, signaling mixed operational performance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GE Vernova",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261112-032",
       "headline": "ESK: US Telco Project Expansion [price-sensitive]",
       "headline_en": null,
@@ -1815,196 +1967,51 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261112-046",
-      "headline": "Swiftdata, owner of Nvidia-linked Megaspeed, lists address occupied by interior design firm",
+      "inbox_id": "INB-20261112-157",
+      "headline": "Yandex restores 97% of customer data after drone attacks, the rest is permanently lost",
       "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/swiftdata-owner-nvidia-linked-megaspeed-lists-address-occupied-interior-design-firm",
-      "source_name": "The Business Times (Singapore)",
+      "url": "https://www.datacenterdynamics.com/en/news/yandex-restores-97-of-customer-data-after-drone-attacks/",
+      "source_name": "DataCenterDynamics",
       "input_nature": "news_headline",
-      "found_at": "2026-11-11T23:45:28Z",
+      "found_at": "2026-11-11T11:43:00Z",
       "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Reports of a company linked to Nvidia occupying a suspicious address raise governance and fraud concerns.",
+      "prelim_note": "Yandex confirmed permanent loss of 3% of customer data following drone attacks on its infrastructure.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Reports of a company linked to Nvidia occupying a suspicious address raise governance and fraud concerns.",
+      "triage_score": 88,
+      "triage_reason": "Yandex confirmed permanent loss of 3% of customer data following drone attacks on its infrastructure.",
       "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-006",
-      "headline": "Rep. DelBene: Nvidia, Huang Should Face Investigation",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-11-11/rep-delbene-nvidia-huang-should-face-investigation-video",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T23:19:28Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "A US Representative calling for an investigation into a major company and its CEO increases regulatory and political scrutiny.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "A US Representative calling for an investigation into a major company and its CEO increases regulatory and political scrutiny.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-137",
-      "headline": "Air India loss share declines but fuel bites Singapore Airlines group as H1 profit falls 44% to Rs 767 crore",
-      "headline_en": null,
-      "url": "https://timesofindia.indiatimes.com/business/india-business/air-india-loss-share-declines-but-fuel-bites-singapore-airlines-group-as-h1-profit-falls-44-to-rs-767-crore/articleshow/135736528.cms",
-      "source_name": "The Times of India (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T12:06:39Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Singapore Airlines H1 profit fell 44% to Rs 767 crore due to high fuel costs and losses from Air India.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Singapore Airlines H1 profit fell 44% to Rs 767 crore due to high fuel costs and losses from Air India.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 74,
-      "rank_factors": {
-        "materiality": 74,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Singapore Airlines",
-          "ticker": "C6L",
-          "listing_country": "SG"
-        },
-        {
-          "name": "Air India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-143",
-      "headline": "Financial statements for the 3rd QTR of 2026",
-      "headline_en": null,
-      "url": "http://english.mubasher.info/news/4700597/Financial-statements-for-the-3rd-QTR-of-2026",
-      "source_name": "Mubasher — Dubai Financial Market (DFM) News, English",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T12:02:28Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Financial statements for the 3rd quarter of 2026 have been released, which will contain key performance indicators.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Financial statements for the 3rd quarter of 2026 have been released, which will contain key performance indicators.",
-      "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 75,
       "rank_factors": {
         "materiality": 75,
         "source_tier": 0,
         "scope": 6,
-        "event": 5,
-        "size": 0,
+        "event": 4,
+        "size": 2,
         "recency": 1,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
+        "event_id": "cybersecurity",
+        "size_bucket": "large"
       },
       "event_types": [
-        "earnings_revenue_margin"
+        "operations",
+        "cybersecurity"
       ],
       "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
+      "companies": [
+        {
+          "name": "Yandex",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -277741,9 +277748,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 83769,
-    "news_picked_today": 159,
-    "news_dropped_today": 489
+    "news_seen_today": 91150,
+    "news_picked_today": 187,
+    "news_dropped_today": 533
   },
   "book_momentum": {
     "live_count": 8,
