@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T00:47:31Z",
+  "generated_at": "2026-11-12T00:53:40Z",
   "inbox": [
     {
       "inbox_id": "INB-20261112-008",
@@ -506,6 +506,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261112-124",
+      "headline": "Eli Lilly Just Raised Its 2026 Sales Forecast to as Much as $92 Billion. But Is Viking Therapeutics the Next Big Obesity Winner?",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/11/11/eli-lilly-just-raised-its-2026-sales-forecast-to-a/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T22:34:00Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Eli Lilly raised its 2026 sales forecast to $92 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Eli Lilly raised its 2026 sales forecast to $92 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Eli Lilly",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Viking Therapeutics",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261112-018",
       "headline": "Pizza franchisee files Chapter 11 bankruptcy, chain cut 239 units",
       "headline_en": null,
@@ -648,55 +702,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-096",
-      "headline": "Eli Lilly Just Raised Its 2026 Sales Forecast to as Much as $92 Billion. But Is Viking Therapeutics the Next Big Obesity Winner?",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/eli-lilly-just-raised-its-2026-sales-forecast-much-92-billion-viking-therapeutics-next-big",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T22:54:00Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Eli Lilly raises 2026 sales guidance to $92 billion; quantified upward revenue revision that resets analyst expectations and moves investor models.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Eli Lilly raises 2026 sales guidance to $92 billion; quantified upward revenue revision that resets analyst expectations and moves investor models.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Eli Lilly",
-          "ticker": "LLY",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1186,6 +1191,175 @@
           "name": "Naver",
           "ticker": null,
           "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-134",
+      "headline": "Fairfax plans to exit India’s IIFL Finance to unlock funds for IDBI purchase, sources say",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/business/article-fairfax-plans-to-sell-stake-in-indias-iifl-finance/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T12:07:07Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Fairfax plans to exit IIFL Finance to fund a potential acquisition of IDBI Bank.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Fairfax plans to exit IIFL Finance to fund a potential acquisition of IDBI Bank.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Fairfax Financial Holdings",
+          "ticker": "FFH",
+          "listing_country": "CA"
+        },
+        {
+          "name": "IIFL Finance",
+          "ticker": "IIFL",
+          "listing_country": "IN"
+        },
+        {
+          "name": "IDBI Bank",
+          "ticker": "IDBI",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-149",
+      "headline": "Fairfax To Sell IIFL Finance Stake To Fund IDBI Bank Purchase, Say Report",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/business/fairfax-to-sell-iifl-finance-stake-to-fund-idbi-bank-purchase-say-report-12312618#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T11:46:48Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Fairfax is reportedly planning to sell its stake in IIFL Finance to fund the acquisition of IDBI Bank.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Fairfax is reportedly planning to sell its stake in IIFL Finance to fund the acquisition of IDBI Bank.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Fairfax Financial",
+          "ticker": null,
+          "listing_country": "CA"
+        },
+        {
+          "name": "IIFL Finance",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "IDBI Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-135",
+      "headline": "Volkswagen: VW stoppt Produktionsprojekt „Gamechanger“",
+      "headline_en": "Volkswagen: VW stops production project 'Gamechanger'",
+      "url": "https://www.handelsblatt.com/unternehmen/industrie/volkswagen-vw-stoppt-produktionsprojekt-gamechanger/100269104.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T12:07:08Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Volkswagen has stopped its 'Gamechanger' production project, signaling a shift in operational strategy or cost-cutting.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Volkswagen has stopped its 'Gamechanger' production project, signaling a shift in operational strategy or cost-cutting.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen AG",
+          "ticker": "VOW3",
+          "listing_country": "DE"
         }
       ],
       "size_bucket": "large",
@@ -1739,239 +1913,96 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261112-055",
-      "headline": "MSCI says Indonesia’s Barito Pacific will be removed from its indexes",
+      "inbox_id": "INB-20261112-137",
+      "headline": "Air India loss share declines but fuel bites Singapore Airlines group as H1 profit falls 44% to Rs 767 crore",
       "headline_en": null,
-      "url": "https://www.straitstimes.com/business/companies-markets/msci-says-indonesias-barito-pacific-will-be-removed-from-its-indexes",
-      "source_name": "The Straits Times",
+      "url": "https://timesofindia.indiatimes.com/business/india-business/air-india-loss-share-declines-but-fuel-bites-singapore-airlines-group-as-h1-profit-falls-44-to-rs-767-crore/articleshow/135736528.cms",
+      "source_name": "The Times of India (Business)",
       "input_nature": "news_headline",
-      "found_at": "2026-11-11T23:25:00Z",
+      "found_at": "2026-11-11T12:06:39Z",
       "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Barito Pacific is being removed from MSCI indexes, which will trigger mechanical selling by index-tracking funds.",
+      "prelim_note": "Singapore Airlines H1 profit fell 44% to Rs 767 crore due to high fuel costs and losses from Air India.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Barito Pacific is being removed from MSCI indexes, which will trigger mechanical selling by index-tracking funds.",
+      "triage_score": 87,
+      "triage_reason": "Singapore Airlines H1 profit fell 44% to Rs 767 crore due to high fuel costs and losses from Air India.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 74,
+      "rank_factors": {
+        "materiality": 74,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 5,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Singapore Airlines",
+          "ticker": "C6L",
+          "listing_country": "SG"
+        },
+        {
+          "name": "Air India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-143",
+      "headline": "Financial statements for the 3rd QTR of 2026",
+      "headline_en": null,
+      "url": "http://english.mubasher.info/news/4700597/Financial-statements-for-the-3rd-QTR-of-2026",
+      "source_name": "Mubasher — Dubai Financial Market (DFM) News, English",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T12:02:28Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Financial statements for the 3rd quarter of 2026 have been released, which will contain key performance indicators.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Financial statements for the 3rd quarter of 2026 have been released, which will contain key performance indicators.",
       "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 70,
+      "materiality_pre_score": 75,
       "rank_factors": {
-        "materiality": 70,
+        "materiality": 75,
         "source_tier": 0,
         "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 5,
+        "event": 5,
+        "size": 0,
+        "recency": 1,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "index_rebalance",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "index_rebalance"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Barito Pacific",
-          "ticker": null,
-          "listing_country": "ID"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-092",
-      "headline": "Feds arrest top official of healthcare company, alleging illegal drug importation",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/11/11/canarx-official-arrested-drug-importation.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T22:58:11Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Federal law enforcement arrested a top official of an unnamed healthcare company for alleged illegal drug importation; confirmed enforcement action by official source, but specific company and financial impact unidentified.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Federal law enforcement arrested a top official of an unnamed healthcare company for alleged illegal drug importation; confirmed enforcement action by official source, but specific company and financial impact unidentified.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
+        "event_id": "earnings_revenue_margin",
         "size_bucket": "unknown"
       },
       "event_types": [
-        "litigation_enforcement"
+        "earnings_revenue_margin"
       ],
       "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Healthcare company (unnamed)",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-077",
-      "headline": "Lutnick stalled Trump crackdown on diversion of Nvidia chips to China: report",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/international/lutnick-stalled-trump-crackdown-diversion-nvidia-chips-china-report",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T22:46:46Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Report suggests potential political interference in export controls regarding high-end chips to China.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Report suggests potential political interference in export controls regarding high-end chips to China.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-016",
-      "headline": "Jensen Huang affair in D.C.: Resignation calls and moves to tighten Nvidia China exports",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/11/11/nvidia-jensen-huang-congress-resign-ai-chips.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T22:46:29Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Calls for resignation and potential tightening of export controls create significant regulatory and operational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Calls for resignation and potential tightening of export controls create significant regulatory and operational risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-002",
-      "headline": "EU warns Australia’s $10b trade deal will be ‘buried’ if Senate stalls",
-      "headline_en": null,
-      "url": "https://www.afr.com/world/europe/eu-warns-australia-s-10b-trade-deal-will-be-buried-if-senate-stalls-20261112-p61dfm?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T22:00:00Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "The EU has threatened to abandon a $10 billion trade deal with Australia if the Senate does not approve it, posing a significant risk to bilateral trade relations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "The EU has threatened to abandon a $10 billion trade deal with Australia if the Senate does not approve it, posing a significant risk to bilateral trade relations.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -277710,9 +277741,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 69191,
-    "news_picked_today": 129,
-    "news_dropped_today": 399
+    "news_seen_today": 83769,
+    "news_picked_today": 159,
+    "news_dropped_today": 489
   },
   "book_momentum": {
     "live_count": 8,
