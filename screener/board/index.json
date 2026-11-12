@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T02:34:21Z",
+  "generated_at": "2026-11-12T02:35:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20261112-189",
@@ -193,6 +193,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-312",
+      "headline": "CDL shares fall 8% after developer warns of significantly weaker second half",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/cdl-shares-fall-8-after-developer-warns-of-significantly-weaker-second-half",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T02:23:50Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Developer warned of significantly weaker second half, directly impacting earnings expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Developer warned of significantly weaker second half, directly impacting earnings expectations.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CDL",
+          "ticker": null,
+          "listing_country": "SG"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1940,60 +1989,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-307",
-      "headline": "KKR, Germany’s RWE Invest $16 Billion in U.K. Wind-Power Projects",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/deals/rwe-kkr-join-forces-on-16-billion-of-u-k-wind-power-projects-4b489bce?mod=rss_markets_main",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T08:44:00Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "$16 billion joint capex commitment by KKR and RWE for UK wind-power projects; major infrastructure capacity expansion affecting both companies' capital deployment and renewable energy positioning.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "$16 billion joint capex commitment by KKR and RWE for UK wind-power projects; major infrastructure capacity expansion affecting both companies' capital deployment and renewable energy positioning.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "KKR",
-          "ticker": "KKR",
-          "listing_country": "US"
-        },
-        {
-          "name": "RWE",
-          "ticker": "RWE",
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -277728,9 +277723,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 224415,
-    "news_picked_today": 522,
-    "news_dropped_today": 1614
+    "news_seen_today": 230411,
+    "news_picked_today": 530,
+    "news_dropped_today": 1630
   },
   "book_momentum": {
     "live_count": 8,
