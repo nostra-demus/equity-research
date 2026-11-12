@@ -570,6 +570,11 @@ from headline_checks import (
     eval_ak_red_flag_severity_reconciliation,
 )
 
+# ── Check BH (net-cash / net-debt basis label in Part I, CLAUDE.md §15) ──
+# Same shared module and rationale as AI/AJ/AK: one detector, imported by the retrospective eval and the
+# live 10B.1 gate.
+from headline_checks import BH_DATE, eval_bh_net_debt_basis_label
+
 # ── Check AP (valuation-summary lever-sidecar integrity, §25/§28) ──
 # Detection logic in scripts/valuation_summary_checks.py — importable + pure (mirrors headline_checks.py),
 # so the SAME core is finish-gate-ready. valuation_summary.json is §25 DATA that reaches main WITHOUT CI;
@@ -2356,6 +2361,170 @@ if scope=="selftest":
         if not ok: akbad+=1
         print(f"  [{'ok' if ok else 'XX'}] AK({dt_!r},red_flags={d_.get('red_flags')!r}) -> {got}"+("" if ok else f"  EXPECTED exp={exp}"))
     bad+=akbad
+
+    # BH — net-cash / net-debt basis label in Part I (§15). No committed run reaches BH_DATE, so drive every
+    # branch here. The three RED cases are the REAL committed-Part-I sentences that shipped a bare figure
+    # (INDIAMART_2026-08-14: broad ₹33.7bn quoted as "~₹31 billion of net cash" while strict is ₹0.15bn).
+    BH=eval_bh_net_debt_basis_label
+    def _bh_th(txt): return "# T\n\n# PART I — INVESTMENT COMMITTEE DECISION\n\n"+txt+"\n\n# PART II — CROSS-CUTTING ANALYSIS\n\n"
+    bhcases=[
+        ("2026-11-05", _bh_th("the balance sheet has ~₹31 billion of net cash."), None),                       # predates BH_DATE
+        ("2026-11-06", _bh_th("the balance sheet has zero real debt with ~₹31 billion of net cash."),          # INDIAMART (real)
+         ["no basis label"]),
+        ("2026-11-06", _bh_th("Net debt already doubled to $9.3 billion before that loan is even drawn."),    # UBER (real)
+         ["no basis label"]),
+        ("2026-11-06", _bh_th("A bridge converts ₹8,231 crore net cash to ~₹33,000 crore net debt."),         # TMCV (real)
+         ["no basis label"]),
+        ("2026-11-06", _bh_th("On a DCF that subtracts $13.7bn of post-Viterra net debt, value is ~$108."),   # BG (real)
+         ["no basis label"]),
+        ("2026-11-06", _bh_th("Strict net cash is ₹0.15 bn; broad net cash (incl. liquid-fund investments) is ₹33.7 bn."), []),
+        ("2026-11-06", _bh_th("Net debt (strict, debt − cash & equivalents) is $9.3 billion."), []),
+        ("2026-11-06", _bh_th("Net cash of ₹33.7 bn on the broad basis."),                                     # broad, strict never named
+         ["never names the strict"]),
+        ("2026-11-06", _bh_th("Net cash of ₹33.7 bn on the broad basis; strict net cash is ₹0.15 bn."), []),
+        ("2026-11-06", _bh_th("Net debt / EBITDA is 1.2x and the company runs a net-cash balance sheet."), []),  # ratio + unquantified: out of scope
+        ("2026-11-06", _bh_th("Fortress balance sheet (net cash even after $53.8B of new debt issuance)."), []),  # amount not attached to the term
+        ("2026-11-06", "# T\n\n# PART I — X\n\nclean.\n\n# PART II — Y\n\nNet debt of $5 bn appears only in Part II.\n", []),  # Part II out of scope
+        ("2026-11-06", 7, []),                                                                                 # non-string: defensive, never raises
+        # ── Codex r1 (PR #781) regression cases — each flips behaviour vs the pre-fix matcher ──
+        # F2: verb/noun connectors. A bare figure stated as "totaled"/"reached"/"position was" is still a
+        # §15 violation; the pre-fix _BH_CONN allowlist skipped these verbs and let the gate pass silently.
+        ("2026-11-06", _bh_th("Net debt totaled $9.3 billion this quarter."), ["no basis label"]),
+        ("2026-11-06", _bh_th("The net cash position was $10 billion at year-end."), ["no basis label"]),
+        ("2026-11-06", _bh_th("Net debt reached $9.3 billion and amounted to a record high."), ["no basis label"]),
+        # F3: hyphenated investment-basis modifiers. "incl. short-term/liquid-fund investments" IS a valid
+        # §15 basis label; the pre-fix \w+ could not cross the hyphen, so these compliant forms were
+        # false-flagged. They pass now (and name the strict figure beside the broad one).
+        ("2026-11-06", _bh_th("Net cash is $10 billion including short-term investments. Strict net cash is $0.15 bn."), []),
+        # F1: §15 wants the strict FIGURE beside a broad one, not a bare "strict" token borrowed from an
+        # unrelated clause ("Strict leverage is 1.0x"). Pre-fix this passed; now it flags (no strict figure).
+        ("2026-11-06", _bh_th("Net cash of ₹33.7 bn on the broad basis. Strict leverage is 1.0x."), ["never names the strict"]),
+        # ── Layer-3 (PR #781 self-review) regression cases — a basis label in a DIFFERENT clause must not
+        # discharge the §15 label duty for an unlabelled figure. §15: "label the basis inline every time the
+        # figure appears" — the label must describe the figure, not a borrowed token from a neighbour clause.
+        # FN1: ';' separates the figure from "strict" (which modifies the leverage ratio). Pre-fix: the
+        # segment was one piece (lowercase after ';' blocked the split) and _BH_BASIS matched "strict"
+        # anywhere → silent pass of a bare net-debt figure. Now ';' always splits → the figure clause flags.
+        ("2026-11-06", _bh_th("Net debt reached $9.3 billion; leverage on a strict basis is 2.1x."), ["no basis label"]),
+        # FN2: ';' separates the bare net-cash figure from an unrelated "cash and cash equivalents" clause
+        # (which describes where cash sits, not the net-cash basis). Pre-fix: silent pass. Now flagged.
+        ("2026-11-06", _bh_th("The group carries ~₹31 billion of net cash; its cash and cash equivalents sit largely offshore."), ["no basis label"]),
+        # ── Strict-FIGURE binding (PR #781 documented residual + ';'-split follow-on). §15: an investment-
+        # inclusive figure must never appear "without also showing the strict figure" — a strict FIGURE, so the
+        # "strict" token has to sit on its own amount, not merely share a segment with the broad one.
+        # SF1/SF2: one broad amount + an unrelated "strict" in the SAME segment. Pre-fix: silent pass. Now flagged.
+        ("2026-11-06", _bh_th("Net cash of ₹33.7 bn on the broad basis, held under strict treasury rules."), ["never names the strict"]),
+        ("2026-11-06", _bh_th("Net cash of ₹33.7 bn on the broad basis, with ₹5 bn of debt under strict covenant tests."), ["never names the strict"]),
+        # SF3: elliptical strict figure after ';' ("…; ₹0.15 bn strict") IS the strict figure. The ';'-split in
+        # 0a2094f3 orphaned that clause (no net-cash term) → false "never names the strict". Now passes.
+        ("2026-11-06", _bh_th("Net cash is ₹33.7 bn incl. liquid-fund investments; ₹0.15 bn strict."), []),
+        # …but an elliptical clause whose "strict" sits on no amount still does not name the strict figure.
+        ("2026-11-06", _bh_th("Net cash is ₹33.7 bn incl. liquid-fund investments; leverage is strict at 1.0x."), ["never names the strict"]),
+        # No new false positives: broad and strict amounts in one segment, in either order / parenthetical / nil.
+        ("2026-11-06", _bh_th("Net cash is ₹33.7 bn on a broad basis and ₹0.15 bn on a strict basis."), []),
+        ("2026-11-06", _bh_th("Net cash of ₹33.7 bn on the broad basis (strict: ₹0.15 bn)."), []),
+        ("2026-11-06", _bh_th("Strict net cash is ₹0.15 bn versus ₹33.7 bn on the broad basis."), []),
+        ("2026-11-06", _bh_th("Broad net cash is ₹33.7 bn and strict-basis net cash is nil."), []),
+        # ── Layer-3 (automated PR-review) regression cases — markdown presentation must not defeat the gate.
+        # §15: "label the basis inline every time the figure appears"; §17: a trigger a **bolded** figure slips
+        # past is a rubber stamp. Pre-fix, markdown emphasis / table pipes between the term and the amount broke
+        # _BH_A/_BH_B adjacency, so the EXACT INDIAMART defect merely bolded (or table-celled, or stated with an
+        # "in"/"held as" connector) shipped CLEAN. These flip red→green only with the _BH_MD normalisation + the
+        # widened money-first filler.
+        ("2026-11-06", _bh_th("the balance sheet has ~**₹31 billion** of net cash."), ["no basis label"]),  # bold figure
+        ("2026-11-06", _bh_th("Net cash of **₹33.7 bn**."), ["no basis label"]),                            # bold amount
+        ("2026-11-06", _bh_th("**Net cash** of ₹33.7 bn."), ["no basis label"]),                            # bold term
+        ("2026-11-06", _bh_th("Net debt of `$9.3 billion`."), ["no basis label"]),                          # code-span
+        ("2026-11-06", _bh_th("| Net cash | ~₹31 billion |"), ["no basis label"]),                          # table cell
+        ("2026-11-06", _bh_th("with ₹31 billion in net cash."), ["no basis label"]),                        # "in" filler
+        ("2026-11-06", _bh_th("₹33.7 bn held as net cash."), ["no basis label"]),                           # "held as" filler
+        # …and a correctly-LABELLED figure stays clean through the same markdown (no new false positive).
+        ("2026-11-06", _bh_th("Net cash (strict) of **₹31 billion**."), []),
+        ("2026-11-06", _bh_th("| Net cash (strict) | ₹0.15 bn | broad | ₹33.7 bn |"), []),
+        # ── Codex r3 (PR #781, head 40b880ae) regression cases — each flips vs the pre-fix matcher ──
+        # R1: an unrelated "strict" in the figure's clause is not a basis label (pre-fix: silent pass).
+        ("2026-11-06", _bh_th("Net debt of $9.3 billion is tested under strict covenant tests."), ["no basis label"]),
+        ("2026-11-06", _bh_th("Net debt is $9.3 billion on a strict basis."), []),
+        # R2: a nil/zero net-cash amount is still a stated figure (pre-fix: no digits → never matched).
+        ("2026-11-06", _bh_th("Net debt was zero."), ["no basis label"]),
+        ("2026-11-06", _bh_th("Net cash was nil."), ["no basis label"]),
+        ("2026-11-06", _bh_th("Strict net debt was zero."), []),
+        # R3: a qualifier between the term and the amount keeps the figure attached, so the broad figure
+        # still requires the strict figure beside it (pre-fix: the figure was never seen → silent pass).
+        ("2026-11-06", _bh_th("Net cash including investments is $10 billion."), ["never names the strict"]),
+        ("2026-11-06", _bh_th("Net cash including investments is $10 billion; strict net cash is $0.2 billion."), []),
+        # R4: the canonical strict definition "debt − cash equivalents" counts without "cash and" (pre-fix: false flag).
+        ("2026-11-06", _bh_th("Net debt (debt − cash equivalents) is $9.3 billion."), []),
+        # R5: a bare "company-defined" label does not state what the measure contains (pre-fix: silent pass)…
+        ("2026-11-06", _bh_th("Company-defined net cash is $10 billion."), ["no basis label"]),
+        # …but a company definition that states its contents is a valid §15 label.
+        ("2026-11-06", _bh_th("Net cash is $10 billion (company-defined: cash less borrowings and lease liabilities)."), []),
+        # ── Codex r4 (PR #781, automated PR-review) regression cases — each flips vs the pre-fix matcher ──
+        # R4a (term-first basis phrase): "on a broad basis" sits BETWEEN the term and the amount. Pre-fix
+        # _BH_QUAL skipped only parentheticals / incl-excl clauses, so _BH_CONN could not cross "on a broad
+        # basis" and the figure never attached → silent pass. Now the figure attaches and, labelled broad with
+        # no strict figure, flags "never names the strict" (§15: investment-inclusive never without the strict).
+        ("2026-11-06", _bh_th("Net cash on a broad basis was $10 billion."), ["never names the strict"]),
+        ("2026-11-06", _bh_th("Net cash on a broad basis was $10 billion; strict net cash is $0.2 billion."), []),
+        # …and a term-first strict phrase sitting on its own amount is a labelled strict figure (no false positive).
+        ("2026-11-06", _bh_th("Net cash on a strict basis was $10 billion."), []),
+        # R4b (global currency codes, §27): a CHF/HKD/AUD/NOK… prefix is a stated amount. Pre-fix _BH_MONEY's
+        # code list stopped at USD/EUR/GBP/INR/CNY/RMB/JPY/AED/SAR/Rs, so the code sat between the connector and
+        # the digits and the amount never attached → an unlabelled non-US net-debt figure shipped CLEAN.
+        ("2026-11-06", _bh_th("Net debt was CHF 10 billion."), ["no basis label"]),
+        ("2026-11-06", _bh_th("Net debt was HKD 50 billion."), ["no basis label"]),
+        ("2026-11-06", _bh_th("Net debt was AUD 2.3 billion."), ["no basis label"]),
+        # …and the same non-US figure with a §15 basis label stays clean (no false positive).
+        ("2026-11-06", _bh_th("Net debt (strict, debt − cash & equivalents) was CHF 10 billion."), []),
+        # R4c (hard-wrapped prose): a single newline inside a paragraph must not break figure↔term adjacency
+        # (false negative) nor strand the basis label on the continuation line (false positive). Pre-fix the
+        # check iterated physical lines; now intra-paragraph newlines collapse to spaces (blank-line paragraph
+        # breaks preserved, ';'/sentence-boundary clause split intact).
+        ("2026-11-06", _bh_th("Net debt was\n$9.3 billion."), ["no basis label"]),           # FN: term/amount wrapped apart
+        ("2026-11-06", _bh_th("Net debt is $9.3 billion on a\nstrict basis."), []),           # FP: label on the continuation line
+        # …and a blank-line paragraph break still separates clauses (the unlabelled figure flags).
+        ("2026-11-06", _bh_th("Net debt was $9.3 billion.\n\nSeparately, liquidity is ample."), ["no basis label"]),
+        # ── Codex r5 (PR #781, head 1c71c9ca) regression cases — each flips vs the pre-fix matcher ──
+        # R5a: a cash-and-equivalents mention that is not the subtracted term of a definition is not a basis
+        # label (pre-fix: any mention in the clause passed) …
+        ("2026-11-06", _bh_th("Net debt reached $9.3 billion and cash and cash equivalents yielded 4%."), ["no basis label"]),
+        # … while the canonical definition still counts, with or without "total".
+        ("2026-11-06", _bh_th("Net debt is $9.3 billion (total debt less cash and cash equivalents)."), []),
+        ("2026-11-06", _bh_th("Net debt of $9.3 billion, i.e. borrowings minus cash & cash equivalents."), []),
+        # R5b: adjacent table rows / list items are separate scopes — one row's strict label cannot excuse
+        # the unlabelled amount in the row above (pre-fix: rows were flattened into one segment).
+        ("2026-11-06", _bh_th("| A | Net debt $9.3 billion |\n| B | Strict net cash $2 billion |"), ["no basis label"]),
+        ("2026-11-06", _bh_th("- Net debt $9.3 billion\n- Strict net cash $2 billion"), ["no basis label"]),
+        # R5c: the strict companion must cover the broad figure's period (pre-fix: document-wide booleans).
+        ("2026-11-06", _bh_th("FY25 broad net cash was $10 billion; FY25 strict net cash was $2 billion. "
+                              "FY26 broad net cash was $12 billion."), ["never names the strict"]),
+        ("2026-11-06", _bh_th("FY25 broad net cash was $10 billion; FY25 strict net cash was $2 billion. "
+                              "FY26 broad net cash was $12 billion; FY26 strict net cash was $3 billion."), []),
+        # ── Nightly PR-fix (PR #781) regressions — each flips vs the pre-fix matcher ──
+        # BUG1 (false positive): "net cash flow(s)" is the CASH-FLOW-STATEMENT line, not the §15 net-cash /
+        # net-debt BALANCE-SHEET position — out of scope like ratios and framing. Pre-fix _BH_B matched
+        # "$5bn of net cash" inside "$5bn of net cash flow" and raised a false PROVISIONAL on a correct thesis.
+        ("2026-11-06", _bh_th("The company generated $5 billion of net cash flow from operations."), []),
+        ("2026-11-06", _bh_th("It produced $5 billion of net cash flows."), []),
+        ("2026-11-06", _bh_th("It generates **$5 billion** of net cash flow."), []),  # bold, same scope
+        # BUG2 (false negative, §27 any-market): an unlabelled net-debt figure in an ISO code outside the
+        # hardcoded list (TWD, THB, IDR, …) sat between the connector and the digits, so the amount never
+        # attached and the figure shipped clean. The generic code alternative is case-sensitive (re.I would
+        # match "the"/"was") and magnitude-anchored (so a date like "FYE 2026" is not read as an amount).
+        ("2026-11-06", _bh_th("Net debt stands at TWD 50 billion."), ["no basis label"]),
+        ("2026-11-06", _bh_th("Net debt was THB 20 billion."), ["no basis label"]),
+        ("2026-11-06", _bh_th("Net debt (strict, debt − cash & equivalents) was TWD 50 billion."), []),  # labelled → no FP
+        ("2026-11-06", _bh_th("Net debt at FYE 2026 will be refinanced."), []),  # date, not an amount: no FP
+    ]
+    bhbad=0
+    for dt_,th_,exp in bhcases:
+        got=BH(dt_,th_)
+        if exp is None: ok=(got is None)
+        elif not exp:   ok=(isinstance(got,list) and len(got)==0)
+        else:           ok=(isinstance(got,list) and len(got)>0 and all(any(x in v for v in got) for x in exp))
+        if not ok: bhbad+=1
+        print(f"  [{'ok' if ok else 'XX'}] BH({dt_!r}) -> {got}"+("" if ok else f"  EXPECTED exp={exp}"))
+    bad+=bhbad
 
     # check AN — supersession-integrity (§4a). Fixture-free: build tmp target dirs to exercise the
     # existence branches. A valid sidecar → []; a dangling/empty target → violation; no supersession → None.
@@ -4271,6 +4440,16 @@ for drp in runs:
         add("AK_red_flag_severity_reconciliation",True,
             "module-declared Critical red-flag counts reconcile with decision_record.json red_flags "
             "and the Headline Scorecard Rating-cap cell does not deny one")
+    # BH net-cash / net-debt basis label in Part I (forward-looking; landing BH_DATE) — CLAUDE.md §15.
+    #   synthesizer.md Part I item 6 requires every net cash / net debt framing to state its basis, and
+    #   to show the strict figure beside any investment-inclusive one; nothing verified it.
+    bhresult=eval_bh_net_debt_basis_label(ddte,thesis)
+    if bhresult is None:
+        add("BH_net_debt_basis_label",True,f"run predates the gate ({ddte}) — N/A",na=True)
+    elif bhresult:
+        add("BH_net_debt_basis_label",False,"; ".join(bhresult))
+    else:
+        add("BH_net_debt_basis_label",True,"every net cash / net debt amount in Part I carries its §15 basis label")
     # AN supersession-integrity (§4a): validate any append-only corrections.json's superseded_by chain.
     # Schema-gated (only a corrections/v1 sidecar counts) so AN honors exactly what the resolver honors.
     _corr=_an_valid_sidecar(run)
@@ -4383,6 +4562,11 @@ for drp in runs:
         if r:
             retro.append({"check":"AK_red_flag_severity_reconciliation","status":"FAIL","detail":"; ".join(r),
                           "note":f"retrospective — decision_date {ddte!r} predates AK_DATE ({AK_DATE}); informational only, does not affect pass/gate_eligible/suite_pass"})
+    if bhresult is None:
+        r=eval_bh_net_debt_basis_label(BH_DATE,thesis)
+        if r:
+            retro.append({"check":"BH_net_debt_basis_label","status":"FAIL","detail":"; ".join(r),
+                          "note":f"retrospective — decision_date {ddte!r} predates BH_DATE ({BH_DATE}); informational only, does not affect pass/gate_eligible/suite_pass"})
     # AY: same pattern as AI/AK — the underlying signal (the finish-gate's own PROVISIONAL banner, the
     # verify-evidence verdict) already fully existed on this run before AY_DATE; only the date gate on the
     # PRIMARY check above is bypassed here, not the status computed by resolve_integrity_status.
@@ -4477,9 +4661,9 @@ FRAMEWORK_CONTRACTS={
  ".claude/agents/catalyst/01_catalyst-calendar.md":["12-Month Catalyst Calendar","Bullish Trigger","Bearish Trigger"],
  ".claude/agents/catalyst/99_catalyst-synthesis.md":["Catalyst strength /100","No proven catalyst yet","depends_on"],
  ".claude/agents/memo-writer.md":["memo.md","colleague","~10"],
- ".claude/commands/research/full.md":["audit_dossier.md","memo.md","memo-writer","post_mortem_decision","RATING-CAP","TERMINAL","10B.3","GATE-EXPECTATIONS","expectations-gap.md","rating_caps","eval_ad_filter_4_6_cap","eval_ae_filter5_cap","eval_af_filter1_integrity_cap","eval_ac_turnaround_cap","eval_aq_forensic_mosaic_cap","headline_checks","eval_ai_headline_reconciliation","eval_ak_red_flag_severity_reconciliation","valuation_summary_checks","eval_ap_valuation_summary_integrity","--data-needs-prewrite","before 10B.3A"],
+ ".claude/commands/research/full.md":["audit_dossier.md","memo.md","memo-writer","post_mortem_decision","RATING-CAP","TERMINAL","10B.3","GATE-EXPECTATIONS","expectations-gap.md","rating_caps","eval_ad_filter_4_6_cap","eval_ae_filter5_cap","eval_af_filter1_integrity_cap","eval_ac_turnaround_cap","eval_aq_forensic_mosaic_cap","headline_checks","eval_ai_headline_reconciliation","eval_ak_red_flag_severity_reconciliation","eval_bh_net_debt_basis_label","valuation_summary_checks","eval_ap_valuation_summary_integrity","--data-needs-prewrite","before 10B.3A"],
  "scripts/rating_caps.py":["AC_DATE","AD_DATE","AE_DATE","AF_DATE","AQ_DATE","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","eval_ae_filter5_cap","eval_af_filter1_integrity_cap","eval_aq_forensic_mosaic_cap","_tag_fired_standalone","HIGH_CONVICTION_DECISIONS","FORENSIC_TAGS","MOSAIC_MIN_DISTINCT_TAGS","MOSAIC_MIN_DISTINCT_MODULES"],
- "scripts/headline_checks.py":["AI_DATE","CONF_SPLIT_DATE","eval_ai_headline_reconciliation","_scorecard_section","_hs_cell","_metric_numbers","_reconciles","AK_DATE","eval_ak_red_flag_severity_reconciliation","_module_critical_count","_AK_CRITICAL_PATTERNS","_AK_DENIAL","_AK_AFFIRM"],
+ "scripts/headline_checks.py":["AI_DATE","CONF_SPLIT_DATE","eval_ai_headline_reconciliation","_scorecard_section","_hs_cell","_metric_numbers","_reconciles","AK_DATE","eval_ak_red_flag_severity_reconciliation","_module_critical_count","_AK_CRITICAL_PATTERNS","_AK_DENIAL","_AK_AFFIRM","BH_DATE","eval_bh_net_debt_basis_label","_BH_BASIS","_part_one"],
  "scripts/valuation_summary_checks.py":["eval_ap_valuation_summary_integrity","scan_committed","_selftest","_REQUIRED","level_from_multiple"],
  # BF — without this row the whole basis-check module could be deleted and the suite would still
  # print PASS, which is the hole this registry exists to close (see its own comment above).
@@ -4502,7 +4686,7 @@ FRAMEWORK_CONTRACTS={
  "scripts/market_prices.py":["data/_market","close_on","total_return","beta_adjusted_excess","raw_excess_pct","beta_adjusted_excess_pct","available","as_of","date,symbol,close"],
  "frameworks/MARKET_FEED.md":["date,symbol,close","_symbols.json","beta_adjusted_excess","close_on","EXTERNAL_DATA"],
  "frameworks/EXTERNAL_DATA.md":["data/_market","market_prices.py","beta-adjusted","tracking_price","date,symbol,close"],
- "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","eval_t_probability","PROB_DATE","eval_forecast_type","FORECAST_TYPE_ENUM","FTYPE_DATE","eval_forecast_entry_completeness","OWNERCONF_DATE","owner_module","confidence_score","evidence_today","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE","AA_module_verdict_lock","AA_DATE","BSS_CAP_VERDICT","MG_CAP_VERDICT","eval_aa_module_verdict_lock","extract_synthesis_verdict","AB_bm_disqualifier_lock","AB_DATE","BM_CAP_VERDICT","eval_ab_bm_verdict_lock","AC_turnaround_cap","AC_DATE","TURNAROUND_TYPE","ABOVE_STARTER_AC","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","AD_DATE","CAP4_TAG","CAP6_TAG","AD_filter_4_6_cap","eval_ae_filter5_cap","AE_DATE","CAP5_TAG","ABOVE_STARTER_AE","AE_filter5_cap","_tag_fired_standalone","eval_af_filter1_integrity_cap","AF_DATE","CAP1_TAG","ABOVE_WATCHLIST_AF","AF_filter1_integrity_cap","eval_ag_calibration_feedback_gate","AG_DATE","AG_FTYPE_DATE","AG_TTYPE_DATE","AG_ERRTAX_DATE","AG_STATUSES","_ag_leading_error_categories","_calib_summary_asof","CALIB_SUMMARIES","eval_ah_expectations_gap_gate","AH_DATE","AH_expectations_gap_gate","eval_ai_headline_reconciliation","AI_DATE","_scorecard_section","_hs_cell","_metric_numbers","_reconciles","eval_aj_decision_audit_trail","AJ_DATE","AJ_MIN_ROWS","AJ_REQUIRED_COLS","_decision_audit_section","_decision_audit_header","_decision_audit_rows","_audit_cell_blank","eval_ak_red_flag_severity_reconciliation","AK_DATE","_module_critical_count","_AK_CRITICAL_PATTERNS","_AK_DENIAL","_AK_AFFIRM","AL_pre_mortem_check","PRE_MORTEM_CHECK_DATE","PM_OUTCOMES","eval_am_bear_case_sanity","AM_DATE","eval_an_supersession_integrity","eval_ar_short_bull_case_sanity","AR_DATE","AO_forecast_resolvability","AO_DATE","eval_ao_forecast_resolvability","_ao_earliest_date","eval_ap_valuation_summary_integrity","scan_committed","eval_ay_fixture_integrity","AY_DATE","resolve_integrity_status"],
+ "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","eval_t_probability","PROB_DATE","eval_forecast_type","FORECAST_TYPE_ENUM","FTYPE_DATE","eval_forecast_entry_completeness","OWNERCONF_DATE","owner_module","confidence_score","evidence_today","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE","AA_module_verdict_lock","AA_DATE","BSS_CAP_VERDICT","MG_CAP_VERDICT","eval_aa_module_verdict_lock","extract_synthesis_verdict","AB_bm_disqualifier_lock","AB_DATE","BM_CAP_VERDICT","eval_ab_bm_verdict_lock","AC_turnaround_cap","AC_DATE","TURNAROUND_TYPE","ABOVE_STARTER_AC","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","AD_DATE","CAP4_TAG","CAP6_TAG","AD_filter_4_6_cap","eval_ae_filter5_cap","AE_DATE","CAP5_TAG","ABOVE_STARTER_AE","AE_filter5_cap","_tag_fired_standalone","eval_af_filter1_integrity_cap","AF_DATE","CAP1_TAG","ABOVE_WATCHLIST_AF","AF_filter1_integrity_cap","eval_ag_calibration_feedback_gate","AG_DATE","AG_FTYPE_DATE","AG_TTYPE_DATE","AG_ERRTAX_DATE","AG_STATUSES","_ag_leading_error_categories","_calib_summary_asof","CALIB_SUMMARIES","eval_ah_expectations_gap_gate","AH_DATE","AH_expectations_gap_gate","eval_ai_headline_reconciliation","AI_DATE","_scorecard_section","_hs_cell","_metric_numbers","_reconciles","eval_aj_decision_audit_trail","AJ_DATE","AJ_MIN_ROWS","AJ_REQUIRED_COLS","_decision_audit_section","_decision_audit_header","_decision_audit_rows","_audit_cell_blank","eval_ak_red_flag_severity_reconciliation","AK_DATE","_module_critical_count","_AK_CRITICAL_PATTERNS","_AK_DENIAL","_AK_AFFIRM","AL_pre_mortem_check","PRE_MORTEM_CHECK_DATE","PM_OUTCOMES","eval_am_bear_case_sanity","AM_DATE","eval_an_supersession_integrity","eval_ar_short_bull_case_sanity","AR_DATE","AO_forecast_resolvability","AO_DATE","eval_ao_forecast_resolvability","_ao_earliest_date","eval_ap_valuation_summary_integrity","scan_committed","eval_ay_fixture_integrity","AY_DATE","resolve_integrity_status","BH_net_debt_basis_label","eval_bh_net_debt_basis_label"],
  "scripts/data_need_contract.py":["DATA_NEED_PROMISE_RE","DATA_NEED_URL_RE","check_live_orb_routes","discover_orb_roster"],
 
  ".github/workflows/ci.yml":["eval-contracts","scripts/eval.py"],
