@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T12:37:51Z",
+  "generated_at": "2026-11-12T12:43:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20261112-644",
@@ -781,6 +781,109 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-659",
+      "headline": "The Morning Risk Report: Nvidia is Preparing to Oust CEO Jensen Huang",
+      "headline_en": null,
+      "url": "https://www.wsj.com/risk-compliance-journal/the-morning-risk-report-nvidia-is-preparing-to-oust-ceo-jensen-huang-324bfbd1?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T12:29:00Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Reported potential ousting of CEO Jensen Huang represents a major management risk for a mega-cap company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Reported potential ousting of CEO Jensen Huang represents a major management risk for a mega-cap company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-658",
+      "headline": "Telia to acquire Nordic MVNO Telavox for $381m",
+      "headline_en": null,
+      "url": "https://www.datacenterdynamics.com/en/news/telia-to-acquire-nordic-mvno-telavox-for-381m/",
+      "source_name": "DataCenterDynamics",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T12:25:41Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Telia announced the acquisition of Telavox for $381 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Telia announced the acquisition of Telavox for $381 million.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Telia",
+          "ticker": null,
+          "listing_country": "SE"
+        },
+        {
+          "name": "Telavox",
+          "ticker": null,
+          "listing_country": "SE"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1871,109 +1974,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-443",
-      "headline": "Jokowi’s Son Gibran Resigns as Indonesia Vice President",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-11-12/jokowi-son-gibran-rakabuming-raka-resigns-indonesia-vice-president-prabowo",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T04:46:14Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "The resignation of the Vice President of Indonesia creates significant political instability and uncertainty for the country's governance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The resignation of the Vice President of Indonesia creates significant political instability and uncertainty for the country's governance.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Indonesia Government",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-459",
-      "headline": "SpaceX signs $69 million deal with Singulus for 100 GW of solar equipment for Musk’s planned Starmind satellite network",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/spacex-signs-69-million-deal-with-singulus-for-100-gw-of-solar-equipment-for-musk-s-planned-starmind-satellite-network-11794457729510.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T04:39:59Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "SpaceX signed a $69 million deal for solar equipment supply.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "SpaceX signed a $69 million deal for solar equipment supply.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Singulus Technologies",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -276905,9 +276905,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1154421,
-    "news_picked_today": 1727,
-    "news_dropped_today": 12241
+    "news_seen_today": 1168965,
+    "news_picked_today": 1743,
+    "news_dropped_today": 12297
   },
   "book_momentum": {
     "live_count": 8,
