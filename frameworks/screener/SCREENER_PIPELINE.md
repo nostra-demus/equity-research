@@ -95,6 +95,28 @@ The canonical dependency-free checker supports the schemas' internal references.
 `publication_schemas: []` delegates to an existing stronger swarm-specific validator; it is not schema
 approval. The commodity archive path declares this delegation and retains all its own checks.
 
+An existing auxiliary command may use a different execution root from the canonical signal template.
+`publication_auxiliary_roots` explicitly binds each such execution kind to its root pattern:
+
+```yaml
+publication_auxiliary_roots:
+  - "conviction=screener/ledger/conviction/runs/CHK-????????-??"
+  - "sweep=screener/inbox"
+  - "handoff=screener/ledger"
+```
+
+The supervisor supplies its admitted parent swarm, execution kind, and display unit through
+`--schema-swarm`, `--schema-kind`, and `--schema-unit` alongside `--schema-contract`. All three are
+required together. The unit must match the owning manifest's `unit`; it does not classify the execution
+kind (a conviction run still has the signal display unit). The shared resolver always classifies a
+canonical template root first, including when an auxiliary kind is supplied. Only a unique explicit
+auxiliary kind/root match returns `classification: auxiliary`, `declared: false`, and no run-stage
+artifacts. Canonical roots return `classification: canonical`. Unknown, mismatched, ambiguous, malformed,
+or linked roots fail closed, including a missing leaf beneath an existing linked ancestor. A raw
+`--schema-contract` call without parent context never grants auxiliary status. This classification
+does not affect `--records`, `--select`, or `--check`: new or changed mapped ledger leaves, including
+conviction-state leaves, still receive their exact frozen/index validation.
+
 Before a tracked attempt starts, the supervisor records baselines for the declared run artifacts. Before
 its first durable publication mutation, it selects only artifacts authored by that attempt and validates
 their frozen bytes, including any proposed ledger projection, through
@@ -114,3 +136,16 @@ swarm-name or artifact-name registry.
 snapshot/index validation. The row definitions for checkpoints, validations, and conviction events remain
 with those deterministic transaction writers. This admission gate does not retrovalidate whole NDJSON
 histories or claim that snapshot validation alone proves every earlier projection write was schema-checked.
+
+The standalone deterministic writers additionally use the same gate's `admit_schema_records` callable
+inside their repository mutation transaction, from source reading through the first write. They supply
+the exact mapped bytes they actually consumed, retaining the regular HEAD-identical input exemption;
+an exempt historical input is not a new schema approval. Planned new conviction-state images are checked
+strictly, including images recovered from the journal. The seeder plans and judges the entire selected
+batch before appending any checkpoint or event, including terminal archive and recovery paths. The
+rescorer judges both normal and retry projections before their writes. The board builder judges its
+actually consumed mapped inputs before opening its output file, without regrading its historical output
+rows or treating unmapped candidate/NDJSON stores as checked. Explicit empty or unmapped callable pairs
+fail closed; a board build consuming no mapped inputs reports that limited check as not applicable.
+Consumed bytes, schema bindings and HEAD must remain unchanged through admission, while the mutation
+lease remains held through publication. Exact snapshot/index checks still run afterward independently.

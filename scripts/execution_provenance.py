@@ -12,6 +12,7 @@ import argparse
 import fcntl
 import json
 import os
+import re
 import stat
 import sys
 import tempfile
@@ -455,6 +456,7 @@ def discover_swarm_contracts(repo: Path) -> tuple[dict[str, Any], ...]:
         lines = sections[1].splitlines()
         values: dict[str, Any] = {}
         seen_keys: set[str] = set()
+        flat_contract_lists = {"publication_schemas", "publication_auxiliary_roots"}
         index = 0
         while index < len(lines):
             line = lines[index]
@@ -484,7 +486,7 @@ def discover_swarm_contracts(repo: Path) -> tuple[dict[str, Any], ...]:
                             raise ProvenanceError(f"swarm manifest has malformed inline list {key!r}: {label}")
                         parsed = items
                 values[key] = parsed
-                if key == "publication_schemas":
+                if key in flat_contract_lists:
                     # An inline declaration is complete. Silently ignoring a following block row
                     # could turn a malformed intended schema contract into an explicit [] delegation.
                     cursor = index + 1
@@ -495,7 +497,7 @@ def discover_swarm_contracts(repo: Path) -> tuple[dict[str, Any], ...]:
                             continue
                         if following[0].isspace():
                             raise ProvenanceError(
-                                f"swarm manifest has mixed inline/block publication_schemas: {label}"
+                                f"swarm manifest has mixed inline/block {key}: {label}"
                             )
                         break
             elif raw:
@@ -503,13 +505,20 @@ def discover_swarm_contracts(repo: Path) -> tuple[dict[str, Any], ...]:
             else:
                 items: list[str] = []
                 cursor = index + 1
-                while cursor < len(lines) and (not lines[cursor] or lines[cursor][0].isspace()):
-                    stripped = lines[cursor].strip()
+                while cursor < len(lines):
+                    following = lines[cursor]
+                    stripped = without_comment(following).strip()
+                    if stripped and not following[0].isspace():
+                        break
+                    if stripped and key in flat_contract_lists and not stripped.startswith("- "):
+                        raise ProvenanceError(f"swarm manifest has malformed block list {key!r}: {label}")
                     if stripped.startswith("-"):
                         items.append(scalar(without_comment(stripped[1:]).strip()))
                     cursor += 1
                 if items:
                     values[key] = items
+                elif key in flat_contract_lists:
+                    values[key] = None  # an empty YAML block is null, never an explicit [] delegation
                 index = cursor - 1
             index += 1
         return values
@@ -548,10 +557,32 @@ def discover_swarm_contracts(repo: Path) -> tuple[dict[str, Any], ...]:
         if ledger_root:
             if Path(ledger_root).is_absolute() or ".." in Path(ledger_root).parts or "\\" in ledger_root:
                 raise ProvenanceError(f"swarm manifest has unsafe ledger_root: {label}")
+        auxiliary = data.get("publication_auxiliary_roots", [])
+        if (not isinstance(auxiliary, list)
+                or any(not isinstance(row, str) for row in auxiliary)):
+            raise ProvenanceError(f"swarm manifest has malformed publication_auxiliary_roots: {label}")
+        if auxiliary and (not isinstance(data.get("unit"), str) or not data["unit"].strip()):
+            raise ProvenanceError(f"swarm auxiliary roots require an explicit unit: {label}")
+        if isinstance(data.get("unit"), str):
+            data["unit"] = data["unit"].strip()  # same display-unit normalization as manifest discovery in TS
+        auxiliary_contracts = []
+        seen_auxiliary = set()
+        for row in auxiliary:
+            kind, equal, pattern = row.partition("=")
+            if (not equal or re.fullmatch(r"[a-z][a-z0-9-]*", kind) is None
+                    or not pattern or pattern.startswith("/") or "\\" in pattern
+                    or any(part in {"", ".", ".."} for part in pattern.split("/"))
+                    or any(character in pattern for character in "{}=[]")):
+                raise ProvenanceError(f"swarm manifest has unsafe auxiliary root contract: {label}: {row}")
+            if (kind, pattern) in seen_auxiliary:
+                raise ProvenanceError(f"swarm manifest has duplicate auxiliary root contract: {label}: {row}")
+            seen_auxiliary.add((kind, pattern))
+            auxiliary_contracts.append({"kind": kind, "pattern": pattern})
         contracts.append({**data, "id": swarm_id, "run_root_template": template,
                           "runs_root": runs_root, "placeholder": placeholder,
                           "run_glob": template.replace(marker, "*"),
-                          "decision_artifacts": artifacts, "manifest": label.as_posix()})
+                          "decision_artifacts": artifacts, "manifest": label.as_posix(),
+                          "publication_auxiliary_roots": auxiliary_contracts})
     return tuple(contracts)
 
 
