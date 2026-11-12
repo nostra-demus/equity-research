@@ -47,6 +47,8 @@ If no maturity schedule is disclosed: build the wall from the short-term vs long
 6. Estimate the refinancing cost step-up: compare the weighted-average coupon to the current market refinancing rate (web-source the benchmark, labeled).
 7. Assess refinancing risk: near-term maturities vs available FCF and liquidity, and market access given ratings/commentary.
 
+   Before calling the wall self-funded, apply the `MODULE_RULES` Calculation Standards item 8 cash-finance-cost bridge: state reported versus adjusted FCF / proxy, include cash finance costs absent from the chosen FCF exactly once, and retain any source-classification or availability gap. A payment already deducted in CFO, cash capex or an interest-netted proxy is not added again. This check uses source evidence and the shared rule; it does not depend on a later `03` output. Carry the reconciled basis into the downstream liquidity assessment.
+
 # WHAT TO READ (priority for this agent)
 
 - **Debt note maturity table** in the latest annual / interim filing (10-K/10-Q for US; Annual Report borrowings note & quarterly results for India; local equivalent)
