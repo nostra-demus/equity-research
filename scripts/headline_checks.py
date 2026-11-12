@@ -1134,9 +1134,17 @@ _BG_BARE_PERIOD_FIELD = re.compile(
     r"^\W*(?:on\s+an?\s+|an?\s+)?(?:trailing|forward|ttm|ltm|ntm|next[- ]twelve(?:[- ]months?)?|last[- ]twelve(?:[- ]months?)?)"
     r"(?:\s+(?:basis|12[- ]?m(?:onths?)?|twelve[- ]months?))?\W*$", re.I)
 # A record date belonging to a NON-dividend corporate event (AGM/EGM, a vote, a rights or bonus issue, a
-# split, a buyback/tender, a scheme) is not the dividend's entitlement date (thread 25).
-_BG_NON_DIV_EVENT = re.compile(
-    r"\b(?:AGM|EGM|meeting|vot\w*|ballot|rights|bonus|split|buy-?backs?|tender|merger|scheme|warrants?)\b", re.I)
+# split, a buyback/tender, a scheme) is not the dividend's entitlement date (thread 25). The event token
+# must QUALIFY the marker — sit immediately BEFORE it ("AGM record date", "rights issue ex-date") or
+# immediately AFTER it ("record date for the AGM") — not merely co-occur somewhere in the comma-field, so a
+# genuine dividend record date that a board meeting happened to set ("the board meeting set the record
+# date 2026-12-01") is kept, not dropped (PR #754 false-positive fix). The over-generic "meeting" is
+# excluded entirely: a board meeting declaring a dividend and fixing its record date is legitimate, and a
+# genuine voting meeting is already caught by AGM/EGM/vote/ballot.
+_BG_NON_DIV_EV = r"(?:AGM|EGM|vot\w*|ballot|rights|bonus|split|buy-?backs?|tender|merger|scheme|warrants?)"
+_BG_EVENT_BEFORE = re.compile(_BG_NON_DIV_EV + r"(?:\s+(?:issue|offer|arrangement|approval|resolution|record))?[\s,]*$", re.I)
+_BG_EVENT_AFTER = re.compile(
+    r"^[\s,]*(?:for|of|ahead\s+of|relating\s+to|pursuant\s+to|under|re)\s+(?:the\s+|a\s+|an\s+)?" + _BG_NON_DIV_EV + r"\b", re.I)
 # A stale yield must never be PRESENTED as a reason to own, even beside a non-receipt note (thread 23).
 _BG_OWN_REASON = re.compile(
     r"\breasons?\s+to\s+(?:own|buy|hold|wait)\b|\bpays?\s+(?:holders|investors|shareholders|you)\s+to\s+wait\b|"
@@ -1278,14 +1286,17 @@ def _bg_div_markers(seg):
     out = []
     for m in _BG_EX_RECORD.finditer(seg):
         is_ex = m.group(0).lower().lstrip().startswith("ex")
-        # The marker's whole comma-field — before AND after it — is checked for a non-dividend event, for
-        # ex-dates as well as record dates ("rights issue ex-date …", "record date for the AGM …") (PR #754
-        # r4544983936). A marker that itself names the dividend ("ex-dividend", "ex-div") is never dropped.
+        # A non-dividend event drops the marker only when it QUALIFIES it: adjacent immediately BEFORE the
+        # marker ("rights issue ex-date …", "AGM record date …") or immediately AFTER it ("record date for
+        # the AGM …"), within the marker's comma-field — NOT merely co-occurring in the field, so "the board
+        # meeting set the record date …" keeps its (genuine dividend) date (PR #754 r4544983936; FP fix).
+        # A marker that itself names the dividend ("ex-dividend", "ex-div") is never dropped.
         if not re.match(r"ex[\s\-_]*di", m.group(0), re.I):
             fstart = seg.rfind(",", 0, m.start()) + 1
             fend = seg.find(",", m.end())
-            fld = seg[fstart:m.start()] + " " + seg[m.end():fend if fend >= 0 else len(seg)]
-            if _BG_NON_DIV_EVENT.search(fld):
+            before = seg[fstart:m.start()]
+            after = seg[m.end():fend if fend >= 0 else len(seg)]
+            if _BG_EVENT_BEFORE.search(before) or _BG_EVENT_AFTER.match(after):
                 continue
         out.append((m, is_ex))
     return out

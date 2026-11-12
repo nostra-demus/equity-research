@@ -2624,6 +2624,15 @@ if scope=="selftest":
         #   a declaration that is itself "unavailable" still does.
         ("2026-10-05",{"ticker":"V","exchange":"New York Stock Exchange","currency":"USD"},_bg_th("Decision line: V · NYSE · USD; price unavailable\n"),[]),
         ("2026-10-05",{"ticker":"V","exchange":"New York Stock Exchange","currency":"USD"},_bg_th("Decision line: unavailable — V · NYSE · USD\n"),["no 'Decision line"]),
+        # Nightly PR-fix (PR #754) — false-positive regression: a genuine dividend record date that a board
+        # MEETING set is KEPT. The non-div-event word must QUALIFY the marker (sit immediately before/after
+        # it), not merely co-occur in the comma-field, and the over-generic "meeting" is no longer a drop
+        # word. Pre-fix this FLAGGED a valid future dividend date (§16: a yield a buyer can still receive;
+        # §17: a gate must be capable of passing legitimately). RED on the pre-fix matcher, GREEN after.
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Forward dividend yield 3.1%, the board meeting set the record date 2026-12-01.\n"),[]),
+        # …while a date the event word truly qualifies (AGM adjacent to the marker) still drops — guard that
+        # the adjacency fix did not over-remove the author's intended non-dividend drop.
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Forward dividend yield 3.1%, the board set the AGM record date 2026-12-01.\n"),["an ex-/record-date"]),
     ]
     bgbad=0
     for _bgc in _bg_cases:
