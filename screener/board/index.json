@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T22:05:10Z",
+  "generated_at": "2026-11-12T22:05:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20261112-874",
@@ -233841,6 +233841,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-2996e052e3f2",
+      "idea_version": "IDEAV-b8a9d44049265f87",
+      "idea_version_started_at": "2026-11-12T22:05:27Z",
+      "ticker": "UGP",
+      "company": "Ultrapar Participações S.A.",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported strong 3Q26 net income of R$ 2.697 billion and announced a significant interim dividend payment of R$ 1.085 billion, signaling robust cash flow generation.",
+      "why_now": "The earnings and dividend approval were released today, November 12, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f3a31aa3776c"
+      ],
+      "primary_source_event_id": "EVT-f3a31aa3776c",
+      "source_headlines": [
+        "Ultrapar Participações S.A. Reports R$ 2,697,415 Thousand Net Income for 3Q26 and Approves R$ 1,085,087,153 in Interim Dividends"
+      ],
+      "source_headline": "Ultrapar Participações S.A. Reports R$ 2,697,415 Thousand Net Income for 3Q26 and Approves R$ 1,085,087,153 in Interim Dividends",
+      "source_url": "https://www.nasdaq.com/articles/ultrapar-participacoes-sa-reports-r-2697415-thousand-net-income-3q26-and-approves-r",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-12T19:53:13Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-12T22:05:27Z",
+      "updated_at": "2026-11-12T22:05:27Z",
+      "decay_at": "2026-11-14T07:53:13Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-8d133c0c68da",
       "idea_version": "IDEAV-f9aaa84e233df334",
       "idea_version_started_at": "2026-11-12T19:43:22Z",
@@ -236187,75 +236257,6 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
-    },
-    {
-      "idea_id": "IDEA-996ced4a593f",
-      "idea_version": "IDEAV-e3d62da7f720e495",
-      "idea_version_started_at": "2026-11-10T09:55:29Z",
-      "ticker": "RKLB",
-      "company": "Rocket Lab",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "A $150 million conditional loan commitment from the Department of War provides non-dilutive capital and validates the company's strategic importance to national security infrastructure.",
-      "why_now": "The loan commitment was announced on 2026-11-09.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 76,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a53deb262c7a"
-      ],
-      "primary_source_event_id": "EVT-a53deb262c7a",
-      "source_headlines": [
-        "The Department of War's Office of Strategic Capital Signs $150 Million Conditional Loan Commitment With Rocket Lab"
-      ],
-      "source_headline": "The Department of War's Office of Strategic Capital Signs $150 Million Conditional Loan Commitment With Rocket Lab",
-      "source_url": "https://www.war.gov/News/Releases/Release/Article/4644766/the-department-of-wars-office-of-strategic-capital-signs-150-million-conditiona/",
-      "source_name": "U.S. Department of War (formerly DoD) — News Releases",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-09T21:15:12Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-10T09:55:29Z",
-      "updated_at": "2026-11-10T09:55:29Z",
-      "decay_at": "2026-11-11T09:15:12Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
     },
     {
       "idea_id": "IDEA-bba477b08d48",
@@ -238956,77 +238957,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-a2376ec1a2c7",
-      "idea_version": "IDEAV-5c9b522a0d5b80c0",
-      "idea_version_started_at": "2026-11-10T02:34:38Z",
-      "ticker": "BMY",
-      "company": "Bristol Myers Squibb",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "FDA accelerated approval for lisocabtagene maraleucel in a new indication expands the addressable market and revenue potential for this key asset.",
-      "why_now": "The approval was granted on 2026-11-09.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-82e4aedb0e18"
-      ],
-      "primary_source_event_id": "EVT-82e4aedb0e18",
-      "source_headlines": [
-        "FDA grants accelerated approval to lisocabtagene maraleucel for follicular lymphoma"
-      ],
-      "source_headline": "FDA grants accelerated approval to lisocabtagene maraleucel for follicular lymphoma",
-      "source_url": "http://www.fda.gov/drugs/cancer-approvals/fda-grants-accelerated-approval-lisocabtagene-maraleucel-follicular-lymphoma",
-      "source_name": "FDA — What's New: Drugs",
-      "materiality_max": 98,
-      "newest_source_at": "2026-11-09T21:52:03Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-10T02:34:38Z",
-      "updated_at": "2026-11-10T02:34:38Z",
-      "decay_at": "2026-11-11T09:52:03Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-b492220bad93",
       "idea_version": "IDEAV-d9fb0cfe0062cd47",
       "idea_version_started_at": "2026-11-11T05:20:27Z",
@@ -239383,148 +239313,6 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": true
-    },
-    {
-      "idea_id": "IDEA-6d92b0c12baa",
-      "idea_version": "IDEAV-828517684f9fb4b4",
-      "idea_version_started_at": "2026-11-10T01:00:12Z",
-      "ticker": "LIN",
-      "company": "Lindian Resources",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company secured a binding offtake agreement for 30,000 tonnes of monazite concentrate, providing a clear path to revenue generation and project validation.",
-      "why_now": "The agreement was announced on 2026-11-09 and is effective immediately.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ff49020695e1"
-      ],
-      "primary_source_event_id": "EVT-ff49020695e1",
-      "source_headlines": [
-        "LIN: 30,000 Tonne Binding Monazite Concentrate Offtake [price-sensitive]"
-      ],
-      "source_headline": "LIN: 30,000 Tonne Binding Monazite Concentrate Offtake [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LIN?key=2924-03159876-6A1354288",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 88,
-      "newest_source_at": "2026-11-09T22:00:07Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-10T01:00:12Z",
-      "updated_at": "2026-11-10T01:00:12Z",
-      "decay_at": "2026-11-11T10:00:07Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-b2f2923b654d",
-      "idea_version": "IDEAV-10da123e0d675503",
-      "idea_version_started_at": "2026-11-10T00:22:09Z",
-      "ticker": "AVR",
-      "company": "AVR",
-      "exchange": null,
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The filing of amendments to historical 10-K and 10-Q forms indicates potential accounting irregularities or material misstatements, which typically lead to increased regulatory scrutiny and a loss of investor confidence.",
-      "why_now": "The filing was released on 2026-11-09, signaling immediate risk of restatement-related volatility.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0ddbbd3f3a19"
-      ],
-      "primary_source_event_id": "EVT-0ddbbd3f3a19",
-      "source_headlines": [
-        "AVR: Filing of Amendments to Form 10-K and Forms 10-Q"
-      ],
-      "source_headline": "AVR: Filing of Amendments to Form 10-K and Forms 10-Q",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AVR?key=2924-03159883-6A1354290",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 85,
-      "newest_source_at": "2026-11-09T22:03:12Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-10T00:22:09Z",
-      "updated_at": "2026-11-10T00:22:09Z",
-      "decay_at": "2026-11-11T10:03:12Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
     }
   ],
   "ideas_archive": {
@@ -239537,33 +239325,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 546,
+    "total_count": 542,
     "shown_count": 499,
-    "hidden_count": 47,
+    "hidden_count": 43,
     "side_counts": {
       "long": {
-        "total_count": 281,
+        "total_count": 278,
         "shown_count": 250,
-        "hidden_count": 31
+        "hidden_count": 28
       },
       "short": {
-        "total_count": 266,
+        "total_count": 265,
         "shown_count": 250,
-        "hidden_count": 16
+        "hidden_count": 15
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1841,
-      "oldest_retained_at": "2026-10-18T00:45:11Z",
+      "evicted_count": 1845,
+      "oldest_retained_at": "2026-10-18T01:57:18Z",
       "side_counts": {
         "long": {
-          "evicted_count": 1208,
-          "oldest_retained_at": "2026-10-28T14:56:07Z"
+          "evicted_count": 1211,
+          "oldest_retained_at": "2026-10-28T22:07:00Z"
         },
         "short": {
-          "evicted_count": 634,
-          "oldest_retained_at": "2026-10-18T00:45:11Z"
+          "evicted_count": 635,
+          "oldest_retained_at": "2026-10-18T01:57:18Z"
         }
       }
     },
@@ -242823,8 +242611,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-11T10:03:12Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-12T22:05:32Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -242897,8 +242685,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-11T10:00:07Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-12T22:05:32Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -242971,8 +242759,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-11T09:52:03Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-12T22:05:32Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -243043,8 +242831,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-11T09:15:12Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-12T22:05:32Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -276696,8 +276484,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2424,
-    "live_count": 36,
+    "surfaced_total": 2425,
+    "live_count": 37,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,

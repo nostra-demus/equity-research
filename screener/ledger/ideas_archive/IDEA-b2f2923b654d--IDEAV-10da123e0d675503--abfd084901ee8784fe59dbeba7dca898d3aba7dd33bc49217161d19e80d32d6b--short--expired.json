@@ -1,0 +1,78 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-11-12T22:05:32Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-b2f2923b654d",
+    "idea_version": "IDEAV-10da123e0d675503",
+    "idea_version_started_at": "2026-11-10T00:22:09Z",
+    "ticker": "AVR",
+    "company": "AVR",
+    "exchange": null,
+    "ticker_verified": false,
+    "listing_verified": false,
+    "liquidity_verified": false,
+    "listing_verification_source": null,
+    "direction": "short",
+    "pair_with": null,
+    "reason": "The filing of amendments to historical 10-K and 10-Q forms indicates potential accounting irregularities or material misstatements, which typically lead to increased regulatory scrutiny and a loss of investor confidence.",
+    "why_now": "The filing was released on 2026-11-09, signaling immediate risk of restatement-related volatility.",
+    "conviction": 75,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 45,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 25,
+      "impact": 15,
+      "specificity": 7,
+      "timing": 10,
+      "expression": 0,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "watch_only",
+    "missing_checks": [
+      "verified listed ticker",
+      "verified listing",
+      "live liquidity",
+      "dated catalyst",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-0ddbbd3f3a19"
+    ],
+    "primary_source_event_id": "EVT-0ddbbd3f3a19",
+    "source_headlines": [
+      "AVR: Filing of Amendments to Form 10-K and Forms 10-Q"
+    ],
+    "source_headline": "AVR: Filing of Amendments to Form 10-K and Forms 10-Q",
+    "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AVR?key=2924-03159883-6A1354290",
+    "source_name": "ASX (Australia Exchange Filing)",
+    "materiality_max": 85,
+    "newest_source_at": "2026-11-09T22:03:12Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-11-10T00:22:09Z",
+    "updated_at": "2026-11-10T00:22:09Z",
+    "decay_at": "2026-11-11T10:03:12Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}
