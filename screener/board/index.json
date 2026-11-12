@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T02:14:52Z",
+  "generated_at": "2026-11-12T02:21:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20261112-189",
@@ -1945,47 +1945,52 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261112-261",
-      "headline": "Nvidia working with external firm to explore new CEO candidates amid uncertainty over Jensen Huang",
+      "inbox_id": "INB-20261112-307",
+      "headline": "KKR, Germany’s RWE Invest $16 Billion in U.K. Wind-Power Projects",
       "headline_en": null,
-      "url": "https://www.cnbctv18.com/business/nvidia-working-with-external-firm-to-explore-new-ceo-candidates-amid-uncertainty-over-jensen-huang-20032020.htm",
-      "source_name": "CNBC-TV18",
+      "url": "https://www.wsj.com/business/deals/rwe-kkr-join-forces-on-16-billion-of-u-k-wind-power-projects-4b489bce?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
       "input_nature": "news_headline",
-      "found_at": "2026-11-12T01:44:10Z",
+      "found_at": "2026-11-11T08:44:00Z",
       "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Reports of a search for a new CEO confirm significant management uncertainty at a mega-cap company.",
+      "prelim_note": "$16 billion joint capex commitment by KKR and RWE for UK wind-power projects; major infrastructure capacity expansion affecting both companies' capital deployment and renewable energy positioning.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Reports of a search for a new CEO confirm significant management uncertainty at a mega-cap company.",
-      "region": "US",
+      "triage_score": 98,
+      "triage_reason": "$16 billion joint capex commitment by KKR and RWE for UK wind-power projects; major infrastructure capacity expansion affecting both companies' capital deployment and renewable energy positioning.",
+      "region": "GB",
       "relevance": "material",
-      "materiality_pre_score": 80,
+      "materiality_pre_score": 78,
       "rank_factors": {
-        "materiality": 80,
+        "materiality": 78,
         "source_tier": 0,
-        "scope": 6,
-        "event": 4,
+        "scope": 5,
+        "event": 6,
         "size": 2,
-        "recency": 5,
+        "recency": 1,
         "materiality_label_floor": 0,
-        "quantified": 0,
+        "quantified": 6,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "multi_name",
         "source_tier_id": "news",
-        "event_id": "management",
+        "event_id": "capex",
         "size_bucket": "mega"
       },
       "event_types": [
-        "management"
+        "capex"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Nvidia",
-          "ticker": null,
+          "name": "KKR",
+          "ticker": "KKR",
           "listing_country": "US"
+        },
+        {
+          "name": "RWE",
+          "ticker": "RWE",
+          "listing_country": "DE"
         }
       ],
       "size_bucket": "mega",
@@ -277723,9 +277728,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 194059,
-    "news_picked_today": 440,
-    "news_dropped_today": 1408
+    "news_seen_today": 206283,
+    "news_picked_today": 478,
+    "news_dropped_today": 1514
   },
   "book_momentum": {
     "live_count": 8,
