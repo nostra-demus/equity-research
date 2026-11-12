@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T15:45:38Z",
+  "generated_at": "2026-11-12T16:00:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20261112-821",
@@ -1036,6 +1036,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261112-848",
+      "headline": "What we know as Nvidia CEO Jensen Huang resigns over affair allegations",
+      "headline_en": null,
+      "url": "https://www.bbc.co.uk/news/articles/ckgel338xql3o?at_medium=RSS&at_campaign=rss",
+      "source_name": "BBC News — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T15:26:39Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "CEO Jensen Huang abruptly resigns over personal conduct allegations, creating an immediate governance crisis and management succession vacuum at a ~$3 trillion mega-cap semiconductor company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CEO Jensen Huang abruptly resigns over personal conduct allegations, creating an immediate governance crisis and management succession vacuum at a ~$3 trillion mega-cap semiconductor company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261112-835",
       "headline": "Jensen Huang Has Been Ousted as Nvidia CEO",
       "headline_en": null,
@@ -1911,55 +1960,6 @@
         {
           "name": "Nvidia",
           "ticker": "NVDA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-659",
-      "headline": "The Morning Risk Report: Nvidia is Preparing to Oust CEO Jensen Huang",
-      "headline_en": null,
-      "url": "https://www.wsj.com/risk-compliance-journal/the-morning-risk-report-nvidia-is-preparing-to-oust-ceo-jensen-huang-324bfbd1?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T12:29:00Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Reported potential ousting of CEO Jensen Huang represents a major management risk for a mega-cap company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Reported potential ousting of CEO Jensen Huang represents a major management risk for a mega-cap company.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
           "listing_country": "US"
         }
       ],
@@ -236182,77 +236182,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-8e6545d55d5f",
-      "idea_version": "IDEAV-521e07ad18a04557",
-      "idea_version_started_at": "2026-11-11T05:44:55Z",
-      "ticker": "02256",
-      "company": "Abbisko Therapeutics",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "FDA approval of pimicotinib for tenosynovial giant cell tumor (TGCT) validates the company's lead drug candidate and opens a significant commercial revenue stream in the U.S. market.",
-      "why_now": "The regulatory approval was announced on November 11, 2026.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2967d36dc001"
-      ],
-      "primary_source_event_id": "EVT-2967d36dc001",
-      "source_headlines": [
-        "ABBISKO-B (02256): INSIDE INFORMATION - PIMJETMI (pimicotinib) Receive U.S. FDA Approval for TGCT"
-      ],
-      "source_headline": "ABBISKO-B (02256): INSIDE INFORMATION - PIMJETMI (pimicotinib) Receive U.S. FDA Approval for TGCT",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1111/2026111100175.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-11T04:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-11T05:44:55Z",
-      "updated_at": "2026-11-11T05:44:55Z",
-      "decay_at": "2026-11-12T16:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-3e0ccff47789",
       "idea_version": "IDEAV-0acad24986e16db6",
       "idea_version_started_at": "2026-11-11T05:44:55Z",
@@ -237651,6 +237580,77 @@
       "surfaced_at": "2026-11-11T08:18:47Z",
       "updated_at": "2026-11-11T08:18:47Z",
       "decay_at": "2026-11-12T15:21:06Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-8e6545d55d5f",
+      "idea_version": "IDEAV-521e07ad18a04557",
+      "idea_version_started_at": "2026-11-11T05:44:55Z",
+      "ticker": "02256",
+      "company": "Abbisko Therapeutics",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "FDA approval of pimicotinib for tenosynovial giant cell tumor (TGCT) validates the company's lead drug candidate and opens a significant commercial revenue stream in the U.S. market.",
+      "why_now": "The regulatory approval was announced on November 11, 2026.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2967d36dc001"
+      ],
+      "primary_source_event_id": "EVT-2967d36dc001",
+      "source_headlines": [
+        "ABBISKO-B (02256): INSIDE INFORMATION - PIMJETMI (pimicotinib) Receive U.S. FDA Approval for TGCT"
+      ],
+      "source_headline": "ABBISKO-B (02256): INSIDE INFORMATION - PIMJETMI (pimicotinib) Receive U.S. FDA Approval for TGCT",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1111/2026111100175.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-11T04:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-11T05:44:55Z",
+      "updated_at": "2026-11-11T05:44:55Z",
+      "decay_at": "2026-11-12T16:00:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -239665,14 +239665,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 546,
+    "total_count": 547,
     "shown_count": 499,
-    "hidden_count": 47,
+    "hidden_count": 48,
     "side_counts": {
       "long": {
-        "total_count": 283,
+        "total_count": 284,
         "shown_count": 250,
-        "hidden_count": 33
+        "hidden_count": 34
       },
       "short": {
         "total_count": 264,
@@ -239696,6 +239696,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-8e6545d55d5f",
+        "idea_version": "IDEAV-521e07ad18a04557",
+        "idea_version_started_at": "2026-11-11T05:44:55Z",
+        "ticker": "02256",
+        "company": "Abbisko Therapeutics",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "FDA approval of pimicotinib for tenosynovial giant cell tumor (TGCT) validates the company's lead drug candidate and opens a significant commercial revenue stream in the U.S. market.",
+        "why_now": "The regulatory approval was announced on November 11, 2026.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-2967d36dc001"
+        ],
+        "primary_source_event_id": "EVT-2967d36dc001",
+        "source_headlines": [
+          "ABBISKO-B (02256): INSIDE INFORMATION - PIMJETMI (pimicotinib) Receive U.S. FDA Approval for TGCT"
+        ],
+        "source_headline": "ABBISKO-B (02256): INSIDE INFORMATION - PIMJETMI (pimicotinib) Receive U.S. FDA Approval for TGCT",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1111/2026111100175.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-11T04:00:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-11T05:44:55Z",
+        "updated_at": "2026-11-11T05:44:55Z",
+        "decay_at": "2026-11-12T16:00:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-12T16:00:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-ad6534db1fd8",
         "idea_version": "IDEAV-b28c901d720dfdfb",
@@ -267964,80 +268038,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-4402530dd0df",
-        "idea_version": "IDEAV-aef2069d193d114a",
-        "idea_version_started_at": "2026-10-29T18:20:44Z",
-        "ticker": "03958",
-        "company": "DFZQ",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The SSE Review Committee has approved the acquisition of 100% of Shanghai Securities, which will consolidate market share and expand the company's brokerage and asset management footprint.",
-        "why_now": "The regulatory approval was announced via exchange filing on October 29, 2026.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-980f107a8da7"
-        ],
-        "primary_source_event_id": "EVT-980f107a8da7",
-        "source_headlines": [
-          "DFZQ (03958): MAJOR TRANSACTION - THE PROPOSED ACQUISITION OF 100% EQUITY INTERESTS IN SHANGHAI SECURITIES BY WAY OF ISSUE OF CONSIDERATION A SHARES UNDER SPECIFIC MANDATE AND PAYMENT OF CASH APPROVAL FROM SSE REVIEW COMMITTEE IN RESPECT OF THE PROPOSED TRANSACTION"
-        ],
-        "source_headline": "DFZQ (03958): MAJOR TRANSACTION - THE PROPOSED ACQUISITION OF 100% EQUITY INTERESTS IN SHANGHAI SECURITIES BY WAY OF ISSUE OF CONSIDERATION A SHARES UNDER SPECIFIC MANDATE AND PAYMENT OF CASH APPROVAL FROM SSE REVIEW COMMITTEE IN RESPECT OF THE PROPOSED TRANSACTION",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1029/2026102901637.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-29T13:04:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-29T18:20:44Z",
-        "updated_at": "2026-10-29T18:20:44Z",
-        "decay_at": "2026-10-31T01:04:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-01T14:01:26Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-c6f1a0d27ff6",
         "idea_version": "IDEAV-a015e0f4e4c355d7",
         "idea_version_started_at": "2026-10-29T16:12:50Z",
@@ -276820,7 +276820,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2417,
-    "live_count": 38,
+    "live_count": 37,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -276839,9 +276839,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1472318,
-    "news_picked_today": 2053,
-    "news_dropped_today": 14723
+    "news_seen_today": 1505454,
+    "news_picked_today": 2062,
+    "news_dropped_today": 14762
   },
   "book_momentum": {
     "live_count": 8,
