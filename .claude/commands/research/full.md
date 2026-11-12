@@ -816,6 +816,15 @@ viol.extend(hc.eval_ak_red_flag_severity_reconciliation(ddte, d, _thesis_text_ak
 # (AI/AK on the two lines above still use `ddte` and guard regenerated content too — same latent
 # rerun asymmetry — but they predate this PR; left unchanged here to keep this diff scoped.)
 viol.extend(hc.eval_aj_decision_audit_trail(_live_date, _thesis_text_ak) or [])
+# check BG — tradable line + dividend-yield availability (CLAUDE.md §16; same shared module). Gated on
+# `_live_date` for the same rerun reason as AJ: it guards `final_thesis.md` prose a rerun REGENERATES.
+# valuation/01's Anchor-Block 'Other listed lines' feeds the same-venue share-class leg (e.g. GOOGL/GOOG).
+_v01_bg = sorted(glob.glob(os.path.join(run, "valuation", "01_*.md")))
+try:
+    _v01_bg_text = open(_v01_bg[0], encoding="utf-8").read() if _v01_bg else None
+except OSError:
+    _v01_bg_text = None
+viol.extend(hc.eval_bg_tradable_line_and_yield(_live_date, d, _thesis_text_ak, listed_lines_text=_v01_bg_text) or [])
 # check BH — net-cash / net-debt basis label in Part I (CLAUDE.md §15; synthesizer.md Part I item 6). Same
 # shared module and the same `_live_date` rationale as AJ above: it guards `final_thesis.md` prose that a
 # /research:rerun regenerates, so a pre-BH_DATE folder must still be judged on what is about to ship.

@@ -568,6 +568,7 @@ from headline_checks import (
 from headline_checks import (
     AK_DATE, _AK_CRITICAL_PATTERNS, _AK_DENIAL, _AK_AFFIRM, _module_critical_count,
     eval_ak_red_flag_severity_reconciliation,
+    BG_DATE, eval_bg_tradable_line_and_yield,
 )
 
 # ── Check BH (net-cash / net-debt basis label in Part I, CLAUDE.md §15) ──
@@ -2362,6 +2363,294 @@ if scope=="selftest":
         print(f"  [{'ok' if ok else 'XX'}] AK({dt_!r},red_flags={d_.get('red_flags')!r}) -> {got}"+("" if ok else f"  EXPECTED exp={exp}"))
     bad+=akbad
 
+    # BG — tradable line + dividend-yield availability (§16). Fixture-free: Part I snippets. The clean row is
+    # the real V_2026-09-23 / AKAM Headline Scorecard shape ("Decision line (ticker · venue · currency)").
+    BG=eval_bg_tradable_line_and_yield
+    _bg_d={"ticker":"AKAM","exchange":"Nasdaq Global Select Market","currency":"USD"}
+    _bg_dl="| **Decision line (ticker · venue · currency)** | **AKAM · Nasdaq Global Select Market · USD** |\n"
+    _bg_th=lambda body: "# PART I\n\n## 2. Headline Scorecard\n\n"+body+"\n# PART II — X\n\nFurther cross-cutting analysis.\n"
+    _bg_cases=[
+        ("2026-10-04",_bg_d,_bg_th(""),None),                                   # pre-gate -> N/A
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl),[]),                                  # clean
+        ("2026-10-05",_bg_d,_bg_th("| Price | $90 |\n"),["no 'Decision line"]),    # statement absent
+        ("2026-10-05",_bg_d,_bg_th("Decision line: Akamai · Nasdaq · USD\n"),["record's ticker"]),
+        ("2026-10-05",_bg_d,_bg_th("Decision line: AKAM · Nasdaq · EUR\n"),["record's currency"]),
+        # multi-listed record, Part I silent on the other line -> FAIL; stating it -> pass
+        ("2026-10-05",{**_bg_d,"exchange":"Nasdaq Global Select Market (also HKEX-listed)"},_bg_th(_bg_dl),["another listed line"]),
+        ("2026-10-05",{**_bg_d,"exchange":"Nasdaq Global Select Market (also HKEX-listed)"},
+         _bg_th(_bg_dl+"The H-share line trades at a 22% discount; cross-line premium/discount shown in valuation.\n"),[]),
+        # yield with % and no basis/date -> FAIL; basis only -> FAIL; both -> pass; FCF yield ignored
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Dividend yield 3.1% is a reason to own.\n"),["trailing/forward basis or an ex-/record-date"]),
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3.1%.\n"),["an ex-/record-date"]),
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3.1%, ex-date 2026-08-14 (passed; a buyer today does not receive it).\n"),[]),
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"FCF yield 4.2% on the plan.\n"),[]),
+        ("2026-10-05","not a dict",_bg_th(_bg_dl),[]),                           # malformed record: no raise
+        # ── review-driven cases (CLAUDE.md §16 / AGENTS.md L282-283) ──
+        # Codex P1 (#discussion_r4176032667): a trailing yield whose ex-/record-date has ALREADY passed,
+        #   presented as a reason to own with no availability warning, must FAIL (§16: "must never be
+        #   presented as a reason to own"). Old code passed it the moment any date phrase was present.
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3.1%, ex-date 2025-08-14, is a reason to own.\n"),["before the decision date"]),
+        # gemini r1 (#discussion_r4176023884): a compliant FUTURE ex-div date must PASS (old _BG_DATE did
+        #   not recognise "ex-div", so it false-flagged this as missing a date).
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Forward dividend yield 3.1%, ex-div 2026-12-01.\n"),[]),
+        # Codex P1: a payment/pay date does NOT establish buyer entitlement, so a yield carrying only a
+        #   payment date must FAIL (old code accepted "payable" as a date).
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3.1%, payable 2026-12-20.\n"),["a payment or pay date does not establish"]),
+        # Codex P2 venue (#discussion_r4176032670): a decision line naming the WRONG venue (right ticker
+        #   + currency) must FAIL (old code validated ticker + currency only).
+        ("2026-10-05",_bg_d,_bg_th("Decision line: AKAM · NYSE · USD\n"),["venue that does not match"]),
+        # ...but the venue match is alias-aware, so the real V_2026-09-23 shape (record "New York Stock
+        #   Exchange", line "NYSE") must PASS — this guards against a false positive on a correct run.
+        ("2026-10-05",{"ticker":"V","exchange":"New York Stock Exchange","currency":"USD"},
+         _bg_th("| **Decision line (ticker · venue · currency)** | **Visa Inc. Class A common stock · V · NYSE · USD** |\n"),[]),
+        # Codex P2 cross-line (#discussion_r4176032671): a bare mention that another line exists, or the
+        #   negated "not the only listed line", must FAIL (old _BG_CROSS_LINE accepted both).
+        ("2026-10-05",{**_bg_d,"exchange":"Nasdaq Global Select Market (also HKEX-listed)"},_bg_th(_bg_dl+"The other listed line is HKEX.\n"),["another listed line"]),
+        ("2026-10-05",{**_bg_d,"exchange":"Nasdaq Global Select Market (also HKEX-listed)"},_bg_th(_bg_dl+"This is not the only listed line.\n"),["another listed line"]),
+        # ...an explicit no-other-line statement PASSES (and a quantified cross-line premium PASSES even
+        #   without the word "the" — gemini r2).
+        ("2026-10-05",{**_bg_d,"exchange":"Nasdaq Global Select Market (also HKEX-listed)"},_bg_th(_bg_dl+"There is no other listed line; this is the sole listed line for the decision.\n"),["cross-line premium/discount (a figure"]),  # Codex r1 r5: record flags a 2nd line, so no-other is contradictory -> FAIL
+        ("2026-10-05",{**_bg_d,"exchange":"Nasdaq Global Select Market (also ADR-listed)"},_bg_th(_bg_dl+"The ADR trades at a 12% premium to NYSE common line.\n"),[]),
+        # ── round-2 review-driven cases (Codex re-review of 064a861) ──
+        # Codex P2 (r4176555569): the bare LABEL "cross-line premium/discount" with no figure must FAIL
+        #   (old third alternative accepted it).
+        ("2026-10-05",{**_bg_d,"exchange":"Nasdaq Global Select Market (also HKEX-listed)"},_bg_th(_bg_dl+"Cross-line premium/discount: Not assessed.\n"),["another listed line"]),
+        # Codex P1 (r4176555564): an ex-/record-date with no parseable ISO date beside it (TBD, or a
+        #   non-ISO "August 14, 2025") must FAIL — staleness is otherwise unverifiable (old passed both).
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3.1%, ex-date TBD, is a reason to own.\n"),["no parseable"]),
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3.1%, ex-date August 14, 2025, is a reason to own.\n"),["no parseable"]),
+        # ...and an unrelated past ISO date elsewhere on the line must NOT be mistaken for the entitlement
+        #   date: a FUTURE ex-date with a past "declared" date PASSES (old flagged it — false positive).
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Forward dividend yield 3.1%, ex-date 2026-12-01 (declared 2025-02-01).\n"),[]),
+        # Codex P2 (r4176555571): "annualized" alone is not a trailing/forward basis -> FAIL (old passed).
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Annualized dividend yield 3.1%, ex-date 2026-12-01.\n"),["a trailing/forward basis"]),
+        # Codex P2 (r4176555567): a compact exchange id (NasdaqGS) must resolve so a wrong-venue line
+        #   FAILS (old `\bnasdaq\b` missed it and silently skipped the venue leg); the matching line PASSES.
+        ("2026-10-05",{"ticker":"AMZN","exchange":"NasdaqGS","currency":"USD"},_bg_th("Decision line: AMZN · NYSE · USD\n"),["venue that does not match"]),
+        ("2026-10-05",{"ticker":"AMZN","exchange":"NasdaqGS","currency":"USD"},_bg_th("Decision line: AMZN · NasdaqGS · USD\n"),[]),
+        # ── round-3 review-driven cases (Codex re-review of 78011e2) ──
+        # Codex P2 (r4176592578): a MULTI-venue record must still validate the decision-line venue — a
+        #   SHSE+HKEX record naming NYSE must FAIL (old len(rec_v)==1 guard skipped multi-venue records).
+        ("2026-10-05",{"ticker":"600690","exchange":"SHSE:600690 (also HKEX-listed)","currency":"CNY"},_bg_th("Decision line: 600690 · NYSE · CNY\n"),["venue that does not match"]),
+        # Codex P1 (r4176592580): the bare word "passed" is not a buyer-unavailability statement -> the
+        #   stale yield still FAILS (old _BG_UNAVAIL accepted "passed" beside "is a reason to own").
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3.1%, ex-date 2025-08-14 passed, is a reason to own.\n"),["before the decision date"]),
+        # Codex P2 (r4176592577): an unrelated premium/discount+% (a DCF discount rate) is NOT a cross-line
+        #   comparison -> a multi-listed record with only that prose still FAILS (old _BG_CROSS_CMP matched it).
+        ("2026-10-05",{"ticker":"600690","exchange":"SHSE:600690 (also HKEX-listed)","currency":"CNY"},_bg_th("Decision line: 600690 · SSE · CNY\nDCF fair value uses a 10% discount for execution risk.\n"),["cross-line premium/discount (a figure"]),
+        # Codex P1 (r4176592579): an impossible ISO date (2026-99-99) must be rejected as unparseable
+        #   (old shape-only _BG_ISO matched it and compared lexically as a future date).
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3.1%, ex-date 2026-99-99.\n"),["no parseable"]),
+        # Codex P2 (r4176592582): a % NOT bound to the yield (an honest "yield unavailable; withholding
+        #   15%" or "no dividend yield is quoted; payout 25%") must NOT be flagged (old flagged both).
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Dividend yield unavailable; foreign withholding tax is 15%.\n"),[]),
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"No dividend yield is quoted; payout ratio is 25%.\n"),[]),
+        # Codex P1 (r4176592584): a prior PROVISIONAL banner (leading '>' blockquote) quoting BG's own
+        #   diagnostics must NOT satisfy the re-gate — BG ignores blockquote lines, so a body whose decision
+        #   line is still EUR FAILS on currency even though the banner text contains "Decision line … 'USD'".
+        ("2026-10-05",_bg_d,
+         "> ⚠️ **PROVISIONAL — the automated finish-gate found an integrity issue.**\n> the Decision line statement does not name the record's currency 'USD'\n\n"
+         "# PART I\n\n## 2. Headline Scorecard\n\nDecision line: AKAM · Nasdaq Global Select Market · EUR\n\n# PART II — X\n",
+         ["record's currency"]),
+        # guard: a DECIMAL cross-line percentage (22.5%) must still be read as one figure and PASS — the
+        #   clause splitter must not tear "22.5%" at the decimal point.
+        ("2026-10-05",{"ticker":"600690","exchange":"SHSE:600690 (also HKEX-listed)","currency":"CNY"},_bg_th("Decision line: 600690 · SSE · CNY\nThe H-share line trades at a 22.5% discount to the SSE line.\n"),[]),
+        # ── round-4 review-driven cases (Codex re-review of c4cd436) ──
+        # Codex P1 (r4176635335): the basis + ex-/record-date must sit in the YIELD's own clause — an
+        #   unrelated "forward EPS guide; AGM record date 2026-12-01" must NOT satisfy them (old scanned
+        #   the whole line, so this passed).
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Gross dividend yield 3.1%; forward EPS guide; AGM record date 2026-12-01.\n"),["a trailing/forward basis"]),
+        # Codex P2 (r4176635327): a bare "line" is not an other-instrument reference — a multi-listed
+        #   record with only "10% discount to the revenue line" must still FAIL (old _BG_LINE_REF matched "line").
+        ("2026-10-05",{"ticker":"600690","exchange":"SHSE:600690 (also HKEX-listed)","currency":"CNY"},_bg_th("Decision line: 600690 · SSE · CNY\nDCF fair value applies a 10% discount to the revenue line.\n"),["cross-line premium/discount (a figure"]),
+        # Codex P2 (r4176635331): on the ex-date itself a buyer does not receive the distribution, so an
+        #   ex-/record-date EQUAL to the decision date, presented as a reason to own, must FAIL (<= not <).
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3.1%, ex-date 2026-10-05, is a reason to own.\n"),["on or before the decision date"]),
+        # Codex P1 (r4176635338): a yield published in PART II is still a quoted yield — a stale one there
+        #   with no availability note must FAIL (old scanned Part I only).
+        ("2026-10-05",_bg_d,
+         "# PART I\n\n## 2. Headline Scorecard\n\n"+_bg_dl+"\n# PART II — ANALYSIS\n\nThe trailing dividend yield of 3.1%, ex-date 2025-08-14, is a reason to own.\n",
+         ["on or before the decision date"]),
+        # ── round-5 review-driven cases (Codex re-review of 3a8e840) ──
+        # Codex P2 (r4467762116): a self-negating "Decision line unavailable: …" is not a declaration ->
+        #   FAIL on the missing-decision-line check (old treated any 'decision line' line as the statement).
+        ("2026-10-05",_bg_d,_bg_th("Decision line unavailable: AKAM · Nasdaq Global Select Market · USD\n"),["no 'Decision line"]),
+        # Codex P1 (r4467762126): only the finish-gate banner should be stripped — a reader-facing
+        #   blockquote quoting a stale yield must still be caught (old stripped ALL blockquotes).
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"> Trailing dividend yield 3.1%, ex-date 2025-08-14, is a reason to own.\n"),["on or before the decision date"]),
+        # (the genuine finish-gate banner is still stripped — the round-3 banner case above proves it.)
+        # Codex P1 (r4467762132): when both a record date and an ex-date appear, the EX-date cutoff governs,
+        #   not field order -> a future record date before a passed ex-date must still FAIL (old parsed the
+        #   first marker only).
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3.1%, record date 2026-10-06, ex-date 2026-10-05, is a reason to own.\n"),["on or before the decision date"]),
+        # ── round-6 ── Codex P1 (r4467937518): the ex-date's date must come from the ex-date's OWN field, not
+        #   a later comma-separated field — "ex-date TBD, payment date 2026-12-01" must FAIL (TBD is unparseable;
+        #   the payment date does not establish entitlement), not borrow 2026-12-01 as the ex-date.
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3.1%, ex-date TBD, payment date 2026-12-01, is a reason to own.\n"),["no parseable"]),
+        # ── round-7 ── Codex P1 (r4468009004): an ex-date marker GOVERNS — when it is present but its own
+        #   field is unparseable, BG must not fall back to a record date. "ex-date TBD, record date 2026-12-01"
+        #   must FAIL (the controlling ex-date is unknown), not pass on the future record date.
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3.1%, ex-date TBD, record date 2026-12-01, is a reason to own.\n"),["no parseable"]),
+        # ── PR #754 review 6718647404 ── (A) a % bound to the yield through a comma aside + value connector
+        #   ("sits at") is a quoted yield — it must FLAG (old 24-char window missed it); the plain control
+        #   still flags, and the unrelated-% exclusion (withholding tax, ';' or ',' separated) still passes.
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"The dividend yield, on a trailing basis, sits at 3.1%; ex-date 2024-05-01 has passed and it remains a reason to own.\n"),["an ex-/record-date"]),
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield of 3.1%, ex-date 2024-05-01, remains a reason to own.\n"),["on or before the decision date"]),
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Dividend yield unavailable, foreign withholding tax is 15%.\n"),[]),
+        #   sibling (Codex thread "Match the full dividend-yield expression"): an on/for line qualifier before
+        #   the connector still binds and FLAGS; a negated qualifier ("for the year was unavailable") does not.
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield on the named ADR line is 3.1%, ex-date 2025-01-01, and remains a reason to own.\n"),["on or before the decision date"]),
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Dividend yield for the year was unavailable while payout is 25%.\n"),[]),
+        #   (B) "none" merely NEAR "yield" is not a no-yield disclosure — it must FLAG (old proximity rule
+        #   suppressed it); a real "Dividend yield: n/a" construction still passes.
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3%, none in its peer set higher, ex-date 2024-05-01 (passed), a reason to own.\n"),["on or before the decision date"]),
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Dividend yield: n/a, payout ratio is 25%.\n"),[]),
+        # ── PR #754 deferred-thread fixes (each red on eabc62492, green after; controls stay clean) ──
+        # thread 25: basis / record date must belong to the DIVIDEND, not a comma-joined EPS guide / AGM.
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Gross dividend yield 3.1%, forward EPS guide, AGM record date 2026-12-01.\n"),["a trailing/forward basis or an ex-/record-date"]),
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Dividend yield 3.1%, trailing, ex-date 2026-12-01.\n"),[]),
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Forward dividend yield 3.1%, record date 2026-12-01.\n"),[]),
+        # thread 23: a stale yield acknowledged as non-receivable but still "a reason to own" FLAGS; a
+        #   negated "so it is not a reason to own" does not.
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3.1%, ex-date 2025-08-14, remains a reason to own although a buyer today does not receive it.\n"),["still presents it as a reason to own"]),
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3.1%, ex-date 2025-08-14; a buyer today does not receive it, so it is not a reason to own.\n"),[]),
+        # thread 22: a EUR headline price / fair value on a USD decision line FLAGS; USD cells and a prose
+        #   mention of another instrument's price ("Uber's offer price: €41.50") do not.
+        ("2026-10-05",_bg_d,_bg_th("Decision line: AKAM · NasdaqGS · USD\nCurrent price: €90; fair-value range: €100–€120\n"),["not in the decision line's currency"]),
+        ("2026-10-05",_bg_d,_bg_th("Decision line: AKAM · NasdaqGS · USD\nCurrent price: $90; fair-value range: $100–$120\n| Fair-value range | US$100 – US$120 |\n"),[]),
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Uber's offer price: €41.50 per Delivery Hero share.\n"),[]),
+        # thread 17: a decision line naming NO venue (or only a placeholder) FLAGS when the record's venue is
+        #   known; a concrete venue the alias table lacks ('TSE Prime') is never flagged.
+        ("2026-10-05",_bg_d,_bg_th("Decision line: AKAM · primary exchange · USD\n"),["names no venue"]),
+        ("2026-10-05",{"ticker":"7203","exchange":"Tokyo Stock Exchange","currency":"JPY"},_bg_th("Decision line: 7203 · TSE Prime · JPY\n"),[]),
+        # thread 26: a premium/discount on the decision venue itself / to fair value is not cross-line.
+        ("2026-10-05",{"ticker":"600690","exchange":"SHSE:600690 (also HKEX-listed)","currency":"CNY"},_bg_th("Decision line: 600690 · SSE · CNY\nThe SSE line trades at a 10% discount to fair value.\n"),["cross-line premium/discount (a figure"]),
+        ("2026-10-05",{"ticker":"600690","exchange":"SHSE:600690 (also HKEX-listed)","currency":"CNY"},_bg_th("Decision line: 600690 · SSE · CNY\nThe HKEX line trades at a 22% discount to the A-share after FX.\n"),[]),
+        # thread 32: ticker and venue are one line — INDIAMART · BSE FLAGS; the real 542726 · BSE line passes,
+        #   and a same-row two-venue cross-line note on the primary line passes.
+        ("2026-10-05",{"ticker":"INDIAMART","exchange":"NSE (also listed BSE:542726)","currency":"INR"},_bg_th("Decision line: INDIAMART · BSE · INR\nThe BSE:542726 line trades at a 0.1% premium to the NSE line.\n"),["that venue's own ticker"]),
+        ("2026-10-05",{"ticker":"INDIAMART","exchange":"NSE (also listed BSE:542726)","currency":"INR"},_bg_th("Decision line: 542726 · BSE · INR\nThe NSE line trades at a 0.1% discount to the BSE line.\n"),[]),
+        ("2026-10-05",{"ticker":"INDIAMART","exchange":"NSE (also listed BSE:542726)","currency":"INR"},_bg_th("Decision line: INDIAMART · NSE · INR — the BSE line trades at a 0.1% premium to the NSE line.\n"),[]),
+        # thread 33: another class on the SAME venue, read from valuation/01's 'Other listed lines', needs a
+        #   cross-line figure; stating it (by ticker) passes; 'None' does not trigger.
+        ("2026-10-05",{"ticker":"GOOGL","exchange":"Nasdaq Global Select Market","currency":"USD"},_bg_th("Decision line: GOOGL · Nasdaq Global Select Market · USD\n"),["another listed line on the same venue"],
+         {"listed_lines_text":"- Other listed lines: **GOOG · Nasdaq Global Select Market · (0.34%) vs GOOGL on 2026-11-03**.\n"}),
+        ("2026-10-05",{"ticker":"GOOGL","exchange":"Nasdaq Global Select Market","currency":"USD"},_bg_th("Decision line: GOOGL · Nasdaq Global Select Market · USD\nGOOG trades at a 0.34% discount to GOOGL.\n"),[],
+         {"listed_lines_text":"- Other listed lines: **GOOG · Nasdaq Global Select Market · (0.34%) vs GOOGL on 2026-11-03**.\n"}),
+        ("2026-10-05",{"ticker":"GOOGL","exchange":"Nasdaq Global Select Market","currency":"USD"},_bg_th("Decision line: GOOGL · Nasdaq Global Select Market · USD\n"),[],
+         {"listed_lines_text":"- Other listed lines: **None**.\n"}),
+        # thread 16: on a DEPOSITARY line the yield must say gross/net of withholding; a domestic yield is not asked.
+        ("2026-10-05",{"ticker":"BABA","exchange":"NYSE (ADR; also HKEX-listed)","currency":"USD"},_bg_th("Decision line: BABA · NYSE · USD\nThe ADR trades at a 1% premium to the HKEX line.\nTrailing dividend yield 1.1%, ex-date 2026-12-01.\n"),["gross/net-of-withholding"]),
+        ("2026-10-05",{"ticker":"BABA","exchange":"NYSE (ADR; also HKEX-listed)","currency":"USD"},_bg_th("Decision line: BABA · NYSE · USD\nThe ADR trades at a 1% premium to the HKEX line.\nTrailing dividend yield 1.1% net of 10% withholding, ex-date 2026-12-01.\n"),[]),
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 1.1%, ex-date 2026-12-01.\n"),[]),
+        # ── Layer-3 (automated PR-review) regression cases — two confirmed §16 FALSE NEGATIVES ──
+        # Finding 1 (§16 "a yield is only a yield a buyer can still receive … must never be presented as a
+        # reason to own"): a %-FIRST quote with a basis adjective between the % and the phrase ("3.1% trailing
+        # dividend yield", "4% forward dividend yield") was recognised by NEITHER alternative, so the whole
+        # availability check (basis / ex-/record-date / staleness / reason-to-own) was skipped and a stale
+        # yield presented as a reason to own shipped clean. The %-first form is now recognised, so these FAIL.
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"The shares offer a 3.1% trailing dividend yield, ex-date 2025-08-14, which is a reason to own.\n"),["before the decision date"]),
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"A 4% forward dividend yield, ex-date 2024-01-01, that rewards holders and is a reason to own.\n"),["before the decision date"]),
+        # ...the compliant %-first form (future ex-date, basis present) still PASSES — no new false positive...
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"A 4% forward dividend yield, ex-date 2026-12-01.\n"),[]),
+        # ...and an unrelated "5%" near a bare "dividend yield" (no bound figure, no basis word between) is NOT
+        #   a quoted yield and must still PASS — the basis-word restriction prevents over-matching.
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Revenue rose 5% while the dividend yield story is secondary.\n"),[]),
+        # Finding 2 (§16 depositary "gross or net of withholding"): a stray balance-sheet word on the yield
+        # line ("net debt", "net margin") used to satisfy the requirement via a bare \bnet\b. Now only an
+        # actual "gross of" / "net of" / withholding / depositary-fee statement discharges it, so these FAIL...
+        ("2026-10-05",{"ticker":"BABA","exchange":"NYSE (ADR; also HKEX-listed)","currency":"USD"},_bg_th("Decision line: BABA · NYSE · USD\nThe ADR trades at a 1% premium to the HKEX line.\nTrailing dividend yield 1.1%, ex-date 2026-12-01, while net debt fell.\n"),["gross/net-of-withholding"]),
+        ("2026-10-05",{"ticker":"BABA","exchange":"NYSE (ADR; also HKEX-listed)","currency":"USD"},_bg_th("Decision line: BABA · NYSE · USD\nThe ADR trades at a 1% premium to the HKEX line.\nTrailing dividend yield 1.1%, ex-date 2026-12-01; net margin rose.\n"),["gross/net-of-withholding"]),
+        # ...while a real "gross of withholding" statement PASSES (so does the existing "net of 10% withholding").
+        ("2026-10-05",{"ticker":"BABA","exchange":"NYSE (ADR; also HKEX-listed)","currency":"USD"},_bg_th("Decision line: BABA · NYSE · USD\nThe ADR trades at a 1% premium to the HKEX line.\nTrailing dividend yield 1.1% gross of withholding, ex-date 2026-12-01.\n"),[]),
+        # ── PR #754 Codex review of f253e81e (each red on f253e81e, green after; controls stay clean) ──
+        # r4542387620 (P1): a bare "withholding" / "depositary fee" topic mention does not say whether the
+        #   depositary-line yield is gross or net of it — an affirmative "gross of"/"net of" is required.
+        ("2026-10-05",{"ticker":"BABA","exchange":"NYSE (ADR; also HKEX-listed)","currency":"USD"},_bg_th("Decision line: BABA · NYSE · USD\nThe ADR trades at a 1% premium to the HKEX line.\nTrailing dividend yield 3.1%, ex-date 2026-12-01, withholding treatment unknown.\n"),["gross/net-of-withholding"]),
+        ("2026-10-05",{"ticker":"BABA","exchange":"NYSE (ADR; also HKEX-listed)","currency":"USD"},_bg_th("Decision line: BABA · NYSE · USD\nThe ADR trades at a 1% premium to the HKEX line.\nTrailing dividend yield 3.1%, ex-date 2026-12-01, depositary fee not stated.\n"),["gross/net-of-withholding"]),
+        ("2026-10-05",{"ticker":"BABA","exchange":"NYSE (ADR; also HKEX-listed)","currency":"USD"},_bg_th("Decision line: BABA · NYSE · USD\nThe ADR trades at a 1% premium to the HKEX line.\nTrailing dividend yield 3.1% net of withholding and depositary fees, ex-date 2026-12-01.\n"),[]),
+        # r4542387635 (P2): the canonical label parenthetical pushes "unavailable" past the old 24-char window,
+        #   so a denied decision line passed as a declaration; the value after the label is now parsed.
+        ("2026-10-05",_bg_d,_bg_th("Decision line (ticker · venue · currency): unavailable — AKAM · NasdaqGS · USD\n"),["no 'Decision line"]),
+        ("2026-10-05",_bg_d,_bg_th("| **Decision line (ticker · venue · currency)** | **Unavailable — AKAM · NasdaqGS · USD** |\n"),["no 'Decision line"]),
+        # r4542387645 (P2): a premium/discount clause that names only the DECISION instrument (here the ADR
+        #   itself, with a DCF discount rate) is not a cross-line comparison; one naming the other line passes.
+        ("2026-10-05",{"ticker":"BABA","exchange":"NYSE (ADR; also HKEX-listed)","currency":"USD"},_bg_th("Decision line: BABA · NYSE · USD\nThe ADR uses a 10% discount rate in the DCF.\n"),["cross-line premium/discount (a figure"]),
+        ("2026-10-05",{"ticker":"BABA","exchange":"NYSE (ADR; also HKEX-listed)","currency":"USD"},_bg_th("Decision line: BABA · NYSE · USD\nThe ADR trades at a 10% premium to its 52-week low.\n"),["cross-line premium/discount (a figure"]),
+        ("2026-10-05",{"ticker":"BABA","exchange":"NYSE (ADR; also HKEX-listed)","currency":"USD"},_bg_th("Decision line: BABA · NYSE · USD\nThe ADR trades at a 1% premium to the ordinary shares.\n"),[]),
+        # r4542387663 (P2): ordinary negations of reason-to-own language are recognised (no false flag)...
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3.1%, ex-date 2025-08-14; a buyer today does not receive it, so it should not be considered a reason to own.\n"),[]),
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3.1%, ex-date 2025-08-14; a buyer today does not receive it and it cannot be treated as a reason to own.\n"),[]),
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3.1%, ex-date 2025-08-14; a buyer today does not receive it, so it is no longer a reason to own.\n"),[]),
+        #   ...while a negation elsewhere in the clause does not cancel an affirmative reason-to-own.
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3.1%, ex-date 2025-08-14; a buyer today does not receive it and it is a reason to own.\n"),["still presents it as a reason to own"]),
+        # r4542387670 (P1): every yield in a clause is validated on its own — a valid first yield must not
+        #   mask a second yield whose ex-date is unparseable.
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"The trailing dividend yield is 3.0%, ex-date 2026-12-01, while the forward dividend yield is 4.0%, ex-date TBD, and is a reason to own.\n"),["no parseable"]),
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"The trailing dividend yield is 3.0%, ex-date 2026-12-01, while the forward dividend yield is 4.0%, ex-date 2027-03-01.\n"),[]),
+        # r4542387682 (P1): a currency AFTER a range ("100–120 EUR", "100 to 120 EUR") is parsed like the
+        #   single-value form, so a valuation in another currency than the decision line is caught.
+        ("2026-10-05",_bg_d,_bg_th("Decision line: AKAM · NasdaqGS · USD\nFair-value range: 100–120 EUR\n"),["not in the decision line's currency"]),
+        ("2026-10-05",_bg_d,_bg_th("Decision line: AKAM · NasdaqGS · USD\nFair-value range: 100 to 120 EUR\n"),["not in the decision line's currency"]),
+        ("2026-10-05",_bg_d,_bg_th("Decision line: AKAM · NasdaqGS · USD\nFair-value range: 100–120 USD\n"),[]),
+        # ── PR #754 Codex review of 24f46623 (each red on 24f46623, green after; controls stay clean) ──
+        # r4544983893 (P1): each depositary yield states its OWN gross/net basis — a second yield's "net of
+        #   withholding and depositary fees" on the same line no longer discharges the first yield.
+        ("2026-10-05",{"ticker":"BABA","exchange":"NYSE (ADR; also HKEX-listed)","currency":"USD"},_bg_th("Decision line: BABA · NYSE · USD\nThe ADR trades at a 1% premium to the HKEX line.\nTrailing dividend yield 3.0%, ex-date 2026-12-01; forward dividend yield 4.0% net of withholding and depositary fees, ex-date 2027-03-01.\n"),["gross/net-of-withholding"]),
+        ("2026-10-05",{"ticker":"BABA","exchange":"NYSE (ADR; also HKEX-listed)","currency":"USD"},_bg_th("Decision line: BABA · NYSE · USD\nThe ADR trades at a 1% premium to the HKEX line.\nTrailing dividend yield 3.0% net of withholding and depositary fees, ex-date 2026-12-01; forward dividend yield 4.0% net of withholding and depositary fees, ex-date 2027-03-01.\n"),[]),
+        # r4544983910 (P2): the declaration's venue is parsed apart from a trailing same-row comparison, so
+        #   INDIAMART · BSE (not a listed instrument) FLAGS even when the row also names NSE; 542726 · BSE passes.
+        ("2026-10-05",{"ticker":"INDIAMART","exchange":"NSE (also listed BSE:542726)","currency":"INR"},_bg_th("Decision line: INDIAMART · BSE · INR — the BSE line trades at a 0.1% premium to the NSE line\n"),["that venue's own ticker"]),
+        ("2026-10-05",{"ticker":"INDIAMART","exchange":"NSE (also listed BSE:542726)","currency":"INR"},_bg_th("Decision line: 542726 · BSE · INR — the BSE line trades at a 0.1% premium to the NSE line\n"),[]),
+        # r4544983914 (P2): only the valuation-anchored comparison is dropped — a clause with a real cross-line
+        #   premium AND a discount to fair value passes; a fair-value discount alone still FLAGS.
+        ("2026-10-05",{"ticker":"BABA","exchange":"NYSE (ADR; also HKEX-listed)","currency":"USD"},_bg_th("Decision line: BABA · NYSE · USD\nThe ADR trades at a 1% premium to the HKEX line and at a 10% discount to fair value.\n"),[]),
+        ("2026-10-05",{"ticker":"BABA","exchange":"NYSE (ADR; also HKEX-listed)","currency":"USD"},_bg_th("Decision line: BABA · NYSE · USD\nThe ADR trades at a 10% discount to fair value and the HKEX line exists.\n"),["cross-line premium/discount (a figure"]),
+        # r4544983919 (P1): a hyphenated "dividend-yield" label is a quoted yield.
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend-yield 3.1%, ex-date 2025-08-14, is a reason to own.\n"),["still presents it as a reason to own"]),
+        # r4544983929 (P1): a peers' "no dividend yield" does not exempt the quoted stale yield sharing its chunk; a
+        #   no-yield construction that IS the quoted expression ("Dividend yield: n/a, …" above) still does.
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3.1%, ex-date 2025-08-14, is a reason to own although peers offer no dividend yield.\n"),["still presents it as a reason to own"]),
+        # r4544983936 (P1): a non-dividend corporate-action date — around an ex-date as well as a record date,
+        #   before or after the marker — does not establish entitlement; an explicit "ex-dividend" marker does.
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3.1%, rights issue ex-date 2027-01-10.\n"),["an ex-/record-date"]),
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3.1%, record date for the AGM 2027-01-10.\n"),["an ex-/record-date"]),
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3.1%, ex-dividend 2027-01-10 subject to AGM approval.\n"),[]),
+        # r4544983940 (P2): the two concrete venues cited (TSE Prime, SIX Swiss Exchange) now resolve, so they
+        #   FLAG against a Nasdaq record (the 7203 · TSE Prime · JPY Tokyo-record control above still passes).
+        ("2026-10-05",_bg_d,_bg_th("Decision line: AKAM · TSE Prime · USD\n"),["venue that does not match"]),
+        ("2026-10-05",_bg_d,_bg_th("Decision line: AKAM · SIX Swiss Exchange · USD\n"),["venue that does not match"]),
+        # r4544983948 (P1): EVERY currency-marked value in a headline cell is read — a trailing EUR scenario
+        #   behind a leading USD one FLAGS; a parenthetical FX conversion in the cell does not.
+        ("2026-10-05",_bg_d,_bg_th("Decision line: AKAM · NasdaqGS · USD\nFair-value range: USD 80 / EUR 120\n"),["not in the decision line's currency"]),
+        ("2026-10-05",_bg_d,_bg_th("Decision line: AKAM · NasdaqGS · USD\n| Fair-value range | USD 80–120 / EUR 70–100 |\n"),["not in the decision line's currency"]),
+        ("2026-10-05",{"ticker":"INDIAMART","exchange":"NSE (also listed BSE:542726)","currency":"INR"},_bg_th("Decision line: INDIAMART · NSE · INR — the BSE line trades at a 0.1% premium to the NSE line\nCurrent price: ₹2,450 (US$29.4 at ₹83.3/USD)\n"),[]),
+        # r4544983956 (P2): a cross-line gap quantified as a currency AMOUNT counts like a percentage.
+        ("2026-10-05",{"ticker":"BABA","exchange":"NYSE (ADR; also HKEX-listed)","currency":"USD"},_bg_th("Decision line: BABA · NYSE · USD\nThe ADR trades at a USD 2 premium to the HKEX line.\n"),[]),
+        # r4544983962 (P2): a later field's "unavailable" does not negate the declaration (short ticker), while
+        #   a declaration that is itself "unavailable" still does.
+        ("2026-10-05",{"ticker":"V","exchange":"New York Stock Exchange","currency":"USD"},_bg_th("Decision line: V · NYSE · USD; price unavailable\n"),[]),
+        ("2026-10-05",{"ticker":"V","exchange":"New York Stock Exchange","currency":"USD"},_bg_th("Decision line: unavailable — V · NYSE · USD\n"),["no 'Decision line"]),
+        # Nightly PR-fix (PR #754) — false-positive regression: a genuine dividend record date that a board
+        # MEETING set is KEPT. The non-div-event word must QUALIFY the marker (sit immediately before/after
+        # it), not merely co-occur in the comma-field, and the over-generic "meeting" is no longer a drop
+        # word. Pre-fix this FLAGGED a valid future dividend date (§16: a yield a buyer can still receive;
+        # §17: a gate must be capable of passing legitimately). RED on the pre-fix matcher, GREEN after.
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Forward dividend yield 3.1%, the board meeting set the record date 2026-12-01.\n"),[]),
+        # …while a date the event word truly qualifies (AGM adjacent to the marker) still drops — guard that
+        # the adjacency fix did not over-remove the author's intended non-dividend drop.
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Forward dividend yield 3.1%, the board set the AGM record date 2026-12-01.\n"),["an ex-/record-date"]),
+    ]
+    bgbad=0
+    for _bgc in _bg_cases:
+        dt_,d_,th_,exp=_bgc[:4]
+        got=BG(dt_,d_,th_,**(_bgc[4] if len(_bgc)>4 else {}))
+        if exp is None: ok=(got is None)
+        elif not exp: ok=(isinstance(got,list) and len(got)==0)
+        else: ok=(isinstance(got,list) and len(got)>0 and all(any(x in v for v in got) for x in exp))
+        if not ok: bgbad+=1
+        print(f"  [{'ok' if ok else 'XX'}] BG({dt_!r}) -> {got}"+("" if ok else f"  EXPECTED exp={exp}"))
+    bad+=bgbad
     # BH — net-cash / net-debt basis label in Part I (§15). No committed run reaches BH_DATE, so drive every
     # branch here. The three RED cases are the REAL committed-Part-I sentences that shipped a bare figure
     # (INDIAMART_2026-08-14: broad ₹33.7bn quoted as "~₹31 billion of net cash" while strict is ₹0.15bn).
@@ -4440,6 +4729,19 @@ for drp in runs:
         add("AK_red_flag_severity_reconciliation",True,
             "module-declared Critical red-flag counts reconcile with decision_record.json red_flags "
             "and the Headline Scorecard Rating-cap cell does not deny one")
+    # BG tradable line + dividend-yield availability (forward-looking; landing BG_DATE) — CLAUDE.md §16. The
+    #   decision must name the ONE listed line it applies to, and a quoted dividend yield must say whether it
+    #   is trailing/forward and carry its ex-/record-date; synthesizer.md Part I item 12 instructed both with
+    #   nothing mechanical behind it.
+    #   valuation/01's Anchor-Block 'Other listed lines' feeds the same-venue share-class leg (GOOGL/GOOG).
+    bgresult=eval_bg_tradable_line_and_yield(ddte,d,thesis,listed_lines_text=_read_specialist_text("valuation","01_"))
+    if bgresult is None:
+        add("BG_tradable_line_and_yield",True,f"run predates the gate ({ddte}) — N/A",na=True)
+    elif bgresult:
+        add("BG_tradable_line_and_yield",False,"; ".join(bgresult))
+    else:
+        add("BG_tradable_line_and_yield",True,
+            "Part I names the decision line (ticker/currency match the record) and any quoted dividend yield carries its basis and date")
     # BH net-cash / net-debt basis label in Part I (forward-looking; landing BH_DATE) — CLAUDE.md §15.
     #   synthesizer.md Part I item 6 requires every net cash / net debt framing to state its basis, and
     #   to show the strict figure beside any investment-inclusive one; nothing verified it.
@@ -4663,7 +4965,7 @@ FRAMEWORK_CONTRACTS={
  ".claude/agents/memo-writer.md":["memo.md","colleague","~10"],
  ".claude/commands/research/full.md":["audit_dossier.md","memo.md","memo-writer","post_mortem_decision","RATING-CAP","TERMINAL","10B.3","GATE-EXPECTATIONS","expectations-gap.md","rating_caps","eval_ad_filter_4_6_cap","eval_ae_filter5_cap","eval_af_filter1_integrity_cap","eval_ac_turnaround_cap","eval_aq_forensic_mosaic_cap","headline_checks","eval_ai_headline_reconciliation","eval_ak_red_flag_severity_reconciliation","eval_bh_net_debt_basis_label","valuation_summary_checks","eval_ap_valuation_summary_integrity","--data-needs-prewrite","before 10B.3A"],
  "scripts/rating_caps.py":["AC_DATE","AD_DATE","AE_DATE","AF_DATE","AQ_DATE","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","eval_ae_filter5_cap","eval_af_filter1_integrity_cap","eval_aq_forensic_mosaic_cap","_tag_fired_standalone","HIGH_CONVICTION_DECISIONS","FORENSIC_TAGS","MOSAIC_MIN_DISTINCT_TAGS","MOSAIC_MIN_DISTINCT_MODULES"],
- "scripts/headline_checks.py":["AI_DATE","CONF_SPLIT_DATE","eval_ai_headline_reconciliation","_scorecard_section","_hs_cell","_metric_numbers","_reconciles","AK_DATE","eval_ak_red_flag_severity_reconciliation","_module_critical_count","_AK_CRITICAL_PATTERNS","_AK_DENIAL","_AK_AFFIRM","BH_DATE","eval_bh_net_debt_basis_label","_BH_BASIS","_part_one"],
+ "scripts/headline_checks.py":["AI_DATE","CONF_SPLIT_DATE","eval_ai_headline_reconciliation","_scorecard_section","_hs_cell","_metric_numbers","_reconciles","AK_DATE","eval_ak_red_flag_severity_reconciliation","_module_critical_count","_AK_CRITICAL_PATTERNS","_AK_DENIAL","_AK_AFFIRM","BG_DATE","eval_bg_tradable_line_and_yield","BH_DATE","eval_bh_net_debt_basis_label","_BH_BASIS","_part_one"],
  "scripts/valuation_summary_checks.py":["eval_ap_valuation_summary_integrity","scan_committed","_selftest","_REQUIRED","level_from_multiple"],
  # BF — without this row the whole basis-check module could be deleted and the suite would still
  # print PASS, which is the hole this registry exists to close (see its own comment above).
