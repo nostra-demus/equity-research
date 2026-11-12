@@ -1,6 +1,1064 @@
 {
-  "generated_at": "2026-11-12T00:00:45Z",
+  "generated_at": "2026-11-12T00:10:31Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261112-008",
+      "headline": "BROAD HOMES (02163): INSIDE INFORMATION(1) THE COURT DECLINED TO ACCEPT THE BANKRUPTCY RESTRUCTURING APPLICATION; AND (2) LATEST PROGRESS OF THE REVIEW APPLICATION",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1112/2026111200041.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-12T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "The court declined the bankruptcy restructuring application for Broad Homes, indicating ongoing financial instability and legal uncertainty.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The court declined the bankruptcy restructuring application for Broad Homes, indicating ongoing financial instability and legal uncertainty.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Broad Homes",
+          "ticker": "02163",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-013",
+      "headline": "Nvidia's board preparing to oust CEO Jensen Huang, sources say",
+      "headline_en": null,
+      "url": "https://www.cbsnews.com/video/nvidias-board-preparing-oust-ceo-jensen-huang-sources-say/",
+      "source_name": "CBS MoneyWatch",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T23:48:52Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Reports of the board preparing to oust the CEO of a mega-cap company represent a major governance and leadership crisis.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Reports of the board preparing to oust the CEO of a mega-cap company represent a major governance and leadership crisis.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-014",
+      "headline": "Nvidia Working With Outside Firm to Identify CEO Candidates",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-11/nvidia-working-with-outside-firm-to-identify-ceo-candidates",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T23:46:39Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Confirmation that the company is working with outside firms to identify CEO candidates suggests a leadership transition is underway.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Confirmation that the company is working with outside firms to identify CEO candidates suggests a leadership transition is underway.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-018",
+      "headline": "Pizza franchisee files Chapter 11 bankruptcy, chain cut 239 units",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/restaurants/papa-johns-pizza-franchisee-files-chapter-11-bankruptcy",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T22:15:00Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "A pizza franchisee filed for Chapter 11 bankruptcy and cut 239 units, indicating severe financial distress and operational contraction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A pizza franchisee filed for Chapter 11 bankruptcy and cut 239 units, indicating severe financial distress and operational contraction.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-005",
+      "headline": "Nvidia preparing to oust CEO Jensen Huang who had second affair: reports",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/international/global/nvidia-preparing-oust-ceo-jensen-huang-who-had-second-affair-reports",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T23:02:58Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Reports of a potential ousting of the CEO of a mega-cap company due to personal scandal represent a major management and governance risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Reports of a potential ousting of the CEO of a mega-cap company due to personal scandal represent a major management and governance risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management",
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-019",
+      "headline": "Nvidia’s stock drops as the board reportedly prepares to remove CEO Jensen Huang",
+      "headline_en": null,
+      "url": "https://www.marketwatch.com/bulletins/redirect/go?g=e5452e7e-073e-4c9a-8aa8-abdfe88a0ea1&mod=mw_rss_bulletins",
+      "source_name": "MarketWatch",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T22:52:41Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Stock price decline linked to reports of potential CEO removal highlights the market's sensitivity to leadership continuity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Stock price decline linked to reports of potential CEO removal highlights the market's sensitivity to leadership continuity.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-007",
+      "headline": "UAE’s largest bank FAB plans $4.1bn share sale at 30% discount",
+      "headline_en": null,
+      "url": "https://www.arabianbusiness.com/finance/banking/uaes-largest-bank-fab-plans-4-1bn-share-sale-at-30-discount",
+      "source_name": "Arabian Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T23:21:17Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "The UAE's largest bank is planning a $4.1 billion share sale at a 30% discount, which is highly dilutive and suggests significant capital needs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "The UAE's largest bank is planning a $4.1 billion share sale at a 30% discount, which is highly dilutive and suggests significant capital needs.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "First Abu Dhabi Bank",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-020",
+      "headline": "Nvidia board prepares to discuss ousting CEO Jensen Huang, WSJ reports",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/info-tech/nvidia-board-prepares-to-discuss-ousting-ceo-jensen-huang-wsj-reports/article71691410.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T22:48:52Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Continued reporting on the potential ouster of the CEO maintains high uncertainty regarding company leadership.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Continued reporting on the potential ouster of the CEO maintains high uncertainty regarding company leadership.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-022",
+      "headline": "Nvidia Falls as Investors Consider Future Without CEO Huang",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-11/nvidia-tumbles-as-investors-consider-future-without-ceo-huang",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T22:48:40Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Market sell-off driven by concerns over the potential departure of the CEO highlights significant leadership risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Market sell-off driven by concerns over the potential departure of the CEO highlights significant leadership risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-021",
+      "headline": "Nvidia preparing to oust CEO Jensen Huang after affairs: WSJ",
+      "headline_en": null,
+      "url": "https://cointelegraph.com/news/nvidia-preparing-to-oust-ceo-jensen-huang-reports?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source_name": "Cointelegraph",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T22:44:47Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Continued reporting on the potential ouster of the CEO maintains high uncertainty regarding company leadership.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Continued reporting on the potential ouster of the CEO maintains high uncertainty regarding company leadership.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-004",
+      "headline": "CBA: Commonwealth Bank acknowledges proceedings commenced by ASIC",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CBA?key=2924-03160939-2A1710205",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-11T23:00:46Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Commonwealth Bank faces legal proceedings initiated by the Australian Securities and Investments Commission (ASIC), creating regulatory and legal risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Commonwealth Bank faces legal proceedings initiated by the Australian Securities and Investments Commission (ASIC), creating regulatory and legal risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Commonwealth Bank",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-010",
+      "headline": "SLING GROUP (08285): COMPOSITE DOCUMENT RELATING TO MANDATORY UNCONDITIONAL CASH OFFER BY SANFULL SECURITIES LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED BY THE OFFEROR AND/OR PARTIES ACTING IN CONCERT WITH IT)",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1112/2026111200001.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-11T22:03:00Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Sling Group issued a composite document regarding a mandatory unconditional cash offer for all issued shares.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Sling Group issued a composite document regarding a mandatory unconditional cash offer for all issued shares.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sling Group",
+          "ticker": "08285",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-009",
+      "headline": "NEXTEER (01316): VOLUNTARY ANNOUNCEMENT APPROVAL OF UP TO US$60 MILLION SHARE REPURCHASE PROGRAMME",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1112/2026111200027.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-11T23:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Nexteer announced a share repurchase program of up to US$60 million, signaling management confidence and capital return.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Nexteer announced a share repurchase program of up to US$60 million, signaling management confidence and capital return.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nexteer",
+          "ticker": "01316",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-006",
+      "headline": "Rep. DelBene: Nvidia, Huang Should Face Investigation",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-11-11/rep-delbene-nvidia-huang-should-face-investigation-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T23:19:28Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "A US Representative calling for an investigation into a major company and its CEO increases regulatory and political scrutiny.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "A US Representative calling for an investigation into a major company and its CEO increases regulatory and political scrutiny.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-016",
+      "headline": "Jensen Huang affair in D.C.: Resignation calls and moves to tighten Nvidia China exports",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/11/11/nvidia-jensen-huang-congress-resign-ai-chips.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T22:46:29Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Calls for resignation and potential tightening of export controls create significant regulatory and operational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Calls for resignation and potential tightening of export controls create significant regulatory and operational risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-002",
+      "headline": "EU warns Australia’s $10b trade deal will be ‘buried’ if Senate stalls",
+      "headline_en": null,
+      "url": "https://www.afr.com/world/europe/eu-warns-australia-s-10b-trade-deal-will-be-buried-if-senate-stalls-20261112-p61dfm?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T22:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "The EU has threatened to abandon a $10 billion trade deal with Australia if the Senate does not approve it, posing a significant risk to bilateral trade relations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "The EU has threatened to abandon a $10 billion trade deal with Australia if the Senate does not approve it, posing a significant risk to bilateral trade relations.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-001",
+      "headline": "Mass partner exodus hits K&L Gates, amid pay cuts at global law firm",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/professional-services/mass-partner-exodus-hits-k-and-l-gates-amid-pay-cuts-at-global-law-firm-20261112-p61d2g?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T22:00:00Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "A mass exodus of partners at a major global law firm indicates significant internal instability and potential operational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "A mass exodus of partners at a major global law firm indicates significant internal instability and potential operational risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "management",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "K&L Gates",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-015",
+      "headline": "‘It looks bad from every single angle’: Investors and analysts react to report Nvidia planning to oust CEO Huang",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/investing/article-it-looks-bad-from-every-single-angle-investors-and-analysts-react-to/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T23:52:43Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Market reaction to reports of potential CEO ouster reflects significant investor concern regarding leadership stability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 78,
+      "triage_reason": "Market reaction to reports of potential CEO ouster reflects significant investor concern regarding leadership stability.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-017",
+      "headline": "Fed Rate Hike Expectations Boost the Dollar",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/fed-rate-hike-expectations-boost-dollar",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T22:55:48Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Fed rate hike expectations are a primary driver of currency market volatility and broader asset pricing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 66,
+      "triage_reason": "Fed rate hike expectations are a primary driver of currency market volatility and broader asset pricing.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-003",
+      "headline": "ZNO: Update - Proposed issue of securities - ZNO",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ZNO?key=2924-03160940-2A1710204",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-11T23:01:46Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Routine update regarding a proposed issue of securities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 63,
+      "triage_reason": "Routine update regarding a proposed issue of securities.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ZNO",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-012",
+      "headline": "Regulator unveils steps to boost fairness, transparency in CEO selection for bank holding firms",
+      "headline_en": null,
+      "url": "https://en.yna.co.kr/view/AEN20261112001000320",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T23:30:01Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "New regulatory steps for CEO selection in bank holding firms may impact governance and operational compliance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 61,
+      "triage_reason": "New regulatory steps for CEO selection in bank holding firms may impact governance and operational compliance.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-011",
+      "headline": "Sylogist Announces Third Quarter 2026 Results | SYZLF Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/SYZLF/sylogist-announces-third-quarter-2026-0m4w6z4ai5dg.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-11-11T23:55:00Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Sylogist reported Q3 2026 financial results.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 49,
+      "triage_reason": "Sylogist reported Q3 2026 financial results.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sylogist",
+          "ticker": "SYZLF",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261111-565",
       "headline": "XRO: Strong Xero H1 FY27 result, upgraded outlook & A$1bn buyback [price-sensitive]",
@@ -231713,76 +232771,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-50f379c78b21",
-      "idea_version": "IDEAV-79fd44d625d53dc6",
-      "idea_version_started_at": "2026-11-11T03:59:14Z",
-      "ticker": "NVDA",
-      "company": "Nvidia",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Allegations involving the CEO and a foreign intelligence asset create significant governance risk and potential regulatory scrutiny that could destabilize the stock's premium valuation.",
-      "why_now": "The report surfaced on 2026-11-11, creating immediate headline risk.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ce81b40528c9"
-      ],
-      "primary_source_event_id": "EVT-ce81b40528c9",
-      "source_headlines": [
-        "Nvidia shares plummet again amid CEO Jensen Huang's affair with alleged Chinese spy"
-      ],
-      "source_headline": "Nvidia shares plummet again amid CEO Jensen Huang's affair with alleged Chinese spy",
-      "source_url": "https://www.cbsnews.com/video/nvidia-shares-plummet-again-amid-ceo-jensen-huangs-affair-with-alleged-chinese-spy/",
-      "source_name": "CBS MoneyWatch",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-11T01:01:17Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-07T15:09:40Z",
-      "updated_at": "2026-11-11T03:59:14Z",
-      "decay_at": "2026-11-12T13:01:17Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-af413d25539b",
       "idea_version": "IDEAV-8427480e67ce78b6",
       "idea_version_started_at": "2026-11-11T11:14:28Z",
@@ -232133,6 +233121,85 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-50f379c78b21",
+      "idea_version": "IDEAV-0a58ea12abc3f646",
+      "idea_version_started_at": "2026-11-12T00:06:04Z",
+      "ticker": "NVDA",
+      "company": "Nvidia",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The potential ouster of CEO Jensen Huang due to personal conduct allegations creates significant leadership uncertainty and governance risk for the company's strategic direction.",
+      "why_now": "Multiple reports emerged on 2026-11-11 regarding board preparations to remove the CEO.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 10,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "governance_turnaround",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ae867166d950",
+        "EVT-11572816c556",
+        "EVT-3846dfd08b6d",
+        "EVT-5d3809215aa1",
+        "EVT-7bcedc438675",
+        "EVT-bf591f7f6258",
+        "EVT-f33044d5789e"
+      ],
+      "primary_source_event_id": "EVT-ae867166d950",
+      "source_headlines": [
+        "Nvidia stock faces rare downgrades as board investigates CEO Jensen Huang's admitted affair",
+        "Nvidia preparing to oust CEO Jensen Huang who had second affair: reports",
+        "Nvidia preparing to oust CEO amid reports of a second affair",
+        "Nvidia shares sink 9% amid reports of possible CEO Jensen Huang ouster"
+      ],
+      "source_headline": "Nvidia stock faces rare downgrades as board investigates CEO Jensen Huang's admitted affair",
+      "source_url": "https://www.foxbusiness.com/markets/nvidia-stock-faces-rare-downgrades-board-investigates-ceo-jensen-huangs-admitted-affair",
+      "source_name": "Fox Business — Markets",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-11T23:45:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-07T15:09:40Z",
+      "updated_at": "2026-11-12T00:06:04Z",
+      "decay_at": "2026-11-13T11:45:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-2e5391db32b6",
       "idea_version": "IDEAV-93da71797e2a0728",
       "idea_version_started_at": "2026-11-11T03:59:14Z",
@@ -232197,6 +233264,77 @@
       "surfaced_at": "2026-11-11T03:59:14Z",
       "updated_at": "2026-11-11T03:59:14Z",
       "decay_at": "2026-11-12T10:29:15Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-53af89f38860",
+      "idea_version": "IDEAV-96a710b6564c9694",
+      "idea_version_started_at": "2026-11-12T00:06:04Z",
+      "ticker": "XRO",
+      "company": "Xero",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Xero reported strong H1 FY27 results, raised its outlook, and announced a A$1 billion share buyback, signaling significant capital return and operational momentum.",
+      "why_now": "The announcement was made in a primary filing on 2026-11-11.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-295990934b31"
+      ],
+      "primary_source_event_id": "EVT-295990934b31",
+      "source_headlines": [
+        "XRO: Strong Xero H1 FY27 result, upgraded outlook & A$1bn buyback [price-sensitive]"
+      ],
+      "source_headline": "XRO: Strong Xero H1 FY27 result, upgraded outlook & A$1bn buyback [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.XRO?key=2924-03160722-3A706332",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-11T20:44:20Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-12T00:06:04Z",
+      "updated_at": "2026-11-12T00:06:04Z",
+      "decay_at": "2026-11-13T08:44:20Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -235673,77 +236811,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-c3fce5a7fa01",
-      "idea_version": "IDEAV-1ad56b20f02a4ed6",
-      "idea_version_started_at": "2026-11-08T23:44:25Z",
-      "ticker": "SHOP",
-      "company": "Shopify",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company met earnings expectations but the market reaction suggests underlying concerns regarding growth sustainability or margin quality.",
-      "why_now": "The earnings report was released on 2026-11-08, and the negative price action following the release indicates a potential shift in investor sentiment.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-154d8abe7837"
-      ],
-      "primary_source_event_id": "EVT-154d8abe7837",
-      "source_headlines": [
-        "Shopify just hit its numbers, and that was the problem"
-      ],
-      "source_headline": "Shopify just hit its numbers, and that was the problem",
-      "source_url": "https://www.thestreet.com/investing/shopify-just-hit-its-numbers-and-that-was-the-problem",
-      "source_name": "TheStreet",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-08T23:37:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-08T23:44:25Z",
-      "updated_at": "2026-11-08T23:44:25Z",
-      "decay_at": "2026-11-10T11:37:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-3c061905fff4",
       "idea_version": "IDEAV-11f21a7c4b6c1c1f",
       "idea_version_started_at": "2026-11-10T14:20:30Z",
@@ -237682,581 +238749,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-3ebd6362248c",
-      "idea_version": "IDEAV-a96588b9cfaca4a3",
-      "idea_version_started_at": "2026-11-08T23:24:25Z",
-      "ticker": "SET",
-      "company": "Set",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The announcement of a placement and non-renounceable entitlement offer indicates significant equity dilution for existing shareholders.",
-      "why_now": "The filing was released on 2026-11-08, and the market typically reacts negatively to dilutive capital raises.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6a69bf403819"
-      ],
-      "primary_source_event_id": "EVT-6a69bf403819",
-      "source_headlines": [
-        "SET: Placement and Non-Renounceable Entitlement Offer [price-sensitive]"
-      ],
-      "source_headline": "SET: Placement and Non-Renounceable Entitlement Offer [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SET?key=2924-03159476-2A1709467",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-08T22:40:11Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-08T23:24:25Z",
-      "updated_at": "2026-11-08T23:24:25Z",
-      "decay_at": "2026-11-10T10:40:11Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-80d8059c8c1e",
-      "idea_version": "IDEAV-d08ff9e70a7989a2",
-      "idea_version_started_at": "2026-11-08T23:24:25Z",
-      "ticker": "AVD",
-      "company": "Avd",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The sudden resignation of a CEO creates a leadership vacuum and typically signals underlying operational or strategic issues.",
-      "why_now": "The resignation was filed on 2026-11-08, creating immediate uncertainty regarding the company's future direction.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-dfd2166384aa"
-      ],
-      "primary_source_event_id": "EVT-dfd2166384aa",
-      "source_headlines": [
-        "AVD: Resignation of CEO [price-sensitive]"
-      ],
-      "source_headline": "AVD: Resignation of CEO [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AVD?key=2924-03159482-2A1709479",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-08T22:41:46Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-08T23:24:25Z",
-      "updated_at": "2026-11-08T23:24:25Z",
-      "decay_at": "2026-11-10T10:41:46Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-1e8235393100",
-      "idea_version": "IDEAV-98686d20857af56d",
-      "idea_version_started_at": "2026-11-08T23:04:22Z",
-      "ticker": "NS1",
-      "company": "NS1",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The appointment of voluntary administrators indicates an immediate insolvency event and total loss of equity value for shareholders.",
-      "why_now": "The filing was made on 2026-11-08, marking the start of the formal insolvency process.",
-      "conviction": 95,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b1deae6144a5"
-      ],
-      "primary_source_event_id": "EVT-b1deae6144a5",
-      "source_headlines": [
-        "NS1: Appointment of Voluntary Administrators [price-sensitive]"
-      ],
-      "source_headline": "NS1: Appointment of Voluntary Administrators [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NS1?key=2924-03159391-6A1354064",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-08T22:10:46Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-08T23:04:22Z",
-      "updated_at": "2026-11-08T23:04:22Z",
-      "decay_at": "2026-11-10T10:10:46Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-83131c32c3ef",
-      "idea_version": "IDEAV-5bf2c7b7cb05bb89",
-      "idea_version_started_at": "2026-11-08T22:39:17Z",
-      "ticker": "NXT",
-      "company": "NEXTDC",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Goodman Group's acquisition of a 9.9% stake in the company serves as a strong signal of institutional confidence in the data center operator's asset value.",
-      "why_now": "The disclosure of the stake acquisition was filed on 2026-11-08.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-867c4037f00d"
-      ],
-      "primary_source_event_id": "EVT-867c4037f00d",
-      "source_headlines": [
-        "GMG: Acquisition of a 9.9% interest in NEXTDC [price-sensitive]"
-      ],
-      "source_headline": "GMG: Acquisition of a 9.9% interest in NEXTDC [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GMG?key=2924-03159407-2A1709388",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-08T22:17:41Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-08T22:39:17Z",
-      "updated_at": "2026-11-08T22:39:17Z",
-      "decay_at": "2026-11-10T10:17:41Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-3013434ee1a7",
-      "idea_version": "IDEAV-94ee174145c0df06",
-      "idea_version_started_at": "2026-11-08T22:12:03Z",
-      "ticker": "IGO",
-      "company": "IGO Limited",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company beat its production and cost guidance for the Nova mine, indicating improved operational efficiency and margin performance.",
-      "why_now": "The production beat was confirmed in an exchange filing on 2026-11-08.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e72eedcb755b"
-      ],
-      "primary_source_event_id": "EVT-e72eedcb755b",
-      "source_headlines": [
-        "IGO: Nova Concludes Mining, Beats Production and Cost Guidance [price-sensitive]"
-      ],
-      "source_headline": "IGO: Nova Concludes Mining, Beats Production and Cost Guidance [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.IGO?key=2924-03159386-6A1354100",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-08T22:06:26Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-08T22:12:03Z",
-      "updated_at": "2026-11-08T22:12:03Z",
-      "decay_at": "2026-11-10T10:06:26Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-8c6763c204a1",
-      "idea_version": "IDEAV-40b86c89cc2011e1",
-      "idea_version_started_at": "2026-11-08T22:12:03Z",
-      "ticker": "ANZ",
-      "company": "ANZ Group Holdings",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The bank reported a $7.6b cash profit but simultaneously increased provisions for bad debts, signaling management's concern regarding the deteriorating economic environment.",
-      "why_now": "The full-year results and provision increase were released on 2026-11-08.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d30c11aab7a2",
-        "EVT-d8cdf8a861e8"
-      ],
-      "primary_source_event_id": "EVT-d30c11aab7a2",
-      "source_headlines": [
-        "ANZ: ANZ Full Year Results, Dividend Announcement & Appendix 4E [price-sensitive]",
-        "ANZ posts $7.6b cash profit, lifts provisions citing volatile economy"
-      ],
-      "source_headline": "ANZ: ANZ Full Year Results, Dividend Announcement & Appendix 4E [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ANZ?key=2924-03159207-3A706009",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-08T20:52:28Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-08T22:12:03Z",
-      "updated_at": "2026-11-08T22:12:03Z",
-      "decay_at": "2026-11-10T08:52:28Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-bd2806fdea87",
-      "idea_version": "IDEAV-91276d27436707de",
-      "idea_version_started_at": "2026-11-08T20:49:19Z",
-      "ticker": "ANZ",
-      "company": "ANZ Group Holdings",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "ANZ Group Holdings announced its full-year results and dividend, which are price-sensitive events that directly impact the company's valuation.",
-      "why_now": "The company filed its full-year results and dividend announcement on November 8, 2026.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d30c11aab7a2"
-      ],
-      "primary_source_event_id": "EVT-d30c11aab7a2",
-      "source_headlines": [
-        "ANZ: ANZ Full Year Results, Dividend Announcement & Appendix 4E [price-sensitive]"
-      ],
-      "source_headline": "ANZ: ANZ Full Year Results, Dividend Announcement & Appendix 4E [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ANZ?key=2924-03159207-3A706009",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-08T20:30:16Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-08T20:49:19Z",
-      "updated_at": "2026-11-08T20:49:19Z",
-      "decay_at": "2026-11-10T08:30:16Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-72dc515e1743",
-      "idea_version": "IDEAV-4fc99e8eea72910e",
-      "idea_version_started_at": "2026-11-08T18:55:39Z",
-      "ticker": "C6L",
-      "company": "Singapore Airlines",
-      "exchange": "SGX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "A $1.1 billion (S$1.6bn) investment in cabin upgrades across the long-haul fleet aims to defend premium yields and capture high-margin luxury travel demand.",
-      "why_now": "The formal unveiling of the multi-year capex program on November 8, 2026, signals a major strategic shift in product positioning.",
-      "conviction": 45,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-af73baecc998"
-      ],
-      "primary_source_event_id": "EVT-af73baecc998",
-      "source_headlines": [
-        "Singapore Airlines unveils $1.6bn cabin revamp with giant double bed"
-      ],
-      "source_headline": "Singapore Airlines unveils $1.6bn cabin revamp with giant double bed",
-      "source_url": "https://asia.nikkei.com/business/transportation/singapore-airlines-unveils-1.6bn-cabin-revamp-with-giant-double-bed",
-      "source_name": "Nikkei Asia",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-08T16:47:53Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-08T18:55:39Z",
-      "updated_at": "2026-11-08T18:55:39Z",
-      "decay_at": "2026-11-10T04:47:53Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-a2376ec1a2c7",
       "idea_version": "IDEAV-5c9b522a0d5b80c0",
       "idea_version_started_at": "2026-11-10T02:34:38Z",
@@ -239122,33 +239614,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 572,
+    "total_count": 563,
     "shown_count": 499,
-    "hidden_count": 73,
+    "hidden_count": 64,
     "side_counts": {
       "long": {
-        "total_count": 297,
+        "total_count": 293,
         "shown_count": 250,
-        "hidden_count": 47
+        "hidden_count": 43
       },
       "short": {
-        "total_count": 276,
+        "total_count": 271,
         "shown_count": 250,
-        "hidden_count": 26
+        "hidden_count": 21
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1792,
-      "oldest_retained_at": "2026-10-16T00:56:00Z",
+      "evicted_count": 1801,
+      "oldest_retained_at": "2026-10-16T10:36:44Z",
       "side_counts": {
         "long": {
-          "evicted_count": 1175,
-          "oldest_retained_at": "2026-10-27T11:30:01Z"
+          "evicted_count": 1179,
+          "oldest_retained_at": "2026-10-27T12:52:07Z"
         },
         "short": {
-          "evicted_count": 618,
-          "oldest_retained_at": "2026-10-16T00:56:00Z"
+          "evicted_count": 623,
+          "oldest_retained_at": "2026-10-16T10:36:44Z"
         }
       }
     },
@@ -243961,8 +244453,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-10T11:37:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-12T00:06:12Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -244035,8 +244527,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-10T10:41:46Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-12T00:06:12Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -244109,8 +244601,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-10T10:40:11Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-12T00:06:12Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -244183,8 +244675,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-10T10:17:41Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-12T00:06:12Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -244258,8 +244750,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-10T10:10:46Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-12T00:06:12Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -244332,8 +244824,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-10T10:06:26Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-12T00:06:12Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -244409,8 +244901,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-10T08:52:28Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-12T00:06:12Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -244484,8 +244976,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-10T08:30:16Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-12T00:06:12Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -244560,8 +245052,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-10T04:47:53Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-12T00:06:12Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -276279,8 +276771,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2397,
-    "live_count": 32,
+    "surfaced_total": 2398,
+    "live_count": 33,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -276290,7 +276782,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4727,
+    "inbox_unconsumed": 4749,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -276299,9 +276791,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 0,
-    "news_picked_today": 0,
-    "news_dropped_today": 0
+    "news_seen_today": 15839,
+    "news_picked_today": 22,
+    "news_dropped_today": 26
   },
   "book_momentum": {
     "live_count": 8,
