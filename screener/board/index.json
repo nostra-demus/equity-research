@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T22:05:53Z",
+  "generated_at": "2026-11-12T22:15:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20261112-874",
@@ -1238,6 +1238,352 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261112-1026",
+      "headline": "Nvidia sheds almost $500 billion in value as Jensen Huang resigns",
+      "headline_en": null,
+      "url": "https://www.cbsnews.com/news/nvidia-stock-nvda-ceo-jensen-huang/",
+      "source_name": "CBS MoneyWatch",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T22:03:31Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Founder and long-serving CEO Jensen Huang resignation from mega-cap Nvidia creates management continuity risk and strategic uncertainty; $500B initial market value shed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Founder and long-serving CEO Jensen Huang resignation from mega-cap Nvidia creates management continuity risk and strategic uncertainty; $500B initial market value shed.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 82,
+      "rank_factors": {
+        "materiality": 82,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-1032",
+      "headline": "Huang Ousted By Nvidia Board As CEO | Closing Bell",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-11-12/huang-ousted-by-nvidia-board-as-ceo-closing-bell-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T21:49:45Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Jensen Huang has been ousted as CEO of Nvidia, a major leadership change for a mega-cap company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Jensen Huang has been ousted as CEO of Nvidia, a major leadership change for a mega-cap company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-1035",
+      "headline": "What we know after Jensen Huang resigns as Nvidia's CEO",
+      "headline_en": null,
+      "url": "https://japantoday.com/category/tech/what-we-know-after-jensen-huang-resigns-as-nvidia%27s-ceo",
+      "source_name": "Japan Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T21:48:18Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Follow-up coverage confirming the resignation of Nvidia CEO Jensen Huang.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Follow-up coverage confirming the resignation of Nvidia CEO Jensen Huang.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-1033",
+      "headline": "Cisco Raises Forecast as AI Fuels Networking Demand",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-11-12/cisco-raises-forecast-as-ai-fuels-networking-demand-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T21:46:51Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Cisco raised its financial forecast due to increased AI-driven networking demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Cisco raised its financial forecast due to increased AI-driven networking demand.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cisco",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-1018",
+      "headline": "Flowers Foods Q3 Profit Plunges 64%; Cuts FY26 Outlook",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/flowers-foods-q3-profit-plunges-64-cuts-fy26-outlook",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T21:38:55Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Flowers Foods reported Q3 profit fell 64% and cut FY26 full-year outlook; both quantified negative revisions from primary source materially affect analyst expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Flowers Foods reported Q3 profit fell 64% and cut FY26 full-year outlook; both quantified negative revisions from primary source materially affect analyst expectations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Flowers Foods Inc.",
+          "ticker": "FLO",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-1012",
+      "headline": "Nvidia turmoil continues as Jensen Huang resigns over affairs scandal and company appoints interim CEO – as it happened",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/technology/live/2026/nov/12/nvidia-ceo-jensen-huang-affairs-share-price-plunges-live-latest",
+      "source_name": "The Guardian — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T21:33:08Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "The CEO of a mega-cap company resigned amid a scandal, representing a major management and credibility crisis.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The CEO of a mega-cap company resigned amid a scandal, representing a major management and credibility crisis.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-1034",
+      "headline": "Cisco Raises Sales Guidance in Sign of AI-Fueled Momentum",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-11-12/cisco-raises-sales-guidance-in-sign-of-ai-fueled-momentum",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T21:17:12Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Cisco raised its sales guidance, citing AI-fueled momentum.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Cisco raised its sales guidance, citing AI-fueled momentum.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cisco",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261112-997",
       "headline": "Jensen Huang has resigned, what's next for Nvidia?",
       "headline_en": null,
@@ -1627,357 +1973,6 @@
       "companies": [
         {
           "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-972",
-      "headline": "Jensen Huang Is Out as Nvidia Names Colette Kress Interim CEO",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/jensen-huang-out-nvidia-names-colette-kress-interim-ceo",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T18:46:01Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Jensen Huang has resigned as CEO of Nvidia, a major leadership transition for a mega-cap company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Jensen Huang has resigned as CEO of Nvidia, a major leadership transition for a mega-cap company.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit",
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-967",
-      "headline": "Nvidia Names Colette Kress as Interim CEO",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-11-12/nvidia-names-colette-kress-as-interim-ceo-video",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T18:44:06Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Nvidia has appointed an interim CEO following a leadership transition.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia has appointed an interim CEO following a leadership transition.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-966",
-      "headline": "SoftBank CFO Says “There Is No Such Default” After Musk’s Turbine Claim, But a $3.7B Charge on Scrapped Turbine Orders Suggests Elon Was Onto Something",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/11/12/softbank-cfo-says-there-is-no-such-default-after-musks-turbine-claim-but-a-3-7b-charge-on-scrapped-turbine-orders-suggests-elon-was-onto-something/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T18:43:00Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "SoftBank reported a $3.7B charge related to scrapped turbine orders, indicating a significant financial impact.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "SoftBank reported a $3.7B charge related to scrapped turbine orders, indicating a significant financial impact.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "accounting_restatement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SoftBank",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-982",
-      "headline": "Nvidia CEO Ouster Shakes AI Economy",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-11-12/open-interest-11-12-2026-video",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T18:36:26Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "The CEO of a major AI company has been ousted, which is a significant management and strategic event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The CEO of a major AI company has been ousted, which is a significant management and strategic event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-984",
-      "headline": "Mercedes-Benz halts investment in Germany, warns of plant closures",
-      "headline_en": null,
-      "url": "https://gulfnews.com/auto/news/mercedes-benz-halts-investment-in-germany-warns-of-plant-closures-1.500745605",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T18:32:53Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Mercedes-Benz is halting investment in Germany and warning of plant closures, signaling significant operational and financial stress.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Mercedes-Benz is halting investment in Germany and warning of plant closures, signaling significant operational and financial stress.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mercedes-Benz",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-981",
-      "headline": "Nvidia CEO Jensen Huang resigns after scandal deepens",
-      "headline_en": null,
-      "url": "https://www.afr.com/world/north-america/nvidia-ceo-jensen-huang-resigns-20261113-p61dtp?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T18:23:48Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "The resignation of the CEO of a mega-cap company due to a scandal is a material event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The resignation of the CEO of a mega-cap company due to a scandal is a material event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-960",
-      "headline": "Stock Market Midday, Nov. 12: Nvidia CEO Resigns, AMD Surges as Wall Street Edges Higher",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/stock-market-midday-nov-12-nvidia-ceo-resigns-amd-surges-wall-street-edges-higher",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T18:05:02Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "The CEO of a major technology company has resigned, which is a significant management event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The CEO of a major technology company has resigned, which is a significant management event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management",
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "AMD",
           "ticker": null,
           "listing_country": "US"
         }
@@ -236187,78 +236182,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-e8778e3ed285",
-      "idea_version": "IDEAV-e62abb8e1f6bf1ec",
-      "idea_version_started_at": "2026-11-11T15:44:29Z",
-      "ticker": "HLAG",
-      "company": "Hapag-Lloyd",
-      "exchange": "XETRA",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company continues to benefit from elevated global freight rates, leading to another upward revision in its earnings guidance.",
-      "why_now": "The guidance hike was announced today, November 11, 2026, reflecting current strong pricing power in the shipping sector.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-71baec6e5a51"
-      ],
-      "primary_source_event_id": "EVT-71baec6e5a51",
-      "source_headlines": [
-        "Hapag-Lloyd Raises Guidance Again on Strong Freight Rates"
-      ],
-      "source_headline": "Hapag-Lloyd Raises Guidance Again on Strong Freight Rates",
-      "source_url": "https://www.wsj.com/business/logistics/hapag-lloyd-raises-guidance-again-on-strong-freight-rates-d74c8067?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-11T10:10:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-11T15:44:29Z",
-      "updated_at": "2026-11-11T15:44:29Z",
-      "decay_at": "2026-11-12T22:10:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-bba477b08d48",
       "idea_version": "IDEAV-133966263598619c",
       "idea_version_started_at": "2026-11-11T01:14:09Z",
@@ -237094,6 +237017,78 @@
       "surfaced_at": "2026-11-10T03:26:43Z",
       "updated_at": "2026-11-10T03:26:43Z",
       "decay_at": "2026-11-11T13:41:22Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-e8778e3ed285",
+      "idea_version": "IDEAV-e62abb8e1f6bf1ec",
+      "idea_version_started_at": "2026-11-11T15:44:29Z",
+      "ticker": "HLAG",
+      "company": "Hapag-Lloyd",
+      "exchange": "XETRA",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company continues to benefit from elevated global freight rates, leading to another upward revision in its earnings guidance.",
+      "why_now": "The guidance hike was announced today, November 11, 2026, reflecting current strong pricing power in the shipping sector.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-71baec6e5a51"
+      ],
+      "primary_source_event_id": "EVT-71baec6e5a51",
+      "source_headlines": [
+        "Hapag-Lloyd Raises Guidance Again on Strong Freight Rates"
+      ],
+      "source_headline": "Hapag-Lloyd Raises Guidance Again on Strong Freight Rates",
+      "source_url": "https://www.wsj.com/business/logistics/hapag-lloyd-raises-guidance-again-on-strong-freight-rates-d74c8067?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-11T10:10:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-11T15:44:29Z",
+      "updated_at": "2026-11-11T15:44:29Z",
+      "decay_at": "2026-11-12T22:10:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -239325,14 +239320,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 542,
+    "total_count": 543,
     "shown_count": 499,
-    "hidden_count": 43,
+    "hidden_count": 44,
     "side_counts": {
       "long": {
-        "total_count": 278,
+        "total_count": 279,
         "shown_count": 250,
-        "hidden_count": 28
+        "hidden_count": 29
       },
       "short": {
         "total_count": 265,
@@ -239356,6 +239351,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-e8778e3ed285",
+        "idea_version": "IDEAV-e62abb8e1f6bf1ec",
+        "idea_version_started_at": "2026-11-11T15:44:29Z",
+        "ticker": "HLAG",
+        "company": "Hapag-Lloyd",
+        "exchange": "XETRA",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company continues to benefit from elevated global freight rates, leading to another upward revision in its earnings guidance.",
+        "why_now": "The guidance hike was announced today, November 11, 2026, reflecting current strong pricing power in the shipping sector.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-71baec6e5a51"
+        ],
+        "primary_source_event_id": "EVT-71baec6e5a51",
+        "source_headlines": [
+          "Hapag-Lloyd Raises Guidance Again on Strong Freight Rates"
+        ],
+        "source_headline": "Hapag-Lloyd Raises Guidance Again on Strong Freight Rates",
+        "source_url": "https://www.wsj.com/business/logistics/hapag-lloyd-raises-guidance-again-on-strong-freight-rates-d74c8067?mod=pls_whats_news_us_business_f",
+        "source_name": "The Wall Street Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-11T10:10:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-11T15:44:29Z",
+        "updated_at": "2026-11-11T15:44:29Z",
+        "decay_at": "2026-11-12T22:10:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-12T22:10:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-bc31f7a2ae36",
         "idea_version": "IDEAV-9fb06784cbf61406",
@@ -267705,80 +267775,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-a8438919fd9a",
-        "idea_version": "IDEAV-85b653167bbaf739",
-        "idea_version_started_at": "2026-10-31T22:00:18Z",
-        "ticker": "ADVAIT",
-        "company": "Advait Energy Transitions Limited",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Advait Energy Transitions Limited reported an 88.5% growth in Q2 FY27 profit and a robust order book of ₹1,574.8 Crore, indicating strong operational performance and future revenue visibility.",
-        "why_now": "The company released a press release detailing its Q2 FY27 profit growth and order book on October 30, 2026.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-61862286cba2"
-        ],
-        "primary_source_event_id": "EVT-61862286cba2",
-        "source_headlines": [
-          "Advait Energy Transitions Limited: Advait Energy Transitions Limited has informed the Exchange regarding a press release dated October 30, 2026, titled \"Powering the Transition: Advait Energy Transitions Reports 88.5% Growth in Q2 FY27 Profit; Order Book Reaches ₹1,574.8 Crore\"."
-        ],
-        "source_headline": "Advait Energy Transitions Limited: Advait Energy Transitions Limited has informed the Exchange regarding a press release dated October 30, 2026, titled \"Powering the Transition: Advait Energy Transitions Reports 88.5% Growth in Q2 FY27 Profit; Order Book Reaches ₹1,574.8 Crore\".",
-        "source_url": "https://nsearchives.nseindia.com/corporate/ADVAITENERGY_30102026181007_SE_mediarelease_s.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-30T12:40:18Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-31T22:00:18Z",
-        "updated_at": "2026-10-31T22:00:18Z",
-        "decay_at": "2026-11-01T00:40:18Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-02T16:25:50Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-887dbee70f05",
         "idea_version": "IDEAV-65cc662b01843e5d",
         "idea_version_started_at": "2026-10-31T11:39:53Z",
@@ -276485,7 +276481,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2425,
-    "live_count": 37,
+    "live_count": 36,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -276504,9 +276500,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1883202,
-    "news_picked_today": 2510,
-    "news_dropped_today": 22402
+    "news_seen_today": 1889028,
+    "news_picked_today": 2550,
+    "news_dropped_today": 22578
   },
   "book_momentum": {
     "live_count": 8,
