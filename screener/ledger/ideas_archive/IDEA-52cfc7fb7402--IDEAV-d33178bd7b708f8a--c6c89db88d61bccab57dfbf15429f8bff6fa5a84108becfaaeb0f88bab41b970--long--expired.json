@@ -1,0 +1,77 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-11-12T15:45:23Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-52cfc7fb7402",
+    "idea_version": "IDEAV-d33178bd7b708f8a",
+    "idea_version_started_at": "2026-11-09T18:48:10Z",
+    "ticker": "NRG",
+    "company": "NRG Energy, Inc.",
+    "exchange": "NYSE",
+    "ticker_verified": true,
+    "listing_verified": true,
+    "liquidity_verified": false,
+    "listing_verification_source": "yahoo_symbol_directory",
+    "direction": "long",
+    "pair_with": null,
+    "reason": "NRG Energy reported strong Q3 2026 results, announced a significant $4 billion asset sale, and initiated positive 2027 guidance, which should improve its financial outlook.",
+    "why_now": "The company released its Q3 results, asset sale announcement, and 2027 guidance today, November 9, 2026.",
+    "conviction": 75,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 67,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 21,
+      "specificity": 15,
+      "timing": 10,
+      "expression": 7,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "needs_data",
+    "missing_checks": [
+      "live liquidity",
+      "dated catalyst",
+      "independent confirmation",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-1f21f56fcf35"
+    ],
+    "primary_source_event_id": "EVT-1f21f56fcf35",
+    "source_headlines": [
+      "NRG Energy, Inc. Reports Third Quarter 2026 Results, Announces $4 billion Asset Sale, and Initiates 2027 Guidance"
+    ],
+    "source_headline": "NRG Energy, Inc. Reports Third Quarter 2026 Results, Announces $4 billion Asset Sale, and Initiates 2027 Guidance",
+    "source_url": "https://www.nasdaq.com/articles/nrg-energy-inc-reports-third-quarter-2026-results-announces-4-billion-asset-sale-and",
+    "source_name": "Nasdaq",
+    "materiality_max": 100,
+    "newest_source_at": "2026-11-09T14:32:26Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-11-09T17:16:12Z",
+    "updated_at": "2026-11-09T18:48:10Z",
+    "decay_at": "2026-11-11T02:32:26Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}
