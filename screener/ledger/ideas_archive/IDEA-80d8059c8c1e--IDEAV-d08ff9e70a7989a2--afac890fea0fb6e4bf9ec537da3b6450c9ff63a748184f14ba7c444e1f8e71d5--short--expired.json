@@ -1,29 +1,29 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-10-17T11:50:44Z",
+  "archived_at": "2026-11-12T00:06:12Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-bb082e7d696f",
-    "idea_version": "IDEAV-0e313c4b31e78e08",
-    "idea_version_started_at": "2026-10-14T15:32:35Z",
-    "ticker": "TATATECH",
-    "company": "Tata Technologies",
-    "exchange": "NSE",
+    "idea_id": "IDEA-80d8059c8c1e",
+    "idea_version": "IDEAV-d08ff9e70a7989a2",
+    "idea_version_started_at": "2026-11-08T23:24:25Z",
+    "ticker": "AVD",
+    "company": "Avd",
+    "exchange": "ASX",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "short",
     "pair_with": null,
-    "reason": "The company reported a 5% decline in net profit to Rs 171 crore driven by contracting margins, indicating operational headwinds.",
-    "why_now": "The Q2 results were released today, October 14, 2026.",
-    "conviction": 65,
+    "reason": "The sudden resignation of a CEO creates a leadership vacuum and typically signals underlying operational or strategic issues.",
+    "why_now": "The resignation was filed on 2026-11-08, creating immediate uncertainty regarding the company's future direction.",
+    "conviction": 70,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
-      "evidence": 14,
-      "impact": 20,
+      "evidence": 25,
+      "impact": 19,
       "specificity": 7,
       "timing": 10,
       "expression": 0,
@@ -36,7 +36,6 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
-      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -53,26 +52,26 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-8357c4f09def"
+      "EVT-dfd2166384aa"
     ],
-    "primary_source_event_id": "EVT-8357c4f09def",
+    "primary_source_event_id": "EVT-dfd2166384aa",
     "source_headlines": [
-      "Tata Technologies Q2 Results: Net Profit Falls 5% To Rs 171 Crore As Margins Contract"
+      "AVD: Resignation of CEO [price-sensitive]"
     ],
-    "source_headline": "Tata Technologies Q2 Results: Net Profit Falls 5% To Rs 171 Crore As Margins Contract",
-    "source_url": "https://www.ndtvprofit.com/markets/tata-technologies-q2-results-net-profit-falls-5-to-rs-171-crore-as-margins-contract-12184396#publisher=newsstand",
-    "source_name": "NDTV Profit",
+    "source_headline": "AVD: Resignation of CEO [price-sensitive]",
+    "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AVD?key=2924-03159482-2A1709479",
+    "source_name": "ASX (Australia Exchange Filing)",
     "materiality_max": 100,
-    "newest_source_at": "2026-10-14T11:28:18Z",
+    "newest_source_at": "2026-11-08T22:41:46Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-10-14T15:32:35Z",
-    "updated_at": "2026-10-14T15:32:35Z",
-    "decay_at": "2026-10-15T23:28:18Z",
+    "surfaced_at": "2026-11-08T23:24:25Z",
+    "updated_at": "2026-11-08T23:24:25Z",
+    "decay_at": "2026-11-10T10:41:46Z",
     "status": "live",
     "promoted_signal_id": null
   }
