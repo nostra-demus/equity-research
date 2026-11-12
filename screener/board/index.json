@@ -1,38 +1,38 @@
 {
-  "generated_at": "2026-11-12T14:36:44Z",
+  "generated_at": "2026-11-12T14:43:07Z",
   "inbox": [
     {
-      "inbox_id": "INB-20261112-749",
-      "headline": "SCIENTECH (02291): (1) MAJOR AND CONNECTED TRANSACTION ACQUISITION OF 54.2384% EQUITY INTEREST IN SHANGHAI MINWEI BIOTECHNOLOGY CO., LTD.; (2) PROPOSED CHANGE IN USE OF PROCEEDS; AND (3) NOTICE OF EGM",
+      "inbox_id": "INB-20261112-794",
+      "headline": "SCIENTECH (02291): MAJOR AND CONNECTED TRANSACTION ACQUISITION OF 54.2384% EQUITY INTEREST IN SHANGHAI MINWEI BIOTECHNOLOGY CO., LTD.",
       "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1112/2026111201528.pdf",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1112/2026111201551.htm",
       "source_name": "HKEXnews (HK Exchange Filing)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-11-12T14:04:00Z",
+      "found_at": "2026-11-12T14:15:00Z",
       "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Company announced a major acquisition of a 54.2384% equity interest in Shanghai Minwei Biotechnology Co., Ltd.",
+      "prelim_note": "Acquisition of 54.24% controlling interest in Shanghai Minwei Biotechnology announced as major and connected transaction; no deal value, financing structure, or strategic rationale disclosed in headline.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Company announced a major acquisition of a 54.2384% equity interest in Shanghai Minwei Biotechnology Co., Ltd.",
-      "region": "CN",
+      "triage_reason": "Acquisition of 54.24% controlling interest in Shanghai Minwei Biotechnology announced as major and connected transaction; no deal value, financing structure, or strategic rationale disclosed in headline.",
+      "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 75,
+      "materiality_pre_score": 78,
       "rank_factors": {
-        "materiality": 75,
+        "materiality": 78,
         "source_tier": 8,
         "scope": 5,
         "event": 9,
-        "size": 0,
+        "size": -1,
         "recency": 5,
-        "materiality_label_floor": 10,
+        "materiality_label_floor": 0,
         "quantified": 6,
         "boost_weight": 1,
         "scope_id": "multi_name",
         "source_tier_id": "primary_filing",
         "event_id": "mna",
-        "size_bucket": "unknown"
+        "size_bucket": "small"
       },
       "event_types": [
         "mna"
@@ -42,10 +42,15 @@
         {
           "name": "SCIENTECH",
           "ticker": "02291",
-          "listing_country": "CN"
+          "listing_country": "HK"
+        },
+        {
+          "name": "Shanghai Minwei Biotechnology Co., Ltd.",
+          "ticker": null,
+          "listing_country": null
         }
       ],
-      "size_bucket": "unknown",
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -277045,9 +277050,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1354574,
-    "news_picked_today": 1931,
-    "news_dropped_today": 14077
+    "news_seen_today": 1370420,
+    "news_picked_today": 1934,
+    "news_dropped_today": 14098
   },
   "book_momentum": {
     "live_count": 8,
