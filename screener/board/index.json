@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T11:51:25Z",
+  "generated_at": "2026-11-12T11:52:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261112-569",
@@ -233623,18 +233623,18 @@
   "ideas": [
     {
       "idea_id": "IDEA-50f379c78b21",
-      "idea_version": "IDEAV-c047ab4343e191aa",
-      "idea_version_started_at": "2026-11-12T10:13:12Z",
+      "idea_version": "IDEAV-5f346408b53f54ca",
+      "idea_version_started_at": "2026-11-12T11:51:50Z",
       "ticker": "NVDA",
       "company": "Nvidia",
       "exchange": "NASDAQ",
       "direction": "short",
       "pair_with": null,
-      "reason": "The potential ouster of a high-profile CEO amid scandal and security allegations creates significant leadership uncertainty and operational risk for the company.",
-      "why_now": "The news broke on 2026-11-12 and has already triggered after-hours selling.",
-      "conviction": 70,
+      "reason": "Management instability and potential leadership changes create significant execution risk for the company's growth strategy.",
+      "why_now": "Multiple reports on 2026-11-12 indicate the board is actively weighing the CEO's future.",
+      "conviction": 65,
       "conviction_basis": "pre_edge_proxy",
-      "trade_score": 77,
+      "trade_score": 74,
       "trade_score_basis": "event_driven_v3",
       "trade_score_breakdown": {
         "evidence": 14,
@@ -233642,7 +233642,7 @@
         "specificity": 15,
         "timing": 10,
         "expression": 7,
-        "corroboration": 10,
+        "corroboration": 7,
         "learning_adjustment": 0
       },
       "trade_readiness": "needs_data",
@@ -233665,24 +233665,19 @@
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
-        "EVT-6dd1e4c389a6",
-        "EVT-f2b662d6f584",
-        "EVT-7ce80730f8f9",
-        "EVT-c7f12094aeb4",
-        "EVT-391a7c65cc58"
+        "EVT-391a7c65cc58",
+        "EVT-c29c0371754c"
       ],
-      "primary_source_event_id": "EVT-6dd1e4c389a6",
+      "primary_source_event_id": "EVT-391a7c65cc58",
       "source_headlines": [
-        "Nvidia board prepares to fire CEO Jensen Huang as 'affairs' with employee, 'Chinese spy' come to light",
-        "Nvidia on lookout for new CEO as more Jensen Huang affairs surface",
-        "Jensen Huang scandal: Nvidia India staff lose $600 million on paper",
-        "Nvidia shares plummet 10% in after-hours trade as investors consider a future without Huang"
+        "Nvidia shares sink 8.6% as second affair report puts Jensen Huang’s job at risk",
+        "FirstFT: Nvidia board weighs Huang’s future as scandal deepens"
       ],
-      "source_headline": "Nvidia board prepares to fire CEO Jensen Huang as 'affairs' with employee, 'Chinese spy' come to light",
-      "source_url": "https://www.deccanherald.com/world/us/nvidia-board-prepares-to-fire-ceo-jensen-huang-as-affairs-with-employee-chinese-spy-come-to-light-4215494",
-      "source_name": "Deccan Herald",
+      "source_headline": "Nvidia shares sink 8.6% as second affair report puts Jensen Huang’s job at risk",
+      "source_url": "https://gulfnews.com/business/second-affair-steeper-sell-off-nvidia-ceo-jensen-huang-under-fire-1.500744501",
+      "source_name": "Gulf News",
       "materiality_max": 100,
-      "newest_source_at": "2026-11-12T04:55:24Z",
+      "newest_source_at": "2026-11-12T05:31:16Z",
       "prior_coverage": {
         "has_run": false,
         "latest_run": null,
@@ -233690,8 +233685,8 @@
         "data_pool_present": false
       },
       "surfaced_at": "2026-11-07T15:09:40Z",
-      "updated_at": "2026-11-12T10:13:12Z",
-      "decay_at": "2026-11-13T16:55:24Z",
+      "updated_at": "2026-11-12T11:51:50Z",
+      "decay_at": "2026-11-13T17:31:16Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -233832,6 +233827,76 @@
       "surfaced_at": "2026-11-11T11:14:28Z",
       "updated_at": "2026-11-11T11:14:28Z",
       "decay_at": "2026-11-12T19:32:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-0c58fc228db1",
+      "idea_version": "IDEAV-9555e4ef22d3581d",
+      "idea_version_started_at": "2026-11-12T11:51:50Z",
+      "ticker": "PFE",
+      "company": "Pfizer",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "A $1.5 billion capital injection from Blackstone for obesity drug studies reduces the company's R&D funding burden and accelerates clinical development.",
+      "why_now": "The funding deal was reported on 2026-11-12.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-aebccb9f1f5d"
+      ],
+      "primary_source_event_id": "EVT-aebccb9f1f5d",
+      "source_headlines": [
+        "Blackstone puts up $1.5 billion for Pfizer obesity drug studies"
+      ],
+      "source_headline": "Blackstone puts up $1.5 billion for Pfizer obesity drug studies",
+      "source_url": "https://www.thehindubusinessline.com/companies/blackstone-puts-up-15-billion-for-pfizer-obesity-drug-studies/article71692286.ece",
+      "source_name": "The Hindu BusinessLine",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-12T05:02:33Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-12T11:51:50Z",
+      "updated_at": "2026-11-12T11:51:50Z",
+      "decay_at": "2026-11-13T17:02:33Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -234042,6 +234107,150 @@
       "surfaced_at": "2026-11-11T11:14:28Z",
       "updated_at": "2026-11-11T11:14:28Z",
       "decay_at": "2026-11-12T19:40:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-a513ae9840e2",
+      "idea_version": "IDEAV-2a794adc458799a3",
+      "idea_version_started_at": "2026-11-12T11:51:50Z",
+      "ticker": "00150",
+      "company": "Hypebeast",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company issued a positive profit alert, indicating earnings growth exceeding previous expectations.",
+      "why_now": "The supplemental announcement was filed on 2026-11-12.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d5cf1f672edf"
+      ],
+      "primary_source_event_id": "EVT-d5cf1f672edf",
+      "source_headlines": [
+        "HYPEBEAST (00150): POSITIVE PROFIT ALERT - SUPPLEMENTAL ANNOUNCEMENT"
+      ],
+      "source_headline": "HYPEBEAST (00150): POSITIVE PROFIT ALERT - SUPPLEMENTAL ANNOUNCEMENT",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1112/2026111200187.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-12T04:03:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-12T11:51:50Z",
+      "updated_at": "2026-11-12T11:51:50Z",
+      "decay_at": "2026-11-13T16:03:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-b0cc2ad68c46",
+      "idea_version": "IDEAV-3defafda0d70cd79",
+      "idea_version_started_at": "2026-11-12T11:51:50Z",
+      "ticker": "035420",
+      "company": "Naver",
+      "exchange": "KRX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Aggressive AI-related capital expenditure is compressing operating margins, leading to a nearly 50% decline in profit.",
+      "why_now": "The earnings report was released on 2026-11-12.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-de7f76c0d7ed"
+      ],
+      "primary_source_event_id": "EVT-de7f76c0d7ed",
+      "source_headlines": [
+        "Naver Profit Nearly Halves as AI Spending Squeezes Margins"
+      ],
+      "source_headline": "Naver Profit Nearly Halves as AI Spending Squeezes Margins",
+      "source_url": "https://www.wsj.com/business/earnings/naver-quarterly-profit-falls-on-year-missing-expectations-d394a172?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-12T03:58:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-12T11:51:50Z",
+      "updated_at": "2026-11-12T11:51:50Z",
+      "decay_at": "2026-11-13T15:58:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -238876,77 +239085,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-1c36c280984a",
-      "idea_version": "IDEAV-9920d305bd48e549",
-      "idea_version_started_at": "2026-11-09T17:16:12Z",
-      "ticker": "00434",
-      "company": "Boyaa Interactive",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company issued a profit alert indicating a significant improvement in earnings performance for the period.",
-      "why_now": "The profit alert was filed with the HKEX today, November 9, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5c09b2da0c8d"
-      ],
-      "primary_source_event_id": "EVT-5c09b2da0c8d",
-      "source_headlines": [
-        "BOYAA (00434): PROFIT ALERT"
-      ],
-      "source_headline": "BOYAA (00434): PROFIT ALERT",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1109/2026110900981.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-09T11:37:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-09T17:16:12Z",
-      "updated_at": "2026-11-09T17:16:12Z",
-      "decay_at": "2026-11-10T23:37:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-04a4fdcdbbec",
       "idea_version": "IDEAV-8ee21adffd205080",
       "idea_version_started_at": "2026-11-09T16:38:32Z",
@@ -239013,78 +239151,6 @@
       "surfaced_at": "2026-11-09T13:08:40Z",
       "updated_at": "2026-11-09T16:38:32Z",
       "decay_at": "2026-11-11T00:14:30Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-a5d98d6d2638",
-      "idea_version": "IDEAV-16b71a732c8d2e1c",
-      "idea_version_started_at": "2026-11-09T12:22:52Z",
-      "ticker": "KMEW",
-      "company": "Knowledge Marine & Engineering Works",
-      "exchange": "BSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company raised its FY27 revenue growth guidance to 80% due to an accelerated pipeline of dredging projects, signaling stronger-than-expected cash flow generation.",
-      "why_now": "The guidance update was released on November 9, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1d17f2ee65f2"
-      ],
-      "primary_source_event_id": "EVT-1d17f2ee65f2",
-      "source_headlines": [
-        "Knowledge Marine raises FY27 revenue growth guidance to 80% as dredging projects gather pace"
-      ],
-      "source_headline": "Knowledge Marine raises FY27 revenue growth guidance to 80% as dredging projects gather pace",
-      "source_url": "https://www.cnbctv18.com/market/earnings/knowledge-marine-fy27-revenue-growth-guidance-80-percent-margins-40-45-q2-earnings-results-boardroom-alpha-article-20030347.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-09T10:47:12Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-09T12:22:52Z",
-      "updated_at": "2026-11-09T12:22:52Z",
-      "decay_at": "2026-11-10T22:47:12Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -239528,14 +239594,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 552,
+    "total_count": 550,
     "shown_count": 499,
-    "hidden_count": 53,
+    "hidden_count": 51,
     "side_counts": {
       "long": {
-        "total_count": 288,
+        "total_count": 286,
         "shown_count": 250,
-        "hidden_count": 38
+        "hidden_count": 36
       },
       "short": {
         "total_count": 265,
@@ -239545,12 +239611,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1821,
+      "evicted_count": 1823,
       "oldest_retained_at": "2026-10-17T16:10:15Z",
       "side_counts": {
         "long": {
-          "evicted_count": 1192,
-          "oldest_retained_at": "2026-10-27T23:04:53Z"
+          "evicted_count": 1194,
+          "oldest_retained_at": "2026-10-27T23:56:32Z"
         },
         "short": {
           "evicted_count": 630,
@@ -243390,8 +243456,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-10T23:37:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-12T11:52:04Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -243465,8 +243531,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-11-10T22:47:12Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-11-12T11:52:04Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -276681,8 +276747,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 2404,
-    "live_count": 30,
+    "surfaced_total": 2407,
+    "live_count": 33,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
