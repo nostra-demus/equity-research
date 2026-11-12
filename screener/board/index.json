@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T18:34:50Z",
+  "generated_at": "2026-11-12T18:46:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20261112-874",
@@ -1238,6 +1238,110 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261112-961",
+      "headline": "Jensen Huang Is Out as Nvidia Names Colette Kress Interim CEO",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/11/12/jensen-huang-is-out-as-nvidia-names-collette-kress-interim-ceo/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T18:26:01Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Jensen Huang has resigned as CEO of Nvidia, a major leadership change for a mega-cap company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Jensen Huang has resigned as CEO of Nvidia, a major leadership change for a mega-cap company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-960",
+      "headline": "Stock Market Midday, Nov. 12: Nvidia CEO Resigns, AMD Surges as Wall Street Edges Higher",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/stock-market-midday-nov-12-nvidia-ceo-resigns-amd-surges-wall-street-edges-higher",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T18:05:02Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "The CEO of a major technology company has resigned, which is a significant management event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The CEO of a major technology company has resigned, which is a significant management event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management",
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "AMD",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261112-949",
       "headline": "Nvidia’s Jensen Huang to testify to US Congress amid scandal, reports say, as CFO Colette Kress replaces him as interim CEO – follow live",
       "headline_en": null,
@@ -1278,60 +1382,6 @@
       "companies": [
         {
           "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-956",
-      "headline": "Stock Market Midday, Nov. 12: Nvidia CEO Resigns, AMD Surges as Wall Street Edges Higher",
-      "headline_en": null,
-      "url": "https://www.fool.com/coverage/stock-market-today/2026/11/12/stock-market-midday-nov-12-nvidia-ceo-resigns-amd-surges-as-wall-street-edges-higher/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T17:45:02Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Nvidia CEO resignation is a major event for a mega-cap company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia CEO resignation is a major event for a mega-cap company.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "AMD",
           "ticker": null,
           "listing_country": "US"
         }
@@ -1474,6 +1524,55 @@
       },
       "event_types": [
         "management",
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-963",
+      "headline": "Jensen Huang Resigns As Nvidia CEO Amid Extramarital Affair Scandal",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/business/jensen-huang-resigns-as-nvidia-ceo-amid-extramarital-affair-scandal-12318247#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T17:19:05Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Confirmation of Jensen Huang's resignation as Nvidia CEO due to a scandal represents a significant management crisis.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Confirmation of Jensen Huang's resignation as Nvidia CEO due to a scandal represents a significant management crisis.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
         "executive_exit"
       ],
       "issuer_linkage": "primary",
@@ -1881,106 +1980,6 @@
         {
           "name": "Nvidia",
           "ticker": "NVDA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-854",
-      "headline": "Jensen Huang resigns: Meet the Nvidia board members who decided his fate after affair reports",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/people/jensen-huang-resigns-meet-the-nvidia-board-members-who-decided-his-fate-after-affair-reports-11794497815725.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T15:57:07Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Founder Jensen Huang resigns from Nvidia following reports of an affair, a major leadership crisis for the world's most valuable company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Founder Jensen Huang resigns from Nvidia following reports of an affair, a major leadership crisis for the world's most valuable company.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 98,
-      "rank_factors": {
-        "materiality": 98,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit",
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": "NVDA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-889",
-      "headline": "Nvidia Hit By Seven Downgrades In 24 Hours As Jensen Huang's Exit Rattles Wall Street",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/nvidia-hit-by-seven-downgrades-in-24-hours-as-jensen-huangs-exit-rattles-wall-street-12318623#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T15:06:46Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Nvidia received seven analyst downgrades following the exit of CEO Jensen Huang.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia received seven analyst downgrades following the exit of CEO Jensen Huang.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "credit_rating_downgrade",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "credit_rating_downgrade",
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
           "listing_country": "US"
         }
       ],
@@ -235986,78 +235985,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-1a5dfecfffd7",
-      "idea_version": "IDEAV-c348bdaac872ed32",
-      "idea_version_started_at": "2026-11-11T08:18:47Z",
-      "ticker": "NC",
-      "company": "NC Corp",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "NC Corp swung to operating income and raised its FY26 revenue guidance, signaling improved financial performance.",
-      "why_now": "The Q3 results and guidance update were reported on November 11, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0f38884697fa"
-      ],
-      "primary_source_event_id": "EVT-0f38884697fa",
-      "source_headlines": [
-        "NC Corp Q3 Swings To Operating Income From Loss; Raises FY26 Revenue Guidance"
-      ],
-      "source_headline": "NC Corp Q3 Swings To Operating Income From Loss; Raises FY26 Revenue Guidance",
-      "source_url": "https://www.nasdaq.com/articles/nc-corp-q3-swings-operating-income-loss-raises-fy26-revenue-guidance",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-11T06:43:23Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-11T08:18:47Z",
-      "updated_at": "2026-11-11T08:18:47Z",
-      "decay_at": "2026-11-12T18:43:23Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-83f5b0ffac12",
       "idea_version": "IDEAV-2dae1365724fd267",
       "idea_version_started_at": "2026-11-11T08:18:47Z",
@@ -237315,6 +237242,78 @@
       "surfaced_at": "2026-11-09T19:22:55Z",
       "updated_at": "2026-11-09T21:23:50Z",
       "decay_at": "2026-11-11T08:57:46Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-1a5dfecfffd7",
+      "idea_version": "IDEAV-c348bdaac872ed32",
+      "idea_version_started_at": "2026-11-11T08:18:47Z",
+      "ticker": "NC",
+      "company": "NC Corp",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "NC Corp swung to operating income and raised its FY26 revenue guidance, signaling improved financial performance.",
+      "why_now": "The Q3 results and guidance update were reported on November 11, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0f38884697fa"
+      ],
+      "primary_source_event_id": "EVT-0f38884697fa",
+      "source_headlines": [
+        "NC Corp Q3 Swings To Operating Income From Loss; Raises FY26 Revenue Guidance"
+      ],
+      "source_headline": "NC Corp Q3 Swings To Operating Income From Loss; Raises FY26 Revenue Guidance",
+      "source_url": "https://www.nasdaq.com/articles/nc-corp-q3-swings-operating-income-loss-raises-fy26-revenue-guidance",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-11T06:43:23Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-11T08:18:47Z",
+      "updated_at": "2026-11-11T08:18:47Z",
+      "decay_at": "2026-11-12T18:43:23Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -239615,14 +239614,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 548,
+    "total_count": 549,
     "shown_count": 499,
-    "hidden_count": 49,
+    "hidden_count": 50,
     "side_counts": {
       "long": {
-        "total_count": 284,
+        "total_count": 285,
         "shown_count": 250,
-        "hidden_count": 34
+        "hidden_count": 35
       },
       "short": {
         "total_count": 265,
@@ -239646,6 +239645,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-1a5dfecfffd7",
+        "idea_version": "IDEAV-c348bdaac872ed32",
+        "idea_version_started_at": "2026-11-11T08:18:47Z",
+        "ticker": "NC",
+        "company": "NC Corp",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "NC Corp swung to operating income and raised its FY26 revenue guidance, signaling improved financial performance.",
+        "why_now": "The Q3 results and guidance update were reported on November 11, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-0f38884697fa"
+        ],
+        "primary_source_event_id": "EVT-0f38884697fa",
+        "source_headlines": [
+          "NC Corp Q3 Swings To Operating Income From Loss; Raises FY26 Revenue Guidance"
+        ],
+        "source_headline": "NC Corp Q3 Swings To Operating Income From Loss; Raises FY26 Revenue Guidance",
+        "source_url": "https://www.nasdaq.com/articles/nc-corp-q3-swings-operating-income-loss-raises-fy26-revenue-guidance",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-11T06:43:23Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-11T08:18:47Z",
+        "updated_at": "2026-11-11T08:18:47Z",
+        "decay_at": "2026-11-12T18:43:23Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-12T18:43:23Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-830d63243e4e",
         "idea_version": "IDEAV-aa00af3ac2c495fa",
@@ -267772,78 +267846,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-97e320120234",
-        "idea_version": "IDEAV-b3d094a3e0883445",
-        "idea_version_started_at": "2026-10-31T01:55:11Z",
-        "ticker": "PCRX",
-        "company": "Pacira BioSciences, Inc.",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The filing of a third-party tender offer (SC TO-T) indicates an active acquisition attempt, which typically provides a floor for the stock price and potential upside if a premium is negotiated.",
-        "why_now": "The SEC filing was made on October 30, 2026, initiating the tender process.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 77,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 20,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-9d434a1cbd9b"
-        ],
-        "primary_source_event_id": "EVT-9d434a1cbd9b",
-        "source_headlines": [
-          "SC TO-T - Pacira BioSciences, Inc. (0001396814) (Subject)"
-        ],
-        "source_headline": "SC TO-T - Pacira BioSciences, Inc. (0001396814) (Subject)",
-        "source_url": "https://www.sec.gov/Archives/edgar/data/1396814/000114036126041224/0001140361-26-041224-index.htm",
-        "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-30T11:40:24Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-31T01:55:11Z",
-        "updated_at": "2026-10-31T01:55:11Z",
-        "decay_at": "2026-10-31T23:40:24Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-02T12:13:40Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-887dbee70f05",
         "idea_version": "IDEAV-65cc662b01843e5d",
         "idea_version_started_at": "2026-10-31T11:39:53Z",
@@ -276774,7 +276776,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2419,
-    "live_count": 35,
+    "live_count": 34,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -276793,9 +276795,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1717015,
-    "news_picked_today": 2265,
-    "news_dropped_today": 18255
+    "news_seen_today": 1723522,
+    "news_picked_today": 2278,
+    "news_dropped_today": 18410
   },
   "book_momentum": {
     "live_count": 8,
