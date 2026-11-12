@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T20:12:31Z",
+  "generated_at": "2026-11-12T20:25:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20261112-874",
@@ -1238,6 +1238,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261112-991",
+      "headline": "Ultrapar Participações S.A. Reports R$ 2,697,415 Thousand Net Income for 3Q26 and Approves R$ 1,085,087,153 in Interim Dividends",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/ultrapar-participacoes-sa-reports-r-2697415-thousand-net-income-3q26-and-approves-r",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T19:53:13Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Ultrapar reported net income of R$ 2.69 billion and approved R$ 1.08 billion in interim dividends.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ultrapar reported net income of R$ 2.69 billion and approved R$ 1.08 billion in interim dividends.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ultrapar Participações S.A.",
+          "ticker": null,
+          "listing_country": "BR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261112-987",
       "headline": "Why did Nvidia CEO Jensen Huang resign, and who is Colette Kress?",
       "headline_en": null,
@@ -1919,55 +1969,6 @@
       },
       "event_types": [
         "management",
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-951",
-      "headline": "Nvidia’s Jensen Huang Resigns. Is This Top AI Stock Still a Buy?",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/nvidias-jensen-huang-resigns-top-ai-stock-still-buy",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T17:40:01Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Jensen Huang, the long-time CEO of Nvidia, has resigned, which is a major leadership transition for a mega-cap company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Jensen Huang, the long-time CEO of Nvidia, has resigned, which is a major leadership transition for a mega-cap company.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
         "executive_exit"
       ],
       "issuer_linkage": "primary",
@@ -276712,9 +276713,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1787205,
-    "news_picked_today": 2357,
-    "news_dropped_today": 20587
+    "news_seen_today": 1798389,
+    "news_picked_today": 2366,
+    "news_dropped_today": 20818
   },
   "book_momentum": {
     "live_count": 8,
