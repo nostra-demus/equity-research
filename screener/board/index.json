@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T15:16:49Z",
+  "generated_at": "2026-11-12T15:25:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20261112-821",
@@ -1085,6 +1085,154 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261112-840",
+      "headline": "Nvidia sell-off drags Nasdaq lower as Jensen Huang resigns; S&P 500 slips",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/earnings/nvidia-sell-off-drags-nasdaq-lower-as-jensen-huang-resigns-sp-500-slips-20032868.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T15:03:53Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Nvidia CEO Jensen Huang resigned; stock sale triggered broad market selloff affecting Nasdaq and S&P 500.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia CEO Jensen Huang resigned; stock sale triggered broad market selloff affecting Nasdaq and S&P 500.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 87,
+      "rank_factors": {
+        "materiality": 87,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-842",
+      "headline": "Nvidia CEO Jensen Huang has resigned. What happens next?",
+      "headline_en": null,
+      "url": "https://www.theverge.com/ai-artificial-intelligence/1030422/nvidia-jensen-huang-ai-china-alice-huang",
+      "source_name": "The Verge",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T15:01:31Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "CEO resignation of a mega-cap technology leader (NVIDIA) is a material management-continuity and strategic-direction event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CEO resignation of a mega-cap technology leader (NVIDIA) is a material management-continuity and strategic-direction event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 82,
+      "rank_factors": {
+        "materiality": 82,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-844",
+      "headline": "Wall Street opens lower after Nvidia CEO Jensen Huang steps down",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/international/wall-street-opens-lower-after-nvidia-ceo-jensen-huang-steps-down",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T14:54:19Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Founder CEO Jensen Huang's departure from Nvidia affects management credibility, strategic direction, and investor confidence in a mega-cap; market opens lower in direct response.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Founder CEO Jensen Huang's departure from Nvidia affects management credibility, strategic direction, and investor confidence in a mega-cap; market opens lower in direct response.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261112-834",
       "headline": "Nvidia stock falls nearly 10% as CEO Jensen Huang announces resignation",
       "headline_en": null,
@@ -1202,55 +1350,6 @@
       "materiality_pre_score": 90,
       "rank_factors": {
         "materiality": 90,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-792",
-      "headline": "Nvidia CEO Jensen Huang steps down",
-      "headline_en": null,
-      "url": "https://www.arnnewscentre.ae/news/business/nvidia-ceo-jensen-huang-steps-down/",
-      "source_name": "ARN News Centre — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T14:04:24Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "The resignation of a key CEO of a mega-cap company is a material event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The resignation of a key CEO of a mega-cap company is a material event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 95,
-      "rank_factors": {
-        "materiality": 95,
         "source_tier": 0,
         "scope": 6,
         "event": 5,
@@ -1674,6 +1773,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261112-838",
+      "headline": "Nvidia CEO Jensen Huang resigns after affair raises national security concerns",
+      "headline_en": null,
+      "url": "https://www.cbc.ca/news/business/nvidia-ceo-huang-9.7418736?cmp=rss",
+      "source_name": "CBC — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T13:14:13Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Nvidia CEO Jensen Huang has resigned following a scandal, representing a critical leadership change.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia CEO Jensen Huang has resigned following a scandal, representing a critical leadership change.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261112-793",
       "headline": "Nvidia CEO Jensen Huang ousted as CEO, company says CFO to lead on interim basis",
       "headline_en": null,
@@ -1816,158 +1964,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-658",
-      "headline": "Telia to acquire Nordic MVNO Telavox for $381m",
-      "headline_en": null,
-      "url": "https://www.datacenterdynamics.com/en/news/telia-to-acquire-nordic-mvno-telavox-for-381m/",
-      "source_name": "DataCenterDynamics",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T12:25:41Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Telia announced the acquisition of Telavox for $381 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Telia announced the acquisition of Telavox for $381 million.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Telia",
-          "ticker": null,
-          "listing_country": "SE"
-        },
-        {
-          "name": "Telavox",
-          "ticker": null,
-          "listing_country": "SE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-632",
-      "headline": "Binghatti delivers record 9M 2026 results as revenue surges 66 percent to $4.1 billion, net profit hits $1.2 billion",
-      "headline_en": null,
-      "url": "https://economymiddleeast.com/news/binghatti-delivers-record-9m-2026-results-as-revenue-surges-66-percent-to-4-1-billion-net-profit-hits-1-2-billion/?utm_source=rss&utm_medium=rss&utm_campaign=binghatti-delivers-record-9m-2026-results-as-revenue-surges-66-percent-to-4-1-billion-net-profit-hits-1-2-billion",
-      "source_name": "Economy Middle East",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T11:56:23Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Binghatti reported record 9M 2026 results with $4.1 billion in revenue and $1.2 billion in net profit.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Binghatti reported record 9M 2026 results with $4.1 billion in revenue and $1.2 billion in net profit.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Binghatti",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-621",
-      "headline": "Yeti Cuts Year Outlook on Consumer Caution",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/earnings/yeti-cuts-year-outlook-on-consumer-caution-7c3c96a5?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T11:46:00Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Yeti cut its annual outlook citing consumer caution.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Yeti cut its annual outlook citing consumer caution.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Yeti",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -236037,77 +236033,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-ad6534db1fd8",
-      "idea_version": "IDEAV-b28c901d720dfdfb",
-      "idea_version_started_at": "2026-11-11T08:18:47Z",
-      "ticker": "509631",
-      "company": "HEG Advanced Materials Limited",
-      "exchange": "BSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "HEG Advanced Materials received a Rs 609.50 Crore incentive under ECMS for its synthetic graphite anode material project, which will boost its financial performance.",
-      "why_now": "The approval letter was announced on November 11, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-75b3f84bbde2"
-      ],
-      "primary_source_event_id": "EVT-75b3f84bbde2",
-      "source_headlines": [
-        "HEG Advanced Materials Limited: HEG Advanced Materials Limited has informed the Exchange regarding a press release dated November 11, 2026, titled \"TACC Receives Approval Letter for Rs 609.50 Crore Incentive under ECMS for its Synthetic Graphite Anode Material Project in Dewas\"."
-      ],
-      "source_headline": "HEG Advanced Materials Limited: HEG Advanced Materials Limited has informed the Exchange regarding a press release dated November 11, 2026, titled \"TACC Receives Approval Letter for Rs 609.50 Crore Incentive under ECMS for its Synthetic Graphite Anode Material Project in Dewas\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/HEGAM_11112026085043_StEX_TACC_Subsidy_Press_release.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-11T03:21:06Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-11T08:18:47Z",
-      "updated_at": "2026-11-11T08:18:47Z",
-      "decay_at": "2026-11-12T15:21:06Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-044dc4e9fa5c",
       "idea_version": "IDEAV-5951286fe5cddfd6",
       "idea_version_started_at": "2026-11-11T06:27:58Z",
@@ -236317,77 +236242,6 @@
       "surfaced_at": "2026-11-11T05:44:55Z",
       "updated_at": "2026-11-11T05:44:55Z",
       "decay_at": "2026-11-12T16:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-f4e90eacafe1",
-      "idea_version": "IDEAV-04bb4e11f7eb2a72",
-      "idea_version_started_at": "2026-11-11T05:44:55Z",
-      "ticker": "HEG",
-      "company": "HEG Advanced Materials Limited",
-      "exchange": "BSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company received a Rs 609.50 crore government incentive for its synthetic graphite anode project, which directly improves capital expenditure efficiency and project viability.",
-      "why_now": "The approval letter was officially announced on November 11, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-75b3f84bbde2"
-      ],
-      "primary_source_event_id": "EVT-75b3f84bbde2",
-      "source_headlines": [
-        "HEG Advanced Materials Limited: HEG Advanced Materials Limited has informed the Exchange regarding a press release dated November 11, 2026, titled \"TACC Receives Approval Letter for Rs 609.50 Crore Incentive under ECMS for its Synthetic Graphite Anode Material Project in Dewas\"."
-      ],
-      "source_headline": "HEG Advanced Materials Limited: HEG Advanced Materials Limited has informed the Exchange regarding a press release dated November 11, 2026, titled \"TACC Receives Approval Letter for Rs 609.50 Crore Incentive under ECMS for its Synthetic Graphite Anode Material Project in Dewas\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/HEGAM_11112026085043_StEX_TACC_Subsidy_Press_release.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-11-11T03:21:06Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-11-11T05:44:55Z",
-      "updated_at": "2026-11-11T05:44:55Z",
-      "decay_at": "2026-11-12T15:21:06Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -237931,6 +237785,148 @@
       "surfaced_at": "2026-11-09T19:22:55Z",
       "updated_at": "2026-11-09T21:23:50Z",
       "decay_at": "2026-11-11T08:57:46Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-ad6534db1fd8",
+      "idea_version": "IDEAV-b28c901d720dfdfb",
+      "idea_version_started_at": "2026-11-11T08:18:47Z",
+      "ticker": "509631",
+      "company": "HEG Advanced Materials Limited",
+      "exchange": "BSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "HEG Advanced Materials received a Rs 609.50 Crore incentive under ECMS for its synthetic graphite anode material project, which will boost its financial performance.",
+      "why_now": "The approval letter was announced on November 11, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-75b3f84bbde2"
+      ],
+      "primary_source_event_id": "EVT-75b3f84bbde2",
+      "source_headlines": [
+        "HEG Advanced Materials Limited: HEG Advanced Materials Limited has informed the Exchange regarding a press release dated November 11, 2026, titled \"TACC Receives Approval Letter for Rs 609.50 Crore Incentive under ECMS for its Synthetic Graphite Anode Material Project in Dewas\"."
+      ],
+      "source_headline": "HEG Advanced Materials Limited: HEG Advanced Materials Limited has informed the Exchange regarding a press release dated November 11, 2026, titled \"TACC Receives Approval Letter for Rs 609.50 Crore Incentive under ECMS for its Synthetic Graphite Anode Material Project in Dewas\".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/HEGAM_11112026085043_StEX_TACC_Subsidy_Press_release.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-11T03:21:06Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-11T08:18:47Z",
+      "updated_at": "2026-11-11T08:18:47Z",
+      "decay_at": "2026-11-12T15:21:06Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-f4e90eacafe1",
+      "idea_version": "IDEAV-04bb4e11f7eb2a72",
+      "idea_version_started_at": "2026-11-11T05:44:55Z",
+      "ticker": "HEG",
+      "company": "HEG Advanced Materials Limited",
+      "exchange": "BSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company received a Rs 609.50 crore government incentive for its synthetic graphite anode project, which directly improves capital expenditure efficiency and project viability.",
+      "why_now": "The approval letter was officially announced on November 11, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-75b3f84bbde2"
+      ],
+      "primary_source_event_id": "EVT-75b3f84bbde2",
+      "source_headlines": [
+        "HEG Advanced Materials Limited: HEG Advanced Materials Limited has informed the Exchange regarding a press release dated November 11, 2026, titled \"TACC Receives Approval Letter for Rs 609.50 Crore Incentive under ECMS for its Synthetic Graphite Anode Material Project in Dewas\"."
+      ],
+      "source_headline": "HEG Advanced Materials Limited: HEG Advanced Materials Limited has informed the Exchange regarding a press release dated November 11, 2026, titled \"TACC Receives Approval Letter for Rs 609.50 Crore Incentive under ECMS for its Synthetic Graphite Anode Material Project in Dewas\".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/HEGAM_11112026085043_StEX_TACC_Subsidy_Press_release.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-11-11T03:21:06Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-11-11T05:44:55Z",
+      "updated_at": "2026-11-11T05:44:55Z",
+      "decay_at": "2026-11-12T15:21:06Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -239874,14 +239870,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 547,
+    "total_count": 549,
     "shown_count": 499,
-    "hidden_count": 48,
+    "hidden_count": 50,
     "side_counts": {
       "long": {
-        "total_count": 283,
+        "total_count": 285,
         "shown_count": 250,
-        "hidden_count": 33
+        "hidden_count": 35
       },
       "short": {
         "total_count": 265,
@@ -239905,6 +239901,154 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-ad6534db1fd8",
+        "idea_version": "IDEAV-b28c901d720dfdfb",
+        "idea_version_started_at": "2026-11-11T08:18:47Z",
+        "ticker": "509631",
+        "company": "HEG Advanced Materials Limited",
+        "exchange": "BSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "HEG Advanced Materials received a Rs 609.50 Crore incentive under ECMS for its synthetic graphite anode material project, which will boost its financial performance.",
+        "why_now": "The approval letter was announced on November 11, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-75b3f84bbde2"
+        ],
+        "primary_source_event_id": "EVT-75b3f84bbde2",
+        "source_headlines": [
+          "HEG Advanced Materials Limited: HEG Advanced Materials Limited has informed the Exchange regarding a press release dated November 11, 2026, titled \"TACC Receives Approval Letter for Rs 609.50 Crore Incentive under ECMS for its Synthetic Graphite Anode Material Project in Dewas\"."
+        ],
+        "source_headline": "HEG Advanced Materials Limited: HEG Advanced Materials Limited has informed the Exchange regarding a press release dated November 11, 2026, titled \"TACC Receives Approval Letter for Rs 609.50 Crore Incentive under ECMS for its Synthetic Graphite Anode Material Project in Dewas\".",
+        "source_url": "https://nsearchives.nseindia.com/corporate/HEGAM_11112026085043_StEX_TACC_Subsidy_Press_release.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-11T03:21:06Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-11T08:18:47Z",
+        "updated_at": "2026-11-11T08:18:47Z",
+        "decay_at": "2026-11-12T15:21:06Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-12T15:21:06Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-f4e90eacafe1",
+        "idea_version": "IDEAV-04bb4e11f7eb2a72",
+        "idea_version_started_at": "2026-11-11T05:44:55Z",
+        "ticker": "HEG",
+        "company": "HEG Advanced Materials Limited",
+        "exchange": "BSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company received a Rs 609.50 crore government incentive for its synthetic graphite anode project, which directly improves capital expenditure efficiency and project viability.",
+        "why_now": "The approval letter was officially announced on November 11, 2026.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-75b3f84bbde2"
+        ],
+        "primary_source_event_id": "EVT-75b3f84bbde2",
+        "source_headlines": [
+          "HEG Advanced Materials Limited: HEG Advanced Materials Limited has informed the Exchange regarding a press release dated November 11, 2026, titled \"TACC Receives Approval Letter for Rs 609.50 Crore Incentive under ECMS for its Synthetic Graphite Anode Material Project in Dewas\"."
+        ],
+        "source_headline": "HEG Advanced Materials Limited: HEG Advanced Materials Limited has informed the Exchange regarding a press release dated November 11, 2026, titled \"TACC Receives Approval Letter for Rs 609.50 Crore Incentive under ECMS for its Synthetic Graphite Anode Material Project in Dewas\".",
+        "source_url": "https://nsearchives.nseindia.com/corporate/HEGAM_11112026085043_StEX_TACC_Subsidy_Press_release.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-11-11T03:21:06Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-11-11T05:44:55Z",
+        "updated_at": "2026-11-11T05:44:55Z",
+        "decay_at": "2026-11-12T15:21:06Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-11-12T15:21:06Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-c9b7224cbdda",
         "idea_version": "IDEAV-9500e4dab8bdeaa4",
@@ -268099,154 +268243,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-aa6b8c72d7c3",
-        "idea_version": "IDEAV-03cf1ee6ae6b5d8e",
-        "idea_version_started_at": "2026-10-29T17:48:18Z",
-        "ticker": "DFZQ",
-        "company": "DFZQ",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "DFZQ received approval from the SSE Review Committee for its major transaction to acquire 100% equity interest in Shanghai Securities, which should expand its market share and operational scale.",
-        "why_now": "The approval from the SSE Review Committee was announced on October 29, 2026, indicating progress on a significant M&A event.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-980f107a8da7"
-        ],
-        "primary_source_event_id": "EVT-980f107a8da7",
-        "source_headlines": [
-          "DFZQ (03958): MAJOR TRANSACTION - THE PROPOSED ACQUISITION OF 100% EQUITY INTERESTS IN SHANGHAI SECURITIES BY WAY OF ISSUE OF CONSIDERATION A SHARES UNDER SPECIFIC MANDATE AND PAYMENT OF CASH APPROVAL FROM SSE REVIEW COMMITTEE IN RESPECT OF THE PROPOSED TRANSACTION"
-        ],
-        "source_headline": "DFZQ (03958): MAJOR TRANSACTION - THE PROPOSED ACQUISITION OF 100% EQUITY INTERESTS IN SHANGHAI SECURITIES BY WAY OF ISSUE OF CONSIDERATION A SHARES UNDER SPECIFIC MANDATE AND PAYMENT OF CASH APPROVAL FROM SSE REVIEW COMMITTEE IN RESPECT OF THE PROPOSED TRANSACTION",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1029/2026102901637.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-29T13:04:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-29T17:48:18Z",
-        "updated_at": "2026-10-29T17:48:18Z",
-        "decay_at": "2026-10-31T01:04:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-01T14:01:26Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-34a0517235fc",
-        "idea_version": "IDEAV-a67f7d77d4219ebc",
-        "idea_version_started_at": "2026-10-29T17:48:18Z",
-        "ticker": "EMMBI",
-        "company": "Emmbi Industries Limited",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Emmbi Industries is acquiring 50% of Britpac AB, which should expand its market reach and potentially increase revenue.",
-        "why_now": "The Board approved the acquisition proposal on October 29, 2026, making this a live event.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 16,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-ac5990fb0818"
-        ],
-        "primary_source_event_id": "EVT-ac5990fb0818",
-        "source_headlines": [
-          "Emmbi Industries Limited: Emmbi Industries Limited has informed the Exchange regarding the Board s approval, at its meeting held on October 29, 2026, of the proposal for acquisition of 50% of the equity share capital of Britpac AB, Sweden, operating under the trade name FortaPac , by Zastian Pte. Ltd., Singapore, a wholly-owned subsidiary of the Company."
-        ],
-        "source_headline": "Emmbi Industries Limited: Emmbi Industries Limited has informed the Exchange regarding the Board s approval, at its meeting held on October 29, 2026, of the proposal for acquisition of 50% of the equity share capital of Britpac AB, Sweden, operating under the trade name FortaPac , by Zastian Pte. Ltd., Singapore, a wholly-owned subsidiary of the Company.",
-        "source_url": "https://nsearchives.nseindia.com/corporate/EMMBI_29102026172052_BritpacAB_Fortapac_AnnouncementSigned.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-29T11:56:46Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-29T17:48:18Z",
-        "updated_at": "2026-10-29T17:48:18Z",
-        "decay_at": "2026-10-30T23:56:46Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-11-01T12:15:54Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-c6f1a0d27ff6",
         "idea_version": "IDEAV-a015e0f4e4c355d7",
         "idea_version_started_at": "2026-10-29T16:12:50Z",
@@ -277029,7 +277025,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 2417,
-    "live_count": 40,
+    "live_count": 38,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -277048,9 +277044,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1424584,
-    "news_picked_today": 2031,
-    "news_dropped_today": 14649
+    "news_seen_today": 1432573,
+    "news_picked_today": 2041,
+    "news_dropped_today": 14687
   },
   "book_momentum": {
     "live_count": 8,
