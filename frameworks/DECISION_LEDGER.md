@@ -609,6 +609,13 @@ Rules:
 
 Standard review windows: **30 days · 90 days · 180 days · 365 days** from `decision_date`.
 
+These are scheduled review checkpoints. The checkpoint label, the date the review is written, and the
+dates of the prices actually compared are separate facts. A review written late can still describe
+earlier dated observations; a current price obtained for a late `90d` review does not become an exact
+90-day outcome because of that label. Record the actual interval and its measurement limits under the
+additive reported-point contract in §8. This clarification does not select an official close, an
+expected trading session, a carry-back/exit grace period, or an executable entry convention.
+
 For long-duration theses, also allow: **24 months · 36 months**.
 
 Each review answers:
@@ -671,6 +678,133 @@ Each references the original decision; the original decision record is never edi
 ```
 
 `review_window` ∈ {30d, 90d, 180d, 365d, 24m, 36m, ad-hoc, post-mortem}. `thesis_status` ∈ {on-track, at-risk, confirmed, broken, expired}. `decision_quality` records the §10 luck-vs-skill verdict. `error_taxonomy` is populated only when the call went wrong (§12).
+
+### Reported return points (`return_measurement`, additive)
+
+The existing Phase 3 review and Phase 4 return resolver share one narrow factual contract:
+`return_measurement.schema_version = "reported-return-points/v1"`. The review's top-level
+`schema_version` remains `"1.0"`. This block records **reported date-resolution price points and their
+internal consistency**. It does not certify source truth, an official closing auction, a complete
+market calendar, the first time research or prices became available, or an executable trade.
+Qualified-Ideas' separate evidence and outcome lifecycle is unchanged; its session/exit conventions
+must not be imported into this family.
+
+Every newly authored or corrected full review includes the block, using explicit unknowns when
+facts are unavailable. There is no invented calendar activation date. Older history without this key
+remains readable in the legacy lane. Once **any review in a record's history** has a
+`return_measurement` key, including `null` or an unsupported version, later missing/stripped blocks
+cannot restore legacy fallback. The latest applicable standing full review determines the record's
+return disposition. This is per-record adoption, not permission to rewrite earlier reviews.
+
+The supported factual shape is:
+
+| Field | Required meaning for a supported comparison |
+|---|---|
+| `schema_version` | Exactly `reported-return-points/v1`. |
+| `anchor_kind` | `entry_price` when the frozen decision has an entry price; otherwise `earliest_tracking_price`. The block never creates a replacement anchor. |
+| `return_basis` | Exactly `price_return_ex_distributions_and_costs`. This first family is raw price change, excluding distributions and costs. |
+| `stock` | `{id, venue, currency, level_basis, start, end}`. Identity/venue/currency must match the original listing and frozen anchor through the existing source evidence; `level_basis` is `unadjusted_price`. |
+| `benchmark` | `{id, currency, level_basis, start, end}`. The id is the frozen comparator or an explicitly evidence-backed variant mapping, never a replacement chosen after its result is known. Currency matches the stock; `level_basis` is `price_index` or `unadjusted_price`. |
+| `sector` | `null`, with the specific missing evidence described in `sector_gap`, or the same supported comparator shape. A missing sector does not invalidate an otherwise supported stock/benchmark pair. A sector is never substituted for a missing benchmark. |
+| Each `start` / `end` point | `{date, value, source}`: a strict reported `YYYY-MM-DD`, a finite positive JSON number excluding booleans, and a specific dated source/provider/locator. A point must identify its own source; another source's number/date cannot be borrowed. |
+
+When a leg's reported `id` differs from the frozen stock/comparator id, the only supported explicit
+alias description is that leg's `identity_mapping: {frozen_id, reported_id, source}`. Both ids must
+match their respective frozen/reported values and `source` names the specific mapping evidence.
+Direct matching ids need no alias block. A supplied mapping checks a claimed identity relationship;
+it does not independently establish source truth or permit an outcome-selected comparator switch.
+
+Unknown evidence is explicit. For example, this is a valid way to **record missing facts**, not a
+supported return comparison:
+
+```json
+"return_measurement": {
+  "schema_version": "reported-return-points/v1",
+  "anchor_kind": null,
+  "return_basis": "price_return_ex_distributions_and_costs",
+  "stock": null,
+  "benchmark": null,
+  "sector": null,
+  "sector_gap": "No matched sector observations were supplied."
+}
+```
+
+Name the missing stock/benchmark/anchor facts in `lessons` as well. An unknown block permits the review
+to record what is missing; it does not authorize a zero return, a cash position, an adverse company
+finding, a new source purchase, or refusal to assess independently answerable forecasts.
+
+The stock start point keeps the **identical original raw anchor value, reported date, source and
+currency**. If the original timestamp precision, listing identity or normalization makes that match
+unknowable, the comparison is `not_assessable`; do not truncate a timestamp, invent a split/FX factor,
+move the entry date, or replace the earliest tracking anchor. `tracking_price` continues to obey the
+earliest-block carryforward rule below. An anchor before `decision_date` remains before it and is
+labelled accordingly; it is not retrospectively turned into an executable decision-time entry.
+
+When `review_price` is supplied in an opted-in full review alongside structured points, it denotes the
+same raw stock end observation: require finite positive, non-boolean values and exact
+`Decimal(str(value))` equality to `stock.end.value`, not the percentage-rounding tolerance below.
+A distinct current quote belongs in separately dated/source-labelled notes; it must not silently
+replace that end observation while the dates or return scalars still describe another price.
+
+For a relative comparison, stock and benchmark must have the **same actual reported start dates and
+the same actual reported end dates**, a positive interval, compatible declared raw-price/price-index
+bases and the same currency. A supplied sector comparison must likewise match the stock dates and
+basis. Missing or contradictory sector facts withhold only the affected sector return/excess, with
+`sector_reasons`; they do not invalidate an otherwise supported stock/benchmark comparison or supply
+a replacement benchmark. Report `review_window` separately from the actual dates and elapsed calendar
+days. A consistent 94-day interval under a `90d` checkpoint is a reported 94-day price comparison, not newly verified
+90-day evidence. Later authorship alone is not a contradiction. No prior-close age limit proves a
+final checkpoint or expected-session coverage, and this contract activates no new session policy.
+
+**Canonical arithmetic is a consistency rule, not an investment tolerance.** Convert each finite JSON
+level with `Decimal(str(value))`; compute each raw percentage change as `100 * (end / start - 1)` and
+the relative excess as the stock change minus the matching comparator change, before final rounding.
+Round each derived output to four decimal places with `ROUND_HALF_EVEN`. Any supplied legacy
+absolute/benchmark/relative scalar used alongside those facts must agree with its derived canonical
+value within `0.00005` percentage point plus `1e-12` for numeric representation. Reject nonfinite,
+boolean or nonpositive levels before arithmetic. An old scalar rounded on an unknown basis stays
+visible descriptively; do not silently repair it, accept a contradictory value, or call that rounding
+disagreement an economic loss.
+
+The consumer derives the disposition; the producer supplies no `eligible`, `verified` or `scored`
+authority flag. All existing source-quality, provisional-run, final-basket/cap, finite/null,
+correction/version, sample-size, distinct-ticker and provider/profile safeguards still apply:
+
+| Disposition | Return treatment and visible limits |
+|---|---|
+| `legacy_label_only` | Wholly unadopted history keeps its existing as-reported numerical proxy in a clearly labelled legacy lane. Its comparison key is the old checkpoint label only; actual market dates/basis remain unverified. Existing legacy-only latest-priced fallback and correction deduplication remain. |
+| `reported_consistent` | Supported supplied facts, frozen anchor, matched dates/currency/basis and canonical arithmetic agree. Retain the reported price-change proxy in its own reported lane and expose the actual interval. This means internal consistency, not independently verified source truth or market finality. |
+| `not_assessable` | A block is present/required for an adopted record but necessary facts are missing, ambiguous or unsupported. Keep the record, forecasts, old descriptive scalars and reasons, with no new contributing return and no fallback to earlier legacy/structured returns. |
+| `reported_inconsistent` | Explicit anchor, identity, date, interval, currency/basis or arithmetic contradiction withholds the affected relative/directional contribution. Preserve the original scalar and exact reason; independently supported absolute stock facts may remain descriptive. No zero, substitute comparator or older corrected return is resurrected. |
+
+Never pool the legacy and reported lanes into one newly verified return population. A reported group
+is keyed by nested version, return basis, raw stock-level basis, currency, anchor kind and actual
+elapsed calendar days; the checkpoint label alone is insufficient. Apply the existing statistical
+floors and provider/profile separation within each group. Retain full inventory, original values,
+coverage/status counts and exclusion reasons, including missing or hard-to-price names; selectively
+enriching winners or excluding losers cannot count as improvement. A correction contributes once,
+under the existing standing date/window/version rule, not once for the original and again for its
+correction.
+
+Neither lane can declare stock-selection skill or exact-horizon, prospective execution, total/net
+investment return, portfolio return, drawdown or compounding merely from these facts. Conditional
+price-proxy hit/range/e-value diagnostics may remain visible at their existing floors, but a proxy
+threshold is not a stock-selection skill declaration. Raw price moves can include corporate-action
+effects and omit dividends and costs; unknown normalization is not silently assumed.
+
+**A return correction is still a full review.** Preserve the complete current `forecast_results`
+snapshot, original forecast identities/probabilities and independently resolved statuses when filing
+an append-only review/correction. Do not append a measurement-only latest snapshot that erases
+forecast resolutions. Shared review sorting, standing-version resolution, latest-review selection and
+probability/status matching are unchanged. Probability-forecast Brier/reliability, synthesizer Step 4C,
+the fixed eight-point haircut, scorer and AG finish-gate mirrors are not quarantined or changed by
+return-only metadata. A forecast may itself concern price returns; its status still needs its own
+dated trigger evidence rather than an inference from the review's numerical return.
+
+These rules extend the existing review/return path only. They add no source, provider, spending,
+approval or merge condition to research or the unchanged shared offprice baseline, authorize no real
+trade or production action, and activate no semantic/procedural lesson. The held official-close,
+session-calendar and availability policy remains held.
 
 ### Decision-memory fields — what to do and what the engine must learn (additive; required for reviews filed on/after 2026-08-23)
 
