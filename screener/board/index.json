@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-12T12:14:50Z",
+  "generated_at": "2026-11-12T12:21:54Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261112-614",
+      "headline": "JD-SW JD-SWR (09618 89618): INSIDE INFORMATION - COMPLETION OF VOLUNTARY PUBLIC TAKEOVER OFFER FOR CECONOMY AG",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1112/2026111201308.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-12T12:01:00Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "JD.com completed the acquisition of CECONOMY AG.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "JD.com completed the acquisition of CECONOMY AG.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "JD.com",
+          "ticker": "09618",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261112-569",
       "headline": "Clean Max Enviro Energy Solutions Limited: Clean Max Enviro Energy Solutions Limited has informed the Exchange regarding a press release dated November 12, 2026, titled \"CleanMax Signs MoU with Andhra Pradesh to Invest Approx INR 50,000 crore in an Integrated Clean Energy Complex to Power a 2 GW Compute Factory\".",
@@ -1925,56 +1974,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-416",
-      "headline": "CVS Beat Earnings by 27% and Split in Two, and Elizabeth Warren Says She Is Not Fooled",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/11/11/cvs-beat-earnings-by-27-and-split-in-two-and-elizabeth-warren-says-she-is-not-fooled/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T03:40:04Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "CVS reported a 27% earnings beat and announced a corporate split.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "CVS reported a 27% earnings beat and announced a corporate split.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CVS Health",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -276905,9 +276904,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1118935,
-    "news_picked_today": 1663,
-    "news_dropped_today": 12041
+    "news_seen_today": 1125981,
+    "news_picked_today": 1681,
+    "news_dropped_today": 12095
   },
   "book_momentum": {
     "live_count": 8,
