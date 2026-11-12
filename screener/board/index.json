@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T03:07:04Z",
+  "generated_at": "2026-11-12T03:16:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20261112-346",
@@ -1896,47 +1896,48 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261112-208",
-      "headline": "AD Ports Group delivers record $265.49 million net profit ‎in Q3 2026, up 64 percent",
+      "inbox_id": "INB-20261112-385",
+      "headline": "Nissan Pares Car Sales Forecast on Tougher China Competition",
       "headline_en": null,
-      "url": "https://economymiddleeast.com/news/ad-ports-group-delivers-record-265-49-million-net-profit-in-q3-2026-up-64-percent/?utm_source=rss&utm_medium=rss&utm_campaign=ad-ports-group-delivers-record-265-49-million-net-profit-in-q3-2026-up-64-percent",
-      "source_name": "Economy Middle East",
+      "url": "https://www.bloomberg.com/news/articles/2026-11-11/nissan-pares-car-sales-forecast-on-tougher-china-competition",
+      "source_name": "Bloomberg",
       "input_nature": "news_headline",
-      "found_at": "2026-11-11T11:27:44Z",
+      "found_at": "2026-11-11T06:49:12Z",
       "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "AD Ports Group reported a record Q3 2026 net profit of $265.49 million, a 64% increase.",
+      "prelim_note": "Nissan cut its car sales forecast due to tougher competition in China.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "AD Ports Group reported a record Q3 2026 net profit of $265.49 million, a 64% increase.",
-      "region": "OTHER",
+      "triage_score": 100,
+      "triage_reason": "Nissan cut its car sales forecast due to tougher competition in China.",
+      "region": "JP",
       "relevance": "material",
-      "materiality_pre_score": 80,
+      "materiality_pre_score": 75,
       "rank_factors": {
-        "materiality": 80,
+        "materiality": 75,
         "source_tier": 0,
         "scope": 6,
-        "event": 5,
+        "event": 7,
         "size": 2,
         "recency": 1,
-        "materiality_label_floor": 5,
+        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
+        "event_id": "guidance_change",
         "size_bucket": "large"
       },
       "event_types": [
+        "guidance_change",
         "earnings_revenue_margin"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "AD Ports Group",
-          "ticker": null,
-          "listing_country": null
+          "name": "Nissan Motor",
+          "ticker": "7201",
+          "listing_country": "JP"
         }
       ],
       "size_bucket": "large",
@@ -1945,47 +1946,48 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261112-254",
-      "headline": "SIA Q2 net profit quadruples to S$209.7 million on better unit revenue, lower Air India losses",
+      "inbox_id": "INB-20261112-387",
+      "headline": "Siemens Energy Targets Steeper Profit Gains Through 2030",
       "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/sia-q2-net-profit-quadruples-s209-7-million-better-unit-revenue-lower-air-india-losses",
-      "source_name": "The Business Times (Singapore)",
+      "url": "https://www.wsj.com/business/earnings/siemens-energy-targets-steeper-profit-gains-through-2030-269212e1?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
       "input_nature": "news_headline",
-      "found_at": "2026-11-11T10:22:19Z",
+      "found_at": "2026-11-11T06:47:00Z",
       "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Singapore Airlines reported a Q2 net profit of S$209.7 million, a fourfold increase.",
+      "prelim_note": "Siemens Energy raised its long-term profit outlook targets through 2030.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Singapore Airlines reported a Q2 net profit of S$209.7 million, a fourfold increase.",
+      "triage_score": 100,
+      "triage_reason": "Siemens Energy raised its long-term profit outlook targets through 2030.",
       "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 80,
+      "materiality_pre_score": 78,
       "rank_factors": {
-        "materiality": 80,
+        "materiality": 78,
         "source_tier": 0,
         "scope": 6,
-        "event": 5,
+        "event": 7,
         "size": 2,
         "recency": 1,
-        "materiality_label_floor": 5,
+        "materiality_label_floor": 7,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
+        "event_id": "guidance_change",
         "size_bucket": "large"
       },
       "event_types": [
+        "guidance_change",
         "earnings_revenue_margin"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Singapore Airlines",
-          "ticker": null,
-          "listing_country": "SG"
+          "name": "Siemens Energy",
+          "ticker": "ENR",
+          "listing_country": "DE"
         }
       ],
       "size_bucket": "large",
@@ -277724,9 +277726,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 300382,
-    "news_picked_today": 622,
-    "news_dropped_today": 1874
+    "news_seen_today": 306139,
+    "news_picked_today": 695,
+    "news_dropped_today": 2089
   },
   "book_momentum": {
     "live_count": 8,
