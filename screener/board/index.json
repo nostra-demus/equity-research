@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-11-12T12:32:51Z",
+  "generated_at": "2026-11-12T12:37:40Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261112-644",
+      "headline": "SAMSONITE (01910): Quarterly Results Announcement for the Periods Ended September 30, 2026",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1112/2026111201360.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-11-12T12:27:00Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Samsonite reported quarterly financial results for the period ended September 30, 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Samsonite reported quarterly financial results for the period ended September 30, 2026.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Samsonite",
+          "ticker": "01910",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261112-614",
       "headline": "JD-SW JD-SWR (09618 89618): INSIDE INFORMATION - COMPLETION OF VOLUNTARY PUBLIC TAKEOVER OFFER FOR CECONOMY AG",
@@ -1925,55 +1974,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-475",
-      "headline": "Sharon AI shrugs off chaos to attract big backers for $4.7b debt deal",
-      "headline_en": null,
-      "url": "https://www.afr.com/street-talk/huang-it-sharon-ai-attracts-global-heavyweights-for-4-7b-financing-20261112-p61dm4?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-12T04:10:22Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Sharon AI secured a $4.7 billion debt financing deal despite market volatility.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Sharon AI secured a $4.7 billion debt financing deal despite market volatility.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sharon AI",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -276905,9 +276905,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1147025,
-    "news_picked_today": 1703,
-    "news_dropped_today": 12193
+    "news_seen_today": 1154421,
+    "news_picked_today": 1727,
+    "news_dropped_today": 12241
   },
   "book_momentum": {
     "live_count": 8,
