@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T02:56:04Z",
+  "generated_at": "2026-11-12T02:59:38Z",
   "inbox": [
     {
       "inbox_id": "INB-20261112-189",
@@ -484,6 +484,55 @@
         {
           "name": "Nvidia",
           "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261112-340",
+      "headline": "Nvidia tanks 9% as investors consider future without CEO Jensen Huang",
+      "headline_en": null,
+      "url": "https://www.moneyweb.co.za/news/international/nvidia-tanks-10-as-investors-consider-future-without-ceo-jensen-huang/",
+      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-12T01:13:05Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "The potential departure of a key CEO at a mega-cap company like Nvidia would significantly impact market valuation and operational stability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The potential departure of a key CEO at a mega-cap company like Nvidia would significantly impact market valuation and operational stability.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
           "listing_country": "US"
         }
       ],
@@ -1940,60 +1989,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-339",
-      "headline": "RWE, KKR Join Forces on $16 Billion of U.K. Wind-Power Projects",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/deals/rwe-kkr-join-forces-on-16-billion-of-u-k-wind-power-projects-4b489bce?mod=rss_markets_main",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T07:22:00Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "RWE and KKR announced a $16 billion investment in UK wind-power projects.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "RWE and KKR announced a $16 billion investment in UK wind-power projects.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "RWE",
-          "ticker": null,
-          "listing_country": "DE"
-        },
-        {
-          "name": "KKR",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -277728,9 +277723,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 265429,
-    "news_picked_today": 603,
-    "news_dropped_today": 1797
+    "news_seen_today": 271309,
+    "news_picked_today": 614,
+    "news_dropped_today": 1810
   },
   "book_momentum": {
     "live_count": 8,
