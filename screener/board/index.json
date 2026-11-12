@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T01:53:59Z",
+  "generated_at": "2026-11-12T02:03:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20261112-189",
@@ -1499,6 +1499,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261112-259",
+      "headline": "Bitmine posts $6.3B net loss for fiscal 2026 as Ether prices slide",
+      "headline_en": null,
+      "url": "https://cointelegraph.com/news/bitmine-6b-net-loss-eth-treasury-holdings?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source_name": "Cointelegraph",
+      "input_nature": "news_headline",
+      "found_at": "2026-11-11T09:58:15Z",
+      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
+      "prelim_note": "Bitmine reported a significant net loss of $6.3B for fiscal 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bitmine reported a significant net loss of $6.3B for fiscal 2026.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bitmine",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261112-208",
       "headline": "AD Ports Group delivers record $265.49 million net profit ‎in Q3 2026, up 64 percent",
       "headline_en": null,
@@ -1910,55 +1959,6 @@
       "launched_signal_id": null,
       "triage_score": 96,
       "triage_reason": "Board meeting triggered by CEO scandal indicates potential management turnover or governance crisis.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261112-116",
-      "headline": "Nvidia Just Fell 8.3% After Hours on a Report of a Second Jensen Huang Affair. Here’s What 2,000 Shares Have Lost This Week",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/11/11/nvidia-just-fell-8-3-after-hours-on-a-report-of-a-second-jensen-huang-affair-heres-what-2000-shares-have-lost-this-week/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-11-11T22:37:55Z",
-      "sweep_file": "screener/inbox/2026-11-12_sweep.json",
-      "prelim_note": "Report of a scandal involving the CEO of a mega-cap company poses significant management and reputational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Report of a scandal involving the CEO of a mega-cap company poses significant management and reputational risk.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 80,
@@ -277723,9 +277723,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 174502,
-    "news_picked_today": 359,
-    "news_dropped_today": 1081
+    "news_seen_today": 181167,
+    "news_picked_today": 403,
+    "news_dropped_today": 1229
   },
   "book_momentum": {
     "live_count": 8,
